@@ -41,13 +41,11 @@ setup(
     include_package_data=True,
     zip_safe=False,
     install_requires=[
-        'five.grok',
         'plone.api',
         'setuptools',
     ],
     extras_require={
         'test': [
-            'ecreall.helpers.testing',
             'plone.app.testing',
         ],
     },
