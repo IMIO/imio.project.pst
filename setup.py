@@ -42,6 +42,7 @@ setup(
     zip_safe=False,
     install_requires=[
         'collective.task',
+        'collective.z3cform.datagridfield',
         'plone.api',
         'setuptools',
     ],
