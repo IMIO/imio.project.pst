@@ -29,4 +29,9 @@
         handler=".setuphandlers.post_install">
     </genericsetup:importStep>
 
+    <utility
+        factory=".content.project.ProjectSchemaPolicy"
+        name="schema_policy_imioproject"
+    />
+
 </configure>
