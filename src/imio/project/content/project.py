@@ -83,10 +83,6 @@ class Project(Container):
     """ """
     implements(IProject)
     __ac_local_roles_block__ = False
-    import ipdb; ipdb.set_trace()
-    from z3c.form import field
-    fields = field.Fields(IProject)
-#    fields['deadline'].widget.show_time = False
 
 
 class CategoryVocabulary(object):
