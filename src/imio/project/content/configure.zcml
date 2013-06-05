@@ -4,8 +4,14 @@
 
     <utility
       provides="zope.schema.interfaces.IVocabularyFactory"
-      component=".project.category_vocabularyFactory"
+      component=".project.category_vocabulary_factory"
       name="imio.project.content.project.category_vocabulary"
+    />
+
+    <utility
+      provides="zope.schema.interfaces.IVocabularyFactory"
+      component=".project.priority_vocabulary_factory"
+      name="imio.project.content.project.priority_vocabulary"
     />
 
 </configure>
