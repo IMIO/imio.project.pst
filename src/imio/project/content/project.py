@@ -32,14 +32,17 @@ class IProject(ITask):
     category = schema.List(
         title=_(u'Category'),
         description=_(u"Choose a category."),
+        required=False,
         value_type=schema.Choice(
             vocabulary=u'imio.project.content.project.category_vocabulary',
-        )
+        ),
     )
+
     result_indicator = schema.List(
         title=_(u'Result indicator'),
         description=_(u"Enter one indicator by row. Value is a number. "
                       "Label must precise the signification of this number."),
+        required=False,
         value_type=DictRow(title=_("Result indicator"),
                            schema=IResultIndicatorSchema,
                            required=False),
@@ -59,12 +62,13 @@ class IProject(ITask):
         roles_to_assign=('Reader',),
         value_type=schema.Choice(
             vocabulary=u'plone.principalsource.Principals'
-        )
+        ),
     )
 
     budget = schema.Text(
         title=_(u"Budget"),
         description=_("Budget details"),
+        required=False,
     )
 
     planned_begin_date = schema.Date(
@@ -74,6 +78,12 @@ class IProject(ITask):
         defaultFactory=datetime.date.today,
     )
     directives.widget(planned_begin_date=DateFieldWidget)
+
+    progress = schema.Int(
+        title=_(u"Progress"),
+        description=_(u"Progress estimation in %."),
+        required=False,
+    )
 
     # remove title coming from ITask as we add it using the dublincore behavior
     directives.omitted('title')
