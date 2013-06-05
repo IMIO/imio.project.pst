@@ -4,6 +4,7 @@ from zope.interface import implements
 from zope.interface import Interface
 from zope.schema.interfaces import IVocabularyFactory
 from zope.schema.vocabulary import SimpleTerm, SimpleVocabulary
+from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone.autoform import directives
 from plone.dexterity.content import Container
 from plone.dexterity.schema import DexteritySchemaPolicy
@@ -85,8 +86,16 @@ class IProject(ITask):
         required=False,
     )
 
+    comments = schema.Text(
+        title=_(u"Comments"),
+        description=_(u"Various comments"),
+        required=False,
+    )
+    directives.widget(comments=WysiwygFieldWidget)
+
     # remove title coming from ITask as we add it using the dublincore behavior
     directives.omitted('title')
+    directives.widget(deadline=DateFieldWidget)
 
 
 class Project(Container):
