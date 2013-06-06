@@ -17,7 +17,7 @@ import unittest2 as unittest
 import imio.project.pst
 
 
-class ImioProjectLayer(PloneSandboxLayer):
+class ImioProjectPSTLayer(PloneSandboxLayer):
 
     defaultBases = (PLONE_FIXTURE,)
 

@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 """Setup/installation tests for this package."""
 
-from imio.project.testing import IntegrationTestCase
-from plone import api
+from imio.project.pst.testing import IntegrationTestCase
 
 
 class TestInstall(IntegrationTestCase):
@@ -11,7 +10,7 @@ class TestInstall(IntegrationTestCase):
     def setUp(self):
         """Custom shared utility setup for tests."""
         self.portal = self.layer['portal']
-        self.installer = api.portal.get_tool('portal_quickinstaller')
+        self.installer = self.portal.portal_quickinstaller
 
     def test_product_installed(self):
         """Test if imio.project.pst is installed with portal_quickinstaller."""
@@ -25,6 +24,6 @@ class TestInstall(IntegrationTestCase):
     # browserlayer.xml
     def test_browserlayer(self):
         """Test that IImioProjectPSTLayer is registered."""
-        from imio.project.interfaces import IImioProjectPSTLayer
+        from imio.project.pst.interfaces import IImioProjectPSTLayer
         from plone.browserlayer import utils
         self.failUnless(IImioProjectPSTLayer in utils.registered_layers())

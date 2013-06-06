@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Installer for the imio.project package."""
+"""Installer for the imio.project.pst package."""
 
 from setuptools import find_packages
 from setuptools import setup
@@ -18,9 +18,9 @@ long_description = (
 
 
 setup(
-    name='imio.project',
+    name='imio.project.pst',
     version='0.1',
-    description="Project management",
+    description="PST management",
     long_description=long_description,
     # Get more from http://pypi.python.org/pypi?%3Aaction=list_classifiers
     classifiers=[
@@ -33,16 +33,18 @@ setup(
     keywords='',
     author='IMIO',
     author_email='dev@imio.be',
-    url='http://pypi.python.org/pypi/imio.project',
+    url='http://pypi.python.org/pypi/imio.project.pst',
     license='GPL',
     packages=find_packages('src', exclude=['ez_setup']),
-    namespace_packages=['imio'],
+    namespace_packages=['imio', 'imio.project'],
     package_dir={'': 'src'},
     include_package_data=True,
     zip_safe=False,
     install_requires=[
-        'collective.z3cform.datagridfield',
         'setuptools',
+        'Plone',
+        'Pillow',
+        'imio.project',
     ],
     extras_require={
         'test': [
