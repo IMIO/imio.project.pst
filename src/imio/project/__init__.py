@@ -1,10 +1,6 @@
-# -*- coding: utf-8 -*-
-"""Init and utils."""
-
-from zope.i18nmessageid import MessageFactory
-
-_ = MessageFactory('imio.project')
-
-
-def initialize(context):
-    """Initializer called when used as a Zope 2 product."""
+# See http://peak.telecommunity.com/DevCenter/setuptools#namespace-packages
+try:
+    __import__('pkg_resources').declare_namespace(__name__)
+except ImportError:
+    from pkgutil import extend_path
+    __path__ = extend_path(__path__, __name__)

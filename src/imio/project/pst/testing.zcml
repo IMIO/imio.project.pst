@@ -4,7 +4,6 @@
     i18n_domain="imio.project">
 
   <include file="configure.zcml" />
-  <include package="collective.task" />
 
   <genericsetup:registerProfile
       name="testing"
