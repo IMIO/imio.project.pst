@@ -1,0 +1,31 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:five="http://namespaces.zope.org/five"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    i18n_domain="imio.project.pst">
+
+    <i18n:registerTranslations directory="locales" />
+
+    <five:registerPackage package="." initialize=".initialize" />
+
+    <include package="plone.app.dexterity" />
+    <include package=".browser" />
+    <include package=".content" />
+
+    <genericsetup:registerProfile
+        name="default"
+        title="imio.project.pst"
+        directory="profiles/default"
+        description="Installs the imio.project.pst add-on."
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+        />
+
+    <genericsetup:importStep
+        name="imioprojectpst-postInstall"
+        title="imio.project.pst post_install import step"
+        description="Post install import step from imio.project.pst"
+        handler=".setuphandlers.post_install">
+    </genericsetup:importStep>
+
+</configure>
