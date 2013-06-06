@@ -2,7 +2,7 @@
 
 
 def isNotCurrentProfile(context):
-    return context.readDataFile("imioproject_marker.txt") is None
+    return context.readDataFile("imioprojectpst_marker.txt") is None
 
 
 def post_install(context):

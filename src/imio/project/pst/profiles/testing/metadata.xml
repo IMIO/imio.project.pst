@@ -2,6 +2,6 @@
 <metadata>
   <version>1</version>
   <dependencies>
-    <dependency>profile-imio.project:default</dependency>
+    <dependency>profile-imio.project.pst:default</dependency>
   </dependencies>
 </metadata>
