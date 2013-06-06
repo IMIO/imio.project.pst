@@ -22,6 +22,10 @@
  <property name="add_permission">cmf.AddPortalContent</property>
  <property name="schema_policy">schema_policy_strategicobjective</property>
  <property name="klass">imio.project.pst.content.strategic.StrategicObjective</property>
+ <property name="behaviors">
+  <element value="plone.app.dexterity.behaviors.metadata.IDublinCore"/>
+  <element value="plone.app.content.interfaces.INameFromTitle" />
+ </property>
 
  <alias from="(Default)" to="(dynamic view)"/>
  <alias from="edit" to="@@edit"/>
