@@ -18,9 +18,9 @@ long_description = (
 
 
 setup(
-    name='imio.project',
+    name='imio.project.pst',
     version='0.1',
-    description="Project management",
+    description="PST management",
     long_description=long_description,
     # Get more from http://pypi.python.org/pypi?%3Aaction=list_classifiers
     classifiers=[
@@ -33,7 +33,7 @@ setup(
     keywords='',
     author='IMIO',
     author_email='dev@imio.be',
-    url='http://pypi.python.org/pypi/imio.project',
+    url='http://pypi.python.org/pypi/imio.project.pst',
     license='GPL',
     packages=find_packages('src', exclude=['ez_setup']),
     namespace_packages=['imio'],
@@ -41,9 +41,7 @@ setup(
     include_package_data=True,
     zip_safe=False,
     install_requires=[
-        'collective.task',
-        'collective.z3cform.datagridfield',
-        'plone.api',
+        'imio.project',
         'setuptools',
     ],
     extras_require={
