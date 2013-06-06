@@ -17,7 +17,7 @@ class StrategicObjective(Project):
     implements(IStrategicObjective)
 
 
-class ProjectSchemaPolicy(DexteritySchemaPolicy):
+class StrategicObjectiveSchemaPolicy(DexteritySchemaPolicy):
     """ """
 
     def bases(self, schemaName, tree):

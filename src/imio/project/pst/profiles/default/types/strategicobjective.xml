@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<object name="project" meta_type="Dexterity FTI" i18n:domain="imio.project"
+<object name="strategicobjective" meta_type="Dexterity FTI" i18n:domain="imio.project.pst"
    xmlns:i18n="http://xml.zope.org/namespaces/i18n">
  <property name="title" i18n:translate="">StrategicObjective</property>
  <property name="description" i18n:translate=""></property>
@@ -11,7 +11,7 @@
  <property name="global_allow">True</property>
  <property name="filter_content_types">True</property>
  <property name="allowed_content_types">
-  <element value="project"/>
+  <element value="operationalobjective"/>
  </property>
  <property name="allow_discussion">False</property>
  <property name="default_view">view</property>

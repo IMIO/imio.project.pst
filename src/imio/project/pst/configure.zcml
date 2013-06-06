@@ -28,4 +28,13 @@
         handler=".setuphandlers.post_install">
     </genericsetup:importStep>
 
+    <utility
+        factory=".content.strategic.StrategicObjectiveSchemaPolicy"
+        name="schema_policy_strategicobjective"
+    />
+    <utility
+        factory=".content.operational.OperationalObjectiveSchemaPolicy"
+        name="schema_policy_operationalobjective"
+    />
+
 </configure>
