@@ -6,5 +6,10 @@
       factory="imio.project.pst.content.strategic.CategoryVocabulary"
       name="imio.project.core.content.project.category_vocabulary"
     />
+    <utility
+      interface="zope.schema.interfaces.IVocabularyFactory"
+      factory="imio.project.pst.content.operational.PriorityVocabulary"
+      name="imio.project.core.content.project.priority_vocabulary"
+    />
   </utilities>
 </componentregistry>

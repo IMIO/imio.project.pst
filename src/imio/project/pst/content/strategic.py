@@ -20,6 +20,7 @@ class IStrategicObjective(IProject):
     form.omitted('budget')
     form.omitted('manager')
     form.omitted('visible_for')
+    form.omitted('extra_concerned_people')
     form.omitted('result_indicator')
     form.omitted('planned_begin_date')
     form.omitted('effective_begin_date')
