@@ -36,5 +36,9 @@
         factory=".content.operational.OperationalObjectiveSchemaPolicy"
         name="schema_policy_operationalobjective"
     />
+    <utility
+        factory=".content.action.PSTActionSchemaPolicy"
+        name="schema_policy_pstaction"
+    />
 
 </configure>

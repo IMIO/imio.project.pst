@@ -1,0 +1,5 @@
+/* imio.project.pst stylesheet */
+
+body.portaltype-pstaction fieldset#folder-listing {
+    display: none;
+}
