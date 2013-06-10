@@ -12,6 +12,7 @@ from collective.z3cform.rolefield.field import LocalRolesToPrincipals
 
 from imio.project.core.content.project import IProject
 from imio.project.core.content.project import Project
+from imio.project.core.utils import getVocabularyTermsForOrganization
 from imio.project.pst import _
 
 
@@ -24,7 +25,7 @@ class IOperationalObjective(IProject):
         description=_(u"Choose principals that will be representative responsible for this project."),
         roles_to_assign=('Editor',),
         value_type=schema.Choice(
-            vocabulary="plone.principalsource.Principals"
+            vocabulary=u'imio.project.pst.content.operational.representative_responsible_vocabulary',
         ),
         required=True,
     )
@@ -34,7 +35,7 @@ class IOperationalObjective(IProject):
         description=_(u"Choose principals that will be administrative responsible for this project."),
         roles_to_assign=('Editor',),
         value_type=schema.Choice(
-            vocabulary="plone.principalsource.Principals"
+            vocabulary=u'imio.project.pst.content.operational.administrative_responsible_vocabulary',
         ),
         required=True,
     )
@@ -63,13 +64,6 @@ class OperationalObjective(Project):
     implements(IOperationalObjective)
 
 
-class OperationalObjectiveSchemaPolicy(DexteritySchemaPolicy):
-    """ """
-
-    def bases(self, schemaName, tree):
-        return (IOperationalObjective, )
-
-
 class PriorityVocabulary(object):
     implements(IVocabularyFactory)
 
@@ -80,3 +74,29 @@ class PriorityVocabulary(object):
         terms.append(SimpleTerm(u'2', u'2', u'2'))
         return SimpleVocabulary(terms)
 
+
+class RepresentativeResponsibleVocabulary(object):
+    """
+    """
+    implements(IVocabularyFactory)
+
+    def __call__(self, context):
+        """"""
+        return getVocabularyTermsForOrganization(context, 'echevins')
+
+
+class AdministrativeResponsibleVocabulary(object):
+    """
+    """
+    implements(IVocabularyFactory)
+
+    def __call__(self, context):
+        """"""
+        return getVocabularyTermsForOrganization(context, 'services')
+
+
+class OperationalObjectiveSchemaPolicy(DexteritySchemaPolicy):
+    """ """
+
+    def bases(self, schemaName, tree):
+        return (IOperationalObjective, )

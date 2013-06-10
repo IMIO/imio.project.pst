@@ -7,7 +7,7 @@
       factory=".action.HealthIndicatorVocabulary"
       name="imio.project.pst.content.action.health_indicator_vocabulary"
     />
-    <!--utility
+    <utility
       provides="zope.schema.interfaces.IVocabularyFactory"
       factory=".operational.RepresentativeResponsibleVocabulary"
       name="imio.project.pst.content.operational.representative_responsible_vocabulary"
@@ -16,5 +16,6 @@
       provides="zope.schema.interfaces.IVocabularyFactory"
       factory=".operational.AdministrativeResponsibleVocabulary"
       name="imio.project.pst.content.operational.administrative_responsible_vocabulary"
-    /-->
+    />
+
 </configure>
