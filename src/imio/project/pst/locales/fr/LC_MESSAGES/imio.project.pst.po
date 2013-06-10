@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-06-06 13:08+0000\n"
+"POT-Creation-Date: 2013-06-10 09:06+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,11 +15,47 @@ msgstr ""
 "Domain: imio.project.pst\n"
 "X-is-fallback-for: fr-fr fr-be fr-ca\n"
 
+#: ./content/operational.py:31
+msgid "Administrative responsible"
+msgstr "Responsable administratif"
+
+#: ./content/action.py:21
+msgid "Choose a health level."
+msgstr "Choisir un niveau de santé."
+
+#: ./content/operational.py:32
+msgid "Choose principals that will be administrative responsible for this project."
+msgstr "Sélectionner les utilisateurs qui seront responsable administratif de l'objectif."
+
+#: ./content/operational.py:22
+msgid "Choose principals that will be representative responsible for this project."
+msgstr "Sélectionner les utilisateurs qui seront responsable mandataire de l'objectif."
+
+#: ./content/action.py:27
+msgid "Enter work to do."
+msgstr "Décrire les tâches à réaliser."
+
+#: ./content/action.py:20
+msgid "Health indicator"
+msgstr "Niveau de santé"
+
 #: ./profiles/default/types/operationalobjective.xml
 msgid "OperationalObjective"
 msgstr "Objectif opérationnel"
 
+#: ./profiles/default/types/pstaction.xml
+msgid "PSTAction"
+msgstr "Action"
+
+#: ./content/operational.py:21
+msgid "Representative responsible"
+msgstr "Responsable mandataire"
+
 #: ./profiles/default/types/strategicobjective.xml
 msgid "StrategicObjective"
 msgstr "Objectif stratégique"
+
+#: ./content/action.py:26
+msgid "Work plan"
+msgstr "Plan de travail"
 
