@@ -29,8 +29,17 @@ class IPSTAction(IProject):
     )
     form.widget(work_plan=WysiwygFieldWidget)
 
-    # reorder new added fields
+    # reorder fields
+    form.order_before(planned_end_date='comments')
+    form.order_before(planned_begin_date='comments')
+    form.order_before(effective_begin_date='comments')
+    form.order_before(effective_end_date='comments')
+    form.order_before(progress='comments')
     form.order_before(health_indicator='comments')
+    form.order_before(manager='comments')
+    form.order_before(visible_for='comments')
+    form.order_before(extra_concerned_people='comments')
+    form.order_before(budget='comments')
     form.order_before(work_plan='comments')
 
     # hide some fields
