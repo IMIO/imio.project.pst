@@ -40,8 +40,15 @@ class IOperationalObjective(IProject):
     )
 
     # reorder new added fields
-    form.order_before(representative_responsible='manager')
-    form.order_before(administrative_responsible='manager')
+    form.order_before(result_indicator='comments')
+    form.order_before(priority='comments')
+    form.order_before(planned_end_date='comments')
+    form.order_before(representative_responsible='comments')
+    form.order_before(administrative_responsible='comments')
+    form.order_before(manager='comments')
+    form.order_before(visible_for='comments')
+    form.order_before(extra_concerned_people='comments')
+    form.order_before(budget='comments')
 
     # hide some fields
     form.omitted('category')
