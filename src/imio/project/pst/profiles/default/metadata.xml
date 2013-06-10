@@ -2,6 +2,8 @@
 <metadata>
   <version>1</version>
   <dependencies>
+    <dependency>profile-collective.contact.core:default</dependency>
+    <dependency>profile-collective.contact.plonegroup:default</dependency>
     <dependency>profile-collective.z3cform.datagridfield:default</dependency>
   </dependencies>
 </metadata>

@@ -21,12 +21,13 @@
         provides="Products.GenericSetup.interfaces.EXTENSION"
         />
 
-    <genericsetup:importStep
-        name="imioprojectpst-postInstall"
-        title="imio.project.pst post_install import step"
-        description="Post install import step from imio.project.pst"
-        handler=".setuphandlers.post_install">
-    </genericsetup:importStep>
+    <genericsetup:registerProfile
+        name="data"
+        title="imio.project.pst data import"
+        directory="profiles/data"
+        description="Import some date for the imio.project.pst add-on."
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+        />
 
     <utility
         factory=".content.strategic.StrategicObjectiveSchemaPolicy"

@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<import-steps>
+    <import-step
+            id="imioprojectpst-addPSTDirectory"
+            handler="imio.project.pst.setuphandlers.addPSTDirectory"
+            title="Add a 'PST' directory at the root of Plone"
+            version="2013-06-10T11:00:00.00000">
+        Add a 'PST' directory at the root of Plone
+    </import-step>
+    <import-step
+            id="imioprojectpst-addOwnOrganization"
+            handler="imio.project.pst.setuphandlers.addOwnOrganization"
+            title="Add some test organizations to be used in vocabularies"
+            version="2013-06-10T11:00:00.00000">
+        Add some test organizations to be used in vocabularies
+    </import-step>
+</import-steps>

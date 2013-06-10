@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from zope.interface import implements
 from zope import schema
 from zope.schema.interfaces import IVocabularyFactory
@@ -70,3 +72,4 @@ class PriorityVocabulary(object):
         terms.append(SimpleTerm(u'1', u'1', u'1'))
         terms.append(SimpleTerm(u'2', u'2', u'2'))
         return SimpleVocabulary(terms)
+
