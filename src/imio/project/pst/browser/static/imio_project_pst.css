@@ -14,23 +14,23 @@ body.portaltype-pstaction fieldset#folder-listing {
     background-color: orange !important;
 }
 
-.health_indicator_color_Bloquage {
+.health_indicator_color_Blocage {
     color: white;
     background-color: red !important;
 }
 
 /* aligne div.field et div.field_value horizontalement */
-body.template-view.portaltype-operationalobjective div.field_value {
+body.template-view.portaltype-strategicobjective div.field_value,
+body.template-view.portaltype-operationalobjective div.field_value,
+body.template-view.portaltype-pstaction div.field_value {
     float: left;
 }
 
-body.template-view.portaltype-operationalobjective div.field {
+body.template-view.portaltype-strategicobjective div.field,
+body.template-view.portaltype-operationalobjective div.field,
+body.template-view.portaltype-pstaction div.field {
     float: left;
     width: 200px;
-}
-
-body.template-view.portaltype-operationalobjective #folder-listing {
-    display: inline;
 }
 
 .datagridwidget-table-view {

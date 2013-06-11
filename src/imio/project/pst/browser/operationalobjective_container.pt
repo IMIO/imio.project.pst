@@ -28,6 +28,7 @@
         </div>
     </fieldset>
 
+    <div class="visualClear"></div>
     <fieldset id="folder-listing" tal:define="toLocalizedTime nocall:context/@@plone/toLocalizedTime;">
         <legend i18n:translate="operational_legend_actions">Actions</legend>
         <table class="listing">
@@ -53,7 +54,6 @@
             </tr>
         </table>
     </fieldset>
-
   </metal:content-core>
 </metal:main>
 
