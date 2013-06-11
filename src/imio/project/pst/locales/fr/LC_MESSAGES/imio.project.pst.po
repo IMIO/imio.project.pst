@@ -21,7 +21,7 @@ msgstr "Responsable administratif"
 
 #: ./content/action.py:21
 msgid "Choose a health level."
-msgstr "Choisir un niveau de santé."
+msgstr "Choisir un indice de santé."
 
 #: ./content/operational.py:32
 msgid "Choose principals that will be administrative responsible for this project."
@@ -37,7 +37,7 @@ msgstr "Décrire les tâches à réaliser."
 
 #: ./content/action.py:20
 msgid "Health indicator"
-msgstr "Niveau de santé"
+msgstr "Indice de santé"
 
 #: ./profiles/default/types/operationalobjective.xml
 msgid "OperationalObjective"
@@ -58,4 +58,3 @@ msgstr "Objectif stratégique"
 #: ./content/action.py:26
 msgid "Work plan"
 msgstr "Plan de travail"
-

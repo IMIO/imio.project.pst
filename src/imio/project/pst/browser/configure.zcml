@@ -6,8 +6,16 @@
 
     <!-- Publish static files -->
     <browser:resourceDirectory
-      name="imio.project.pst"
-      directory="static"
-      />
+        name="imio.project.pst"
+        directory="static"
+        />
+
+    <browser:page
+        for="imio.project.pst.content.operational.IOperationalObjective"
+        name="render-folder-listing"
+        class="plone.app.dexterity.browser.render.RenderFolderListing"
+        template="pstaction_render_folder_listing.pt"
+        permission="zope2.View"
+        />
 
 </configure>

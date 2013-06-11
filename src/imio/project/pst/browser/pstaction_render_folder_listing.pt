@@ -1,0 +1,27 @@
+<metal:render_folder_listing define-macro="render_folder_listing" i18n:domain="imio.project.pst">
+    <fieldset id="folder-listing" tal:define="toLocalizedTime nocall:context/@@plone/toLocalizedTime;">
+        <legend i18n:translate="operational_legend_actions">Actions</legend>
+        <table class="vertical listing">
+            <tr>
+                <th class='operational_actions_header_title' i18n:translate="" i18n:domain="plone">Title</th>
+                <th class='operational_actions_header_description' i18n:translate="" i18n:domain="plone">Description</th>
+                <th class='operational_actions_header_planned_end_date' i18n:translate="" i18n:domain="imio.project.core">Planned end date</th>
+                <th class='operational_actions_header_progress' i18n:translate="">Progress indicator</th>
+                <th class='operational_actions_header_health_indicator' i18n:translate="">Health indicator</th>
+                <th class='operational_actions_header_manager' i18n:translate="" i18n:domain="imio.project.core">Manager</th>
+            </tr>
+            <tr tal:repeat="renderedAction context/getRenderedActions">
+                <tal:defines define="action python: renderedAction.context;
+                                     widgets renderedAction/widgets;">
+                <td><a href="#" tal:content="action/title" tal:attributes="href action/absolute_url">Action title</a></td>
+                <td tal:content="action/Description">Description</td>
+                <td tal:content="structure python: widgets.get('planned_end_date').render()">Planned end date</td>
+                <td tal:content="structure python: widgets.get('progress').render()">Progress indicator</td>
+                <td tal:content="structure python: widgets.get('health_indicator').render()"
+                    tal:attributes="class string:health_indicator_color_${action/health_indicator}">Health indicator</td>
+                <td tal:content="structure python: widgets.get('manager').render()">Manager</td>
+                </tal:defines>
+            </tr>
+        </table>
+    </fieldset>
+</metal:render_folder_listing>

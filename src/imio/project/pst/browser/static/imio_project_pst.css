@@ -3,3 +3,18 @@
 body.portaltype-pstaction fieldset#folder-listing {
     display: none;
 }
+
+.health_indicator_color_Bon {
+    color: white;
+    background-color: green !important;
+}
+
+.health_indicator_color_Risque {
+    color: white;
+    background-color: orange !important;
+}
+
+.health_indicator_color_Bloquage {
+    color: white;
+    background-color: red !important;
+}

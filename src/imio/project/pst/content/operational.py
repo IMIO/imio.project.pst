@@ -63,6 +63,18 @@ class OperationalObjective(Project):
     """ """
     implements(IOperationalObjective)
 
+    def getRenderedActions(self):
+        """
+          Return the widgets of each action so it can be used
+          in a rendering template.
+        """
+        res = []
+        for action in self.objectValues():
+            renderedAction = action.restrictedTraverse('@@view')
+            renderedAction.update()
+            res.append(renderedAction)
+        return res
+
 
 class PriorityVocabulary(object):
     implements(IVocabularyFactory)
