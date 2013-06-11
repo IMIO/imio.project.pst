@@ -18,3 +18,21 @@ body.portaltype-pstaction fieldset#folder-listing {
     color: white;
     background-color: red !important;
 }
+
+/* aligne div.field et div.field_value horizontalement */
+body.template-view.portaltype-operationalobjective div.field_value {
+    float: left;
+}
+
+body.template-view.portaltype-operationalobjective div.field {
+    float: left;
+    width: 200px;
+}
+
+body.template-view.portaltype-operationalobjective #folder-listing {
+    display: inline;
+}
+
+.datagridwidget-table-view {
+    min-width: 500px;
+}
