@@ -10,11 +10,12 @@
         directory="static"
         />
 
+    <!-- Override the OperationalObjective view -->
     <browser:page
         for="imio.project.pst.content.operational.IOperationalObjective"
-        name="render-folder-listing"
-        class="plone.app.dexterity.browser.render.RenderFolderListing"
-        template="pstaction_render_folder_listing.pt"
+        name="view"
+        class="plone.dexterity.browser.view.DefaultView"
+        template="operationalobjective_container.pt"
         permission="zope2.View"
         />
 
