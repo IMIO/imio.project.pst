@@ -52,12 +52,12 @@ def addOwnOrganization(context):
         organization_levels = [{'name': u'Echevinat', 'token': 'echevinat'},
                                {'name': u'Service', 'token': 'service'}, ]
 
-    params = {'title': "Contacts",
-              'position_types': [],
-              'organization_types': organization_types,
-              'organization_levels': organization_levels,
-              }
-    site.invokeFactory('directory', 'contacts', **params)
+        params = {'title': "Contacts",
+                  'position_types': [],
+                  'organization_types': organization_types,
+                  'organization_levels': organization_levels,
+                  }
+        site.invokeFactory('directory', 'contacts', **params)
 
     contacts = site.contacts
 
