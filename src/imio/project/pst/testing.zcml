@@ -1,0 +1,18 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    i18n_domain="imio.project.pst">
+
+  <include file="configure.zcml" />
+  <include package="collective.contact.core" />
+  <include package="collective.contact.plonegroup" />
+
+  <genericsetup:registerProfile
+      name="testing"
+      title="imio.project.pst tests"
+      directory="profiles/testing"
+      description="Steps to ease tests of imio.project.pst"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+
+</configure>
