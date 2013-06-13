@@ -5,6 +5,7 @@ logger = logging.getLogger('imio.project.pst')
 from Acquisition import aq_base
 from zope.component import queryUtility
 from plone.i18n.normalizer.interfaces import IIDNormalizer
+from Products.CMFPlone.utils import base_hasattr
 
 
 def isNotCurrentProfile(context):
@@ -15,6 +16,18 @@ def post_install(context):
     """Post install script"""
     if isNotCurrentProfile(context):
         return
+    site = context.getSite()
+    logger.info('Adding templates directory')
+    if base_hasattr(site, 'templates'):
+        logger.warn("Nothing done: directory 'templates' already exists!")
+        return
+    params = {'title': "Templates"}
+    site.invokeFactory('Folder', 'templates', **params)
+    folder = site.templates
+    folder.setConstrainTypesMode(1)
+    folder.setLocallyAllowedTypes(['File', ])
+    folder.setImmediatelyAddableTypes(['File', ])
+    folder.setExcludeFromNav(True)
 
 
 def addPSTDirectory(context):
