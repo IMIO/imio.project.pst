@@ -47,7 +47,6 @@ class DocumentGenerationView(BrowserView):
     def __init__(self, context, request):
         self.context = context
         self.request = request
-        self.documentid = self.request.get('documentid', None)
         portal_state = getMultiAdapter((self.context, self.request), name=u'plone_portal_state')
         self.portal = portal_state.portal()
 
@@ -56,11 +55,14 @@ class DocumentGenerationView(BrowserView):
 
     def generate_doc(self):
         # Get the document template
+        documentid = self.request.get('documentid', None)
+        if documentid is None:
+            return None
         pcat = self.context.portal_catalog
-        document_brains = pcat(portal_type='File', id=self.documentid,
+        document_brains = pcat(portal_type='File', id=documentid,
                                path={'query': '/'.join(self.portal.templates.getPhysicalPath()), 'depth': 1})
         if not document_brains:
-            return "Cannot find the File object with id '%s'" % self.documentid
+            return "Cannot find the File object with id '%s'" % documentid
         document_obj = document_brains[0].getObject()
         file_type = 'odt'
         tempFileName = '%s/%s_%f.%s' % (getOsTempFolder(), document_obj._at_uid, time.time(), file_type)
