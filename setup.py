@@ -44,6 +44,7 @@ setup(
         'setuptools',
         'Plone',
         'Pillow',
+        'appy',
         'imio.project.core',
     ],
     extras_require={
