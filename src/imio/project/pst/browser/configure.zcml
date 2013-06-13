@@ -45,4 +45,11 @@
         permission="zope2.View"
         />
 
+    <browser:page
+        for="imio.project.pst.content.action.IPSTAction"
+        name="document-generation-methods"
+        class="imio.project.pst.browser.views.DocumentGenerationPSTActionMethods"
+        permission="zope2.View"
+        />
+
 </configure>

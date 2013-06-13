@@ -87,3 +87,21 @@ class DocumentGenerationView(BrowserView):
         f.close()
         os.remove(tempFileName)
         return doc
+
+
+class DocumentGenerationPSTActionMethods(BrowserView):
+    """
+        Methods used in document generation view, for PSTAction
+    """
+    def __init__(self, context, request):
+        self.context = context
+        self.request = request
+        portal_state = getMultiAdapter((self.context, self.request), name=u'plone_portal_state')
+        self.portal = portal_state.portal()
+
+    def __call__(self):
+        return None
+
+    def getOOParent(self):
+        # must be modified to get parent
+        return self.context
