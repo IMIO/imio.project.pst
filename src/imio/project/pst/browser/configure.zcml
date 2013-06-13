@@ -20,6 +20,14 @@
         />
 
     <!-- Custom views -->
+    <!-- Customize the folder_listing for IStrategicObjective -->
+    <browser:page
+        for="imio.project.pst.content.strategic.IStrategicObjective"
+        name="imio-folder-listing"
+        class="imio.project.pst.browser.views.ContainerFolderListingView"
+        template="strategicobjective_folder_listing.pt"
+        permission="zope2.View"
+        />
     <!-- Customize the folder_listing for IOperationalObjective -->
     <browser:page
         for="imio.project.pst.content.operational.IOperationalObjective"

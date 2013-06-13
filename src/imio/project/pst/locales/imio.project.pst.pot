@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-06-11 10:39+0000\n"
+"POT-Creation-Date: 2013-06-13 09:04+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,7 +37,7 @@ msgstr ""
 msgid "Enter work to do."
 msgstr ""
 
-#: ./browser/pstaction_render_folder_listing.pt:10
+#: ./browser/operationalobjective_folder_listing.pt:12
 #: ./content/action.py:22
 msgid "Health indicator"
 msgstr ""
@@ -50,10 +50,7 @@ msgstr ""
 msgid "PSTAction"
 msgstr ""
 
-#: ./browser/pstaction_render_folder_listing.pt:9
-msgid "Progress indicator"
-msgstr ""
-
+#: ./browser/strategicobjective_folder_listing.pt:12
 #: ./content/operational.py:24
 msgid "Representative responsible"
 msgstr ""
@@ -67,7 +64,12 @@ msgid "Work plan"
 msgstr ""
 
 #. Default: "Actions"
-#: ./browser/pstaction_render_folder_listing.pt:3
+#: ./browser/operationalobjective_folder_listing.pt:3
 msgid "operational_legend_actions"
+msgstr ""
+
+#. Default: "Operational objectives"
+#: ./browser/strategicobjective_folder_listing.pt:3
+msgid "strategic_legend_operational_objectives"
 msgstr ""
 

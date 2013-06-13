@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-06-11 10:39+0000\n"
+"POT-Creation-Date: 2013-06-13 09:04+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -35,7 +35,7 @@ msgstr "Sélectionner les utilisateurs qui seront responsable mandataire de l'ob
 msgid "Enter work to do."
 msgstr "Décrire les tâches à réaliser."
 
-#: ./browser/pstaction_render_folder_listing.pt:10
+#: ./browser/operationalobjective_folder_listing.pt:12
 #: ./content/action.py:22
 msgid "Health indicator"
 msgstr "Indice de santé"
@@ -48,10 +48,7 @@ msgstr "Objectif opérationnel"
 msgid "PSTAction"
 msgstr "Action"
 
-#: ./browser/pstaction_render_folder_listing.pt:9
-msgid "Progress indicator"
-msgstr ""
-
+#: ./browser/strategicobjective_folder_listing.pt:12
 #: ./content/operational.py:24
 msgid "Representative responsible"
 msgstr "Responsable mandataire"
@@ -65,6 +62,11 @@ msgid "Work plan"
 msgstr "Plan de travail"
 
 #. Default: "Actions"
-#: ./browser/pstaction_render_folder_listing.pt:3
+#: ./browser/operationalobjective_folder_listing.pt:3
 msgid "operational_legend_actions"
 msgstr "Actions à mener"
+
+#. Default: "Operational objectives"
+#: ./browser/strategicobjective_folder_listing.pt:3
+msgid "strategic_legend_operational_objectives"
+msgstr "Objectifs opérationnels"

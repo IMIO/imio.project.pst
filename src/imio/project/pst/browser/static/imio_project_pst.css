@@ -19,18 +19,9 @@ body.portaltype-pstaction fieldset#folder-listing {
     background-color: red !important;
 }
 
-/* aligne div.field et div.field_value horizontalement */
-body.template-view.portaltype-strategicobjective div.field_value,
-body.template-view.portaltype-operationalobjective div.field_value,
-body.template-view.portaltype-pstaction div.field_value {
-    float: left;
-}
-
-body.template-view.portaltype-strategicobjective div.field,
-body.template-view.portaltype-operationalobjective div.field,
-body.template-view.portaltype-pstaction div.field {
-    float: left;
-    width: 200px;
+/* largeur colonne label sur les vues, par défaut, 200px dans plonetheme.imioapps */
+body.template-view.portaltype-strategicobjective td.table_widget_label {
+    width: 150px;
 }
 
 .datagridwidget-table-view {
