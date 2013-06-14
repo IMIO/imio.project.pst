@@ -2,8 +2,9 @@ import os
 import time
 import appy.pod.renderer
 from StringIO import StringIO
-from zope.component import getMultiAdapter
+from zope.component import getMultiAdapter, getUtility
 from zope.component.interfaces import ComponentLookupError
+from zope.schema.interfaces import IVocabularyFactory
 from Products.Five import BrowserView
 
 from imio.project.pst.interfaces import IListContainedDexterityObjectsForDisplay
@@ -103,5 +104,33 @@ class DocumentGenerationPSTActionMethods(BrowserView):
         return None
 
     def getOOParent(self):
-        # must be modified to get parent
-        return self.context
+        return self.context.aq_inner.aq_parent
+
+    def getOSParent(self):
+        return self.getOOParent().aq_inner.aq_parent
+
+    def getSection(self):
+        osparent = self.getOSParent()
+        factory = getUtility(IVocabularyFactory, u'imio.project.core.content.project.categories_vocabulary')
+        categories = factory(osparent)
+        try:
+            return categories.getTerm(osparent.categories).title.split(' - ')[0].encode('utf8')
+        except IndexError:
+            return ''
+
+    def getDomain(self):
+        osparent = self.getOSParent()
+        factory = getUtility(IVocabularyFactory, u'imio.project.core.content.project.categories_vocabulary')
+        categories = factory(osparent)
+        try:
+            return categories.getTerm(osparent.categories).title.split(' - ')[1].encode('utf8')
+        except IndexError:
+            return ''
+
+    def getManagers(self):
+        factory = getUtility(IVocabularyFactory, u'imio.project.core.content.project.manager_vocabulary')
+        managers = factory(self.context)
+        titles = []
+        for manager in self.context.manager:
+            titles.append(managers.getTerm(manager).title)
+        return ', '.join(titles)
