@@ -16,6 +16,16 @@ def post_install(context):
     """Post install script"""
     if isNotCurrentProfile(context):
         return
+    # add a default 'templates' directory containing the odt templates
+    _addTemplatesDirectory(context)
+    # add a default 'PST' directory where to store objectives and actions
+    _addPSTDirectory(context)
+
+
+def _addTemplatesDirectory(context):
+    """
+        Add a root directory for templates
+    """
     site = context.getSite()
     logger.info('Adding templates directory')
     if base_hasattr(site, 'templates'):
@@ -28,8 +38,6 @@ def post_install(context):
     folder.setLocallyAllowedTypes(['File', ])
     folder.setImmediatelyAddableTypes(['File', ])
     folder.setExcludeFromNav(True)
-    # add a default 'PST' directory where to store objectives and actions
-    _addPSTDirectory(context)
 
 
 def _addPSTDirectory(context):
