@@ -41,7 +41,7 @@ class StrategicObjectiveSchemaPolicy(DexteritySchemaPolicy):
         return (IStrategicObjective, )
 
 
-class CategoryVocabulary(object):
+class CategoriesVocabulary(object):
     implements(IVocabularyFactory)
 
     def __call__(self, context):
@@ -140,3 +140,4 @@ class CategoryVocabulary(object):
                        u"volet-externe-dvp-politiques-tourisme",
                        u"Volet externe : Développement des politiques - Tourisme"))
         return SimpleVocabulary(terms)
+

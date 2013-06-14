@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<import-steps>
+    <import-step
+            id="imioprojectpst-addDemoOrganization"
+            handler="imio.project.pst.setuphandlers.addDemoOrganization"
+            title="Add some demo organizations to be used in vocabularies"
+            version="2013-06-10T11:00:00.00000">
+        <dependency step="imioprojectpst-postInstall"/>
+        Add some demo organizations to be used in vocabularies
+    </import-step>
+    <import-step
+            id="imioprojectpst-addPSTDirectory"
+            handler="imio.project.pst.setuphandlers.addDemoData"
+            title="Add demo data for 'PST'"
+            version="2013-06-14T11:00:00.00000">
+        <dependency step="imioprojectpst-postInstall"/>
+        Add demo data for 'PST'
+    </import-step>
+</import-steps>

@@ -22,7 +22,15 @@
         />
 
     <genericsetup:registerProfile
-        name="data"
+        name="demo"
+        title="imio.project.pst demo profile"
+        directory="profiles/demo"
+        description="Import some demo data for the imio.project.pst add-on."
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+        />
+
+    <genericsetup:registerProfile
+        name="zdata"
         title="imio.project.pst data import"
         directory="profiles/data"
         description="Import some date for the imio.project.pst add-on."

@@ -28,9 +28,11 @@ def post_install(context):
     folder.setLocallyAllowedTypes(['File', ])
     folder.setImmediatelyAddableTypes(['File', ])
     folder.setExcludeFromNav(True)
+    # add a default 'PST' directory where to store objectives and actions
+    _addPSTDirectory(context)
 
 
-def addPSTDirectory(context):
+def _addPSTDirectory(context):
     """
         Add a root directory for PST
     """
@@ -50,9 +52,9 @@ def addPSTDirectory(context):
     folder.setImmediatelyAddableTypes(['strategicobjective', ])
 
 
-def addOwnOrganization(context):
+def addDemoOrganization(context):
     """
-        Add french test data: own organization
+        Add french demo data: own organization
     """
     if not context.readDataFile("imioprojectpst_data_marker.txt"):
         return
@@ -112,3 +114,15 @@ def addOwnOrganization(context):
         for service in services:
             dep.invokeFactory('organization', idnormalizer.normalize(service),
                               **{'title': service, 'organization_type': u'service'})
+
+
+def addDemoData(context):
+    """
+        Add data for demo purpose
+    """
+    if not context.readDataFile("imioprojectpst_demo_marker.txt"):
+        return
+    site = context.getSite()
+
+    # data content with every types and levels
+    return

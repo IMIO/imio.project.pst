@@ -52,7 +52,7 @@ class IOperationalObjective(IProject):
     form.order_before(budget='comments')
 
     # hide some fields
-    form.omitted('category')
+    form.omitted('categories')
     form.omitted('planned_begin_date')
     form.omitted('effective_begin_date')
     form.omitted('effective_end_date')

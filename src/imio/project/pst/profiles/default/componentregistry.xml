@@ -3,8 +3,8 @@
   <utilities>
     <utility
       interface="zope.schema.interfaces.IVocabularyFactory"
-      factory="imio.project.pst.content.strategic.CategoryVocabulary"
-      name="imio.project.core.content.project.category_vocabulary"
+      factory="imio.project.pst.content.strategic.CategoriesVocabulary"
+      name="imio.project.core.content.project.categories_vocabulary"
     />
     <utility
       interface="zope.schema.interfaces.IVocabularyFactory"
