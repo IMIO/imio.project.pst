@@ -36,7 +36,7 @@ def _addPSTDirectory(context):
     """
         Add a root directory for PST
     """
-    if not context.readDataFile("imioprojectpst_data_marker.txt"):
+    if isNotCurrentProfile(context):
         return
     site = context.getSite()
     logger.info('Adding PST directory')
@@ -56,10 +56,11 @@ def addDemoOrganization(context):
     """
         Add french demo data: own organization
     """
-    if not context.readDataFile("imioprojectpst_data_marker.txt"):
+    if not context.readDataFile("imioprojectpst_demo_marker.txt"):
         return
     site = context.getSite()
 
+    logger.info('Adding demo organizations')
     # add the 'contacts' directory if it does not already exists
     if not hasattr(site, 'contacts'):
         organization_types = [{'name': u'Commune', 'token': 'commune'}, ]
@@ -116,13 +117,15 @@ def addDemoOrganization(context):
                               **{'title': service, 'organization_type': u'service'})
 
 
-def addDemoData(context):
+def finalizeDemo(context):
     """
-        Add data for demo purpose
+       While elements are added using GenericSetup content step, it is not reindexed...
     """
     if not context.readDataFile("imioprojectpst_demo_marker.txt"):
         return
     site = context.getSite()
 
-    # data content with every types and levels
-    return
+    logger.info('Finalizing demo instance')
+
+    # reindex portal_catalog
+    site.portal_catalog.refreshCatalog()
