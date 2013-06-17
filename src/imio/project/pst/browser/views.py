@@ -90,9 +90,9 @@ class DocumentGenerationView(BrowserView):
         return doc
 
 
-class DocumentGenerationPSTActionMethods(BrowserView):
+class DocumentGenerationMethods(object):
     """
-        Methods used in document generation view, for PSTAction
+        Common methods used in document generation view
     """
     def __init__(self, context, request):
         self.context = context
@@ -103,11 +103,19 @@ class DocumentGenerationPSTActionMethods(BrowserView):
     def __call__(self):
         return None
 
-    def getOOParent(self):
+    def getParent(self):
+        """
+            get the parent object
+        """
         return self.context.aq_inner.aq_parent
 
+
+class DocumentGenerationPSTActionMethods(DocumentGenerationMethods):
+    """
+        Methods used in document generation view, for PSTAction
+    """
     def getOSParent(self):
-        return self.getOOParent().aq_inner.aq_parent
+        return self.getParent().aq_inner.aq_parent
 
     def getSection(self):
         osparent = self.getOSParent()
