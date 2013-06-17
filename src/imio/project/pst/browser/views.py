@@ -109,18 +109,23 @@ class DocumentGenerationMethods(object):
         """
         return self.context.aq_inner.aq_parent
 
-    def textFieldToHtml(self, value):
+    def textFieldToHtml(self, fieldname, obj=None):
         """
             transform text field in html format
         """
-        return self.enc(value).replace('\r\n', '<br />')
+        return self.get(fieldname, obj=obj).replace('\r\n', '<br />')
 
-    def enc(self, value, encoding='utf8'):
+    def get(self, fieldname, obj=None):
         """
-            encode text if necessary
+            get an attr and encode it if necessary
         """
+        if obj:
+            the_obj = obj
+        else:
+            the_obj = self.context
+        value = getattr(the_obj, fieldname)
         if isinstance(value, unicode):
-            value = value.encode(encoding)
+            value = value.encode('utf8')
         return value
 
 
