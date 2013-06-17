@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-06-14 13:56+0000\n"
+"POT-Creation-Date: 2013-06-17 12:20+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -32,6 +32,10 @@ msgid "Choose principals that will be representative responsible for this projec
 msgstr "Sélectionner les utilisateurs qui seront responsable mandataire de l'objectif."
 
 #: ./content/action.py:29
+msgid "Details concerning the action health."
+msgstr "Décrire les détails concernant l'indice de santé."
+
+#: ./content/action.py:35
 msgid "Enter work to do."
 msgstr "Décrire les tâches à réaliser."
 
@@ -47,6 +51,10 @@ msgstr "Générer la fiche du contenu au format bureautique"
 #: ./content/action.py:22
 msgid "Health indicator"
 msgstr "Indice de santé"
+
+#: ./content/action.py:28
+msgid "Health indicator_details"
+msgstr "Détails de l'indice de santé"
 
 #: ./profiles/default/types/operationalobjective.xml
 msgid "OperationalObjective"
@@ -65,7 +73,7 @@ msgstr "Responsable mandataire"
 msgid "StrategicObjective"
 msgstr "Objectif stratégique"
 
-#: ./content/action.py:28
+#: ./content/action.py:34
 msgid "Work plan"
 msgstr "Plan de travail"
 

@@ -24,6 +24,12 @@ class IPSTAction(IProject):
         vocabulary=u'imio.project.pst.content.action.health_indicator_vocabulary',
     )
 
+    health_indicator_details = schema.Text(
+        title=_(u'Health indicator_details'),
+        description=_(u"Details concerning the action health."),
+        required=False,
+    )
+
     work_plan = schema.Text(
         title=_(u"Work plan"),
         description=_("Enter work to do."),
@@ -38,6 +44,7 @@ class IPSTAction(IProject):
     form.order_before(effective_end_date='comments')
     form.order_before(progress='comments')
     form.order_before(health_indicator='comments')
+    form.order_before(health_indicator_details='comments')
     form.order_before(manager='comments')
     form.order_before(visible_for='comments')
     form.order_before(extra_concerned_people='comments')
