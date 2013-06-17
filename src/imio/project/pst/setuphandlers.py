@@ -42,16 +42,25 @@ def _addTemplatesDirectory(context):
     folder = site.templates
     templates = [
         ('pstaction', 'fichepstaction.odt'),
+        ('operationalobjective', 'ficheoo.odt'),
     ]
     templates_dir = os.path.join(context._profile_path, 'templates')
     for id, filename in templates:
-        if not base_hasattr(folder, id):
+#        if not base_hasattr(folder, id):
+        if True:  # during development
             filename_path = os.path.join(templates_dir, filename)
-            f = open(filename_path, 'rb')
-            file_content = f.read()
-            f.close()
-            new_template_id = folder.invokeFactory("File", id=id, title=filename, file=file_content)
-            new_template = getattr(folder, new_template_id)
+            try:
+                f = open(filename_path, 'rb')
+                file_content = f.read()
+                f.close()
+            except:
+                continue
+            try:
+                folder.invokeFactory("File", id=id, title=filename, file=file_content)
+            except:
+                pass
+            new_template = getattr(folder, id)
+            new_template.setFile(file_content)
             new_template.setFilename(filename)
             new_template.setFormat("application/vnd.oasis.opendocument.text")
 
