@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import os
 import logging
 logger = logging.getLogger('imio.project.pst')
 from Acquisition import aq_base
@@ -30,14 +31,29 @@ def _addTemplatesDirectory(context):
     logger.info('Adding templates directory')
     if base_hasattr(site, 'templates'):
         logger.warn("Nothing done: directory 'templates' already exists!")
-        return
-    params = {'title': "Templates"}
-    site.invokeFactory('Folder', 'templates', **params)
+    else:
+        params = {'title': "Templates"}
+        site.invokeFactory('Folder', 'templates', **params)
+        folder = site.templates
+        folder.setConstrainTypesMode(1)
+        folder.setLocallyAllowedTypes(['File', ])
+        folder.setImmediatelyAddableTypes(['File', ])
+        folder.setExcludeFromNav(True)
     folder = site.templates
-    folder.setConstrainTypesMode(1)
-    folder.setLocallyAllowedTypes(['File', ])
-    folder.setImmediatelyAddableTypes(['File', ])
-    folder.setExcludeFromNav(True)
+    templates = [
+        ('pstaction', 'fichepstaction.odt'),
+    ]
+    templates_dir = os.path.join(context._profile_path, 'templates')
+    for id, filename in templates:
+        if not base_hasattr(folder, id):
+            filename_path = os.path.join(templates_dir, filename)
+            f = open(filename_path, 'rb')
+            file_content = f.read()
+            f.close()
+            new_template_id = folder.invokeFactory("File", id=id, title=filename, file=file_content)
+            new_template = getattr(folder, new_template_id)
+            new_template.setFilename(filename)
+            new_template.setFormat("application/vnd.oasis.opendocument.text")
 
 
 def _addPSTDirectory(context):
