@@ -75,7 +75,7 @@ class HealthIndicatorVocabulary(object):
     def __call__(self, context):
         """"""
         terms = []
-        terms.append(SimpleTerm(u'Bon', u'bon', u'Bon'))
-        terms.append(SimpleTerm(u'Risque', u'risque', u'Risque'))
-        terms.append(SimpleTerm(u'Blocage', u'blocage', u'Blocage'))
+        terms.append(SimpleTerm(u'bon', u'bon', u'Bon'))
+        terms.append(SimpleTerm(u'risque', u'risque', u'Risque'))
+        terms.append(SimpleTerm(u'blocage', u'blocage', u'Blocage'))
         return SimpleVocabulary(terms)
