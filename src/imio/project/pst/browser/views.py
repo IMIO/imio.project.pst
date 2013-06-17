@@ -59,7 +59,7 @@ class DocumentGenerationView(BrowserView):
         documentid = self.request.get('documentid', None)
         if documentid is None:
             return None
-        pcat = self.context.portal_catalog
+        pcat = self.portal.portal_catalog
         document_brains = pcat(portal_type='File', id=documentid,
                                path={'query': '/'.join(self.portal.templates.getPhysicalPath()), 'depth': 1})
         if not document_brains:
@@ -97,8 +97,8 @@ class DocumentGenerationMethods(object):
     def __init__(self, context, request):
         self.context = context
         self.request = request
-        portal_state = getMultiAdapter((self.context, self.request), name=u'plone_portal_state')
-        self.portal = portal_state.portal()
+        self.plone_view = getMultiAdapter((self.context, self.request), name=u'plone')
+        self.plone_portal_state_view = getMultiAdapter((self.context, self.request), name=u'plone_portal_state')
 
     def __call__(self):
         return None
@@ -108,6 +108,20 @@ class DocumentGenerationMethods(object):
             get the parent object
         """
         return self.context.aq_inner.aq_parent
+
+    def textFieldToHtml(self, value):
+        """
+            transform text field in html format
+        """
+        return self.enc(value).replace('\r\n', '<br />')
+
+    def enc(self, value, encoding='utf8'):
+        """
+            encode text if necessary
+        """
+        if isinstance(value, unicode):
+            value = value.encode(encoding)
+        return value
 
 
 class DocumentGenerationPSTActionMethods(DocumentGenerationMethods):
