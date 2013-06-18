@@ -4,17 +4,17 @@ body.portaltype-pstaction fieldset#folder-listing {
     display: none;
 }
 
-.health_indicator_color_Bon {
+.health_indicator_color_bon {
     color: white;
     background-color: green !important;
 }
 
-.health_indicator_color_Risque {
+.health_indicator_color_risque {
     color: white;
     background-color: orange !important;
 }
 
-.health_indicator_color_Blocage {
+.health_indicator_color_blocage {
     color: white;
     background-color: red !important;
 }
