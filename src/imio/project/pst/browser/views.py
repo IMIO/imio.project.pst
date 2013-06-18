@@ -115,15 +115,18 @@ class DocumentGenerationMethods(object):
         """
         return self.get(fieldname, obj=obj).replace('\r\n', '<br />')
 
-    def get(self, fieldname, obj=None):
+    def get(self, fieldname, obj=None, default=''):
         """
-            get an attr and encode it if necessary
+            get an attr and encode it if necessary.
+            if attr is None, return default
         """
         if obj:
             the_obj = obj
         else:
             the_obj = self.context
         value = getattr(the_obj, fieldname)
+        if value is None:
+            return default
         if isinstance(value, unicode):
             value = value.encode('utf8')
         return value
@@ -139,6 +142,23 @@ class DocumentGenerationMethods(object):
         factory = getUtility(IVocabularyFactory, vocabulary)
         voc = factory(the_obj)
         return voc.getTerm(self.get(fieldname, obj=the_obj)).title.encode('utf8')
+
+    def vocValues(self, vocabulary, fieldname, obj=None, sep=None):
+        """
+            get the titles of a list vocabulary values
+        """
+        if obj:
+            the_obj = obj
+        else:
+            the_obj = self.context
+        factory = getUtility(IVocabularyFactory, vocabulary)
+        voc = factory(the_obj)
+        values = []
+        for token in self.get(fieldname, obj=the_obj, default=[]):
+            values.append(voc.getTerm(token).title.encode('utf8'))
+        if sep:
+            return sep.join(values)
+        return values
 
 
 class DocumentGenerationOOMethods(DocumentGenerationMethods):
@@ -186,4 +206,4 @@ class DocumentGenerationPSTActionMethods(DocumentGenerationMethods):
             Return the health indicator details with a specific html class following the health indicator field
         """
         return '<p class="fa-attr-valeur-%s">%s</p>' % (self.context.health_indicator,
-                                                        self.context.health_indicator_details.replace('\r\n', '<br />').encode('utf8'))
+                                                        self.get('health_indicator_details').replace('\r\n', '<br />').encode('utf8'))
