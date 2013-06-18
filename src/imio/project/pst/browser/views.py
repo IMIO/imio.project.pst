@@ -172,6 +172,9 @@ class DocumentGenerationOOMethods(DocumentGenerationMethods):
         Methods used in document generation view, for operationalobjective
     """
     def getSection(self):
+        """
+            get the first part of a category value
+        """
         try:
             return self.vocValue(u'imio.project.core.content.project.categories_vocabulary',
                                  'categories', obj=self.getParent()).split(' - ')[0]
@@ -179,11 +182,23 @@ class DocumentGenerationOOMethods(DocumentGenerationMethods):
             return ''
 
     def getDomain(self):
+        """
+            get the second part of a category value
+        """
         try:
             return self.vocValue(u'imio.project.core.content.project.categories_vocabulary',
                                  'categories', obj=self.getParent()).split(' - ')[0]
         except IndexError:
             return ''
+
+    def formatResultIndicator(self, sep='<br />'):
+        """
+            return the result indicator as a string
+        """
+        rows = []
+        for row in self.context.result_indicator:
+            rows.append("%s = %d" % (row['label'].encode('utf8'), row['value']))
+        return sep.join(rows)
 
 
 class DocumentGenerationPSTActionMethods(DocumentGenerationMethods):
