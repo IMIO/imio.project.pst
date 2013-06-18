@@ -141,7 +141,10 @@ class DocumentGenerationMethods(object):
             the_obj = self.context
         factory = getUtility(IVocabularyFactory, vocabulary)
         voc = factory(the_obj)
-        return voc.getTerm(self.get(fieldname, obj=the_obj)).title.encode('utf8')
+        value = voc.getTerm(self.get(fieldname, obj=the_obj)).title
+        if isinstance(value, unicode):
+            value = value.encode('utf8')
+        return value
 
     def vocValues(self, vocabulary, fieldname, obj=None, sep=None):
         """
@@ -155,7 +158,10 @@ class DocumentGenerationMethods(object):
         voc = factory(the_obj)
         values = []
         for token in self.get(fieldname, obj=the_obj, default=[]):
-            values.append(voc.getTerm(token).title.encode('utf8'))
+            value = voc.getTerm(token).title
+            if isinstance(value, unicode):
+                value = value.encode('utf8')
+            values.append(value)
         if sep:
             return sep.join(values)
         return values
@@ -192,14 +198,6 @@ class DocumentGenerationPSTActionMethods(DocumentGenerationMethods):
 
     def getOSParent(self):
         return self.getParent().aq_inner.aq_parent
-
-    def getManagers(self):
-        factory = getUtility(IVocabularyFactory, u'imio.project.core.content.project.manager_vocabulary')
-        managers = factory(self.context)
-        titles = []
-        for manager in self.context.manager:
-            titles.append(managers.getTerm(manager).title)
-        return ', '.join(titles)
 
     def formatHealthIndicator(self):
         """
