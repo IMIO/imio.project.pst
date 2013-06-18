@@ -52,6 +52,10 @@ class CategoriesVocabulary(object):
                        u"volet-interne-adm-generale-accessibilite-administration",
                        u"Volet interne : Administration générale - Accessibilité de l'Administration"))
         terms.append(
+            SimpleTerm(u"volet-interne-adm-generale-amelioration-administration",
+                       u"volet-interne-adm-generale-amelioration-administration",
+                       u"Volet interne : Administration générale - Amélioration de l'Administration"))
+        terms.append(
             SimpleTerm(u"volet-interne-adm-generale-structure-pilotage-administration",
                        u"volet-interne-adm-generale-structure-pilotage-administration",
                        u"Volet interne : Administration générale - Structure de pilotage de l'Administration"))
@@ -140,4 +144,3 @@ class CategoriesVocabulary(object):
                        u"volet-externe-dvp-politiques-tourisme",
                        u"Volet externe : Développement des politiques - Tourisme"))
         return SimpleVocabulary(terms)
-
