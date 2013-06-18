@@ -52,4 +52,11 @@
         permission="zope2.View"
         />
 
+    <browser:page
+        for="imio.project.pst.content.operational.IOperationalObjective"
+        name="document-generation-methods"
+        class="imio.project.pst.browser.views.DocumentGenerationOOMethods"
+        permission="zope2.View"
+        />
+
 </configure>

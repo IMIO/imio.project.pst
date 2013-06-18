@@ -128,31 +128,50 @@ class DocumentGenerationMethods(object):
             value = value.encode('utf8')
         return value
 
+    def vocValue(self, vocabulary, fieldname, obj=None):
+        """
+            get the title of a vocabulary value
+        """
+        if obj:
+            the_obj = obj
+        else:
+            the_obj = self.context
+        factory = getUtility(IVocabularyFactory, vocabulary)
+        voc = factory(the_obj)
+        return voc.getTerm(self.get(fieldname, obj=the_obj)).title.encode('utf8')
+
+
+class DocumentGenerationOOMethods(DocumentGenerationMethods):
+    """
+        Methods used in document generation view, for operationalobjective
+    """
+    def getSection(self):
+        try:
+            return self.vocValue(u'imio.project.core.content.project.categories_vocabulary',
+                                 'categories', obj=self.getParent()).split(' - ')[0]
+        except IndexError:
+            return ''
+
+    def getDomain(self):
+        try:
+            return self.vocValue(u'imio.project.core.content.project.categories_vocabulary',
+                                 'categories', obj=self.getParent()).split(' - ')[0]
+        except IndexError:
+            return ''
+
 
 class DocumentGenerationPSTActionMethods(DocumentGenerationMethods):
     """
         Methods used in document generation view, for PSTAction
     """
+    def __init__(self, context, request):
+        self.context = context
+        self.request = request
+        super(DocumentGenerationPSTActionMethods, self).__init__(context, request)
+        self.oo_view = getMultiAdapter((self.getParent(), request), name=u'document-generation-methods')
+
     def getOSParent(self):
         return self.getParent().aq_inner.aq_parent
-
-    def getSection(self):
-        osparent = self.getOSParent()
-        factory = getUtility(IVocabularyFactory, u'imio.project.core.content.project.categories_vocabulary')
-        categories = factory(osparent)
-        try:
-            return categories.getTerm(osparent.categories).title.split(' - ')[0].encode('utf8')
-        except IndexError:
-            return ''
-
-    def getDomain(self):
-        osparent = self.getOSParent()
-        factory = getUtility(IVocabularyFactory, u'imio.project.core.content.project.categories_vocabulary')
-        categories = factory(osparent)
-        try:
-            return categories.getTerm(osparent.categories).title.split(' - ')[1].encode('utf8')
-        except IndexError:
-            return ''
 
     def getManagers(self):
         factory = getUtility(IVocabularyFactory, u'imio.project.core.content.project.manager_vocabulary')
