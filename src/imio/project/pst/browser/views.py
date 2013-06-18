@@ -161,3 +161,10 @@ class DocumentGenerationPSTActionMethods(DocumentGenerationMethods):
         for manager in self.context.manager:
             titles.append(managers.getTerm(manager).title)
         return ', '.join(titles)
+
+    def formatHealthIndicator(self):
+        """
+            Return the health indicator details with a specific html class following the health indicator field
+        """
+        return '<p class="fa-attr-valeur-%s">%s</p>' % (self.context.health_indicator,
+                                                        self.context.health_indicator_details.replace('\r\n', '<br />').encode('utf8'))
