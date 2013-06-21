@@ -6,8 +6,10 @@ from zope.component import getMultiAdapter, getUtility
 from zope.component.interfaces import ComponentLookupError
 from zope.schema.interfaces import IVocabularyFactory
 from Products.Five import BrowserView
+from Products.statusmessages.interfaces import IStatusMessage
 
 from imio.project.pst.interfaces import IListContainedDexterityObjectsForDisplay
+from imio.project.pst import _
 
 
 def getOsTempFolder():
@@ -171,6 +173,43 @@ class DocumentGenerationPSTMethods(DocumentGenerationMethods):
     """
         Methods used in document generation view, for pst
     """
+    def getStrategicObjectives(self):
+        """
+            get a list of contained strategic objectives
+        """
+        pcat = self.context.portal_catalog
+        brains = pcat(portal_type='strategicobjective',
+                      path={'query': '/'.join(self.context.getPhysicalPath()), 'depth': 1},
+                      sort_on='getObjPositionInParent')
+        sos = {}
+        for brain in brains:
+            obj = brain.getObject()
+            try:
+                (section, domain) = self.vocValue(u'imio.project.core.content.project.categories_vocabulary',
+                                                  'categories', obj=obj).split(' - ')
+                if section not in sos:
+                    sos[section] = {}
+                if domain not in sos[section]:
+                    sos[section][domain] = []
+                sos[section][domain].append(obj)
+            except ValueError:
+                smi = IStatusMessage(self.request)
+                smi.addStatusMessage(_("Cannot split this category '${cat}' with ' - ' separator",
+                                       mapping={'cat': obj.categories}), type='error')
+                print "Error splitting cat %s" % obj.categories
+        return sos
+
+    def getSOView(self, so):
+        """
+            get the strategic objective view
+        """
+        return getMultiAdapter((so, self.request), name=u'document-generation-methods')
+
+    def getOOView(self, oo):
+        """
+            get the operational objective view
+        """
+        return getMultiAdapter((oo, self.request), name=u'document-generation-methods')
 
 
 class DocumentGenerationSOMethods(DocumentGenerationMethods):
@@ -197,6 +236,19 @@ class DocumentGenerationSOMethods(DocumentGenerationMethods):
         except IndexError:
             return ''
 
+    def getOperationalObjectives(self):
+        """
+            get a list of contained operational objectives
+        """
+        pcat = self.context.portal_catalog
+        brains = pcat(portal_type='operationalobjective',
+                      path={'query': '/'.join(self.context.getPhysicalPath()), 'depth': 1},
+                      sort_on='getObjPositionInParent')
+        oos = []
+        for brain in brains:
+            oos.append(brain.getObject())
+        return oos
+
 
 class DocumentGenerationOOMethods(DocumentGenerationMethods):
     """
@@ -218,6 +270,9 @@ class DocumentGenerationOOMethods(DocumentGenerationMethods):
         return sep.join(rows)
 
     def getActions(self):
+        """
+            return a list of contained pstactions
+        """
         pcat = self.context.portal_catalog
         brains = pcat(portal_type='pstaction',
                       path={'query': '/'.join(self.context.getPhysicalPath()), 'depth': 1})
@@ -235,6 +290,9 @@ class DocumentGenerationPSTActionMethods(DocumentGenerationMethods):
         self.so_view = getMultiAdapter((self.getSOParent(), request), name=u'document-generation-methods')
 
     def getSOParent(self):
+        """
+            get the strategic objective parent
+        """
         return self.getParent().aq_inner.aq_parent
 
     def formatHealthIndicator(self):
