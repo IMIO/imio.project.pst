@@ -177,19 +177,13 @@ class DocumentGenerationSOMethods(DocumentGenerationMethods):
     """
         Methods used in document generation view, for strategicobjective
     """
-
-
-class DocumentGenerationOOMethods(DocumentGenerationMethods):
-    """
-        Methods used in document generation view, for operationalobjective
-    """
     def getSection(self):
         """
             get the first part of a category value
         """
         try:
             return self.vocValue(u'imio.project.core.content.project.categories_vocabulary',
-                                 'categories', obj=self.getParent()).split(' - ')[0]
+                                 'categories').split(' - ')[0]
         except IndexError:
             return ''
 
@@ -199,9 +193,20 @@ class DocumentGenerationOOMethods(DocumentGenerationMethods):
         """
         try:
             return self.vocValue(u'imio.project.core.content.project.categories_vocabulary',
-                                 'categories', obj=self.getParent()).split(' - ')[0]
+                                 'categories').split(' - ')[0]
         except IndexError:
             return ''
+
+
+class DocumentGenerationOOMethods(DocumentGenerationMethods):
+    """
+        Methods used in document generation view, for operationalobjective
+    """
+    def __init__(self, context, request):
+        self.context = context
+        self.request = request
+        super(DocumentGenerationOOMethods, self).__init__(context, request)
+        self.so_view = getMultiAdapter((self.getParent(), request), name=u'document-generation-methods')
 
     def formatResultIndicator(self, sep='<br />'):
         """
@@ -227,9 +232,9 @@ class DocumentGenerationPSTActionMethods(DocumentGenerationMethods):
         self.context = context
         self.request = request
         super(DocumentGenerationPSTActionMethods, self).__init__(context, request)
-        self.oo_view = getMultiAdapter((self.getParent(), request), name=u'document-generation-methods')
+        self.so_view = getMultiAdapter((self.getSOParent(), request), name=u'document-generation-methods')
 
-    def getOSParent(self):
+    def getSOParent(self):
         return self.getParent().aq_inner.aq_parent
 
     def formatHealthIndicator(self):
