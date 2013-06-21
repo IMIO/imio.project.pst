@@ -200,6 +200,12 @@ class DocumentGenerationOOMethods(DocumentGenerationMethods):
             rows.append("%s = %d" % (row['label'].encode('utf8'), row['value']))
         return sep.join(rows)
 
+    def getActions(self):
+        pcat = self.context.portal_catalog
+        brains = pcat(portal_type='pstaction',
+                      path={'query': '/'.join(self.context.getPhysicalPath()), 'depth': 1})
+        return [brain.getObject() for brain in brains]
+
 
 class DocumentGenerationPSTActionMethods(DocumentGenerationMethods):
     """
