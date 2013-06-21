@@ -170,45 +170,51 @@ def addDemoData(context):
     data = {
         'commune-bon-vivre':
         {
-        'title': u'Etre une commune où il fait bon vivre dans un cadre agréable, propre et en toute séciruté',
+        'title': u'Etre une commune où il fait bon vivre dans un cadre agréable, propre et en toute sécurité',
         'categories': u'volet-externe-dvp-politiques-proprete-securite-publique',
         'operationalobjectives': [
             {
-            'title': u'Assurer la propreté dans l\'ensemble des parcs de la commune de manière à '
-            u'résuire la présence de déchets de 90% au 31 12 2015',
-            u'result_indicator': [{'value': 0, 'label': u'Pourcentage de déchets récoltés '
-                                u'chaque année et à l\'échéance (31 12 2015)'}],
-            'priority': u'1',
-            'planned_end_date': datetime.date(datetime(2015, 12, 31)),
-            'representative_responsible': ['2eme-echevin', '3eme-echevin'],
-            'administrative_responsible': ['secretariat-communal'],
-            'manager': ['service-proprete', 'service-travaux'],
-            'visible_for': ['service-proprete', 'service-travaux'],
-            'extra_concerned_people': u'Police\r\nAgents constatateurs communaux\r\nAgent sanctionnauteur communal\r\nStewards urbains',
-            'budget': u'Fonds propres (en cours de chiffrage) et subventions (dossier introduit pour l\'engagement de deux stewards urbains)',
-            'comments': u'',
-            'actions': [
-                {'title': u'Installer des distributeurs de sacs "ramasse crottes", dans les parcs (entrée et sortie)',
-                 'manager': ['service-proprete', ],
-                 'planned_end_date': datetime.date(datetime(2014, 06, 30)),
-                 'extra_concerned_people': u'La firme adjudicatrice au terme du marché public',
-                 'budget': u'1000 euros\r\nBudget ordinaire\r\nArticle budgétaire n°: ...',
-                 'health_indicator': u'risque',
-                 'health_indicator_details': u'Agent traitant malade pour minimum 3 mois -> risque de retard dans le planning',
-                 'work_plan': '<p>Les principales tâches à réaliser dans un ordre logique sont:<p>'
-                              '<ul>'
-                              '<li>inventaire des parcs existants sur la commune (Maxime/Patrick) finalisé pour le 01 06 2013</li>'
-                              '<li>passation d\'un marché public pour commander les distributeurs (Michèle) finalisé pour le 01 09 2013</li>'
-                              '<li>réception des distributeurs à l\'excution du marché (Michèle)</li>'
-                              '<li>placement des distributeurs (Maxime/Patrick) pour le 01 12 2013</li>'
-                              '<li>gestion des stocks de sachets (Michèle)</li>'
-                              '<li>réapprovisionnement (Maxime)</li>'
-                              '</ul>',
-                 'comments': u'Attendre le placement des nouvelles poubelles (avant le 01 12 2013)'
-                 },
+                'title': u'Assurer la propreté dans l\'ensemble des parcs de la commune de manière à '
+                         u'réduire la présence de déchets de 90% au 31 12 2015',
+                u'result_indicator': [{'value': 50, 'label': u'Nombre de sacs poubelles récoltés '
+                                      u'chaque année et à l\'échéance (31 12 2015)'}],
+                'priority': u'1',
+                'planned_end_date': datetime.date(datetime(2015, 12, 31)),
+                'representative_responsible': ['2eme-echevin', '3eme-echevin'],
+                'administrative_responsible': ['secretariat-communal'],
+                'manager': ['service-proprete', 'service-travaux'],
+                'visible_for': ['service-proprete', 'service-travaux'],
+                'extra_concerned_people': u'Police\r\nAgents constatateurs communaux\r\nAgent sanctionnauteur communal'
+                                          u'\r\nStewards urbains',
+                'budget': u'Fonds propres (en cours de chiffrage) et subventions (dossier introduit pour l\'engagement '
+                          u'de deux stewards urbains)',
+                'comments': u'',
+                'actions': [
+                    {'title': u'Installer des distributeurs de sacs "ramasse crottes", dans les parcs '
+                              u'(entrée et sortie)',
+                     'manager': ['service-proprete', ],
+                     'planned_end_date': datetime.date(datetime(2014, 06, 30)),
+                     'extra_concerned_people': u'La firme adjudicatrice au terme du marché public',
+                     'budget': u'1000 euros\r\nBudget ordinaire\r\nArticle budgétaire n°: ...',
+                     'health_indicator': u'risque',
+                     'health_indicator_details': u'Agent traitant malade pour minimum 3 mois -> risque de retard dans '
+                                                 u'le planning',
+                     'work_plan': '<p>Les principales tâches à réaliser dans un ordre logique sont:<p>'
+                                  '<ul>'
+                                  '<li>inventaire des parcs existants sur la commune (Maxime/Patrick) finalisé pour le '
+                                  '01 06 2013</li>'
+                                  '<li>passation d\'un marché public pour commander les distributeurs (Michèle) '
+                                  'finalisé pour le 01 09 2013</li>'
+                                  '<li>réception des distributeurs à l\'excution du marché (Michèle)</li>'
+                                  '<li>placement des distributeurs (Maxime/Patrick) pour le 01 12 2013</li>'
+                                  '<li>gestion des stocks de sachets (Michèle)</li>'
+                                  '<li>réapprovisionnement (Maxime)</li>'
+                                  '</ul>',
+                     'comments': u'Attendre le placement des nouvelles poubelles (avant le 01 12 2013)'
+                     },
                 ]
             },
-            ],
+        ],
         },
         'commune-moderne':
         {
@@ -216,103 +222,106 @@ def addDemoData(context):
         'categories': u'volet-interne-adm-generale-amelioration-administration',
         'operationalobjectives': [
             {
-            'title': u'Diminuer le temps d\'attente de l\'usager au guichet population de 20% dans les 12 mois à venir',
-            u'result_indicator':
+                'title': u"Diminuer le temps d'attente de l'usager au guichet population de 20% dans les 12 mois "
+                         u"à venir",
+                u'result_indicator':
                 [
-                    {'value': 0, 'label': u'Temps d\'attente diminué de 20% (en %)'},
+                    {'value': 20, 'label': u'Diminution du temps d\'attente (en %)'},
                 ],
-            'priority': u'1',
-            'planned_end_date': datetime.date(datetime(2013, 12, 31)),
-            'representative_responsible': ['1er-echevin'],
-            'administrative_responsible': ['secretariat-communal'],
-            'manager': ['service-population', 'service-etat-civil'],
-            'visible_for': [],
-            'extra_concerned_people': u'',
-            'budget': u'',
-            'comments': u'',
-            'actions': [
-                {'title': u'Engager 2 agents pour le Service Population',
-                 'manager': ['service-population', ],
-                 'planned_end_date': datetime.date(datetime(2013, 06, 30)),
-                 'extra_concerned_people': u'',
-                 'budget': u'',
-                 'health_indicator': u'bon',
-                 'health_indicator_details': u'',
-                 'work_plan': '',
-                 'comments': u''
-                 },
-                {'title': u'Créer un guichet supplémentaire dans les 3 mois',
-                 'manager': ['service-population', ],
-                 'planned_end_date': datetime.date(datetime(2013, 06, 30)),
-                 'extra_concerned_people': u'',
-                 'budget': u'',
-                 'health_indicator': u'bon',
-                 'health_indicator_details': u'',
-                 'work_plan': '',
-                 'comments': u''
-                 },
-                {'title': u'Mettre en ligne sur le site internet différents documents "population" à télécharger de chez soi',
-                 'manager': ['service-population', ],
-                 'planned_end_date': datetime.date(datetime(2013, 9, 30)),
-                 'extra_concerned_people': u'',
-                 'budget': u'',
-                 'health_indicator': u'bon',
-                 'health_indicator_details': u'',
-                 'work_plan': '',
-                 'comments': u''
-                 },
+                'priority': u'1',
+                'planned_end_date': datetime.date(datetime(2013, 12, 31)),
+                'representative_responsible': ['1er-echevin'],
+                'administrative_responsible': ['secretariat-communal'],
+                'manager': ['service-population', 'service-etat-civil'],
+                'visible_for': [],
+                'extra_concerned_people': u'',
+                'budget': u'',
+                'comments': u'',
+                'actions': [
+                    {'title': u'Engager 2 agents pour le Service Population',
+                     'manager': ['service-population', ],
+                     'planned_end_date': datetime.date(datetime(2013, 06, 30)),
+                     'extra_concerned_people': u'',
+                     'budget': u'',
+                     'health_indicator': u'bon',
+                     'health_indicator_details': u'',
+                     'work_plan': '',
+                     'comments': u''
+                     },
+                    {'title': u'Créer un guichet supplémentaire dans les 3 mois',
+                     'manager': ['service-population', ],
+                     'planned_end_date': datetime.date(datetime(2013, 06, 30)),
+                     'extra_concerned_people': u'',
+                     'budget': u'',
+                     'health_indicator': u'bon',
+                     'health_indicator_details': u'',
+                     'work_plan': '',
+                     'comments': u''
+                     },
+                    {'title': u'Mettre en ligne sur le site internet différents documents "population" à télécharger '
+                              u'de chez soi',
+                     'manager': ['service-population', ],
+                     'planned_end_date': datetime.date(datetime(2013, 9, 30)),
+                     'extra_concerned_people': u'',
+                     'budget': u'',
+                     'health_indicator': u'bon',
+                     'health_indicator_details': u'',
+                     'work_plan': '',
+                     'comments': u''
+                     },
                 ]
             },
             {
-            'title': u'Optimiser l\'accueil au sein de l\'administration communale',
-            u'result_indicator':
+                'title': u'Optimiser l\'accueil au sein de l\'administration communale',
+                u'result_indicator':
                 [
-                    {'value': 0, 'label': u'50% de visiteurs satisfaits (document de satisfaction à remplir) sur un an (en %)'},
-                    {'value': 0, 'label': u'Moins de 5% de plaintes (document de plainte à disposition) (en %)'},
+                    {'value': 50, 'label': u'Pourcentage minimum de visiteurs satisfaits (document de satisfaction '
+                                           u'à remplir) sur un an'},
+                    {'value': 5, 'label': u'Pourcentage maximum de plaintes (document de plainte à disposition)'},
                 ],
-            'priority': u'1',
-            'planned_end_date': datetime.date(datetime(2013, 12, 31)),
-            'representative_responsible': ['1er-echevin'],
-            'administrative_responsible': ['secretariat-communal'],
-            'manager': ['service-population', 'service-etat-civil'],
-            'visible_for': [],
-            'extra_concerned_people': u'',
-            'budget': u'',
-            'comments': u'',
-            'actions': [
-                {'title': u'Placer des pictogrammes de guidance',
-                 'manager': ['service-population', ],
-                 'planned_end_date': datetime.date(datetime(2013, 06, 30)),
-                 'extra_concerned_people': u'',
-                 'budget': u'',
-                 'health_indicator': u'bon',
-                 'health_indicator_details': u'',
-                 'work_plan': '',
-                 'comments': u''
-                 },
-                {'title': u'Installer une rampe d\'accès pour PMR',
-                 'manager': ['service-population', 'service-travaux'],
-                 'planned_end_date': datetime.date(datetime(2013, 06, 30)),
-                 'extra_concerned_people': u'',
-                 'budget': u'',
-                 'health_indicator': u'risque',
-                 'health_indicator_details': u'Problème, retard dû à l\'exécution du marché',
-                 'work_plan': '',
-                 'comments': u''
-                 },
-                {'title': u'Mettre en place des parmanences sur rendez-vous',
-                 'manager': ['service-population', ],
-                 'planned_end_date': datetime.date(datetime(2013, 9, 30)),
-                 'extra_concerned_people': u'',
-                 'budget': u'',
-                 'health_indicator': u'risque',
-                 'health_indicator_details': u'',
-                 'work_plan': '',
-                 'comments': u''
-                 },
+                'priority': u'1',
+                'planned_end_date': datetime.date(datetime(2013, 12, 31)),
+                'representative_responsible': ['1er-echevin'],
+                'administrative_responsible': ['secretariat-communal'],
+                'manager': ['service-population', 'service-etat-civil'],
+                'visible_for': [],
+                'extra_concerned_people': u'',
+                'budget': u'',
+                'comments': u'',
+                'actions': [
+                    {'title': u'Placer des pictogrammes de guidance',
+                     'manager': ['service-population', ],
+                     'planned_end_date': datetime.date(datetime(2013, 06, 30)),
+                     'extra_concerned_people': u'',
+                     'budget': u'',
+                     'health_indicator': u'bon',
+                     'health_indicator_details': u'',
+                     'work_plan': '',
+                     'comments': u''
+                     },
+                    {'title': u'Installer une rampe d\'accès pour PMR',
+                     'manager': ['service-population', 'service-travaux'],
+                     'planned_end_date': datetime.date(datetime(2013, 06, 30)),
+                     'extra_concerned_people': u'',
+                     'budget': u'',
+                     'health_indicator': u'risque',
+                     'health_indicator_details': u'Problème, retard dû à l\'exécution du marché',
+                     'work_plan': '',
+                     'comments': u''
+                     },
+                    {'title': u'Mettre en place des parmanences sur rendez-vous',
+                     'manager': ['service-population', ],
+                     'planned_end_date': datetime.date(datetime(2013, 9, 30)),
+                     'extra_concerned_people': u'',
+                     'budget': u'',
+                     'health_indicator': u'risque',
+                     'health_indicator_details': u'',
+                     'work_plan': '',
+                     'comments': u''
+                     },
                 ]
             },
-            ],
+        ],
         },
         'commune-durable':
         {
@@ -321,103 +330,103 @@ def addDemoData(context):
         'categories': u'volet-externe-dvp-politiques-energie',
         'operationalobjectives': [
             {
-            'title': u'Doter la commune de compétences en matière énergétique pour fin 2014 compte tenu du budget',
-            u'result_indicator':
+                'title': u'Doter la commune de compétences en matière énergétique pour fin 2014 compte tenu du budget',
+                u'result_indicator':
                 [
-                    {'value': 0, 'label': u'Personnel engagé fin 2014 (en nombre de personnes)'},
-                    {'value': 0, 'label': u'Personnel formé fin 2014 (en nombre de personnes)'},
+                    {'value': 2, 'label': u'Nombre de personnes engagées fin 2014'},
+                    {'value': 8, 'label': u'Nombre de personnes formées fin 2014'},
                 ],
-            'priority': u'1',
-            'planned_end_date': datetime.date(datetime(2014, 12, 31)),
-            'representative_responsible': ['4eme-echevin'],
-            'administrative_responsible': ['secretariat-communal'],
-            'manager': ['service-de-lurbanisme'],
-            'visible_for': ['service-travaux', ],
-            'extra_concerned_people': u'',
-            'budget': u'',
-            'comments': u'',
-            'actions': [
-                {'title': u'Procéder à l\'engagement d\'un conseiller en énergie',
-                 'manager': ['service-de-lurbanisme', ],
-                 'planned_end_date': datetime.date(datetime(2013, 06, 30)),
-                 'extra_concerned_people': u'',
-                 'budget': u'',
-                 'health_indicator': u'bon',
-                 'health_indicator_details': u'',
-                 'work_plan': '',
-                 'comments': u''
-                 },
-                {'title': u'Répondre à l\'appel à projet "écopasseur" de la Wallonie',
-                 'manager': ['service-de-lurbanisme', ],
-                 'planned_end_date': datetime.date(datetime(2013, 06, 30)),
-                 'extra_concerned_people': u'',
-                 'budget': u'',
-                 'health_indicator': u'bon',
-                 'health_indicator_details': u'',
-                 'work_plan': '',
-                 'comments': u''
-                 },
-                {'title': u'Inscrire systématiquement les agents du service travaux aux formations énergétiques',
-                 'manager': ['service-population', ],
-                 'planned_end_date': datetime.date(datetime(2013, 9, 30)),
-                 'extra_concerned_people': u'',
-                 'budget': u'',
-                 'health_indicator': u'bon',
-                 'health_indicator_details': u'',
-                 'work_plan': '',
-                 'comments': u''
-                 },
+                'priority': u'1',
+                'planned_end_date': datetime.date(datetime(2014, 12, 31)),
+                'representative_responsible': ['4eme-echevin'],
+                'administrative_responsible': ['secretariat-communal'],
+                'manager': ['service-de-lurbanisme'],
+                'visible_for': ['service-travaux', ],
+                'extra_concerned_people': u'',
+                'budget': u'',
+                'comments': u'',
+                'actions': [
+                    {'title': u'Procéder à l\'engagement d\'un conseiller en énergie',
+                     'manager': ['service-de-lurbanisme', ],
+                     'planned_end_date': datetime.date(datetime(2013, 06, 30)),
+                     'extra_concerned_people': u'',
+                     'budget': u'',
+                     'health_indicator': u'bon',
+                     'health_indicator_details': u'',
+                     'work_plan': '',
+                     'comments': u''
+                     },
+                    {'title': u'Répondre à l\'appel à projet "écopasseur" de la Wallonie',
+                     'manager': ['service-de-lurbanisme', ],
+                     'planned_end_date': datetime.date(datetime(2013, 06, 30)),
+                     'extra_concerned_people': u'',
+                     'budget': u'',
+                     'health_indicator': u'bon',
+                     'health_indicator_details': u'',
+                     'work_plan': '',
+                     'comments': u''
+                     },
+                    {'title': u'Inscrire systématiquement les agents du service travaux aux formations énergétiques',
+                     'manager': ['service-population', ],
+                     'planned_end_date': datetime.date(datetime(2013, 9, 30)),
+                     'extra_concerned_people': u'',
+                     'budget': u'',
+                     'health_indicator': u'bon',
+                     'health_indicator_details': u'',
+                     'work_plan': '',
+                     'comments': u''
+                     },
                 ]
             },
             {
-            'title': u'Réduire la consommation énergétique de la masion commune de 15% sur l\'année 2013',
-            u'result_indicator':
+                'title': u'Réduire la consommation énergétique de la maison commune de 15% sur l\'année 2013',
+                u'result_indicator':
                 [
-                    {'value': 0, 'label': u'Quantité de mazout réduite de 15% au 31 12 2013 (en %)'},
+                    {'value': 2000, 'label': u'Diminution du nombre de litres de mazout au 31 12 2013'},
                 ],
-            'priority': u'1',
-            'planned_end_date': datetime.date(datetime(2013, 12, 31)),
-            'representative_responsible': ['1er-echevin'],
-            'administrative_responsible': ['secretariat-communal'],
-            'manager': ['service-de-lurbanisme'],
-            'visible_for': [],
-            'extra_concerned_people': u'',
-            'budget': u'',
-            'comments': u'',
-            'actions': [
-                {'title': u'Réaliser un audit énergétique de l\'administration communale',
-                 'manager': ['service-de-lurbanisme', ],
-                 'planned_end_date': datetime.date(datetime(2013, 06, 30)),
-                 'extra_concerned_people': u'',
-                 'budget': u'',
-                 'health_indicator': u'bon',
-                 'health_indicator_details': u'',
-                 'work_plan': '',
-                 'comments': u''
-                 },
-                {'title': u'En fonction des résultats, procéder à l\'isolation du bâtiment',
-                 'manager': ['service-travaux'],
-                 'planned_end_date': datetime.date(datetime(2013, 10, 31)),
-                 'extra_concerned_people': u'',
-                 'budget': u'',
-                 'health_indicator': u'bon',
-                 'health_indicator_details': u'',
-                 'work_plan': '',
-                 'comments': u''
-                 },
-                {'title': u'En fonction des résultats, installer une pompe à chaleur',
-                 'manager': ['service-population', ],
-                 'planned_end_date': datetime.date(datetime(2013, 10, 31)),
-                 'extra_concerned_people': u'',
-                 'budget': u'',
-                 'health_indicator': u'bon',
-                 'health_indicator_details': u'Devenu sans objet compte tenu des résultats de l\'audit',
-                 'work_plan': '',
-                 'comments': u''
-                 },
+                'priority': u'1',
+                'planned_end_date': datetime.date(datetime(2013, 12, 31)),
+                'representative_responsible': ['1er-echevin'],
+                'administrative_responsible': ['secretariat-communal'],
+                'manager': ['service-de-lurbanisme'],
+                'visible_for': [],
+                'extra_concerned_people': u'',
+                'budget': u'',
+                'comments': u'',
+                'actions': [
+                    {'title': u'Réaliser un audit énergétique de l\'administration communale',
+                     'manager': ['service-de-lurbanisme', ],
+                     'planned_end_date': datetime.date(datetime(2013, 06, 30)),
+                     'extra_concerned_people': u'',
+                     'budget': u'',
+                     'health_indicator': u'bon',
+                     'health_indicator_details': u'',
+                     'work_plan': '',
+                     'comments': u''
+                     },
+                    {'title': u'En fonction des résultats, procéder à l\'isolation du bâtiment',
+                     'manager': ['service-travaux'],
+                     'planned_end_date': datetime.date(datetime(2013, 10, 31)),
+                     'extra_concerned_people': u'',
+                     'budget': u'',
+                     'health_indicator': u'bon',
+                     'health_indicator_details': u'',
+                     'work_plan': '',
+                     'comments': u''
+                     },
+                    {'title': u'En fonction des résultats, installer une pompe à chaleur',
+                     'manager': ['service-population', ],
+                     'planned_end_date': datetime.date(datetime(2013, 10, 31)),
+                     'extra_concerned_people': u'',
+                     'budget': u'',
+                     'health_indicator': u'bon',
+                     'health_indicator_details': u'Devenu sans objet compte tenu des résultats de l\'audit',
+                     'work_plan': '',
+                     'comments': u''
+                     },
                 ]
             },
-            ],
+        ],
         }
     }
 
