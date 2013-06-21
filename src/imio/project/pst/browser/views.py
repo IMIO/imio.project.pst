@@ -167,6 +167,18 @@ class DocumentGenerationMethods(object):
         return values
 
 
+class DocumentGenerationPSTMethods(DocumentGenerationMethods):
+    """
+        Methods used in document generation view, for pst
+    """
+
+
+class DocumentGenerationSOMethods(DocumentGenerationMethods):
+    """
+        Methods used in document generation view, for strategicobjective
+    """
+
+
 class DocumentGenerationOOMethods(DocumentGenerationMethods):
     """
         Methods used in document generation view, for operationalobjective
