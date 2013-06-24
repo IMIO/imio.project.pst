@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-06-21 09:41+0000\n"
+"POT-Creation-Date: 2013-06-24 16:45+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,6 +18,10 @@ msgstr ""
 #: ./content/operational.py:34
 msgid "Administrative responsible"
 msgstr "Responsable administratif"
+
+#: ./browser/views.py:197
+msgid "Cannot split this category '${cat}' with ' - ' separator"
+msgstr ""
 
 #: ./content/action.py:23
 msgid "Choose a health level."
@@ -54,6 +58,14 @@ msgstr "Générer le PST"
 #: ./profiles/default/actions.xml
 msgid "Generate the project as office document"
 msgstr "Générer le PST au format bureautique"
+
+#: ./profiles/default/actions.xml
+msgid "Generate the status report"
+msgstr "Générer le tableau de bord"
+
+#: ./profiles/default/actions.xml
+msgid "Generate the status report as office document"
+msgstr "Générer le tableau de bord au format bureautique"
 
 #: ./browser/operationalobjective_folder_listing.pt:12
 #: ./content/action.py:22

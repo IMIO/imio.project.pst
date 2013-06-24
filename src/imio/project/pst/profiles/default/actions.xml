@@ -32,5 +32,17 @@
    <property name="visible">True</property>
   </object>
 
+  <object name="status-report" meta_type="CMF Action" i18n:domain="imio.project.pst">
+   <property name="title" i18n:translate="">Generate the status report</property>
+   <property name="description" i18n:translate="">Generate the status report as office document</property>
+   <property name="url_expr">string:@@document-generation?documentid=status</property>
+   <property name="icon_expr"></property>
+   <property name="available_expr">python:context.getId() == 'pst' and context.getPortalTypeName() == 'Folder'</property>
+   <property name="permissions">
+    <element value="View"/>
+   </property>
+   <property name="visible">True</property>
+  </object>
+
  </object>
 </object>
