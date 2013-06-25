@@ -178,7 +178,8 @@ def addDemoData(context):
                 'title': u'Assurer la propreté dans l\'ensemble des parcs de la commune de manière à '
                          u'réduire la présence de déchets de 90% au 31 12 2015',
                 u'result_indicator': [{'value': 50, 'label': u'Nombre de sacs poubelles récoltés '
-                                      u'chaque année et à l\'échéance (31 12 2015)'}],
+                                      u'chaque année et à l\'échéance (31 12 2015)',
+                                      'reached_value': 0}],
                 'priority': u'1',
                 'planned_end_date': datetime.date(datetime(2015, 12, 31)),
                 'representative_responsible': ['2eme-echevin', '3eme-echevin'],
@@ -227,7 +228,7 @@ def addDemoData(context):
                          u"à venir",
                 u'result_indicator':
                 [
-                    {'value': 20, 'label': u'Diminution du temps d\'attente (en %)'},
+                    {'value': 20, 'label': u'Diminution du temps d\'attente (en %)', 'reached_value': 0},
                 ],
                 'priority': u'1',
                 'planned_end_date': datetime.date(datetime(2013, 12, 31)),
@@ -277,8 +278,9 @@ def addDemoData(context):
                 u'result_indicator':
                 [
                     {'value': 50, 'label': u'Pourcentage minimum de visiteurs satisfaits (document de satisfaction '
-                                           u'à remplir) sur un an'},
-                    {'value': 5, 'label': u'Pourcentage maximum de plaintes (document de plainte à disposition)'},
+                                           u'à remplir) sur un an', 'reached_value': 0},
+                    {'value': 5, 'label': u'Pourcentage maximum de plaintes (document de plainte à disposition)',
+                     'reached_value': 0},
                 ],
                 'priority': u'1',
                 'planned_end_date': datetime.date(datetime(2013, 12, 31)),
@@ -334,8 +336,8 @@ def addDemoData(context):
                 'title': u'Doter la commune de compétences en matière énergétique pour fin 2014 compte tenu du budget',
                 u'result_indicator':
                 [
-                    {'value': 2, 'label': u'Nombre de personnes engagées fin 2014'},
-                    {'value': 8, 'label': u'Nombre de personnes formées fin 2014'},
+                    {'value': 2, 'label': u'Nombre de personnes engagées fin 2014', 'reached_value': 0},
+                    {'value': 8, 'label': u'Nombre de personnes formées fin 2014', 'reached_value': 0},
                 ],
                 'priority': u'1',
                 'planned_end_date': datetime.date(datetime(2014, 12, 31)),
@@ -383,7 +385,8 @@ def addDemoData(context):
                 'title': u'Réduire la consommation énergétique de la maison commune de 15% sur l\'année 2013',
                 u'result_indicator':
                 [
-                    {'value': 2000, 'label': u'Diminution du nombre de litres de mazout au 31 12 2013'},
+                    {'value': 2000, 'label': u'Diminution du nombre de litres de mazout au 31 12 2013',
+                     'reached_value': 0},
                 ],
                 'priority': u'1',
                 'planned_end_date': datetime.date(datetime(2013, 12, 31)),
