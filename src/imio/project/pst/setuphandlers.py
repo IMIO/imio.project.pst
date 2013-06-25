@@ -9,6 +9,7 @@ from zope.component import queryUtility
 from plone.dexterity.utils import createContentInContainer
 from plone.i18n.normalizer.interfaces import IIDNormalizer
 from Products.CMFPlone.utils import base_hasattr
+from imio.project.pst import _
 
 
 def isNotCurrentProfile(context):
@@ -87,6 +88,47 @@ def _addPSTDirectory(context):
     folder.setConstrainTypesMode(1)
     folder.setLocallyAllowedTypes(['strategicobjective', ])
     folder.setImmediatelyAddableTypes(['strategicobjective', ])
+
+
+def adaptDefaultPortal(context):
+    """
+       Adapt some properties of the default portal
+    """
+    if not context.readDataFile("imioprojectpst_demo_marker.txt"):
+        return
+    site = context.getSite()
+
+    #deactivate tabs auto generation in navtree_properties
+    #site.portal_properties.site_properties.disable_folder_sections = True
+    #remove default created objects like events, news, ...
+    for id in ('events', 'news', 'Members'):
+        try:
+            site.manage_delObjects(ids=[id, ])
+            logger.info('%s folder deleted' % id)
+        except AttributeError:
+            continue
+
+    #change the content of the front-page
+    try:
+        frontpage = getattr(site, 'front-page')
+        #frontpage.setTitle(_("front_page_title"))
+        #frontpage.setDescription(unicode(_("front_page_descr")))
+        #frontpage.setText(unicode(_("front_page_text")), mimetype='text/html')
+        #remove the presentation mode
+        frontpage.setPresentation(False)
+        frontpage.reindexObject()
+        logger.info('front page adapted')
+    except AttributeError:
+        #the 'front-page' object does not exist...
+        pass
+
+    #permissions
+    #Removing owner to 'hide' sharing tab
+    site.manage_permission('Sharing page: Delegate roles', ('Manager', 'Site Administrator'),
+                           acquire=0)
+    #Hiding layout menu
+    site.manage_permission('Modify view template', ('Manager', 'Site Administrator'),
+                           acquire=0)
 
 
 def addDemoOrganization(context):
