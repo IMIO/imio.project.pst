@@ -261,12 +261,6 @@ class DocumentGenerationOOMethods(DocumentGenerationMethods):
     """
         Methods used in document generation view, for operationalobjective
     """
-    def __init__(self, context, request):
-        self.context = context
-        self.request = request
-        super(DocumentGenerationOOMethods, self).__init__(context, request)
-        self.so_view = getMultiAdapter((self.getParent(), request), name=u'document-generation-methods')
-
     def formatResultIndicator(self, sep='<br />'):
         """
             return the result indicator as a string
