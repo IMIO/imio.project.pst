@@ -96,6 +96,7 @@ class DocumentGenerationMethods(object):
     """
         Common methods used in document generation view
     """
+
     def __init__(self, context, request):
         self.context = context
         self.request = request
@@ -192,6 +193,7 @@ class DocumentGenerationPSTMethods(DocumentGenerationMethods):
     """
         Methods used in document generation view, for pst
     """
+
     def getStrategicObjectives(self):
         """
             get a list of contained strategic objectives
@@ -223,6 +225,7 @@ class DocumentGenerationSOMethods(DocumentGenerationMethods):
     """
         Methods used in document generation view, for strategicobjective
     """
+
     def getSection(self):
         """
             get the first part of a category value
@@ -261,6 +264,7 @@ class DocumentGenerationOOMethods(DocumentGenerationMethods):
     """
         Methods used in document generation view, for operationalobjective
     """
+
     def formatResultIndicator(self, sep='<br />'):
         """
             return the result indicator as a string
@@ -284,11 +288,6 @@ class DocumentGenerationPSTActionMethods(DocumentGenerationMethods):
     """
         Methods used in document generation view, for PSTAction
     """
-    def __init__(self, context, request):
-        self.context = context
-        self.request = request
-        super(DocumentGenerationPSTActionMethods, self).__init__(context, request)
-        self.so_view = getMultiAdapter((self.getSOParent(), request), name=u'document-generation-methods')
 
     def getSOParent(self):
         """
