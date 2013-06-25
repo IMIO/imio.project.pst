@@ -265,13 +265,13 @@ class DocumentGenerationOOMethods(DocumentGenerationMethods):
         Methods used in document generation view, for operationalobjective
     """
 
-    def formatResultIndicator(self, sep='<br />'):
+    def formatResultIndicator(self, expected=True, sep='<br />'):
         """
             return the result indicator as a string
         """
         rows = []
         for row in self.context.result_indicator:
-            rows.append("%s = %d" % (row['label'].encode('utf8'), row['value']))
+            rows.append("%s = %d" % (row['label'].encode('utf8'), expected and row['value'] or row['reached_value']))
         return sep.join(rows)
 
     def getActions(self):
