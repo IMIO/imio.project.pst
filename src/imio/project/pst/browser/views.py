@@ -168,6 +168,25 @@ class DocumentGenerationMethods(object):
             return sep.join(values)
         return values
 
+    def getState(self, obj=None, wf_id=None):
+        """
+            get the workflow state
+        """
+        if obj:
+            the_obj = obj
+        else:
+            the_obj = self.context
+        return self.context.portal_workflow.getInfoFor(the_obj, 'review_state', wf_id=wf_id)
+
+    def getObjectDGM(self, obj):
+        """
+            get the object 'document-generation-methods' view
+        """
+        try:
+            return getMultiAdapter((obj, self.request), name=u'document-generation-methods')
+        except ComponentLookupError:
+            return None
+
 
 class DocumentGenerationPSTMethods(DocumentGenerationMethods):
     """
@@ -299,5 +318,5 @@ class DocumentGenerationPSTActionMethods(DocumentGenerationMethods):
         """
             Return the health indicator details with a specific html class following the health indicator field
         """
-        return '<p class="fa-attr-valeur-%s">%s</p>' % (self.context.health_indicator,
-                                                        self.get('health_indicator_details').replace('\r\n', '<br />').encode('utf8'))
+        return '<p class="fa-attr-valeur-%s">%s</p>' % (self.context.health_indicator.encode('utf8'),
+                                                        self.get('health_indicator_details').replace('\r\n', '<br />'))

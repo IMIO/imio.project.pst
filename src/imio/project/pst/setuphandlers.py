@@ -46,6 +46,7 @@ def _addTemplatesDirectory(context):
         ('pstaction', 'fichepstaction.odt'),
         ('operationalobjective', 'ficheoo.odt'),
         ('pst', 'pst.odt'),
+        ('status', 'tableaubord.odt'),
     ]
     templates_dir = os.path.join(context._profile_path, 'templates')
     for id, filename in templates:
