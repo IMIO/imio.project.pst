@@ -218,18 +218,6 @@ class DocumentGenerationPSTMethods(DocumentGenerationMethods):
                 print "Error splitting cat %s" % obj.categories
         return sos
 
-    def getSOView(self, so):
-        """
-            get the strategic objective view
-        """
-        return getMultiAdapter((so, self.request), name=u'document-generation-methods')
-
-    def getOOView(self, oo):
-        """
-            get the operational objective view
-        """
-        return getMultiAdapter((oo, self.request), name=u'document-generation-methods')
-
 
 class DocumentGenerationSOMethods(DocumentGenerationMethods):
     """
