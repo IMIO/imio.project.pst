@@ -44,10 +44,10 @@ def _addTemplatesDirectory(context):
         folder.setExcludeFromNav(True)
     folder = site.templates
     templates = [
-        ('pstaction', 'fichepstaction.odt'),
-        ('operationalobjective', 'ficheoo.odt'),
-        ('pst', 'pst.odt'),
-        ('status', 'tableaubord.odt'),
+        ('pstaction_template', 'fichepstaction.odt'),
+        ('operationalobjective_template', 'ficheoo.odt'),
+        ('pst_template', 'pst.odt'),
+        ('status_template', 'tableaubord.odt'),
     ]
     templates_dir = os.path.join(context._profile_path, 'templates')
     for id, filename in templates:
