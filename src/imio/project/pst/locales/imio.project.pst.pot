@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-06-24 16:45+0000\n"
+"POT-Creation-Date: 2013-06-25 12:30+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,7 +21,7 @@ msgstr ""
 msgid "Administrative responsible"
 msgstr ""
 
-#: ./browser/views.py:197
+#: ./browser/views.py:218
 msgid "Cannot split this category '${cat}' with ' - ' separator"
 msgstr ""
 
@@ -97,6 +97,18 @@ msgstr ""
 
 #: ./content/action.py:34
 msgid "Work plan"
+msgstr ""
+
+#: ./setuphandlers.py:115
+msgid "front_page_descr"
+msgstr ""
+
+#: ./setuphandlers.py:116
+msgid "front_page_text"
+msgstr ""
+
+#: ./setuphandlers.py:114
+msgid "front_page_title"
 msgstr ""
 
 #. Default: "Actions"
