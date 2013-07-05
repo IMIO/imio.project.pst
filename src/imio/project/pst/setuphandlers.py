@@ -204,8 +204,12 @@ def _setDefaultApplicationSecurity(context):
     if isNotCurrentProfile(context):
         return
     site = context.getSite()
+    # permissions for the PST projectspace
+    site.pst.manage_addLocalRoles("pst_managers", ('Reader', 'Editor', 'Reviewer', 'Contributor', ))
     site.pst.manage_addLocalRoles("pst_editors", ('Reader', 'Editor', 'Reviewer', 'Contributor', ))
     site.pst.manage_addLocalRoles("pst_readers", ('Reader', ))
+    # permissions for the contacts
+    site.contacts.manage_addLocalRoles("pst_managers", ('Reader', 'Editor', 'Reviewer', 'Contributor', ))
 
 
 def adaptDefaultPortal(context):
@@ -264,20 +268,6 @@ def addDemoOrganization(context):
     site = context.getSite()
 
     logger.info('Adding demo organizations')
-    # add the 'contacts' directory if it does not already exists
-    if not hasattr(site, 'contacts'):
-        organization_types = [{'name': u'Commune', 'token': 'commune'}, ]
-
-        organization_levels = [{'name': u'Echevinat', 'token': 'echevinat'},
-                               {'name': u'Service', 'token': 'service'}, ]
-
-        params = {'title': "Contacts",
-                  'position_types': [],
-                  'organization_types': organization_types,
-                  'organization_levels': organization_levels,
-                  }
-        site.invokeFactory('directory', 'contacts', **params)
-
     contacts = site.contacts
     # change the state of contacts
     do_transitions(contacts, transitions=['publish_internally'], logger=logger)
