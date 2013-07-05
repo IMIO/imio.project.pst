@@ -52,8 +52,6 @@ def post_install(context):
     _addPSTGroups(context)
     # set default application security
     _setDefaultApplicationSecurity(context)
-    # change the state of contacts
-    do_transitions(getattr(portal, 'contacts'), transitions=['publish_internally'], logger=logger)
 
 
 def _addTemplatesDirectory(context):
