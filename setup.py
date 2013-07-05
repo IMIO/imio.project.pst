@@ -45,6 +45,7 @@ setup(
         'Plone',
         'Pillow',
         'appy',
+        'communesplone.layout',
         'imio.project.core',
     ],
     extras_require={
