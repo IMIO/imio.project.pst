@@ -45,8 +45,8 @@ def post_install(context):
                    logger=logger)
     # add a default 'templates' directory containing the odt templates
     _addTemplatesDirectory(context)
-    # add a default 'PST' directory where to store objectives and actions
-    _addPSTDirectory(context)
+    # add a default 'PST' projectspace where to store objectives and actions
+    _addPSTprojectspace(context)
     # adapt the default portal
     #adaptDefaultPortal(context)
     # change the state of contacts
@@ -54,9 +54,7 @@ def post_install(context):
 
 
 def _addTemplatesDirectory(context):
-    """
-        Add a root directory for templates
-    """
+    """Add a root directory for templates"""
     site = context.getSite()
     logger.info('Adding templates directory')
     if base_hasattr(site, 'templates'):
@@ -98,31 +96,87 @@ def _addTemplatesDirectory(context):
             new_template.setFormat("application/vnd.oasis.opendocument.text")
 
 
-def _addPSTDirectory(context):
-    """
-        Add a root directory for PST
-    """
+def _addPSTprojectspace(context):
+    """Add a projectspace at the root of the site for PST"""
     if isNotCurrentProfile(context):
         return
     site = context.getSite()
-    logger.info('Adding PST directory')
+    logger.info('Adding PST projectspace')
     if hasattr(aq_base(site), 'pst'):
-        logger.warn('Nothing done: directory \'pst\' already exists!')
+        logger.warn('Nothing done: projectspace \'pst\' already exists!')
         return
 
-    params = {'title': "PST"}
-    site.invokeFactory('Folder', 'pst', **params)
-    folder = site.pst
-    do_transitions(folder, transitions=['publish_internally'], logger=logger)
-    folder.setConstrainTypesMode(1)
-    folder.setLocallyAllowedTypes(['strategicobjective', ])
-    folder.setImmediatelyAddableTypes(['strategicobjective', ])
+    params = {'title': u"PST"}
+    # datagridfield categories
+    categories = [
+        {'label': u"Volet interne : Administration générale - Accessibilité de l'Administration",
+         'key': u"volet-interne-adm-generale-accessibilite-administration"},
+        {'label': u"Volet interne : Administration générale - Amélioration de l'Administration",
+         'key': u"volet-interne-adm-generale-amelioration-administration"},
+        {'label': u"Volet interne : Administration générale - Structure de pilotage de l'Administration",
+         'key': u"volet-interne-adm-generale-structure-pilotage-administration"},
+        {'label': u"Volet interne : Administration générale - Gestion des ressources humaines",
+         'key': u"volet-interne-adm-generale-gestion-ressources-humaines"},
+        {'label': u"Volet interne : Administration générale - Structuration des services",
+         'key': u"volet-interne-adm-generale-structuration-services"},
+        {'label': u"Volet interne : Administration générale - Fonctionnement propre à chacun des services",
+         'key': u"volet-interne-adm-generale-fonctionnement-propre-chacun-services"},
+        {'label': u"Volet interne : Administration générale - Processus et simplification administrative",
+         'key': u"volet-interne-adm-generale-processus-simplification-administrative"},
+        {'label': u"Volet interne : Administration générale - Communication interne",
+         'key': u"volet-interne-adm-generale-communication-interne"},
+        {'label': u"Volet interne : Administration générale - Gestion du patrimoine",
+         'key': u"volet-interne-adm-generale-gestion-patrimoine"},
+        {'label': u"Volet interne : Administration générale - Gestion informatique et Egouvernement",
+         'key': u"volet-interne-adm-generale-gestion-informatique-egouvernement"},
+        {'label': u"Volet interne : Administration générale - Synergie avec d'autres institutions publiques",
+         'key': u"volet-interne-adm-generale-synergie-autres-institutions-publiques"},
+        {'label': u"Volet externe : Développement des politiques - Action sociale",
+         'key': u"volet-externe-dvp-politiques-action-sociale"},
+        {'label': u"Volet externe : Développement des politiques - Aménagement du territoire",
+         'key': u"volet-externe-dvp-politiques-amenagement-territoire"},
+        {'label': u"Volet externe : Développement des politiques - Culture",
+         'key': u"volet-externe-dvp-politiques-culture"},
+        {'label': u"Volet externe : Développement des politiques - Développement économique",
+         'key': u"volet-externe-dvp-politiques-dvp-economique"},
+        {'label': u"Volet externe : Développement des politiques - Egouvernement",
+         'key': u"volet-externe-dvp-politiques-egouvernement"},
+        {'label': u"Volet externe : Développement des politiques - Energie",
+         'key': u"volet-externe-dvp-politiques-energie"},
+        {'label': u"Volet externe : Développement des politiques - Environnement",
+         'key': u"volet-externe-dvp-politiques-environnement"},
+        {'label': u"Volet externe : Développement des politiques - Internationnal",
+         'key': u"volet-externe-dvp-politiques-internationnal"},
+        {'label': u"Volet externe : Développement des politiques - Logement",
+         'key': u"volet-externe-dvp-politiques-logement"},
+        {'label': u"Volet externe : Développement des politiques - Mobilité",
+         'key': u"volet-externe-dvp-politiques-mobilite"},
+        {'label': u"Volet externe : Développement des politiques - Propreté et sécurité publique",
+         'key': u"volet-externe-dvp-politiques-proprete-securite-publique"},
+        {'label': u"Volet externe : Développement des politiques - Sport",
+         'key': u"volet-externe-dvp-politiques-sport"},
+        {'label': u"Volet externe : Développement des politiques - Tourisme",
+         'key': u"volet-externe-dvp-politiques-tourisme"},
+    ]
+    params['categories'] = categories
+    # datagridfield priority
+    priority = [
+        {'label': u"1",
+         'key': u"1"},
+        {'label': u"2",
+         'key': u"2"},
+    ]
+    params['priority'] = priority
+    site.invokeFactory('projectspace', 'pst', **params)
+    projectspace = site.pst
+    do_transitions(projectspace, transitions=['publish_internally'], logger=logger)
+    projectspace.setConstrainTypesMode(1)
+    projectspace.setLocallyAllowedTypes(['strategicobjective', ])
+    projectspace.setImmediatelyAddableTypes(['strategicobjective', ])
 
 
 def adaptDefaultPortal(context):
-    """
-       Adapt some properties of the default portal
-    """
+    """Adapt some properties of the default portal"""
     if not context.readDataFile("imioprojectpst_demo_marker.txt"):
         return
     site = context.getSite()
