@@ -47,14 +47,20 @@ def post_install(context):
     _addTemplatesDirectory(context)
     # add a default 'PST' projectspace where to store objectives and actions
     _addPSTprojectspace(context)
+    # add some groups of users with different profiles
+    _addPSTGroups(context)
     # adapt the default portal
     #adaptDefaultPortal(context)
+    # set default application security
+    _setDefaultApplicationSecurity(context)
     # change the state of contacts
     do_transitions(getattr(portal, 'contacts'), transitions=['publish_internally'], logger=logger)
 
 
 def _addTemplatesDirectory(context):
     """Add a root directory for templates"""
+    if isNotCurrentProfile(context):
+        return
     site = context.getSite()
     logger.info('Adding templates directory')
     if base_hasattr(site, 'templates'):
@@ -173,6 +179,34 @@ def _addPSTprojectspace(context):
     projectspace.setConstrainTypesMode(1)
     projectspace.setLocallyAllowedTypes(['strategicobjective', ])
     projectspace.setImmediatelyAddableTypes(['strategicobjective', ])
+
+
+def _addPSTGroups(context):
+    """
+       Add groups of 'pst' application users...
+    """
+    if isNotCurrentProfile(context):
+        return
+    logger.info('Adding PST groups')
+    site = context.getSite()
+    #add 3 groups
+    #one with pst Managers
+    site.portal_groups.addGroup("pst_managers", title="PST Managers")
+    #one with pst Readers
+    site.portal_groups.addGroup("pst_readers", title="PST Readers")
+    #one with pst Editors
+    site.portal_groups.addGroup("pst_editors", title="PST Editors")
+
+
+def _setDefaultApplicationSecurity(context):
+    """
+       Set sharing on the PST projectspace to access the application
+    """
+    if isNotCurrentProfile(context):
+        return
+    site = context.getSite()
+    site.pst.manage_addLocalRoles("pst_editors", ('Reader', 'Editor', 'Reviewer', 'Contributor', ))
+    site.pst.manage_addLocalRoles("pst_readers", ('Reader', ))
 
 
 def adaptDefaultPortal(context):
@@ -580,5 +614,25 @@ def addDemoData(context):
                                          "pstaction",
                                          **action)
 
+    # add some test users
+    _addPSTUsers(context)
     # reindex portal_catalog
     site.portal_catalog.refreshCatalog()
+
+
+def _addPSTUsers(context):
+    if isNotCurrentProfile(context):
+        return
+    logger.info('Adding PST users')
+    site = context.getSite()
+    try:
+        site.portal_registration.addMember(id="pstmanager", password="pstmanager")
+        site.portal_registration.addMember(id="pstreader", password="pstreader")
+        site.portal_registration.addMember(id="psteditor", password="psteditor")
+        #put users in the correct group
+        site.acl_users.source_groups.addPrincipalToGroup("pstmanager", "pst_managers")
+        site.acl_users.source_groups.addPrincipalToGroup("pstreader", "pst_readers")
+        site.acl_users.source_groups.addPrincipalToGroup("psteditor", "pst_editors")
+    except:
+        #if something wrong happens (one object already exists), we pass...
+        pass
