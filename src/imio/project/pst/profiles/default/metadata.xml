@@ -8,5 +8,6 @@
     <dependency>profile-communesplone.layout:default</dependency>
     <dependency>profile-communesplone.layout:simplify</dependency>
     <dependency>profile-imio.project.core:default</dependency>
+    <dependency>profile-plonetheme.imioapps:pstskin</dependency>
   </dependencies>
 </metadata>
