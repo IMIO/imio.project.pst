@@ -12,6 +12,7 @@
     <include package="plone.app.dexterity" />
     <include package=".browser" />
     <include package=".content" />
+    <include file="subscribers.zcml" />
 
     <genericsetup:registerProfile
         name="default"
