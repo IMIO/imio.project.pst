@@ -64,17 +64,6 @@ class OperationalObjective(Project):
     implements(IOperationalObjective)
 
 
-class PriorityVocabulary(object):
-    implements(IVocabularyFactory)
-
-    def __call__(self, context):
-        """"""
-        terms = []
-        terms.append(SimpleTerm(u'1', u'1', u'1'))
-        terms.append(SimpleTerm(u'2', u'2', u'2'))
-        return SimpleVocabulary(terms)
-
-
 class RepresentativeResponsibleVocabulary(object):
     """
     """
