@@ -622,8 +622,9 @@ def addDemoData(context):
 
 
 def _addPSTUsers(context):
-    if isNotCurrentProfile(context):
+    if not context.readDataFile("imioprojectpst_demo_marker.txt"):
         return
+
     logger.info('Adding PST users')
     site = context.getSite()
     try:
