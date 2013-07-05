@@ -140,14 +140,6 @@ def adaptDefaultPortal(context):
         #the 'front-page' object does not exist...
         pass
 
-    #permissions
-    #Removing owner to 'hide' sharing tab
-    site.manage_permission('Sharing page: Delegate roles', ('Manager', 'Site Administrator'),
-                           acquire=0)
-    #Hiding layout menu
-    site.manage_permission('Modify view template', ('Manager', 'Site Administrator'),
-                           acquire=0)
-
 
 def addDemoOrganization(context):
     """
