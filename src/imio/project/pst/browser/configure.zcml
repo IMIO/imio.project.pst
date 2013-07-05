@@ -67,7 +67,7 @@
         />
 
     <browser:page
-        for="Products.Archetypes.interfaces.base.IBaseFolder"
+        for="imio.project.core.content.projectspace.IProjectSpace"
         name="document-generation-methods"
         class="imio.project.pst.browser.views.DocumentGenerationPSTMethods"
         permission="zope2.View"
