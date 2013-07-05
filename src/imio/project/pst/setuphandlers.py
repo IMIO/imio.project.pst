@@ -8,24 +8,49 @@ from Acquisition import aq_base
 from zope.component import queryUtility
 from plone.dexterity.utils import createContentInContainer
 from plone.i18n.normalizer.interfaces import IIDNormalizer
+from Products.CMFCore.WorkflowCore import WorkflowException
 from Products.CMFPlone.utils import base_hasattr
+from Products.CMFPlone.utils import getToolByName
 #from imio.project.pst import _
+logger = logging.getLogger('imio.project.pst: setuphandlers')
 
 
 def isNotCurrentProfile(context):
     return context.readDataFile("imioprojectpst_marker.txt") is None
 
 
+def do_transitions(obj, transitions=[], logger=None):
+    """
+        do the given transitions
+    """
+    errors = []
+    workflowTool = getToolByName(obj, "portal_workflow")
+    for transition in transitions:
+        try:
+            workflowTool.doActionFor(obj, transition)
+        except WorkflowException:
+            errors.append("Cannot apply transition '%s' on obj '%s'" % (transition, obj))
+    if logger:
+        [logger.warn(error) for error in errors]
+    else:
+        return errors
+
+
 def post_install(context):
     """Post install script"""
     if isNotCurrentProfile(context):
         return
+    portal = context.getSite()
+    do_transitions(getattr(portal, 'front-page'), transitions=['publish_internally', 'publish_externally'],
+                   logger=logger)
     # add a default 'templates' directory containing the odt templates
     _addTemplatesDirectory(context)
     # add a default 'PST' directory where to store objectives and actions
     _addPSTDirectory(context)
     # adapt the default portal
     #adaptDefaultPortal(context)
+    # change the state of contacts
+    do_transitions(getattr(portal, 'contacts'), transitions=['publish_internally'], logger=logger)
 
 
 def _addTemplatesDirectory(context):
@@ -45,6 +70,7 @@ def _addTemplatesDirectory(context):
         folder.setImmediatelyAddableTypes(['File', ])
         folder.setExcludeFromNav(True)
     folder = site.templates
+    do_transitions(folder, transitions=['publish_internally'], logger=logger)
     templates = [
         ('pstaction_template', 'fichepstaction.odt'),
         ('operationalobjective_template', 'ficheoo.odt'),
@@ -87,6 +113,7 @@ def _addPSTDirectory(context):
     params = {'title': "PST"}
     site.invokeFactory('Folder', 'pst', **params)
     folder = site.pst
+    do_transitions(folder, transitions=['publish_internally'], logger=logger)
     folder.setConstrainTypesMode(1)
     folder.setLocallyAllowedTypes(['strategicobjective', ])
     folder.setImmediatelyAddableTypes(['strategicobjective', ])
