@@ -11,6 +11,7 @@ from plone.i18n.normalizer.interfaces import IIDNormalizer
 from Products.CMFCore.WorkflowCore import WorkflowException
 from Products.CMFPlone.utils import base_hasattr
 from Products.CMFPlone.utils import getToolByName
+from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
 #from imio.project.pst import _
 logger = logging.getLogger('imio.project.pst: setuphandlers')
 
@@ -49,8 +50,6 @@ def post_install(context):
     _addPSTprojectspace(context)
     # add some groups of users with different profiles
     _addPSTGroups(context)
-    # adapt the default portal
-    #adaptDefaultPortal(context)
     # set default application security
     _setDefaultApplicationSecurity(context)
     # change the state of contacts
@@ -176,9 +175,11 @@ def _addPSTprojectspace(context):
     site.invokeFactory('projectspace', 'pst', **params)
     projectspace = site.pst
     do_transitions(projectspace, transitions=['publish_internally'], logger=logger)
-    projectspace.setConstrainTypesMode(1)
-    projectspace.setLocallyAllowedTypes(['strategicobjective', ])
-    projectspace.setImmediatelyAddableTypes(['strategicobjective', ])
+    # set locally allowed types
+    behaviour = ISelectableConstrainTypes(projectspace)
+    behaviour.setConstrainTypesMode(1)
+    behaviour.setLocallyAllowedTypes(['strategicobjective', ])
+    behaviour.setImmediatelyAddableTypes(['strategicobjective', ])
 
 
 def _addPSTGroups(context):
@@ -280,6 +281,8 @@ def addDemoOrganization(context):
         site.invokeFactory('directory', 'contacts', **params)
 
     contacts = site.contacts
+    # change the state of contacts
+    do_transitions(contacts, transitions=['publish_internally'], logger=logger)
 
     if hasattr(contacts, 'plonegroup-organization'):
         logger.warn('Nothing done: plonegroup-organization already exists. You must first delete it to reimport!')

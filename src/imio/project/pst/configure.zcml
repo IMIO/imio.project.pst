@@ -33,10 +33,12 @@
         factory=".content.strategic.StrategicObjectiveSchemaPolicy"
         name="schema_policy_strategicobjective"
     />
+
     <utility
         factory=".content.operational.OperationalObjectiveSchemaPolicy"
         name="schema_policy_operationalobjective"
     />
+
     <utility
         factory=".content.action.PSTActionSchemaPolicy"
         name="schema_policy_pstaction"
