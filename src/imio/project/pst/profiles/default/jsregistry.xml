@@ -4,7 +4,7 @@
              compression="safe"
              cookable="True"
              enabled="True"
-             expression="python: not context.REQUEST['ACTUAL_URL'].endswith('/edit') and not '++add++' in context.REQUEST['ACTUAL_URL']"
+             expression="python: not context.REQUEST['ACTUAL_URL'].endswith('/@@edit') and not context.REQUEST['ACTUAL_URL'].endswith('/edit') and not '++add++' in context.REQUEST['ACTUAL_URL']"
              id="++resource++imio.project.pst/imio_project_pst.js"
              inline="False"/>
 </object>
