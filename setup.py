@@ -47,6 +47,7 @@ setup(
         'appy',
         'communesplone.layout',
         'imio.project.core',
+        'plonetheme.imioapps',
     ],
     extras_require={
         'test': [
