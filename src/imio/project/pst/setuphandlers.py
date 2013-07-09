@@ -42,8 +42,10 @@ def post_install(context):
     if isNotCurrentProfile(context):
         return
     portal = context.getSite()
-    do_transitions(getattr(portal, 'front-page'), transitions=['publish_internally', 'publish_externally'],
-                   logger=logger)
+    if hasattr(portal, 'front-page'):
+        do_transitions(getattr(portal, 'front-page'),
+                       transitions=['publish_internally', 'publish_externally'],
+                       logger=logger)
     # add a default 'templates' directory containing the odt templates
     _addTemplatesDirectory(context)
     # add a default 'PST' projectspace where to store objectives and actions

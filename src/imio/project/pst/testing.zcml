@@ -4,8 +4,11 @@
     i18n_domain="imio.project.pst">
 
   <include file="configure.zcml" />
+  <include package="imio.project.core" />
   <include package="collective.contact.core" />
   <include package="collective.contact.plonegroup" />
+  <include package="communesplone.layout" />
+  <include package="plonetheme.imioapps" />
 
   <genericsetup:registerProfile
       name="testing"
