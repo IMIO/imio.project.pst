@@ -5,14 +5,13 @@ import logging
 logger = logging.getLogger('imio.project.pst')
 from datetime import datetime
 from Acquisition import aq_base
-from zope.component import queryUtility
+from zope.event import notify
+from zope.lifecycleevent import ObjectCreatedEvent
 from plone.dexterity.utils import createContentInContainer
-from plone.i18n.normalizer.interfaces import IIDNormalizer
 from Products.CMFCore.WorkflowCore import WorkflowException
 from Products.CMFPlone.utils import base_hasattr
 from Products.CMFPlone.utils import getToolByName
 from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
-#from imio.project.pst import _
 logger = logging.getLogger('imio.project.pst: setuphandlers')
 
 
@@ -54,6 +53,8 @@ def post_install(context):
     _addPSTGroups(context)
     # set default application security
     _setDefaultApplicationSecurity(context)
+    # reorder tabs, make sure 'contacts' is after 'PST'
+    _reorderTabs(context)
 
 
 def _addTemplatesDirectory(context):
@@ -172,7 +173,7 @@ def _addPSTprojectspace(context):
          'key': u"2"},
     ]
     params['priority'] = priority
-    site.invokeFactory('projectspace', 'pst', **params)
+    createContentInContainer(site, 'projectspace', **params)
     projectspace = site.pst
     do_transitions(projectspace, transitions=['publish_internally'], logger=logger)
     # set locally allowed types
@@ -205,6 +206,7 @@ def _setDefaultApplicationSecurity(context):
     """
     if isNotCurrentProfile(context):
         return
+    logger.info('Setting default application security')
     site = context.getSite()
     # permissions for the PST projectspace
     site.pst.manage_addLocalRoles("pst_managers", ('Reader', 'Editor', 'Reviewer', 'Contributor', ))
@@ -212,6 +214,22 @@ def _setDefaultApplicationSecurity(context):
     site.pst.manage_addLocalRoles("pst_readers", ('Reader', ))
     # permissions for the contacts
     site.contacts.manage_addLocalRoles("pst_managers", ('Reader', 'Editor', 'Reviewer', 'Contributor', ))
+
+
+def _reorderTabs(context):
+    """
+       Reorder displayed tabs, 'PST' then 'contacts'
+    """
+    if isNotCurrentProfile(context):
+        return
+    logger.info('Reordering tabs')
+    site = context.getSite()
+    # just make sure the folder 'PST' is displayed before 'Contacts'
+    # intervert those 2 elements
+    contactsPosition = site.getObjectPosition('contacts')
+    pstPosition = site.getObjectPosition('pst')
+    if pstPosition > contactsPosition:
+        site.moveObject('pst', contactsPosition)
 
 
 def adaptDefaultPortal(context):
@@ -286,8 +304,11 @@ def addDemoOrganization(context):
               'street': u'Rue de la commune',
               'number': u'1',
               }
-    contacts.invokeFactory('organization', 'plonegroup-organization', **params)
+    # use invokeFactory for the special 'plonegroup-organization'
+    # or it fails with collective.contact.plonegroup while adding content here under...
+    contacts.invokeFactory('organization', id='plonegroup-organization', **params)
     own_orga = contacts['plonegroup-organization']
+    notify(ObjectCreatedEvent(own_orga))
 
     # Departments and services creation
     sublevels = [
@@ -304,14 +325,16 @@ def addDemoOrganization(context):
           u'Service du Personnel', u'Service Propreté', u'Service Population',
           u'Service Travaux', u'Service de l\'Urbanisme', ]),
     ]
-    idnormalizer = queryUtility(IIDNormalizer)
     for (organization_type, department, services) in sublevels:
-        orga_id = own_orga.invokeFactory('organization', idnormalizer.normalize(department),
-                                         **{'title': department, 'organization_type': organization_type})
-        dep = own_orga[orga_id]
+        dep = createContentInContainer(own_orga, 'organization',
+                                       **{'title': department,
+                                          'organization_type': organization_type}
+                                       )
         for service in services:
-            dep.invokeFactory('organization', idnormalizer.normalize(service),
-                              **{'title': service, 'organization_type': u'service'})
+            createContentInContainer(dep, 'organization',
+                                     **{'title': service,
+                                        'organization_type': u'service'}
+                                     )
 
 
 def addDemoData(context):
