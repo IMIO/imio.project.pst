@@ -5,7 +5,7 @@ from zope import schema
 from zope.schema.interfaces import IVocabularyFactory
 from zope.schema.vocabulary import SimpleTerm, SimpleVocabulary
 
-from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
+from plone.app.textfield import RichText
 from plone.autoform import directives as form
 from plone.dexterity.schema import DexteritySchemaPolicy
 
@@ -30,12 +30,14 @@ class IPSTAction(IProject):
         required=False,
     )
 
-    work_plan = schema.Text(
+    work_plan = RichText(
         title=_(u"Work plan"),
         description=_("Enter work to do."),
         required=False,
+        default_mime_type='text/html',
+        output_mime_type='text/html',
+        allowed_mime_types=('text/html',),
     )
-    form.widget(work_plan=WysiwygFieldWidget)
 
     # reorder fields
     form.order_before(planned_end_date='comments')
