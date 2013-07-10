@@ -278,6 +278,15 @@ def adaptDefaultPortal(context):
         #the 'front-page' object does not exist...
         pass
 
+    #we apply a method of CPUtils to configure CKeditor
+    logger.info("Configuring CKeditor")
+    try:
+        from Products.CPUtils.Extensions.utils import configure_ckeditor
+        if not hasattr(site.portal_properties, 'ckeditor_properties') or site.portal_properties.site_properties.default_editor != 'CKeditor':
+            configure_ckeditor(site, custom='urban')
+    except ImportError:
+        pass
+
 
 def addDemoOrganization(context):
     """
