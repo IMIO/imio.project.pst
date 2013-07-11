@@ -393,17 +393,17 @@ def addDemoData(context):
                      'health_indicator': u'risque',
                      'health_indicator_details': u'Agent traitant malade pour minimum 3 mois -> risque de retard dans '
                                                  u'le planning',
-                     'work_plan': '<p>Les principales tâches à réaliser dans un ordre logique sont:<p>'
-                                  '<ul>'
-                                  '<li>inventaire des parcs existants sur la commune (Maxime/Patrick) finalisé pour le '
-                                  '01 06 2013</li>'
-                                  '<li>passation d\'un marché public pour commander les distributeurs (Michèle) '
-                                  'finalisé pour le 01 09 2013</li>'
-                                  '<li>réception des distributeurs à l\'excution du marché (Michèle)</li>'
-                                  '<li>placement des distributeurs (Maxime/Patrick) pour le 01 12 2013</li>'
-                                  '<li>gestion des stocks de sachets (Michèle)</li>'
-                                  '<li>réapprovisionnement (Maxime)</li>'
-                                  '</ul>',
+                     'work_plan': u'<p>Les principales tâches à réaliser dans un ordre logique sont:<p>'
+                                  u'<ul>'
+                                  u'<li>inventaire des parcs existants sur la commune (Maxime/Patrick) finalisé pour le '
+                                  u'01 06 2013</li>'
+                                  u'<li>passation d\'un marché public pour commander les distributeurs (Michèle) '
+                                  u'finalisé pour le 01 09 2013</li>'
+                                  u'<li>réception des distributeurs à l\'excution du marché (Michèle)</li>'
+                                  u'<li>placement des distributeurs (Maxime/Patrick) pour le 01 12 2013</li>'
+                                  u'<li>gestion des stocks de sachets (Michèle)</li>'
+                                  u'<li>réapprovisionnement (Maxime)</li>'
+                                  u'</ul>',
                      'comments': u'Attendre le placement des nouvelles poubelles (avant le 01 12 2013)'
                      },
                 ]
@@ -439,7 +439,7 @@ def addDemoData(context):
                      'budget': u'',
                      'health_indicator': u'bon',
                      'health_indicator_details': u'',
-                     'work_plan': '',
+                     'work_plan': u'',
                      'comments': u''
                      },
                     {'title': u'Créer un guichet supplémentaire dans les 3 mois',
@@ -449,7 +449,7 @@ def addDemoData(context):
                      'budget': u'',
                      'health_indicator': u'bon',
                      'health_indicator_details': u'',
-                     'work_plan': '',
+                     'work_plan': u'',
                      'comments': u''
                      },
                     {'title': u'Mettre en ligne sur le site internet différents documents "population" à télécharger '
@@ -460,7 +460,7 @@ def addDemoData(context):
                      'budget': u'',
                      'health_indicator': u'bon',
                      'health_indicator_details': u'',
-                     'work_plan': '',
+                     'work_plan': u'',
                      'comments': u''
                      },
                 ]
@@ -491,7 +491,7 @@ def addDemoData(context):
                      'budget': u'',
                      'health_indicator': u'bon',
                      'health_indicator_details': u'',
-                     'work_plan': '',
+                     'work_plan': u'',
                      'comments': u''
                      },
                     {'title': u'Installer une rampe d\'accès pour PMR',
@@ -501,7 +501,7 @@ def addDemoData(context):
                      'budget': u'',
                      'health_indicator': u'risque',
                      'health_indicator_details': u'Problème, retard dû à l\'exécution du marché',
-                     'work_plan': '',
+                     'work_plan': u'',
                      'comments': u''
                      },
                     {'title': u'Mettre en place des parmanences sur rendez-vous',
@@ -511,7 +511,7 @@ def addDemoData(context):
                      'budget': u'',
                      'health_indicator': u'risque',
                      'health_indicator_details': u'',
-                     'work_plan': '',
+                     'work_plan': u'',
                      'comments': u''
                      },
                 ]
@@ -548,7 +548,7 @@ def addDemoData(context):
                      'budget': u'',
                      'health_indicator': u'bon',
                      'health_indicator_details': u'',
-                     'work_plan': '',
+                     'work_plan': u'',
                      'comments': u''
                      },
                     {'title': u'Répondre à l\'appel à projet "écopasseur" de la Wallonie',
@@ -558,7 +558,7 @@ def addDemoData(context):
                      'budget': u'',
                      'health_indicator': u'bon',
                      'health_indicator_details': u'',
-                     'work_plan': '',
+                     'work_plan': u'',
                      'comments': u''
                      },
                     {'title': u'Inscrire systématiquement les agents du service travaux aux formations énergétiques',
@@ -568,7 +568,7 @@ def addDemoData(context):
                      'budget': u'',
                      'health_indicator': u'bon',
                      'health_indicator_details': u'',
-                     'work_plan': '',
+                     'work_plan': u'',
                      'comments': u''
                      },
                 ]
@@ -597,7 +597,7 @@ def addDemoData(context):
                      'budget': u'',
                      'health_indicator': u'bon',
                      'health_indicator_details': u'',
-                     'work_plan': '',
+                     'work_plan': u'',
                      'comments': u''
                      },
                     {'title': u'En fonction des résultats, procéder à l\'isolation du bâtiment',
@@ -607,7 +607,7 @@ def addDemoData(context):
                      'budget': u'',
                      'health_indicator': u'bon',
                      'health_indicator_details': u'',
-                     'work_plan': '',
+                     'work_plan': u'',
                      'comments': u''
                      },
                     {'title': u'En fonction des résultats, installer une pompe à chaleur',
@@ -617,7 +617,7 @@ def addDemoData(context):
                      'budget': u'',
                      'health_indicator': u'bon',
                      'health_indicator_details': u'Devenu sans objet compte tenu des résultats de l\'audit',
-                     'work_plan': '',
+                     'work_plan': u'',
                      'comments': u''
                      },
                 ]
