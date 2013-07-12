@@ -175,7 +175,8 @@ def _addPSTprojectspace(context):
     params['priority'] = priority
     createContentInContainer(site, 'projectspace', **params)
     projectspace = site.pst
-    do_transitions(projectspace, transitions=['publish_internally'], logger=logger)
+    # we do not publish because, in published state, editors cannot more modify
+    # do_transitions(projectspace, transitions=['publish_internally'], logger=logger)
     # set locally allowed types
     behaviour = ISelectableConstrainTypes(projectspace)
     behaviour.setConstrainTypesMode(1)
