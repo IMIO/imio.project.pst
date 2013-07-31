@@ -7,6 +7,7 @@ from zope.component.interfaces import ComponentLookupError
 from zope.schema.interfaces import IVocabularyFactory
 from Products.Five import BrowserView
 from Products.statusmessages.interfaces import IStatusMessage
+from plone.app.textfield import RichTextValue
 
 from imio.project.pst.interfaces import IListContainedDexterityObjectsForDisplay
 from imio.project.pst import _
@@ -130,6 +131,8 @@ class DocumentGenerationMethods(object):
         value = getattr(the_obj, fieldname)
         if value is None:
             return default
+        if isinstance(value, RichTextValue):
+            value = value.output
         if isinstance(value, unicode):
             value = value.encode('utf8')
         return value
