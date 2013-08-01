@@ -652,14 +652,16 @@ def _addPSTUsers(context):
 
     logger.info('Adding PST users')
     site = context.getSite()
-    try:
-        site.portal_registration.addMember(id="pstmanager", password="pstmanager")
-        site.portal_registration.addMember(id="pstreader", password="pstreader")
-        site.portal_registration.addMember(id="psteditor", password="psteditor")
-        #put users in the correct group
-        site.acl_users.source_groups.addPrincipalToGroup("pstmanager", "pst_managers")
-        site.acl_users.source_groups.addPrincipalToGroup("pstreader", "pst_readers")
-        site.acl_users.source_groups.addPrincipalToGroup("psteditor", "pst_editors")
-    except:
-        #if something wrong happens (one object already exists), we pass...
-        pass
+    # mount point ?
+    if len(site.absolute_url_path().split('/')) <= 2:
+        try:
+            site.portal_registration.addMember(id="pstmanager", password="pstmanager")
+            site.portal_registration.addMember(id="pstreader", password="pstreader")
+            site.portal_registration.addMember(id="psteditor", password="psteditor")
+            #put users in the correct group
+            site.acl_users.source_groups.addPrincipalToGroup("pstmanager", "pst_managers")
+            site.acl_users.source_groups.addPrincipalToGroup("pstreader", "pst_readers")
+            site.acl_users.source_groups.addPrincipalToGroup("psteditor", "pst_editors")
+        except:
+            #if something wrong happens (one object already exists), we pass...
+            pass
