@@ -4,6 +4,7 @@ import appy.pod.renderer
 from StringIO import StringIO
 from zope.component import getMultiAdapter, getUtility
 from zope.component.interfaces import ComponentLookupError
+from zope.i18n import translate
 from zope.schema.interfaces import IVocabularyFactory
 from Products.Five import BrowserView
 from Products.statusmessages.interfaces import IStatusMessage
@@ -147,7 +148,11 @@ class DocumentGenerationMethods(object):
             the_obj = self.context
         factory = getUtility(IVocabularyFactory, vocabulary)
         voc = factory(the_obj)
-        value = voc.getTerm(self.get(fieldname, obj=the_obj)).title
+        try:
+            value = voc.getTerm(self.get(fieldname, obj=the_obj)).title
+        except LookupError:
+            value = translate('Missing: ${value}', domain='z3c.form',
+                              mapping={'value': self.get(fieldname, obj=the_obj)}, context=self.request)
         if isinstance(value, unicode):
             value = value.encode('utf8')
         return value
@@ -164,7 +169,11 @@ class DocumentGenerationMethods(object):
         voc = factory(the_obj)
         values = []
         for token in self.get(fieldname, obj=the_obj, default=[]):
-            value = voc.getTerm(token).title
+            try:
+                value = voc.getTerm(token).title
+            except LookupError:
+                value = translate('Missing: ${value}', domain='z3c.form',
+                                  mapping={'value': self.get(fieldname, obj=the_obj)}, context=self.request)
             if isinstance(value, unicode):
                 value = value.encode('utf8')
             values.append(value)
