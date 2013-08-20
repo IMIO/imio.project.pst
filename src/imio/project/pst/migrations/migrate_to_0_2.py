@@ -4,7 +4,7 @@ logger = logging.getLogger('imio.project.pst')
 
 from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
 
-from imio.project.pst.migrations import Migrator
+from imio.migrator.migrator import Migrator
 
 
 class Migrate_To_0_2(Migrator):

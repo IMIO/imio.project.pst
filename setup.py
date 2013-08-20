@@ -19,7 +19,7 @@ long_description = (
 
 setup(
     name='imio.project.pst',
-    version='0.1',
+    version='0.2dev',
     description="PST management",
     long_description=long_description,
     # Get more from http://pypi.python.org/pypi?%3Aaction=list_classifiers
@@ -47,6 +47,7 @@ setup(
         'appy',
         'communesplone.layout',
         'imio.project.core',
+        'imio.migrator',
         'plonetheme.imioapps',
     ],
     extras_require={
