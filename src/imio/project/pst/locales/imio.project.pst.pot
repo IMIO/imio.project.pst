@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-06-25 12:30+0000\n"
+"POT-Creation-Date: 2013-08-20 07:55+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,11 +17,15 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: imio.project.pst\n"
 
-#: ./content/operational.py:34
+#: ./content/operational.py:33
 msgid "Administrative responsible"
 msgstr ""
 
-#: ./browser/views.py:218
+#: ./browser/operationalobjective_folder_listing.pt:39
+msgid "Annexes"
+msgstr ""
+
+#: ./browser/views.py:230
 msgid "Cannot split this category '${cat}' with ' - ' separator"
 msgstr ""
 
@@ -29,11 +33,11 @@ msgstr ""
 msgid "Choose a health level."
 msgstr ""
 
-#: ./content/operational.py:35
+#: ./content/operational.py:34
 msgid "Choose principals that will be administrative responsible for this project."
 msgstr ""
 
-#: ./content/operational.py:25
+#: ./content/operational.py:24
 msgid "Choose principals that will be representative responsible for this project."
 msgstr ""
 
@@ -87,7 +91,7 @@ msgid "PSTAction"
 msgstr ""
 
 #: ./browser/strategicobjective_folder_listing.pt:12
-#: ./content/operational.py:24
+#: ./content/operational.py:23
 msgid "Representative responsible"
 msgstr ""
 
@@ -97,18 +101,6 @@ msgstr ""
 
 #: ./content/action.py:34
 msgid "Work plan"
-msgstr ""
-
-#: ./setuphandlers.py:115
-msgid "front_page_descr"
-msgstr ""
-
-#: ./setuphandlers.py:116
-msgid "front_page_text"
-msgstr ""
-
-#: ./setuphandlers.py:114
-msgid "front_page_title"
 msgstr ""
 
 #. Default: "Actions"

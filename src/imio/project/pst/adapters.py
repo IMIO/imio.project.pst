@@ -19,6 +19,8 @@ class ListContainedDexterityObjectsForDisplayAdapter(object):
         params['path'] = {'query': '/'.join(self.context.getPhysicalPath()),
                           'depth': 1}
         params['sort_on'] = 'getObjPositionInParent'
+        # make sure we only list dexterity objects
+        params['object_provides'] = 'plone.dexterity.interfaces.IDexterityContent'
 
         if portal_types:
             params['portal_type'] = portal_types

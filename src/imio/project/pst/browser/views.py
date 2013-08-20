@@ -29,7 +29,7 @@ def getOsTempFolder():
 
 class ContainerFolderListingView(BrowserView):
     """
-      This manage the elements listed on the view of a dexteroty container
+      This manage the elements listed on the view of a dexterity container
     """
     def __init__(self, context, request):
         self.context = context

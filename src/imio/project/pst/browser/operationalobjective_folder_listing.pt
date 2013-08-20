@@ -1,5 +1,5 @@
 <metal:folder_listing define-macro="folder_listing" i18n:domain="imio.project.pst">
-    <fieldset id="folder-listing" tal:define="renderedElements view/listRenderedContainedElements">
+    <fieldset id="pst-folder-listing" tal:define="renderedElements python: view.listRenderedContainedElements(portal_types=('pstaction', ))">
         <legend i18n:translate="operational_legend_actions">Actions</legend>
         <table class="listing"
                tal:condition="renderedElements">

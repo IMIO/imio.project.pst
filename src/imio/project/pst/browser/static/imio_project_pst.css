@@ -1,9 +1,5 @@
 /* imio.project.pst stylesheet */
 
-body.portaltype-pstaction fieldset#folder-listing {
-    display: none;
-}
-
 .health_indicator_color_bon {
     color: white;
     background-color: green !important;

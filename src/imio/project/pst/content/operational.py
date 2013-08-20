@@ -3,7 +3,6 @@
 from zope.interface import implements
 from zope import schema
 from zope.schema.interfaces import IVocabularyFactory
-from zope.schema.vocabulary import SimpleTerm, SimpleVocabulary
 
 from plone.autoform import directives as form
 from plone.dexterity.schema import DexteritySchemaPolicy

@@ -1,5 +1,5 @@
 <metal:folder_listing define-macro="folder_listing" i18n:domain="imio.project.pst">
-    <fieldset id="folder-listing" tal:define="renderedElements view/listRenderedContainedElements">
+    <fieldset id="pst-folder-listing" tal:define="renderedElements view/listRenderedContainedElements">
         <legend i18n:translate="strategic_legend_operational_objectives">Operational objectives</legend>
         <table class="listing"
                tal:condition="renderedElements">

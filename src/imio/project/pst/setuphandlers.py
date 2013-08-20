@@ -180,8 +180,8 @@ def _addPSTprojectspace(context):
     # set locally allowed types
     behaviour = ISelectableConstrainTypes(projectspace)
     behaviour.setConstrainTypesMode(1)
-    behaviour.setLocallyAllowedTypes(['strategicobjective', ])
-    behaviour.setImmediatelyAddableTypes(['strategicobjective', ])
+    behaviour.setLocallyAllowedTypes(['strategicobjective', 'File', ])
+    behaviour.setImmediatelyAddableTypes(['strategicobjective', 'File', ])
 
 
 def _addPSTGroups(context):
