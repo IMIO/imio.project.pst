@@ -29,7 +29,7 @@ class Migrate_To_0_2(Migrator):
 
         self._addFileTypeToProjectSpaceConstrainedTypes()
         # reinstall so changes on allowed_content_types are taken into account
-        self.reinstall()
+        self.reinstall(profiles=[u'profile-imio.project.pst:default', ])
         self.finish()
 
 
