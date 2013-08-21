@@ -52,6 +52,7 @@ class IPSTAction(IProject):
     form.order_before(extra_concerned_people='comments')
     form.order_before(budget='comments')
     form.order_before(work_plan='comments')
+    form.order_before(observation='comments')
 
     # hide some fields
     form.omitted('categories')

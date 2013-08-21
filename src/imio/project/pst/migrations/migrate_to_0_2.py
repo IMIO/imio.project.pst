@@ -37,6 +37,6 @@ def migrate(context):
     '''This migration function:
 
        1) We want to be able to add 'Files' in the 'pst' projectspace.;
-       7) Reinstall.
+       2) Reinstall.
     '''
     Migrate_To_0_2(context).run()
