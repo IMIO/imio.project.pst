@@ -16,6 +16,7 @@ class IStrategicObjective(IProject):
     # omit some fields
     form.omitted('priority')
     form.omitted('budget')
+    form.omitted('budget_comments')
     form.omitted('manager')
     form.omitted('visible_for')
     form.omitted('extra_concerned_people')

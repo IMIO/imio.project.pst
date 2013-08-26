@@ -51,6 +51,7 @@ class IPSTAction(IProject):
     form.order_before(visible_for='comments')
     form.order_before(extra_concerned_people='comments')
     form.order_before(budget='comments')
+    form.order_before(budget_comments='comments')
     form.order_before(work_plan='comments')
     form.order_before(observation='comments')
 

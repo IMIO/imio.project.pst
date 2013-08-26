@@ -173,6 +173,24 @@ def _addPSTprojectspace(context):
          'key': "2"},
     ]
     params['priority'] = priority
+    # datagridfield budget_types
+    budget_types = [
+        {'label': u"Europe",
+         'key': "europe"},
+        {'label': u"Fédéral",
+         'key': "federal"},
+        {'label': u"Wallonie",
+         'key': "wallonie"},
+        {'label': u"Fédération Wallonie-Bruxelles",
+         'key': "federation-wallonie-bruxelles"},
+        {'label': u"Province",
+         'key': "province"},
+        {'label': u"Ville",
+         'key': "ville"},
+        {'label': u"Autres",
+         'key': "autres"},
+    ]
+    params['budget_types'] = budget_types
     createContentInContainer(site, 'projectspace', **params)
     projectspace = site.pst
     # we do not publish because, in published state, editors cannot more modify
