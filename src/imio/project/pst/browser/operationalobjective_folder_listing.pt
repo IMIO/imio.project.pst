@@ -19,7 +19,7 @@
                 <td tal:content="obj/Description">Object description</td>
                 <td tal:content="obj/@@plone_context_state/workflow_state" i18n:translate="" i18n:domain="plone">State</td>
                 <td tal:content="structure python: widgets.get('planned_end_date').render()">Planned end date</td>
-                <td tal:content="structure python: widgets.get('progress').render() + ' %'">Progress indicator</td>
+                <td><span class="widget-progress-percent">%</span><span tal:replace="structure python: widgets.get('progress').render()">Progress indicator</span></td>
                 <td tal:content="structure python: widgets.get('health_indicator').render()"
                     tal:attributes="class string:health_indicator_color_${obj/health_indicator}">Health indicator</td>
                 <td tal:content="structure python: widgets.get('manager').render()">Manager</td>

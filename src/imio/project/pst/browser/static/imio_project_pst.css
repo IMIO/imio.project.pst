@@ -23,3 +23,8 @@ body.template-view.portaltype-strategicobjective td.table_widget_label {
 .datagridwidget-table-view {
     min-width: 500px;
 }
+
+/* int and float are right aligned, make the % match and display after the number */
+.widget-progress-percent {
+    float: right;
+}
