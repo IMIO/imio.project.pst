@@ -53,7 +53,6 @@ class IOperationalObjective(IProject):
     form.order_before(observation='comments')
 
     # hide some fields
-    form.omitted('categories')
     form.omitted('planned_begin_date')
     form.omitted('effective_begin_date')
     form.omitted('effective_end_date')
