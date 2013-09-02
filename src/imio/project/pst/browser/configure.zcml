@@ -10,21 +10,12 @@
         directory="static"
         />
 
-    <!-- Base views -->
-    <browser:page
-        for="plone.dexterity.interfaces.IDexterityContainer"
-        name="imio-folder-listing"
-        class="imio.project.pst.browser.views.ContainerFolderListingView"
-        template="imio_folder_listing.pt"
-        permission="zope2.View"
-        />
-
     <!-- Custom views -->
     <!-- Customize the folder_listing for IStrategicObjective -->
     <browser:page
         for="imio.project.pst.content.strategic.IStrategicObjective"
         name="imio-folder-listing"
-        class="imio.project.pst.browser.views.ContainerFolderListingView"
+        class="imio.project.core.browser.views.ContainerFolderListingView"
         template="strategicobjective_folder_listing.pt"
         permission="zope2.View"
         />
@@ -32,7 +23,7 @@
     <browser:page
         for="imio.project.pst.content.operational.IOperationalObjective"
         name="imio-folder-listing"
-        class="imio.project.pst.browser.views.ContainerFolderListingView"
+        class="imio.project.core.browser.views.ContainerFolderListingView"
         template="operationalobjective_folder_listing.pt"
         permission="zope2.View"
         />
