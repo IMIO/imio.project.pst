@@ -6,6 +6,7 @@ logger = logging.getLogger('imio.project.pst')
 from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
 
 from imio.migrator.migrator import Migrator
+from imio.project.core.events import _updateParentsBudgetInfos
 
 
 class Migrate_To_0_2(Migrator):
@@ -64,6 +65,17 @@ class Migrate_To_0_2(Migrator):
             obj.budget = []
         logger.info('Done.')
 
+    def _updateBudgetInfosAnnotations(self):
+        """Update annotations regarding budgetInfos."""
+        logger.info("Updating budgetinfos annotations...")
+        brains = self.portal.portal_catalog(portal_type=['strategicobjective',
+                                                         'operationalobjective',
+                                                         'pstaction', ])
+        for brain in brains:
+            obj = brain.getObject()
+            _updateParentsBudgetInfos(obj)
+        logger.info('Done.')
+
     def run(self):
         logger.info('Migrating to imio.project.pst 0.2...')
 
@@ -72,6 +84,7 @@ class Migrate_To_0_2(Migrator):
         # now do specific migration
         self._addFileTypeToProjectSpaceConstrainedTypes()
         self._initNewFields()
+        self._updateBudgetInfosAnnotations()
         self.finish()
 
 
@@ -80,6 +93,7 @@ def migrate(context):
 
        1) We want to be able to add 'Files' in the 'pst' projectspace;
        2) Initialize new fields for existing objects;
-       3) Reinstall.
+       3) Update budgetInfos related annotations;
+       4) Reinstall.
     '''
     Migrate_To_0_2(context).run()
