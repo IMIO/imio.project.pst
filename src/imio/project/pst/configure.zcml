@@ -29,10 +29,4 @@
         name="schema_policy_pstaction"
     />
 
-    <adapter
-        factory=".adapters.ListContainedDexterityObjectsForDisplayAdapter"
-        provides="imio.project.pst.interfaces.IListContainedDexterityObjectsForDisplay"
-        for="plone.dexterity.interfaces.IDexterityContainer"
-    />
-
 </configure>
