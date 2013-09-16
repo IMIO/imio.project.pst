@@ -6,13 +6,13 @@
             <bound-workflow workflow_id="intranet_workflow" />
         </default>
         <type type_id="strategicobjective">
-            <bound-workflow workflow_id="objective_workflow" />
+            <bound-workflow workflow_id="pst_objective_workflow" />
         </type>
         <type type_id="operationalobjective">
-            <bound-workflow workflow_id="objective_workflow" />
+            <bound-workflow workflow_id="pst_objective_workflow" />
         </type>
         <type type_id="pstaction">
-            <bound-workflow workflow_id="project_workflow" />
+            <bound-workflow workflow_id="pst_action_workflow" />
         </type>
     </bindings>
 </object>

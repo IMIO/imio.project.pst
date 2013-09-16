@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<dc-workflow workflow_id="pst_objective_workflow"
-             title="PST objective workflow"
+<dc-workflow workflow_id="pst_action_workflow"
+             title="pst_action_workflow"
              state_variable="review_state"
              initial_state="created"
              xmlns:i18n="http://xml.zope.org/namespaces/i18n"
@@ -10,50 +10,11 @@
  <permission>Delete objects</permission>
  <permission>Review portal content</permission>
  <permission>Access contents information</permission>
- <state state_id="achieved"
-        title="achieved"
-        i18n:attributes="title">
-  <exit-transition transition_id="back_to_ongoing"/>
-  <exit-transition transition_id="back_to_created"/>
-  <permission-map name="Access contents information"
-                  acquired="False">
-   <permission-role>Manager</permission-role>
-   <permission-role>Site Administrator</permission-role>
-   <permission-role>Editor</permission-role>
-   <permission-role>Reader</permission-role>
-   <permission-role>Reviewer</permission-role>
-  </permission-map>
-  <permission-map name="Delete objects"
-                  acquired="False">
-   <permission-role>Manager</permission-role>
-   <permission-role>Site Administrator</permission-role>
-  </permission-map>
-  <permission-map name="Modify portal content"
-                  acquired="False">
-   <permission-role>Manager</permission-role>
-   <permission-role>Site Administrator</permission-role>
-   <permission-role>Editor</permission-role>
-  </permission-map>
-  <permission-map name="Review portal content"
-                  acquired="False">
-   <permission-role>Manager</permission-role>
-   <permission-role>Site Administrator</permission-role>
-   <permission-role>Reviewer</permission-role>
-  </permission-map>
-  <permission-map name="View"
-                  acquired="False">
-   <permission-role>Manager</permission-role>
-   <permission-role>Site Administrator</permission-role>
-   <permission-role>Editor</permission-role>
-   <permission-role>Reader</permission-role>
-   <permission-role>Reviewer</permission-role>
-  </permission-map>
- </state>
  <state state_id="created"
         title="created"
         i18n:attributes="title">
-  <exit-transition transition_id="show"/>
-  <exit-transition transition_id="achieve"/>
+  <exit-transition transition_id="set_to_be_scheduled"/>
+  <exit-transition transition_id="stop"/>
   <permission-map name="Access contents information"
                   acquired="False">
    <permission-role>Manager</permission-role>
@@ -71,6 +32,7 @@
                   acquired="False">
    <permission-role>Manager</permission-role>
    <permission-role>Site Administrator</permission-role>
+   <permission-role>Contributor</permission-role>
    <permission-role>Editor</permission-role>
   </permission-map>
   <permission-map name="Review portal content"
@@ -90,14 +52,15 @@
  <state state_id="ongoing"
         title="ongoing"
         i18n:attributes="title">
-  <exit-transition transition_id="back_to_created"/>
-  <exit-transition transition_id="achieve"/>
+  <exit-transition transition_id="finish"/>
+  <exit-transition transition_id="back_to_be_scheduled"/>
+  <exit-transition transition_id="stop"/>
   <permission-map name="Access contents information"
                   acquired="False">
    <permission-role>Manager</permission-role>
    <permission-role>Site Administrator</permission-role>
-   <permission-role>Editor</permission-role>
    <permission-role>Reader</permission-role>
+   <permission-role>Editor</permission-role>
    <permission-role>Reviewer</permission-role>
   </permission-map>
   <permission-map name="Delete objects"
@@ -121,19 +84,136 @@
                   acquired="False">
    <permission-role>Manager</permission-role>
    <permission-role>Site Administrator</permission-role>
-   <permission-role>Editor</permission-role>
    <permission-role>Reader</permission-role>
+   <permission-role>Editor</permission-role>
    <permission-role>Reviewer</permission-role>
   </permission-map>
  </state>
- <transition transition_id="achieve"
-             title="achieve"
-             new_state="achieved"
+ <state state_id="stopped"
+        title="stopped"
+        i18n:attributes="title">
+  <exit-transition transition_id="back_to_created"/>
+  <exit-transition transition_id="back_to_be_scheduled"/>
+  <exit-transition transition_id="back_to_ongoing"/>
+  <permission-map name="Access contents information"
+                  acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>Site Administrator</permission-role>
+   <permission-role>Reader</permission-role>
+   <permission-role>Editor</permission-role>
+   <permission-role>Reviewer</permission-role>
+  </permission-map>
+  <permission-map name="Delete objects"
+                  acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>Site Administrator</permission-role>
+  </permission-map>
+  <permission-map name="Modify portal content"
+                  acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>Site Administrator</permission-role>
+   <permission-role>Editor</permission-role>
+  </permission-map>
+  <permission-map name="Review portal content"
+                  acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>Site Administrator</permission-role>
+   <permission-role>Reviewer</permission-role>
+  </permission-map>
+  <permission-map name="View"
+                  acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>Site Administrator</permission-role>
+   <permission-role>Reader</permission-role>
+   <permission-role>Editor</permission-role>
+   <permission-role>Reviewer</permission-role>
+  </permission-map>
+ </state>
+ <state state_id="terminated"
+        title="terminated"
+        i18n:attributes="title">
+  <exit-transition transition_id="back_to_ongoing"/>
+  <permission-map name="Access contents information"
+                  acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>Site Administrator</permission-role>
+   <permission-role>Reader</permission-role>
+   <permission-role>Editor</permission-role>
+   <permission-role>Reviewer</permission-role>
+  </permission-map>
+  <permission-map name="Delete objects"
+                  acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>Site Administrator</permission-role>
+  </permission-map>
+  <permission-map name="Modify portal content"
+                  acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>Site Administrator</permission-role>
+  </permission-map>
+  <permission-map name="Review portal content"
+                  acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>Site Administrator</permission-role>
+   <permission-role>Reviewer</permission-role>
+  </permission-map>
+  <permission-map name="View"
+                  acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>Site Administrator</permission-role>
+   <permission-role>Reader</permission-role>
+   <permission-role>Editor</permission-role>
+   <permission-role>Reviewer</permission-role>
+  </permission-map>
+ </state>
+ <state state_id="to_be_scheduled"
+        title="to_be_scheduled"
+        i18n:attributes="title">
+  <exit-transition transition_id="back_to_created"/>
+  <exit-transition transition_id="begin"/>
+  <exit-transition transition_id="stop"/>
+  <permission-map name="Access contents information"
+                  acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>Site Administrator</permission-role>
+   <permission-role>Reader</permission-role>
+   <permission-role>Editor</permission-role>
+   <permission-role>Reviewer</permission-role>
+  </permission-map>
+  <permission-map name="Delete objects"
+                  acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>Site Administrator</permission-role>
+  </permission-map>
+  <permission-map name="Modify portal content"
+                  acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>Site Administrator</permission-role>
+   <permission-role>Editor</permission-role>
+  </permission-map>
+  <permission-map name="Review portal content"
+                  acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>Site Administrator</permission-role>
+   <permission-role>Reviewer</permission-role>
+  </permission-map>
+  <permission-map name="View"
+                  acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>Site Administrator</permission-role>
+   <permission-role>Reader</permission-role>
+   <permission-role>Editor</permission-role>
+   <permission-role>Reviewer</permission-role>
+  </permission-map>
+ </state>
+ <transition transition_id="back_to_be_scheduled"
+             title="back_to_be_scheduled"
+             new_state="to_be_scheduled"
              trigger="USER"
              before_script=""
              after_script=""
              i18n:attributes="title">
-  <action url="" category="workflow" i18n:translate="">achieve</action>
+  <action url="" category="workflow" i18n:translate="">back_to_be_scheduled</action>
   <guard>
     <guard-permission>Review portal content</guard-permission>
   </guard>
@@ -162,14 +242,50 @@
     <guard-permission>Review portal content</guard-permission>
   </guard>
  </transition>
- <transition transition_id="show"
-             title="show"
+ <transition transition_id="begin"
+             title="begin"
              new_state="ongoing"
              trigger="USER"
              before_script=""
              after_script=""
              i18n:attributes="title">
-  <action url="" category="workflow" i18n:translate="">show</action>
+  <action url="" category="workflow" i18n:translate="">begin</action>
+  <guard>
+    <guard-permission>Review portal content</guard-permission>
+  </guard>
+ </transition>
+ <transition transition_id="finish"
+             title="finish"
+             new_state="terminated"
+             trigger="USER"
+             before_script=""
+             after_script=""
+             i18n:attributes="title">
+  <action url="" category="workflow" i18n:translate="">finish</action>
+  <guard>
+    <guard-permission>Review portal content</guard-permission>
+  </guard>
+ </transition>
+ <transition transition_id="set_to_be_scheduled"
+             title="set_to_be_scheduled"
+             new_state="to_be_scheduled"
+             trigger="USER"
+             before_script=""
+             after_script=""
+             i18n:attributes="title">
+  <action url="" category="workflow" i18n:translate="">set_to_be_scheduled</action>
+  <guard>
+    <guard-permission>Review portal content</guard-permission>
+  </guard>
+ </transition>
+ <transition transition_id="stop"
+             title="stop"
+             new_state="stopped"
+             trigger="USER"
+             before_script=""
+             after_script=""
+             i18n:attributes="title">
+  <action url="" category="workflow" i18n:translate="">stop</action>
   <guard>
     <guard-permission>Review portal content</guard-permission>
   </guard>
