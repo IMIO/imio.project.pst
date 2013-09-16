@@ -14,6 +14,7 @@ from imio.project.core.content.project import IProject
 from imio.project.core.content.project import Project
 from imio.project.core.utils import getVocabularyTermsForOrganization
 from imio.project.pst import _
+from imio.project.core import _ as _c
 
 
 class IOperationalObjective(IProject):
@@ -36,6 +37,19 @@ class IOperationalObjective(IProject):
         roles_to_assign=('Reader',),
         value_type=schema.Choice(
             vocabulary=u'imio.project.pst.content.operational.administrative_responsible_vocabulary',
+        ),
+        required=True,
+    )
+
+    # Changing field property globally isn't correct because the local_role on action must be Editor
+    #IProject['manager'].roles_to_assign = ('Contributor',)
+
+    manager = LocalRolesToPrincipals(
+        title=_c(u"Manager"),
+        description=_c(u"Choose principals that will manage this project."),
+        roles_to_assign=('Contributor',),
+        value_type=schema.Choice(
+            vocabulary='imio.project.core.content.project.manager_vocabulary'
         ),
         required=True,
     )
