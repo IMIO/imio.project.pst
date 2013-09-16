@@ -52,7 +52,7 @@
  <state state_id="created"
         title="created"
         i18n:attributes="title">
-  <exit-transition transition_id="show"/>
+  <exit-transition transition_id="begin"/>
   <exit-transition transition_id="achieve"/>
   <permission-map name="Access contents information"
                   acquired="False">
@@ -162,14 +162,14 @@
     <guard-permission>Review portal content</guard-permission>
   </guard>
  </transition>
- <transition transition_id="show"
-             title="show"
+ <transition transition_id="begin"
+             title="begin"
              new_state="ongoing"
              trigger="USER"
              before_script=""
              after_script=""
              i18n:attributes="title">
-  <action url="" category="workflow" i18n:translate="">show</action>
+  <action url="" category="workflow" i18n:translate="">begin</action>
   <guard>
     <guard-permission>Review portal content</guard-permission>
   </guard>
