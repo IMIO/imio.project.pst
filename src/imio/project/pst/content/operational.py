@@ -8,6 +8,7 @@ from plone.autoform import directives as form
 from plone.dexterity.schema import DexteritySchemaPolicy
 
 from collective.z3cform.rolefield.field import LocalRolesToPrincipals
+from collective.contact.plonegroup.browser.settings import selectedOrganizationsPloneGroupsVocabulary
 
 from imio.project.core.content.project import IProject
 from imio.project.core.content.project import Project
@@ -83,6 +84,16 @@ class AdministrativeResponsibleVocabulary(object):
     def __call__(self, context):
         """"""
         return getVocabularyTermsForOrganization(context, 'services')
+
+
+class ManagerVocabulary(object):
+    """
+        Create a vocabulary from the selected organization groups
+    """
+    implements(IVocabularyFactory)
+
+    def __call__(self, context):
+        return selectedOrganizationsPloneGroupsVocabulary(functions=['actioneditor'], group_title=False)
 
 
 class OperationalObjectiveSchemaPolicy(DexteritySchemaPolicy):
