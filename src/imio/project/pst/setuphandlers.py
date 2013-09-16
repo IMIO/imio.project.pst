@@ -384,6 +384,8 @@ def addDemoData(context):
         {
         'title': u'Etre une commune où il fait bon vivre dans un cadre agréable, propre et en toute sécurité',
         'categories': u'volet-externe-dvp-politiques-proprete-securite-publique',
+        'budget': [],
+        'budget_comments': u'',
         'operationalobjectives': [
             {
                 'title': u'Assurer la propreté dans l\'ensemble des parcs de la commune de manière à '
@@ -435,6 +437,8 @@ def addDemoData(context):
         {
         'title': u'Etre une commune qui offre un service public moderne, efficace et efficient',
         'categories': u'volet-interne-adm-generale-amelioration-administration',
+        'budget': [],
+        'budget_comments': u'',
         'operationalobjectives': [
             {
                 'title': u"Diminuer le temps d'attente de l'usager au guichet population de 20% dans les 12 mois "
@@ -544,6 +548,8 @@ def addDemoData(context):
         'title': u'Etre une commune qui s\'inscrit dans la lignée des accords de réductions '
                  u'des gaz à effet de serre afin d\'assurer le développement durable',
         'categories': u'volet-externe-dvp-politiques-energie',
+        'budget': [],
+        'budget_comments': u'',
         'operationalobjectives': [
             {
                 'title': u'Doter la commune de compétences en matière énergétique pour fin 2014 compte tenu du budget',
