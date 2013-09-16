@@ -7,5 +7,5 @@
 cp -r temp/profiles/default/workflows ../profiles/default
 
 #change the workflow name
-sed -i 's/title=\"project_workflow\"/title=\"Objective workflow\"/g' ../profiles/default/workflows/objective_workflow/definition.xml
+sed -i 's/title=\"pst_objective_workflow\"/title=\"PST objective workflow\"/g' ../profiles/default/workflows/pst_objective_workflow/definition.xml
 

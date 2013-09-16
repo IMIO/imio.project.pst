@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<dc-workflow workflow_id="objective_workflow"
-             title="objective_workflow"
+<dc-workflow workflow_id="pst_objective_workflow"
+             title="PST objective workflow"
              state_variable="review_state"
              initial_state="created"
              xmlns:i18n="http://xml.zope.org/namespaces/i18n"
@@ -233,5 +233,7 @@
   <guard>
   </guard>
  </variable>
+<!-- ##code-section FOOT -->
+<!-- ##/code-section FOOT -->
  <!-- We dont use workflow scripts any more, we use subscribers -->
 </dc-workflow>
