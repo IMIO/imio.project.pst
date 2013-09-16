@@ -56,6 +56,7 @@ class IPSTAction(IProject):
     form.order_before(observation='comments')
 
     # hide some fields
+    form.omitted('visible_for')
     form.omitted('categories')
     form.omitted('priority')
     form.omitted('result_indicator')
