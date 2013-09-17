@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from zope.interface import implements
+from zope.interface import implements, provider
 from zope import schema
-from zope.schema.interfaces import IVocabularyFactory
+from zope.schema.interfaces import IVocabularyFactory, IContextAwareDefaultFactory
 from zope.schema.vocabulary import SimpleTerm, SimpleVocabulary
 
 from plone.app.textfield import RichText
@@ -12,6 +12,14 @@ from plone.dexterity.schema import DexteritySchemaPolicy
 from imio.project.core.content.project import IProject
 from imio.project.core.content.project import Project
 from imio.project.pst import _
+
+
+@provider(IContextAwareDefaultFactory)
+def default_manager(context):
+    if not context.portal_type == 'operationalobjective':
+        return []
+    member_groups = context.portal_membership.getAuthenticatedMember().getGroups()
+    return [g for g in context.manager if g in member_groups]
 
 
 class IPSTAction(IProject):
@@ -60,6 +68,10 @@ class IPSTAction(IProject):
     form.omitted('categories')
     form.omitted('priority')
     form.omitted('result_indicator')
+
+
+# We add a default value for the pstaction
+IPSTAction['manager'].defaultFactory = default_manager
 
 
 class PSTAction(Project):
