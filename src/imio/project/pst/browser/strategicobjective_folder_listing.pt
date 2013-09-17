@@ -1,36 +1,17 @@
 <metal:folder_listing define-macro="folder_listing" i18n:domain="imio.project.pst">
-    <fieldset id="pst-folder-listing" tal:define="renderedElements view/listRenderedContainedElements">
+
+    <script type="text/javascript"
+            tal:define="portal_url context/@@plone_portal_state/portal_url;"
+            tal:attributes="src string:${portal_url}/++resource++imio.project.core/listings.js">
+    </script>
+
+    <fieldset id="pst-folder-listing">
         <legend i18n:translate="strategic_legend_operational_objectives">Operational objectives</legend>
-        <table class="listing"
-               tal:condition="renderedElements">
-            <tr>
-                <th class='strategic_operational_objectives_header_title' i18n:translate="" i18n:domain="plone">Title</th>
-                <th class='strategic_operational_objectives_header_description' i18n:translate="" i18n:domain="plone">Description</th>
-                <th class='strategic_operational_objectives_header_state' i18n:translate="" i18n:domain="plone">State</th>
-                <th class='strategic_operational_objectives_header_priority' i18n:translate="" i18n:domain="imio.project.core">Priority</th>
-                <th class='strategic_operational_objectives_header_planned_end_date' i18n:translate="" i18n:domain="imio.project.core">Planned end date</th>
-                <th class='strategic_operational_objectives_header_representative_responsible' i18n:translate="" i18n:domain="imio.project.pst">Representative responsible</th>
-            </tr>
-            <tr tal:repeat="renderedElement renderedElements">
-                <tal:defines define="obj python: renderedElement.context;
-                                     widgets renderedElement/widgets;">
-                <td><a href="#" tal:content="obj/title" tal:attributes="href obj/absolute_url">Object title</a></td>
-                <td tal:content="obj/Description">Object description</td>
-                <td tal:content="obj/@@plone_context_state/workflow_state" i18n:translate="" i18n:domain="plone">State</td>
-                <td tal:content="structure python: widgets.get('priority').render()">Priority</td>
-                <td tal:content="structure python: widgets.get('planned_end_date').render()">Planned end date</td>
-                <td tal:content="structure python: widgets.get('representative_responsible').render()">Representative responsible</td>
-                </tal:defines>
-            </tr>
-        </table>
-        <metal:empty metal:define-slot="no_items_in_listing">
-            <p class="discreet"
-               tal:condition="not: renderedElements"
-               i18n:domain="plone"
-               i18n:translate="description_no_items_in_folder">
-                There are currently no items in this folder.
-            </p>
-        </metal:empty>
+
+        <tal:block define="strategicobjective_folder_listing_table context/@@imio-folder-listing-table/index;">
+            <tal:content replace="structure strategicobjective_folder_listing_table" />
+        </tal:block>
+
     </fieldset>
     <fieldset id="folder-listing">
         <legend i18n:translate="" i18n:domain="imio.project.pst">Annexes</legend>

@@ -19,6 +19,14 @@
         template="strategicobjective_folder_listing.pt"
         permission="zope2.View"
         />
+    <!-- The view rendering the table displayed in imio-folder-listing, aka imio-folder-listing-table for IStrategicObjective-->
+    <browser:page
+        for="imio.project.pst.content.strategic.IStrategicObjective"
+        class="imio.project.core.browser.views.ContainerFolderListingView"
+        name="imio-folder-listing-table"
+        template="strategicobjective_folder_listing_table.pt"
+        permission="zope2.View" />
+
     <!-- Customize the folder_listing for IOperationalObjective -->
     <browser:page
         for="imio.project.pst.content.operational.IOperationalObjective"
@@ -27,6 +35,13 @@
         template="operationalobjective_folder_listing.pt"
         permission="zope2.View"
         />
+    <!-- The view rendering the table displayed in imio-folder-listing, aka imio-folder-listing-table for IOperationalObjective -->
+    <browser:page
+        for="imio.project.pst.content.operational.IOperationalObjective"
+        class="imio.project.core.browser.views.ContainerFolderListingView"
+        name="imio-folder-listing-table"
+        template="operationalobjective_folder_listing_table.pt"
+        permission="zope2.View" />
 
     <!-- Printing views -->
     <browser:page

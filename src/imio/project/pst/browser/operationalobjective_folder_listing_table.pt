@@ -1,0 +1,48 @@
+<tal:defines define="batch python: view.listRenderedContainedElements(portal_types=('pstaction', ),
+                                                                      widgets_to_render=('planned_end_date',
+                                                                                         'progress',
+                                                                                         'health_indicator',
+                                                                                         'manager', ),
+                                                                      b_size=30,
+                                                                      b_start=request.get('b_start', 0))">
+<div id="imio-folder-listing">
+<table id="imio-folder-listing-table"
+       class="listing"
+       tal:condition="batch">
+    <tr>
+        <th class='operational_actions_header_title' i18n:translate="" i18n:domain="plone">Title</th>
+        <th class='operational_actions_header_description' i18n:translate="" i18n:domain="plone">Description</th>
+        <th class='operational_actions_header_state' i18n:translate="" i18n:domain="plone">State</th>
+        <th class='operational_actions_header_planned_end_date' i18n:translate="" i18n:domain="imio.project.core">Planned end date</th>
+        <th class='operational_actions_header_progress' i18n:translate="" i18n:domain="imio.project.core">Progress</th>
+        <th class='operational_actions_header_health_indicator' i18n:translate="" i18n:domain="imio.project.pst">Health indicator</th>
+        <th class='operational_actions_header_manager' i18n:translate="" i18n:domain="imio.project.core">Manager</th>
+    </tr>
+    <tr tal:repeat="renderedElement batch">
+        <tal:defines define="obj python: renderedElement.context;
+                             widgets renderedElement/widgets;">
+        <td><a href="#" class="#"
+               tal:content="obj/title"
+               tal:attributes="href obj/absolute_url;
+                               class string:contenttype-${obj/portal_type};">Object title</a></td>
+        <td tal:content="obj/Description">Object description</td>
+        <td tal:content="obj/@@plone_context_state/workflow_state" i18n:translate="" i18n:domain="plone">State</td>
+        <td tal:content="structure python: widgets.get('planned_end_date').render()">Planned end date</td>
+        <td><span class="widget-progress-percent">%</span><span tal:replace="structure python: widgets.get('progress').render()">Progress indicator</span></td>
+        <td tal:content="structure python: widgets.get('health_indicator').render()"
+            tal:attributes="class string:health_indicator_color_${obj/health_indicator}">Health indicator</td>
+        <td tal:content="structure python: widgets.get('manager').render()">Manager</td>
+        </tal:defines>
+    </tr>
+</table>
+
+<div metal:use-macro="context/batch_macros/macros/navigation" />
+
+<p class="discreet"
+   tal:condition="not: batch"
+   i18n:domain="plone"
+   i18n:translate="description_no_items_in_folder">
+    There are currently no items in this folder.
+</p>
+</div>
+</tal:defines>
