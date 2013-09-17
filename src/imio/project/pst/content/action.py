@@ -8,10 +8,12 @@ from zope.schema.vocabulary import SimpleTerm, SimpleVocabulary
 from plone.app.textfield import RichText
 from plone.autoform import directives as form
 from plone.dexterity.schema import DexteritySchemaPolicy
+from collective.z3cform.rolefield.field import LocalRolesToPrincipals
 
 from imio.project.core.content.project import IProject
 from imio.project.core.content.project import Project
 from imio.project.pst import _
+from imio.project.core import _ as _c
 
 
 @provider(IContextAwareDefaultFactory)
@@ -26,6 +28,17 @@ class IPSTAction(IProject):
     """
         PSTAction schema, field ordering
     """
+    manager = LocalRolesToPrincipals(
+        title=_c(u"Manager"),
+        description=_c(u"Choose principals that will manage this project."),
+        roles_to_assign=('Editor', 'Reviewer'),
+        value_type=schema.Choice(
+            vocabulary='imio.project.core.content.project.manager_vocabulary'
+        ),
+        defaultFactory=default_manager,
+        required=True,
+    )
+
     health_indicator = schema.Choice(
         title=_(u'Health indicator'),
         description=_(u"Choose a health level."),
@@ -70,8 +83,8 @@ class IPSTAction(IProject):
     form.omitted('result_indicator')
 
 
-# We add a default value for the pstaction
-IPSTAction['manager'].defaultFactory = default_manager
+# We add a default value for the pstaction. This works but changes on other field params don't work.
+#IPSTAction['manager'].defaultFactory = default_manager
 
 
 class PSTAction(Project):
