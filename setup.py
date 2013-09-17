@@ -48,6 +48,7 @@ setup(
         'communesplone.layout',
         'imio.project.core',
         'imio.migrator',
+        'plone.directives.form',
         'plonetheme.imioapps',
     ],
     extras_require={

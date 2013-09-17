@@ -1,43 +1,26 @@
 # -*- coding: utf-8 -*-
 
-from zope.interface import implements, provider
+from zope.component import provideAdapter
+from zope.interface import implements, Invalid
 from zope import schema
-from zope.schema.interfaces import IVocabularyFactory, IContextAwareDefaultFactory
+from zope.schema.interfaces import IVocabularyFactory
 from zope.schema.vocabulary import SimpleTerm, SimpleVocabulary
+from z3c.form import validator
 
 from plone.app.textfield import RichText
 from plone.autoform import directives as form
 from plone.dexterity.schema import DexteritySchemaPolicy
-from collective.z3cform.rolefield.field import LocalRolesToPrincipals
+from plone.directives.form import default_value
 
 from imio.project.core.content.project import IProject
 from imio.project.core.content.project import Project
 from imio.project.pst import _
-from imio.project.core import _ as _c
-
-
-@provider(IContextAwareDefaultFactory)
-def default_manager(context):
-    if not context.portal_type == 'operationalobjective':
-        return []
-    member_groups = context.portal_membership.getAuthenticatedMember().getGroups()
-    return [g for g in context.manager if g in member_groups]
 
 
 class IPSTAction(IProject):
     """
         PSTAction schema, field ordering
     """
-    manager = LocalRolesToPrincipals(
-        title=_c(u"Manager"),
-        description=_c(u"Choose principals that will manage this project."),
-        roles_to_assign=('Editor', 'Reviewer'),
-        value_type=schema.Choice(
-            vocabulary='imio.project.core.content.project.manager_vocabulary'
-        ),
-        defaultFactory=default_manager,
-        required=True,
-    )
 
     health_indicator = schema.Choice(
         title=_(u'Health indicator'),
@@ -85,6 +68,32 @@ class IPSTAction(IProject):
 
 # We add a default value for the pstaction. This works but changes on other field params don't work.
 #IPSTAction['manager'].defaultFactory = default_manager
+
+@default_value(field=IPSTAction['manager'])
+def default_manager(data):
+    if not data.context.portal_type == 'operationalobjective':
+        return []
+    member_groups = data.context.portal_membership.getAuthenticatedMember().getGroups()
+    return [g for g in data.context.manager if g in member_groups]
+
+
+class ManagerFieldValidator(validator.SimpleFieldValidator):
+    def validate(self, value):
+        #we call the already defined validators
+        super(ManagerFieldValidator, self).validate(value)
+        member_groups = self.context.portal_membership.getAuthenticatedMember().getGroups()
+
+        def check_intersection():
+            for manager in value:
+                if manager in member_groups:
+                    return True
+            return False
+
+        if not value or not check_intersection():
+            raise Invalid(_(u"You must choose at least one group of which you are a member"))
+
+validator.WidgetValidatorDiscriminators(ManagerFieldValidator, field=IPSTAction['manager'])
+provideAdapter(ManagerFieldValidator)
 
 
 class PSTAction(Project):
