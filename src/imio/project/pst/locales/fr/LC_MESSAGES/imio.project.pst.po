@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-09-17 14:23+0000\n"
+"POT-Creation-Date: 2013-09-17 14:41+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,8 +19,8 @@ msgstr ""
 msgid "Administrative responsible"
 msgstr "Responsable administratif"
 
-#: ./browser/operationalobjective_folder_listing.pt:39
-#: ./browser/strategicobjective_folder_listing.pt:36
+#: ./browser/operationalobjective_folder_listing.pt:17
+#: ./browser/strategicobjective_folder_listing.pt:17
 msgid "Annexes"
 msgstr "Annexes"
 
@@ -72,7 +72,7 @@ msgstr "Générer le tableau de bord"
 msgid "Generate the status report as office document"
 msgstr "Générer le tableau de bord au format bureautique"
 
-#: ./browser/operationalobjective_folder_listing.pt:12
+#: ./browser/operationalobjective_folder_listing_table.pt:17
 #: ./content/action.py:26
 msgid "Health indicator"
 msgstr "Indice de santé"
@@ -89,7 +89,7 @@ msgstr "Objectif opérationnel"
 msgid "PSTAction"
 msgstr "Action"
 
-#: ./browser/strategicobjective_folder_listing.pt:12
+#: ./browser/strategicobjective_folder_listing_table.pt:15
 #: ./content/operational.py:25
 msgid "Representative responsible"
 msgstr "Responsable mandataire"
@@ -107,12 +107,12 @@ msgid "You must choose at least one group of which you are a member"
 msgstr "Vous devez choisir au moins un des groupes dont vous êtes membre"
 
 #. Default: "Actions"
-#: ./browser/operationalobjective_folder_listing.pt:3
+#: ./browser/operationalobjective_folder_listing.pt:9
 msgid "operational_legend_actions"
 msgstr "Actions à mener"
 
 #. Default: "Operational objectives"
-#: ./browser/strategicobjective_folder_listing.pt:3
+#: ./browser/strategicobjective_folder_listing.pt:9
 msgid "strategic_legend_operational_objectives"
 msgstr "Objectifs opérationnels"
 

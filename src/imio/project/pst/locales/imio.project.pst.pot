@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-09-17 14:23+0000\n"
+"POT-Creation-Date: 2013-09-17 14:41+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,8 +21,8 @@ msgstr ""
 msgid "Administrative responsible"
 msgstr ""
 
-#: ./browser/operationalobjective_folder_listing.pt:39
-#: ./browser/strategicobjective_folder_listing.pt:36
+#: ./browser/operationalobjective_folder_listing.pt:17
+#: ./browser/strategicobjective_folder_listing.pt:17
 msgid "Annexes"
 msgstr ""
 
@@ -74,7 +74,7 @@ msgstr ""
 msgid "Generate the status report as office document"
 msgstr ""
 
-#: ./browser/operationalobjective_folder_listing.pt:12
+#: ./browser/operationalobjective_folder_listing_table.pt:17
 #: ./content/action.py:26
 msgid "Health indicator"
 msgstr ""
@@ -91,7 +91,7 @@ msgstr ""
 msgid "PSTAction"
 msgstr ""
 
-#: ./browser/strategicobjective_folder_listing.pt:12
+#: ./browser/strategicobjective_folder_listing_table.pt:15
 #: ./content/operational.py:25
 msgid "Representative responsible"
 msgstr ""
@@ -109,12 +109,12 @@ msgid "You must choose at least one group of which you are a member"
 msgstr ""
 
 #. Default: "Actions"
-#: ./browser/operationalobjective_folder_listing.pt:3
+#: ./browser/operationalobjective_folder_listing.pt:9
 msgid "operational_legend_actions"
 msgstr ""
 
 #. Default: "Operational objectives"
-#: ./browser/strategicobjective_folder_listing.pt:3
+#: ./browser/strategicobjective_folder_listing.pt:9
 msgid "strategic_legend_operational_objectives"
 msgstr ""
 

@@ -1,7 +1,6 @@
 <tal:defines define="batch python: view.listRenderedContainedElements(widgets_to_render=('priority',
                                                                                          'planned_end_date',
                                                                                          'representative_responsible', ),
-                                                                      b_size=30,
                                                                       b_start=request.get('b_start', 0))">
 <div id="imio-folder-listing">
 <table id="imio-folder-listing-table"

@@ -3,7 +3,6 @@
                                                                                          'progress',
                                                                                          'health_indicator',
                                                                                          'manager', ),
-                                                                      b_size=30,
                                                                       b_start=request.get('b_start', 0))">
 <div id="imio-folder-listing">
 <table id="imio-folder-listing-table"
