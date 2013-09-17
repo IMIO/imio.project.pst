@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-08-26 07:51+0000\n"
+"POT-Creation-Date: 2013-09-17 14:23+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,35 +15,36 @@ msgstr ""
 "Domain: imio.project.pst\n"
 "X-is-fallback-for: fr-fr fr-be fr-ca\n"
 
-#: ./content/operational.py:33
+#: ./content/operational.py:35
 msgid "Administrative responsible"
 msgstr "Responsable administratif"
 
-#: ./browser/imio_container.pt:38
+#: ./browser/operationalobjective_folder_listing.pt:39
+#: ./browser/strategicobjective_folder_listing.pt:36
 msgid "Annexes"
 msgstr "Annexes"
 
-#: ./browser/views.py:230
+#: ./browser/views.py:211
 msgid "Cannot split this category '${cat}' with ' - ' separator"
 msgstr ""
 
-#: ./content/action.py:23
+#: ./content/action.py:27
 msgid "Choose a health level."
 msgstr "Choisir un indice de santé."
 
-#: ./content/operational.py:34
+#: ./content/operational.py:36
 msgid "Choose principals that will be administrative responsible for this project."
 msgstr "Sélectionner les utilisateurs qui seront responsable administratif de l'objectif."
 
-#: ./content/operational.py:24
+#: ./content/operational.py:26
 msgid "Choose principals that will be representative responsible for this project."
 msgstr "Sélectionner les utilisateurs qui seront responsable mandataire de l'objectif."
 
-#: ./content/action.py:29
+#: ./content/action.py:33
 msgid "Details concerning the action health."
 msgstr "Décrire les détails concernant l'indice de santé."
 
-#: ./content/action.py:35
+#: ./content/action.py:39
 msgid "Enter work to do."
 msgstr "Décrire les tâches à réaliser."
 
@@ -72,11 +73,11 @@ msgid "Generate the status report as office document"
 msgstr "Générer le tableau de bord au format bureautique"
 
 #: ./browser/operationalobjective_folder_listing.pt:12
-#: ./content/action.py:22
+#: ./content/action.py:26
 msgid "Health indicator"
 msgstr "Indice de santé"
 
-#: ./content/action.py:28
+#: ./content/action.py:32
 msgid "Health indicator_details"
 msgstr "Détails de l'indice de santé"
 
@@ -89,7 +90,7 @@ msgid "PSTAction"
 msgstr "Action"
 
 #: ./browser/strategicobjective_folder_listing.pt:12
-#: ./content/operational.py:23
+#: ./content/operational.py:25
 msgid "Representative responsible"
 msgstr "Responsable mandataire"
 
@@ -97,9 +98,13 @@ msgstr "Responsable mandataire"
 msgid "StrategicObjective"
 msgstr "Objectif stratégique"
 
-#: ./content/action.py:34
+#: ./content/action.py:38
 msgid "Work plan"
 msgstr "Plan de travail"
+
+#: ./content/action.py:93
+msgid "You must choose at least one group of which you are a member"
+msgstr "Vous devez choisir au moins un des groupes dont vous êtes membre"
 
 #. Default: "Actions"
 #: ./browser/operationalobjective_folder_listing.pt:3
