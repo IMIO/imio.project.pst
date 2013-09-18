@@ -81,7 +81,14 @@ class ManagerFieldValidator(validator.SimpleFieldValidator):
     def validate(self, value):
         #we call the already defined validators
         super(ManagerFieldValidator, self).validate(value)
-        member_groups = self.context.portal_membership.getAuthenticatedMember().getGroups()
+        member = self.context.portal_membership.getAuthenticatedMember()
+        # bypass for Managers
+        if member.has_role('Manager'):
+            return True
+
+        # if not Manager, check if the user selected at least one of the groups
+        # he is member of or he will not be able to see the element after saving
+        member_groups = member.getGroups()
 
         def check_intersection():
             for manager in value:
