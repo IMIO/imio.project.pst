@@ -5,6 +5,7 @@ import logging
 logger = logging.getLogger('imio.project.pst')
 from datetime import datetime
 from Acquisition import aq_base
+from zope.component import getUtility
 from zope.event import notify
 from zope.lifecycleevent import ObjectCreatedEvent
 from plone.dexterity.utils import createContentInContainer
@@ -12,6 +13,8 @@ from Products.CMFCore.WorkflowCore import WorkflowException
 from Products.CMFPlone.utils import base_hasattr
 from Products.CMFPlone.utils import getToolByName
 from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
+from collective.contact.plonegroup.config import ORGANIZATIONS_REGISTRY, FUNCTIONS_REGISTRY
+from plone.registry.interfaces import IRegistry
 logger = logging.getLogger('imio.project.pst: setuphandlers')
 
 
@@ -55,6 +58,8 @@ def post_install(context):
     _setDefaultApplicationSecurity(context)
     # reorder tabs, make sure 'contacts' is after 'PST'
     _reorderTabs(context)
+    # Add a mandatory function in contact plonegroup configuration
+    _updateContactPlonegroupConfiguration(context)
 
 
 def _addTemplatesDirectory(context):
@@ -235,6 +240,18 @@ def _setDefaultApplicationSecurity(context):
     site.contacts.manage_addLocalRoles("pst_managers", ('Reader', 'Editor', 'Reviewer', 'Contributor', ))
 
 
+def _updateContactPlonegroupConfiguration(context):
+    """
+        Add a mandatory function in plonegroup config
+    """
+    if isNotCurrentProfile(context):
+        return
+    registry = getUtility(IRegistry)
+    if 'actioneditor' not in registry[FUNCTIONS_REGISTRY]:
+        registry[FUNCTIONS_REGISTRY] += [{'fct_title': u"Gestionnaire d'action",
+                                         'fct_id': u'actioneditor'}]
+
+
 def _reorderTabs(context):
     """
        Reorder displayed tabs, 'PST' then 'contacts'
@@ -353,16 +370,23 @@ def addDemoOrganization(context):
           u'Service du Personnel', u'Service Propreté', u'Service Population',
           u'Service Travaux', u'Service de l\'Urbanisme', ]),
     ]
+    registry = getUtility(IRegistry)
+    group_ids = []
+
     for (organization_type, department, services) in sublevels:
         dep = createContentInContainer(own_orga, 'organization',
                                        **{'title': department,
                                           'organization_type': organization_type}
                                        )
         for service in services:
-            createContentInContainer(dep, 'organization',
-                                     **{'title': service,
-                                        'organization_type': u'service'}
-                                     )
+            obj = createContentInContainer(dep, 'organization',
+                                           **{'title': service,
+                                              'organization_type': u'service'}
+                                           )
+            if department == 'Services' and obj.UID() not in registry[ORGANIZATIONS_REGISTRY]:
+                group_ids.append(obj.UID())
+    if group_ids:
+        registry[ORGANIZATIONS_REGISTRY] = registry[ORGANIZATIONS_REGISTRY] + group_ids
 
 
 def addDemoData(context):

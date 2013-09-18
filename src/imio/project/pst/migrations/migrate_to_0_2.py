@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 
-import logging
-logger = logging.getLogger('imio.project.pst')
-
+from zope.component import getUtility
 from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
 
 from imio.migrator.migrator import Migrator
 from imio.project.core.events import _updateParentsBudgetInfos
+import logging
+logger = logging.getLogger('imio.project.pst')
 
 
 class Migrate_To_0_2(Migrator):
@@ -76,26 +76,40 @@ class Migrate_To_0_2(Migrator):
             _updateParentsBudgetInfos(obj)
         logger.info('Done.')
 
+    def _updateContactPlonegroupConfiguration(self):
+        """ Update plonegroup configuration """
+        logger.info("Updating plonegroup configuration...")
+        from collective.contact.plonegroup.config import ORGANIZATIONS_REGISTRY
+        from plone.registry.interfaces import IRegistry
+        registry = getUtility(IRegistry)
+        if not registry[ORGANIZATIONS_REGISTRY]:
+            path = '%s/contacts/plonegroup-organization/services' % '/'.join(self.portal.getPhysicalPath())
+            brains = self.portal.portal_catalog(portal_type=['organization'],
+                                                path={"query": path, "depth": 1},
+                                                sort_on='sortable_title')
+            registry[ORGANIZATIONS_REGISTRY] = [brain.UID for brain in brains]
+        logger.info("Done.")
+
     def run(self):
         logger.info('Migrating to imio.project.pst 0.2...')
 
         # reinstall first so changes on allowed_content_types are taken into account
         self.reinstall(profiles=[u'profile-imio.project.pst:default', ])
-        # now do specific migration
+        # We want to be able to add 'Files' in the 'pst' projectspace;
         self._addFileTypeToProjectSpaceConstrainedTypes()
+        # Initialize new fields for existing objects;
         self._initNewFields()
+        # Update budgetInfos related annotations
         self._updateBudgetInfosAnnotations()
+        # Update contact plonegroup configuration
+        self._updateContactPlonegroupConfiguration()
         # update portal_catalog as icons are no more defined on the portal_type
         self.refreshDatabase()
+        # Display duration
         self.finish()
 
 
 def migrate(context):
-    '''This migration function:
-
-       1) We want to be able to add 'Files' in the 'pst' projectspace;
-       2) Initialize new fields for existing objects;
-       3) Update budgetInfos related annotations;
-       4) Reinstall.
+    '''
     '''
     Migrate_To_0_2(context).run()
