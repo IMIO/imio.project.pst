@@ -45,6 +45,7 @@ setup(
         'Plone',
         'Pillow',
         'appy',
+        'beautifulsoup4',
         'communesplone.layout',
         'imio.project.core',
         'imio.migrator',
