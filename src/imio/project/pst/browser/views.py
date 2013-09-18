@@ -9,6 +9,7 @@ from zope.schema.interfaces import IVocabularyFactory
 from Products.Five import BrowserView
 from Products.statusmessages.interfaces import IStatusMessage
 from plone.app.textfield import RichTextValue
+from bs4 import BeautifulSoup as Soup
 
 from imio.project.pst import _
 
@@ -118,6 +119,21 @@ class DocumentGenerationMethods(object):
         if isinstance(value, unicode):
             value = value.encode('utf8')
         return value
+
+    def widget(self, fieldname, obj=None):
+        """
+            get the rendered widget
+        """
+        if not obj:
+            obj = self.context
+        obj_view = getMultiAdapter((obj, obj.REQUEST), name=u'view')
+        obj_view.updateFieldsFromSchemata()
+        for field in obj_view.fields:
+            if field != fieldname:
+                obj_view.fields = obj_view.fields.omit(field)
+        obj_view.updateWidgets()
+        widget = obj_view.widgets[fieldname]
+        return widget.render()
 
     def vocValue(self, vocabulary, fieldname, obj=None):
         """
@@ -275,6 +291,22 @@ class DocumentGenerationOOMethods(DocumentGenerationMethods):
         brains = pcat(portal_type='pstaction',
                       path={'query': '/'.join(self.context.getPhysicalPath()), 'depth': 1})
         return [brain.getObject() for brain in brains]
+
+    def getOwnBudget(self, obj=None):
+        """
+            get the own rendered widget
+        """
+        template = self.widget('budget', obj=obj)
+        soup = Soup(template)
+        return soup.find('fieldset').find('table')
+
+    def getChildrenBudget(self, obj=None):
+        """
+            get the children budget
+        """
+        template = self.widget('budget', obj)
+        soup = Soup(template)
+        return soup.find('table', class_='budgetinfos_table')
 
 
 class DocumentGenerationPSTActionMethods(DocumentGenerationMethods):
