@@ -85,6 +85,8 @@ class Migrate_To_0_2(Migrator):
         self._addFileTypeToProjectSpaceConstrainedTypes()
         self._initNewFields()
         self._updateBudgetInfosAnnotations()
+        # update portal_catalog as icons are no more defined on the portal_type
+        self.refreshDatabase()
         self.finish()
 
 

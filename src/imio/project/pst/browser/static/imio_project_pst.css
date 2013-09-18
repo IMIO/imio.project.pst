@@ -28,3 +28,20 @@ body.template-view.portaltype-strategicobjective td.table_widget_label {
 .widget-progress-percent {
     float: right;
 }
+
+/* icons on types */
+.icons-on .contenttype-strategicobjective, .icons-on .contenttype-operationalobjective, .icons-on .contenttype-pstaction {
+    display: inline-block;
+    line-height: 1.2em;
+    padding-left: 20px;
+}
+
+.icons-on .contenttype-operationalobjective {
+    background: url("++resource++imio.project.pst/pst_icons_sprite.png") no-repeat scroll 0 0 transparent;
+}
+.icons-on .contenttype-strategicobjective {
+    background: url("++resource++imio.project.pst/pst_icons_sprite.png") no-repeat scroll 0 -431px transparent;
+}
+.icons-on .contenttype-pstaction {
+    background: url("++resource++imio.project.pst/pst_icons_sprite.png") no-repeat scroll 0 -216px transparent;
+}
