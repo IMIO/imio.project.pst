@@ -106,8 +106,8 @@ class ManagerFieldValidator(validator.SimpleFieldValidator):
         if not check_intersection():
             raise Invalid(_(u"You must choose at least one group of which you are a member"))
 
-validator.WidgetValidatorDiscriminators(ManagerFieldValidator, field=IPSTAction['manager'])
-provideAdapter(ManagerFieldValidator)
+#validator.WidgetValidatorDiscriminators(ManagerFieldValidator, field=IPSTAction['manager'])
+#provideAdapter(ManagerFieldValidator)
 
 
 class PSTAction(Project):
