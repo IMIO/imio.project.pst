@@ -124,6 +124,19 @@ class Migrate_To_0_2(Migrator):
             edit.form_instance.applyChanges({'manager': new_managers})
         logger.info('Done.')
 
+    def _replaceProjectWorkflow(self):
+        """ Replace the project workflow by new ones """
+        from plone.app.workflow.remap import remap_workflow
+        # pstaction
+        mapping = {'created': 'created', 'ongoing': 'ongoing', 'stopped': 'stopped', 'terminated': 'terminated',
+                   'to_be_scheduled': 'to_be_scheduled'}
+        remap_workflow(self.context, ['pstaction'], ['pst_action_workflow'], state_map=mapping)
+        # objectives
+        mapping = {'created': 'created', 'ongoing': 'ongoing', 'stopped': 'achieved', 'terminated': 'achieved',
+                   'to_be_scheduled': 'ongoing'}
+        remap_workflow(self.context, ['strategicobjective', 'operationalobjective'], ['pst_objective_workflow'],
+                       state_map=mapping)
+
     def run(self):
         logger.info('Migrating to imio.project.pst 0.2...')
 
@@ -139,6 +152,8 @@ class Migrate_To_0_2(Migrator):
         self._updateContactPlonegroupConfiguration()
         # Update manager field of operationalobjective and pstaction
         self._updateManagerField()
+        # Replace the project_workflow by new ones
+        self._replaceProjectWorkflow()
         # update portal_catalog as icons are no more defined on the portal_type
         self.refreshDatabase()
         # Display duration
