@@ -63,6 +63,12 @@ class Migrate_To_0_2(Migrator):
             # 'budget' is now an empty datagridfield
             obj.budget_comments = obj.budget
             obj.budget = []
+            if obj.budget_comments is not None and isinstance(obj.budget_comments, str):
+                obj.budget_comments = obj.budget_comments.decode('utf8')
+            if obj.observation is not None and isinstance(obj.observation, str):
+                obj.observation = obj.observation.decode('utf8')
+            if obj.portal_type == 'pstaction' and obj.work_plan is not None and isinstance(obj.work_plan, str):
+                obj.work_plan = obj.work_plan.decode('utf8')
         logger.info('Done.')
 
     def _updateBudgetInfosAnnotations(self):
@@ -90,6 +96,34 @@ class Migrate_To_0_2(Migrator):
             registry[ORGANIZATIONS_REGISTRY] = [brain.UID for brain in brains]
         logger.info("Done.")
 
+    def _updateManagerField(self):
+        """ Update manager field """
+        logger.info("Updating manager field.")
+        from zope.component import getMultiAdapter
+        path = '%s/contacts/plonegroup-organization/services' % '/'.join(self.portal.getPhysicalPath())
+        brains = self.portal.portal_catalog(portal_type=['organization'],
+                                            path={"query": path, "depth": 1},
+                                            sort_on='sortable_title')
+        group_uids = dict([(brain.id, '%s_actioneditor' % brain.UID) for brain in brains])
+        brains = self.portal.portal_catalog(portal_type=['operationalobjective',
+                                                         'pstaction', ])
+        for brain in brains:
+            obj = brain.getObject()
+            new_managers = [group_uids[id] for id in obj.manager]
+            edit = getMultiAdapter((obj, obj.REQUEST), name=u'edit')
+
+            class Dummy(object):
+                def __init__(self, context):
+                    self.context = context
+
+            # needed to avoid invalid attribute in BudgetTypeVocabulary class
+            obj.REQUEST['PUBLISHED'] = Dummy(obj)
+            # form fields and widgets update
+            edit.form_instance.update()
+            # save "extracted data"
+            edit.form_instance.applyChanges({'manager': new_managers})
+        logger.info('Done.')
+
     def run(self):
         logger.info('Migrating to imio.project.pst 0.2...')
 
@@ -103,6 +137,8 @@ class Migrate_To_0_2(Migrator):
         self._updateBudgetInfosAnnotations()
         # Update contact plonegroup configuration
         self._updateContactPlonegroupConfiguration()
+        # Update manager field of operationalobjective and pstaction
+        self._updateManagerField()
         # update portal_catalog as icons are no more defined on the portal_type
         self.refreshDatabase()
         # Display duration
