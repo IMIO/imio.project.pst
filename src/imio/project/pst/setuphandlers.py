@@ -247,7 +247,7 @@ def _updateContactPlonegroupConfiguration(context):
     if isNotCurrentProfile(context):
         return
     registry = getUtility(IRegistry)
-    if 'actioneditor' not in registry[FUNCTIONS_REGISTRY]:
+    if not [r for r in registry[FUNCTIONS_REGISTRY] if r['fct_id'] == 'actioneditor']:
         registry[FUNCTIONS_REGISTRY] += [{'fct_title': u"Gestionnaire d'action",
                                          'fct_id': u'actioneditor'}]
 
