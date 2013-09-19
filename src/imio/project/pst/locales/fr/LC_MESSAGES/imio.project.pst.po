@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-09-17 14:41+0000\n"
+"POT-Creation-Date: 2013-09-19 21:20+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,7 +24,7 @@ msgstr "Responsable administratif"
 msgid "Annexes"
 msgstr "Annexes"
 
-#: ./browser/views.py:211
+#: ./browser/views.py:227
 msgid "Cannot split this category '${cat}' with ' - ' separator"
 msgstr ""
 
@@ -102,7 +102,11 @@ msgstr "Objectif stratégique"
 msgid "Work plan"
 msgstr "Plan de travail"
 
-#: ./content/action.py:93
+#: ./content/action.py:90
+msgid "You must choose at least one group"
+msgstr "Vous devez au moins choisir un groupe"
+
+#: ./content/action.py:107
 msgid "You must choose at least one group of which you are a member"
 msgstr "Vous devez choisir au moins un des groupes dont vous êtes membre"
 

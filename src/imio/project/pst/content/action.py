@@ -86,9 +86,16 @@ class ManagerFieldValidator(validator.SimpleFieldValidator):
         if member.has_role('Manager'):
             return True
 
+        if not value:
+            raise Invalid(_(u"You must choose at least one group"))
+
+        member_groups = member.getGroups()
+        # bypass for pst editors
+        if 'pst_editors' in member_groups or 'pst_managers' in member_groups:
+            return True
+
         # if not Manager, check if the user selected at least one of the groups
         # he is member of or he will not be able to see the element after saving
-        member_groups = member.getGroups()
 
         def check_intersection():
             for manager in value:
@@ -96,7 +103,7 @@ class ManagerFieldValidator(validator.SimpleFieldValidator):
                     return True
             return False
 
-        if not value or not check_intersection():
+        if not check_intersection():
             raise Invalid(_(u"You must choose at least one group of which you are a member"))
 
 validator.WidgetValidatorDiscriminators(ManagerFieldValidator, field=IPSTAction['manager'])
