@@ -296,15 +296,16 @@ def adaptDefaultPortal(context):
         frontpage.setText("<p></p><p>L'application de gestion du PST contient actuellement les <strong>fonctionnalités "
                           "suivantes</strong>:</p><ul><li>encodage des objectifs stratégiques</li><li>encodage des "
                           "objectifs opérationnels</li><li>encodage des actions</li><li>génération au format "
-                          "bureautique</li><li>gestion des contacts (services traitants, échevins)</li><li>workflow "
-                          "de traitement sur tous les types d'éléments</li><li>...</li></ul><p> </p><p>Les <strong>"
-                          "documents générés</strong> sont:</p><ul><li>l'ensemble du PST</li><li>le tableau de bord "
-                          "général du PST</li><li>la fiche de l'objectif opérationnel</li><li>la fiche de l'objectif "
-                          "stratégique</li></ul><p> </p><p>Les <strong>fonctionnalités à venir</strong>:</p><ul><li>"
-                          "gestion des tâches</li><li>gestion des droits par service</li><li>lien avec la gestion du "
-                          "collège / conseil</li><li>ajout de tableau de bord dans l'application</li><li>...</li>"
-                          "</ul><p></p><p> </p><p><a href='pst'>Cliquez ici pour accéder à l'application</a></p>"
-                          "<p class='discreet'>Vous devez disposer d'un nom d'utilisateur et d'un mot de passe</p>",
+                          "bureautique</li><li>gestion des contacts (services traitants, échevins)</li><li>gestion des "
+                          "droits par service</li><li>workflow de traitement sur tous les types d'éléments</li>"
+                          "<li>...</li></ul><p> </p><p>Les <strong>documents générés</strong> sont:</p><ul>"
+                          "<li>l'ensemble du PST</li><li>le tableau de bord général du PST</li><li>la fiche de "
+                          "l'objectif opérationnel</li><li>la fiche de l'objectif stratégique</li></ul><p></p><p>Les "
+                          "<strong>fonctionnalités à venir</strong>:</p><ul><li>gestion des tâches</li><li>lien avec "
+                          "la gestion du collège / conseil</li><li>ajout de tableau de bord dans l'application</li>"
+                          "<li>...</li></ul><p></p><p> </p><p><a href='pst'>Cliquez ici pour accéder à l'application"
+                          "</a></p><p class='discreet'>Vous devez disposer d'un nom d'utilisateur et d'un mot de passe"
+                          "</p>",
                           mimetype='text/html')
         #remove the presentation mode
         frontpage.setPresentation(False)
