@@ -11,6 +11,7 @@ Changelog
 - Rely on imio.migrator
 - Use "categories" field on operationalobjective
 - Added "observation" field to define the objective context
+- Replaced budget text field by datagrid field
 
 0.1 (2013-08-06)
 ----------------
