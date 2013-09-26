@@ -248,8 +248,8 @@ def _updateContactPlonegroupConfiguration(context):
         return
     registry = getUtility(IRegistry)
     if not [r for r in registry[FUNCTIONS_REGISTRY] if r['fct_id'] == 'actioneditor']:
-        registry[FUNCTIONS_REGISTRY] += [{'fct_title': u"Gestionnaire d'action",
-                                         'fct_id': u'actioneditor'}]
+        registry[FUNCTIONS_REGISTRY] = registry[FUNCTIONS_REGISTRY] + [{'fct_title': u"Gestionnaire d'action",
+                                                                        'fct_id': u'actioneditor'}]
 
 
 def _reorderTabs(context):
