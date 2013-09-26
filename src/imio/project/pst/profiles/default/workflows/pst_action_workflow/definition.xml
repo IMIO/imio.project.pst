@@ -67,6 +67,7 @@
                   acquired="False">
    <permission-role>Manager</permission-role>
    <permission-role>Site Administrator</permission-role>
+   <permission-role>Editor</permission-role>
   </permission-map>
   <permission-map name="Modify portal content"
                   acquired="False">
@@ -107,6 +108,7 @@
                   acquired="False">
    <permission-role>Manager</permission-role>
    <permission-role>Site Administrator</permission-role>
+   <permission-role>Editor</permission-role>
   </permission-map>
   <permission-map name="Modify portal content"
                   acquired="False">
@@ -145,6 +147,7 @@
                   acquired="False">
    <permission-role>Manager</permission-role>
    <permission-role>Site Administrator</permission-role>
+   <permission-role>Editor</permission-role>
   </permission-map>
   <permission-map name="Modify portal content"
                   acquired="False">
@@ -184,6 +187,7 @@
                   acquired="False">
    <permission-role>Manager</permission-role>
    <permission-role>Site Administrator</permission-role>
+   <permission-role>Editor</permission-role>
   </permission-map>
   <permission-map name="Modify portal content"
                   acquired="False">
