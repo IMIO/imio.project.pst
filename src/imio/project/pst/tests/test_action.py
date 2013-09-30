@@ -11,6 +11,3 @@ class TestAction(FunctionalTestCase):
         """Custom shared utility setup for tests."""
         super(TestAction, self).setUp()
 
-    def test_setup(self):
-        """ Test the setup """
-        self.assertIn('pst', self.portal.objectIds())

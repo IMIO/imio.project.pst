@@ -27,3 +27,8 @@ class TestInstall(IntegrationTestCase):
         from imio.project.pst.interfaces import IImioProjectPSTLayer
         from plone.browserlayer import utils
         self.failUnless(IImioProjectPSTLayer in utils.registered_layers())
+
+    def test_installation(self):
+        """ Test the installation setup """
+        self.assertIn('pst', self.portal.objectIds())
+        self.assertIn('contacts', self.portal.objectIds())
