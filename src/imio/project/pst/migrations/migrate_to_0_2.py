@@ -91,7 +91,7 @@ class Migrate_To_0_2(Migrator):
         if not registry[ORGANIZATIONS_REGISTRY]:
             path = '%s/contacts/plonegroup-organization/services' % '/'.join(self.portal.getPhysicalPath())
             brains = self.portal.portal_catalog(portal_type=['organization'],
-                                                path={"query": path, "depth": 1},
+                                                path={"query": path},
                                                 sort_on='sortable_title')
             registry[ORGANIZATIONS_REGISTRY] = [brain.UID for brain in brains]
         logger.info("Done.")
@@ -100,17 +100,35 @@ class Migrate_To_0_2(Migrator):
         """ Update manager field """
         logger.info("Updating manager field.")
         from zope.component import getMultiAdapter
+        group_uids = {}
         path = '%s/contacts/plonegroup-organization/services' % '/'.join(self.portal.getPhysicalPath())
-        brains = self.portal.portal_catalog(portal_type=['organization'],
-                                            path={"query": path, "depth": 1},
-                                            sort_on='sortable_title')
-        group_uids = dict([(brain.id, '%s_actioneditor' % brain.UID) for brain in brains])
+
+        def store_group_uids(pc, levels):
+            brains = pc(portal_type=['organization'],
+                        path={"query": '/'.join(levels), "depth": 1},
+                        sort_on='sortable_title')
+            for brain in brains:
+                next_levels = levels + [brain.id]
+                org_id = "-".join(next_levels[1:])
+                if org_id in group_uids.keys():
+                    logger.error("'id' already exists" % org_id)
+                group_uids[org_id] = '%s_actioneditor' % brain.UID
+                if len(levels) <= 2:
+                    store_group_uids(pc, next_levels)
+
+        store_group_uids(self.portal.portal_catalog, [path])
+
         brains = self.portal.portal_catalog(portal_type=['operationalobjective',
                                                          'pstaction', ])
         for brain in brains:
             obj = brain.getObject()
-            logger.debug("-> %s" % '/'.join(obj.getPhysicalPath()))
-            new_managers = [group_uids[id] for id in obj.manager]
+            #logger.info("-> %s" % '/'.join(obj.getPhysicalPath()))
+            new_managers = []
+            for id in obj.manager:
+                try:
+                    new_managers.append(group_uids[id])
+                except KeyError:
+                    logger.warn("Old manager value '%s' not in group" % id)
             edit = getMultiAdapter((obj, obj.REQUEST), name=u'edit')
 
             class Dummy(object):
