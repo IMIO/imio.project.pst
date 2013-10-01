@@ -109,6 +109,7 @@ class Migrate_To_0_2(Migrator):
                                                          'pstaction', ])
         for brain in brains:
             obj = brain.getObject()
+            logger.debug("-> %s" % '/'.join(obj.getPhysicalPath()))
             new_managers = [group_uids[id] for id in obj.manager]
             edit = getMultiAdapter((obj, obj.REQUEST), name=u'edit')
 
