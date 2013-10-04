@@ -96,6 +96,19 @@ class Migrate_To_0_2(Migrator):
             registry[ORGANIZATIONS_REGISTRY] = [brain.UID for brain in brains]
         logger.info("Done.")
 
+    def _cleanLocalRoles(self):
+        """ Clean bad local roles """
+        logger.info("Clean bad local roles.")
+        principal_ids = self.portal.acl_users.getUserIds() + self.portal.acl_users.getGroupIds() + ['admin']
+        brains = self.portal.portal_catalog(portal_type=['operationalobjective',
+                                                         'pstaction', ])
+        for brain in brains:
+            obj = brain.getObject()
+            bad_principals = [lr[0] for lr in obj.get_local_roles() if lr[0] not in principal_ids]
+            if bad_principals:
+                logger.info("'%s': bad '%s'" % (brain.getPath(), bad_principals))
+            obj.manage_delLocalRoles(bad_principals)
+
     def _updateManagerField(self):
         """ Update manager field """
         logger.info("Updating manager field.")
@@ -169,6 +182,8 @@ class Migrate_To_0_2(Migrator):
         self._updateBudgetInfosAnnotations()
         # Update contact plonegroup configuration
         self._updateContactPlonegroupConfiguration()
+        # Clean local roles of operationalobjective and pstaction
+        self._cleanLocalRoles()
         # Update manager field of operationalobjective and pstaction
         self._updateManagerField()
         # Replace the project_workflow by new ones
