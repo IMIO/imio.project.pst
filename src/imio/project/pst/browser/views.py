@@ -251,7 +251,7 @@ class DocumentGenerationSOMethods(DocumentGenerationMethods):
         """
         try:
             return self.vocValue(u'imio.project.core.content.project.categories_vocabulary',
-                                 'categories').split(' - ')[0]
+                                 'categories').split(' - ')[1]
         except IndexError:
             return ''
 
