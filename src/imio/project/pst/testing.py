@@ -41,6 +41,7 @@ class IntegrationTestCase(unittest2.TestCase):
         self.pst = self.portal['pst']
 
     def login(self, username):
+        logout()
         login(self.portal, username)
 
     def addUsers(self):
