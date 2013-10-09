@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 """ Content action tests for this package."""
 
-from imio.project.pst.testing import IntegrationTestCase, BaseTestCase
+from plone.app.testing import TEST_USER_NAME
+from imio.project.pst.testing import IntegrationTestCase
 from imio.project.pst.content import action
 
 
-class TestAction(IntegrationTestCase, BaseTestCase):
+class TestAction(IntegrationTestCase):
     """Test installation of imio.project.pst into Plone."""
 
     def setUp(self):
@@ -13,7 +14,6 @@ class TestAction(IntegrationTestCase, BaseTestCase):
         super(TestAction, self).setUp()
         self.addUsers()
         self.addObjects()
-#        self.portal.portal_catalog.clearFindAndRebuild()
 
     def test_default_manager(self):
         """
@@ -31,7 +31,7 @@ class TestAction(IntegrationTestCase, BaseTestCase):
         self.assertEquals(action.default_manager(Dummy(oo)), [])
         # we login as a service member
         self.login('personnel')
-        self.assertEquals(action.default_manager(Dummy(oo)), ['%s_actioneditor' % self.services['personnel'].UID()])
+        self.assertEquals(action.default_manager(Dummy(oo)), [self.groups['Personnel']])
         # we login as a service member, the context isn't the good one
         self.login('personnel')
         self.assertEquals(action.default_manager(Dummy(act)), [])
@@ -42,9 +42,13 @@ class TestAction(IntegrationTestCase, BaseTestCase):
         """
         oo = self.pst['os1']['oo1-1']
         act = oo['a1-1-1']
-        stored_value = act.manager
+        # bypass for Managers
+        self.login(TEST_USER_NAME)
+        member = self.portal.portal_membership.getAuthenticatedMember()
+        self.assertTrue(member.has_role('Manager'))
         validator = action.ManagerFieldValidator(act, None, None,
                                                  action.IPSTAction['manager'], None)
-        validator.validate(stored_value)
+        validator.validate([])
+        validator.validate([self.groups['Compta']])
 #        with self.assertRaises(Invalid) as raised:
 #            validator.validate(new_value_without_first)

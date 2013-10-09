@@ -40,22 +40,6 @@ class IntegrationTestCase(unittest2.TestCase):
         self.portal = self.layer['portal']
         self.pst = self.portal['pst']
 
-
-class FunctionalTestCase(unittest2.TestCase):
-    """Base class for functional tests."""
-
-    layer = PST_TEST_PROFILE_FUNCTIONAL
-
-    def setUp(self):
-        super(FunctionalTestCase, self).setUp()
-        self.portal = self.layer['portal']
-
-
-class BaseTestCase(object):
-    """
-        Base class containing helpers method
-    """
-
     def login(self, username):
         login(self.portal, username)
 
@@ -69,13 +53,14 @@ class BaseTestCase(object):
         self.portal.acl_users.source_groups.addPrincipalToGroup("psteditor", "pst_editors")
         # add contacts, plone groups, users
         self.portal.contacts.invokeFactory('organization', id=PLONEGROUP_ORG)
-        own_orga = self.portal.contacts['plonegroup-organization']
+        own_orga = self.portal.contacts[PLONEGROUP_ORG]
         createContentInContainer(own_orga, 'organization', **{'title': u'Services'})
-        self.services = self.portal['contacts'][PLONEGROUP_ORG]['services']
+        self.groups = {}
         registry = getUtility(IRegistry)
         for service in (u'Personnel', u'Compta'):
             obj = createContentInContainer(own_orga['services'], 'organization', **{'title': service})
             registry[ORGANIZATIONS_REGISTRY] = registry[ORGANIZATIONS_REGISTRY] + [obj.UID()]
+            self.groups[service] = '%s_actioneditor' % obj.UID()
             user = service.lower()
             self.portal.portal_registration.addMember(id=user, password=user)
             self.portal.acl_users.source_groups.addPrincipalToGroup(user, "%s_actioneditor" % obj.UID())
@@ -147,3 +132,13 @@ class BaseTestCase(object):
                 for action in operationalobjective['actions']:
                     createContentInContainer(operationalObj, "pstaction", **action)
         logout()
+
+
+class FunctionalTestCase(unittest2.TestCase):
+    """Base class for functional tests."""
+
+    layer = PST_TEST_PROFILE_FUNCTIONAL
+
+    def setUp(self):
+        super(FunctionalTestCase, self).setUp()
+        self.portal = self.layer['portal']
