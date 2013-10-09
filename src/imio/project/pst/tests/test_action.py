@@ -13,6 +13,7 @@ class TestAction(IntegrationTestCase, BaseTestCase):
         super(TestAction, self).setUp()
         self.addUsers()
         self.addObjects()
+#        self.portal.portal_catalog.clearFindAndRebuild()
 
     def test_default_manager(self):
         """
@@ -34,3 +35,16 @@ class TestAction(IntegrationTestCase, BaseTestCase):
         # we login as a service member, the context isn't the good one
         self.login('personnel')
         self.assertEquals(action.default_manager(Dummy(act)), [])
+
+    def test_manager_validator(self):
+        """
+            test default values
+        """
+        oo = self.pst['os1']['oo1-1']
+        act = oo['a1-1-1']
+        stored_value = act.manager
+        validator = action.ManagerFieldValidator(act, None, None,
+                                                 action.IPSTAction['manager'], None)
+        validator.validate(stored_value)
+#        with self.assertRaises(Invalid) as raised:
+#            validator.validate(new_value_without_first)
