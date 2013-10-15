@@ -14,6 +14,7 @@ from Products.CMFPlone.utils import base_hasattr
 from Products.CMFPlone.utils import getToolByName
 from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
 from collective.contact.plonegroup.config import ORGANIZATIONS_REGISTRY, FUNCTIONS_REGISTRY
+from plone.app.textfield.value import RichTextValue
 from plone.registry.interfaces import IRegistry
 logger = logging.getLogger('imio.project.pst: setuphandlers')
 
@@ -390,6 +391,13 @@ def addDemoOrganization(context):
         registry[ORGANIZATIONS_REGISTRY] = registry[ORGANIZATIONS_REGISTRY] + group_ids
 
 
+def _richtextval(text):
+    """ Return a RichTextValue """
+    if not isinstance(text, unicode):
+        text = text.decode('utf8')
+    return RichTextValue(raw=text, mimeType='text/html', outputMimeType='text/html', encoding='utf-8')
+
+
 def addDemoData(context):
     """
        Add some demo data : some objectives and actions
@@ -411,7 +419,7 @@ def addDemoData(context):
         'title': u'Etre une commune où il fait bon vivre dans un cadre agréable, propre et en toute sécurité',
         'categories': u'volet-externe-dvp-politiques-proprete-securite-publique',
         'budget': [],
-        'budget_comments': u'',
+        'budget_comments': _richtextval(u''),
         'operationalobjectives': [
             {
                 'title': u'Assurer la propreté dans l\'ensemble des parcs de la commune de manière à '
@@ -428,9 +436,9 @@ def addDemoData(context):
                 'extra_concerned_people': u'Police\r\nAgents constatateurs communaux\r\nAgent sanctionnauteur communal'
                                           u'\r\nStewards urbains',
                 'budget': [],
-                'budget_comments': u'Fonds propres (en cours de chiffrage) et subventions (dossier introduit pour l\'engagement '
-                                   u'de deux stewards urbains)',
-                'comments': u'',
+                'budget_comments': _richtextval(u'Fonds propres (en cours de chiffrage) et subventions (dossier introduit pour l\'engagement '
+                                   u'de deux stewards urbains)'),
+                'comments': _richtextval(u''),
                 'actions': [
                     {'title': u'Installer des distributeurs de sacs "ramasse crottes", dans les parcs '
                               u'(entrée et sortie)',
@@ -442,11 +450,11 @@ def addDemoData(context):
                                 {'amount': 250.0, 'budget_type': 'federation-wallonie-bruxelles', 'year': currentYear},
                                 {'amount': 250.0, 'budget_type': 'province', 'year': currentYear},
                                 ],
-                     'budget_comments': u'1000 euros\r\nBudget ordinaire\r\nArticle budgétaire n°: ...',
+                     'budget_comments': _richtextval(u'1000 euros\r\nBudget ordinaire\r\nArticle budgétaire n°: ...'),
                      'health_indicator': u'risque',
                      'health_indicator_details': u'Agent traitant malade pour minimum 3 mois -> risque de retard dans '
                                                  u'le planning',
-                     'work_plan': u'<p>Les principales tâches à réaliser dans un ordre logique sont:<p>'
+                     'work_plan': _richtextval(u'<p>Les principales tâches à réaliser dans un ordre logique sont:</p>'
                                   u'<ul>'
                                   u'<li>inventaire des parcs existants sur la commune (Maxime/Patrick) finalisé pour le '
                                   u'01 06 2013</li>'
@@ -456,8 +464,8 @@ def addDemoData(context):
                                   u'<li>placement des distributeurs (Maxime/Patrick) pour le 01 12 2013</li>'
                                   u'<li>gestion des stocks de sachets (Michèle)</li>'
                                   u'<li>réapprovisionnement (Maxime)</li>'
-                                  u'</ul>',
-                     'comments': u'Attendre le placement des nouvelles poubelles (avant le 01 12 2013)'
+                                  u'</ul>'),
+                     'comments': _richtextval(u'Attendre le placement des nouvelles poubelles (avant le 01 12 2013)')
                      },
                 ]
             },
@@ -468,7 +476,7 @@ def addDemoData(context):
         'title': u'Etre une commune qui offre un service public moderne, efficace et efficient',
         'categories': u'volet-interne-adm-generale-amelioration-administration',
         'budget': [],
-        'budget_comments': u'',
+        'budget_comments': _richtextval(u''),
         'operationalobjectives': [
             {
                 'title': u"Diminuer le temps d'attente de l'usager au guichet population de 20% dans les 12 mois "
@@ -485,7 +493,7 @@ def addDemoData(context):
                 'visible_for': [],
                 'extra_concerned_people': u'',
                 'budget': [],
-                'comments': u'',
+                'comments': _richtextval(u''),
                 'actions': [
                     {'title': u'Engager 2 agents pour le Service Population',
                      'manager': ['service-population', ],
@@ -501,8 +509,8 @@ def addDemoData(context):
                                 ],
                      'health_indicator': u'bon',
                      'health_indicator_details': u'',
-                     'work_plan': u'',
-                     'comments': u''
+                     'work_plan': _richtextval(u''),
+                     'comments': _richtextval(u''),
                      },
                     {'title': u'Créer un guichet supplémentaire dans les 3 mois',
                      'manager': ['service-population', ],
@@ -515,8 +523,8 @@ def addDemoData(context):
                                 ],
                      'health_indicator': u'bon',
                      'health_indicator_details': u'',
-                     'work_plan': u'',
-                     'comments': u''
+                     'work_plan': _richtextval(u''),
+                     'comments': _richtextval(u''),
                      },
                     {'title': u'Mettre en ligne sur le site internet différents documents "population" à télécharger '
                               u'de chez soi',
@@ -530,8 +538,8 @@ def addDemoData(context):
                                 ],
                      'health_indicator': u'bon',
                      'health_indicator_details': u'',
-                     'work_plan': u'',
-                     'comments': u''
+                     'work_plan': _richtextval(u''),
+                     'comments': _richtextval(u''),
                      },
                 ]
             },
@@ -552,7 +560,7 @@ def addDemoData(context):
                 'visible_for': [],
                 'extra_concerned_people': u'',
                 'budget': [],
-                'comments': u'',
+                'comments': _richtextval(u''),
                 'actions': [
                     {'title': u'Placer des pictogrammes de guidance',
                      'manager': ['service-population', ],
@@ -565,8 +573,8 @@ def addDemoData(context):
                                 ],
                      'health_indicator': u'bon',
                      'health_indicator_details': u'',
-                     'work_plan': u'',
-                     'comments': u''
+                     'work_plan': _richtextval(u''),
+                     'comments': _richtextval(u''),
                      },
                     {'title': u'Installer une rampe d\'accès pour PMR',
                      'manager': ['service-population', 'service-travaux'],
@@ -579,8 +587,8 @@ def addDemoData(context):
                                 ],
                      'health_indicator': u'risque',
                      'health_indicator_details': u'Problème, retard dû à l\'exécution du marché',
-                     'work_plan': u'',
-                     'comments': u''
+                     'work_plan': _richtextval(u''),
+                     'comments': _richtextval(u''),
                      },
                     {'title': u'Mettre en place des parmanences sur rendez-vous',
                      'manager': ['service-population', ],
@@ -589,8 +597,8 @@ def addDemoData(context):
                      'budget': [],
                      'health_indicator': u'risque',
                      'health_indicator_details': u'',
-                     'work_plan': u'',
-                     'comments': u''
+                     'work_plan': _richtextval(u''),
+                     'comments': _richtextval(u''),
                      },
                 ]
             },
@@ -602,7 +610,7 @@ def addDemoData(context):
                  u'des gaz à effet de serre afin d\'assurer le développement durable',
         'categories': u'volet-externe-dvp-politiques-energie',
         'budget': [],
-        'budget_comments': u'',
+        'budget_comments': _richtextval(u''),
         'operationalobjectives': [
             {
                 'title': u'Doter la commune de compétences en matière énergétique pour fin 2014 compte tenu du budget',
@@ -619,7 +627,7 @@ def addDemoData(context):
                 'visible_for': ['service-travaux', ],
                 'extra_concerned_people': u'',
                 'budget': [],
-                'comments': u'',
+                'comments': _richtextval(u''),
                 'actions': [
                     {'title': u'Procéder à l\'engagement d\'un conseiller en énergie',
                      'manager': ['service-de-lurbanisme', ],
@@ -628,8 +636,8 @@ def addDemoData(context):
                      'budget': [],
                      'health_indicator': u'bon',
                      'health_indicator_details': u'',
-                     'work_plan': u'',
-                     'comments': u''
+                     'work_plan': _richtextval(u''),
+                     'comments': _richtextval(u'')
                      },
                     {'title': u'Répondre à l\'appel à projet "écopasseur" de la Wallonie',
                      'manager': ['service-de-lurbanisme', ],
@@ -642,8 +650,8 @@ def addDemoData(context):
                                 ],
                      'health_indicator': u'bon',
                      'health_indicator_details': u'',
-                     'work_plan': u'',
-                     'comments': u''
+                     'work_plan': _richtextval(u''),
+                     'comments': _richtextval(u'')
                      },
                     {'title': u'Inscrire systématiquement les agents du service travaux aux formations énergétiques',
                      'manager': ['service-population', ],
@@ -656,8 +664,8 @@ def addDemoData(context):
                                 ],
                      'health_indicator': u'bon',
                      'health_indicator_details': u'',
-                     'work_plan': u'',
-                     'comments': u''
+                     'work_plan': _richtextval(u''),
+                     'comments': _richtextval(u'')
                      },
                 ]
             },
@@ -676,7 +684,7 @@ def addDemoData(context):
                 'visible_for': [],
                 'extra_concerned_people': u'',
                 'budget': [],
-                'comments': u'',
+                'comments': _richtextval(u''),
                 'actions': [
                     {'title': u'Réaliser un audit énergétique de l\'administration communale',
                      'manager': ['service-de-lurbanisme', ],
@@ -689,8 +697,8 @@ def addDemoData(context):
                                 ],
                      'health_indicator': u'bon',
                      'health_indicator_details': u'',
-                     'work_plan': u'',
-                     'comments': u''
+                     'work_plan': _richtextval(u''),
+                     'comments': _richtextval(u'')
                      },
                     {'title': u'En fonction des résultats, procéder à l\'isolation du bâtiment',
                      'manager': ['service-travaux'],
@@ -703,8 +711,8 @@ def addDemoData(context):
                                 ],
                      'health_indicator': u'bon',
                      'health_indicator_details': u'',
-                     'work_plan': u'',
-                     'comments': u''
+                     'work_plan': _richtextval(u''),
+                     'comments': _richtextval(u'')
                      },
                     {'title': u'En fonction des résultats, installer une pompe à chaleur',
                      'manager': ['service-population', ],
@@ -717,8 +725,8 @@ def addDemoData(context):
                                 ],
                      'health_indicator': u'bon',
                      'health_indicator_details': u'Devenu sans objet compte tenu des résultats de l\'audit',
-                     'work_plan': u'',
-                     'comments': u''
+                     'work_plan': _richtextval(u''),
+                     'comments': _richtextval(u'')
                      },
                 ]
             },
