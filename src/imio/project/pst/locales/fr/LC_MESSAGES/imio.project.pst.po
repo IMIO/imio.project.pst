@@ -58,11 +58,11 @@ msgstr "Générer la fiche du contenu au format bureautique"
 
 #: ./profiles/default/actions.xml
 msgid "Generate the project"
-msgstr "Générer le PST"
+msgstr "Générer le document"
 
 #: ./profiles/default/actions.xml
 msgid "Generate the project as office document"
-msgstr "Générer le PST au format bureautique"
+msgstr "Générer au format bureautique"
 
 #: ./profiles/default/actions.xml
 msgid "Generate the status report"

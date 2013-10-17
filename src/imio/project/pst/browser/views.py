@@ -211,29 +211,57 @@ class DocumentGenerationPSTMethods(DocumentGenerationMethods):
         brains = pcat(portal_type='strategicobjective',
                       path={'query': '/'.join(self.context.getPhysicalPath()), 'depth': 1},
                       sort_on='getObjPositionInParent')
-        sos = {}
+        sos = []
         for brain in brains:
             obj = brain.getObject()
-            try:
-                (section, domain) = self.vocValue(u'imio.project.core.content.project.categories_vocabulary',
-                                                  'categories', obj=obj).split(' - ')
-                if section not in sos:
-                    sos[section] = {}
-                if domain not in sos[section]:
-                    sos[section][domain] = []
-                sos[section][domain].append(obj)
-            except ValueError:
-                smi = IStatusMessage(self.request)
-                smi.addStatusMessage(_("Cannot split this category '${cat}' with ' - ' separator",
-                                       mapping={'cat': obj.categories}), type='error')
-                print "Error splitting cat %s" % obj.categories
+            sos.append(obj)
         return sos
+
+    def getOperationalObjectives(self, so=None):
+        """
+            get a list of contained operational objectives
+        """
+        oos = self.getObjectDGM(so).getOperationalObjectives()
+        return oos
+
+    def getActions(self, oo=None):
+        """
+            return a list of contained pstactions
+        """
+        acts = self.getObjectDGM(oo).getActions()
+        return acts
 
 
 class DocumentGenerationSOMethods(DocumentGenerationMethods):
     """
         Methods used in document generation view, for strategicobjective
     """
+
+    def getStrategicObjectives(self):
+        """
+            get a list of unique contained strategic objective
+        """
+        return [self.context]
+
+    def getOperationalObjectives(self, obj=None):
+        """
+            get a list of contained operational objectives
+        """
+        pcat = self.context.portal_catalog
+        brains = pcat(portal_type='operationalobjective',
+                      path={'query': '/'.join(self.context.getPhysicalPath()), 'depth': 1},
+                      sort_on='getObjPositionInParent')
+        oos = []
+        for brain in brains:
+            oos.append(brain.getObject())
+        return oos
+
+    def getActions(self, oo=None):
+        """
+            return a list of contained pstactions
+        """
+        acts = self.getObjectDGM(oo).getActions()
+        return acts
 
     def getSection(self):
         """
@@ -255,24 +283,23 @@ class DocumentGenerationSOMethods(DocumentGenerationMethods):
         except IndexError:
             return ''
 
-    def getOperationalObjectives(self):
-        """
-            get a list of contained operational objectives
-        """
-        pcat = self.context.portal_catalog
-        brains = pcat(portal_type='operationalobjective',
-                      path={'query': '/'.join(self.context.getPhysicalPath()), 'depth': 1},
-                      sort_on='getObjPositionInParent')
-        oos = []
-        for brain in brains:
-            oos.append(brain.getObject())
-        return oos
-
 
 class DocumentGenerationOOMethods(DocumentGenerationMethods):
     """
         Methods used in document generation view, for operationalobjective
     """
+
+    def getStrategicObjectives(self):
+        """
+            get a list of the parent strategic objective of the current operationalobjective
+        """
+        return [self.context.aq_inner.aq_parent]
+
+    def getOperationalObjectives(self, obj=None):
+        """
+            get a list of an unique contained operational objective
+        """
+        return [self.context]
 
     def formatResultIndicator(self, expected=True, sep='<br />'):
         """
@@ -283,7 +310,7 @@ class DocumentGenerationOOMethods(DocumentGenerationMethods):
             rows.append("%s = %d" % (row['label'].encode('utf8'), expected and row['value'] or row['reached_value']))
         return sep.join(rows)
 
-    def getActions(self):
+    def getActions(self, oo=None):
         """
             return a list of contained pstactions
         """
@@ -314,6 +341,18 @@ class DocumentGenerationPSTActionMethods(DocumentGenerationMethods):
         Methods used in document generation view, for PSTAction
     """
 
+    def getStrategicObjectives(self):
+        """
+            get a list of the parent strategic objective of the current operationalobjective
+        """
+        return [self.context.aq_inner.aq_parent.aq_inner.aq_parent]
+
+    def getOperationalObjectives(self, obj=None):
+        """
+            get a list of an unique contained operational objective
+        """
+        return [self.context.aq_inner.aq_parent]
+
     def getSOParent(self):
         """
             get the strategic objective parent
@@ -326,3 +365,9 @@ class DocumentGenerationPSTActionMethods(DocumentGenerationMethods):
         """
         return '<p class="fa-attr-valeur-%s">%s</p>' % (self.context.health_indicator.encode('utf8'),
                                                         self.get('health_indicator_details').replace('\r\n', '<br />'))
+
+    def getActions(self, oo=None):
+        """
+            return a list of contained pstactions
+        """
+        return [self.context]

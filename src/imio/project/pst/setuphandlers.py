@@ -82,10 +82,10 @@ def _addTemplatesDirectory(context):
     folder = site.templates
     do_transitions(folder, transitions=['publish_internally'], logger=logger)
     templates = [
-        ('pstaction_template', 'fichepstaction.odt'),
-        ('operationalobjective_template', 'ficheoo.odt'),
-        ('pst_template', 'pst.odt'),
-        ('status_template', 'tableaubord.odt'),
+        #('pstaction_template', 'fichepstaction.odt'),
+        #('operationalobjective_template', 'ficheoo.odt'),
+        ('pst_template', 'pst_full.odt'),
+        #('status_template', 'tableaubord.odt'),
     ]
     templates_dir = os.path.join(context._profile_path, 'templates')
     for id, filename in templates:
