@@ -1,10 +1,13 @@
 # -*- coding: utf-8 -*-
 
+from zope.annotation import IAnnotations
 from zope.component import getUtility
 from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
 
 from imio.migrator.migrator import Migrator
+from imio.project.core.config import CHILDREN_BUDGET_INFOS_ANNOTATION_KEY
 from imio.project.core.events import _updateParentsBudgetInfos
+
 import logging
 logger = logging.getLogger('imio.project.pst')
 
@@ -59,6 +62,8 @@ class Migrate_To_0_2(Migrator):
                                                          'pstaction', ])
         for brain in brains:
             obj = brain.getObject()
+            if obj.budget is not None and isinstance(obj.budget, list):
+                continue
             # old value of 'budget' is now moved to 'budget_comments' and field
             # 'budget' is now an empty datagridfield
             obj.budget_comments = obj.budget
@@ -74,12 +79,33 @@ class Migrate_To_0_2(Migrator):
     def _updateBudgetInfosAnnotations(self):
         """Update annotations regarding budgetInfos."""
         logger.info("Updating budgetinfos annotations...")
-        brains = self.portal.portal_catalog(portal_type=['strategicobjective',
-                                                         'operationalobjective',
+        pw = self.portal.portal_workflow
+
+        def _cleanParentsBudgetInfos(obj):
+            """
+              Update budget infos on every parents, cleaning sub objects info
+            """
+            objUID = obj.UID()
+            parent = obj.aq_inner.aq_parent
+            while not parent.portal_type == 'projectspace':
+                parent_annotations = IAnnotations(parent)
+                # here we are sure that parent has an annotation with key CHILDREN_BUDGET_INFOS_ANNOTATION_KEY
+                # and that it has a key with given p_obj UID, but as remove event is called several times,
+                # we need to check...
+                if (CHILDREN_BUDGET_INFOS_ANNOTATION_KEY in parent_annotations and
+                   objUID in parent_annotations[CHILDREN_BUDGET_INFOS_ANNOTATION_KEY]):
+                    del parent_annotations[CHILDREN_BUDGET_INFOS_ANNOTATION_KEY][objUID]
+                parent = parent.aq_inner.aq_parent
+
+        brains = self.portal.portal_catalog(portal_type=['operationalobjective',
                                                          'pstaction', ])
         for brain in brains:
             obj = brain.getObject()
-            _updateParentsBudgetInfos(obj)
+            workflows = pw.getWorkflowsFor(obj)
+            if not workflows or workflows[0].initial_state != pw.getInfoFor(obj, 'review_state'):
+                _updateParentsBudgetInfos(obj)
+            else:
+                _cleanParentsBudgetInfos(obj)
         logger.info('Done.')
 
     def _updateContactPlonegroupConfiguration(self):
@@ -106,7 +132,7 @@ class Migrate_To_0_2(Migrator):
             obj = brain.getObject()
             bad_principals = [lr[0] for lr in obj.get_local_roles() if lr[0] not in principal_ids]
             if bad_principals:
-                logger.info("'%s': bad '%s'" % (brain.getPath(), bad_principals))
+                logger.info("'%s': bad principal '%s'" % (brain.getPath(), bad_principals))
             obj.manage_delLocalRoles(bad_principals)
 
     def _updateManagerField(self):
@@ -135,6 +161,8 @@ class Migrate_To_0_2(Migrator):
                                                          'pstaction', ])
         for brain in brains:
             obj = brain.getObject()
+            if not obj.manager or obj.manager[0].endswith('_actioneditor'):
+                continue
             #logger.info("-> %s" % '/'.join(obj.getPhysicalPath()))
             new_managers = []
             for id in obj.manager:
@@ -159,15 +187,18 @@ class Migrate_To_0_2(Migrator):
     def _replaceProjectWorkflow(self):
         """ Replace the project workflow by new ones """
         from plone.app.workflow.remap import remap_workflow
+        pw = self.portal.portal_workflow
         # pstaction
-        mapping = {'created': 'created', 'ongoing': 'ongoing', 'stopped': 'stopped', 'terminated': 'terminated',
-                   'to_be_scheduled': 'to_be_scheduled'}
-        remap_workflow(self.context, ['pstaction'], ['pst_action_workflow'], state_map=mapping)
+        if 'pst_action_workflow' not in pw.getChainForPortalType('pstaction'):
+            mapping = {'created': 'created', 'ongoing': 'ongoing', 'stopped': 'stopped', 'terminated': 'terminated',
+                       'to_be_scheduled': 'to_be_scheduled'}
+            remap_workflow(self.context, ['pstaction'], ['pst_action_workflow'], state_map=mapping)
         # objectives
-        mapping = {'created': 'created', 'ongoing': 'ongoing', 'stopped': 'achieved', 'terminated': 'achieved',
-                   'to_be_scheduled': 'ongoing'}
-        remap_workflow(self.context, ['strategicobjective', 'operationalobjective'], ['pst_objective_workflow'],
-                       state_map=mapping)
+        if 'pst_objective_workflow' not in pw.getChainForPortalType('operationalobjective'):
+            mapping = {'created': 'created', 'ongoing': 'ongoing', 'stopped': 'achieved', 'terminated': 'achieved',
+                       'to_be_scheduled': 'ongoing'}
+            remap_workflow(self.context, ['strategicobjective', 'operationalobjective'], ['pst_objective_workflow'],
+                           state_map=mapping)
 
     def run(self):
         logger.info('Migrating to imio.project.pst 0.2...')
