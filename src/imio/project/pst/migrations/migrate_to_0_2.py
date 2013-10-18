@@ -95,6 +95,7 @@ class Migrate_To_0_2(Migrator):
                 if (CHILDREN_BUDGET_INFOS_ANNOTATION_KEY in parent_annotations and
                    objUID in parent_annotations[CHILDREN_BUDGET_INFOS_ANNOTATION_KEY]):
                     del parent_annotations[CHILDREN_BUDGET_INFOS_ANNOTATION_KEY][objUID]
+                    logger.info("Budget annotation for '%s' cleaned on parent '%s'" % (objUID, parent.Title()))
                 parent = parent.aq_inner.aq_parent
 
         brains = self.portal.portal_catalog(portal_type=['operationalobjective',
