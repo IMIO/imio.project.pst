@@ -86,6 +86,7 @@ class DocumentGenerationMethods(object):
         self.request = request
         self.plone_view = getMultiAdapter((self.context, self.request), name=u'plone')
         self.plone_portal_state_view = getMultiAdapter((self.context, self.request), name=u'plone_portal_state')
+        self.p_trans = context.portal_transforms
 
     def __call__(self):
         return None
@@ -100,7 +101,8 @@ class DocumentGenerationMethods(object):
         """
             transform text field in html format
         """
-        return self.get(fieldname, obj=obj).replace('\r\n', '<br />')
+        #return self.get(fieldname, obj=obj).replace('\r\n', '<br />')
+        return self.p_trans.convert('text_to_html', self.get(fieldname, obj=obj)).getData()
 
     def get(self, fieldname, obj=None, default=''):
         """
