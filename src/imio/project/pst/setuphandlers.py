@@ -407,6 +407,10 @@ def addDemoData(context):
     site = context.getSite()
 
     logger.info('Adding demo data')
+    groups = {}
+    for service in site.contacts['plonegroup-organization']['services'].objectValues():
+        if not service in groups:
+            groups[service.id] = '%s_actioneditor' % service.UID()
 
     # data has 3 levels :
     # - strategicobjective
@@ -431,8 +435,7 @@ def addDemoData(context):
                 'planned_end_date': datetime.date(datetime(2015, 12, 31)),
                 'representative_responsible': ['2eme-echevin', '3eme-echevin'],
                 'administrative_responsible': ['secretariat-communal'],
-                'manager': ['service-proprete', 'service-travaux'],
-                'visible_for': ['service-proprete', 'service-travaux'],
+                'manager': [groups['service-proprete'], groups['service-travaux']],
                 'extra_concerned_people': u'Police\r\nAgents constatateurs communaux\r\nAgent sanctionnauteur communal'
                                           u'\r\nStewards urbains',
                 'budget': [],
@@ -442,7 +445,7 @@ def addDemoData(context):
                 'actions': [
                     {'title': u'Installer des distributeurs de sacs "ramasse crottes", dans les parcs '
                               u'(entrée et sortie)',
-                     'manager': ['service-proprete', ],
+                     'manager': [groups['service-proprete'], ],
                      'planned_end_date': datetime.date(datetime(2014, 06, 30)),
                      'extra_concerned_people': u'La firme adjudicatrice au terme du marché public',
                      'budget': [{'amount': 12500.0, 'budget_type': 'wallonie', 'year': currentYear},
@@ -489,14 +492,13 @@ def addDemoData(context):
                 'planned_end_date': datetime.date(datetime(2013, 12, 31)),
                 'representative_responsible': ['1er-echevin'],
                 'administrative_responsible': ['secretariat-communal'],
-                'manager': ['service-population', 'service-etat-civil'],
-                'visible_for': [],
+                'manager': [groups['service-population'], groups['service-etat-civil']],
                 'extra_concerned_people': u'',
                 'budget': [],
                 'comments': _richtextval(u''),
                 'actions': [
                     {'title': u'Engager 2 agents pour le Service Population',
-                     'manager': ['service-population', ],
+                     'manager': [groups['service-population'], ],
                      'planned_end_date': datetime.date(datetime(2013, 06, 30)),
                      'extra_concerned_people': u'',
                      'budget': [{'amount': 500.0, 'budget_type': 'wallonie', 'year': currentYear},
@@ -513,7 +515,7 @@ def addDemoData(context):
                      'comments': _richtextval(u''),
                      },
                     {'title': u'Créer un guichet supplémentaire dans les 3 mois',
-                     'manager': ['service-population', ],
+                     'manager': [groups['service-population'], ],
                      'planned_end_date': datetime.date(datetime(2013, 06, 30)),
                      'extra_concerned_people': u'',
                      'budget': [{'amount': 500.0, 'budget_type': 'wallonie', 'year': currentYear},
@@ -528,7 +530,7 @@ def addDemoData(context):
                      },
                     {'title': u'Mettre en ligne sur le site internet différents documents "population" à télécharger '
                               u'de chez soi',
-                     'manager': ['service-population', ],
+                     'manager': [groups['service-population'], ],
                      'planned_end_date': datetime.date(datetime(2013, 9, 30)),
                      'extra_concerned_people': u'',
                      'budget': [{'amount': 1500.0, 'budget_type': 'wallonie', 'year': currentYear},
@@ -556,14 +558,13 @@ def addDemoData(context):
                 'planned_end_date': datetime.date(datetime(2013, 12, 31)),
                 'representative_responsible': ['1er-echevin'],
                 'administrative_responsible': ['secretariat-communal'],
-                'manager': ['service-population', 'service-etat-civil'],
-                'visible_for': [],
+                'manager': [groups['service-population'], groups['service-etat-civil']],
                 'extra_concerned_people': u'',
                 'budget': [],
                 'comments': _richtextval(u''),
                 'actions': [
                     {'title': u'Placer des pictogrammes de guidance',
-                     'manager': ['service-population', ],
+                     'manager': [groups['service-population'], ],
                      'planned_end_date': datetime.date(datetime(2013, 06, 30)),
                      'extra_concerned_people': u'',
                      'budget': [{'amount': 50.0, 'budget_type': 'wallonie', 'year': currentYear},
@@ -577,7 +578,7 @@ def addDemoData(context):
                      'comments': _richtextval(u''),
                      },
                     {'title': u'Installer une rampe d\'accès pour PMR',
-                     'manager': ['service-population', 'service-travaux'],
+                     'manager': [groups['service-population'], groups['service-travaux']],
                      'planned_end_date': datetime.date(datetime(2013, 06, 30)),
                      'extra_concerned_people': u'',
                      'budget': [{'amount': 600.0, 'budget_type': 'wallonie', 'year': currentYear+1},
@@ -591,7 +592,7 @@ def addDemoData(context):
                      'comments': _richtextval(u''),
                      },
                     {'title': u'Mettre en place des parmanences sur rendez-vous',
-                     'manager': ['service-population', ],
+                     'manager': [groups['service-population'], ],
                      'planned_end_date': datetime.date(datetime(2013, 9, 30)),
                      'extra_concerned_people': u'',
                      'budget': [],
@@ -623,14 +624,13 @@ def addDemoData(context):
                 'planned_end_date': datetime.date(datetime(2014, 12, 31)),
                 'representative_responsible': ['4eme-echevin'],
                 'administrative_responsible': ['secretariat-communal'],
-                'manager': ['service-de-lurbanisme'],
-                'visible_for': ['service-travaux', ],
+                'manager': [groups['service-de-lurbanisme']],
                 'extra_concerned_people': u'',
                 'budget': [],
                 'comments': _richtextval(u''),
                 'actions': [
                     {'title': u'Procéder à l\'engagement d\'un conseiller en énergie',
-                     'manager': ['service-de-lurbanisme', ],
+                     'manager': [groups['service-de-lurbanisme'], ],
                      'planned_end_date': datetime.date(datetime(2013, 06, 30)),
                      'extra_concerned_people': u'',
                      'budget': [],
@@ -640,7 +640,7 @@ def addDemoData(context):
                      'comments': _richtextval(u'')
                      },
                     {'title': u'Répondre à l\'appel à projet "écopasseur" de la Wallonie',
-                     'manager': ['service-de-lurbanisme', ],
+                     'manager': [groups['service-de-lurbanisme'], ],
                      'planned_end_date': datetime.date(datetime(2013, 06, 30)),
                      'extra_concerned_people': u'',
                      'budget': [{'amount': 0.0, 'budget_type': 'wallonie', 'year': currentYear},
@@ -654,7 +654,7 @@ def addDemoData(context):
                      'comments': _richtextval(u'')
                      },
                     {'title': u'Inscrire systématiquement les agents du service travaux aux formations énergétiques',
-                     'manager': ['service-population', ],
+                     'manager': [groups['service-population'], ],
                      'planned_end_date': datetime.date(datetime(2013, 9, 30)),
                      'extra_concerned_people': u'',
                      'budget': [{'amount': 550.0, 'budget_type': 'wallonie', 'year': currentYear},
@@ -680,14 +680,13 @@ def addDemoData(context):
                 'planned_end_date': datetime.date(datetime(2013, 12, 31)),
                 'representative_responsible': ['1er-echevin'],
                 'administrative_responsible': ['secretariat-communal'],
-                'manager': ['service-de-lurbanisme'],
-                'visible_for': [],
+                'manager': [groups['service-de-lurbanisme']],
                 'extra_concerned_people': u'',
                 'budget': [],
                 'comments': _richtextval(u''),
                 'actions': [
                     {'title': u'Réaliser un audit énergétique de l\'administration communale',
-                     'manager': ['service-de-lurbanisme', ],
+                     'manager': [groups['service-de-lurbanisme'], ],
                      'planned_end_date': datetime.date(datetime(2013, 06, 30)),
                      'extra_concerned_people': u'',
                      'budget': [{'amount': 500.0, 'budget_type': 'wallonie', 'year': currentYear},
@@ -701,7 +700,7 @@ def addDemoData(context):
                      'comments': _richtextval(u'')
                      },
                     {'title': u'En fonction des résultats, procéder à l\'isolation du bâtiment',
-                     'manager': ['service-travaux'],
+                     'manager': [groups['service-travaux']],
                      'planned_end_date': datetime.date(datetime(2013, 10, 31)),
                      'extra_concerned_people': u'',
                      'budget': [{'amount': 1000.0, 'budget_type': 'wallonie', 'year': currentYear},
@@ -715,7 +714,7 @@ def addDemoData(context):
                      'comments': _richtextval(u'')
                      },
                     {'title': u'En fonction des résultats, installer une pompe à chaleur',
-                     'manager': ['service-population', ],
+                     'manager': [groups['service-population'], ],
                      'planned_end_date': datetime.date(datetime(2013, 10, 31)),
                      'extra_concerned_people': u'',
                      'budget': [{'amount': 500.0, 'budget_type': 'europe', 'year': currentYear+2},

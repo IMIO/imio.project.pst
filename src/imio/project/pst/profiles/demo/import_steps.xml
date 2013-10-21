@@ -13,6 +13,7 @@
             title="Finalize demo for 'PST'"
             version="2013-06-10T11:00:00.00000">
         Finalize demo for 'PST'
+        <dependency step="imioprojectpst-addDemoOrganization" />
     </import-step>
     <import-step
             id="imioprojectpst-adaptDefaultPortal"
