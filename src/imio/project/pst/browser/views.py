@@ -7,14 +7,12 @@ from zope.component.interfaces import ComponentLookupError
 from zope.i18n import translate
 from zope.schema.interfaces import IVocabularyFactory
 from Products.Five import BrowserView
-from Products.statusmessages.interfaces import IStatusMessage
 from plone.app.textfield import RichTextValue
+from plone.memoize import forever
 from bs4 import BeautifulSoup as Soup
 
-from imio.project.pst import _
 
-
-def getOsTempFolder():
+def _getOsTempFolder():
     tmp = '/tmp'
     if os.path.exists(tmp) and os.path.isdir(tmp):
         res = tmp
@@ -25,6 +23,26 @@ def getOsTempFolder():
     else:
         raise "Sorry, I can't find a temp folder on your machine."
     return res
+
+
+@forever.memoize
+def _getWorkflowStates(portal, portal_type, skip_initial=False, skip_states=[]):
+    """
+        Return a list of a portal_type workflow states
+    """
+    pwkf = portal.portal_workflow
+    ret = []
+    workflows = pwkf.getChainForPortalType(portal_type)
+    if not workflows:
+        return ret
+    workflow = pwkf[workflows[0]]
+    for state in workflow.states:
+        if skip_initial and state == workflow.initial_state:
+            continue
+        if skip_states and state in skip_states:
+            continue
+        ret.append(state)
+    return ret
 
 
 class DocumentGenerationView(BrowserView):
@@ -52,7 +70,7 @@ class DocumentGenerationView(BrowserView):
             return "Cannot find the File object with id '%s'" % documentid
         document_obj = document_brains[0].getObject()
         file_type = 'odt'
-        tempFileName = '%s/%s_%f.%s' % (getOsTempFolder(), document_obj._at_uid, time.time(), file_type)
+        tempFileName = '%s/%s_%f.%s' % (_getOsTempFolder(), document_obj._at_uid, time.time(), file_type)
         # Prepare rendering context
         try:
             dgm = getMultiAdapter((self.context, self.request), name=u'document-generation-methods')
@@ -86,7 +104,7 @@ class DocumentGenerationMethods(object):
         self.request = request
         self.plone_view = getMultiAdapter((self.context, self.request), name=u'plone')
         self.plone_portal_state_view = getMultiAdapter((self.context, self.request), name=u'plone_portal_state')
-        self.p_trans = context.portal_transforms
+        self.portal = self.plone_portal_state_view.portal()
 
     def __call__(self):
         return None
@@ -102,7 +120,7 @@ class DocumentGenerationMethods(object):
             transform text field in html format
         """
         #return self.get(fieldname, obj=obj).replace('\r\n', '<br />')
-        return self.p_trans.convert('text_to_html', self.get(fieldname, obj=obj)).getData()
+        return self.portal.portal_transforms.convert('text_to_html', self.get(fieldname, obj=obj)).getData()
 
     def get(self, fieldname, obj=None, default=''):
         """
@@ -212,6 +230,7 @@ class DocumentGenerationPSTMethods(DocumentGenerationMethods):
         pcat = self.context.portal_catalog
         brains = pcat(portal_type='strategicobjective',
                       path={'query': '/'.join(self.context.getPhysicalPath()), 'depth': 1},
+                      review_state=_getWorkflowStates(self.portal, 'strategicobjective', skip_initial=True),
                       sort_on='getObjPositionInParent')
         sos = []
         for brain in brains:
@@ -252,6 +271,7 @@ class DocumentGenerationSOMethods(DocumentGenerationMethods):
         pcat = self.context.portal_catalog
         brains = pcat(portal_type='operationalobjective',
                       path={'query': '/'.join(self.context.getPhysicalPath()), 'depth': 1},
+                      review_state=_getWorkflowStates(self.portal, 'operationalobjective', skip_initial=True),
                       sort_on='getObjPositionInParent')
         oos = []
         for brain in brains:
@@ -318,7 +338,8 @@ class DocumentGenerationOOMethods(DocumentGenerationMethods):
         """
         pcat = self.context.portal_catalog
         brains = pcat(portal_type='pstaction',
-                      path={'query': '/'.join(self.context.getPhysicalPath()), 'depth': 1})
+                      path={'query': '/'.join(self.context.getPhysicalPath()), 'depth': 1},
+                      review_state=_getWorkflowStates(self.portal, 'pstaction', skip_initial=True))
         return [brain.getObject() for brain in brains]
 
     def getOwnBudget(self, obj=None):
