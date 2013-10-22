@@ -305,6 +305,22 @@ class DocumentGenerationSOMethods(DocumentGenerationMethods):
         except IndexError:
             return ''
 
+    def getOwnBudget(self, obj=None):
+        """
+            get the own rendered widget
+        """
+        template = self.widget('budget', obj=obj)
+        soup = Soup(template)
+        return soup.find('fieldset').find('table')
+
+    def getChildrenBudget(self, obj=None):
+        """
+            get the children budget
+        """
+        template = self.widget('budget', obj)
+        soup = Soup(template)
+        return soup.find('table', class_='budgetinfos_table')
+
 
 class DocumentGenerationOOMethods(DocumentGenerationMethods):
     """
@@ -341,22 +357,6 @@ class DocumentGenerationOOMethods(DocumentGenerationMethods):
                       path={'query': '/'.join(self.context.getPhysicalPath()), 'depth': 1},
                       review_state=_getWorkflowStates(self.portal, 'pstaction', skip_initial=True))
         return [brain.getObject() for brain in brains]
-
-    def getOwnBudget(self, obj=None):
-        """
-            get the own rendered widget
-        """
-        template = self.widget('budget', obj=obj)
-        soup = Soup(template)
-        return soup.find('fieldset').find('table')
-
-    def getChildrenBudget(self, obj=None):
-        """
-            get the children budget
-        """
-        template = self.widget('budget', obj)
-        soup = Soup(template)
-        return soup.find('table', class_='budgetinfos_table')
 
 
 class DocumentGenerationPSTActionMethods(DocumentGenerationMethods):
