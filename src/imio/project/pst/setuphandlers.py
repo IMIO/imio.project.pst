@@ -89,8 +89,8 @@ def _addTemplatesDirectory(context):
     ]
     templates_dir = os.path.join(context._profile_path, 'templates')
     for id, filename in templates:
-#        if not base_hasattr(folder, id):
-        if True:  # during development
+        if not base_hasattr(folder, id):
+#        if True:  # during development
             filename_path = os.path.join(templates_dir, filename)
             try:
                 f = open(filename_path, 'rb')
