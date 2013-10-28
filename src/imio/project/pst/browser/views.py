@@ -2,6 +2,7 @@ import os
 import time
 import appy.pod.renderer
 from StringIO import StringIO
+from zope.annotation import IAnnotations
 from zope.component import getMultiAdapter, getUtility
 from zope.component.interfaces import ComponentLookupError
 from zope.i18n import translate
@@ -10,6 +11,7 @@ from Products.Five import BrowserView
 from plone.app.textfield import RichTextValue
 from plone.memoize import forever
 from bs4 import BeautifulSoup as Soup
+from imio.project.core.config import CHILDREN_BUDGET_INFOS_ANNOTATION_KEY
 
 
 def _getOsTempFolder():
@@ -320,6 +322,17 @@ class DocumentGenerationSOMethods(DocumentGenerationMethods):
         template = self.widget('budget', obj)
         soup = Soup(template)
         return soup.find('table', class_='budgetinfos_table')
+
+    def hasChildrenBudget(self, obj):
+        """
+            has children budget ?
+        """
+        obj_annotations = IAnnotations(obj)
+        if CHILDREN_BUDGET_INFOS_ANNOTATION_KEY in obj_annotations:
+            for uid in obj_annotations[CHILDREN_BUDGET_INFOS_ANNOTATION_KEY]:
+                if obj_annotations[CHILDREN_BUDGET_INFOS_ANNOTATION_KEY][uid]:
+                    return True
+        return False
 
 
 class DocumentGenerationOOMethods(DocumentGenerationMethods):
