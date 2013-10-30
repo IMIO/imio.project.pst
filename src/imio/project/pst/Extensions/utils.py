@@ -12,7 +12,7 @@ def update_templates(self):
         ('pst_template', 'pst_full.odt'),
         #('status_template', 'tableaubord.odt'),
     ]
-
+    out = []
     folder = self.templates
     templates_dir = os.path.join(os.path.dirname(setuphandlers.__file__), 'profiles', 'default', 'templates')
     for id, filename in templates:
@@ -23,7 +23,9 @@ def update_templates(self):
             f.close()
         except:
             continue
+        out.append("Template '%s' updated with '%s'" % (id, filename))
         new_template = getattr(folder, id)
         new_template.setFile(file_content)
         new_template.setFilename(filename)
         new_template.setFormat("application/vnd.oasis.opendocument.text")
+    return '\n'.join(out)
