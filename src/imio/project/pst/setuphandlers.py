@@ -320,7 +320,8 @@ def adaptDefaultPortal(context):
     logger.info("Configuring CKeditor")
     try:
         from Products.CPUtils.Extensions.utils import configure_ckeditor
-        if not hasattr(site.portal_properties, 'ckeditor_properties') or site.portal_properties.site_properties.default_editor != 'CKeditor':
+        if (not hasattr(site.portal_properties, 'ckeditor_properties')
+           or site.portal_properties.site_properties.default_editor != 'CKeditor'):
             configure_ckeditor(site, custom='urban')
     except ImportError:
         pass
@@ -439,8 +440,8 @@ def addDemoData(context):
                 'extra_concerned_people': u'Police\r\nAgents constatateurs communaux\r\nAgent sanctionnauteur communal'
                                           u'\r\nStewards urbains',
                 'budget': [],
-                'budget_comments': _richtextval(u'Fonds propres (en cours de chiffrage) et subventions (dossier introduit pour l\'engagement '
-                                   u'de deux stewards urbains)'),
+                'budget_comments': _richtextval(u'Fonds propres (en cours de chiffrage) et subventions (dossier '
+                                                u'introduit pour l\'engagement de deux stewards urbains)'),
                 'comments': _richtextval(u''),
                 'actions': [
                     {'title': u'Installer des distributeurs de sacs "ramasse crottes", dans les parcs '
@@ -458,16 +459,16 @@ def addDemoData(context):
                      'health_indicator_details': u'Agent traitant malade pour minimum 3 mois -> risque de retard dans '
                                                  u'le planning',
                      'work_plan': _richtextval(u'<p>Les principales tâches à réaliser dans un ordre logique sont:</p>'
-                                  u'<ul>'
-                                  u'<li>inventaire des parcs existants sur la commune (Maxime/Patrick) finalisé pour le '
-                                  u'01 06 2013</li>'
-                                  u'<li>passation d\'un marché public pour commander les distributeurs (Michèle) '
-                                  u'finalisé pour le 01 09 2013</li>'
-                                  u'<li>réception des distributeurs à l\'excution du marché (Michèle)</li>'
-                                  u'<li>placement des distributeurs (Maxime/Patrick) pour le 01 12 2013</li>'
-                                  u'<li>gestion des stocks de sachets (Michèle)</li>'
-                                  u'<li>réapprovisionnement (Maxime)</li>'
-                                  u'</ul>'),
+                                               u'<ul>'
+                                               u'<li>inventaire des parcs existants sur la commune (Maxime/Patrick) '
+                                               u'finalisé pour le 01 06 2013</li>'
+                                               u'<li>passation d\'un marché public pour commander les distributeurs '
+                                               u'(Michèle) finalisé pour le 01 09 2013</li>'
+                                               u'<li>réception des distributeurs à l\'excution du marché (Michèle)</li>'
+                                               u'<li>placement des distributeurs (Maxime) pour le 01 12 2013</li>'
+                                               u'<li>gestion des stocks de sachets (Michèle)</li>'
+                                               u'<li>réapprovisionnement (Maxime)</li>'
+                                               u'</ul>'),
                      'comments': _richtextval(u'Attendre le placement des nouvelles poubelles (avant le 01 12 2013)')
                      },
                 ]
@@ -506,7 +507,8 @@ def addDemoData(context):
                                 {'amount': 215.0, 'budget_type': 'federation-wallonie-bruxelles', 'year': currentYear},
                                 {'amount': 250.0, 'budget_type': 'wallonie', 'year': currentYear+1},
                                 {'amount': 100.0, 'budget_type': 'europe', 'year': currentYear+1},
-                                {'amount': 115.50, 'budget_type': 'federation-wallonie-bruxelles', 'year': currentYear+1},
+                                {'amount': 115.50, 'budget_type': 'federation-wallonie-bruxelles',
+                                 'year': currentYear+1},
                                 {'amount': 1111.00, 'budget_type': 'province', 'year': currentYear+1},
                                 ],
                      'health_indicator': u'bon',
@@ -583,7 +585,8 @@ def addDemoData(context):
                      'extra_concerned_people': u'',
                      'budget': [{'amount': 600.0, 'budget_type': 'wallonie', 'year': currentYear+1},
                                 {'amount': 841.0, 'budget_type': 'europe', 'year': currentYear+1},
-                                {'amount': 1552.0, 'budget_type': 'federation-wallonie-bruxelles', 'year': currentYear+1},
+                                {'amount': 1552.0, 'budget_type': 'federation-wallonie-bruxelles',
+                                 'year': currentYear+1},
                                 {'amount': 123.0, 'budget_type': 'ville', 'year': currentYear+1},
                                 ],
                      'health_indicator': u'risque',
@@ -659,7 +662,8 @@ def addDemoData(context):
                      'extra_concerned_people': u'',
                      'budget': [{'amount': 550.0, 'budget_type': 'wallonie', 'year': currentYear},
                                 {'amount': 5250.0, 'budget_type': 'europe', 'year': currentYear},
-                                {'amount': 515.55, 'budget_type': 'federation-wallonie-bruxelles', 'year': currentYear+1},
+                                {'amount': 515.55, 'budget_type': 'federation-wallonie-bruxelles',
+                                 'year': currentYear+1},
                                 {'amount': 5215.0, 'budget_type': 'ville', 'year': currentYear+1},
                                 ],
                      'health_indicator': u'bon',
@@ -737,14 +741,16 @@ def addDemoData(context):
     pst = site.pst
     for strategicobjective in data:
         strategicObj = createContentInContainer(pst, "strategicobjective", **data[strategicobjective])
+        do_transitions(strategicObj, transitions=['begin'], logger=logger)
         for operationalobjective in data[strategicobjective]['operationalobjectives']:
             operationalObj = createContentInContainer(strategicObj,
                                                       "operationalobjective",
                                                       **operationalobjective)
+            do_transitions(operationalObj, transitions=['begin'], logger=logger)
             for action in operationalobjective['actions']:
-                createContentInContainer(operationalObj,
-                                         "pstaction",
-                                         **action)
+                action_obj = createContentInContainer(operationalObj,
+                                                      "pstaction", **action)
+                do_transitions(action_obj, transitions=['set_to_be_scheduled'], logger=logger)
 
     # add some test users
     _addPSTUsers(context)
