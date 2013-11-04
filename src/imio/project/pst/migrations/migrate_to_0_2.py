@@ -201,6 +201,18 @@ class Migrate_To_0_2(Migrator):
             remap_workflow(self.context, ['strategicobjective', 'operationalobjective'], ['pst_objective_workflow'],
                            state_map=mapping)
 
+    def _enable_versioning(self):
+        """ Activate versioning on our types """
+        portal_repository = self.portal.portal_repository
+        versionable_types = list(portal_repository.getVersionableContentTypes())
+        for type_id in ['strategicobjective', 'operationalobjective', 'pstaction']:
+            if type_id not in versionable_types:
+                versionable_types.append(type_id)
+                # Add automatic versioning policies to the type
+                for policy_id in ('at_edit_autoversion', 'version_on_revert'):
+                    portal_repository.addPolicyForContentType(type_id, policy_id)
+        portal_repository.setVersionableContentTypes(versionable_types)
+
     def run(self):
         logger.info('Migrating to imio.project.pst 0.2...')
 
@@ -220,6 +232,8 @@ class Migrate_To_0_2(Migrator):
         self._updateManagerField()
         # Replace the project_workflow by new ones
         self._replaceProjectWorkflow()
+        # Enable versioning on our types
+        self._enable_versioning()
         # update portal_catalog as icons are no more defined on the portal_type
         self.refreshDatabase()
         # Display duration
