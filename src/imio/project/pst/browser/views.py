@@ -155,7 +155,7 @@ class DocumentGenerationMethods(object):
                 obj_view.fields = obj_view.fields.omit(field)
         obj_view.updateWidgets()
         widget = obj_view.widgets[fieldname]
-        return widget.render()
+        return widget.render().encode('utf8')
 
     def vocValue(self, vocabulary, fieldname, obj=None):
         """
