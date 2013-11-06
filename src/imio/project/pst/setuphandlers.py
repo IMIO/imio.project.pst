@@ -5,7 +5,7 @@ import logging
 logger = logging.getLogger('imio.project.pst')
 from datetime import datetime
 from Acquisition import aq_base
-from zope.component import getUtility
+from zope.component import getUtility, getMultiAdapter
 from zope.event import notify
 from zope.lifecycleevent import ObjectCreatedEvent
 from plone.dexterity.utils import createContentInContainer
@@ -399,6 +399,19 @@ def _richtextval(text):
     return RichTextValue(raw=text, mimeType='text/html', outputMimeType='text/html', encoding='utf-8')
 
 
+def _edit_fields(obj, fields):
+    """
+        Call the edit form to update some fields
+        fields is a dict like {'manager': [a, b]}
+    """
+    edit = getMultiAdapter((obj, obj.REQUEST), name=u'edit', context=obj)
+    edit_form = edit.form_instance
+    # form fields and widgets update
+    edit_form.update()
+    # save "extracted data"
+    edit_form.applyChanges(fields)
+
+
 def addDemoData(context):
     """
        Add some demo data : some objectives and actions
@@ -737,20 +750,33 @@ def addDemoData(context):
         }
     }
 
+    # needed to avoid ComponentLookupError in edit_view.update()
+    from zope.event import notify
+    from zope.traversing.interfaces import BeforeTraverseEvent
+    notify(BeforeTraverseEvent(site, site.REQUEST))
+
     # create all this in a folder named 'pst' at the root of the Plone Site
     pst = site.pst
+    # needed to avoid invalid attribute in BudgetTypeVocabulary class
+    site.REQUEST['PUBLISHED'].context = pst
     for strategicobjective in data:
         strategicObj = createContentInContainer(pst, "strategicobjective", **data[strategicobjective])
         do_transitions(strategicObj, transitions=['begin'], logger=logger)
         for operationalobjective in data[strategicobjective]['operationalobjectives']:
+            managers = operationalobjective.pop('manager', '')
             operationalObj = createContentInContainer(strategicObj,
                                                       "operationalobjective",
                                                       **operationalobjective)
             do_transitions(operationalObj, transitions=['begin'], logger=logger)
+            if managers:
+                _edit_fields(operationalObj, {'manager': managers})
             for action in operationalobjective['actions']:
+                managers = action.pop('manager', '')
                 action_obj = createContentInContainer(operationalObj,
                                                       "pstaction", **action)
                 do_transitions(action_obj, transitions=['set_to_be_scheduled'], logger=logger)
+                if managers:
+                    _edit_fields(action_obj, {'manager': managers})
 
     # add some test users
     _addPSTUsers(context)
