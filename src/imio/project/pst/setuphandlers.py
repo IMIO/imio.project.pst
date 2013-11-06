@@ -758,7 +758,13 @@ def addDemoData(context):
     # create all this in a folder named 'pst' at the root of the Plone Site
     pst = site.pst
     # needed to avoid invalid attribute in BudgetTypeVocabulary class
-    site.REQUEST['PUBLISHED'].context = pst
+
+    class Dummy(object):
+        def __init__(self, context):
+            self.context = context
+
+    site.REQUEST['PUBLISHED'] = Dummy(pst)
+
     for strategicobjective in data:
         strategicObj = createContentInContainer(pst, "strategicobjective", **data[strategicobjective])
         do_transitions(strategicObj, transitions=['begin'], logger=logger)
