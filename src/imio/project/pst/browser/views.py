@@ -142,7 +142,7 @@ class DocumentGenerationMethods(object):
             value = value.encode('utf8')
         return value
 
-    def widget(self, fieldname, obj=None):
+    def widget(self, fieldname, obj=None, clean=False, soup=False):
         """
             get the rendered widget
         """
@@ -155,7 +155,20 @@ class DocumentGenerationMethods(object):
                 obj_view.fields = obj_view.fields.omit(field)
         obj_view.updateWidgets()
         widget = obj_view.widgets[fieldname]
-        return widget.render().encode('utf8')
+        rendered = widget.render()  # unicode
+        if clean or soup:
+            souped = Soup(rendered, "html.parser")
+            if clean:
+                for tag in souped.find_all(class_='required'):
+                    tag.extract()
+                for tag in souped.find_all(type='hidden'):
+                    tag.extract()
+            if soup:
+                return souped
+            else:
+                return str(souped)  # is utf8
+        else:
+            return rendered.encode('utf8')
 
     def vocValue(self, vocabulary, fieldname, obj=None):
         """
@@ -311,17 +324,15 @@ class DocumentGenerationSOMethods(DocumentGenerationMethods):
         """
             get the own rendered widget
         """
-        template = self.widget('budget', obj=obj)
-        soup = Soup(template)
-        return soup.find('fieldset').find('table')
+        soup = self.widget('budget', obj=obj, clean=True, soup=True)
+        return str(soup.find('fieldset').find('table'))
 
     def getChildrenBudget(self, obj=None):
         """
             get the children budget
         """
-        template = self.widget('budget', obj)
-        soup = Soup(template)
-        return soup.find('table', class_='budgetinfos_table')
+        soup = self.widget('budget', obj, clean=True, soup=True)
+        return str(soup.find('table', class_='budgetinfos_table'))
 
     def hasChildrenBudget(self, obj):
         """
