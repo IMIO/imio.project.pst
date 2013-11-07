@@ -49,6 +49,7 @@ setup(
         'communesplone.layout',
         'imio.project.core',
         'imio.migrator',
+        'plone.app.versioningbehavior',
         'plone.directives.form',
         'plonetheme.imioapps',
     ],
