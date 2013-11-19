@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<object name="portal_javascripts" meta_type="JavaScripts Registry">
+ <javascript cacheable="True"
+             compression="safe"
+             cookable="True"
+             enabled="True"
+             expression="python: not context.REQUEST['ACTUAL_URL'].endswith('/@@edit') and not context.REQUEST['ACTUAL_URL'].endswith('/edit') and not '++add++' in context.REQUEST['ACTUAL_URL']"
+             id="++resource++imio.project.pst/imio_project_pst.js"
+             inline="False"/>
+</object>

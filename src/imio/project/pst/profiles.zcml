@@ -1,0 +1,32 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:five="http://namespaces.zope.org/five"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    i18n_domain="imio.project.pst">
+
+    <genericsetup:registerProfile
+        name="default"
+        title="imio.project.pst"
+        directory="profiles/default"
+        description="Installs the imio.project.pst add-on."
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+        />
+
+    <genericsetup:registerProfile
+        name="demo"
+        title="imio.project.pst demo profile"
+        directory="profiles/demo"
+        description="Import some demo data for the imio.project.pst add-on."
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+        />
+
+    <genericsetup:upgradeStep
+        title="Go to imio.project.pst 0.2"
+        description=""
+        source="0.1"
+        destination="0.2"
+        handler="imio.project.pst.migrations.migrate_to_0_2.migrate"
+        profile="imio.project.pst:default" />
+
+</configure>
