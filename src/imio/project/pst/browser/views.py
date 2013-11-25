@@ -80,7 +80,7 @@ class DocumentGenerationView(BrowserView):
             dgm = None
         dict_arg = {'self': self.context, 'view': dgm}
         renderer = appy.pod.renderer.Renderer(StringIO(document_obj), dict_arg, tempFileName,
-                                              pythonWithUnoPath='/usr/bin/python')
+                                              pythonWithUnoPath='/usr/bin/python', forceOoCall=True)
         renderer.run()
 
         # Tell the browser that the resulting page contains ODT
