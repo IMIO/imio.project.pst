@@ -80,7 +80,14 @@ class DocumentGenerationView(BrowserView):
             dgm = None
         dict_arg = {'self': self.context, 'view': dgm}
         renderer = appy.pod.renderer.Renderer(StringIO(document_obj), dict_arg, tempFileName,
-                                              pythonWithUnoPath='/usr/bin/python', forceOoCall=True)
+                                              pythonWithUnoPath='/usr/bin/python',
+                                              forceOoCall=True,
+                                              stylesMapping={
+                                                  'h1': 'PST Titre 1',
+                                                  'h2': 'PST Titre 2',
+                                                  'h3': 'PST Titre 3',
+                                                  }
+                                              )
         renderer.run()
 
         # Tell the browser that the resulting page contains ODT
