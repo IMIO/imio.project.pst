@@ -45,3 +45,23 @@ body.template-view.portaltype-strategicobjective td.table_widget_label {
 .icons-on .contenttype-pstaction {
     background: url("++resource++imio.project.pst/pst_icons_sprite.png") no-repeat scroll 0 -216px transparent;
 }
+
+.state-created {
+    color: Red !important;
+}
+.state-ongoing {
+    color: #436976 !important;
+}
+.state-stopped {
+    color: violet !important;
+}
+.state-terminated {
+    color: blue !important;
+}
+.state-to_be_scheduled {
+    color: #FFA500 !important;
+}
+.state-achieved {
+    color: blue !important;
+}
+
