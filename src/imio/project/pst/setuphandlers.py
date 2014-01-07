@@ -607,7 +607,7 @@ def addDemoData(context):
                      'work_plan': _richtextval(u''),
                      'comments': _richtextval(u''),
                      },
-                    {'title': u'Mettre en place des parmanences sur rendez-vous',
+                    {'title': u'Mettre en place des permanences sur rendez-vous',
                      'manager': [groups['service-population'], ],
                      'planned_end_date': datetime.date(datetime(2013, 9, 30)),
                      'extra_concerned_people': u'',
