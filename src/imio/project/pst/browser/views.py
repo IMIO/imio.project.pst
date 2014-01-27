@@ -379,7 +379,8 @@ class DocumentGenerationOOMethods(DocumentGenerationMethods):
         pcat = self.context.portal_catalog
         brains = pcat(portal_type='pstaction',
                       path={'query': '/'.join(self.context.getPhysicalPath()), 'depth': 1},
-                      review_state=_getWorkflowStates(self.portal, 'pstaction', skip_initial=True))
+                      review_state=_getWorkflowStates(self.portal, 'pstaction', skip_initial=True),
+                      sort_on='getObjPositionInParent')
         return [brain.getObject() for brain in brains]
 
 
