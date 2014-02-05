@@ -260,6 +260,34 @@ class DocumentGenerationPSTMethods(DocumentGenerationMethods):
             sos.append(obj)
         return sos
 
+    def getStrategicObjectivesDict(self):
+        """
+            get a dictionary of contained strategic objectives
+        """
+        pcat = self.context.portal_catalog
+        brains = pcat(portal_type='strategicobjective',
+                      path={'query': '/'.join(self.context.getPhysicalPath()), 'depth': 1},
+                      sort_on='getObjPositionInParent')
+        sos = {}
+        for brain in brains:
+            obj = brain.getObject()
+            try:
+                (section, domain) = self.vocValue(u'imio.project.core.content.project.categories_vocabulary',
+                                                  'categories', obj=obj).split(' - ')
+                if section not in sos:
+                    sos[section] = {}
+                if domain not in sos[section]:
+                    sos[section][domain] = []
+                sos[section][domain].append(obj)
+            except ValueError:
+                smi = IStatusMessage(self.request)
+                smi.addStatusMessage(_("Cannot split this category '${cat}' with ' - ' separator",
+                                       mapping={'cat': obj.categories}), type='error')
+                print "Error splitting cat %s" % obj.categories
+        return sos
+
+
+
     def getOperationalObjectives(self, so=None):
         """
             get a list of contained operational objectives
