@@ -1,6 +1,7 @@
 import os
 import time
 import appy.pod.renderer
+from collections import OrderedDict
 from StringIO import StringIO
 from zope.annotation import IAnnotations
 from zope.component import getMultiAdapter, getUtility
@@ -269,7 +270,7 @@ class DocumentGenerationPSTMethods(DocumentGenerationMethods):
         brains = pcat(portal_type='strategicobjective',
                       path={'query': '/'.join(self.context.getPhysicalPath()), 'depth': 1},
                       sort_on='getObjPositionInParent')
-        sos = {}
+        sos = OrderedDict()
         for brain in brains:
             obj = brain.getObject()
             try:
