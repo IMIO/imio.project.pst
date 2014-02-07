@@ -33,7 +33,7 @@
         title="Reload tableauBord template"
         description=""
         source="0.2"
-        destination="0.2"
+        destination="0.2.1"
         handler="imio.project.pst.migrations.reload_tableauBord_template.reload"
         profile="imio.project.pst:default" />
 

@@ -8,10 +8,12 @@ from zope.component.interfaces import ComponentLookupError
 from zope.i18n import translate
 from zope.schema.interfaces import IVocabularyFactory
 from Products.Five import BrowserView
+from Products.statusmessages.interfaces import IStatusMessage
 from plone.app.textfield import RichTextValue
 from plone.memoize import forever
 from bs4 import BeautifulSoup as Soup
 from imio.project.core.config import CHILDREN_BUDGET_INFOS_ANNOTATION_KEY
+from imio.project.pst import _
 
 
 def _getOsTempFolder():
@@ -85,8 +87,7 @@ class DocumentGenerationView(BrowserView):
                                               stylesMapping={
                                                   'h1': 'PST Titre 1',
                                                   'h2': 'PST Titre 2',
-                                                  'h3': 'PST Titre 3',
-                                                  }
+                                                  'h3': 'PST Titre 3', }
                                               )
         renderer.run()
 
@@ -285,8 +286,6 @@ class DocumentGenerationPSTMethods(DocumentGenerationMethods):
                                        mapping={'cat': obj.categories}), type='error')
                 print "Error splitting cat %s" % obj.categories
         return sos
-
-
 
     def getOperationalObjectives(self, so=None):
         """
