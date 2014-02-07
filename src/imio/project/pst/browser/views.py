@@ -82,10 +82,6 @@ class DocumentGenerationView(BrowserView):
         renderer = appy.pod.renderer.Renderer(StringIO(document_obj), dict_arg, tempFileName,
                                               pythonWithUnoPath='/usr/bin/python',
                                               forceOoCall=True,
-                                              stylesMapping={
-                                                  'h1': 'PST Titre 1',
-                                                  'h2': 'PST Titre 2',
-                                                  'h3': 'PST Titre 3', }
                                               )
         renderer.run()
 
