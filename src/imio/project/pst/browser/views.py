@@ -1,7 +1,6 @@
 import os
 import time
 import appy.pod.renderer
-from collections import OrderedDict
 from StringIO import StringIO
 from zope.annotation import IAnnotations
 from zope.component import getMultiAdapter, getUtility
@@ -9,12 +8,10 @@ from zope.component.interfaces import ComponentLookupError
 from zope.i18n import translate
 from zope.schema.interfaces import IVocabularyFactory
 from Products.Five import BrowserView
-from Products.statusmessages.interfaces import IStatusMessage
 from plone.app.textfield import RichTextValue
 from plone.memoize import forever
 from bs4 import BeautifulSoup as Soup
 from imio.project.core.config import CHILDREN_BUDGET_INFOS_ANNOTATION_KEY
-from imio.project.pst import _
 
 
 def _getOsTempFolder():
@@ -260,32 +257,6 @@ class DocumentGenerationPSTMethods(DocumentGenerationMethods):
         for brain in brains:
             obj = brain.getObject()
             sos.append(obj)
-        return sos
-
-    def getStrategicObjectivesDict(self):
-        """
-            get a dictionary of contained strategic objectives
-        """
-        pcat = self.context.portal_catalog
-        brains = pcat(portal_type='strategicobjective',
-                      path={'query': '/'.join(self.context.getPhysicalPath()), 'depth': 1},
-                      sort_on='getObjPositionInParent')
-        sos = OrderedDict()
-        for brain in brains:
-            obj = brain.getObject()
-            try:
-                (section, domain) = self.vocValue(u'imio.project.core.content.project.categories_vocabulary',
-                                                  'categories', obj=obj).split(' - ')
-                if section not in sos:
-                    sos[section] = {}
-                if domain not in sos[section]:
-                    sos[section][domain] = []
-                sos[section][domain].append(obj)
-            except ValueError:
-                smi = IStatusMessage(self.request)
-                smi.addStatusMessage(_("Cannot split this category '${cat}' with ' - ' separator",
-                                       mapping={'cat': obj.categories}), type='error')
-                print "Error splitting cat %s" % obj.categories
         return sos
 
     def getOperationalObjectives(self, so=None):
