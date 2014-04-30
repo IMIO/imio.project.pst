@@ -290,7 +290,7 @@ def adaptDefaultPortal(context):
         frontpage = getattr(site, 'front-page')
         #translation doesn't work !!
         #frontpage.setTitle(_("front_page_title"))
-        frontpage.setTitle("Programme Stratégique Transversal 0.2")
+        frontpage.setTitle("Programme Stratégique Transversal 0.2.1")
         #frontpage.setDescription(unicode(_("front_page_descr")))
         frontpage.setDescription(u"Bienvenue sur notre outil vous permettant de définir votre PST")
         #frontpage.setText(unicode(_("front_page_text")), mimetype='text/html')
