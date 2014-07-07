@@ -44,6 +44,7 @@ setup(
         'setuptools',
         'Plone',
         'Pillow',
+        'Products.PasswordStrength > 0.3.1',
         'appy',
         'beautifulsoup4',
         'communesplone.layout',
