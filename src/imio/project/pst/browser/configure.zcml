@@ -4,6 +4,8 @@
     xmlns:plone="http://namespaces.plone.org/plone"
     i18n_domain="imio.project.pst">
 
+    <include package="plone.app.portlets"/>
+
     <!-- Publish static files -->
     <browser:resourceDirectory
         name="imio.project.pst"
@@ -79,4 +81,11 @@
         permission="zope2.View"
         />
 
+    <plone:portlet
+        name="imioprojectpst.portlet.main"
+        interface=".portlets.IMainImioProjectPstPortlet"
+        assignment=".portlets.Assignment"
+        renderer=".portlets.Renderer"
+        addview=".portlets.AddForm"
+        />
 </configure>

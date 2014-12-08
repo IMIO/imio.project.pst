@@ -50,6 +50,9 @@ msgstr ""
 msgid "Enter work to do."
 msgstr ""
 
+msgid "Excel export"
+msgstr ""
+
 #: ./profiles/default/actions.xml
 msgid "Generate card"
 msgstr ""
@@ -83,12 +86,48 @@ msgstr ""
 msgid "Health indicator_details"
 msgstr ""
 
+msgid "Main_menu_action_section"
+msgstr ""
+
+msgid "Main_menu_oo_section"
+msgstr ""
+
+msgid "Main_menu_os_section"
+msgstr ""
+
+msgid "Main_menu_title"
+msgstr ""
+
 #: ./profiles/default/types/operationalobjective.xml
 msgid "OperationalObjective"
 msgstr ""
 
+msgid "operationalobjective achieved"
+msgstr ""
+
+msgid "operationalobjective created"
+msgstr ""
+
+msgid "operationalobjective ongoing"
+msgstr ""
+
 #: ./profiles/default/types/pstaction.xml
 msgid "PSTAction"
+msgstr ""
+
+msgid "pstaction created"
+msgstr ""
+
+msgid "pstaction ongoing"
+msgstr ""
+
+msgid "pstaction stopped"
+msgstr ""
+
+msgid "pstaction terminated"
+msgstr ""
+
+msgid "pstaction to_be_scheduled"
 msgstr ""
 
 #: ./browser/strategicobjective_folder_listing_table.pt:15
@@ -98,6 +137,15 @@ msgstr ""
 
 #: ./profiles/default/types/strategicobjective.xml
 msgid "StrategicObjective"
+msgstr ""
+
+msgid "strategicobjective achieved"
+msgstr ""
+
+msgid "strategicobjective created"
+msgstr ""
+
+msgid "strategicobjective ongoing"
 msgstr ""
 
 #: ./content/action.py:38

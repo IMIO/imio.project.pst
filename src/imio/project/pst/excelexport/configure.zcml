@@ -1,0 +1,185 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:zcml="http://namespaces.zope.org/zcml"
+    xmlns:five="http://namespaces.zope.org/five"
+    xmlns:grok="http://namespaces.zope.org/grok"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    i18n_domain="collective.excelexport">
+
+    <adapter factory=".project.PSTActionContentsDataSource"
+             provides="collective.excelexport.interfaces.IDataSource"
+             name="pstactions"
+              />
+
+    <utility factory=".project.PSTActionFieldsFactory"
+              provides="collective.excelexport.interfaces.IFieldsFactory"
+              name="pstaction"
+              />
+
+    <adapter factory=".styles.PSTPolicyStyles"
+             provides="collective.excelexport.interfaces.IStyles"
+             name="pstactions"
+             />
+
+    <adapter factory=".styles.PSTOSStyles"
+             provides="collective.excelexport.interfaces.IStyles"
+             name="strategicobjective"
+             />
+
+    <adapter factory=".styles.PSTOOStyles"
+             provides="collective.excelexport.interfaces.IStyles"
+             name="operationalobjective"
+             />
+
+    <adapter factory=".styles.PSTActionStyles"
+             provides="collective.excelexport.interfaces.IStyles"
+             name="pstaction"
+             />
+
+    <adapter factory=".project.PSTReferenceNumberRenderer"
+             provides="collective.excelexport.interfaces.IExcelRenderer"
+             name="reference_number"
+             />
+
+    <adapter factory=".project.PSTCategoriesRenderer"
+             provides="collective.excelexport.interfaces.IExcelRenderer"
+             name="categories"
+             />
+
+    <adapter factory=".project.PSTPriorityRenderer"
+             provides="collective.excelexport.interfaces.IExcelRenderer"
+             name="priority"
+             />
+
+    <adapter factory=".project.PSTBudgetRenderer"
+             provides="collective.excelexport.interfaces.IExcelRenderer"
+             name="budget"
+             />
+
+    <adapter factory=".project.PSTBudgetCommentsRenderer"
+             provides="collective.excelexport.interfaces.IExcelRenderer"
+             name="budget_comments"
+             />
+
+    <adapter factory=".project.PSTManagerRenderer"
+             provides="collective.excelexport.interfaces.IExcelRenderer"
+             name="manager"
+             />
+
+    <adapter factory=".project.PSTVisibleForRenderer"
+             provides="collective.excelexport.interfaces.IExcelRenderer"
+             name="visible_for"
+             />
+
+    <adapter factory=".project.PSTExtraConcernedPeopleRenderer"
+             provides="collective.excelexport.interfaces.IExcelRenderer"
+             name="extra_concerned_people"
+             />
+
+    <adapter factory=".project.PSTResultIndicatorRenderer"
+             provides="collective.excelexport.interfaces.IExcelRenderer"
+             name="result_indicator"
+             />
+
+    <adapter factory=".project.PSTPlannedBeginDateRenderer"
+             provides="collective.excelexport.interfaces.IExcelRenderer"
+             name="planned_begin_date"
+             />
+
+    <adapter factory=".project.PSTEffectiveBeginDateRenderer"
+             provides="collective.excelexport.interfaces.IExcelRenderer"
+             name="effective_begin_date"
+             />
+
+    <adapter factory=".project.PSTPlannedEndDateRenderer"
+             provides="collective.excelexport.interfaces.IExcelRenderer"
+             name="planned_end_date"
+             />
+
+    <adapter factory=".project.PSTEffectiveEndDateRenderer"
+             provides="collective.excelexport.interfaces.IExcelRenderer"
+             name="effective_end_date"
+             />
+
+    <adapter factory=".project.PSTProgressRenderer"
+             provides="collective.excelexport.interfaces.IExcelRenderer"
+             name="progress"
+             />
+
+    <adapter factory=".project.PSTObservationRenderer"
+             provides="collective.excelexport.interfaces.IExcelRenderer"
+             name="observation"
+             />
+
+    <adapter factory=".project.PSTCommentsRenderer"
+             provides="collective.excelexport.interfaces.IExcelRenderer"
+             name="comments"
+             />
+
+    <adapter factory=".project.PSTRepresentativeResponsibleRenderer"
+             provides="collective.excelexport.interfaces.IExcelRenderer"
+             name="representative_responsible"
+             />
+
+    <adapter factory=".project.PSTAdministrativeResponsibleRenderer"
+             provides="collective.excelexport.interfaces.IExcelRenderer"
+             name="administrative_responsible"
+             />
+
+    <adapter factory=".project.PSTHealthIndicatorRenderer"
+             provides="collective.excelexport.interfaces.IExcelRenderer"
+             name="health_indicator"
+             />
+
+    <adapter factory=".project.PSTHealthIndicatorDetailsRenderer"
+             provides="collective.excelexport.interfaces.IExcelRenderer"
+             name="health_indicator_details"
+             />
+
+    <adapter factory=".project.PSTWorkPlanRenderer"
+             provides="collective.excelexport.interfaces.IExcelRenderer"
+             name="work_plan"
+             />
+
+    <adapter factory=".project.PSTTitleRenderer"
+             provides="collective.excelexport.interfaces.IExcelRenderer"
+             name="title"
+             />
+
+    <adapter factory=".project.PSTDescriptionRenderer"
+             provides="collective.excelexport.interfaces.IExcelRenderer"
+             name="description"
+             />
+
+    <adapter factory=".project.PSTSubjectsRenderer"
+             provides="collective.excelexport.interfaces.IExcelRenderer"
+             name="subjects"
+             />
+
+    <adapter factory=".project.PSTLanguageRenderer"
+             provides="collective.excelexport.interfaces.IExcelRenderer"
+             name="language"
+             />
+
+    <adapter factory=".project.PSTCreatorsRenderer"
+             provides="collective.excelexport.interfaces.IExcelRenderer"
+             name="creators"
+             />
+
+    <adapter factory=".project.PSTContributorsRenderer"
+             provides="collective.excelexport.interfaces.IExcelRenderer"
+             name="contributors"
+             />
+
+    <adapter factory=".project.PSTRightsRenderer"
+             provides="collective.excelexport.interfaces.IExcelRenderer"
+             name="rights"
+             />
+
+    <adapter factory=".project.PSTChangeNoteRenderer"
+             provides="collective.excelexport.interfaces.IExcelRenderer"
+             name="changeNote"
+             />
+</configure>

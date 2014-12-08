@@ -5,6 +5,7 @@
       interface="zope.schema.interfaces.IVocabularyFactory"
       factory="imio.project.pst.content.operational.ManagerVocabulary"
       name="imio.project.core.content.project.manager_vocabulary"
+      remove="True"
     />
   </utilities>
 </componentregistry>

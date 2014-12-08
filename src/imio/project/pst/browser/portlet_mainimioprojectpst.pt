@@ -1,0 +1,114 @@
+<html xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      i18n:domain="imio.project.pst">
+<body>
+
+<div metal:define-macro="portlet">
+
+<metal:block metal:use-macro="here/global_defines/macros/defines" />
+
+<dl class="portlet" id="imioprojectpst-mainportlet"
+    tal:define="portal_url context/portal_url">
+
+    <dt class="portletHeader">
+        <span class="portletTopLeft"></span>
+        <div i18n:translate="Main_menu_title">Main menu</div>
+        <span class="portletTopRight"></span>
+    </dt>
+
+    <table>
+        <tr><th i18n:translate="Main_menu_os_section">Strategic Objectives</th></tr>
+        <tr tal:repeat="brain view/getOSsCreated">
+          <td>
+            <a tal:attributes="href brain/getURL" i18n:translate="" tal:content="brain/Title">created</a>
+          </td>
+        </tr>
+        <tr tal:repeat="brain view/getOSsOngoing">
+          <td>
+            <a tal:attributes="href brain/getURL" i18n:translate="" tal:content="brain/Title">ongoing</a>
+          </td>
+        </tr>
+        <tr tal:repeat="brain view/getOSsAchieved">
+          <td>
+            <a tal:attributes="href brain/getURL" i18n:translate="" tal:content="brain/Title">achieved</a>
+          </td>
+        </tr>
+    </table>
+
+    <table>
+        <tr><th i18n:translate="Main_menu_oo_section">Operational Objectives</th></tr>
+        <!--tr tal:repeat="brain view/getOOsIAmManager">
+          <td>
+            <a tal:attributes="href brain/getURL">
+              <span i18n:translate="" tal:content="brain/Title">I am manager</span>
+            </a>
+          </td>
+        </tr>
+        <tr tal:repeat="brain view/getOOsIAmAdministrativeResponsible">
+          <td>
+            <a tal:attributes="href brain/getURL">
+              <span i18n:translate="" tal:content="brain/Title">I am administrative responsible</span>
+            </a>
+          </td>
+        </tr-->
+        <tr tal:repeat="brain view/getOOsCreated">
+          <td>
+            <a tal:attributes="href brain/getURL" i18n:translate="" tal:content="brain/Title">created</a>
+          </td>
+        </tr>
+        <tr tal:repeat="brain view/getOOsOngoing">
+          <td>
+            <a tal:attributes="href brain/getURL" i18n:translate="" tal:content="brain/Title">ongoing</a>
+          </td>
+        </tr>
+        <tr tal:repeat="brain view/getOOsAchieved">
+          <td>
+            <a tal:attributes="href brain/getURL" i18n:translate="" tal:content="brain/Title">achieved</a>
+          </td>
+        </tr>
+    </table>
+
+    <table>
+        <tr><th i18n:translate="Main_menu_action_section">Actions</th></tr>
+        <!--tr tal:repeat="brain view/getActionsIAmManager">
+          <td>
+            <a tal:attributes="href brain/getURL">
+              <span i18n:translate="" tal:content="brain/Title">I am manager</span>
+            </a>
+          </td>
+        </tr-->
+        <tr tal:repeat="brain view/getActionsCreated">
+          <td>
+            <a tal:attributes="href brain/getURL" i18n:translate="" tal:content="brain/Title">created</a>
+          </td>
+        </tr>
+        <tr tal:repeat="brain view/getActionsOngoing">
+          <td>
+            <a tal:attributes="href brain/getURL" i18n:translate="" tal:content="brain/Title">ongoing</a>
+          </td>
+        </tr>
+        <tr tal:repeat="brain view/getActionsStopped">
+          <td>
+            <a tal:attributes="href brain/getURL" i18n:translate="" tal:content="brain/Title">stopped</a>
+          </td>
+        </tr>
+        <tr tal:repeat="brain view/getActionsTerminated">
+          <td>
+            <a tal:attributes="href brain/getURL" i18n:translate="" tal:content="brain/Title">terminated</a>
+          </td>
+        </tr>
+        <tr tal:repeat="brain view/getActionsToBeScheduled">
+          <td>
+            <a tal:attributes="href brain/getURL" i18n:translate="" tal:content="brain/Title">to be scheduled</a>
+          </td>
+        </tr>
+    </table>
+
+    <dd class="portletFooter">
+    </dd>
+
+</dl>
+
+</div>
+</body>
+</html>

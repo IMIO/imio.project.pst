@@ -14,7 +14,7 @@
     />
     <utility
       provides="zope.schema.interfaces.IVocabularyFactory"
-      factory=".operational.AdministrativeResponsibleVocabulary"
+      factory="imio.project.core.content.project.ManagerVocabulary"
       name="imio.project.pst.content.operational.administrative_responsible_vocabulary"
     />
 

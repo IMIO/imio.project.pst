@@ -4,11 +4,13 @@ import os
 import logging
 logger = logging.getLogger('imio.project.pst')
 from datetime import datetime
+from DateTime import DateTime
 from Acquisition import aq_base
 from zope.component import getUtility, getMultiAdapter
 from zope.event import notify
 from zope.lifecycleevent import ObjectCreatedEvent
 from plone.dexterity.utils import createContentInContainer
+from plone import api
 from Products.CMFCore.WorkflowCore import WorkflowException
 from Products.CMFPlone.utils import base_hasattr
 from Products.CMFPlone.utils import getToolByName
@@ -16,6 +18,7 @@ from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
 from collective.contact.plonegroup.config import ORGANIZATIONS_REGISTRY, FUNCTIONS_REGISTRY
 from plone.app.textfield.value import RichTextValue
 from plone.registry.interfaces import IRegistry
+from imio.helpers.catalog import addOrUpdateIndexes
 logger = logging.getLogger('imio.project.pst: setuphandlers')
 
 
@@ -49,10 +52,16 @@ def post_install(context):
         do_transitions(getattr(portal, 'front-page'),
                        transitions=['publish_internally', 'publish_externally'],
                        logger=logger)
+    addOrUpdateIndexes(portal, {'reference_number': ('FieldIndex', {})})
+    # addOrUpdateIndexes(portal, {'administrative_responsible': ('KeywordIndex', {})})
+    # addOrUpdateIndexes(portal, {'manager': ('KeywordIndex', {})})
+
     # add a default 'templates' directory containing the odt templates
     _addTemplatesDirectory(context)
     # add a default 'PST' projectspace where to store objectives and actions
     _addPSTprojectspace(context)
+    # add topics
+    _createCollections(context)
     # add some groups of users with different profiles
     _addPSTGroups(context)
     # set default application security
@@ -207,6 +216,59 @@ def _addPSTprojectspace(context):
     behaviour.setLocallyAllowedTypes(['strategicobjective', 'File', ])
     behaviour.setImmediatelyAddableTypes(['strategicobjective', 'File', ])
 
+def _createCollections(context):
+    site = context.getSite()
+    pst = site.pst
+    if hasattr(pst, 'collections'):
+        return
+    site.portal_types.projectspace.filter_content_types = False
+    behaviour = ISelectableConstrainTypes(pst)
+    behaviour.setConstrainTypesMode(0)
+    pst.invokeFactory(
+            'Folder',
+            'collections',
+            title = 'Collections'
+    )
+    collections = getattr(pst, 'collections')
+    collections.setConstrainTypesMode(1)
+    collections.setLocallyAllowedTypes(['Collection', ])
+    collections.setImmediatelyAddableTypes(['Collection', ])
+    collections.setExcludeFromNav(True)
+    collections.setExpirationDate(DateTime('2014/08/28 00:00:00 GMT+2'))
+
+    _createStatesCollections(context, collections, 'strategicobjective')
+    _createStatesCollections(context, collections, 'operationalobjective')
+    _createStatesCollections(context, collections, 'pstaction')
+
+    site.portal_types.projectspace.filter_content_types = True
+    behaviour.setConstrainTypesMode(1)
+
+def _createStatesCollections(context, container, portal_type):
+    site = context.getSite()
+    for workflow in site.portal_workflow.getWorkflowsFor(portal_type):
+        for value in workflow.states.values():
+            if not hasattr(container, portal_type + '-' + value.id):
+                container.invokeFactory(
+                        'Collection',
+                        portal_type + '-' + value.id,
+                        title = portal_type + ' ' + value.id
+                )
+                collection = getattr(container, portal_type + '-' + value.id)
+                query = [
+                    {
+                        'i': 'portal_type',
+                        'o': 'plone.app.querystring.operation.selection.is',
+                        'v': [portal_type,]
+                    }, {
+                        'i': 'review_state',
+                        'o': 'plone.app.querystring.operation.selection.is',
+                        'v': [value.id,]
+                    }
+                ]
+                collection.query = query
+                #collection.limit = 10
+                collection.sort_on = u'reference_number'
+
 
 def _addPSTGroups(context):
     """
@@ -290,7 +352,7 @@ def adaptDefaultPortal(context):
         frontpage = getattr(site, 'front-page')
         #translation doesn't work !!
         #frontpage.setTitle(_("front_page_title"))
-        frontpage.setTitle("Programme Stratégique Transversal 0.2")
+        frontpage.setTitle("Programme Stratégique Transversal 0.2.1")
         #frontpage.setDescription(unicode(_("front_page_descr")))
         frontpage.setDescription(u"Bienvenue sur notre outil vous permettant de définir votre PST")
         #frontpage.setText(unicode(_("front_page_text")), mimetype='text/html')

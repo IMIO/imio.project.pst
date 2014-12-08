@@ -65,3 +65,10 @@ body.template-view.portaltype-strategicobjective td.table_widget_label {
     color: blue !important;
 }
 
+ul.navTree li.section-collections {
+    display: none;
+  }
+
+body.portaltype-collection span#breadcrumbs-2 {
+    display: none;
+  }
