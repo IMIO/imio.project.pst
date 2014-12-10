@@ -42,7 +42,7 @@ class Migrate_To_0_3(Migrator):
                 obj = brain.getObject()
                 if obj.reference_number == 0:
                     obj.reference_number = num + 1
-                    obj.reindexObject(['reference_number'])
+                    obj.reindexObject()
                     projectspace = getProjectSpace(obj)
                     projectspace.last_reference_number = num + 1
 
