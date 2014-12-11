@@ -7,6 +7,8 @@ Changelog
 - Replace the vocabulary of the administrative service
 - provide an excel export through collective.excelimportexport
 - Provide some research topics in a portlet
+- Update the title and body of front page
+  [franck.ngaha@imio.be]
 
 0.2 (2013-11-19)
 ----------------
