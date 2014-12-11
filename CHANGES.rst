@@ -1,7 +1,15 @@
 Changelog
 =========
 
-0.2 (unreleased)
+0.3 (unreleased)
+----------------
+- add a unique reference number on each project per project space
+- Replace the vocabulary of the administrative service
+- provide an excel export through collective.excelimportexport
+- Provide some research topics in a portlet
+- Update the title and body of front page
+
+0.2 (2013-11-19)
 ----------------
 - Replaced budget text field by datagrid field
 - Replaced project_workflow by two different workflows adapted to local roles
