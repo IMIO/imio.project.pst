@@ -359,7 +359,7 @@ def adaptDefaultPortal(context):
         frontpage.setText("<p></p><p>L'application de gestion du PST contient actuellement les <strong>fonctionnalités "
                           "suivantes</strong>:</p><ul><li>encodage des objectifs stratégiques</li><li>encodage des "
                           "objectifs opérationnels</li><li>encodage des actions</li><li>ajout d'une référence unique "
-                          "par projet facilitant le recherche</li><li>génération au format bureautique</li> exportation "
+                          "par projet facilitant la recherche</li><li>génération au format bureautique</li><li>exportation "
                           "des données au format excel</li><li>gestion des contacts (services traitants, échevins)</li>"
                           "<li>gestion des droits par service</li><li>workflow de traitement sur tous les types d'éléments</li>"
                           "<li>portlet de recherche par état</li><li>...</li></ul><p> </p><p>Les "
