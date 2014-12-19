@@ -44,6 +44,14 @@
         name="imio-folder-listing-table"
         template="operationalobjective_folder_listing_table.pt"
         permission="zope2.View" />
+    <!-- Customize the folder_listing for IPSTAction -->
+    <browser:page
+        for="imio.project.pst.content.action.IPSTAction"
+        name="imio-folder-listing"
+        class="imio.project.core.browser.views.ContainerFolderListingView"
+        template="pstaction_folder_listing.pt"
+        permission="zope2.View"
+        />
 
     <!-- Printing views -->
     <browser:page
