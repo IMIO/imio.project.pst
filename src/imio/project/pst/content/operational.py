@@ -78,6 +78,8 @@ class IOperationalObjective(IProject):
 class OperationalObjective(Project):
     """ """
     implements(IOperationalObjective)
+    def Title(self):
+        return '%s (OO.%s)'% (self.title.encode('utf8'), self.reference_number)
 
 
 class RepresentativeResponsibleVocabulary(object):
