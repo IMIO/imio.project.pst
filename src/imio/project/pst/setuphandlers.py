@@ -19,6 +19,7 @@ from collective.contact.plonegroup.config import ORGANIZATIONS_REGISTRY, FUNCTIO
 from plone.app.textfield.value import RichTextValue
 from plone.registry.interfaces import IRegistry
 from imio.helpers.catalog import addOrUpdateIndexes
+from imio.helpers.security import is_develop_environment
 logger = logging.getLogger('imio.project.pst: setuphandlers')
 
 
@@ -859,9 +860,8 @@ def _addPSTUsers(context):
 
     logger.info('Adding PST users')
     site = context.getSite()
-    # mount point ?
     password = 'Project69!'
-    if len(site.absolute_url_path().split('/')) <= 2:
+    if is_develop_environment():
         try:
             site.portal_registration.addMember(id="pstmanager", password=password)
             site.portal_registration.addMember(id="pstreader", password=password)
