@@ -40,10 +40,10 @@ body.template-view.portaltype-strategicobjective td.table_widget_label {
     background: url("++resource++imio.project.pst/pst_icons_sprite.png") no-repeat scroll 0 0 transparent;
 }
 .icons-on .contenttype-strategicobjective {
-    background: url("++resource++imio.project.pst/pst_icons_sprite.png") no-repeat scroll 0 -431px transparent;
+    background: url("++resource++imio.project.pst/pst_icons_sprite.png") no-repeat scroll 0 -831px transparent;
 }
 .icons-on .contenttype-pstaction {
-    background: url("++resource++imio.project.pst/pst_icons_sprite.png") no-repeat scroll 0 -216px transparent;
+    background: url("++resource++imio.project.pst/pst_icons_sprite.png") no-repeat scroll 0 -416px transparent;
 }
 
 .state-created {
