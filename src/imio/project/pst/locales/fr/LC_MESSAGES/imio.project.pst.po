@@ -101,7 +101,7 @@ msgid "OperationalObjective"
 msgstr "Objectif opérationnel"
 
 msgid "operationalobjective achieved"
-msgstr "Clôturé"
+msgstr "Clôturés"
 
 msgid "operationalobjective created"
 msgstr "En création"
@@ -120,10 +120,10 @@ msgid "pstaction ongoing"
 msgstr "En cours"
 
 msgid "pstaction stopped"
-msgstr "Anulé"
+msgstr "Annulées"
 
 msgid "pstaction terminated"
-msgstr "Finalisé"
+msgstr "Finalisées"
 
 msgid "pstaction to_be_scheduled"
 msgstr "A agender"
@@ -138,7 +138,7 @@ msgid "StrategicObjective"
 msgstr "Objectif stratégique"
 
 msgid "strategicobjective achieved"
-msgstr "Clôturé"
+msgstr "Clôturés"
 
 msgid "strategicobjective created"
 msgstr "En création"
