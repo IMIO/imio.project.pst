@@ -10,7 +10,6 @@ from zope.component import getUtility, getMultiAdapter
 from zope.event import notify
 from zope.lifecycleevent import ObjectCreatedEvent
 from plone.dexterity.utils import createContentInContainer
-from plone import api
 from Products.CMFCore.WorkflowCore import WorkflowException
 from Products.CMFPlone.utils import base_hasattr
 from Products.CMFPlone.utils import getToolByName
@@ -19,9 +18,14 @@ from collective.contact.plonegroup.config import ORGANIZATIONS_REGISTRY, FUNCTIO
 from plone.app.textfield.value import RichTextValue
 from plone.registry.interfaces import IRegistry
 from imio.helpers.catalog import addOrUpdateIndexes
+from zope.component import queryUtility
+from zope.i18n.interfaces import ITranslationDomain
 from imio.helpers.security import is_develop_environment
 logger = logging.getLogger('imio.project.pst: setuphandlers')
 
+def _(msgid, context, domain='imio.project.pst'):
+    translation_domain = queryUtility(ITranslationDomain, domain)
+    return translation_domain.translate(msgid, context=context.getSite().REQUEST)
 
 def isNotCurrentProfile(context):
     return context.readDataFile("imioprojectpst_marker.txt") is None
@@ -252,7 +256,7 @@ def _createStatesCollections(context, container, portal_type):
                 container.invokeFactory(
                         'Collection',
                         portal_type + '-' + value.id,
-                        title = portal_type + ' ' + value.id
+                        title = _(portal_type + ' ' + value.id, context)
                 )
                 collection = getattr(container, portal_type + '-' + value.id)
                 query = [
