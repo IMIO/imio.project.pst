@@ -21,6 +21,9 @@ from imio.helpers.catalog import addOrUpdateIndexes
 from zope.component import queryUtility
 from zope.i18n.interfaces import ITranslationDomain
 from imio.helpers.security import is_develop_environment
+
+from plone import api
+
 logger = logging.getLogger('imio.project.pst: setuphandlers')
 
 def _(msgid, context, domain='imio.project.pst'):
@@ -224,6 +227,28 @@ def _addPSTprojectspace(context):
 def _createCollections(context):
     site = context.getSite()
     pst = site.pst
+    if not hasattr(pst, 'objectifs-strategiques'):
+        site.portal_types.projectspace.filter_content_types = False
+        behaviour = ISelectableConstrainTypes(pst)
+        behaviour.setConstrainTypesMode(0)
+        pst.invokeFactory(
+                'Collection',
+                'objectifs-strategiques',
+                title='Objectifs stratégiques',
+        )
+        OSs = getattr(pst, 'objectifs-strategiques')
+        query = [
+            {
+                'i': 'portal_type',
+                'o': 'plone.app.querystring.operation.selection.is',
+                'v': ['strategicobjective',]
+            }
+        ]
+        OSs.query = query
+        OSs.sort_on = u'reference_number'
+        pst.default_page = "objectifs-strategiques"
+        site.portal_types.projectspace.filter_content_types = True
+        behaviour.setConstrainTypesMode(1)
     if hasattr(pst, 'collections'):
         return
     site.portal_types.projectspace.filter_content_types = False
