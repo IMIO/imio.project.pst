@@ -1,7 +1,10 @@
 Changelog
 =========
 
-0.3.x (unreleased)
+0.3.2 (unreleased)
+----------------
+
+0.3.1 (2015-04-10)
 ----------------
 - Update the front page text
 - Move the reference number at the end of title
