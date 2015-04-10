@@ -1,3 +1,0 @@
-graft src/imio
-graft docs/
-include *.cfg *.rst *.in
