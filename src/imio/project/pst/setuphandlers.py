@@ -246,6 +246,7 @@ def _createCollections(context):
         ]
         OSs.query = query
         OSs.sort_on = u'reference_number'
+        OSs.setLayout('folder_tabular_view')
         pst.default_page = "objectifs-strategiques"
         site.portal_types.projectspace.filter_content_types = True
         behaviour.setConstrainTypesMode(1)
@@ -298,6 +299,7 @@ def _createStatesCollections(context, container, portal_type):
                 collection.query = query
                 #collection.limit = 10
                 collection.sort_on = u'reference_number'
+                collection.setLayout('folder_tabular_view')
 
 
 def _addPSTGroups(context):

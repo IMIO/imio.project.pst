@@ -1,7 +1,15 @@
 Changelog
 =========
 
-0.3 (unreleased)
+0.3.x (unreleased)
+----------------
+- Update the front page text
+- Move the reference number at the end of title
+- Add a strategic objectives topic as a projectspace default page
+- Use tabular view to pst collections
+  [franck.ngaha@imio.be]
+
+0.3 (2014-12-11)
 ----------------
 - add a unique reference number on each project per project space
 - Replace the vocabulary of the administrative service
