@@ -1,0 +1,21 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    i18n_domain="imio.project.pst">
+
+    <utility
+      provides="zope.schema.interfaces.IVocabularyFactory"
+      factory=".action.HealthIndicatorVocabulary"
+      name="imio.project.pst.content.action.health_indicator_vocabulary"
+    />
+    <utility
+      provides="zope.schema.interfaces.IVocabularyFactory"
+      factory=".operational.RepresentativeResponsibleVocabulary"
+      name="imio.project.pst.content.operational.representative_responsible_vocabulary"
+    />
+    <utility
+      provides="zope.schema.interfaces.IVocabularyFactory"
+      factory="imio.project.core.content.project.ManagerVocabulary"
+      name="imio.project.pst.content.operational.administrative_responsible_vocabulary"
+    />
+
+</configure>

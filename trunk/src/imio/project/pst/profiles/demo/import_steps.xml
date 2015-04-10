@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<import-steps>
+    <import-step
+            id="imioprojectpst-addDemoOrganization"
+            handler="imio.project.pst.setuphandlers.addDemoOrganization"
+            title="Add some demo organizations to be used in vocabularies"
+            version="2013-06-10T11:00:00.00000">
+        Add some demo organizations to be used in vocabularies
+    </import-step>
+    <import-step
+            id="imioprojectpst-addDemoData"
+            handler="imio.project.pst.setuphandlers.addDemoData"
+            title="Finalize demo for 'PST'"
+            version="2013-06-10T11:00:00.00000">
+        Finalize demo for 'PST'
+        <dependency step="imioprojectpst-addDemoOrganization" />
+    </import-step>
+    <import-step
+            id="imioprojectpst-adaptDefaultPortal"
+            handler="imio.project.pst.setuphandlers.adaptDefaultPortal"
+            title="Adapt the default portal"
+            version="2013-06-10T11:00:00.00000">
+        Adapt the default portal
+    </import-step>
+</import-steps>

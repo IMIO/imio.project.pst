@@ -1,0 +1,23 @@
+<metal:folder_listing define-macro="folder_listing" i18n:domain="imio.project.pst">
+
+    <script type="text/javascript"
+            tal:define="portal_url context/@@plone_portal_state/portal_url;"
+            tal:attributes="src string:${portal_url}/++resource++imio.project.core/listings.js">
+    </script>
+
+    <fieldset id="pst-folder-listing">
+        <legend i18n:translate="strategic_legend_operational_objectives">Operational objectives</legend>
+
+        <tal:block define="strategicobjective_folder_listing_table context/@@imio-folder-listing-table/index;">
+            <tal:content replace="structure strategicobjective_folder_listing_table" />
+        </tal:block>
+
+    </fieldset>
+    <fieldset id="folder-listing">
+        <legend i18n:translate="" i18n:domain="imio.project.pst">Annexes</legend>
+            <tal:block define="listing_macro context/folder_listing/macros/listing;
+                               contentFilter python: {'portal_type': 'File'};">
+                <metal:use_macro use-macro="listing_macro" />
+            </tal:block>
+    </fieldset>
+</metal:folder_listing>

@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<portlets
+    xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+    i18n:domain="imio.project.pst">
+
+    <assignment remove="True"
+                name="news"
+                category="context"
+                key="/"
+                manager="plone.rightcolumn"
+                type="portlets.News" />
+
+    <assignment remove="True"
+                name="events"
+                category="context"
+                key="/"
+                manager="plone.rightcolumn"
+                type="portlets.Events" />
+
+    <assignment name="portlet_mainimioprojectpst"
+                category="context"
+                key="/"
+                manager="plone.leftcolumn"
+                type="imioprojectpst.portlet.main"
+                insert-before="navigation">
+	    <property name="macro">portlet</property>
+	    <property name="template">portlet_mainimioprojectpst</property>
+	</assignment>
+</portlets>

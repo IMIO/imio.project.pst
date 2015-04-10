@@ -1,0 +1,109 @@
+/* imio.project.pst stylesheet */
+
+.health_indicator_color_bon {
+    color: white;
+    background-color: green !important;
+}
+
+.health_indicator_color_risque {
+    color: white;
+    background-color: orange !important;
+}
+
+.health_indicator_color_blocage {
+    color: white;
+    background-color: red !important;
+}
+
+/* largeur colonne label sur les vues, par défaut, 200px dans plonetheme.imioapps */
+body.template-view.portaltype-strategicobjective td.table_widget_label {
+    width: 150px;
+}
+
+.datagridwidget-table-view {
+    min-width: 500px;
+}
+
+/* int and float are right aligned, make the % match and display after the number */
+.widget-progress-percent {
+    float: right;
+}
+
+/* icons on types */
+.icons-on .contenttype-strategicobjective, .icons-on .contenttype-operationalobjective, .icons-on .contenttype-pstaction {
+    display: inline-block;
+    line-height: 1.2em;
+    padding-left: 20px;
+}
+
+.icons-on .contenttype-operationalobjective {
+    background: url("++resource++imio.project.pst/pst_icons_sprite.png") no-repeat scroll 0 0 transparent;
+}
+.icons-on .contenttype-strategicobjective {
+    background: url("++resource++imio.project.pst/pst_icons_sprite.png") no-repeat scroll 0 -831px transparent;
+}
+.icons-on .contenttype-pstaction {
+    background: url("++resource++imio.project.pst/pst_icons_sprite.png") no-repeat scroll 0 -416px transparent;
+}
+
+.state-created {
+    color: Red !important;
+}
+.state-ongoing {
+    color: #436976 !important;
+}
+.state-stopped {
+    color: violet !important;
+}
+.state-terminated {
+    color: blue !important;
+}
+.state-to_be_scheduled {
+    color: #FFA500 !important;
+}
+.state-achieved {
+    color: blue !important;
+}
+
+ul.navTree li.section-collections {
+    display: none;
+  }
+
+body.portaltype-collection span#breadcrumbs-2 {
+    display: none;
+  }
+
+#imioprojectpst-mainportlet td {
+    padding: 0.2em 0.2em 0.2em 1em;
+}
+
+#imioprojectpst-mainportlet th {
+    padding: 0.5em 0.2em 0.2em 0.5em;
+    text-align: left;
+}
+
+.template-im-listing #document-action-print {
+    float: right;
+}
+
+.template-im-listing #content td, .template-im-listing #content th {
+    padding: 3px 15px 3px 3px;
+}
+
+.template-im-listing h1 {
+    display: none;
+}
+
+.template-im-listing h2:nth-of-type(n+2){
+    page-break-before: always !important;
+}
+
+.template-im-listing #content table {
+    border-collapse: collapse;
+}
+
+.template-im-listing #content td, .template-im-listing #content th {
+    border: 1px solid;
+    padding: 3px 15px 3px 3px;
+    border-collapse: collapse;
+}
