@@ -16,7 +16,6 @@ class Migrate_To_0_3_1(Migrator):
         """
         """
         logger.info('set tabular view to pst collections ...')
-        import ipdb; ipdb.set_trace()
         catalog = api.portal.get_tool('portal_catalog')
         brains = catalog(portal_type='Collection')
         for brain in brains:
