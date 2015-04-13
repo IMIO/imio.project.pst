@@ -74,7 +74,6 @@ class Migrate_To_0_3(Migrator):
                     service = getattr(services, adm_resp, None)
                     if not service:
                         #May be two levels organizations
-                        import ipdb; ipdb.set_trace()
                         combs = dual_split_combination(adm_resp, '-')
                         found = False
                         for comb in combs:
