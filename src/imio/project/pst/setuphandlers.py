@@ -247,7 +247,7 @@ def _createCollections(context):
         OSs.query = query
         OSs.sort_on = u'reference_number'
         OSs.setLayout('tabular_view')
-        pst.default_page = "objectifs-strategiques"
+        pst.setDefaultPage("objectifs-strategiques")
         site.portal_types.projectspace.filter_content_types = True
         behaviour.setConstrainTypesMode(1)
     if hasattr(pst, 'collections'):
