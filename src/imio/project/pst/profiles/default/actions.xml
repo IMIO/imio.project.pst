@@ -25,7 +25,12 @@
    <property name="description" i18n:translate="">Generate the project as office document</property>
    <property name="url_expr">string:@@document-generation?documentid=pst_template</property>
    <property name="icon_expr"></property>
-   <property name="available_expr">python:(context.getId() == 'pst' and context.getPortalTypeName() == 'projectspace') or context.getPortalTypeName() in ['pstaction', 'operationalobjective', 'strategicobjective']</property>
+   <property name="available_expr">python:(
+       context.getId() == 'pst' and
+       context.getPortalTypeName() == 'projectspace' or
+       (context.getPhysicalPath()[-2] == 'pst' and context.getPortalTypeName() == 'Collection')
+    ) or context.getPortalTypeName() in ['pstaction', 'operationalobjective', 'strategicobjective']
+   </property>
    <property name="permissions">
     <element value="View"/>
    </property>
@@ -37,7 +42,10 @@
    <property name="description" i18n:translate="">Generate the status report as office document</property>
    <property name="url_expr">string:@@document-generation?documentid=status_template</property>
    <property name="icon_expr"></property>
-   <property name="available_expr">python:context.getId() == 'pst' and context.getPortalTypeName() == 'projectspace'</property>
+   <property name="available_expr">python:context.getId() == 'pst' and
+       context.getPortalTypeName() == 'projectspace' or
+       (context.getPhysicalPath()[-2] == 'pst' and context.getPortalTypeName() == 'Collection')
+   </property>
    <property name="permissions">
     <element value="View"/>
    </property>
@@ -49,7 +57,10 @@
    <property name="description" i18n:translate="">Generate the entire denormalized pst content</property>
    <property name="url_expr">string:@@collective.excelexport?excelexport.policy=pstactions</property>
    <property name="icon_expr"></property>
-   <property name="available_expr">python:context.getId() == 'pst' and context.getPortalTypeName() == 'projectspace'</property>
+   <property name="available_expr">python:context.getId() == 'pst' and
+       context.getPortalTypeName() == 'projectspace' or
+       (context.getPhysicalPath()[-2] == 'pst' and context.getPortalTypeName() == 'Collection')
+   </property>
    <property name="permissions">
     <element value="View"/>
    </property>
