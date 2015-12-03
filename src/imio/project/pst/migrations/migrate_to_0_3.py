@@ -87,7 +87,7 @@ class Migrate_To_0_3(Migrator):
                                     if adm_resp not in groups:
                                         #Config missing
                                         logger.info(
-                                                'Title : ' + service.title +
+                                                'Title : ' + service_level2.title +
                                                 'Group : ' + adm_resp +
                                                 ' NOT FOUND IN PLONE GROUPS'
                                         )
