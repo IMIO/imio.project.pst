@@ -50,7 +50,7 @@ class IntegrationTestCase(unittest2.TestCase):
         setRoles(self.portal, TEST_USER_ID, ['Manager'])
         login(self.portal, TEST_USER_NAME)
         # add users
-        self.portal.portal_registration.addMember(id="psteditor", password="psteditor")
+        self.portal.portal_registration.addMember(id="psteditor", password="Project69!")
         self.portal.acl_users.source_groups.addPrincipalToGroup("psteditor", "pst_editors")
         # add contacts, plone groups, users
         self.portal.contacts.invokeFactory('organization', id=PLONEGROUP_ORG)
@@ -63,7 +63,7 @@ class IntegrationTestCase(unittest2.TestCase):
             registry[ORGANIZATIONS_REGISTRY] = registry[ORGANIZATIONS_REGISTRY] + [obj.UID()]
             self.groups[service] = '%s_actioneditor' % obj.UID()
             user = service.lower()
-            self.portal.portal_registration.addMember(id=user, password=user)
+            self.portal.portal_registration.addMember(id=user, password="Project69!")
             self.portal.acl_users.source_groups.addPrincipalToGroup(user, "%s_actioneditor" % obj.UID())
         logout()
 
