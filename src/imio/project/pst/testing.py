@@ -19,7 +19,7 @@ import imio.project.pst
 PST_TESTING_PROFILE = PloneWithPackageLayer(
     zcml_filename="testing.zcml",
     zcml_package=imio.project.pst,
-    additional_z2_products=('imio.project.pst', ),
+    additional_z2_products=('Products.PasswordStrength', 'imio.project.pst', ),
     gs_profile_id='imio.project.pst:testing',
     name="PST_TESTS_PROFILE")
 
