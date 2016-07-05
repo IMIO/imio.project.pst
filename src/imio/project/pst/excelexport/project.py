@@ -26,11 +26,12 @@ from zope.component import getMultiAdapter
 
 def _render_header(renderer, exportable):
     header = renderer.render_header(exportable)
-    if exportable.portal_type == 'strategicobjective':
+    portal_type = getattr(exportable, 'portal_type', '')
+    if portal_type == 'strategicobjective':
         header = u'O.S. ' + header
-    if exportable.portal_type == 'operationalobjective':
+    if portal_type == 'operationalobjective':
         header = u'O.O. ' + header
-    if exportable.portal_type == 'pstaction':
+    if portal_type == 'pstaction':
         header = u'A. ' + header
     return header
 
