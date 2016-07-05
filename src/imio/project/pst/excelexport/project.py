@@ -1,3 +1,4 @@
+from copy import copy
 from datetime import datetime
 
 from collective.excelexport.datasources.base import BaseContentsDataSource
@@ -85,11 +86,24 @@ class PSTActionFieldsFactory(BaseExportableFactory):
             field[1], self.context, self.request)
             for field in get_ordered_fields(action_fti)])
         fields.extend([get_exportable(
-            ParentField(field[1]), self.context, self.request)
-            for field in get_ordered_fields(oo_fti)])
+            ParentField(field), self.context, self.request)
+            for fn, field in get_ordered_fields(oo_fti)
+            if fn not in (
+                'planned_begin_date',
+                'effective_begin_date',
+                'effective_end_date',
+                'progress',
+                )])
         fields.extend([get_exportable(
-            GrandParentField(field[1]), self.context, self.request)
-            for field in get_ordered_fields(os_fti)])
+            GrandParentField(field), self.context, self.request)
+            for fn, field in get_ordered_fields(os_fti)
+            if fn not in (
+                'planned_begin_date',
+                'effective_begin_date',
+                'planned_end_date',
+                'effective_end_date',
+                'progress',
+                )])
         return fields
 
 
@@ -168,7 +182,11 @@ class PSTResultIndicatorRenderer(CollectionFieldRenderer):
 class PSTPlannedBeginDateRenderer(DateFieldRenderer):
     def render_style(self, obj, base_style):
         self.portal_type = obj.portal_type
-        return getAdapter(self, interface=IStyles, name=obj.portal_type)
+        styles = copy(
+            getAdapter(self, interface=IStyles, name=obj.portal_type))
+        styles.content = copy(styles.content)
+        styles.content.num_format_str = 'dd/mm/yyyy'
+        return styles
     def render_header(self):
         return _render_header(DateFieldRenderer, self)
 
@@ -176,7 +194,11 @@ class PSTPlannedBeginDateRenderer(DateFieldRenderer):
 class PSTEffectiveBeginDateRenderer(DateFieldRenderer):
     def render_style(self, obj, base_style):
         self.portal_type = obj.portal_type
-        return getAdapter(self, interface=IStyles, name=obj.portal_type)
+        styles = copy(
+            getAdapter(self, interface=IStyles, name=obj.portal_type))
+        styles.content = copy(styles.content)
+        styles.content.num_format_str = 'dd/mm/yyyy'
+        return styles
     def render_header(self):
         return _render_header(DateFieldRenderer, self)
 
@@ -184,7 +206,10 @@ class PSTEffectiveBeginDateRenderer(DateFieldRenderer):
 class PSTPlannedEndDateRenderer(DateFieldRenderer):
     def render_style(self, obj, base_style):
         self.portal_type = obj.portal_type
-        return getAdapter(self, interface=IStyles, name=obj.portal_type)
+        styles = copy(getAdapter(self, interface=IStyles, name=obj.portal_type))
+        styles.content = copy(styles.content)
+        styles.content.num_format_str = 'dd/mm/yyyy'
+        return styles
     def render_header(self):
         return _render_header(DateFieldRenderer, self)
 
@@ -192,7 +217,10 @@ class PSTPlannedEndDateRenderer(DateFieldRenderer):
 class PSTEffectiveEndDateRenderer(DateFieldRenderer):
     def render_style(self, obj, base_style):
         self.portal_type = obj.portal_type
-        return getAdapter(self, interface=IStyles, name=obj.portal_type)
+        styles = copy(getAdapter(self, interface=IStyles, name=obj.portal_type))
+        styles.content = copy(styles.content)
+        styles.content.num_format_str = 'dd/mm/yyyy'
+        return styles
     def render_header(self):
         return _render_header(DateFieldRenderer, self)
 
