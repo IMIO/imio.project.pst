@@ -45,12 +45,20 @@
         handler="imio.project.pst.migrations.migrate_to_0_3.migrate"
         profile="imio.project.pst:default" />
 
-    <!--genericsetup:upgradeStep
+    <genericsetup:upgradeStep
         title="Go to imio.project.pst 0.3.1"
         description=""
         source="0.3"
         destination="0.3.1"
         handler="imio.project.pst.migrations.migrate_to_0_3_1.migrate"
-        profile="imio.project.pst:default" -->
+        profile="imio.project.pst:default" />
+
+    <genericsetup:upgradeStep
+        title="Go to imio.project.pst 0.4"
+        description=""
+        source="0.3.1"
+        destination="0.4"
+        handler="imio.project.pst.migrations.migrate_to_0_4.migrate"
+        profile="imio.project.pst:default" />
 
 </configure>

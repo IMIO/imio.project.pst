@@ -1,11 +1,12 @@
 <?xml version="1.0"?>
 <metadata>
-  <version>0.3.1dev</version>
+  <version>0.4</version>
   <dependencies>
     <dependency>profile-Products.PasswordStrength:default</dependency>
     <dependency>profile-communesplone.layout:default</dependency>
     <dependency>profile-communesplone.layout:simplify</dependency>
     <dependency>profile-imio.project.core:default</dependency>
     <dependency>profile-plonetheme.imioapps:pstskin</dependency>
+    <dependency>profile-imio.dashboard:default</dependency>
   </dependencies>
 </metadata>

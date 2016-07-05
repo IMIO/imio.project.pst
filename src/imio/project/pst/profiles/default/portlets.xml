@@ -17,13 +17,12 @@
                 manager="plone.rightcolumn"
                 type="portlets.Events" />
 
-    <assignment name="portlet_mainimioprojectpst"
+    <assignment remove="True"
+                name="portlet_mainimioprojectpst"
                 category="context"
                 key="/"
                 manager="plone.leftcolumn"
                 type="imioprojectpst.portlet.main"
-                insert-before="navigation">
-	    <property name="macro">portlet</property>
-	    <property name="template">portlet_mainimioprojectpst</property>
-	</assignment>
+                insert-before="navigation" />
+
 </portlets>

@@ -54,12 +54,12 @@
         />
 
     <!-- Printing views -->
-    <browser:page
+<!--     <browser:page
         for="*"
         name="document-generation"
         class="imio.project.pst.browser.views.DocumentGenerationView"
         permission="zope2.View"
-        />
+        /> -->
 
     <browser:page
         for="imio.project.pst.content.action.IPSTAction"
@@ -89,11 +89,4 @@
         permission="zope2.View"
         />
 
-    <plone:portlet
-        name="imioprojectpst.portlet.main"
-        interface=".portlets.IMainImioProjectPstPortlet"
-        assignment=".portlets.Assignment"
-        renderer=".portlets.Renderer"
-        addview=".portlets.AddForm"
-        />
 </configure>
