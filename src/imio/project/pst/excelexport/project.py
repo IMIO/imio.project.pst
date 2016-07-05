@@ -9,6 +9,8 @@ from collective.excelexport.exportables.dexterityfields import FieldRenderer
 from collective.excelexport.exportables.dexterityfields import RichTextFieldRenderer
 from collective.excelexport.exportables.dexterityfields import get_ordered_fields
 from collective.excelexport.exportables.dexterityfields import get_exportable
+from collective.excelexport.exportables.dexterityfields import ParentField
+from collective.excelexport.exportables.dexterityfields import GrandParentField
 from collective.excelexport.interfaces import IStyles
 from zope.component import getAdapter
 from plone.dexterity.interfaces import IDexterityFTI
@@ -37,7 +39,6 @@ class PSTActionContentsDataSource(BaseContentsDataSource):
     """Export the contents of a pst folder
     """
     adapts(IProjectSpace, Interface)
-    portal_types = ('pstaction',)
 
     excluded_factories = u'fields'
     excluded_exportables = [
@@ -69,29 +70,9 @@ class PSTActionContentsDataSource(BaseContentsDataSource):
         return [b.getObject() for b in brains]
 
 
-class FieldWrapper(object):
-
-    def __init__(self, field):
-        self.field = field
-
-    def __getattr__(self, name):
-        return getattr(self.field, name)
-
-
-class ParentField(FieldWrapper):
-
-    def bind(self, obj):
-        return self.field.bind(obj.__parent__)
-
-
-class GrandParentField(FieldWrapper):
-
-    def bind(self, obj):
-        return self.field.bind(obj.__parent__.__parent__)
-
-
 class PSTActionFieldsFactory(BaseExportableFactory):
     adapts(IDexterityFTI, Interface, Interface)
+    portal_types = ('pstaction',)
 
     def get_exportables(self):
         portal_types = api.portal.get_tool('portal_types')
