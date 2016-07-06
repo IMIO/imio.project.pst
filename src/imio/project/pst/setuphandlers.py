@@ -856,14 +856,14 @@ COLUMNS_FOR_CONTENT_TYPES = {
         u'select_row',
         u'pretty_link',
         u'review_state',
-        u'CreationDate',
+        u'categories',
         u'history_actions'
     ),
     'operationalobjective': (
         u'select_row',
         u'pretty_link',
         u'review_state',
-        u'CreationDate',
+        u'categories',
         u'history_actions'
     ),
     'pstaction': (

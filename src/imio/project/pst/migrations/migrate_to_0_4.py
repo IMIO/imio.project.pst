@@ -16,13 +16,17 @@ class Migrate_To_0_4(Migrator):
         Migrator.__init__(self, context)
 
     def run(self):
-        self.runProfileSteps('imio.project.pst', steps=['portlets', ])
+        self.runProfileSteps('imio.project.pst', steps=[
+            'catalog', 'portlets'])
 
         # remove the old collections and configure the dashboard
         if 'collections' in self.portal.pst:
             api.content.delete(obj=self.portal.pst['collections'])
 
         configureDashboard(self.portal.pst)
+
+        # update portal_catalog
+        self.refreshDatabase()
 
         # Display duration
         self.finish()
