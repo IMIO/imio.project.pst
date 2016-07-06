@@ -17,6 +17,7 @@ from imio.project.core import _ as _c
 
 from collective.contact.plonegroup.browser.settings import selectedOrganizationsPloneGroupsVocabulary
 
+
 class IOperationalObjective(IProject):
     """
         OperationalObjective schema, field ordering
@@ -78,8 +79,9 @@ class IOperationalObjective(IProject):
 class OperationalObjective(Project):
     """ """
     implements(IOperationalObjective)
+
     def Title(self):
-        return '%s (OO.%s)'% (self.title.encode('utf8'), self.reference_number)
+        return '%s (OO.%s)' % (self.title.encode('utf8'), self.reference_number)
 
 
 class RepresentativeResponsibleVocabulary(object):

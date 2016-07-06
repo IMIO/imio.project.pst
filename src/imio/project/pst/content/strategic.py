@@ -31,8 +31,9 @@ class IStrategicObjective(IProject):
 class StrategicObjective(Project):
     """ """
     implements(IStrategicObjective)
+
     def Title(self):
-        return '%s (OS.%s)'% (self.title.encode('utf8'), self.reference_number)
+        return '%s (OS.%s)' % (self.title.encode('utf8'), self.reference_number)
 
 
 class StrategicObjectiveSchemaPolicy(DexteritySchemaPolicy):
