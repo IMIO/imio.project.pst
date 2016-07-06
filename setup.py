@@ -56,6 +56,9 @@ setup(
         'plone.app.versioningbehavior',
         'plone.directives.form',
         'plonetheme.imioapps',
+        'collective.excelexport',
+        'imio.dashboard',
+        'imio.helpers',
     ],
     extras_require={
         'test': [

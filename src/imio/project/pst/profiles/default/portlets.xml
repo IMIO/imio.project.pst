@@ -4,6 +4,13 @@
     i18n:domain="imio.project.pst">
 
     <assignment remove="True"
+                name="navigation"
+                category="context"
+                key="/"
+                manager="plone.leftcolumn"
+                type="portlets.Navigation" />
+
+    <assignment remove="True"
                 name="news"
                 category="context"
                 key="/"
@@ -24,5 +31,12 @@
                 manager="plone.leftcolumn"
                 type="imioprojectpst.portlet.main"
                 insert-before="navigation" />
+
+    <assignment name="portlet_dashboard"
+                category="context"
+                key="/pst"
+                manager="plone.leftcolumn"
+                type="imio.dashboard.FacetedCollectionPortlet">
+    </assignment>
 
 </portlets>

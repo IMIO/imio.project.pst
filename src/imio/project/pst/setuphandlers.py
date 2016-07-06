@@ -16,19 +16,41 @@ from Products.CMFPlone.utils import getToolByName
 from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
 from collective.contact.plonegroup.config import ORGANIZATIONS_REGISTRY, FUNCTIONS_REGISTRY
 from plone.app.textfield.value import RichTextValue
+from plone.memoize import ram
 from plone.registry.interfaces import IRegistry
+from imio.dashboard.utils import enableFacetedDashboardFor, _updateDefaultCollectionFor
+from imio.helpers.cache import get_cachekey_volatile
 from imio.helpers.catalog import addOrUpdateIndexes
 from zope.component import queryUtility
 from zope.i18n.interfaces import ITranslationDomain
+from zope.globalrequest import getRequest
 from imio.helpers.security import is_develop_environment
 
 from plone import api
 
+
 logger = logging.getLogger('imio.project.pst: setuphandlers')
 
-def _(msgid, context, domain='imio.project.pst'):
+
+def _(msgid, context=None, domain='imio.project.pst'):
     translation_domain = queryUtility(ITranslationDomain, domain)
-    return translation_domain.translate(msgid, context=context.getSite().REQUEST)
+    return translation_domain.translate(msgid, context=getRequest())
+
+
+def reimport_faceted_config(folder, xml, default_UID=None):
+    """Reimport faceted navigation config."""
+    folder.unrestrictedTraverse('@@faceted_exportimport').import_xml(
+        import_file=open(os.path.dirname(__file__) + '/faceted_conf/%s' % xml))
+    if default_UID:
+        _updateDefaultCollectionFor(folder, default_UID)
+
+
+def configure_faceted_folder(folder, xml=None, default_UID=None):
+    """Configure faceted navigation for incoming-mail folder."""
+    enableFacetedDashboardFor(folder, xml and os.path.dirname(__file__) + '/faceted_conf/%s' % xml or None)
+    if default_UID:
+        _updateDefaultCollectionFor(folder, default_UID)
+
 
 def isNotCurrentProfile(context):
     return context.readDataFile("imioprojectpst_marker.txt") is None
@@ -68,8 +90,7 @@ def post_install(context):
     _addTemplatesDirectory(context)
     # add a default 'PST' projectspace where to store objectives and actions
     _addPSTprojectspace(context)
-    # add topics
-    _createCollections(context)
+
     # add some groups of users with different profiles
     _addPSTGroups(context)
     # set default application security
@@ -220,86 +241,10 @@ def _addPSTprojectspace(context):
     # do_transitions(projectspace, transitions=['publish_internally'], logger=logger)
     # set locally allowed types
     behaviour = ISelectableConstrainTypes(projectspace)
+    configureDashboard(projectspace)
     behaviour.setConstrainTypesMode(1)
     behaviour.setLocallyAllowedTypes(['strategicobjective', 'File', ])
     behaviour.setImmediatelyAddableTypes(['strategicobjective', 'File', ])
-
-def _createCollections(context):
-    site = context.getSite()
-    pst = site.pst
-    # if not hasattr(pst, 'objectifs-strategiques'):
-        # site.portal_types.projectspace.filter_content_types = False
-        # behaviour = ISelectableConstrainTypes(pst)
-        # behaviour.setConstrainTypesMode(0)
-        # pst.invokeFactory(
-                # 'Collection',
-                # 'objectifs-strategiques',
-                # title='Objectifs stratégiques',
-        # )
-        # OSs = getattr(pst, 'objectifs-strategiques')
-        # query = [
-            # {
-                # 'i': 'portal_type',
-                # 'o': 'plone.app.querystring.operation.selection.is',
-                # 'v': ['strategicobjective',]
-            # }
-        # ]
-        # OSs.query = query
-        # OSs.sort_on = u'reference_number'
-        # OSs.setLayout('tabular_view')
-        # pst.setDefaultPage("objectifs-strategiques")
-        # site.portal_types.projectspace.filter_content_types = True
-        # behaviour.setConstrainTypesMode(1)
-    if hasattr(pst, 'collections'):
-        return
-    site.portal_types.projectspace.filter_content_types = False
-    behaviour = ISelectableConstrainTypes(pst)
-    behaviour.setConstrainTypesMode(0)
-    pst.invokeFactory(
-            'Folder',
-            'collections',
-            title = 'Collections'
-    )
-    collections = getattr(pst, 'collections')
-    collections.setConstrainTypesMode(1)
-    collections.setLocallyAllowedTypes(['Collection', ])
-    collections.setImmediatelyAddableTypes(['Collection', ])
-    collections.setExcludeFromNav(True)
-    collections.setExpirationDate(DateTime('2014/08/28 00:00:00 GMT+2'))
-
-    _createStatesCollections(context, collections, 'strategicobjective')
-    _createStatesCollections(context, collections, 'operationalobjective')
-    _createStatesCollections(context, collections, 'pstaction')
-
-    site.portal_types.projectspace.filter_content_types = True
-    behaviour.setConstrainTypesMode(1)
-
-def _createStatesCollections(context, container, portal_type):
-    site = context.getSite()
-    for workflow in site.portal_workflow.getWorkflowsFor(portal_type):
-        for value in workflow.states.values():
-            if not hasattr(container, portal_type + '-' + value.id):
-                container.invokeFactory(
-                        'Collection',
-                        portal_type + '-' + value.id,
-                        title = _(portal_type + ' ' + value.id, context)
-                )
-                collection = getattr(container, portal_type + '-' + value.id)
-                query = [
-                    {
-                        'i': 'portal_type',
-                        'o': 'plone.app.querystring.operation.selection.is',
-                        'v': [portal_type,]
-                    }, {
-                        'i': 'review_state',
-                        'o': 'plone.app.querystring.operation.selection.is',
-                        'v': [value.id,]
-                    }
-                ]
-                collection.query = query
-                #collection.limit = 10
-                collection.sort_on = u'reference_number'
-                collection.setLayout('tabular_view')
 
 
 def _addPSTGroups(context):
@@ -904,3 +849,246 @@ def _addPSTUsers(context):
         except ValueError, exc:
             if not str(exc).startswith('The login name you selected is already in use'):
                 logger("Error creating user: %s" % (exc))
+
+
+COLUMNS_FOR_CONTENT_TYPES = {
+    'strategicobjective': (
+        u'select_row',
+        u'pretty_link',
+        u'review_state',
+        u'CreationDate',
+        u'history_actions'
+    ),
+    'operationalobjective': (
+        u'select_row',
+        u'pretty_link',
+        u'review_state',
+        u'CreationDate',
+        u'history_actions'
+    ),
+    'pstaction': (
+        u'select_row',
+        u'pretty_link',
+        u'review_state',
+        u'CreationDate',
+        u'history_actions'
+    ),
+    # 'task': (
+    #     u'select_row',
+    #     u'pretty_link',
+    #     u'task_parent',
+    #     u'review_state',
+    #     u'assigned_group',
+    #     u'assigned_user',
+    #     u'due_date',
+    #     u'CreationDate',
+    #     u'actions'
+    # ),
+}
+
+
+def list_wf_states_cache_key(function, context, portal_type):
+    return get_cachekey_volatile("%s.%s" % (function.func_name, portal_type))
+
+
+@ram.cache(list_wf_states_cache_key)
+def list_wf_states(context, portal_type):
+    """
+        list all portal_type wf states
+    """
+
+    pst_objective_wf_order = [
+        'created',
+        'ongoing',
+        'achieved',
+    ]
+    ordered_states = {
+        'strategicobjective': pst_objective_wf_order,
+        'operationalobjective': pst_objective_wf_order,
+        'pstaction': [
+            'created',
+            'to_be_scheduled',
+            'ongoing',
+            'terminated',
+            'stopped',
+        ]
+    }
+
+    if portal_type not in ordered_states:
+        return []
+    pw = getToolByName(context, 'portal_workflow')
+    ret = []
+    # wf states
+    for workflow in pw.getWorkflowsFor(portal_type):
+        state_ids = [value.id for value in workflow.states.values()]
+        break
+    # keep ordered states
+    for state in ordered_states[portal_type]:
+        if state in state_ids:
+            ret.append(state)
+            state_ids.remove(state)
+    # add missing
+    for missing in state_ids:
+        ret.append(missing)
+    return ret
+
+
+def add_db_col_folder(folder, id, title, content_type, displayed=''):
+    """Add dashboard collection folder."""
+    if base_hasattr(folder, id):
+        return folder[id]
+
+    ttool = api.portal.get_tool('portal_types')
+    ttool.Folder._constructInstance(
+        folder, id=id, title=title, rights=displayed)
+    col_folder = folder[id]
+    col_folder.setConstrainTypesMode(1)
+    col_folder.setLocallyAllowedTypes(['DashboardCollection'])
+    col_folder.setImmediatelyAddableTypes(['DashboardCollection'])
+    folder.portal_workflow.doActionFor(col_folder, "publish_internally")
+    createBaseCollections(col_folder, content_type)
+    createStateCollections(col_folder, content_type)
+    # configure faceted
+    configure_faceted_folder(
+        col_folder, xml='default_dashboard_widgets.xml',
+        default_UID=col_folder['all'].UID())
+    return col_folder
+
+
+def configureDashboard(pst):
+    """Configure dashboard (add folders and collections)."""
+    collection_folders = [
+        # (folder id, folder title, content type for the collections)
+        (
+            'strategicobjectives',
+            _("Strategic objectives"),
+            'strategicobjective'
+        ),
+        (
+            'operationalobjectives',
+            _("Operational objectives"),
+            'operationalobjective'
+        ),
+        (
+            'pstactions',
+            _("Actions"),
+            'pstaction'
+        ),
+    ]
+    for name, title, content_type in collection_folders:
+        if name not in pst:
+            add_db_col_folder(pst, name, title, content_type, displayed='')
+
+    # configure faceted for container
+    default_UID = pst['pstactions']['all'].UID()
+    configure_faceted_folder(
+        pst, xml='default_dashboard_widgets.xml', default_UID=default_UID)
+
+
+def createStateCollections(folder, content_type):
+    """
+        create a collection for each contextual workflow state
+    """
+    conditions = {
+        'strategicobjective': {},
+        'operationalobjective': {},
+        'pstaction': {},
+    }
+    showNumberOfItems = {
+        # 'dmsincomingmail': ('created',),
+    }
+    state_title_mapping = {
+        'created': _("State: created"),
+        'ongoing': _("State: ongoing"),
+        'achieved': _("State: achieved"),
+        # pstaction
+        # 'created',
+        'to_be_scheduled': _("State: to be scheduled"),
+        # 'ongoing',
+        'terminated': _("State: terminated"),
+        'stopped': _("State: stopped"),
+    }
+
+    for state in list_wf_states(folder, content_type):
+        col_id = "searchfor_%s" % state
+        if not base_hasattr(folder, col_id):
+            folder.invokeFactory(
+                "DashboardCollection",
+                id=col_id,
+                title=state_title_mapping[state],
+                query=[
+                    {
+                        'i': 'portal_type',
+                        'o': 'plone.app.querystring.operation.selection.is',
+                        'v': [content_type]
+                    },
+                    {
+                        'i': 'review_state',
+                        'o': 'plone.app.querystring.operation.selection.is',
+                        'v': [state]
+                    }
+                ],
+                customViewFields=COLUMNS_FOR_CONTENT_TYPES[content_type],
+                tal_condition=conditions[content_type].get(state),
+                showNumberOfItems=(
+                    state in showNumberOfItems.get(content_type, [])),
+                roles_bypassing_talcondition=['Manager', 'Site Administrator'],
+                sort_on=u'created',
+                sort_reversed=True,
+                b_size=30,
+                limit=0)
+            col = folder[col_id]
+            col.setSubject((u'search', ))
+            col.reindexObject(['Subject'])
+            col.setLayout('tabular_view')
+            folder.portal_workflow.doActionFor(col, "publish_internally")
+
+
+def createDashboardCollections(folder, collections):
+    """Use collections dict to create and configure collections in folder."""
+    for i, dic in enumerate(collections):
+        if not base_hasattr(folder, dic['id']):
+            folder.invokeFactory("DashboardCollection",
+                                 dic['id'],
+                                 title=dic['tit'],
+                                 query=dic['query'],
+                                 tal_condition=dic['cond'],
+                                 roles_bypassing_talcondition=dic['bypass'],
+                                 customViewFields=dic['flds'],
+                                 showNumberOfItems=dic['count'],
+                                 sort_on=dic['sort'],
+                                 sort_reversed=dic['rev'],
+                                 b_size=30,
+                                 limit=0)
+            collection = folder[dic['id']]
+            folder.portal_workflow.doActionFor(collection, "publish_internally")
+            if 'subj' in dic:
+                collection.setSubject(dic['subj'])
+                collection.reindexObject(['Subject'])
+            collection.setLayout('tabular_view')
+        if folder.getObjectPosition(dic['id']) != i:
+            folder.moveObjectToPosition(dic['id'], i)
+
+
+def createBaseCollections(folder, content_type):
+    collections = [
+        {
+            'id': 'all',
+            'tit': _('All'),
+            'subj': (u'search', ),
+            'query': [
+                {
+                    'i': 'portal_type',
+                    'o': 'plone.app.querystring.operation.selection.is',
+                    'v': [content_type]
+                }
+            ],
+            'cond': u"",
+            'bypass': [],
+            'flds': COLUMNS_FOR_CONTENT_TYPES[content_type],
+            'sort': u'created',
+            'rev': True,
+            'count': False
+        },
+    ]
+    createDashboardCollections(folder, collections)
