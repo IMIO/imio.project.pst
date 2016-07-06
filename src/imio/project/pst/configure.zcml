@@ -27,6 +27,7 @@
     <include package=".excelexport" />
     <include file="subscribers.zcml" />
     <include file="profiles.zcml" />
+    <include file="columns.zcml" />
 
     <utility
         factory=".content.strategic.StrategicObjectiveSchemaPolicy"
