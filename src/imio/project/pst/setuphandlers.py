@@ -856,7 +856,7 @@ COLUMNS_FOR_CONTENT_TYPES = {
         u'select_row',
         u'pretty_link',
         u'review_state',
-        u'categories',
+        u'CreationDate',
         u'history_actions'
     ),
     'operationalobjective': (
