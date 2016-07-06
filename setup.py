@@ -48,13 +48,14 @@ setup(
         'appy',
         'beautifulsoup4',
         'communesplone.layout',
+        'collective.excelexport',
+        'imio.dashboard',
+        'imio.helpers',
         'imio.project.core',
         'imio.migrator',
         'plone.app.versioningbehavior',
         'plone.directives.form',
         'plonetheme.imioapps',
-        'collective.excelexport',
-        'imio.helpers',
     ],
     extras_require={
         'test': [
