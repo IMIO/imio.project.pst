@@ -18,6 +18,7 @@ class Migrate_To_0_4(Migrator):
     def run(self):
         self.runProfileSteps('imio.project.pst', steps=[
             'catalog', 'portlets'])
+        self.reinstall(['imio.dashboard:default'])
 
         # remove the old collections and configure the dashboard
         if 'collections' in self.portal.pst:
