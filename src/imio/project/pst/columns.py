@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
 """Custom columns."""
 from collective.eeafaceted.z3ctable import _ as _cez
-from collective.eeafaceted.z3ctable.columns import VocabularyColumn
+from collective.eeafaceted.z3ctable.columns import DateColumn, VocabularyColumn
 
 from imio.dashboard.columns import ActionsColumn
-from imio.project.pst import _
 
 
 class HistoryActionsColumn(ActionsColumn):
@@ -20,3 +19,15 @@ class CategoriesColumn(VocabularyColumn):
 
     attrName = u'categories'
     vocabulary = u'imio.project.core.content.project.categories_vocabulary'
+
+
+class PlannedEndDateColumn(DateColumn):
+
+    attrName = u'planned_end_date'
+
+
+class PriorityColumn(VocabularyColumn):
+
+    attrName = u'priority'
+    vocabulary = u'imio.project.core.content.project.priority_vocabulary'
+

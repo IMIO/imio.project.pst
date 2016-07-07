@@ -863,6 +863,8 @@ COLUMNS_FOR_CONTENT_TYPES = {
         u'select_row',
         u'pretty_link',
         u'review_state',
+        u'planned_end_date',
+        u'priority',
         u'categories',
         u'history_actions'
     ),
