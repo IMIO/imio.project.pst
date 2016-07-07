@@ -1,6 +1,11 @@
 <?xml version="1.0"?>
 <object name="portal_catalog" meta_type="Plone Catalog Tool">
   <column value="categories" />
+  <column value="planned_begin_date" />
   <column value="planned_end_date" />
+  <column value="effective_begin_date" />
+  <column value="effective_end_date" />
   <column value="priority" />
+  <column value="health_indicator" />
+  <column value="progress" />
 </object>

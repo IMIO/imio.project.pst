@@ -26,6 +26,15 @@
     for="zope.interface.Interface
          zope.publisher.interfaces.browser.IBrowserRequest
          collective.eeafaceted.z3ctable.interfaces.IFacetedTable"
+    factory=".columns.PlannedBeginDateColumn"
+    provides="collective.eeafaceted.z3ctable.interfaces.IFacetedColumn"
+    name="planned_begin_date"
+    />
+
+  <adapter
+    for="zope.interface.Interface
+         zope.publisher.interfaces.browser.IBrowserRequest
+         collective.eeafaceted.z3ctable.interfaces.IFacetedTable"
     factory=".columns.PlannedEndDateColumn"
     provides="collective.eeafaceted.z3ctable.interfaces.IFacetedColumn"
     name="planned_end_date"
@@ -35,9 +44,45 @@
     for="zope.interface.Interface
          zope.publisher.interfaces.browser.IBrowserRequest
          collective.eeafaceted.z3ctable.interfaces.IFacetedTable"
+    factory=".columns.EffectiveBeginDateColumn"
+    provides="collective.eeafaceted.z3ctable.interfaces.IFacetedColumn"
+    name="effective_begin_date"
+    />
+
+  <adapter
+    for="zope.interface.Interface
+         zope.publisher.interfaces.browser.IBrowserRequest
+         collective.eeafaceted.z3ctable.interfaces.IFacetedTable"
+    factory=".columns.EffectiveEndDateColumn"
+    provides="collective.eeafaceted.z3ctable.interfaces.IFacetedColumn"
+    name="effective_end_date"
+    />
+
+  <adapter
+    for="zope.interface.Interface
+         zope.publisher.interfaces.browser.IBrowserRequest
+         collective.eeafaceted.z3ctable.interfaces.IFacetedTable"
     factory=".columns.PriorityColumn"
     provides="collective.eeafaceted.z3ctable.interfaces.IFacetedColumn"
     name="priority"
+    />
+
+  <adapter
+    for="zope.interface.Interface
+         zope.publisher.interfaces.browser.IBrowserRequest
+         collective.eeafaceted.z3ctable.interfaces.IFacetedTable"
+    factory=".columns.HealthIndicatorColumn"
+    provides="collective.eeafaceted.z3ctable.interfaces.IFacetedColumn"
+    name="health_indicator"
+    />
+
+  <adapter
+    for="zope.interface.Interface
+         zope.publisher.interfaces.browser.IBrowserRequest
+         collective.eeafaceted.z3ctable.interfaces.IFacetedTable"
+    factory=".columns.ProgressColumn"
+    provides="collective.eeafaceted.z3ctable.interfaces.IFacetedColumn"
+    name="progress"
     />
 
 </configure>

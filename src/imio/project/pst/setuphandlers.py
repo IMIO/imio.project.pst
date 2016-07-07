@@ -872,20 +872,14 @@ COLUMNS_FOR_CONTENT_TYPES = {
         u'select_row',
         u'pretty_link',
         u'review_state',
-        u'CreationDate',
+        u'planned_begin_date',
+        u'planned_end_date',
+        u'effective_begin_date',
+        u'effective_end_date',
+        u'progress',
+        u'health_indicator',
         u'history_actions'
     ),
-    # 'task': (
-    #     u'select_row',
-    #     u'pretty_link',
-    #     u'task_parent',
-    #     u'review_state',
-    #     u'assigned_group',
-    #     u'assigned_user',
-    #     u'due_date',
-    #     u'CreationDate',
-    #     u'actions'
-    # ),
 }
 
 

@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 """Custom columns."""
 from collective.eeafaceted.z3ctable import _ as _cez
-from collective.eeafaceted.z3ctable.columns import DateColumn, VocabularyColumn
+from collective.eeafaceted.z3ctable.columns import (
+    BaseColumn, DateColumn, VocabularyColumn)
 
 from imio.dashboard.columns import ActionsColumn
 
@@ -21,9 +22,24 @@ class CategoriesColumn(VocabularyColumn):
     vocabulary = u'imio.project.core.content.project.categories_vocabulary'
 
 
+class PlannedBeginDateColumn(DateColumn):
+
+    attrName = u'planned_begin_date'
+
+
 class PlannedEndDateColumn(DateColumn):
 
     attrName = u'planned_end_date'
+
+
+class EffectiveBeginDateColumn(DateColumn):
+
+    attrName = u'effective_begin_date'
+
+
+class EffectiveEndDateColumn(DateColumn):
+
+    attrName = u'effective_end_date'
 
 
 class PriorityColumn(VocabularyColumn):
@@ -31,3 +47,13 @@ class PriorityColumn(VocabularyColumn):
     attrName = u'priority'
     vocabulary = u'imio.project.core.content.project.priority_vocabulary'
 
+
+class HealthIndicatorColumn(VocabularyColumn):
+
+    attrName = u'health_indicator'
+    vocabulary = u'imio.project.pst.content.action.health_indicator_vocabulary'
+
+
+class ProgressColumn(BaseColumn):
+
+    attrName = u'progress'
