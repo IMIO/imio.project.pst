@@ -18,4 +18,3 @@ msgstr ""
 #: ./content/project.py:51
 msgid "Category"
 msgstr "Domaine"
-

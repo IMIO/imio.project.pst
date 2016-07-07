@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-09-19 21:20+0000\n"
+"POT-Creation-Date: 2016-07-07 08:49+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,39 +17,45 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: imio.project.pst\n"
 
-#: ./content/operational.py:35
+#: ./setuphandlers.py:974
+msgid "Actions"
+msgstr ""
+
+#: ./content/operational.py:36
 msgid "Administrative responsible"
 msgstr ""
 
+#: ./setuphandlers.py:1077
+msgid "All"
+msgstr ""
+
 #: ./browser/operationalobjective_folder_listing.pt:17
+#: ./browser/pstaction_folder_listing.pt:17
 #: ./browser/strategicobjective_folder_listing.pt:17
 msgid "Annexes"
 msgstr ""
 
-#: ./browser/views.py:227
-msgid "Cannot split this category '${cat}' with ' - ' separator"
-msgstr ""
-
-#: ./content/action.py:27
+#: ./content/action.py:26
 msgid "Choose a health level."
 msgstr ""
 
-#: ./content/operational.py:36
+#: ./content/operational.py:37
 msgid "Choose principals that will be administrative responsible for this project."
 msgstr ""
 
-#: ./content/operational.py:26
+#: ./content/operational.py:27
 msgid "Choose principals that will be representative responsible for this project."
 msgstr ""
 
-#: ./content/action.py:33
+#: ./content/action.py:32
 msgid "Details concerning the action health."
 msgstr ""
 
-#: ./content/action.py:39
+#: ./content/action.py:38
 msgid "Enter work to do."
 msgstr ""
 
+#: ./profiles/default/actions.xml
 msgid "Excel export"
 msgstr ""
 
@@ -59,6 +65,10 @@ msgstr ""
 
 #: ./profiles/default/actions.xml
 msgid "Generate the content card as office document"
+msgstr ""
+
+#: ./profiles/default/actions.xml
+msgid "Generate the entire denormalized pst content"
 msgstr ""
 
 #: ./profiles/default/actions.xml
@@ -78,90 +88,123 @@ msgid "Generate the status report as office document"
 msgstr ""
 
 #: ./browser/operationalobjective_folder_listing_table.pt:17
-#: ./content/action.py:26
+#: ./content/action.py:25
 msgid "Health indicator"
 msgstr ""
 
-#: ./content/action.py:32
+#: ./content/action.py:31
 msgid "Health indicator_details"
 msgstr ""
 
+#: ./profiles.zcml:22
+msgid "Import some demo data for the imio.project.pst add-on."
+msgstr ""
+
+#: ./profiles.zcml:14
+msgid "Installs the imio.project.pst add-on."
+msgstr ""
+
+#. Default: "Actions"
+#: ./browser/portlet_mainimioprojectpst.pt:72
 msgid "Main_menu_action_section"
 msgstr ""
 
+#. Default: "Operational Objectives"
+#: ./browser/portlet_mainimioprojectpst.pt:39
 msgid "Main_menu_oo_section"
 msgstr ""
 
+#. Default: "Strategic Objectives"
+#: ./browser/portlet_mainimioprojectpst.pt:20
 msgid "Main_menu_os_section"
 msgstr ""
 
+#. Default: "Main menu"
+#: ./browser/portlet_mainimioprojectpst.pt:15
 msgid "Main_menu_title"
+msgstr ""
+
+#: ./setuphandlers.py:969
+msgid "Operational objectives"
 msgstr ""
 
 #: ./profiles/default/types/operationalobjective.xml
 msgid "OperationalObjective"
 msgstr ""
 
-msgid "operationalobjective achieved"
-msgstr ""
-
-msgid "operationalobjective created"
-msgstr ""
-
-msgid "operationalobjective ongoing"
-msgstr ""
-
 #: ./profiles/default/types/pstaction.xml
 msgid "PSTAction"
 msgstr ""
 
-msgid "pstaction created"
-msgstr ""
-
-msgid "pstaction ongoing"
-msgstr ""
-
-msgid "pstaction stopped"
-msgstr ""
-
-msgid "pstaction terminated"
-msgstr ""
-
-msgid "pstaction to_be_scheduled"
-msgstr ""
-
 #: ./browser/strategicobjective_folder_listing_table.pt:15
-#: ./content/operational.py:25
+#: ./content/operational.py:26
 msgid "Representative responsible"
+msgstr ""
+
+#: ./setuphandlers.py:1003
+msgid "State: achieved"
+msgstr ""
+
+#: ./setuphandlers.py:1001
+msgid "State: created"
+msgstr ""
+
+#: ./setuphandlers.py:1002
+msgid "State: ongoing"
+msgstr ""
+
+#: ./setuphandlers.py:1009
+msgid "State: stopped"
+msgstr ""
+
+#: ./setuphandlers.py:1008
+msgid "State: terminated"
+msgstr ""
+
+#: ./setuphandlers.py:1006
+msgid "State: to be scheduled"
+msgstr ""
+
+#: ./testing.zcml:19
+msgid "Steps to ease tests of imio.project.pst"
+msgstr ""
+
+#: ./setuphandlers.py:964
+msgid "Strategic objectives"
 msgstr ""
 
 #: ./profiles/default/types/strategicobjective.xml
 msgid "StrategicObjective"
 msgstr ""
 
-msgid "strategicobjective achieved"
-msgstr ""
-
-msgid "strategicobjective created"
-msgstr ""
-
-msgid "strategicobjective ongoing"
-msgstr ""
-
-#: ./content/action.py:38
+#: ./content/action.py:37
 msgid "Work plan"
 msgstr ""
 
-#: ./content/action.py:90
+#: ./content/action.py:89
 msgid "You must choose at least one group"
 msgstr ""
 
-#: ./content/action.py:107
+#: ./content/action.py:106
 msgid "You must choose at least one group of which you are a member"
+msgstr ""
+
+#: ./profiles.zcml:14
+#: ./setuphandlers.py:35
+msgid "imio.project.pst"
+msgstr ""
+
+#: ./profiles.zcml:22
+msgid "imio.project.pst demo profile"
+msgstr ""
+
+#: ./testing.zcml:19
+msgid "imio.project.pst tests"
 msgstr ""
 
 #. Default: "Actions"
 #: ./browser/operationalobjective_folder_listing.pt:9
+#: ./browser/pstaction_folder_listing.pt:9
 msgid "operational_legend_actions"
 msgstr ""
 
@@ -169,4 +212,3 @@ msgstr ""
 #: ./browser/strategicobjective_folder_listing.pt:9
 msgid "strategic_legend_operational_objectives"
 msgstr ""
-

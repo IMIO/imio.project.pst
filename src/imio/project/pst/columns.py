@@ -19,5 +19,4 @@ class HistoryActionsColumn(ActionsColumn):
 class CategoriesColumn(VocabularyColumn):
 
     attrName = u'categories'
-    header = _(u'Category')
     vocabulary = u'imio.project.core.content.project.categories_vocabulary'
