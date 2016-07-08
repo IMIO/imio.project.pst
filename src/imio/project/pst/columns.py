@@ -57,3 +57,9 @@ class HealthIndicatorColumn(VocabularyColumn):
 class ProgressColumn(BaseColumn):
 
     attrName = u'progress'
+
+
+class ManagerColumn(VocabularyColumn):
+
+    vocabulary = u'imio.project.core.content.project.manager_vocabulary'
+

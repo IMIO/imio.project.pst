@@ -8,4 +8,5 @@
   <column value="priority" />
   <column value="health_indicator" />
   <column value="progress" />
+  <column value="manager" />
 </object>
