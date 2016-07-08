@@ -89,4 +89,25 @@
         permission="zope2.View"
         />
 
+    <configure package="imio.actionspanel">
+
+        <browser:page
+            for="imio.project.pst.content.action.IPSTAction"
+            name="actions_panel"
+            class="imio.project.pst.browser.actionspanel.PSTActionsPanelView"
+            layer="imio.actionspanel.interfaces.IActionsPanelLayer"
+            template="browser/actions_panel.pt"
+            permission="zope2.View" />
+
+        <!-- use IProject for strategic and operational objectives -->
+        <browser:page
+            for="imio.project.core.content.project.IProject"
+            name="actions_panel"
+            class="imio.project.pst.browser.actionspanel.ObjectivesActionsPanelView"
+            layer="imio.actionspanel.interfaces.IActionsPanelLayer"
+            template="browser/actions_panel.pt"
+            permission="zope2.View" />
+
+    </configure>
+
 </configure>
