@@ -18,45 +18,42 @@ class HistoryActionsColumn(ActionsColumn):
 
 class CategoriesColumn(VocabularyColumn):
 
-    attrName = u'categories'
     vocabulary = u'imio.project.core.content.project.categories_vocabulary'
 
 
 class PlannedBeginDateColumn(DateColumn):
 
-    attrName = u'planned_begin_date'
+    pass
 
 
 class PlannedEndDateColumn(DateColumn):
 
-    attrName = u'planned_end_date'
+    pass
 
 
 class EffectiveBeginDateColumn(DateColumn):
 
-    attrName = u'effective_begin_date'
+    pass
 
 
 class EffectiveEndDateColumn(DateColumn):
 
-    attrName = u'effective_end_date'
+    pass
 
 
 class PriorityColumn(VocabularyColumn):
 
-    attrName = u'priority'
     vocabulary = u'imio.project.core.content.project.priority_vocabulary'
 
 
 class HealthIndicatorColumn(VocabularyColumn):
 
-    attrName = u'health_indicator'
     vocabulary = u'imio.project.pst.content.action.health_indicator_vocabulary'
 
 
 class ProgressColumn(BaseColumn):
 
-    attrName = u'progress'
+    pass
 
 
 class ManagerColumn(VocabularyColumn):
