@@ -7,7 +7,7 @@ from zope.schema.interfaces import IVocabularyFactory
 from plone.autoform import directives as form
 from plone.dexterity.schema import DexteritySchemaPolicy
 
-from collective.z3cform.rolefield.field import LocalRolesToPrincipals
+from dexterity.localrolesfield.field import LocalRolesField
 
 from imio.project.core.content.project import IProject
 from imio.project.core.content.project import Project
@@ -16,39 +16,34 @@ from imio.project.pst import _
 from imio.project.core import _ as _c
 
 from collective.contact.plonegroup.browser.settings import selectedOrganizationsPloneGroupsVocabulary
+from dexterity.localrolesfield.field import LocalRolesField
 
 
 class IOperationalObjective(IProject):
     """
         OperationalObjective schema, field ordering
     """
-    representative_responsible = LocalRolesToPrincipals(
+    representative_responsible = LocalRolesField(
         title=_(u"Representative responsible"),
         description=_(u"Choose principals that will be representative responsible for this project."),
-        roles_to_assign=('Reader',),
         value_type=schema.Choice(
             vocabulary=u'imio.project.pst.content.operational.representative_responsible_vocabulary',
         ),
         required=True,
     )
 
-    administrative_responsible = LocalRolesToPrincipals(
+    administrative_responsible = LocalRolesField(
         title=_(u"Administrative responsible"),
         description=_(u"Choose principals that will be administrative responsible for this project."),
-        roles_to_assign=('Reader',),
         value_type=schema.Choice(
             vocabulary=u'imio.project.pst.content.operational.administrative_responsible_vocabulary',
         ),
         required=True,
     )
 
-    # Changing field property globally isn't correct because the local_role on action must be Editor
-    #IProject['manager'].roles_to_assign = ('Contributor',)
-
-    manager = LocalRolesToPrincipals(
+    manager = LocalRolesField(
         title=_c(u"Manager"),
         description=_c(u"Choose principals that will manage this project."),
-        roles_to_assign=('Contributor',),
         value_type=schema.Choice(
             vocabulary='imio.project.core.content.project.manager_vocabulary'
         ),

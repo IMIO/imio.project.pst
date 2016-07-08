@@ -4,7 +4,8 @@ import logging
 from plone import api
 
 from imio.migrator.migrator import Migrator
-from imio.project.pst.setuphandlers import configureDashboard
+from imio.project.pst.setuphandlers import (
+    configureDashboard, configure_rolefields)
 
 
 logger = logging.getLogger('imio.project.pst')
@@ -18,13 +19,17 @@ class Migrate_To_0_4(Migrator):
     def run(self):
         self.runProfileSteps('imio.project.pst', steps=[
             'catalog', 'portlets'])
-        self.reinstall(['imio.dashboard:default'])
+        self.reinstall([
+            'imio.project.core:default',
+            'imio.dashboard:default',
+        ])
 
         # remove the old collections and configure the dashboard
         if 'collections' in self.portal.pst:
             api.content.delete(obj=self.portal.pst['collections'])
 
         configureDashboard(self.portal.pst)
+        configure_rolefields()
 
         # update portal_catalog
         self.refreshDatabase()

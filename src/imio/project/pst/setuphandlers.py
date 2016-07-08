@@ -25,6 +25,7 @@ from zope.component import queryUtility
 from zope.i18n.interfaces import ITranslationDomain
 from zope.globalrequest import getRequest
 from imio.helpers.security import is_develop_environment
+from dexterity.localroles.utils import add_fti_configuration
 
 from plone import api
 
@@ -99,6 +100,8 @@ def post_install(context):
     _reorderTabs(context)
     # Add a mandatory function in contact plonegroup configuration
     _updateContactPlonegroupConfiguration(context)
+    # configure dexterity.localrolesfield
+    configure_rolefields()
 
 
 def _addTemplatesDirectory(context):
@@ -1088,3 +1091,60 @@ def createBaseCollections(folder, content_type):
         },
     ]
     createDashboardCollections(folder, collections)
+
+
+def configure_rolefields():
+    """Configure the rolefields on types."""
+    config = {
+        'pstaction': {
+            'manager': {
+                'created': {
+                    'gestionnaire': {'roles': ['Editor', 'Reviewer']}
+                },
+                'to_be_scheduled': {
+                    'gestionnaire': {'roles': ['Editor', 'Reviewer']}
+                },
+                'ongoing': {
+                    'gestionnaire': {'roles': ['Editor', 'Reviewer']}
+                },
+                'terminated': {
+                    'gestionnaire': {'roles': ['Editor', 'Reviewer']}
+                },
+                'stopped': {
+                    'gestionnaire': {'roles': ['Editor', 'Reviewer']}
+                },
+            }
+        },
+        'operationalobjective': {
+            'manager': {
+                'achieved': {
+                    'gestionnaire': {'roles': ['Contributor']}
+                },
+                'created': {
+                    'gestionnaire': {'roles': ['Contributor']}
+                },
+                'ongoing': {
+                    'gestionnaire': {'roles': ['Contributor']}
+                },
+            },
+            'administrative_responsible': {
+                'achieved': {
+                    'respadmin': {'roles': ['Reader']},
+                },
+                'created': {
+                    'respadmin': {'roles': ['Reader']},
+                },
+                'ongoing': {
+                    'respadmin': {'roles': ['Reader']},
+                }
+            }
+            # TODO: representative_responsible
+        }
+    }
+    for portal_type, roles_config in config.iteritems():
+        for keyname in roles_config:
+            # don't overwrite existing configuration
+            msg = add_fti_configuration(
+                portal_type, roles_config[keyname], keyname=keyname)
+            if msg:
+                logger.warn(msg)
