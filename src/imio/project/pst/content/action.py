@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from zope.component import provideAdapter
 from zope.interface import implements, Invalid
 from zope import schema
+from zope.schema.fieldproperty import FieldProperty
 from zope.schema.interfaces import IVocabularyFactory
 from zope.schema.vocabulary import SimpleTerm, SimpleVocabulary
 from z3c.form import validator
@@ -113,8 +113,11 @@ class ManagerFieldValidator(validator.SimpleFieldValidator):
 class PSTAction(Project):
     """ """
     implements(IPSTAction)
+
+    manager = FieldProperty(IProject[u'manager'])
+
     def Title(self):
-        return '%s (A.%s)'% (self.title.encode('utf8'), self.reference_number)
+        return '%s (A.%s)' % (self.title.encode('utf8'), self.reference_number)
 
 
 class PSTActionSchemaPolicy(DexteritySchemaPolicy):

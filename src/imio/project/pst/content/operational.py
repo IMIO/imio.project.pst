@@ -2,12 +2,13 @@
 
 from zope.interface import implements
 from zope import schema
+from zope.schema.fieldproperty import FieldProperty
 from zope.schema.interfaces import IVocabularyFactory
 
 from plone.autoform import directives as form
 from plone.dexterity.schema import DexteritySchemaPolicy
 
-from collective.z3cform.rolefield.field import LocalRolesToPrincipals
+from collective.z3cform.rolefield.localrolefield import LocalRolesToPrincipals
 
 from imio.project.core.content.project import IProject
 from imio.project.core.content.project import Project
@@ -16,6 +17,7 @@ from imio.project.pst import _
 from imio.project.core import _ as _c
 
 from collective.contact.plonegroup.browser.settings import selectedOrganizationsPloneGroupsVocabulary
+
 
 class IOperationalObjective(IProject):
     """
@@ -78,8 +80,11 @@ class IOperationalObjective(IProject):
 class OperationalObjective(Project):
     """ """
     implements(IOperationalObjective)
+
+    manager = FieldProperty(IOperationalObjective[u'manager'])
+
     def Title(self):
-        return '%s (OO.%s)'% (self.title.encode('utf8'), self.reference_number)
+        return '%s (OO.%s)' % (self.title.encode('utf8'), self.reference_number)
 
 
 class RepresentativeResponsibleVocabulary(object):

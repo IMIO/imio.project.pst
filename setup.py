@@ -48,6 +48,7 @@ setup(
         'appy',
         'beautifulsoup4',
         'communesplone.layout',
+        'collective.z3cform.rolefield >= 0.4',
         'imio.project.core',
         'imio.migrator',
         'plone.app.versioningbehavior',
