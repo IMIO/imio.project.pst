@@ -4,6 +4,7 @@
     i18n_domain="imio.project.pst">
 
   <include file="configure.zcml" />
+  <includeDependencies package="." />
   <include package="imio.project.core" />
   <include package="collective.contact.core" />
   <include package="collective.contact.plonegroup" />
