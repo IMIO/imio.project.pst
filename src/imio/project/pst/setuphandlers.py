@@ -4,7 +4,6 @@ import os
 import logging
 logger = logging.getLogger('imio.project.pst')
 from datetime import datetime
-from DateTime import DateTime
 from Acquisition import aq_base
 from zope.component import getUtility, getMultiAdapter
 from zope.event import notify
@@ -89,7 +88,7 @@ def post_install(context):
 
     # add a default 'templates' directory containing the odt templates
     _addTemplatesDirectory(context)
-    # add a default 'PST' projectspace where to store objectives and actions
+    # add a default 'PST' projectspace where to store objectives and actions. Add dashboard
     _addPSTprojectspace(context)
 
     # add some groups of users with different profiles
@@ -388,12 +387,9 @@ def addDemoOrganization(context):
         return
 
     # Organisations creation (in directory)
-    params = {'title': u"Mon organisation",
-              'organization_type': u'commune',
-              'zip_code': u'0010',
-              'city': u'Ma ville',
-              'street': u'Rue de la commune',
-              'number': u'1',
+    params = {'title': u"Mon organisation", 'organization_type': u'commune',
+              'zip_code': u'0010', 'city': u'Ma ville',
+              'street': u'Rue de la commune', 'number': u'1',
               }
     # use invokeFactory for the special 'plonegroup-organization'
     # or it fails with collective.contact.plonegroup while adding content here under...
@@ -403,13 +399,11 @@ def addDemoOrganization(context):
 
     # Departments and services creation
     sublevels = [
-        (u'echevinat',
-         u'Echevins',
+        (u'echevinat', u'Echevins',
          [u'1er échevin', u'2ème échevin', u'3ème échevin',
           u'4ème échevin', u'5ème échevin', u'6ème échevin',
           u'7ème échevin', u'8ème échevin', u'9ème échevin', ]),
-        (u'service',
-         u'Services',
+        (u'service', u'Services',
          [u'Accueil', u'Cabinet du Bourgmestre', u'ADL', u'Cellule Marchés Publics',
           u'Receveur Communal', u'Secrétariat Communal', u'Service de l\'Enseignement',
           u'Service Etat-civil', u'Service Finances', u'Service Informatique',
@@ -421,14 +415,10 @@ def addDemoOrganization(context):
 
     for (organization_type, department, services) in sublevels:
         dep = createContentInContainer(own_orga, 'organization',
-                                       **{'title': department,
-                                          'organization_type': organization_type}
-                                       )
+                                       **{'title': department, 'organization_type': organization_type})
         for service in services:
             obj = createContentInContainer(dep, 'organization',
-                                           **{'title': service,
-                                              'organization_type': u'service'}
-                                           )
+                                           **{'title': service, 'organization_type': u'service'})
             if department == 'Services' and obj.UID() not in registry[ORGANIZATIONS_REGISTRY]:
                 group_ids.append(obj.UID())
     if group_ids:
@@ -855,36 +845,12 @@ def _addPSTUsers(context):
 
 
 COLUMNS_FOR_CONTENT_TYPES = {
-    'strategicobjective': (
-        u'select_row',
-        u'pretty_link',
-        u'review_state',
-        u'categories',
-        u'history_actions'
-    ),
-    'operationalobjective': (
-        u'select_row',
-        u'pretty_link',
-        u'review_state',
-        u'manager',
-        u'planned_end_date',
-        u'priority',
-        u'categories',
-        u'history_actions'
-    ),
-    'pstaction': (
-        u'select_row',
-        u'pretty_link',
-        u'review_state',
-        u'manager',
-        u'planned_begin_date',
-        u'planned_end_date',
-        u'effective_begin_date',
-        u'effective_end_date',
-        u'progress',
-        u'health_indicator',
-        u'history_actions'
-    ),
+    'strategicobjective': (u'select_row', u'pretty_link', u'review_state', u'categories', u'history_actions'),
+    'operationalobjective': (u'select_row', u'pretty_link', u'review_state', u'manager', u'planned_end_date',
+                             u'priority', u'categories', u'history_actions'),
+    'pstaction': (u'select_row', u'pretty_link', u'review_state', u'manager', u'planned_begin_date',
+                  u'planned_end_date', u'effective_begin_date', u'effective_end_date', u'progress',
+                  u'health_indicator', u'history_actions'),
 }
 
 
@@ -960,28 +926,16 @@ def configureDashboard(pst):
     """Configure dashboard (add folders and collections)."""
     collection_folders = [
         # (folder id, folder title, content type for the collections)
-        (
-            'strategicobjectives',
-            _("Strategic objectives"),
-            'strategicobjective'
-        ),
-        (
-            'operationalobjectives',
-            _("Operational objectives"),
-            'operationalobjective'
-        ),
-        (
-            'pstactions',
-            _("Actions"),
-            'pstaction'
-        ),
+        ('strategicobjectives', _("Strategic objectives"), 'strategicobjective'),
+        ('operationalobjectives', _("Operational objectives"), 'operationalobjective'),
+        ('pstactions', _("Actions"), 'pstaction'),
     ]
     for name, title, content_type in collection_folders:
         if name not in pst:
             add_db_col_folder(pst, name, title, content_type, displayed='')
 
     # configure faceted for container
-    default_UID = pst['pstactions']['all'].UID()
+    default_UID = pst['strategicobjectives']['all'].UID()
     configure_faceted_folder(
         pst, xml='default_dashboard_widgets.xml', default_UID=default_UID)
 
@@ -1018,16 +972,8 @@ def createStateCollections(folder, content_type):
                 id=col_id,
                 title=state_title_mapping[state],
                 query=[
-                    {
-                        'i': 'portal_type',
-                        'o': 'plone.app.querystring.operation.selection.is',
-                        'v': [content_type]
-                    },
-                    {
-                        'i': 'review_state',
-                        'o': 'plone.app.querystring.operation.selection.is',
-                        'v': [state]
-                    }
+                    {'i': 'portal_type', 'o': 'plone.app.querystring.operation.selection.is', 'v': [content_type]},
+                    {'i': 'review_state', 'o': 'plone.app.querystring.operation.selection.is', 'v': [state]}
                 ],
                 customViewFields=COLUMNS_FOR_CONTENT_TYPES[content_type],
                 tal_condition=conditions[content_type].get(state),
@@ -1078,11 +1024,7 @@ def createBaseCollections(folder, content_type):
             'tit': _('All'),
             'subj': (u'search', ),
             'query': [
-                {
-                    'i': 'portal_type',
-                    'o': 'plone.app.querystring.operation.selection.is',
-                    'v': [content_type]
-                }
+                {'i': 'portal_type', 'o': 'plone.app.querystring.operation.selection.is', 'v': [content_type]},
             ],
             'cond': u"",
             'bypass': [],
