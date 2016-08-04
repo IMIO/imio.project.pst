@@ -7,9 +7,8 @@ class SortTransitionsActionsPanelView(ActionsPanelView):
     transitions = []
 
     def sortTransitions(self, lst):
-        """ Sort transitions following transitions list order"""
-        tr_order = dict((val, i) for (i, val) in enumerate(self.transitions))
-        import pdb; pdb.set_trace()
+        """ Sort transitions following transitions list order """
+        tr_order = dict([(val, i) for (i, val) in enumerate(self.transitions)])
         lst.sort(lambda x, y: cmp(tr_order[x['id']], tr_order[y['id']]))
 
 
