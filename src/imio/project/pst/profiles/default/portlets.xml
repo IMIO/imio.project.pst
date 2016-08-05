@@ -36,7 +36,20 @@
                 category="context"
                 key="/pst"
                 manager="plone.leftcolumn"
-                type="imio.dashboard.FacetedCollectionPortlet">
+                type="imio.dashboard.FacetedCollectionPortlet" />
+
+    <assignment name="navigation"
+                category="context"
+                key="/pst"
+                manager="plone.leftcolumn"
+                type="portlets.Navigation"
+                insert-after="portlet_dashboard">
+        <property name="name">Navigation</property>
+        <property name="root">/pst</property>
+        <property name="includeTop">False</property>
+        <property name="currentFolderOnly">False</property>
+        <property name="topLevel">0</property>
+        <property name="bottomLevel">0</property>
     </assignment>
 
 </portlets>

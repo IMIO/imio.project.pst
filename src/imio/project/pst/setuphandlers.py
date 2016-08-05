@@ -900,7 +900,7 @@ def list_wf_states(context, portal_type):
     return ret
 
 
-def add_db_col_folder(folder, id, title, content_type, displayed=''):
+def add_db_col_folder(folder, id, title, content_type, position, displayed=''):
     """Add dashboard collection folder."""
     if base_hasattr(folder, id):
         return folder[id]
@@ -908,10 +908,12 @@ def add_db_col_folder(folder, id, title, content_type, displayed=''):
     ttool = api.portal.get_tool('portal_types')
     ttool.Folder._constructInstance(
         folder, id=id, title=title, rights=displayed)
+    folder.moveObjectToPosition(id, position)
     col_folder = folder[id]
     col_folder.setConstrainTypesMode(1)
     col_folder.setLocallyAllowedTypes(['DashboardCollection'])
     col_folder.setImmediatelyAddableTypes(['DashboardCollection'])
+    col_folder.setExcludeFromNav(True)
     folder.portal_workflow.doActionFor(col_folder, "publish_internally")
     createBaseCollections(col_folder, content_type)
     createStateCollections(col_folder, content_type)
@@ -930,9 +932,9 @@ def configureDashboard(pst):
         ('operationalobjectives', _("Operational objectives"), 'operationalobjective'),
         ('pstactions', _("Actions"), 'pstaction'),
     ]
-    for name, title, content_type in collection_folders:
+    for i, (name, title, content_type) in enumerate(collection_folders):
         if name not in pst:
-            add_db_col_folder(pst, name, title, content_type, displayed='')
+            add_db_col_folder(pst, name, title, content_type, i, displayed='')
 
     # configure faceted for container
     default_UID = pst['strategicobjectives']['all'].UID()

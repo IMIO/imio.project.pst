@@ -17,8 +17,7 @@ class Migrate_To_0_4(Migrator):
         Migrator.__init__(self, context)
 
     def run(self):
-        self.runProfileSteps('imio.project.pst', steps=[
-            'catalog', 'portlets'])
+        self.runProfileSteps('imio.project.pst', steps=['catalog', 'portlets', 'propertiestool'])
         self.reinstall([
             'imio.project.core:default',
             'imio.dashboard:default',

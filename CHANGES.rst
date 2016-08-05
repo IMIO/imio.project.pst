@@ -1,8 +1,13 @@
 Changelog
 =========
 
-0.3.2 (unreleased)
+0.4 (unreleased)
 ----------------
+
+- Added dashboard
+  [cmessiant]
+- Reconfigure navigation portlet
+  [sgeulette]
 
 0.3.1 (2015-04-10)
 ----------------
