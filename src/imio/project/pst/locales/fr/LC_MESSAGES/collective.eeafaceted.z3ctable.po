@@ -27,6 +27,12 @@ msgstr "Catégorie"
 msgid "due_date"
 msgstr "Échéance"
 
+msgid "effective_begin_date"
+msgstr "Date de début effective"
+
+msgid "effective_end_date"
+msgstr "Date de fin effective"
+
 msgid "header_assigned_group"
 msgstr "Groupe assigné"
 
@@ -38,3 +44,45 @@ msgstr "Catégorie"
 
 msgid "header_due_date"
 msgstr "Échéance"
+
+msgid "header_effective_begin_date"
+msgstr "Date de début effective"
+
+msgid "header_effective_end_date"
+msgstr "Date de fin effective"
+
+msgid "header_health_indicator"
+msgstr "Indice de santé"
+
+msgid "header_manager"
+msgstr "Gestionnaire"
+
+msgid "header_planned_begin_date"
+msgstr "Date de début prévue"
+
+msgid "header_planned_end_date"
+msgstr "Échéance"
+
+msgid "header_priority"
+msgstr "Priorité"
+
+msgid "header_progress"
+msgstr "Progression"
+
+msgid "health_indicator"
+msgstr "Indice de santé"
+
+msgid "manager"
+msgstr "Gestionnaire"
+
+msgid "planned_begin_date"
+msgstr "Date de début prévue"
+
+msgid "planned_end_date"
+msgstr "Échéance"
+
+msgid "priority"
+msgstr "Priorité"
+
+msgid "progress"
+msgstr "Progression"

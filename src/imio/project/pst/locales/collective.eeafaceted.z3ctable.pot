@@ -17,12 +17,6 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: collective.eeafaceted.z3ctable\n"
 
-msgid "header_categories"
-msgstr ""
-
-msgid "categories"
-msgstr ""
-
 msgid "header_assigned_group"
 msgstr ""
 
@@ -39,4 +33,58 @@ msgid "header_due_date"
 msgstr ""
 
 msgid "due_date"
+msgstr ""
+
+msgid "header_categories"
+msgstr ""
+
+msgid "categories"
+msgstr ""
+
+msgid "header_manager"
+msgstr ""
+
+msgid "manager"
+msgstr ""
+
+msgid "header_planned_end_date"
+msgstr ""
+
+msgid "planned_end_date"
+msgstr ""
+
+msgid "header_priority"
+msgstr ""
+
+msgid "priority"
+msgstr ""
+
+msgid "header_planned_begin_date"
+msgstr ""
+
+msgid "planned_begin_date"
+msgstr ""
+
+msgid "header_effective_begin_date"
+msgstr ""
+
+msgid "effective_begin_date"
+msgstr ""
+
+msgid "header_effective_end_date"
+msgstr ""
+
+msgid "effective_end_date"
+msgstr ""
+
+msgid "header_progress"
+msgstr ""
+
+msgid "progress"
+msgstr ""
+
+msgid "header_health_indicator"
+msgstr ""
+
+msgid "health_indicator"
 msgstr ""

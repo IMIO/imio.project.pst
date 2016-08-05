@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2016-07-07 08:49+0000\n"
+"POT-Creation-Date: 2016-08-05 12:52+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: imio.project.pst\n"
 
-#: ./setuphandlers.py:974
+#: ./setuphandlers.py:933
 msgid "Actions"
 msgstr ""
 
@@ -25,7 +25,7 @@ msgstr ""
 msgid "Administrative responsible"
 msgstr ""
 
-#: ./setuphandlers.py:1077
+#: ./setuphandlers.py:1026
 msgid "All"
 msgstr ""
 
@@ -43,7 +43,7 @@ msgstr ""
 msgid "Choose principals that will be administrative responsible for this project."
 msgstr ""
 
-#: ./content/operational.py:27
+#: ./content/operational.py:28
 msgid "Choose principals that will be representative responsible for this project."
 msgstr ""
 
@@ -124,7 +124,7 @@ msgstr ""
 msgid "Main_menu_title"
 msgstr ""
 
-#: ./setuphandlers.py:969
+#: ./setuphandlers.py:932
 msgid "Operational objectives"
 msgstr ""
 
@@ -137,39 +137,39 @@ msgid "PSTAction"
 msgstr ""
 
 #: ./browser/strategicobjective_folder_listing_table.pt:15
-#: ./content/operational.py:26
+#: ./content/operational.py:27
 msgid "Representative responsible"
 msgstr ""
 
-#: ./setuphandlers.py:1003
+#: ./setuphandlers.py:960
 msgid "State: achieved"
 msgstr ""
 
-#: ./setuphandlers.py:1001
+#: ./setuphandlers.py:958
 msgid "State: created"
 msgstr ""
 
-#: ./setuphandlers.py:1002
+#: ./setuphandlers.py:959
 msgid "State: ongoing"
 msgstr ""
 
-#: ./setuphandlers.py:1009
+#: ./setuphandlers.py:966
 msgid "State: stopped"
 msgstr ""
 
-#: ./setuphandlers.py:1008
+#: ./setuphandlers.py:965
 msgid "State: terminated"
 msgstr ""
 
-#: ./setuphandlers.py:1006
+#: ./setuphandlers.py:963
 msgid "State: to be scheduled"
 msgstr ""
 
-#: ./testing.zcml:19
+#: ./testing.zcml:20
 msgid "Steps to ease tests of imio.project.pst"
 msgstr ""
 
-#: ./setuphandlers.py:964
+#: ./setuphandlers.py:931
 msgid "Strategic objectives"
 msgstr ""
 
@@ -198,7 +198,7 @@ msgstr ""
 msgid "imio.project.pst demo profile"
 msgstr ""
 
-#: ./testing.zcml:19
+#: ./testing.zcml:20
 msgid "imio.project.pst tests"
 msgstr ""
 

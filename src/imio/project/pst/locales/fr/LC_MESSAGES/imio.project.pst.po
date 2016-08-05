@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2016-07-07 08:49+0000\n"
+"POT-Creation-Date: 2016-08-05 12:52+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Domain: imio.project.pst\n"
 "X-is-fallback-for: fr-fr fr-be fr-ca\n"
 
-#: ./setuphandlers.py:974
+#: ./setuphandlers.py:933
 msgid "Actions"
 msgstr "Actions"
 
@@ -23,7 +23,7 @@ msgstr "Actions"
 msgid "Administrative responsible"
 msgstr "Responsable administratif"
 
-#: ./setuphandlers.py:1077
+#: ./setuphandlers.py:1026
 msgid "All"
 msgstr "Tous"
 
@@ -41,7 +41,7 @@ msgstr "Choisir un indice de santé."
 msgid "Choose principals that will be administrative responsible for this project."
 msgstr "Sélectionner les utilisateurs qui seront responsable administratif de l'objectif."
 
-#: ./content/operational.py:27
+#: ./content/operational.py:28
 msgid "Choose principals that will be representative responsible for this project."
 msgstr "Sélectionner les utilisateurs qui seront responsable mandataire de l'objectif."
 
@@ -122,7 +122,7 @@ msgstr "Objectifs stratégiques"
 msgid "Main_menu_title"
 msgstr "Menu PST"
 
-#: ./setuphandlers.py:969
+#: ./setuphandlers.py:932
 msgid "Operational objectives"
 msgstr "Objectifs opérationnels"
 
@@ -135,39 +135,39 @@ msgid "PSTAction"
 msgstr "Action"
 
 #: ./browser/strategicobjective_folder_listing_table.pt:15
-#: ./content/operational.py:26
+#: ./content/operational.py:27
 msgid "Representative responsible"
 msgstr "Responsable mandataire"
 
-#: ./setuphandlers.py:1003
+#: ./setuphandlers.py:960
 msgid "State: achieved"
 msgstr "État: clôturé"
 
-#: ./setuphandlers.py:1001
+#: ./setuphandlers.py:958
 msgid "State: created"
 msgstr "État: en création"
 
-#: ./setuphandlers.py:1002
+#: ./setuphandlers.py:959
 msgid "State: ongoing"
 msgstr "État: en cours"
 
-#: ./setuphandlers.py:1009
+#: ./setuphandlers.py:966
 msgid "State: stopped"
 msgstr "État: annulé"
 
-#: ./setuphandlers.py:1008
+#: ./setuphandlers.py:965
 msgid "State: terminated"
 msgstr "État: finalisé"
 
-#: ./setuphandlers.py:1006
+#: ./setuphandlers.py:963
 msgid "State: to be scheduled"
 msgstr "État: à agender"
 
-#: ./testing.zcml:19
+#: ./testing.zcml:20
 msgid "Steps to ease tests of imio.project.pst"
 msgstr "Steps to ease tests of imio.project.pst"
 
-#: ./setuphandlers.py:964
+#: ./setuphandlers.py:931
 msgid "Strategic objectives"
 msgstr "Objectifs stratégiques"
 
@@ -196,7 +196,7 @@ msgstr ""
 msgid "imio.project.pst demo profile"
 msgstr "imio.project.pst demo profile"
 
-#: ./testing.zcml:19
+#: ./testing.zcml:20
 msgid "imio.project.pst tests"
 msgstr "imio.project.pst tests"
 
