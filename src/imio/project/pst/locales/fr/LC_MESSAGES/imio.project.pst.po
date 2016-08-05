@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2016-08-05 12:52+0000\n"
+"POT-Creation-Date: 2016-08-05 13:21+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Domain: imio.project.pst\n"
 "X-is-fallback-for: fr-fr fr-be fr-ca\n"
 
-#: ./setuphandlers.py:933
+#: ./setuphandlers.py:605
 msgid "Actions"
 msgstr "Actions"
 
@@ -23,7 +23,7 @@ msgstr "Actions"
 msgid "Administrative responsible"
 msgstr "Responsable administratif"
 
-#: ./setuphandlers.py:1026
+#: ./setuphandlers.py:698
 msgid "All"
 msgstr "Tous"
 
@@ -122,7 +122,7 @@ msgstr "Objectifs stratégiques"
 msgid "Main_menu_title"
 msgstr "Menu PST"
 
-#: ./setuphandlers.py:932
+#: ./setuphandlers.py:604
 msgid "Operational objectives"
 msgstr "Objectifs opérationnels"
 
@@ -139,27 +139,27 @@ msgstr "Action"
 msgid "Representative responsible"
 msgstr "Responsable mandataire"
 
-#: ./setuphandlers.py:960
+#: ./setuphandlers.py:632
 msgid "State: achieved"
 msgstr "État: clôturé"
 
-#: ./setuphandlers.py:958
+#: ./setuphandlers.py:630
 msgid "State: created"
 msgstr "État: en création"
 
-#: ./setuphandlers.py:959
+#: ./setuphandlers.py:631
 msgid "State: ongoing"
 msgstr "État: en cours"
 
-#: ./setuphandlers.py:966
+#: ./setuphandlers.py:638
 msgid "State: stopped"
 msgstr "État: annulé"
 
-#: ./setuphandlers.py:965
+#: ./setuphandlers.py:637
 msgid "State: terminated"
 msgstr "État: finalisé"
 
-#: ./setuphandlers.py:963
+#: ./setuphandlers.py:635
 msgid "State: to be scheduled"
 msgstr "État: à agender"
 
@@ -167,7 +167,7 @@ msgstr "État: à agender"
 msgid "Steps to ease tests of imio.project.pst"
 msgstr "Steps to ease tests of imio.project.pst"
 
-#: ./setuphandlers.py:931
+#: ./setuphandlers.py:603
 msgid "Strategic objectives"
 msgstr "Objectifs stratégiques"
 
@@ -186,6 +186,18 @@ msgstr "Vous devez au moins choisir un groupe"
 #: ./content/action.py:106
 msgid "You must choose at least one group of which you are a member"
 msgstr "Vous devez choisir au moins un des groupes dont vous êtes membre"
+
+#: ./setuphandlers.py:334
+msgid "front_page_descr"
+msgstr "Bienvenue sur votre outil de gestion du PST"
+
+#: ./setuphandlers.py:335
+msgid "front_page_text"
+msgstr "<p></p><p>L'application de gestion du PST contient actuellement les <strong>fonctionnalités suivantes</strong>:</p><ul><li>encodage des objectifs stratégiques</li><li>encodage des objectifs opérationnels</li><li>encodage des actions</li><li>ajout d'une référence unique par projet facilitant la recherche</li><li>génération au format bureautique</li><li>exportation des données au format excel</li><li>gestion des contacts (services traitants, échevins)</li><li>gestion des droits par service</li><li>workflow de traitement sur tous les types d'éléments</li><li>portlet de recherche par état</li><li>...</li></ul><p> </p><p>Les <strong>documents générés</strong> sont:</p><ul><li>l'ensemble du PST</li><li>le tableau de bord général du PST</li><li>la fiche de l'objectif opérationnel</li><li>la fiche de l'objectif stratégique</li></ul><p></p><p>Les <strong>fonctionnalités à venir</strong>:</p><ul><li>gestion des tâches</li><li>lien avec la gestion du collège / conseil</li><li>ajout de tableau de bord dans l'application</li><li>...</li></ul>"
+
+#: ./setuphandlers.py:333
+msgid "front_page_title"
+msgstr "Programme Stratégique Transversal 1.0"
 
 #: ./profiles.zcml:14
 #: ./setuphandlers.py:35

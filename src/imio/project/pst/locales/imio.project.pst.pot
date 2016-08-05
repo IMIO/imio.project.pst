@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2016-08-05 12:52+0000\n"
+"POT-Creation-Date: 2016-08-05 13:21+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: imio.project.pst\n"
 
-#: ./setuphandlers.py:933
+#: ./setuphandlers.py:605
 msgid "Actions"
 msgstr ""
 
@@ -25,7 +25,7 @@ msgstr ""
 msgid "Administrative responsible"
 msgstr ""
 
-#: ./setuphandlers.py:1026
+#: ./setuphandlers.py:698
 msgid "All"
 msgstr ""
 
@@ -124,7 +124,7 @@ msgstr ""
 msgid "Main_menu_title"
 msgstr ""
 
-#: ./setuphandlers.py:932
+#: ./setuphandlers.py:604
 msgid "Operational objectives"
 msgstr ""
 
@@ -141,27 +141,27 @@ msgstr ""
 msgid "Representative responsible"
 msgstr ""
 
-#: ./setuphandlers.py:960
+#: ./setuphandlers.py:632
 msgid "State: achieved"
 msgstr ""
 
-#: ./setuphandlers.py:958
+#: ./setuphandlers.py:630
 msgid "State: created"
 msgstr ""
 
-#: ./setuphandlers.py:959
+#: ./setuphandlers.py:631
 msgid "State: ongoing"
 msgstr ""
 
-#: ./setuphandlers.py:966
+#: ./setuphandlers.py:638
 msgid "State: stopped"
 msgstr ""
 
-#: ./setuphandlers.py:965
+#: ./setuphandlers.py:637
 msgid "State: terminated"
 msgstr ""
 
-#: ./setuphandlers.py:963
+#: ./setuphandlers.py:635
 msgid "State: to be scheduled"
 msgstr ""
 
@@ -169,7 +169,7 @@ msgstr ""
 msgid "Steps to ease tests of imio.project.pst"
 msgstr ""
 
-#: ./setuphandlers.py:931
+#: ./setuphandlers.py:603
 msgid "Strategic objectives"
 msgstr ""
 
@@ -187,6 +187,18 @@ msgstr ""
 
 #: ./content/action.py:106
 msgid "You must choose at least one group of which you are a member"
+msgstr ""
+
+#: ./setuphandlers.py:334
+msgid "front_page_descr"
+msgstr ""
+
+#: ./setuphandlers.py:335
+msgid "front_page_text"
+msgstr ""
+
+#: ./setuphandlers.py:333
+msgid "front_page_title"
 msgstr ""
 
 #: ./profiles.zcml:14
