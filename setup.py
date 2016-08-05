@@ -44,6 +44,7 @@ setup(
         'setuptools',
         'Plone',
         'Pillow',
+        'Products.CPUtils',
         'Products.PasswordStrength > 0.3.1',
         'appy',
         'beautifulsoup4',
