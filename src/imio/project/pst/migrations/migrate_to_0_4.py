@@ -21,6 +21,7 @@ class Migrate_To_0_4(Migrator):
         self.reinstall([
             'imio.project.core:default',
             'imio.dashboard:default',
+            'plonetheme.imioapps:pstskin',
         ])
 
         # remove the old collections and configure the dashboard
