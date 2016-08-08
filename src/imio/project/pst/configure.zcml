@@ -45,4 +45,7 @@
         name="schema_policy_pstaction"
     />
 
+    <!-- indexers -->
+    <adapter name="priority" factory=".adapters.priority_index" />
+
 </configure>

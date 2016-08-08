@@ -25,8 +25,12 @@ class Migrate_To_0_4(Migrator):
             'plonetheme.imioapps:pstskin',
         ])
 
+        indexes_to_add = {
+            'categories': ('KeywordIndex', {}),
+            'priority': ('FieldIndex', {}),
+        }
         addOrUpdateIndexes(
-            self.context, {'categories': ('KeywordIndex', {})})
+            self.context, indexes_to_add)
 
         # remove the old collections and configure the dashboard
         if 'collections' in self.portal.pst:

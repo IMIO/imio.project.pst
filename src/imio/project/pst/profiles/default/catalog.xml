@@ -3,6 +3,9 @@
  <index name="categories" meta_type="KeywordIndex">
   <indexed_attr value="categories"/>
  </index>
+ <index name="priority" meta_type="FieldIndex">
+  <indexed_attr value="priority"/>
+ </index>
   <column value="categories" />
   <column value="planned_begin_date" />
   <column value="planned_end_date" />
