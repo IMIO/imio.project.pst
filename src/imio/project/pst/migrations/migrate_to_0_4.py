@@ -21,6 +21,11 @@ class Migrate_To_0_4(Migrator):
         Migrator.__init__(self, context)
 
     def various_update(self):
+        # Removed old import step
+        setup = api.portal.get_tool('portal_setup')
+        ir = setup.getImportStepRegistry()
+        if 'imioprojectpst-adaptDefaultPortal' in ir._registered:
+            del ir._registered['imioprojectpst-adaptDefaultPortal']
         # Add new function
         registry = getUtility(IRegistry)
         if not [r for r in registry[FUNCTIONS_REGISTRY] if r['fct_id'] == 'administrative_responsible']:
