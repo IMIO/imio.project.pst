@@ -6,7 +6,16 @@
  <index name="priority" meta_type="FieldIndex">
   <indexed_attr value="priority"/>
  </index>
+ <index name="planned_begin_date" meta_type="DateIndex">
+  <property name="index_naive_time_as_local">True</property>
+ </index>
  <index name="planned_end_date" meta_type="DateIndex">
+  <property name="index_naive_time_as_local">True</property>
+ </index>
+ <index name="effective_begin_date" meta_type="DateIndex">
+  <property name="index_naive_time_as_local">True</property>
+ </index>
+ <index name="effective_end_date" meta_type="DateIndex">
   <property name="index_naive_time_as_local">True</property>
  </index>
  <index name="representative_responsible" meta_type="KeywordIndex">
