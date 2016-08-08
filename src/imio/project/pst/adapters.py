@@ -12,6 +12,14 @@ from imio.project.core.content.projectspace import IProjectSpace
 ####################
 
 @indexer(IContentish)
+def categories_index(obj):
+    # don't index project spaces (config value)
+    if not IProjectSpace.providedBy(obj) and base_hasattr(obj, 'categories') and obj.categories:
+        return obj.categories
+
+    return common_marker
+
+@indexer(IContentish)
 def priority_index(obj):
     # don't index project spaces (config value)
     if not IProjectSpace.providedBy(obj) and base_hasattr(obj, 'priority') and obj.priority:
