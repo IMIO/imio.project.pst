@@ -12,6 +12,12 @@
  <index name="representative_responsible" meta_type="KeywordIndex">
   <indexed_attr value="representative_responsible"/>
  </index>
+ <index name="administrative_responsible" meta_type="KeywordIndex">
+  <indexed_attr value="administrative_responsible"/>
+ </index>
+ <index name="manager" meta_type="KeywordIndex">
+  <indexed_attr value="manager"/>
+ </index>
   <column value="categories" />
   <column value="planned_begin_date" />
   <column value="planned_end_date" />

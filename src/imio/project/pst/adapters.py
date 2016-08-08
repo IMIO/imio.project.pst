@@ -19,6 +19,7 @@ def categories_index(obj):
 
     return common_marker
 
+
 @indexer(IContentish)
 def priority_index(obj):
     # don't index project spaces (config value)
@@ -27,6 +28,7 @@ def priority_index(obj):
 
     return common_marker
 
+
 @indexer(IContentish)
 def representative_responsible_index(obj):
     if base_hasattr(obj, 'representative_responsible') and obj.representative_responsible:
@@ -34,3 +36,18 @@ def representative_responsible_index(obj):
 
     return common_marker
 
+
+@indexer(IContentish)
+def administrative_responsible_index(obj):
+    if base_hasattr(obj, 'administrative_responsible') and obj.administrative_responsible:
+        return obj.administrative_responsible
+
+    return common_marker
+
+
+@indexer(IContentish)
+def manager_index(obj):
+    if base_hasattr(obj, 'manager') and obj.manager:
+        return obj.manager
+
+    return common_marker
