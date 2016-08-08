@@ -292,6 +292,9 @@ def _updateContactPlonegroupConfiguration(context):
     if not [r for r in registry[FUNCTIONS_REGISTRY] if r['fct_id'] == 'actioneditor']:
         registry[FUNCTIONS_REGISTRY] = registry[FUNCTIONS_REGISTRY] + [{'fct_title': u"Gestionnaire d'action",
                                                                         'fct_id': u'actioneditor'}]
+    if not [r for r in registry[FUNCTIONS_REGISTRY] if r['fct_id'] == 'administrative_responsible']:
+        registry[FUNCTIONS_REGISTRY] = registry[FUNCTIONS_REGISTRY] + [{'fct_title': u"Responsable administratif",
+                                                                        'fct_id': u'administrative_responsible'}]
 
 
 def _reorderTabs(context):

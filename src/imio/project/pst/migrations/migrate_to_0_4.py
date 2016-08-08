@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
 import logging
-
+from zope.component import getUtility
 from plone import api
+from plone.registry.interfaces import IRegistry
+
+from collective.contact.plonegroup.config import FUNCTIONS_REGISTRY
 
 from imio.helpers.catalog import addOrUpdateIndexes
 from imio.migrator.migrator import Migrator
@@ -17,7 +20,15 @@ class Migrate_To_0_4(Migrator):
     def __init__(self, context):
         Migrator.__init__(self, context)
 
+    def various_update(self):
+        # Add new function
+        registry = getUtility(IRegistry)
+        if not [r for r in registry[FUNCTIONS_REGISTRY] if r['fct_id'] == 'administrative_responsible']:
+            registry[FUNCTIONS_REGISTRY] = registry[FUNCTIONS_REGISTRY] + [{'fct_title': u"Responsable administratif",
+                                                                            'fct_id': u'administrative_responsible'}]
+
     def run(self):
+        self.various_update()
         self.runProfileSteps('imio.project.pst', steps=['catalog', 'portlets', 'propertiestool'])
         self.reinstall([
             'imio.project.core:default',
