@@ -3,6 +3,7 @@ import logging
 
 from plone import api
 
+from imio.helpers.catalog import addOrUpdateIndexes
 from imio.migrator.migrator import Migrator
 from imio.project.pst.setuphandlers import (
     configureDashboard, configure_rolefields, reimport_faceted_config)
@@ -23,6 +24,9 @@ class Migrate_To_0_4(Migrator):
             'imio.dashboard:default',
             'plonetheme.imioapps:pstskin',
         ])
+
+        addOrUpdateIndexes(
+            self.context, {'categories': ('KeywordIndex', {})})
 
         # remove the old collections and configure the dashboard
         if 'collections' in self.portal.pst:

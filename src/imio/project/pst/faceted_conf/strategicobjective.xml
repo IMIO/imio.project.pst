@@ -39,13 +39,34 @@
    <property name="position">top</property>
    <property name="section">advanced</property>
    <property name="hidden">0</property>
+   <property name="count"></property>
+   <property name="sortcountable"></property>
+   <property name="hidezerocount"></property>
+   <property name="index">review_state</property>
+   <property name="operator">or</property>
+   <property name="operator_visible"></property>
+   <property
+      name="vocabulary">imio.project.pst.SOReviewStatesVocabulary</property>
+   <property name="catalog"></property>
+   <property name="maxitems"></property>
+   <property name="sortreversed"></property>
+   <property name="default"></property>
+  </criterion>
+
+  <criterion name="categories">
+   <property name="widget">checkbox</property>
+   <property name="title">Categories</property>
+   <property name="position">top</property>
+   <property name="section">advanced</property>
+   <property name="hidden">0</property>
    <property name="count">0</property>
    <property name="sortcountable">0</property>
    <property name="hidezerocount">0</property>
-   <property name="index">review_state</property>
+   <property name="index">categories</property>
    <property name="operator">or</property>
    <property name="operator_visible">0</property>
-   <property name="vocabulary">imio.project.pst.SOReviewStatesVocabulary</property>
+   <property
+      name="vocabulary">imio.project.core.content.project.categories_vocabulary</property>
    <property name="catalog"></property>
    <property name="maxitems"></property>
    <property name="sortreversed">0</property>
