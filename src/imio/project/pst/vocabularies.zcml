@@ -1,0 +1,21 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    i18n_domain="imio.project.pst">
+
+    <utility
+        name="imio.project.pst.SOReviewStatesVocabulary"
+        factory="imio.project.pst.vocabularies.SOReviewStatesVocabulary"
+        />
+
+    <utility
+        name="imio.project.pst.OOReviewStatesVocabulary"
+        factory="imio.project.pst.vocabularies.OOReviewStatesVocabulary"
+        />
+
+    <utility
+        name="imio.project.pst.PSTActionReviewStatesVocabulary"
+        factory="imio.project.pst.vocabularies.PSTActionReviewStatesVocabulary"
+        />
+</configure>

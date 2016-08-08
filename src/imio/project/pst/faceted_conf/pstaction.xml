@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<object name="pstaction" meta_type="ATFolder"
+        xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+        i18n:domain="eea">
+ <criteria>
+
+  <!-- default widgets -->
+  <criterion name="c0">
+   <property name="widget">sorting</property>
+   <property name="title">Sort on</property>
+   <property name="position">top</property>
+   <property name="section">default</property>
+   <property name="hidden">1</property>
+   <property name="vocabulary"></property>
+   <property name="default"></property>
+  </criterion>
+
+  <criterion name="c1">
+   <property name="widget">collection-link</property>
+   <property name="title">Base collections</property>
+   <property name="position">top</property>
+   <property name="section">default</property>
+   <property name="hidden">1</property>
+   <property name="count">0</property>
+   <property name="sortcountable">0</property>
+   <property name="hidezerocount">0</property>
+   <property
+      name="vocabulary">imio.dashboard.conditionawarecollectionvocabulary</property>
+   <property name="hidealloption">1</property>
+   <property name="maxitems">0</property>
+   <property name="sortreversed">0</property>
+   <property name="default"></property>
+  </criterion>
+
+  <!-- advanced widgets -->
+  <criterion name="reviewstate" i18n:attributes="title">
+   <property name="widget">checkbox</property>
+   <property name="title">Review state</property>
+   <property name="position">top</property>
+   <property name="section">advanced</property>
+   <property name="hidden">0</property>
+   <property name="count">0</property>
+   <property name="sortcountable">0</property>
+   <property name="hidezerocount">0</property>
+   <property name="index">review_state</property>
+   <property name="operator">or</property>
+   <property name="operator_visible">0</property>
+   <property name="vocabulary">imio.project.pst.PSTActionReviewStatesVocabulary</property>
+   <property name="catalog"></property>
+   <property name="maxitems"></property>
+   <property name="sortreversed">0</property>
+   <property name="default"/>
+  </criterion>
+
+ </criteria>
+</object>

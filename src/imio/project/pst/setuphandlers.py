@@ -13,10 +13,8 @@ from Products.CMFPlone.utils import base_hasattr
 from Products.CMFPlone.utils import getToolByName
 from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
 from collective.contact.plonegroup.config import ORGANIZATIONS_REGISTRY, FUNCTIONS_REGISTRY
-from plone.memoize import ram
 from plone.registry.interfaces import IRegistry
 from imio.dashboard.utils import enableFacetedDashboardFor, _updateDefaultCollectionFor
-from imio.helpers.cache import get_cachekey_volatile
 from imio.helpers.catalog import addOrUpdateIndexes
 from zope.component import queryUtility
 from zope.i18n.interfaces import ITranslationDomain
@@ -27,6 +25,7 @@ from dexterity.localroles.utils import add_fti_configuration
 from plone import api
 
 from data import get_os_oo_ac_data
+from imio.project.pst.utils import list_wf_states
 
 
 logger = logging.getLogger('imio.project.pst: setuphandlers')
@@ -506,52 +505,6 @@ COLUMNS_FOR_CONTENT_TYPES = {
 }
 
 
-def list_wf_states_cache_key(function, context, portal_type):
-    return get_cachekey_volatile("%s.%s" % (function.func_name, portal_type))
-
-
-@ram.cache(list_wf_states_cache_key)
-def list_wf_states(context, portal_type):
-    """
-        list all portal_type wf states
-    """
-
-    pst_objective_wf_order = [
-        'created',
-        'ongoing',
-        'achieved',
-    ]
-    ordered_states = {
-        'strategicobjective': pst_objective_wf_order,
-        'operationalobjective': pst_objective_wf_order,
-        'pstaction': [
-            'created',
-            'to_be_scheduled',
-            'ongoing',
-            'terminated',
-            'stopped',
-        ]
-    }
-
-    if portal_type not in ordered_states:
-        return []
-    pw = getToolByName(context, 'portal_workflow')
-    ret = []
-    # wf states
-    for workflow in pw.getWorkflowsFor(portal_type):
-        state_ids = [value.id for value in workflow.states.values()]
-        break
-    # keep ordered states
-    for state in ordered_states[portal_type]:
-        if state in state_ids:
-            ret.append(state)
-            state_ids.remove(state)
-    # add missing
-    for missing in state_ids:
-        ret.append(missing)
-    return ret
-
-
 def add_db_col_folder(folder, id, title, content_type, position, displayed=''):
     """Add dashboard collection folder."""
     if base_hasattr(folder, id):
@@ -571,7 +524,7 @@ def add_db_col_folder(folder, id, title, content_type, position, displayed=''):
     createStateCollections(col_folder, content_type)
     # configure faceted
     configure_faceted_folder(
-        col_folder, xml='default_dashboard_widgets.xml',
+        col_folder, xml='{}.xml'.format(content_type),
         default_UID=col_folder['all'].UID())
     return col_folder
 

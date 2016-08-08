@@ -28,6 +28,7 @@
     <include file="subscribers.zcml" />
     <include file="profiles.zcml" />
     <include file="columns.zcml" />
+    <include file="vocabularies.zcml" />
 
     <utility
         factory=".content.strategic.StrategicObjectiveSchemaPolicy"
