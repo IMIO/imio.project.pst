@@ -59,3 +59,11 @@ def health_indicator_index(obj):
         return obj.health_indicator
 
     return common_marker
+
+
+@indexer(IContentish)
+def progress_index(obj):
+    if base_hasattr(obj, 'progress') and obj.progress:
+        return obj.progress
+
+    return common_marker

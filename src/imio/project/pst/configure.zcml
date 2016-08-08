@@ -52,5 +52,6 @@
     <adapter name="administrative_responsible" factory=".adapters.administrative_responsible_index" />
     <adapter name="manager" factory=".adapters.manager_index" />
     <adapter name="health_indicator" factory=".adapters.health_indicator_index" />
+    <adapter name="progress" factory=".adapters.progress_index" />
 
 </configure>
