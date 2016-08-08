@@ -44,6 +44,7 @@ class Migrate_To_0_4(Migrator):
         indexes_to_add = {
             'categories': ('KeywordIndex', {}),
             'priority': ('FieldIndex', {}),
+            'planned_end_date': ('DateIndex', {}),
         }
         addOrUpdateIndexes(
             self.context, indexes_to_add)
