@@ -51,3 +51,11 @@ def manager_index(obj):
         return obj.manager
 
     return common_marker
+
+
+@indexer(IContentish)
+def health_indicator_index(obj):
+    if base_hasattr(obj, 'health_indicator') and obj.health_indicator:
+        return obj.health_indicator
+
+    return common_marker

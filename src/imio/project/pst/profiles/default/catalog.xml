@@ -6,6 +6,9 @@
  <index name="priority" meta_type="FieldIndex">
   <indexed_attr value="priority"/>
  </index>
+ <index name="health_indicator" meta_type="FieldIndex">
+  <indexed_attr value="health_indicator"/>
+ </index>
  <index name="planned_begin_date" meta_type="DateIndex">
   <property name="index_naive_time_as_local">True</property>
  </index>
