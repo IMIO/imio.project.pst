@@ -26,3 +26,11 @@ def priority_index(obj):
         return obj.priority
 
     return common_marker
+
+@indexer(IContentish)
+def representative_responsible_index(obj):
+    if base_hasattr(obj, 'representative_responsible') and obj.representative_responsible:
+        return obj.representative_responsible
+
+    return common_marker
+

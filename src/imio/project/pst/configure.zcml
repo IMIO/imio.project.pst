@@ -48,5 +48,6 @@
     <!-- indexers -->
     <adapter name="categories" factory=".adapters.categories_index" />
     <adapter name="priority" factory=".adapters.priority_index" />
+    <adapter name="representative_responsible" factory=".adapters.representative_responsible_index" />
 
 </configure>
