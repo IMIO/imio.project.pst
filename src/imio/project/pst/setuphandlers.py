@@ -644,8 +644,10 @@ def createBaseCollections(folder, content_type):
             'count': False
         },
     ]
-    if content_type == 'operationalobjective':
-        oo_collections = [
+
+    additional_collections_by_types = {
+
+        'operationalobjective': [
             {
                 'id': 'i-am-administrative_responsible',
                 'tit': _("Which I am administrative responsible"),
@@ -676,9 +678,44 @@ def createBaseCollections(folder, content_type):
                 'rev': True,
                 'count': False
             },
-        ]
-        collections.extend(oo_collections)
+        ],
 
+        'pstaction': [
+            {
+                'id': 'i-am-manager',
+                'tit': _("Which I am manager"),
+                'subj': ('search',),
+                'query': [
+                    {'i': 'portal_type', 'o': 'plone.app.querystring.operation.selection.is', 'v': [content_type]},
+                    {'i': 'CompoundCriterion', 'o': 'plone.app.querystring.operation.compound.is', 'v': 'user-is-actioneditor'},
+                ],
+                'cond': u"",
+                'bypass': [],
+                'flds': COLUMNS_FOR_CONTENT_TYPES[content_type],
+                'sort': u'created',
+                'rev': True,
+                'count': False
+            },
+            {
+                'id': 'i-am-manager',
+                'tit': _("Which planned end date is "),
+                'subj': ('search',),
+                'query': [
+                    {'i': 'portal_type', 'o': 'plone.app.querystring.operation.selection.is', 'v': [content_type]},
+                    {'i': 'CompoundCriterion', 'o': 'plone.app.querystring.operation.compound.is', 'v': 'user-is-actioneditor'},
+                ],
+                'cond': u"",
+                'bypass': [],
+                'flds': COLUMNS_FOR_CONTENT_TYPES[content_type],
+                'sort': u'created',
+                'rev': True,
+                'count': False
+            },
+        ],
+
+    }
+
+    collections.extend(additional_collections_by_types[content_type])
     createDashboardCollections(folder, collections)
 
 

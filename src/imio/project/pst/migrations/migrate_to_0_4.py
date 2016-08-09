@@ -67,6 +67,7 @@ class Migrate_To_0_4(Migrator):
         # update collections
         createBaseCollections(
             self.portal.pst['operationalobjectives'], 'operationalobjective')
+        createBaseCollections(self.portal.pst['pstactions'], 'pstaction')
 
         catalog = api.portal.get_tool('portal_catalog')
         # migrate oo fields
