@@ -8,9 +8,11 @@
     <fieldset id="pst-folder-listing">
         <legend i18n:translate="operational_legend_actions">Actions</legend>
 
-        <tal:block define="operationalobjective_folder_listing_table context/@@imio-folder-listing-table/index;">
-            <tal:content replace="structure operationalobjective_folder_listing_table" />
-        </tal:block>
+    <iframe
+            tal:define="portal context/@@plone_portal_state/portal"
+            tal:attributes="src string:${context/absolute_url}/@@facetediframe?ajax_load=0&ajax_include_head=1#c1=${portal/pst/pstactions/all/UID}"
+            class="auto-height" style="width: 100%; min-height: 300px;">
+    </iframe>
 
     </fieldset>
     <fieldset id="folder-listing">
