@@ -182,5 +182,15 @@
    <property name="default"/>
   </criterion>
 
+  <criterion name="progress" i18n:attributes="title">
+   <property name="widget">range</property>
+   <property name="title">Progress</property>
+   <property name="position">top</property>
+   <property name="section">advanced</property>
+   <property name="hidden">0</property>
+   <property name="index">progress</property>
+   <property name="default"></property>
+  </criterion>
+
  </criteria>
 </object>
