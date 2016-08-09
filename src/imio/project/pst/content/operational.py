@@ -15,21 +15,6 @@ from imio.project.core.utils import getVocabularyTermsForOrganization
 from imio.project.pst import _
 from imio.project.core import _ as _c
 
-from collective.contact.plonegroup.browser.settings import selectedOrganizationsVocabulary
-from dexterity.localrolesfield.field import LocalRolesField
-
-
-
-
-class AdministrativeResponsibleVocabulary(object):
-    """
-        Create a vocabulary from the selected organization groups
-    """
-    implements(IVocabularyFactory)
-
-    def __call__(self, context):
-        return selectedOrganizationsVocabulary()
-
 
 class IOperationalObjective(IProject):
     """
@@ -48,7 +33,7 @@ class IOperationalObjective(IProject):
         title=_(u"Administrative responsible"),
         description=_(u"Choose principals that will be administrative responsible for this project."),
         value_type=schema.Choice(
-            vocabulary=u'imio.project.pst.content.operational.administrative_responsible_vocabulary',
+            vocabulary=u'imio.project.core.content.project.manager_vocabulary',
         ),
         required=True,
     )
