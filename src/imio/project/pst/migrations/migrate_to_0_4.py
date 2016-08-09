@@ -79,6 +79,13 @@ class Migrate_To_0_4(Migrator):
             oo.manager = [
                 m.rstrip('_actioneditor') for m in oo.manager]
 
+        # migrate pstaction fields
+        brains = catalog(portal_type="pstaction")
+        for brain in brains:
+            action = brain.getObject()
+            action.manager = [
+                m.rstrip('_actioneditor') for m in action.manager]
+
         # update faceted navigation configs
         mapping = {
             'strategicobjectives': 'strategicobjective',
