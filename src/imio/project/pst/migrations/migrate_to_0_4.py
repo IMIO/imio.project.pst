@@ -68,6 +68,17 @@ class Migrate_To_0_4(Migrator):
         createBaseCollections(
             self.portal.pst['operationalobjectives'], 'operationalobjective')
 
+        catalog = api.portal.get_tool('portal_catalog')
+        # migrate oo fields
+        brains = catalog(portal_type="operationalobjective")
+        for brain in brains:
+            oo = brain.getObject()
+            oo.administrative_responsible = [
+                r.rstrip('_actioneditor') for r in oo.administrative_responsible
+            ]
+            oo.manager = [
+                m.rstrip('_actioneditor') for m in oo.manager]
+
         # update faceted navigation configs
         mapping = {
             'strategicobjectives': 'strategicobjective',
