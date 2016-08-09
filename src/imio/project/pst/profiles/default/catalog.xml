@@ -33,6 +33,11 @@
  <index name="manager" meta_type="KeywordIndex">
   <indexed_attr value="manager"/>
  </index>
+ <index name="extra_concerned_people" meta_type="ZCTextIndex">
+  <indexed_attr value="extra_concerned_people"/>
+  <extra name="index_type" value="Okapi BM25 Rank"/>
+  <extra name="lexicon_id" value="plone_lexicon"/>
+ </index>
   <column value="categories" />
   <column value="planned_begin_date" />
   <column value="planned_end_date" />

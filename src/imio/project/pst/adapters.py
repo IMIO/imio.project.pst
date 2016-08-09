@@ -67,3 +67,11 @@ def progress_index(obj):
         return obj.progress
 
     return common_marker
+
+
+@indexer(IContentish)
+def extra_concerned_people_index(obj):
+    if base_hasattr(obj, 'extra_concerned_people') and obj.extra_concerned_people:
+        return obj.extra_concerned_people
+
+    return common_marker

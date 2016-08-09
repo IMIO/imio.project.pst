@@ -53,6 +53,7 @@ class Migrate_To_0_4(Migrator):
             'effective_end_date': ('DateIndex', {}),
             'health_indicator': ('FieldIndex', {}),
             'progress': ('FieldIndex', {}),
+            'extra_concerned_people': ('ZCTextIndex', {}),
         }
         addOrUpdateIndexes(
             self.context, indexes_to_add)
