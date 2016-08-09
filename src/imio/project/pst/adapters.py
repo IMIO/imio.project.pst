@@ -66,7 +66,7 @@ def progress_index(obj):
     if base_hasattr(obj, 'progress') and obj.progress:
         return obj.progress
 
-    return common_marker
+    return '0'
 
 
 @indexer(IContentish)
