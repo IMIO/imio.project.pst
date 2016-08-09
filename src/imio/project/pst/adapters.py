@@ -1,10 +1,29 @@
 # -*- coding: utf-8 -*-
+from plone import api
 from plone.indexer import indexer
 from Products.CMFCore.interfaces import IContentish
 from Products.CMFPlone.utils import base_hasattr
 from Products.PluginIndexes.common.UnIndex import _marker as common_marker
 
+from collective.contact.plonegroup.utils import organizations_with_suffixes
+
 from imio.project.core.content.projectspace import IProjectSpace
+
+
+class UserIsAdministrativeResponsibleCriterion(object):
+
+    def __init__(self, context):
+        self.context = context
+
+    @property
+    def query(self):
+        groups = api.group.get_groups(user=api.user.get_current())
+        orgs = []
+        orgs = organizations_with_suffixes(
+            groups, ['administrative_responsible'])
+
+        # if orgs is empty list, nothing is returned => ok
+        return {'administrative_responsible': {'query': orgs}}
 
 
 ####################

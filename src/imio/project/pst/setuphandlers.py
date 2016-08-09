@@ -644,6 +644,26 @@ def createBaseCollections(folder, content_type):
             'count': False
         },
     ]
+    if content_type == 'operationalobjective':
+        oo_collections = [
+            {
+                'id': 'i-am-administrative_responsible',
+                'tit': _("Which I am administrative responsible"),
+                'subj': ('search',),
+                'query': [
+                    {'i': 'portal_type', 'o': 'plone.app.querystring.operation.selection.is', 'v': [content_type]},
+                    {'i': 'CompoundCriterion', 'o': 'plone.app.querystring.operation.compound.is', 'v': 'user-is-administrative-responsible'},
+                ],
+                'cond': u"",
+                'bypass': [],
+                'flds': COLUMNS_FOR_CONTENT_TYPES[content_type],
+                'sort': u'created',
+                'rev': True,
+                'count': False
+            },
+        ]
+        collections.extend(oo_collections)
+
     createDashboardCollections(folder, collections)
 
 

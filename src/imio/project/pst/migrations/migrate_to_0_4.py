@@ -9,7 +9,8 @@ from collective.contact.plonegroup.config import FUNCTIONS_REGISTRY
 from imio.helpers.catalog import addOrUpdateIndexes
 from imio.migrator.migrator import Migrator
 from imio.project.pst.setuphandlers import (
-    configureDashboard, configure_rolefields, reimport_faceted_config)
+    configureDashboard, configure_rolefields, reimport_faceted_config,
+    createBaseCollections)
 
 
 logger = logging.getLogger('imio.project.pst')
@@ -63,6 +64,10 @@ class Migrate_To_0_4(Migrator):
             api.content.delete(obj=self.portal.pst['collections'])
 
         configureDashboard(self.portal.pst)
+        # update collections
+        createBaseCollections(
+            self.portal.pst['operationalobjectives'], 'operationalobjective')
+
         # update faceted navigation configs
         mapping = {
             'strategicobjectives': 'strategicobjective',
