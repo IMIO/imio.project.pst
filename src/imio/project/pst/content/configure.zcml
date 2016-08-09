@@ -12,9 +12,10 @@
       factory=".operational.RepresentativeResponsibleVocabulary"
       name="imio.project.pst.content.operational.representative_responsible_vocabulary"
     />
+
     <utility
       provides="zope.schema.interfaces.IVocabularyFactory"
-      factory="imio.project.core.content.project.ManagerVocabulary"
+      factory="imio.project.pst.content.operational.AdministrativeResponsibleVocabulary"
       name="imio.project.pst.content.operational.administrative_responsible_vocabulary"
     />
 

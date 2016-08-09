@@ -15,8 +15,20 @@ from imio.project.core.utils import getVocabularyTermsForOrganization
 from imio.project.pst import _
 from imio.project.core import _ as _c
 
-from collective.contact.plonegroup.browser.settings import selectedOrganizationsPloneGroupsVocabulary
+from collective.contact.plonegroup.browser.settings import selectedOrganizationsVocabulary
 from dexterity.localrolesfield.field import LocalRolesField
+
+
+
+
+class AdministrativeResponsibleVocabulary(object):
+    """
+        Create a vocabulary from the selected organization groups
+    """
+    implements(IVocabularyFactory)
+
+    def __call__(self, context):
+        return selectedOrganizationsVocabulary()
 
 
 class IOperationalObjective(IProject):
