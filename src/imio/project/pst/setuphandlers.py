@@ -711,6 +711,22 @@ def createBaseCollections(folder, content_type):
                 'rev': True,
                 'count': False
             },
+            {
+                'id': 'beginning-is-late',
+                'tit': _("Which beginning is late"),
+                'subj': ('search',),
+                'query': [
+                    {'i': 'portal_type', 'o': 'plone.app.querystring.operation.selection.is', 'v': [content_type]},
+                    {'i': 'planned_begin_date', 'o': 'plone.app.querystring.operation.date.beforeToday'},
+                    {'i': 'effective_begin_date', 'o': 'plone.app.querystring.operation.date.afterToday'},
+                ],
+                'cond': u"",
+                'bypass': [],
+                'flds': COLUMNS_FOR_CONTENT_TYPES[content_type],
+                'sort': u'created',
+                'rev': True,
+                'count': False
+            },
         ],
 
     }

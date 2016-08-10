@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+from datetime import date
+
 from plone import api
 from plone.indexer import indexer
 from Products.CMFCore.interfaces import IContentish
@@ -8,6 +10,9 @@ from Products.PluginIndexes.common.UnIndex import _marker as common_marker
 from collective.contact.plonegroup.utils import organizations_with_suffixes
 
 from imio.project.core.content.projectspace import IProjectSpace
+
+
+UNSET_DATE_VALUE = date(3900, 1, 1)  # value used to mark the fact that a date is not set, we need a date in the future for beginning-is-late collection
 
 
 class UserIsAdministrativeResponsibleCriterion(object):
@@ -110,3 +115,11 @@ def extra_concerned_people_index(obj):
         return obj.extra_concerned_people
 
     return common_marker
+
+
+@indexer(IContentish)
+def effective_begin_date_index(obj):
+    if base_hasattr(obj, 'effective_begin_date') and obj.effective_begin_date:
+        return obj.effective_begin_date
+
+    return UNSET_DATE_VALUE

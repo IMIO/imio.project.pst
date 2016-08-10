@@ -5,6 +5,7 @@ from collective.eeafaceted.z3ctable.columns import (
     BaseColumn, DateColumn, VocabularyColumn)
 
 from imio.dashboard.columns import ActionsColumn
+from imio.project.pst.adapters import UNSET_DATE_VALUE
 
 
 class HistoryActionsColumn(ActionsColumn):
@@ -23,22 +24,22 @@ class CategoriesColumn(VocabularyColumn):
 
 class PlannedBeginDateColumn(DateColumn):
 
-    pass
+    ignored_value = UNSET_DATE_VALUE
 
 
 class PlannedEndDateColumn(DateColumn):
 
-    pass
+    ignored_value = UNSET_DATE_VALUE
 
 
 class EffectiveBeginDateColumn(DateColumn):
 
-    pass
+    ignored_value = UNSET_DATE_VALUE
 
 
 class EffectiveEndDateColumn(DateColumn):
 
-    pass
+    ignored_value = UNSET_DATE_VALUE
 
 
 class PriorityColumn(VocabularyColumn):
