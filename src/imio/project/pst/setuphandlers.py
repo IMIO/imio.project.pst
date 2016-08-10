@@ -697,12 +697,12 @@ def createBaseCollections(folder, content_type):
                 'count': False
             },
             {
-                'id': 'i-am-manager',
-                'tit': _("Which planned end date is "),
+                'id': 'deadline-has-passed',
+                'tit': _("Which deadline has passed"),
                 'subj': ('search',),
                 'query': [
                     {'i': 'portal_type', 'o': 'plone.app.querystring.operation.selection.is', 'v': [content_type]},
-                    {'i': 'CompoundCriterion', 'o': 'plone.app.querystring.operation.compound.is', 'v': 'user-is-actioneditor'},
+                    {'i': 'planned_end_date', 'o': 'plone.app.querystring.operation.date.beforeToday'},
                 ],
                 'cond': u"",
                 'bypass': [],
