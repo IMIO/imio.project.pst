@@ -2,9 +2,10 @@
 """Custom columns."""
 from collective.eeafaceted.z3ctable import _ as _cez
 from collective.eeafaceted.z3ctable.columns import (
-    BaseColumn, DateColumn, VocabularyColumn)
+    BaseColumn, DateColumn, MemberIdColumn, VocabularyColumn)
+from collective.task.interfaces import ITaskMethods
 
-from imio.dashboard.columns import ActionsColumn
+from imio.dashboard.columns import ActionsColumn, PrettyLinkColumn
 from imio.project.pst.adapters import UNSET_DATE_VALUE
 
 
@@ -61,3 +62,27 @@ class ManagerColumn(VocabularyColumn):
 
     vocabulary = u'imio.project.core.content.project.manager_vocabulary'
 
+
+class TaskParentColumn(PrettyLinkColumn):
+
+    params = {'showContentIcon': True, 'target': '_blank'}
+
+    def renderCell(self, item):
+        obj = self._getObject(item)
+        parent = ITaskMethods(obj).get_highest_task_parent(task=False)
+        return PrettyLinkColumn.getPrettyLink(self, parent)
+
+
+class AssignedGroupColumn(VocabularyColumn):
+
+    vocabulary = u'imio.project.core.content.project.manager_vocabulary'
+
+
+class AssignedUserColumn(MemberIdColumn):
+
+    attrName = u'assigned_user'
+
+
+class DueDateColumn(DateColumn):
+
+    attrName = u'due_date'

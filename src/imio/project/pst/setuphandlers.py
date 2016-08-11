@@ -505,6 +505,8 @@ COLUMNS_FOR_CONTENT_TYPES = {
     'pstaction': (u'select_row', u'pretty_link', u'review_state', u'manager', u'planned_begin_date',
                   u'planned_end_date', u'effective_begin_date', u'effective_end_date', u'progress',
                   u'health_indicator', u'history_actions'),
+    'task': (u'select_row', u'pretty_link', u'task_parent', u'assigned_group',
+             u'assigned_user', u'due_date', u'CreationDate', u'history_actions'),
 }
 
 
@@ -539,6 +541,7 @@ def configureDashboard(pst):
         ('strategicobjectives', _("Strategic objectives"), 'strategicobjective'),
         ('operationalobjectives', _("Operational objectives"), 'operationalobjective'),
         ('pstactions', _("Actions"), 'pstaction'),
+        ('tasks', _("Tasks"), 'task'),
     ]
     for i, (name, title, content_type) in enumerate(collection_folders):
         if name not in pst:
@@ -728,6 +731,8 @@ def createBaseCollections(folder, content_type):
                 'count': False
             },
         ],
+
+        'task': [],
 
     }
 
