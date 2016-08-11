@@ -20,6 +20,10 @@
         </div>
 
         <metal:widgets use-macro="here/@@faceted_widgets_macros/macros/widgets" />
+
+        <!-- Faceted version -->
+        <div style="display: none" id="faceted-version"
+            tal:content="here/@@faceted_version|string:" />
       </div>
       <script type="text/javascript"
         tal:content="string:jQuery(document).ready(function(evt){
@@ -29,8 +33,8 @@
         tal:content="string:jQuery(window).unload(function(){
             Faceted.Unload();
       });"></script>
-
     </fieldset>
+
     <fieldset id="folder-listing">
         <legend i18n:translate="" i18n:domain="imio.project.pst">Annexes</legend>
             <tal:block define="listing_macro context/folder_listing/macros/listing;
