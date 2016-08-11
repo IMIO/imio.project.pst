@@ -1,11 +1,22 @@
 import pkg_resources
-from zope.interface import implementer
-from eea.facetednavigation.criteria.handler import Criteria as eeaCriteria
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone import api
+
+from eea.facetednavigation.browser.app.view import FacetedContainerView
+from eea.facetednavigation.criteria.handler import Criteria as eeaCriteria
 from eea.facetednavigation.widgets.storage import Criterion
-from persistent.list import PersistentList
+
+from imio.project.core.browser.views import ContainerFolderListingView
+
+
+class FacetedContainerFolderListingView(
+        ContainerFolderListingView,
+        FacetedContainerView):
+    def __init__(self, context, request):
+        ContainerFolderListingView.__init__(self, context, request)
+        FacetedContainerView.__init__(self, context, request)
+
 
 class Criteria(eeaCriteria):
     """ Handle criteria
@@ -22,7 +33,8 @@ class Criteria(eeaCriteria):
             self.context = pst.pstactions
         elif self.context.portal_type == 'strategicobjective':
             self.context = pst.operationalobjectives
-        self.criteria = PersistentList(self._criteria())
+
+        self.criteria = self._criteria()
         criterion = Criterion(**{'_cid_': u'restrictpath',
                          'hidden': u'True',
                          'default': unicode('/'+'/'.join(original_context.getPhysicalPath()[2:])),
@@ -34,7 +46,8 @@ class Criteria(eeaCriteria):
                          'theme': u'green',
                          'title': u'path',
                          'widget': u'path'})
-        self.criteria.append(criterion)
+        self.criteria = self.criteria + [criterion]
+
 
 class Listing(BrowserView):
     index = ViewPageTemplateFile(

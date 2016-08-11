@@ -6,13 +6,29 @@
     </script>
 
     <fieldset id="pst-folder-listing">
-        <legend i18n:translate="strategic_legend_operational_objectives">Operational objectives</legend>
+      <legend i18n:translate="strategic_legend_operational_objectives">Operational objectives</legend>
 
-    <iframe
-            tal:define="portal context/@@plone_portal_state/portal"
-            tal:attributes="src string:${context/absolute_url}/@@facetediframe?ajax_load=0&ajax_include_head=1#c1=${portal/pst/operationalobjectives/all/UID}"
-            class="auto-height" style="width: 100%; min-height: 300px;">
-    </iframe>
+      <!-- Folder contents -->
+      <div class="faceted-form" metal:define-macro="widgets" id="faceted-form"
+        tal:define="mode view/mode | string:view" tal:attributes="data-mode mode"
+        i18n:domain="eea">
+
+        <!-- Basic/Extended search -->
+        <div class="faceted-sections-buttons">
+          <a href="#" class="faceted-sections-buttons-more" i18n:translate="">More filters</a>
+          <a href="#" class="faceted-sections-buttons-less" i18n:translate="">Less filters</a>
+        </div>
+
+        <metal:widgets use-macro="here/@@faceted_widgets_macros/macros/widgets" />
+      </div>
+      <script type="text/javascript"
+        tal:content="string:jQuery(document).ready(function(evt){
+            Faceted.Load(evt, '${context/absolute_url}/');
+        });"></script>
+      <script type="text/javascript"
+        tal:content="string:jQuery(window).unload(function(){
+            Faceted.Unload();
+      });"></script>
 
     </fieldset>
     <fieldset id="folder-listing">

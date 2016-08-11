@@ -18,7 +18,7 @@
     <browser:page
         for="imio.project.pst.content.strategic.IStrategicObjective"
         name="imio-folder-listing"
-        class="imio.project.core.browser.views.ContainerFolderListingView"
+        class=".facetediframe.FacetedContainerFolderListingView"
         template="strategicobjective_folder_listing.pt"
         permission="zope2.View"
         />
@@ -27,7 +27,7 @@
     <browser:page
         for="imio.project.pst.content.operational.IOperationalObjective"
         name="imio-folder-listing"
-        class="imio.project.core.browser.views.ContainerFolderListingView"
+        class=".facetediframe.FacetedContainerFolderListingView"
         template="operationalobjective_folder_listing.pt"
         permission="zope2.View"
         />
@@ -36,7 +36,7 @@
     <browser:page
         for="imio.project.pst.content.action.IPSTAction"
         name="imio-folder-listing"
-        class="imio.project.core.browser.views.ContainerFolderListingView"
+        class=".facetediframe.FacetedContainerFolderListingView"
         template="pstaction_folder_listing.pt"
         permission="zope2.View"
         />

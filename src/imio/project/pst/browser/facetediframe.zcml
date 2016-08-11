@@ -4,14 +4,6 @@
     xmlns:plone="http://namespaces.plone.org/plone"
     i18n_domain="imio.project.pst">
 
-    <browser:page
-      for="eea.facetednavigation.interfaces.IFacetedNavigable"
-      name="facetediframe"
-      template="facetediframe.pt"
-      class="eea.facetednavigation.browser.app.view.FacetedContainerView"
-      permission="zope2.View"
-      />
-
     <class class="imio.project.pst.content.operational.OperationalObjective">
       <implements interface=".interfaces.IMyFacetedNavigable" />
     </class>
@@ -31,7 +23,6 @@
       for="imio.project.pst.content.operational.IOperationalObjective"
       class=".facetediframe.Listing"
       permission="zope2.View" />
-
 
     <browser:page
       name="faceted-preview-items"
