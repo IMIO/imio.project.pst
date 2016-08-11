@@ -38,10 +38,12 @@ class Migrate_To_0_4(Migrator):
         self.runProfileSteps(
             'imio.project.pst',
             steps=[
-                'catalog', 'portlets', 'propertiestool', 'plone.app.registry'
+                'catalog', 'portlets', 'propertiestool', 'plone.app.registry',
+                'typeinfo',
             ]
         )
         self.reinstall([
+            'collective.task:default',
             'imio.project.core:default',
             'imio.dashboard:default',
             'plonetheme.imioapps:pstskin',

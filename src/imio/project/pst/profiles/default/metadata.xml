@@ -8,5 +8,6 @@
     <dependency>profile-imio.project.core:default</dependency>
     <dependency>profile-plonetheme.imioapps:pstskin</dependency>
     <dependency>profile-imio.dashboard:default</dependency>
+    <dependency>profile-collective.task:default</dependency>
   </dependencies>
 </metadata>

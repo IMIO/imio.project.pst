@@ -50,6 +50,7 @@ setup(
         'beautifulsoup4',
         'communesplone.layout',
         'collective.excelexport',
+        'collective.task',
         'dexterity.localrolesfield',
         'imio.dashboard',
         'imio.helpers',
