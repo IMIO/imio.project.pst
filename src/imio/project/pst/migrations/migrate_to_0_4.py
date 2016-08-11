@@ -38,8 +38,8 @@ class Migrate_To_0_4(Migrator):
         self.runProfileSteps(
             'imio.project.pst',
             steps=[
-                'catalog', 'portlets', 'propertiestool', 'plone.app.registry',
-                'typeinfo',
+                'catalog', 'componentregistry', 'portlets', 'propertiestool',
+                'plone.app.registry', 'typeinfo',
             ]
         )
         self.reinstall([
