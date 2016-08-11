@@ -6,10 +6,12 @@
 
     <class class="imio.project.pst.content.operational.OperationalObjective">
       <implements interface=".interfaces.IMyFacetedNavigable" />
+      <implements interface="eea.facetednavigation.settings.interfaces.IDisableSmartFacets" />
     </class>
 
     <class class="imio.project.pst.content.strategic.StrategicObjective">
       <implements interface=".interfaces.IMyFacetedNavigable" />
+      <implements interface="eea.facetednavigation.settings.interfaces.IDisableSmartFacets" />
     </class>
 
     <adapter
