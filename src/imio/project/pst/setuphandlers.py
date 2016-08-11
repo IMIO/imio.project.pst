@@ -561,6 +561,7 @@ def createStateCollections(folder, content_type):
         'strategicobjective': {},
         'operationalobjective': {},
         'pstaction': {},
+        'task': {},
     }
     showNumberOfItems = {
         # 'dmsincomingmail': ('created',),
@@ -575,6 +576,13 @@ def createStateCollections(folder, content_type):
         # 'ongoing',
         'terminated': _("State: terminated"),
         'stopped': _("State: stopped"),
+        # task
+        'closed': _("State: closed"),
+        'created': _("State: created"),
+        'in_progress': _("State: in progress"),
+        'realized': _("State: realized"),
+        'to_do': _("State: to do"),
+        'to_assign': _("State: to assign"),
     }
 
     for state in list_wf_states(folder, content_type):

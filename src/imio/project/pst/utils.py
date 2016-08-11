@@ -29,7 +29,15 @@ def list_wf_states(context, portal_type):
             'ongoing',
             'terminated',
             'stopped',
-        ]
+        ],
+        'task': [
+            'created',
+            'to_do',
+            'to_assign',
+            'in_progress',
+            'realized',
+            'closed',
+        ],
     }
 
     if portal_type not in ordered_states:
