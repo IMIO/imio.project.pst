@@ -105,16 +105,6 @@ class IntegrationTestCase(unittest2.TestCase):
                          'budget_comments': u'1000 euros\r\nBudget ordinaire\r\nArticle budgétaire n°: ...',
                          'health_indicator': u'risque',
                          'health_indicator_details': u'Agent traitant malade pour minimum 3 mois -> risque de retard',
-                         'work_plan': u'<p>Les principales tâches à réaliser dans un ordre logique sont:<p>'
-                                      u'<ul>'
-                                      u'<li>inventaire des parcs existants sur la commune (Maxime/Patrick)</li>'
-                                      u'<li>passation d\'un marché public pour commander les distributeurs (Michèle) '
-                                      u'finalisé pour le 01 09 2013</li>'
-                                      u'<li>réception des distributeurs à l\'excution du marché (Michèle)</li>'
-                                      u'<li>placement des distributeurs (Maxime/Patrick) pour le 01 12 2013</li>'
-                                      u'<li>gestion des stocks de sachets (Michèle)</li>'
-                                      u'<li>réapprovisionnement (Maxime)</li>'
-                                      u'</ul>',
                          'comments': u'Attendre le placement des nouvelles poubelles (avant le 01 12 2013)'
                          },
                     ]

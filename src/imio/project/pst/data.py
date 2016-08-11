@@ -54,17 +54,6 @@ def get_os_oo_ac_data(groups):
                      'health_indicator': u'risque',
                      'health_indicator_details': u'Agent traitant malade pour minimum 3 mois -> risque de retard dans '
                                                  u'le planning',
-                     'work_plan': _richtextval(u'<p>Les principales tâches à réaliser dans un ordre logique sont:</p>'
-                                               u'<ul>'
-                                               u'<li>inventaire des parcs existants sur la commune (Maxime/Patrick) '
-                                               u'finalisé pour le 01 06 2013</li>'
-                                               u'<li>passation d\'un marché public pour commander les distributeurs '
-                                               u'(Michèle) finalisé pour le 01 09 2013</li>'
-                                               u'<li>réception des distributeurs à l\'excution du marché (Michèle)</li>'
-                                               u'<li>placement des distributeurs (Maxime) pour le 01 12 2013</li>'
-                                               u'<li>gestion des stocks de sachets (Michèle)</li>'
-                                               u'<li>réapprovisionnement (Maxime)</li>'
-                                               u'</ul>'),
                      'comments': _richtextval(u'Attendre le placement des nouvelles poubelles (avant le 01 12 2013)')
                      },
                 ]
@@ -109,7 +98,6 @@ def get_os_oo_ac_data(groups):
                                 ],
                      'health_indicator': u'bon',
                      'health_indicator_details': u'',
-                     'work_plan': _richtextval(u''),
                      'comments': _richtextval(u''),
                      },
                     {'title': u'Créer un guichet supplémentaire dans les 3 mois',
@@ -123,7 +111,6 @@ def get_os_oo_ac_data(groups):
                                 ],
                      'health_indicator': u'bon',
                      'health_indicator_details': u'',
-                     'work_plan': _richtextval(u''),
                      'comments': _richtextval(u''),
                      },
                     {'title': u'Mettre en ligne sur le site internet différents documents "population" à télécharger '
@@ -138,7 +125,6 @@ def get_os_oo_ac_data(groups):
                                 ],
                      'health_indicator': u'bon',
                      'health_indicator_details': u'',
-                     'work_plan': _richtextval(u''),
                      'comments': _richtextval(u''),
                      },
                 ]
@@ -172,7 +158,6 @@ def get_os_oo_ac_data(groups):
                                 ],
                      'health_indicator': u'bon',
                      'health_indicator_details': u'',
-                     'work_plan': _richtextval(u''),
                      'comments': _richtextval(u''),
                      },
                     {'title': u'Installer une rampe d\'accès pour PMR',
@@ -187,7 +172,6 @@ def get_os_oo_ac_data(groups):
                                 ],
                      'health_indicator': u'risque',
                      'health_indicator_details': u'Problème, retard dû à l\'exécution du marché',
-                     'work_plan': _richtextval(u''),
                      'comments': _richtextval(u''),
                      },
                     {'title': u'Mettre en place des permanences sur rendez-vous',
@@ -197,7 +181,6 @@ def get_os_oo_ac_data(groups):
                      'budget': [],
                      'health_indicator': u'risque',
                      'health_indicator_details': u'',
-                     'work_plan': _richtextval(u''),
                      'comments': _richtextval(u''),
                      },
                 ]
@@ -235,7 +218,6 @@ def get_os_oo_ac_data(groups):
                      'budget': [],
                      'health_indicator': u'bon',
                      'health_indicator_details': u'',
-                     'work_plan': _richtextval(u''),
                      'comments': _richtextval(u'')
                      },
                     {'title': u'Répondre à l\'appel à projet "écopasseur" de la Wallonie',
@@ -249,7 +231,6 @@ def get_os_oo_ac_data(groups):
                                 ],
                      'health_indicator': u'bon',
                      'health_indicator_details': u'',
-                     'work_plan': _richtextval(u''),
                      'comments': _richtextval(u'')
                      },
                     {'title': u'Inscrire systématiquement les agents du service travaux aux formations énergétiques',
@@ -264,7 +245,6 @@ def get_os_oo_ac_data(groups):
                                 ],
                      'health_indicator': u'bon',
                      'health_indicator_details': u'',
-                     'work_plan': _richtextval(u''),
                      'comments': _richtextval(u'')
                      },
                 ]
@@ -296,7 +276,6 @@ def get_os_oo_ac_data(groups):
                                 ],
                      'health_indicator': u'bon',
                      'health_indicator_details': u'',
-                     'work_plan': _richtextval(u''),
                      'comments': _richtextval(u'')
                      },
                     {'title': u'En fonction des résultats, procéder à l\'isolation du bâtiment',
@@ -310,7 +289,6 @@ def get_os_oo_ac_data(groups):
                                 ],
                      'health_indicator': u'bon',
                      'health_indicator_details': u'',
-                     'work_plan': _richtextval(u''),
                      'comments': _richtextval(u'')
                      },
                     {'title': u'En fonction des résultats, installer une pompe à chaleur',
@@ -324,7 +302,6 @@ def get_os_oo_ac_data(groups):
                                 ],
                      'health_indicator': u'bon',
                      'health_indicator_details': u'Devenu sans objet compte tenu des résultats de l\'audit',
-                     'work_plan': _richtextval(u''),
                      'comments': _richtextval(u'')
                      },
                 ]

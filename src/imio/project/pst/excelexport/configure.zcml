@@ -138,11 +138,6 @@
              name="health_indicator_details"
              />
 
-    <adapter factory=".project.PSTWorkPlanRenderer"
-             provides="collective.excelexport.interfaces.IExportable"
-             name="work_plan"
-             />
-
     <adapter factory=".project.PSTTitleRenderer"
              provides="collective.excelexport.interfaces.IExportable"
              name="title"

@@ -53,7 +53,6 @@ class PSTActionContentsDataSource(BaseContentsDataSource):
                 'observation',
                 'comments',
                 'health_indicator_details',
-                'work_plan',
                 'language',
                 'contributors',
                 'rights',

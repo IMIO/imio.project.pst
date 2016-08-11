@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 import logging
 from zope.component import getUtility
+from zope.i18n import translate
+from zope.globalrequest import getRequest
 from plone import api
 from plone.registry.interfaces import IRegistry
 
@@ -11,6 +13,7 @@ from imio.migrator.migrator import Migrator
 from imio.project.pst.setuphandlers import (
     configureDashboard, configure_rolefields, reimport_faceted_config,
     createBaseCollections)
+from imio.project.pst import _
 
 
 logger = logging.getLogger('imio.project.pst')
@@ -20,6 +23,25 @@ class Migrate_To_0_4(Migrator):
 
     def __init__(self, context):
         Migrator.__init__(self, context)
+
+    def migrate_pst_action_fields(self):
+        catalog = api.portal.get_tool('portal_catalog')
+        for brain in catalog(portal_type="pstaction"):
+            action = brain.getObject()
+            action.manager = [
+                m.rstrip('_actioneditor') for m in action.manager]
+            if action.work_plan:
+                title = translate(
+                    _("Work plan: ${action_title}",
+                      mapping={'action_title': action.Title()}),
+                    context=getRequest())
+                task = api.content.create(
+                    container=action,
+                    title=title,
+                    type='task',
+                )
+                task.task_description = action.work_plan.raw
+                # action.work_plan = None
 
     def various_update(self):
         # Removed old import step
@@ -87,12 +109,7 @@ class Migrate_To_0_4(Migrator):
             oo.manager = [
                 m.rstrip('_actioneditor') for m in oo.manager]
 
-        # migrate pstaction fields
-        brains = catalog(portal_type="pstaction")
-        for brain in brains:
-            action = brain.getObject()
-            action.manager = [
-                m.rstrip('_actioneditor') for m in action.manager]
+        self.migrate_pst_action_fields()
 
         # update faceted navigation configs
         mapping = {
