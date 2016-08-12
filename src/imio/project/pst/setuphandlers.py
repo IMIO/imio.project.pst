@@ -771,7 +771,6 @@ def createBaseCollections(folder, content_type):
         ],
 
         'task': [
-
             # {
             #     'id': 'to_validate',
             #     'tit': _('tasks_to_validate'),
@@ -795,7 +794,6 @@ def createBaseCollections(folder, content_type):
             #     'rev': True,
             #     'count': True
             # },
-
             {
                 'id': 'to_treat',
                 'tit': _('task_to_treat'),
@@ -823,7 +821,6 @@ def createBaseCollections(folder, content_type):
                 'rev': True,
                 'count': True
             },
-
             {
                 'id': 'im_treating',
                 'tit': _('task_im_treating'),
@@ -851,7 +848,6 @@ def createBaseCollections(folder, content_type):
                 'rev': True,
                 'count': True
             },
-
             {
                 'id': 'have_treated',
                 'tit': _('task_have_treated'),
@@ -879,7 +875,6 @@ def createBaseCollections(folder, content_type):
                 'rev': True,
                 'count': False
             },
-
             {
                 'id': 'in_my_group',
                 'tit': _('tasks_in_my_group'),
@@ -902,7 +897,6 @@ def createBaseCollections(folder, content_type):
                 'rev': True,
                 'count': False
             },
-
             {
                 'id': 'due_date_passed',
                 'tit': _('tasks_with_due_date_passed'),
@@ -924,7 +918,6 @@ def createBaseCollections(folder, content_type):
                 'rev': True,
                 'count': False
             },
-
         ],
 
     }
