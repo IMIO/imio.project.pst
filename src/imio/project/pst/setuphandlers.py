@@ -282,19 +282,32 @@ def _setDefaultApplicationSecurity(context):
     site.contacts.manage_addLocalRoles("pst_managers", ('Reader', 'Editor', 'Reviewer', 'Contributor', ))
 
 
+def add_plonegroups_to_registry():
+    registry = getUtility(IRegistry)
+    if not [r for r in registry[FUNCTIONS_REGISTRY] if r['fct_id'] == 'actioneditor']:
+        registry[FUNCTIONS_REGISTRY] = registry[FUNCTIONS_REGISTRY] + [
+            {
+                'fct_title': u"Gestionnaire d'action",
+                'fct_id': u'actioneditor'
+            }
+        ]
+    if not [r for r in registry[FUNCTIONS_REGISTRY] if r['fct_id'] == 'administrative_responsible']:
+        registry[FUNCTIONS_REGISTRY] = registry[FUNCTIONS_REGISTRY] + [
+            {
+                'fct_title': u"Responsable administratif",
+                'fct_id': u'administrative_responsible'
+            }
+        ]
+
+
 def _updateContactPlonegroupConfiguration(context):
     """
         Add a mandatory function in plonegroup config
     """
     if isNotCurrentProfile(context):
         return
-    registry = getUtility(IRegistry)
-    if not [r for r in registry[FUNCTIONS_REGISTRY] if r['fct_id'] == 'actioneditor']:
-        registry[FUNCTIONS_REGISTRY] = registry[FUNCTIONS_REGISTRY] + [{'fct_title': u"Gestionnaire d'action",
-                                                                        'fct_id': u'actioneditor'}]
-    if not [r for r in registry[FUNCTIONS_REGISTRY] if r['fct_id'] == 'administrative_responsible']:
-        registry[FUNCTIONS_REGISTRY] = registry[FUNCTIONS_REGISTRY] + [{'fct_title': u"Responsable administratif",
-                                                                        'fct_id': u'administrative_responsible'}]
+
+    add_plonegroups_to_registry()
 
 
 def _reorderTabs(context):
@@ -658,6 +671,8 @@ def createBaseCollections(folder, content_type):
 
     additional_collections_by_types = {
 
+        'strategicobjective': [],
+
         'operationalobjective': [
             {
                 'id': 'i-am-administrative_responsible',
@@ -754,47 +769,47 @@ def configure_rolefields():
         'pstaction': {
             'manager': {
                 'created': {
-                    'gestionnaire': {'roles': ['Editor', 'Reviewer']}
+                    'actioneditor': {'roles': ['Editor', 'Reviewer']}
                 },
                 'to_be_scheduled': {
-                    'gestionnaire': {'roles': ['Editor', 'Reviewer']}
+                    'actioneditor': {'roles': ['Editor', 'Reviewer']}
                 },
                 'ongoing': {
-                    'gestionnaire': {'roles': ['Editor', 'Reviewer']}
+                    'actioneditor': {'roles': ['Editor', 'Reviewer']}
                 },
                 'terminated': {
-                    'gestionnaire': {'roles': ['Editor', 'Reviewer']}
+                    'actioneditor': {'roles': ['Editor', 'Reviewer']}
                 },
                 'stopped': {
-                    'gestionnaire': {'roles': ['Editor', 'Reviewer']}
+                    'actioneditor': {'roles': ['Editor', 'Reviewer']}
                 },
             }
         },
         'operationalobjective': {
             'manager': {
                 'achieved': {
-                    'gestionnaire': {'roles': ['Contributor']}
+                    'actioneditor': {'roles': ['Contributor']}
                 },
                 'created': {
-                    'gestionnaire': {'roles': ['Contributor']}
+                    'actioneditor': {'roles': ['Contributor']}
                 },
                 'ongoing': {
-                    'gestionnaire': {'roles': ['Contributor']}
+                    'actioneditor': {'roles': ['Contributor']}
                 },
             },
             'administrative_responsible': {
                 'achieved': {
-                    'respadmin': {'roles': ['Reader']},
+                    'administrative_responsible': {'roles': ['Reader']},
                 },
                 'created': {
-                    'respadmin': {'roles': ['Reader']},
+                    'administrative_responsible': {'roles': ['Reader']},
                 },
                 'ongoing': {
-                    'respadmin': {'roles': ['Reader']},
+                    'administrative_responsible': {'roles': ['Reader']},
                 }
             }
             # TODO: representative_responsible
-        }
+        },
     }
     for portal_type, roles_config in config.iteritems():
         for keyname in roles_config:
