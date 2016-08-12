@@ -33,6 +33,8 @@ class Criteria(eeaCriteria):
             self.context = pst.pstactions
         elif self.context.portal_type == 'strategicobjective':
             self.context = pst.operationalobjectives
+        elif self.context.portal_type == 'pstaction':
+            self.context = pst.tasks
 
         self.criteria = self._criteria()
         criterion = Criterion(**{'_cid_': u'restrictpath',

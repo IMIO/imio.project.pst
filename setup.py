@@ -61,6 +61,7 @@ setup(
         'plonetheme.imioapps',
         'imio.dashboard',
         'imio.helpers',
+        'z3c.unconfigure',
     ],
     extras_require={
         'test': [

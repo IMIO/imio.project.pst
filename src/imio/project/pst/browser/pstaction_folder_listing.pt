@@ -6,13 +6,30 @@
     </script>
 
     <fieldset id="pst-folder-listing">
-        <legend i18n:translate="operational_legend_actions">Actions</legend>
+      <legend i18n:translate="operational_legend_actions">Actions</legend>
+      <!-- Folder contents -->
+      <div class="faceted-form" metal:define-macro="widgets" id="faceted-form"
+        tal:define="mode view/mode | string:view" tal:attributes="data-mode mode"
+        i18n:domain="eea">
 
-        <tal:block define="operationalobjective_folder_listing_table context/@@imio-folder-listing-table/index;">
-            <tal:content replace="structure operationalobjective_folder_listing_table" />
-        </tal:block>
+        <!-- Basic/Extended search -->
+        <div class="faceted-sections-buttons">
+          <a href="#" class="faceted-sections-buttons-more" i18n:translate="">More filters</a>
+          <a href="#" class="faceted-sections-buttons-less" i18n:translate="">Less filters</a>
+        </div>
 
+        <metal:widgets use-macro="here/@@faceted_widgets_macros/macros/widgets" />
+      </div>
+      <script type="text/javascript"
+        tal:content="string:jQuery(document).ready(function(evt){
+            Faceted.Load(evt, '${context/absolute_url}/');
+        });"></script>
+      <script type="text/javascript"
+        tal:content="string:jQuery(window).unload(function(){
+            Faceted.Unload();
+      });"></script>
     </fieldset>
+
     <fieldset id="folder-listing">
         <legend i18n:translate="" i18n:domain="imio.project.pst">Annexes</legend>
             <tal:block define="listing_macro context/folder_listing/macros/listing;

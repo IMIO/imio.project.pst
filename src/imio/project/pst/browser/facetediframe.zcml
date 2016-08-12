@@ -14,6 +14,15 @@
       <implements interface="eea.facetednavigation.settings.interfaces.IDisableSmartFacets" />
     </class>
 
+    <class class="imio.project.pst.content.action.PSTAction">
+      <implements interface=".interfaces.IMyFacetedNavigable" />
+      <implements interface="eea.facetednavigation.settings.interfaces.IDisableSmartFacets" />
+    </class>
+
+    <class class="imio.project.pst.content.action.PSTAction">
+      <implements interface=".interfaces.IMyFacetedNavigable" />
+    </class>
+
     <adapter
         for=".interfaces.IMyFacetedNavigable"
         provides="eea.facetednavigation.interfaces.ICriteria"
@@ -29,6 +38,12 @@
     <browser:page
       name="faceted-preview-items"
       for="imio.project.pst.content.strategic.IStrategicObjective"
+      class=".facetediframe.Listing"
+      permission="zope2.View" />
+
+    <browser:page
+      name="faceted-preview-items"
+      for="imio.project.pst.content.action.IPSTAction"
       class=".facetediframe.Listing"
       permission="zope2.View" />
 

@@ -116,4 +116,21 @@
             />
     </class>
 
+    <include package="z3c.unconfigure" file="meta.zcml" />
+    <include package="collective.task" />
+    <configure package="collective.task.browser">
+        <unconfigure>
+            <browser:viewlet
+                name="collective.task.list_tasks"
+                for="collective.task.behaviors.ITaskContainer"
+                class="collective.task.browser.viewlets.TasksListViewlet"
+                template="templates/list_tasks.pt"
+                manager="plone.app.layout.viewlets.interfaces.IBelowContentBody"
+                layer="collective.task.interfaces.ICollectiveTaskLayer"
+                permission="zope2.View"
+                view="plone.app.layout.globals.interfaces.IViewView"
+                />
+        </unconfigure>
+    </configure>
+
 </configure>
