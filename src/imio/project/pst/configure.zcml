@@ -61,6 +61,19 @@
              provides="collective.compoundcriterion.interfaces.ICompoundCriterionFilter"
              name="task-in-assigned-group" />
 
+    <adapter for="*"
+             factory=".adapters.ChildrenActionDeadlineHasPassedCriterion"
+             provides="collective.compoundcriterion.interfaces.ICompoundCriterionFilter"
+             name="has-child-action-deadline-has-passed" />
+
+
+    <include package="z3c.unconfigure" file="meta.zcml" />
+    <include package="eea.facetednavigation" />
+        <unconfigure>
+            <utility factory="eea.facetednavigation.search.catalog.FacetedCatalog" />
+        </unconfigure>
+    <utility factory=".facetedcatalog.FacetedCatalog" />
+
     <!-- indexers -->
     <adapter name="categories" factory=".adapters.categories_index" />
     <adapter name="priority" factory=".adapters.priority_index" />

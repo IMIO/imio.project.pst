@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from datetime import date
+from DateTime import DateTime
 
 from plone import api
 from plone.indexer import indexer
@@ -62,6 +63,21 @@ class TaskInAssignedGroupCriterion(object):
         # if orgs is empty list, nothing is returned => ok
         return {'assigned_group': {'query': orgs}}
 
+
+class ChildrenActionDeadlineHasPassedCriterion(object):
+
+    def __init__(self, context):
+        self.context = context
+
+    @property
+    def query(self):
+        collection_query = {
+        'planned_end_date': {'query': DateTime(), 'range': 'max'},
+        'portal_type': {'query': ['pstaction']}, 'sort_on': 'created', 'sort_order': 'descending'}
+        # from plone.app.querystring import queryparser
+        # collection_query = queryparser.parseFormquery(collection, collection.query)
+        return {
+            ':has_child': {'query': collection_query}}
 
 ####################
 # Indexes adapters #

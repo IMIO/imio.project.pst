@@ -719,6 +719,21 @@ def createBaseCollections(folder, content_type):
                 'rev': True,
                 'count': False
             },
+            {
+                'id': 'action-deadline-has-passed',
+                'tit': _("Which an action deadline has passed"),
+                'subj': ('search',),
+                'query': [
+                    {'i': 'portal_type', 'o': 'plone.app.querystring.operation.selection.is', 'v': [content_type]},
+                    {'i': 'CompoundCriterion', 'o': 'plone.app.querystring.operation.compound.is', 'v': 'has-child-action-deadline-has-passed'},
+                ],
+                'cond': u"",
+                'bypass': [],
+                'flds': COLUMNS_FOR_CONTENT_TYPES[content_type],
+                'sort': u'created',
+                'rev': True,
+                'count': False
+            },
         ],
 
         'pstaction': [
