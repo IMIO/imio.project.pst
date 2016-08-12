@@ -100,7 +100,7 @@ def post_install(context):
     # Add a mandatory function in contact plonegroup configuration
     _updateContactPlonegroupConfiguration(context)
     # configure dexterity.localrolesfield
-    configure_rolefields()
+    configure_rolefields(portal)
 
 
 def _addTemplatesDirectory(context):
@@ -299,6 +299,21 @@ def add_plonegroups_to_registry():
             }
         ]
 
+    if not [r for r in registry[FUNCTIONS_REGISTRY] if r['fct_id'] == 'editeur']:
+        registry[FUNCTIONS_REGISTRY] = registry[FUNCTIONS_REGISTRY] + [
+            {
+                'fct_title': u'Éditeur',
+                'fct_id': u'editeur'
+            }
+        ]
+
+    if not [r for r in registry[FUNCTIONS_REGISTRY] if r['fct_id'] == 'validateur']:
+        registry[FUNCTIONS_REGISTRY] = registry[FUNCTIONS_REGISTRY] + [
+            {
+                'fct_title': u'Validateur',
+                'fct_id': u'validateur'
+            }
+        ]
 
 def _updateContactPlonegroupConfiguration(context):
     """
@@ -763,7 +778,7 @@ def createBaseCollections(folder, content_type):
     createDashboardCollections(folder, collections)
 
 
-def configure_rolefields():
+def configure_rolefields(portal):
     """Configure the rolefields on types."""
     config = {
         'pstaction': {
@@ -810,11 +825,70 @@ def configure_rolefields():
             }
             # TODO: representative_responsible
         },
+        'task': {
+            'assigned_group': {
+                'to_assign': {
+                    'validateur': {
+                        'roles': ['Contributor', 'Editor', 'Reviewer'],
+                        'rel': "{'collective.task.related_taskcontainer':['Reader']}"
+                    },
+                },
+                'to_do': {
+                    'editeur': {
+                        'roles': ['Contributor', 'Editor'],
+                        'rel': "{'collective.task.related_taskcontainer':['Reader']}"
+                    },
+                    'validateur': {
+                        'roles': ['Contributor', 'Editor', 'Reviewer'],
+                        'rel': "{'collective.task.related_taskcontainer':['Reader']}"
+                    },
+                },
+                'in_progress': {
+                    'editeur': {
+                        'roles': ['Contributor', 'Editor'],
+                        'rel': "{'collective.task.related_taskcontainer':['Reader']}"
+                    },
+                    'validateur': {
+                        'roles': ['Contributor', 'Editor', 'Reviewer'],
+                        'rel': "{'collective.task.related_taskcontainer':['Reader']}"
+                    },
+                },
+                'realized': {
+                    'editeur': {
+                        'roles': ['Contributor', 'Editor'],
+                        'rel': "{'collective.task.related_taskcontainer':['Reader']}"
+                    },
+                    'validateur': {
+                        'roles': ['Contributor', 'Editor', 'Reviewer'],
+                        'rel': "{'collective.task.related_taskcontainer':['Reader']}"
+                    },
+                },
+                'closed': {
+                    'editeur': {
+                        'roles': ['Reader'],
+                        'rel': "{'collective.task.related_taskcontainer':['Reader']}"
+                    },
+                    'validateur': {
+                        'roles': ['Editor', 'Reviewer'],
+                        'rel': "{'collective.task.related_taskcontainer':['Reader']}"
+                    },
+                },
+            },
+        },
     }
     for portal_type, roles_config in config.iteritems():
         for keyname in roles_config:
-            # don't overwrite existing configuration
+            # don't overwrite existing configuration unless for task type if not set yet
+            force = False
+            if portal_type == 'task':
+                if (base_hasattr(portal.portal_types.task, 'localroles') and
+                    portal.portal_types.task.localroles.get('assigned_group', '') and
+                    portal.portal_types.task.localroles['assigned_group'].get('created') and
+                    '' in portal.portal_types.task.localroles['assigned_group']['created']):
+                    force = True
+
             msg = add_fti_configuration(
-                portal_type, roles_config[keyname], keyname=keyname)
+                portal_type, roles_config[keyname], keyname=keyname,
+                force=force)
             if msg:
                 logger.warn(msg)

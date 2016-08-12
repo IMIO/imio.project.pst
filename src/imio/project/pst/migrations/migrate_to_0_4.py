@@ -5,6 +5,7 @@ from zope.i18n import translate
 from zope.globalrequest import getRequest
 from plone import api
 from plone.registry.interfaces import IRegistry
+from Products.CMFPlone.utils import base_hasattr
 
 from collective.contact.plonegroup.config import FUNCTIONS_REGISTRY
 
@@ -12,7 +13,7 @@ from imio.helpers.catalog import addOrUpdateIndexes
 from imio.migrator.migrator import Migrator
 from imio.project.pst.setuphandlers import (
     configureDashboard, configure_rolefields, reimport_faceted_config,
-    createBaseCollections)
+    createBaseCollections, add_plonegroups_to_registry)
 from imio.project.pst import _
 
 
@@ -30,7 +31,7 @@ class Migrate_To_0_4(Migrator):
             action = brain.getObject()
             action.manager = [
                 m.rstrip('_actioneditor') for m in action.manager]
-            if action.work_plan:
+            if base_hasattr(action, 'work_plan') and action.work_plan:
                 title = translate(
                     _("Work plan: ${action_title}",
                       mapping={'action_title': action.Title()}),
@@ -124,7 +125,8 @@ class Migrate_To_0_4(Migrator):
                 xml='{}.xml'.format(content_type),
                 default_UID=col_folder['all'].UID())
 
-        configure_rolefields()
+        add_plonegroups_to_registry()
+        configure_rolefields(self.portal)
 
         # update portal_catalog
         self.refreshDatabase()
