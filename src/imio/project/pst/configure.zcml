@@ -22,6 +22,7 @@
     <include package="plone.directives.form" />
     <include package="plonetheme.imioapps" />
     <include package="collective.excelexport" />
+    <include package="collective.task" />
     <include package=".browser" />
     <include package=".content" />
     <include package=".excelexport" />
