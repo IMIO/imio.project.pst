@@ -770,7 +770,162 @@ def createBaseCollections(folder, content_type):
             },
         ],
 
-        'task': [],
+        'task': [
+
+            # {
+            #     'id': 'to_validate',
+            #     'tit': _('tasks_to_validate'),
+            #     'subj': (u'todo', ),
+            #     'query': [
+            #         {
+            #             'i': 'portal_type',
+            #             'o': 'plone.app.querystring.operation.selection.is',
+            #             'v': ['task']
+            #         },
+            #         {
+            #             'i': 'CompoundCriterion',
+            #             'o': 'plone.app.querystring.operation.compound.is',
+            #             'v': 'task-validation'
+            #         }
+            #     ],
+            #     'cond': u"python:object.restrictedTraverse('idm-utils').user_has_review_level('task')",
+            #     'bypass': ['Manager', 'Site Administrator'],
+            #     'flds': COLUMNS_FOR_CONTENT_TYPES[content_type],
+            #     'sort': u'created',
+            #     'rev': True,
+            #     'count': True
+            # },
+
+            {
+                'id': 'to_treat',
+                'tit': _('task_to_treat'),
+                'subj': (u'todo', ),
+                'query': [
+                    {
+                        'i': 'portal_type',
+                        'o': 'plone.app.querystring.operation.selection.is',
+                        'v': ['task']
+                    },
+                    {
+                        'i': 'assigned_user',
+                        'o': 'plone.app.querystring.operation.string.currentUser'
+                    },
+                    {
+                        'i': 'review_state',
+                        'o': 'plone.app.querystring.operation.selection.is',
+                        'v': ['to_do']
+                    }
+                ],
+                'cond': u"",
+                'bypass': [],
+                'flds': COLUMNS_FOR_CONTENT_TYPES[content_type],
+                'sort': u'created',
+                'rev': True,
+                'count': True
+            },
+
+            {
+                'id': 'im_treating',
+                'tit': _('task_im_treating'),
+                'subj': (u'todo', ),
+                'query': [
+                    {
+                        'i': 'portal_type',
+                        'o': 'plone.app.querystring.operation.selection.is',
+                        'v': ['task']
+                    },
+                    {
+                        'i': 'assigned_user',
+                        'o': 'plone.app.querystring.operation.string.currentUser'
+                    },
+                    {
+                        'i': 'review_state',
+                        'o': 'plone.app.querystring.operation.selection.is',
+                        'v': ['in_progress']
+                    }
+                ],
+                'cond': u"",
+                'bypass': [],
+                'flds': COLUMNS_FOR_CONTENT_TYPES[content_type],
+                'sort': u'created',
+                'rev': True,
+                'count': True
+            },
+
+            {
+                'id': 'have_treated',
+                'tit': _('task_have_treated'),
+                'subj': (u'search', ),
+                'query': [
+                    {
+                        'i': 'portal_type',
+                        'o': 'plone.app.querystring.operation.selection.is',
+                        'v': ['task']
+                    },
+                    {
+                        'i': 'assigned_user',
+                        'o': 'plone.app.querystring.operation.string.currentUser'
+                    },
+                    {
+                        'i': 'review_state',
+                        'o': 'plone.app.querystring.operation.selection.is',
+                        'v': ['closed', 'realized']
+                    }
+                ],
+                'cond': u"",
+                'bypass': [],
+                'flds': COLUMNS_FOR_CONTENT_TYPES[content_type],
+                'sort': u'created',
+                'rev': True,
+                'count': False
+            },
+
+            {
+                'id': 'in_my_group',
+                'tit': _('tasks_in_my_group'),
+                'subj': (u'search', ),
+                'query': [
+                    {
+                        'i': 'portal_type', 'o': 'plone.app.querystring.operation.selection.is',
+                        'v': ['task']
+                    },
+                    {
+                        'i': 'CompoundCriterion',
+                        'o': 'plone.app.querystring.operation.compound.is',
+                        'v': 'task-in-assigned-group'
+                    }
+                ],
+                'cond': u"",
+                'bypass': [],
+                'flds': COLUMNS_FOR_CONTENT_TYPES[content_type],
+                'sort': u'created',
+                'rev': True,
+                'count': False
+            },
+
+            {
+                'id': 'due_date_passed',
+                'tit': _('tasks_with_due_date_passed'),
+                'subj': (u'search', ),
+                'query': [
+                    {
+                        'i': 'portal_type', 'o': 'plone.app.querystring.operation.selection.is',
+                        'v': ['task']
+                    },
+                    {
+                        'i': 'due_date',
+                        'o': 'plone.app.querystring.operation.date.beforeToday'
+                    },
+                ],
+                'cond': u"",
+                'bypass': [],
+                'flds': COLUMNS_FOR_CONTENT_TYPES[content_type],
+                'sort': u'created',
+                'rev': True,
+                'count': False
+            },
+
+        ],
 
     }
 
