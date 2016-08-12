@@ -28,6 +28,9 @@
       <script type="text/javascript"
         tal:content="string:jQuery(document).ready(function(){
           jQuery('#content h1.documentFirstHeading').addClass('dontupdate');
+        });
+        jQuery(Faceted.Events).on(Faceted.Events.AJAX_QUERY_SUCCESS, function(){
+          jQuery('.faceted-tagscloud-collection-widget .faceted-tag-selected').removeClass('faceted-tag-selected');
         });"></script>
       <script type="text/javascript"
         tal:content="string:jQuery(document).ready(function(evt){
