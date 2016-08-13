@@ -104,12 +104,19 @@ class FacetedCatalog(eeaFacetedCatalog):
             raise Exception('We only support one :has_child filter')
 
         if has_child_filters:
-            # TODO: Possible optimization is to create a fake index parentRID which return the ISet of given rids,
-            # This is allow to do the sort after the intersection.
-            # we can't use limit or b_size for the main query because we do an intersect after.
-            # Facetednav doesn't seem to give them anyway.
-            newquery.pop('limit', None)  # not needed if we use a fake parentRID index
-            newquery.pop('b_size', None)  # not needed if we use a fake parentRID index
+            sort_on = newquery.pop('sort_on', None)
+            sort_order = newquery.pop('sort_order', None)
+            limit = newquery.pop('limit', None)
+            b_start = int(newquery.pop('b_start', 0))
+            b_size = newquery.pop('b_size', None)
+            if b_size is not None:
+                b_size = int(b_size)
+
+            if b_size is not None:
+                limit = b_start + b_size
+            elif limit and b_size is None:
+                b_size = limit
+
             has_child_filter = deepcopy(newquery[has_child_filters[0]]['query'])
             # be sure we don't do a useless sort and we have all results
             has_child_filter.pop('sort_on', None)
@@ -124,18 +131,21 @@ class FacetedCatalog(eeaFacetedCatalog):
                     '/'.join(b.getPath().split('/')[:-1]))
                 parentRIDs.add(parentRID)
 
-            # newquery['parentRID'] = parentRIDs  # if we use a fake index, and the intersection below can be removed
             brains = search(**newquery)
             # brains should be a LazyMap, access direct to brains._seq which is a list of rids
             # instead of doing IISet(brain.getRID() for brain in brains)
-            # We lose the order if we use weightedIntersection
-            if not 'sort_on' in newquery:
-                rset = weightedIntersection(IISet(brains._seq), parentRIDs)[1]
-            else:
-                rset = [rid for rid in brains._seq if rid in parentRIDs]
+            rs = weightedIntersection(IISet(brains._seq), parentRIDs)[1]
 
-            len_rset = len(rset)
-            brains = brains.__class__(brains._func, rset, len_rset, len_rset)
+            rlen = len(rs)
+            if sort_on is not None:
+                # We only support single sort order
+                sort_index = ctool._catalog.indexes[sort_on]
+                reverse = 1 if sort_order == 'descending' else 0
+                brains = ctool._catalog.sortResults(rs, sort_index, reverse,
+                    limit, merge=1, actual_result_count=rlen, b_start=b_start,
+                    b_size=b_size)
+            else:
+                brains = brains.__class__(brains._func, rs, rlen, rlen)
         else:
             brains = search(**newquery)
 
