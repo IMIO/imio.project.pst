@@ -29,8 +29,7 @@ class Migrate_To_1_0(Migrator):
         catalog = api.portal.get_tool('portal_catalog')
         for brain in catalog(portal_type="pstaction"):
             action = brain.getObject()
-            action.manager = [
-                m.rstrip('_actioneditor') for m in action.manager]
+            action.manager = [m[:-13] for m in action.manager if m.endswith('_actioneditor')]
             if base_hasattr(action, 'work_plan') and action.work_plan:
                 title = translate(
                     _("Work plan: ${action_title}",
@@ -105,11 +104,9 @@ class Migrate_To_1_0(Migrator):
         brains = catalog(portal_type="operationalobjective")
         for brain in brains:
             oo = brain.getObject()
-            oo.administrative_responsible = [
-                r.rstrip('_actioneditor') for r in oo.administrative_responsible
-            ]
-            oo.manager = [
-                m.rstrip('_actioneditor') for m in oo.manager]
+            oo.administrative_responsible = [r[:-13] for r in oo.administrative_responsible
+                                             if r.endswith('_actioneditor')]
+            oo.manager = [m[:-13] for m in oo.manager if m.endswith('_actioneditor')]
 
         self.migrate_pst_action_fields()
 
