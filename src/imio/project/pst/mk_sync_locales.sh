@@ -33,10 +33,11 @@ fi
 if ! test -f locales/plone.pot || [ "$1" == "rebuild-plone" ]; then
     echo "Rebuilding locales/plone.pot"
     i18ndude rebuild-pot --pot locales/plone.pot --create plone profiles/default/workflows
+    i18ndude merge --pot locales/plone.pot --merge locales/plone-manual.pot 2>/dev/null
 fi
 
 # Finding pot files
-for pot in $(find locales -mindepth 1 -maxdepth 1 -type f -name "*.pot" ! -name generated.pot ! -name manual.pot); do
+for pot in $(find locales -mindepth 1 -maxdepth 1 -type f -name "*.pot" ! -name plone-manual.pot ! -name manual.pot); do
     #finding pot basename as catalog
     catalog=`basename $pot .pot`
     echo "=> Found pot $pot"

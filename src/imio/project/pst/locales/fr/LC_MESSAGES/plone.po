@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-09-17 14:23+0000\n"
+"POT-Creation-Date: 2016-08-24 10:14+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -51,6 +51,10 @@ msgstr "En création"
 msgid "finish"
 msgstr "Finaliser"
 
+#: configure.zcml
+msgid "has-child-action-deadline-has-passed"
+msgstr "En retard pdv échéance actions"
+
 #: profiles/default/workflows/pst_action_workflow/definition.xml
 #: profiles/default/workflows/pst_objective_workflow/definition.xml
 msgid "ongoing"
@@ -68,6 +72,10 @@ msgstr "Annuler"
 msgid "stopped"
 msgstr "Annulé"
 
+#: configure.zcml
+msgid "task-in-assigned-group"
+msgstr "Dans groupe assigné pour tâches"
+
 #: profiles/default/workflows/pst_action_workflow/definition.xml
 msgid "terminated"
 msgstr "Finalisé"
@@ -75,3 +83,11 @@ msgstr "Finalisé"
 #: profiles/default/workflows/pst_action_workflow/definition.xml
 msgid "to_be_scheduled"
 msgstr "A agender"
+
+#: configure.zcml
+msgid "user-is-actioneditor"
+msgstr "L'utilisateur connecté est gestionnaire d'action"
+
+#: configure.zcml
+msgid "user-is-administrative-responsible"
+msgstr "L'utilisateur connecté est responsable administratif"

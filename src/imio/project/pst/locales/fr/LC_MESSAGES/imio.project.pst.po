@@ -219,11 +219,11 @@ msgstr "Dont je suis gestionnaire"
 
 #: ./setuphandlers.py:724
 msgid "Which an action deadline has passed"
-msgstr "En retard pdv échéance dans les actions"
+msgstr "En retard pdv échéance actions"
 
 #: ./setuphandlers.py:772
 msgid "Which beginning is late"
-msgstr "En retard pdv date de début effective"
+msgstr "En retard pdv date début effective"
 
 #: ./setuphandlers.py:757
 msgid "Which deadline has passed"
