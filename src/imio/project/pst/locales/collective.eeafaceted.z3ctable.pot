@@ -88,3 +88,9 @@ msgstr ""
 
 msgid "health_indicator"
 msgstr ""
+
+msgid "header_task_parent"
+msgstr ""
+
+msgid "task_parent"
+msgstr ""
