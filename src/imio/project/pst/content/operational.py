@@ -91,13 +91,3 @@ class OperationalObjectiveSchemaPolicy(DexteritySchemaPolicy):
 
     def bases(self, schemaName, tree):
         return (IOperationalObjective, )
-
-
-class ManagerVocabulary(object):
-    """
-        Create a vocabulary from the selected organization groups
-    """
-    implements(IVocabularyFactory)
-
-    def __call__(self, context):
-        return selectedOrganizationsPloneGroupsVocabulary(functions=['actioneditor'], group_title=False)
