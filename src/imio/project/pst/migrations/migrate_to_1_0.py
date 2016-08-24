@@ -20,7 +20,7 @@ from imio.project.pst import _
 logger = logging.getLogger('imio.project.pst')
 
 
-class Migrate_To_0_4(Migrator):
+class Migrate_To_1_0(Migrator):
 
     def __init__(self, context):
         Migrator.__init__(self, context)
@@ -137,4 +137,4 @@ class Migrate_To_0_4(Migrator):
 
 
 def migrate(context):
-    Migrate_To_0_4(context).run()
+    Migrate_To_1_0(context).run()
