@@ -52,9 +52,9 @@ class Migrate_To_1_0(Migrator):
             del ir._registered['imioprojectpst-adaptDefaultPortal']
         # Add new function
         registry = getUtility(IRegistry)
-        if not [r for r in registry[FUNCTIONS_REGISTRY] if r['fct_id'] == 'administrative_responsible']:
+        if not [r for r in registry[FUNCTIONS_REGISTRY] if r['fct_id'] == 'admin_resp']:
             registry[FUNCTIONS_REGISTRY] = registry[FUNCTIONS_REGISTRY] + [{'fct_title': u"Responsable administratif",
-                                                                            'fct_id': u'administrative_responsible'}]
+                                                                            'fct_id': u'admin_resp'}]
 
     def run(self):
         self.various_update()

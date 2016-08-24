@@ -291,11 +291,11 @@ def add_plonegroups_to_registry():
                 'fct_id': u'actioneditor'
             }
         ]
-    if not [r for r in registry[FUNCTIONS_REGISTRY] if r['fct_id'] == 'administrative_responsible']:
+    if not [r for r in registry[FUNCTIONS_REGISTRY] if r['fct_id'] == 'admin_resp']:
         registry[FUNCTIONS_REGISTRY] = registry[FUNCTIONS_REGISTRY] + [
             {
                 'fct_title': u"Responsable administratif",
-                'fct_id': u'administrative_responsible'
+                'fct_id': u'admin_resp'
             }
         ]
 
@@ -314,6 +314,7 @@ def add_plonegroups_to_registry():
                 'fct_id': u'validateur'
             }
         ]
+
 
 def _updateContactPlonegroupConfiguration(context):
     """
@@ -977,13 +978,13 @@ def configure_rolefields(portal):
             },
             'administrative_responsible': {
                 'achieved': {
-                    'administrative_responsible': {'roles': ['Reader']},
+                    'admin_resp': {'roles': ['Reader']},
                 },
                 'created': {
-                    'administrative_responsible': {'roles': ['Reader']},
+                    'admin_resp': {'roles': ['Reader']},
                 },
                 'ongoing': {
-                    'administrative_responsible': {'roles': ['Reader']},
+                    'admin_resp': {'roles': ['Reader']},
                 }
             }
             # TODO: representative_responsible
