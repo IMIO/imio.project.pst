@@ -5,24 +5,26 @@ import logging
 logger = logging.getLogger('imio.project.pst')
 from Acquisition import aq_base
 from zope.component import getUtility, getMultiAdapter
+from zope.component import queryUtility
+from zope.globalrequest import getRequest
+from zope.i18n.interfaces import ITranslationDomain
 from zope.event import notify
 from zope.lifecycleevent import ObjectCreatedEvent
+
+from plone import api
+from plone.app.uuid.utils import uuidToObject
 from plone.dexterity.utils import createContentInContainer
+from plone.registry.interfaces import IRegistry
 from Products.CMFCore.WorkflowCore import WorkflowException
 from Products.CMFPlone.utils import base_hasattr
 from Products.CMFPlone.utils import getToolByName
 from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
+
 from collective.contact.plonegroup.config import ORGANIZATIONS_REGISTRY, FUNCTIONS_REGISTRY
-from plone.registry.interfaces import IRegistry
 from imio.dashboard.utils import enableFacetedDashboardFor, _updateDefaultCollectionFor
 from imio.helpers.catalog import addOrUpdateIndexes
-from zope.component import queryUtility
-from zope.i18n.interfaces import ITranslationDomain
-from zope.globalrequest import getRequest
 from imio.helpers.security import is_develop_environment
 from dexterity.localroles.utils import add_fti_configuration
-
-from plone import api
 
 from data import get_os_oo_ac_data
 from imio.project.pst.utils import list_wf_states
@@ -455,10 +457,12 @@ def addDemoData(context):
     site = context.getSite()
 
     logger.info('Adding demo data')
+    registry = getUtility(IRegistry)
+    registry[ORGANIZATIONS_REGISTRY]
     groups = {}
-    for service in site.contacts['plonegroup-organization']['services'].objectValues():
-        if not service in groups:
-            groups[service.id] = '%s_actioneditor' % service.UID()
+    for uid in registry[ORGANIZATIONS_REGISTRY]:
+        service = uuidToObject(uid)
+        groups[service.id] = uid
 
     # data has 3 levels :
     # - strategicobjective
