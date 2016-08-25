@@ -115,22 +115,10 @@
    <property name="default"/>
   </criterion>
 
-  <criterion name="plannedenddate" i18n:attributes="title">
-   <property name="widget">daterange</property>
-   <property name="title">Planned end date</property>
-   <property name="position">top</property>
-   <property name="section">advanced</property>
-   <property name="hidden">0</property>
-   <property name="index">planned_end_date</property>
-   <property name="default"></property>
-   <property name="calYearRange">c-10:c+10</property>
-   <property name="usePloneDateFormat">0</property>
-  </criterion>
-
   <criterion name="representativeresponsible" i18n:attributes="title">
    <property name="widget">checkbox</property>
    <property name="title">Representative responsible</property>
-   <property name="position">center</property>
+   <property name="position">top</property>
    <property name="section">advanced</property>
    <property name="hidden">0</property>
    <property name="count">0</property>
@@ -149,7 +137,7 @@
   <criterion name="administrativeresponsible" i18n:attributes="title">
    <property name="widget">checkbox</property>
    <property name="title">Administrative responsible</property>
-   <property name="position">center</property>
+   <property name="position">top</property>
    <property name="section">advanced</property>
    <property name="hidden">0</property>
    <property name="count">0</property>
@@ -168,7 +156,7 @@
   <criterion name="manager" i18n:attributes="title">
    <property name="widget">checkbox</property>
    <property name="title">Manager</property>
-   <property name="position">center</property>
+   <property name="position">top</property>
    <property name="section">advanced</property>
    <property name="hidden">0</property>
    <property name="count">0</property>
@@ -182,6 +170,30 @@
    <property name="maxitems"></property>
    <property name="sortreversed">0</property>
    <property name="default"/>
+  </criterion>
+
+  <criterion name="plannedenddate" i18n:attributes="title">
+   <property name="widget">daterange</property>
+   <property name="title">Planned end date</property>
+   <property name="position">top</property>
+   <property name="section">advanced</property>
+   <property name="hidden">0</property>
+   <property name="index">planned_end_date</property>
+   <property name="default"></property>
+   <property name="calYearRange">c-10:c+10</property>
+   <property name="usePloneDateFormat">0</property>
+  </criterion>
+
+  <criterion name="extraconcernedpeople" i18n:attributes="title">
+   <property name="widget">text</property>
+   <property name="title">Extra concerned people</property>
+   <property name="position">top</property>
+   <property name="section">advanced</property>
+   <property name="hidden">0</property>
+   <property name="index">extra_concerned_people</property>
+   <property name="default"></property>
+   <property name="onlyallelements">1</property>
+   <property name="wildcard">0</property>
   </criterion>
 
  </criteria>

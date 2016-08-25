@@ -76,58 +76,10 @@
    <property name="default"/>
   </criterion>
 
-  <criterion name="plannedenddate" i18n:attributes="title">
-   <property name="widget">daterange</property>
-   <property name="title">Planned end date</property>
-   <property name="position">top</property>
-   <property name="section">advanced</property>
-   <property name="hidden">0</property>
-   <property name="index">planned_end_date</property>
-   <property name="default"></property>
-   <property name="calYearRange">c-10:c+10</property>
-   <property name="usePloneDateFormat">0</property>
-  </criterion>
-
-  <criterion name="plannedbegindate" i18n:attributes="title">
-   <property name="widget">daterange</property>
-   <property name="title">Planned begin date</property>
-   <property name="position">top</property>
-   <property name="section">advanced</property>
-   <property name="hidden">0</property>
-   <property name="index">planned_begin_date</property>
-   <property name="default"></property>
-   <property name="calYearRange">c-10:c+10</property>
-   <property name="usePloneDateFormat">0</property>
-  </criterion>
-
-  <criterion name="effectivebegindate" i18n:attributes="title">
-   <property name="widget">daterange</property>
-   <property name="title">Effective begin date</property>
-   <property name="position">top</property>
-   <property name="section">advanced</property>
-   <property name="hidden">0</property>
-   <property name="index">effective_begin_date</property>
-   <property name="default"></property>
-   <property name="calYearRange">c-10:c+10</property>
-   <property name="usePloneDateFormat">0</property>
-  </criterion>
-
-  <criterion name="effectiveenddate" i18n:attributes="title">
-   <property name="widget">daterange</property>
-   <property name="title">Effective end date</property>
-   <property name="position">top</property>
-   <property name="section">advanced</property>
-   <property name="hidden">0</property>
-   <property name="index">effective_end_date</property>
-   <property name="default"></property>
-   <property name="calYearRange">c-10:c+10</property>
-   <property name="usePloneDateFormat">0</property>
-  </criterion>
-
   <criterion name="manager" i18n:attributes="title">
    <property name="widget">checkbox</property>
    <property name="title">Manager</property>
-   <property name="position">center</property>
+   <property name="position">top</property>
    <property name="section">advanced</property>
    <property name="hidden">0</property>
    <property name="count">0</property>
@@ -170,6 +122,54 @@
    <property name="hidden">0</property>
    <property name="index">progress</property>
    <property name="default"></property>
+  </criterion>
+
+  <criterion name="plannedbegindate" i18n:attributes="title">
+   <property name="widget">daterange</property>
+   <property name="title">Planned begin date</property>
+   <property name="position">top</property>
+   <property name="section">advanced</property>
+   <property name="hidden">0</property>
+   <property name="index">planned_begin_date</property>
+   <property name="default"></property>
+   <property name="calYearRange">c-10:c+10</property>
+   <property name="usePloneDateFormat">0</property>
+  </criterion>
+
+  <criterion name="effectivebegindate" i18n:attributes="title">
+   <property name="widget">daterange</property>
+   <property name="title">Effective begin date</property>
+   <property name="position">top</property>
+   <property name="section">advanced</property>
+   <property name="hidden">0</property>
+   <property name="index">effective_begin_date</property>
+   <property name="default"></property>
+   <property name="calYearRange">c-10:c+10</property>
+   <property name="usePloneDateFormat">0</property>
+  </criterion>
+
+  <criterion name="plannedenddate" i18n:attributes="title">
+   <property name="widget">daterange</property>
+   <property name="title">Planned end date</property>
+   <property name="position">top</property>
+   <property name="section">advanced</property>
+   <property name="hidden">0</property>
+   <property name="index">planned_end_date</property>
+   <property name="default"></property>
+   <property name="calYearRange">c-10:c+10</property>
+   <property name="usePloneDateFormat">0</property>
+  </criterion>
+
+  <criterion name="effectiveenddate" i18n:attributes="title">
+   <property name="widget">daterange</property>
+   <property name="title">Effective end date</property>
+   <property name="position">top</property>
+   <property name="section">advanced</property>
+   <property name="hidden">0</property>
+   <property name="index">effective_end_date</property>
+   <property name="default"></property>
+   <property name="calYearRange">c-10:c+10</property>
+   <property name="usePloneDateFormat">0</property>
   </criterion>
 
   <criterion name="extraconcernedpeople" i18n:attributes="title">
