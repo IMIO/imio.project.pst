@@ -1,0 +1,79 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2015-08-19 13:14+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: eea\n"
+
+#: ../faceted_conf/operationalobjective:
+msgid "Administrative responsible"
+msgstr ""
+
+#: ../faceted_conf/operationalobjective:
+#: ../faceted_conf/pstaction:
+#: ../faceted_conf/strategicobjective:
+#: ../faceted_conf/task:
+msgid "Base collections"
+msgstr ""
+
+#: ../faceted_conf/operationalobjective:
+#: ../faceted_conf/strategicobjective:
+msgid "Categories"
+msgstr ""
+
+#: ../faceted_conf/pstaction:
+msgid "Effective begin date"
+msgstr ""
+
+#: ../faceted_conf/pstaction:
+msgid "Effective end date"
+msgstr ""
+
+#: ../faceted_conf/pstaction:
+msgid "Extra concerned people"
+msgstr ""
+
+#: ../faceted_conf/pstaction:
+msgid "Health indicator"
+msgstr ""
+
+#: ../faceted_conf/operationalobjective:
+#: ../faceted_conf/pstaction:
+msgid "Manager"
+msgstr ""
+
+#: ../faceted_conf/operationalobjective:
+#: ../faceted_conf/pstaction:
+#: ../faceted_conf/strategicobjective:
+msgid "Per page"
+msgstr ""
+
+#: ../faceted_conf/pstaction:
+msgid "Planned begin date"
+msgstr ""
+
+#: ../faceted_conf/operationalobjective:
+#: ../faceted_conf/pstaction:
+msgid "Planned end date"
+msgstr ""
+
+#: ../faceted_conf/operationalobjective:
+msgid "Priority"
+msgstr ""
+
+#: ../faceted_conf/operationalobjective:
+msgid "Representative responsible"
+msgstr ""
+
+#: ../faceted_conf/pstaction:
+msgid "Progress"
+msgstr ""
