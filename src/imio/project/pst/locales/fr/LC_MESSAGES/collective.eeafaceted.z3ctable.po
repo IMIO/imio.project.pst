@@ -46,10 +46,10 @@ msgid "header_due_date"
 msgstr "Échéance"
 
 msgid "header_effective_begin_date"
-msgstr "Date de début effective"
+msgstr "Date début effective"
 
 msgid "header_effective_end_date"
-msgstr "Date de fin effective"
+msgstr "Date fin effective"
 
 msgid "header_health_indicator"
 msgstr "Indice de santé"
@@ -58,7 +58,7 @@ msgid "header_manager"
 msgstr "Gestionnaire"
 
 msgid "header_planned_begin_date"
-msgstr "Date de début prévue"
+msgstr "Date début prévue"
 
 msgid "header_planned_end_date"
 msgstr "Échéance"
