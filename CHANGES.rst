@@ -8,6 +8,8 @@ Changelog
   [cmessiant]
 - Reconfigure navigation portlet
   [sgeulette]
+- Use collective.documentgenerator
+  [sgeulette]
 
 0.3.1 (2015-04-10)
 ----------------

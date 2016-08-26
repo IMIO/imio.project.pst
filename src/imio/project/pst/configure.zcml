@@ -14,6 +14,7 @@
 
     <include package="plone.app.dexterity" />
     <include package="Products.PasswordStrength" />
+    <include package="collective.documentgenerator" />
     <include package="communesplone.layout" />
     <include package="imio.dashboard" />
     <include package="imio.helpers" />

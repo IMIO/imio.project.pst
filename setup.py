@@ -49,6 +49,7 @@ setup(
         'appy',
         'beautifulsoup4',
         'communesplone.layout',
+        'collective.documentgenerator',
         'collective.excelexport',
         'collective.task',
         'dexterity.localrolesfield',

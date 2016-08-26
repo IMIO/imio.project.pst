@@ -3,6 +3,7 @@
   <version>1.0</version>
   <dependencies>
     <dependency>profile-Products.PasswordStrength:default</dependency>
+    <dependency>profile-collective.documentgenerator:default</dependency>
     <dependency>profile-communesplone.layout:default</dependency>
     <dependency>profile-communesplone.layout:simplify</dependency>
     <dependency>profile-imio.project.core:default</dependency>
