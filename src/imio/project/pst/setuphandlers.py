@@ -14,6 +14,7 @@ from zope.lifecycleevent import ObjectCreatedEvent
 from plone import api
 from plone.app.uuid.utils import uuidToObject
 from plone.dexterity.utils import createContentInContainer
+from plone.namedfile.file import NamedBlobFile
 from plone.registry.interfaces import IRegistry
 from Products.CMFCore.WorkflowCore import WorkflowException
 from Products.CMFPlone.utils import base_hasattr
@@ -118,36 +119,37 @@ def _addTemplatesDirectory(context):
         site.invokeFactory('Folder', 'templates', **params)
         folder = site.templates
         folder.setConstrainTypesMode(1)
-        folder.setLocallyAllowedTypes(['File', ])
-        folder.setImmediatelyAddableTypes(['File', ])
+        folder.setLocallyAllowedTypes(['ConfigurablePODTemplate', 'StyleTemplate', 'DashboardPODTemplate'])
+        folder.setImmediatelyAddableTypes(['ConfigurablePODTemplate', 'StyleTemplate', 'DashboardPODTemplate'])
         folder.setExcludeFromNav(True)
     folder = site.templates
     do_transitions(folder, transitions=['publish_internally'], logger=logger)
+
     templates = [
         #('pstaction_template', 'fichepstaction.odt'),
         #('operationalobjective_template', 'ficheoo.odt'),
-        ('pst_template', 'pst_full.odt'),
-        ('status_template', 'tableaubord.odt'),
+        ('pst_full', u'pst_full.odt'),
+        ('tableaubord', u'tableaubord.odt'),
     ]
-    templates_dir = os.path.join(context._profile_path, 'templates')
     for id, filename in templates:
         if not base_hasattr(folder, id):
-#        if True:  # during development
-            filename_path = os.path.join(templates_dir, filename)
-            try:
-                f = open(filename_path, 'rb')
-                file_content = f.read()
-                f.close()
-            except:
-                continue
-            try:
-                folder.invokeFactory("File", id=id, title=filename, file=file_content)
-            except:
-                pass
-            new_template = getattr(folder, id)
-            new_template.setFile(file_content)
-            new_template.setFilename(filename)
-            new_template.setFormat("application/vnd.oasis.opendocument.text")
+            tmpl = api.content.create(
+                type='ConfigurablePODTemplate',
+                id=id,
+                title=filename,
+                odt_file=NamedBlobFile(
+                    data=context.readDataFile('templates/%s' % filename),
+                    contentType='applications/odt',
+                    filename=filename,
+                ),
+                container=folder,
+                # excludeFromNav=True,
+                pod_formats=['odt'],
+                pod_portal_types=['projectspace', 'strategicobjective', 'operationalobjective'],
+                # style_template=[style_template.UID()],
+                # merge_templates=[{'template': sub_template.UID(), 'pod_context_name': 'header',}],
+            )
+        do_transitions(tmpl, transitions=['publish_internally'])
 
 
 def _addPSTprojectspace(context):

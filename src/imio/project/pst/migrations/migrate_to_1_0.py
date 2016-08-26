@@ -13,7 +13,7 @@ from imio.helpers.catalog import addOrUpdateIndexes
 from imio.migrator.migrator import Migrator
 from imio.project.pst.setuphandlers import (
     configureDashboard, configure_rolefields, reimport_faceted_config,
-    createBaseCollections, add_plonegroups_to_registry)
+    createBaseCollections, add_plonegroups_to_registry, _addTemplatesDirectory)
 from imio.project.pst import _
 
 
@@ -43,6 +43,12 @@ class Migrate_To_1_0(Migrator):
                 task.task_description = action.work_plan.raw
                 # action.work_plan = None
 
+    def migrate_templates(self):
+        folder = self.portal['templates']
+        folder.setLocallyAllowedTypes(['ConfigurablePODTemplate', 'StyleTemplate', 'DashboardPODTemplate'])
+        folder.setImmediatelyAddableTypes(['ConfigurablePODTemplate', 'StyleTemplate', 'DashboardPODTemplate'])
+        _addTemplatesDirectory(self.context._getImportContext('imio.project.pst:default'))
+
     def various_update(self):
         # Removed old import step
         setup = api.portal.get_tool('portal_setup')
@@ -65,6 +71,7 @@ class Migrate_To_1_0(Migrator):
             ]
         )
         self.reinstall([
+            'collective.documentgenerator',
             'collective.task:default',
             'imio.project.core:default',
             'imio.dashboard:default',
@@ -125,6 +132,9 @@ class Migrate_To_1_0(Migrator):
 
         add_plonegroups_to_registry()
         configure_rolefields(self.portal)
+
+        # migrate to documentgenerator
+        self.migrate_templates()
 
         # update portal_catalog
         self.refreshDatabase()
