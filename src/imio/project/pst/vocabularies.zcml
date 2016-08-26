@@ -18,4 +18,10 @@
         name="imio.project.pst.PSTActionReviewStatesVocabulary"
         factory="imio.project.pst.vocabularies.PSTActionReviewStatesVocabulary"
         />
+
+    <utility
+        name="imio.project.pst.PSTTaskReviewStatesVocabulary"
+        factory="imio.project.pst.vocabularies.PSTTaskReviewStatesVocabulary"
+        />
+
 </configure>

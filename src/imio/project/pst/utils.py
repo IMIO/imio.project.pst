@@ -32,8 +32,8 @@ def list_wf_states(context, portal_type):
         ],
         'task': [
             'created',
-            'to_do',
             'to_assign',
+            'to_do',
             'in_progress',
             'realized',
             'closed',

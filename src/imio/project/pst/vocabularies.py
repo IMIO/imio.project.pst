@@ -39,3 +39,8 @@ class OOReviewStatesVocabulary(BaseReviewStatesVocabulary):
 class PSTActionReviewStatesVocabulary(BaseReviewStatesVocabulary):
 
     portal_type = 'pstaction'
+
+
+class PSTTaskReviewStatesVocabulary(BaseReviewStatesVocabulary):
+
+    portal_type = 'task'

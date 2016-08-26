@@ -30,6 +30,14 @@ msgstr ""
 msgid "Categories"
 msgstr ""
 
+#: ../faceted_conf/task:
+msgid "Created"
+msgstr ""
+
+#: ../faceted_conf/task:
+msgid "Due date"
+msgstr ""
+
 #: ../faceted_conf/pstaction:
 msgid "Effective begin date"
 msgstr ""
@@ -49,6 +57,10 @@ msgstr ""
 #: ../faceted_conf/operationalobjective:
 #: ../faceted_conf/pstaction:
 msgid "Manager"
+msgstr ""
+
+#: ../faceted_conf/task:
+msgid "Modified"
 msgstr ""
 
 #: ../faceted_conf/operationalobjective:

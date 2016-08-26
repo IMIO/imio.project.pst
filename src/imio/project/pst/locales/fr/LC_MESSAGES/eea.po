@@ -30,6 +30,14 @@ msgstr "Menu"
 msgid "Categories"
 msgstr "Domaine"
 
+#: ../faceted_conf/task:
+msgid "Created"
+msgstr "Créé le"
+
+#: ../faceted_conf/task:
+msgid "Due date"
+msgstr "Échéance"
+
 #: ../faceted_conf/pstaction:
 msgid "Effective begin date"
 msgstr "Date début effective"
@@ -50,6 +58,10 @@ msgstr "Indicateur santé"
 #: ../faceted_conf/pstaction:
 msgid "Manager"
 msgstr "Gestionnaire"
+
+#: ../faceted_conf/task:
+msgid "Modified"
+msgstr "Dernière modification"
 
 #: ../faceted_conf/operationalobjective:
 #: ../faceted_conf/pstaction:
