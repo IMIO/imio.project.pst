@@ -1,13 +1,9 @@
 import os
-import time
-import appy.pod.renderer
-from StringIO import StringIO
 from zope.annotation import IAnnotations
 from zope.component import getMultiAdapter, getUtility
 from zope.component.interfaces import ComponentLookupError
 from zope.i18n import translate
 from zope.schema.interfaces import IVocabularyFactory
-from Products.Five import BrowserView
 from plone.app.textfield import RichTextValue
 from plone.memoize import forever
 from bs4 import BeautifulSoup as Soup
@@ -45,57 +41,6 @@ def _getWorkflowStates(portal, portal_type, skip_initial=False, skip_states=[]):
             continue
         ret.append(state)
     return ret
-
-
-class DocumentGenerationView(BrowserView):
-    """
-        Document generation with appy
-    """
-    def __init__(self, context, request):
-        self.context = context
-        self.request = request
-        portal_state = getMultiAdapter((self.context, self.request), name=u'plone_portal_state')
-        self.portal = portal_state.portal()
-
-    def __call__(self):
-        return self.generate_doc()
-
-    def generate_doc(self):
-        # Get the document template
-        documentid = self.request.get('documentid', None)
-        if documentid is None:
-            return None
-        pcat = self.portal.portal_catalog
-        document_brains = pcat(portal_type='File', id=documentid,
-                               path={'query': '/'.join(self.portal.templates.getPhysicalPath()), 'depth': 1})
-        if not document_brains:
-            return "Cannot find the File object with id '%s'" % documentid
-        document_obj = document_brains[0].getObject()
-        file_type = 'odt'
-        tempFileName = '%s/%s_%f.%s' % (_getOsTempFolder(), document_obj._at_uid, time.time(), file_type)
-        # Prepare rendering context
-        try:
-            dgm = getMultiAdapter((self.context, self.request), name=u'document-generation-methods')
-        except ComponentLookupError:
-            dgm = None
-        dict_arg = {'self': self.context, 'view': dgm}
-        renderer = appy.pod.renderer.Renderer(StringIO(document_obj), dict_arg, tempFileName,
-                                              pythonWithUnoPath='/usr/bin/python',
-                                              forceOoCall=True,
-                                              )
-        renderer.run()
-
-        # Tell the browser that the resulting page contains ODT
-        response = self.request.RESPONSE
-        response.setHeader('Content-type', 'application/%s' % file_type)
-        response.setHeader('Content-disposition', 'inline;filename="%s.%s"' % (self.context.id, file_type))
-
-        # Returns the doc and removes the temp file
-        f = open(tempFileName, 'rb')
-        doc = f.read()
-        f.close()
-        os.remove(tempFileName)
-        return doc
 
 
 class DocumentGenerationMethods(object):

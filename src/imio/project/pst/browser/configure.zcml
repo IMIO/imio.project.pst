@@ -41,14 +41,6 @@
         permission="zope2.View"
         />
 
-    <!-- Printing views -->
-<!--     <browser:page
-        for="*"
-        name="document-generation"
-        class="imio.project.pst.browser.views.DocumentGenerationView"
-        permission="zope2.View"
-        /> -->
-
     <browser:page
         for="imio.project.pst.content.action.IPSTAction"
         name="document-generation-methods"
