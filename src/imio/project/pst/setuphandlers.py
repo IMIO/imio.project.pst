@@ -149,7 +149,7 @@ def _addTemplatesDirectory(context):
                 # style_template=[style_template.UID()],
                 # merge_templates=[{'template': sub_template.UID(), 'pod_context_name': 'header',}],
             )
-        do_transitions(tmpl, transitions=['publish_internally'])
+            do_transitions(tmpl, transitions=['publish_internally'])
 
 
 def _addPSTprojectspace(context):
@@ -379,6 +379,14 @@ def adaptDefaultPortal(site):
             configure_ckeditor(site, custom='urban')
     except ImportError:
         pass
+
+    logger.info("Configuring externaleditor")
+    registry = getUtility(IRegistry)
+    registry['externaleditor.ext_editor'] = True
+    if 'Image' in registry['externaleditor.externaleditor_enabled_types']:
+        registry['externaleditor.externaleditor_enabled_types'] = ['PODTemplate', 'ConfigurablePODTemplate',
+                                                                   'DashboardPODTemplate', 'SubTemplate',
+                                                                   'StyleTemplate']
 
 
 def addDemoOrganization(context):

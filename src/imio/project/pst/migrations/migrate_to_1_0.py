@@ -50,19 +50,25 @@ class Migrate_To_1_0(Migrator):
         _addTemplatesDirectory(self.context._getImportContext('imio.project.pst:default'))
 
     def various_update(self):
-        # Removed old import step
-        setup = api.portal.get_tool('portal_setup')
-        ir = setup.getImportStepRegistry()
-        if 'imioprojectpst-adaptDefaultPortal' in ir._registered:
-            del ir._registered['imioprojectpst-adaptDefaultPortal']
         # Add new function
         registry = getUtility(IRegistry)
         if not [r for r in registry[FUNCTIONS_REGISTRY] if r['fct_id'] == 'admin_resp']:
             registry[FUNCTIONS_REGISTRY] = registry[FUNCTIONS_REGISTRY] + [{'fct_title': u"Responsable administratif",
                                                                             'fct_id': u'admin_resp'}]
+        # configure externaleditor
+        registry = getUtility(IRegistry)
+        registry['externaleditor.ext_editor'] = True
+        if 'Image' in registry['externaleditor.externaleditor_enabled_types']:
+            registry['externaleditor.externaleditor_enabled_types'] = ['PODTemplate', 'ConfigurablePODTemplate',
+                                                                       'DashboardPODTemplate', 'SubTemplate',
+                                                                       'StyleTemplate']
 
     def run(self):
-        self.various_update()
+        # Removed old import step
+        setup = api.portal.get_tool('portal_setup')
+        ir = setup.getImportStepRegistry()
+        if 'imioprojectpst-adaptDefaultPortal' in ir._registered:
+            del ir._registered['imioprojectpst-adaptDefaultPortal']
         self.runProfileSteps(
             'imio.project.pst',
             steps=[
@@ -72,11 +78,14 @@ class Migrate_To_1_0(Migrator):
         )
         self.reinstall([
             'collective.documentgenerator',
+            'collective.externaleditor',
             'collective.task:default',
             'imio.project.core:default',
             'imio.dashboard:default',
             'plonetheme.imioapps:pstskin',
         ])
+
+        self.various_update()
 
         indexes_to_add = {
             'categories': ('KeywordIndex', {}),

@@ -51,6 +51,7 @@ setup(
         'communesplone.layout',
         'collective.documentgenerator',
         'collective.excelexport',
+        'collective.externaleditor',
         'collective.task',
         'dexterity.localrolesfield',
         'imio.dashboard',
