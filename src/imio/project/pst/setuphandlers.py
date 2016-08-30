@@ -710,7 +710,8 @@ def createBaseCollections(folder, content_type):
                 'subj': ('search',),
                 'query': [
                     {'i': 'portal_type', 'o': 'plone.app.querystring.operation.selection.is', 'v': [content_type]},
-                    {'i': 'CompoundCriterion', 'o': 'plone.app.querystring.operation.compound.is', 'v': 'user-is-administrative-responsible'},
+                    {'i': 'CompoundCriterion', 'o': 'plone.app.querystring.operation.compound.is',
+                     'v': 'user-is-administrative-responsible'},
                 ],
                 'cond': u"",
                 'bypass': [],
@@ -725,7 +726,8 @@ def createBaseCollections(folder, content_type):
                 'subj': ('search',),
                 'query': [
                     {'i': 'portal_type', 'o': 'plone.app.querystring.operation.selection.is', 'v': [content_type]},
-                    {'i': 'CompoundCriterion', 'o': 'plone.app.querystring.operation.compound.is', 'v': 'user-is-actioneditor'},
+                    {'i': 'CompoundCriterion', 'o': 'plone.app.querystring.operation.compound.is',
+                     'v': 'user-is-actioneditor'},
                 ],
                 'cond': u"",
                 'bypass': [],
@@ -740,7 +742,8 @@ def createBaseCollections(folder, content_type):
                 'subj': ('search',),
                 'query': [
                     {'i': 'portal_type', 'o': 'plone.app.querystring.operation.selection.is', 'v': [content_type]},
-                    {'i': 'CompoundCriterion', 'o': 'plone.app.querystring.operation.compound.is', 'v': 'has-child-action-deadline-has-passed'},
+                    {'i': 'CompoundCriterion', 'o': 'plone.app.querystring.operation.compound.is',
+                     'v': 'has-child-action-deadline-has-passed'},
                 ],
                 'cond': u"",
                 'bypass': [],
@@ -758,7 +761,8 @@ def createBaseCollections(folder, content_type):
                 'subj': ('search',),
                 'query': [
                     {'i': 'portal_type', 'o': 'plone.app.querystring.operation.selection.is', 'v': [content_type]},
-                    {'i': 'CompoundCriterion', 'o': 'plone.app.querystring.operation.compound.is', 'v': 'user-is-actioneditor'},
+                    {'i': 'CompoundCriterion', 'o': 'plone.app.querystring.operation.compound.is',
+                     'v': 'user-is-actioneditor'},
                 ],
                 'cond': u"",
                 'bypass': [],
@@ -1060,9 +1064,9 @@ def configure_rolefields(portal):
             force = False
             if portal_type == 'task':
                 if (base_hasattr(portal.portal_types.task, 'localroles') and
-                    portal.portal_types.task.localroles.get('assigned_group', '') and
-                    portal.portal_types.task.localroles['assigned_group'].get('created') and
-                    '' in portal.portal_types.task.localroles['assigned_group']['created']):
+                        portal.portal_types.task.localroles.get('assigned_group', '') and
+                        portal.portal_types.task.localroles['assigned_group'].get('created') and
+                        '' in portal.portal_types.task.localroles['assigned_group']['created']):
                     force = True
 
             msg = add_fti_configuration(
