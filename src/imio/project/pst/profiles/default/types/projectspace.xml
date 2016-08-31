@@ -6,4 +6,10 @@
   <element value="strategicobjective"/>
   <element value="File"/>
  </property>
+
+ <action title="Edit" action_id="edit" category="object" condition_expr=""
+    description="" icon_expr="" link_target=""
+    url_expr="string:${object_url}/edit?no_redirect=1" visible="True">
+  <permission value="Modify portal content"/>
+ </action>
 </object>
