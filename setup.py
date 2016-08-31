@@ -52,6 +52,7 @@ setup(
         'collective.documentgenerator',
         'collective.excelexport',
         'collective.externaleditor',
+        'collective.messagesviewlet',
         'collective.task',
         'dexterity.localrolesfield',
         'imio.dashboard',

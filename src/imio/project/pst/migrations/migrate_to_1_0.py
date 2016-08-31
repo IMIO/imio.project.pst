@@ -79,6 +79,7 @@ class Migrate_To_1_0(Migrator):
         self.reinstall([
             'collective.documentgenerator',
             'collective.externaleditor',
+            'collective.messagesviewlet:messages',
             'collective.task:default',
             'imio.project.core:default',
             'imio.dashboard:default',
