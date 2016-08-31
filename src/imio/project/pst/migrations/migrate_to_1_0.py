@@ -69,6 +69,9 @@ class Migrate_To_1_0(Migrator):
         ir = setup.getImportStepRegistry()
         if 'imioprojectpst-adaptDefaultPortal' in ir._registered:
             del ir._registered['imioprojectpst-adaptDefaultPortal']
+        self.reinstall([
+            'dexterity.localrolesfield:default',
+        ])
         self.runProfileSteps(
             'imio.project.pst',
             steps=[
@@ -81,7 +84,6 @@ class Migrate_To_1_0(Migrator):
             'collective.externaleditor',
             'collective.messagesviewlet:messages',
             'collective.task:default',
-            'imio.project.core:default',
             'imio.dashboard:default',
             'plonetheme.imioapps:pstskin',
         ])
