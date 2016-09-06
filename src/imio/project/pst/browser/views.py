@@ -1,4 +1,3 @@
-import os
 from zope.annotation import IAnnotations
 from zope.component import getMultiAdapter, getUtility
 from zope.component.interfaces import ComponentLookupError
@@ -8,19 +7,6 @@ from plone.app.textfield import RichTextValue
 from plone.memoize import forever
 from bs4 import BeautifulSoup as Soup
 from imio.project.core.config import CHILDREN_BUDGET_INFOS_ANNOTATION_KEY
-
-
-def _getOsTempFolder():
-    tmp = '/tmp'
-    if os.path.exists(tmp) and os.path.isdir(tmp):
-        res = tmp
-    elif 'TMP' in os.environ:
-        res = os.environ['TMP']
-    elif 'TEMP' in os.environ:
-        res = os.environ['TEMP']
-    else:
-        raise "Sorry, I can't find a temp folder on your machine."
-    return res
 
 
 @forever.memoize

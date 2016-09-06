@@ -41,34 +41,36 @@
         permission="zope2.View"
         />
 
+    <!-- document_generation_helper_view views for different types -->
     <browser:page
-        for="imio.project.pst.content.action.IPSTAction"
-        name="document-generation-methods"
-        class="imio.project.pst.browser.views.DocumentGenerationPSTActionMethods"
-        permission="zope2.View"
-        />
-
-    <browser:page
-        for="imio.project.pst.content.operational.IOperationalObjective"
-        name="document-generation-methods"
-        class="imio.project.pst.browser.views.DocumentGenerationOOMethods"
+        for="imio.project.core.content.projectspace.IProjectSpace"
+        name="document_generation_helper_view"
+        class="imio.project.pst.browser.documentgenerator.DocumentGenerationPSTHelper"
         permission="zope2.View"
         />
 
     <browser:page
         for="imio.project.pst.content.strategic.IStrategicObjective"
-        name="document-generation-methods"
-        class="imio.project.pst.browser.views.DocumentGenerationSOMethods"
+        name="document_generation_helper_view"
+        class="imio.project.pst.browser.documentgenerator.DocumentGenerationSOHelper"
         permission="zope2.View"
         />
 
     <browser:page
-        for="imio.project.core.content.projectspace.IProjectSpace"
-        name="document-generation-methods"
-        class="imio.project.pst.browser.views.DocumentGenerationPSTMethods"
+        for="imio.project.pst.content.operational.IOperationalObjective"
+        name="document_generation_helper_view"
+        class="imio.project.pst.browser.documentgenerator.DocumentGenerationOOHelper"
         permission="zope2.View"
         />
 
+    <browser:page
+        for="imio.project.pst.content.action.IPSTAction"
+        name="document_generation_helper_view"
+        class="imio.project.pst.browser.documentgenerator.DocumentGenerationPSTActionsHelper"
+        permission="zope2.View"
+        />
+
+    <!-- configure actionspanel -->
     <configure package="imio.actionspanel">
 
         <browser:page
