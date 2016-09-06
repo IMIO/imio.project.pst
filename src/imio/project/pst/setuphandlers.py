@@ -125,27 +125,30 @@ def _addTemplatesDirectory(context):
     folder = site.templates
     do_transitions(folder, transitions=['publish_internally'], logger=logger)
 
-    templates = [
-        #('pstaction_template', 'fichepstaction.odt'),
-        #('operationalobjective_template', 'ficheoo.odt'),
-        ('pst_full', u'pst_full.odt'),
-        ('tableaubord', u'tableaubord.odt'),
+    styles = [
+        {'id': 'style_pst', 'file': '', 'uid': ''}
     ]
-    for id, filename in templates:
-        if not base_hasattr(folder, id):
+    templates = [
+        {'id': 'pst', 'file': u'pst.odt', 'style': ['style_pst'],
+         'types': ['projectspace', 'strategicobjective', 'operationalobjective', 'pstaction']},
+        {'id': 'tableaubord', 'file': u'tableaubord.odt', 'style': [],
+         'types': ['projectspace']},
+    ]
+    for dic in templates:
+        if not base_hasattr(folder, dic['id']):
             tmpl = api.content.create(
                 type='ConfigurablePODTemplate',
-                id=id,
-                title=filename,
+                id=dic['id'],
+                title=dic['file'],
                 odt_file=NamedBlobFile(
-                    data=context.readDataFile('templates/%s' % filename),
+                    data=context.readDataFile('templates/%s' % dic['file']),
                     contentType='applications/odt',
-                    filename=filename,
+                    filename=dic['file'],
                 ),
                 container=folder,
                 # excludeFromNav=True,
                 pod_formats=['odt'],
-                pod_portal_types=['projectspace', 'strategicobjective', 'operationalobjective'],
+                pod_portal_types=dic['types'],
                 # style_template=[style_template.UID()],
                 # merge_templates=[{'template': sub_template.UID(), 'pod_context_name': 'header',}],
             )
