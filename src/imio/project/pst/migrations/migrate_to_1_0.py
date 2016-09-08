@@ -80,8 +80,8 @@ class Migrate_To_1_0(Migrator):
             ]
         )
         self.reinstall([
-            'collective.documentgenerator',
-            'collective.externaleditor',
+            'collective.documentgenerator:default',
+            'collective.externaleditor:default',
             'collective.messagesviewlet:messages',
             'collective.task:default',
             'imio.dashboard:default',
