@@ -6,6 +6,7 @@
 
     <include package="plone.app.portlets"/>
     <include file="facetediframe.zcml" />
+    <include file="portletdashboard.zcml" />
 
     <!-- Publish static files -->
     <browser:resourceDirectory

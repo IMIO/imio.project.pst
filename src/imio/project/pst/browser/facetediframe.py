@@ -18,6 +18,19 @@ class FacetedContainerFolderListingView(
         FacetedContainerView.__init__(self, context, request)
 
 
+def get_criteria_holder(context):
+    portal = api.portal.get()
+    pst = portal.pst
+    if context.portal_type == 'operationalobjective':
+        return pst.pstactions
+    elif context.portal_type == 'strategicobjective':
+        return pst.operationalobjectives
+    elif context.portal_type == 'pstaction':
+        return pst.tasks
+
+    return context
+
+
 class Criteria(eeaCriteria):
     """ Handle criteria
     """
@@ -27,14 +40,7 @@ class Criteria(eeaCriteria):
         """
         original_context = context
         super(Criteria, self).__init__(context)
-        portal = api.portal.get()
-        pst = portal.pst
-        if self.context.portal_type == 'operationalobjective':
-            self.context = pst.pstactions
-        elif self.context.portal_type == 'strategicobjective':
-            self.context = pst.operationalobjectives
-        elif self.context.portal_type == 'pstaction':
-            self.context = pst.tasks
+        self.context = get_criteria_holder(context)
 
         self.criteria = self._criteria()
         criterion = Criterion(**{'_cid_': u'restrictpath',
