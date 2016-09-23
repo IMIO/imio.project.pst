@@ -24,12 +24,12 @@
                 manager="plone.rightcolumn"
                 type="portlets.Events" />
 
-    <assignment remove="True"
+    <!--assignment remove="True"
                 name="portlet_mainimioprojectpst"
                 category="context"
                 key="/"
                 manager="plone.leftcolumn"
                 type="imioprojectpst.portlet.main"
-                insert-before="navigation" />
+                insert-before="navigation" /-->
 
 </portlets>

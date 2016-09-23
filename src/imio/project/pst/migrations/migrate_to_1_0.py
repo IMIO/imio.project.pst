@@ -5,15 +5,16 @@ from zope.i18n import translate
 from zope.globalrequest import getRequest
 from plone import api
 from plone.registry.interfaces import IRegistry
-from Products.CMFPlone.utils import base_hasattr
+from Products.CMFPlone.utils import base_hasattr, safe_unicode
 
+from Products.CPUtils.Extensions.utils import mark_last_version
 from collective.contact.plonegroup.config import FUNCTIONS_REGISTRY
 
 from imio.helpers.catalog import addOrUpdateIndexes
 from imio.migrator.migrator import Migrator
 from imio.project.pst.setuphandlers import (
     configureDashboard, configure_rolefields, reimport_faceted_config,
-    createBaseCollections, add_plonegroups_to_registry, _addTemplatesDirectory)
+    add_plonegroups_to_registry, _addTemplatesDirectory)
 from imio.project.pst import _
 
 
@@ -33,7 +34,7 @@ class Migrate_To_1_0(Migrator):
             if base_hasattr(action, 'work_plan') and action.work_plan:
                 title = translate(
                     _("Work plan: ${action_title}",
-                      mapping={'action_title': action.Title()}),
+                      mapping={'action_title': safe_unicode(action.Title())}),
                     context=getRequest())
                 task = api.content.create(
                     container=action,
@@ -62,11 +63,14 @@ class Migrate_To_1_0(Migrator):
             registry['externaleditor.externaleditor_enabled_types'] = ['PODTemplate', 'ConfigurablePODTemplate',
                                                                        'DashboardPODTemplate', 'SubTemplate',
                                                                        'StyleTemplate']
+        # replace front-page
+        # TO BE DONE
 
     def run(self):
         # Removed old import step
         setup = api.portal.get_tool('portal_setup')
         ir = setup.getImportStepRegistry()
+        # /cputils_removeStep?step=imioprojectpst-adaptDefaultPortal
         if 'imioprojectpst-adaptDefaultPortal' in ir._registered:
             del ir._registered['imioprojectpst-adaptDefaultPortal']
         self.reinstall([
@@ -112,11 +116,9 @@ class Migrate_To_1_0(Migrator):
             api.content.delete(obj=self.portal.pst['collections'])
 
         configureDashboard(self.portal.pst)
-        # update collections
-        createBaseCollections(
-            self.portal.pst['operationalobjectives'], 'operationalobjective')
-        createBaseCollections(self.portal.pst['pstactions'], 'pstaction')
-        createBaseCollections(self.portal.pst['tasks'], 'task')
+        self.portal.pst.setLayout('view')
+
+        self.runProfileSteps('imio.project.pst', steps=['portlets'], profile='demo')
 
         catalog = api.portal.get_tool('portal_catalog')
         # migrate oo fields
@@ -148,8 +150,13 @@ class Migrate_To_1_0(Migrator):
         # migrate to documentgenerator
         self.migrate_templates()
 
+        self.upgradeAll()
+
         # update portal_catalog
         self.refreshDatabase()
+
+        for prod in []:
+            mark_last_version(self.portal, product=prod)
 
         # Display duration
         self.finish()

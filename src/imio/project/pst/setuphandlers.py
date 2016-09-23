@@ -61,6 +61,7 @@ def isNotCurrentProfile(context):
 def do_transitions(obj, transitions=[], logger=None):
     """
         do the given transitions
+        NOW SAME IN imio.helpers.content
     """
     errors = []
     workflowTool = getToolByName(obj, "portal_workflow")
@@ -249,8 +250,10 @@ def _addPSTprojectspace(context):
     # we do not publish because, in published state, editors cannot more modify
     # do_transitions(projectspace, transitions=['publish_internally'], logger=logger)
     # set locally allowed types
-    behaviour = ISelectableConstrainTypes(projectspace)
     configureDashboard(projectspace)
+    # set default view to not be a faceted view
+    projectspace.setLayout('view')
+    behaviour = ISelectableConstrainTypes(projectspace)
     behaviour.setConstrainTypesMode(1)
     behaviour.setLocallyAllowedTypes(['strategicobjective', 'File', ])
     behaviour.setImmediatelyAddableTypes(['strategicobjective', 'File', ])
@@ -594,9 +597,8 @@ def configureDashboard(pst):
             add_db_col_folder(pst, name, title, content_type, i, displayed='')
 
     # configure faceted for container
-    default_UID = pst['strategicobjectives']['all'].UID()
-    configure_faceted_folder(
-        pst, xml='default_dashboard_widgets.xml', default_UID=default_UID)
+    # default_UID = pst['strategicobjectives']['all'].UID()
+    configure_faceted_folder(pst, xml='default_dashboard_widgets.xml', default_UID=None)
 
 
 def createStateCollections(folder, content_type):
