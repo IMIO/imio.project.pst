@@ -79,7 +79,7 @@ class Migrate_To_1_0(Migrator):
         self.runProfileSteps(
             'imio.project.pst',
             steps=[
-                'catalog', 'componentregistry', 'portlets', 'propertiestool',
+                'actions', 'catalog', 'componentregistry', 'portlets', 'propertiestool',
                 'plone.app.registry', 'typeinfo',
             ]
         )

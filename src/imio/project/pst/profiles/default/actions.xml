@@ -8,49 +8,11 @@
 
  <object name="object" meta_type="CMF Action Category">
 
-  <object name="card" meta_type="CMF Action" i18n:domain="imio.project.pst">
-   <property name="title" i18n:translate="">Generate card</property>
-   <property name="description" i18n:translate="">Generate the content card as office document</property>
-   <property name="url_expr">python:'@@document-generation?documentid=%s_template' % context.getPortalTypeName()</property>
-   <property name="icon_expr"></property>
-   <property name="available_expr">python:context.getPortalTypeName() in ['pstaction', 'operationalobjective']</property>
-   <property name="permissions">
-    <element value="View"/>
-   </property>
-   <property name="visible">False</property>
-  </object>
+  <object name="card" meta_type="CMF Action" i18n:domain="imio.project.pst" purge="true" />
 
-  <object name="pst_report" meta_type="CMF Action" i18n:domain="imio.project.pst">
-   <property name="title" i18n:translate="">Generate the project</property>
-   <property name="description" i18n:translate="">Generate the project as office document</property>
-   <property name="url_expr">string:@@document-generation?documentid=pst_template</property>
-   <property name="icon_expr"></property>
-   <property name="available_expr">python:(
-       context.getId() == 'pst' and
-       context.getPortalTypeName() == 'projectspace' or
-       (context.getPhysicalPath()[-2] == 'pst' and context.getPortalTypeName() == 'Collection')
-    ) or context.getPortalTypeName() in ['pstaction', 'operationalobjective', 'strategicobjective']
-   </property>
-   <property name="permissions">
-    <element value="View"/>
-   </property>
-   <property name="visible">True</property>
-  </object>
+  <object name="pst_report" meta_type="CMF Action" i18n:domain="imio.project.pst" purge="true" />
 
-  <object name="status_report" meta_type="CMF Action" i18n:domain="imio.project.pst">
-   <property name="title" i18n:translate="">Generate the status report</property>
-   <property name="description" i18n:translate="">Generate the status report as office document</property>
-   <property name="url_expr">string:@@document-generation?documentid=status_template</property>
-   <property name="icon_expr"></property>
-   <property name="available_expr">python:context.getId() == 'pst' and
-       context.getPortalTypeName() == 'projectspace' or
-       (context.getPhysicalPath()[-2] == 'pst' and context.getPortalTypeName() == 'Collection')
-   </property>
-   <property name="permissions">
-    <element value="View"/>
-   </property>
-   <property name="visible">True</property>
-  </object>
+  <object name="status_report" meta_type="CMF Action" i18n:domain="imio.project.pst" purge="true" />
 
   <object name="excelexport" meta_type="CMF Action" i18n:domain="imio.project.pst">
    <property name="title" i18n:translate="">Excel export</property>
