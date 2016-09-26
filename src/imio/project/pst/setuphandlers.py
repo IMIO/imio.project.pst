@@ -130,9 +130,9 @@ def _addTemplatesDirectory(context):
         {'id': 'style_pst', 'file': '', 'uid': ''}
     ]
     templates = [
-        {'id': 'pst', 'file': u'pst.odt', 'style': ['style_pst'],
+        {'id': 'pst', 'file': u'pst.odt', 'tit': u'PST', 'style': ['style_pst'],
          'types': ['projectspace', 'strategicobjective', 'operationalobjective', 'pstaction']},
-        {'id': 'tableaubord', 'file': u'tableaubord.odt', 'style': [],
+        {'id': 'tableaubord', 'file': u'tableaubord.odt', 'tit': u'Tableau bord', 'style': [],
          'types': ['projectspace']},
     ]
     for dic in templates:
@@ -140,7 +140,7 @@ def _addTemplatesDirectory(context):
             tmpl = api.content.create(
                 type='ConfigurablePODTemplate',
                 id=dic['id'],
-                title=dic['file'],
+                title=dic['tit'],
                 odt_file=NamedBlobFile(
                     data=context.readDataFile('templates/%s' % dic['file']),
                     contentType='applications/odt',
