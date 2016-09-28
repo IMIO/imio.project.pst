@@ -5,6 +5,7 @@ from plone import api
 
 from eea.facetednavigation.browser.app.view import FacetedContainerView
 from eea.facetednavigation.criteria.handler import Criteria as eeaCriteria
+from eea.facetednavigation.interfaces import IFacetedNavigable
 from eea.facetednavigation.widgets.storage import Criterion
 
 from imio.project.core.browser.views import ContainerFolderListingView
@@ -27,6 +28,8 @@ def get_criteria_holder(context):
         return pst.operationalobjectives
     elif context.portal_type == 'pstaction':
         return pst.tasks
+    elif not IFacetedNavigable.providedBy(context):
+        return pst
 
     return context
 

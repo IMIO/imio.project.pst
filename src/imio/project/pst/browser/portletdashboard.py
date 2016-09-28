@@ -3,6 +3,7 @@ from .facetediframe import get_criteria_holder
 from eea.facetednavigation.criteria.interfaces import ICriteria
 from collective.eeafaceted.collectionwidget.widgets.widget import CollectionWidget
 
+
 class Renderer(BaseRenderer):
     @property
     def _criteriaHolder(self):
@@ -36,4 +37,3 @@ class Renderer(BaseRenderer):
 #                rendered_widget = ViewPageTemplateFile('templates/widget.pt')(widget)
             widgets.append(rendered_widget)
         return ''.join([w for w in widgets])
-
