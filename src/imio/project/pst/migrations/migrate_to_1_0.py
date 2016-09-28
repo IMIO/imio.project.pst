@@ -25,10 +25,10 @@ class Migrate_To_1_0(Migrator):
 
     def __init__(self, context):
         Migrator.__init__(self, context)
+        self.pc = self.portal.portal_catalog
 
     def migrate_pst_action_fields(self):
-        catalog = api.portal.get_tool('portal_catalog')
-        for brain in catalog(portal_type="pstaction"):
+        for brain in self.pc(portal_type="pstaction"):
             action = brain.getObject()
             action.manager = [m[:-13] for m in action.manager if m.endswith('_actioneditor')]
             if base_hasattr(action, 'work_plan') and action.work_plan:
@@ -114,15 +114,16 @@ class Migrate_To_1_0(Migrator):
         # remove the old collections and configure the dashboard
         if 'collections' in self.portal.pst:
             api.content.delete(obj=self.portal.pst['collections'])
+        for brain in self.pc(portal_type='Collection', path='/'.join(self.portal.pst.getPhysicalPath())):
+            api.content.delete(obj=brain.getObject())
 
         configureDashboard(self.portal.pst)
         self.portal.pst.setLayout('view')
 
         self.runProfileSteps('imio.project.pst', steps=['portlets'], profile='demo')
 
-        catalog = api.portal.get_tool('portal_catalog')
         # migrate oo fields
-        brains = catalog(portal_type="operationalobjective")
+        brains = self.pc(portal_type="operationalobjective")
         for brain in brains:
             oo = brain.getObject()
             oo.administrative_responsible = [r[:-13] for r in oo.administrative_responsible
