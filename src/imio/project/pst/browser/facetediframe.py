@@ -44,21 +44,22 @@ class Criteria(eeaCriteria):
 
         self.criteria = self._criteria()
         portal_path = len(original_context.portal_url.getPortalPath())
-        criterion = Criterion(**{'_cid_': u'restrictpath',
-                         'hidden': u'True',
-                         'default': unicode('/'.join(original_context.getPhysicalPath())[portal_path:]),
-                         'depth': u'',
-                         'index': u'path',
-                         'position': u'left',
-                         'root': u'/',
-                         'section': u'default',
-                         'theme': u'green',
-                         'title': u'path',
-                         'widget': u'path'})
+        criterion = Criterion(**{
+            '_cid_': u'restrictpath',
+            'hidden': u'True',
+            'default': unicode('/'.join(original_context.getPhysicalPath())[portal_path:]),
+            'depth': u'',
+            'index': u'path',
+            'position': u'left',
+            'root': u'/',
+            'section': u'default',
+            'theme': u'green',
+            'title': u'path',
+            'widget': u'path'})
         self.criteria = self.criteria + [criterion]
 
 
 class Listing(BrowserView):
     index = ViewPageTemplateFile(
         pkg_resources.resource_filename(
-        'collective.eeafaceted.z3ctable', 'browser/faceted-table-items.pt'))
+            'collective.eeafaceted.z3ctable', 'browser/faceted-table-items.pt'))
