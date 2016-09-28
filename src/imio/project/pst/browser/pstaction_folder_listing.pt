@@ -21,6 +21,10 @@
         <metal:widgets use-macro="here/@@faceted_widgets_macros/macros/widgets" />
       </div>
       <script type="text/javascript"
+        tal:content="string:jQuery(document).ready(function(){
+          jQuery('#content h1.documentFirstHeading').addClass('dontupdate');
+        });"></script>
+      <script type="text/javascript"
         tal:content="string:jQuery(document).ready(function(evt){
             Faceted.Load(evt, '${context/absolute_url}/');
         });"></script>
