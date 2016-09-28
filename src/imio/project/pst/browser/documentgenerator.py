@@ -195,5 +195,5 @@ class DocumentGenerationPSTActionsHelper(DXDocumentGenerationHelperView, BudgetH
         """
             Return the health indicator details with a specific html class following the health indicator field
         """
-        return '<p class="fa-attr-valeur-%s">%s</p>' % (self.real_context.health_indicator.encode('utf8'),
-                                                        self.display_text('health_indicator_details'))
+        return '<p class="Santé-%s">%s</p>' % (self.real_context.health_indicator.encode('utf8'),
+                                                self.display_text('health_indicator_details'))

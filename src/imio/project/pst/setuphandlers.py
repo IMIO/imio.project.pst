@@ -126,15 +126,31 @@ def _addTemplatesDirectory(context):
     folder = site.templates
     do_transitions(folder, transitions=['publish_internally'], logger=logger)
 
+    uids = {}
     styles = [
-        {'id': 'style_pst', 'file': '', 'uid': ''}
+        {'id': 'style', 'file': u'style.odt', 'tit': 'Style général'}
     ]
     templates = [
-        {'id': 'pst', 'file': u'pst.odt', 'tit': u'PST', 'style': ['style_pst'],
+        {'id': 'pst', 'file': u'pst.odt', 'tit': u'PST', 'style': ['style'],
          'types': ['projectspace', 'strategicobjective', 'operationalobjective', 'pstaction']},
-        {'id': 'tableaubord', 'file': u'tableaubord.odt', 'tit': u'Tableau bord', 'style': [],
-         'types': ['projectspace']},
+#        {'id': 'tableaubord', 'file': u'tableaubord.odt', 'tit': u'Tableau bord', 'style': [],
+#         'types': ['projectspace']},
     ]
+    for dic in styles:
+        if not base_hasattr(folder, dic['id']):
+            tmpl = api.content.create(
+                type='StyleTemplate',
+                id=dic['id'],
+                title=dic['tit'],
+                odt_file=NamedBlobFile(
+                    data=context.readDataFile('templates/%s' % dic['file']),
+                    contentType='applications/odt',
+                    filename=dic['file'],
+                ),
+                container=folder,
+            )
+            uids[dic['id']] = tmpl.UID()
+
     for dic in templates:
         if not base_hasattr(folder, dic['id']):
             tmpl = api.content.create(
@@ -150,9 +166,10 @@ def _addTemplatesDirectory(context):
                 # excludeFromNav=True,
                 pod_formats=['odt'],
                 pod_portal_types=dic['types'],
-                # style_template=[style_template.UID()],
+                style_template=[uids.get(s, None) for s in dic.get('style', [])],
                 # merge_templates=[{'template': sub_template.UID(), 'pod_context_name': 'header',}],
             )
+            uids[dic['id']] = tmpl.UID()
             do_transitions(tmpl, transitions=['publish_internally'])
 
 
