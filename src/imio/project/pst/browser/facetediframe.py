@@ -43,9 +43,10 @@ class Criteria(eeaCriteria):
         self.context = get_criteria_holder(context)
 
         self.criteria = self._criteria()
+        portal_path = len(original_context.portal_url.getPortalPath())
         criterion = Criterion(**{'_cid_': u'restrictpath',
                          'hidden': u'True',
-                         'default': unicode('/'+'/'.join(original_context.getPhysicalPath()[2:])),
+                         'default': unicode('/'.join(original_context.getPhysicalPath())[portal_path:]),
                          'depth': u'',
                          'index': u'path',
                          'position': u'left',
