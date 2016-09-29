@@ -71,46 +71,6 @@
         permission="zope2.View"
         />
 
-    <!-- Override documentgenerator/imio.dashboard document-generation-link viewlets -->
-    <configure package="imio.dashboard">
-        <browser:viewlet
-            for="imio.project.core.content.projectspace.IProjectSpace"
-            name="document-generation-link"
-            manager="plone.app.layout.viewlets.interfaces.IBelowContentTitle"
-            class="imio.project.pst.browser.viewlets.PSTDocumentGeneratorLinksViewlet"
-            layer="imio.dashboard.interfaces.IImioDashboardLayer"
-            template="browser/templates/generationlinks.pt"
-            permission="zope2.View"
-            />
-        <browser:viewlet
-            for="imio.project.pst.content.strategic.IStrategicObjective"
-            name="document-generation-link"
-            manager="plone.app.layout.viewlets.interfaces.IBelowContentTitle"
-            class="imio.project.pst.browser.viewlets.PSTDocumentGeneratorLinksViewlet"
-            layer="imio.dashboard.interfaces.IImioDashboardLayer"
-            template="browser/templates/generationlinks.pt"
-            permission="zope2.View"
-            />
-        <browser:viewlet
-            for="imio.project.pst.content.operational.IOperationalObjective"
-            name="document-generation-link"
-            manager="plone.app.layout.viewlets.interfaces.IBelowContentTitle"
-            class="imio.project.pst.browser.viewlets.PSTDocumentGeneratorLinksViewlet"
-            layer="imio.dashboard.interfaces.IImioDashboardLayer"
-            template="browser/templates/generationlinks.pt"
-            permission="zope2.View"
-            />
-        <browser:viewlet
-            for="imio.project.pst.content.action.IPSTAction"
-            name="document-generation-link"
-            manager="plone.app.layout.viewlets.interfaces.IBelowContentTitle"
-            class="imio.project.pst.browser.viewlets.PSTDocumentGeneratorLinksViewlet"
-            layer="imio.dashboard.interfaces.IImioDashboardLayer"
-            template="browser/templates/generationlinks.pt"
-            permission="zope2.View"
-            />
-    </configure>
-
     <!-- configure actionspanel -->
     <configure package="imio.actionspanel">
 
