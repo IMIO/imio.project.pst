@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2016-08-25 14:59+0000\n"
+"POT-Creation-Date: 2016-09-30 19:31+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,21 +15,21 @@ msgstr ""
 "Domain: imio.project.pst\n"
 "X-is-fallback-for: fr-fr fr-be fr-ca\n"
 
-#: ./setuphandlers.py:576
+#: ./setuphandlers.py:632
 msgid "Actions"
 msgstr "Actions"
 
-#: ./content/operational.py:33
+#: ./content/operational.py:34
 msgid "Administrative responsible"
 msgstr "Responsable administratif"
 
-#: ./setuphandlers.py:678
+#: ./setuphandlers.py:733
 msgid "All"
 msgstr "Tous"
 
 #: ./browser/operationalobjective_folder_listing.pt:47
-#: ./browser/pstaction_folder_listing.pt:34
-#: ./browser/strategicobjective_folder_listing.pt:46
+#: ./browser/projectspace_folder_listing.pt:46
+#: ./browser/pstaction_folder_listing.pt:38
 msgid "Annexes"
 msgstr "Annexes"
 
@@ -37,11 +37,11 @@ msgstr "Annexes"
 msgid "Choose a health level."
 msgstr "Choisir un indice de santé."
 
-#: ./content/operational.py:34
+#: ./content/operational.py:35
 msgid "Choose principals that will be administrative responsible for this project."
 msgstr "Sélectionner les utilisateurs qui seront responsable administratif de l'objectif."
 
-#: ./content/operational.py:25
+#: ./content/operational.py:26
 msgid "Choose principals that will be representative responsible for this project."
 msgstr "Sélectionner les utilisateurs qui seront responsable mandataire de l'objectif."
 
@@ -62,32 +62,8 @@ msgid "Excel export"
 msgstr "Exportation Excel"
 
 #: ./profiles/default/actions.xml
-msgid "Generate card"
-msgstr "Générer la fiche"
-
-#: ./profiles/default/actions.xml
-msgid "Generate the content card as office document"
-msgstr "Générer la fiche du contenu au format bureautique"
-
-#: ./profiles/default/actions.xml
 msgid "Generate the entire denormalized pst content"
 msgstr "Exporter en Excel"
-
-#: ./profiles/default/actions.xml
-msgid "Generate the project"
-msgstr "Générer le document"
-
-#: ./profiles/default/actions.xml
-msgid "Generate the project as office document"
-msgstr "Générer au format bureautique"
-
-#: ./profiles/default/actions.xml
-msgid "Generate the status report"
-msgstr "Générer le tableau de bord"
-
-#: ./profiles/default/actions.xml
-msgid "Generate the status report as office document"
-msgstr "Générer le tableau de bord au format bureautique"
 
 #: ./content/action.py:25
 msgid "Health indicator"
@@ -125,7 +101,7 @@ msgstr "Objectifs stratégiques"
 msgid "Main_menu_title"
 msgstr "Menu PST"
 
-#: ./setuphandlers.py:575
+#: ./setuphandlers.py:631
 msgid "Operational objectives"
 msgstr "Objectifs opérationnels"
 
@@ -145,51 +121,51 @@ msgstr "Date de début prévue"
 msgid "Planned end date"
 msgstr "Échéance"
 
-#: ./content/operational.py:24
+#: ./content/operational.py:25
 msgid "Representative responsible"
 msgstr "Responsable mandataire"
 
-#: ./setuphandlers.py:605
+#: ./setuphandlers.py:660
 msgid "State: achieved"
 msgstr "État: clôturé"
 
-#: ./setuphandlers.py:613
+#: ./setuphandlers.py:668
 msgid "State: closed"
 msgstr "État: clôturé"
 
-#: ./setuphandlers.py:603
+#: ./setuphandlers.py:658
 msgid "State: created"
 msgstr "État: en création"
 
-#: ./setuphandlers.py:615
+#: ./setuphandlers.py:670
 msgid "State: in progress"
 msgstr "État: en cours"
 
-#: ./setuphandlers.py:604
+#: ./setuphandlers.py:659
 msgid "State: ongoing"
 msgstr "État: en cours"
 
-#: ./setuphandlers.py:616
+#: ./setuphandlers.py:671
 msgid "State: realized"
 msgstr "État: réalisé"
 
-#: ./setuphandlers.py:611
+#: ./setuphandlers.py:666
 msgid "State: stopped"
 msgstr "État: annulé"
 
-#: ./setuphandlers.py:610
+#: ./setuphandlers.py:665
 msgid "State: terminated"
 msgstr "État: finalisé"
 
-#: ./setuphandlers.py:618
+#: ./setuphandlers.py:673
 msgid "State: to assign"
 msgstr "État: à assigner"
 
-#: ./setuphandlers.py:608
+#: ./setuphandlers.py:663
 msgid "State: to be scheduled"
 msgstr "État: à agender"
 
-#: ./setuphandlers.py:617
+#: ./setuphandlers.py:672
 msgid "State: to do"
 msgstr "État: à faire"
 
@@ -197,7 +173,7 @@ msgstr "État: à faire"
 msgid "Steps to ease tests of imio.project.pst"
 msgstr "Steps to ease tests of imio.project.pst"
 
-#: ./setuphandlers.py:574
+#: ./setuphandlers.py:630
 msgid "Strategic objectives"
 msgstr "Objectifs stratégiques"
 
@@ -205,31 +181,31 @@ msgstr "Objectifs stratégiques"
 msgid "StrategicObjective"
 msgstr "Objectif stratégique"
 
-#: ./setuphandlers.py:577
+#: ./setuphandlers.py:633
 msgid "Tasks"
 msgstr "Tâches"
 
-#: ./setuphandlers.py:699
+#: ./setuphandlers.py:754
 msgid "Which I am administrative responsible"
 msgstr "Dont je suis responsable administratif"
 
-#: ./setuphandlers.py:714
+#: ./setuphandlers.py:770
 msgid "Which I am manager"
 msgstr "Dont je suis gestionnaire"
 
-#: ./setuphandlers.py:729
+#: ./setuphandlers.py:786
 msgid "Which an action deadline has passed"
 msgstr "En retard pdv échéance actions"
 
-#: ./setuphandlers.py:777
+#: ./setuphandlers.py:836
 msgid "Which beginning is late"
 msgstr "En retard pdv date début effective"
 
-#: ./setuphandlers.py:762
+#: ./setuphandlers.py:821
 msgid "Which deadline has passed"
 msgstr "En retard pdv échéance"
 
-#: ./migrations/migrate_to_1_0.py:35
+#: ./migrations/migrate_to_1_0.py:36
 msgid "Work plan: ${action_title}"
 msgstr "Plan de travail: ${action_title}"
 
@@ -241,20 +217,20 @@ msgstr "Vous devez au moins choisir un groupe"
 msgid "You must choose at least one group of which you are a member"
 msgstr "Vous devez choisir au moins un des groupes dont vous êtes membre"
 
-#: ./setuphandlers.py:364
+#: ./setuphandlers.py:412
 msgid "front_page_descr"
 msgstr "Bienvenue sur votre outil de gestion du PST"
 
-#: ./setuphandlers.py:365
+#: ./setuphandlers.py:413
 msgid "front_page_text"
 msgstr "<p></p><p>L'application de gestion du PST contient actuellement les <strong>fonctionnalités suivantes</strong>:</p><ul><li>encodage des objectifs stratégiques</li><li>encodage des objectifs opérationnels</li><li>encodage des actions</li><li>ajout d'une référence unique par projet facilitant la recherche</li><li>génération au format bureautique</li><li>exportation des données au format excel</li><li>gestion des contacts (services traitants, échevins)</li><li>gestion des droits par service</li><li>workflow de traitement sur tous les types d'éléments</li><li>portlet de recherche par état</li><li>...</li></ul><p> </p><p>Les <strong>documents générés</strong> sont:</p><ul><li>l'ensemble du PST</li><li>le tableau de bord général du PST</li><li>la fiche de l'objectif opérationnel</li><li>la fiche de l'objectif stratégique</li></ul><p></p><p>Les <strong>fonctionnalités à venir</strong>:</p><ul><li>gestion des tâches</li><li>lien avec la gestion du collège / conseil</li><li>ajout de tableau de bord dans l'application</li><li>...</li></ul>"
 
-#: ./setuphandlers.py:363
+#: ./setuphandlers.py:411
 msgid "front_page_title"
 msgstr "Programme Stratégique Transversal 1.0"
 
 #: ./profiles.zcml:14
-#: ./setuphandlers.py:36
+#: ./setuphandlers.py:37
 msgid "imio.project.pst"
 msgstr "imio.project.pst"
 
@@ -272,27 +248,32 @@ msgstr "imio.project.pst tests"
 msgid "operational_legend_actions"
 msgstr "Actions à mener"
 
+#. Default: "Strategic objectives"
+#: ./browser/projectspace_folder_listing.pt:9
+msgid "projectspace_legend_strategic_objectives"
+msgstr "Objectifs stratégiques"
+
 #. Default: "Operational objectives"
 #: ./browser/strategicobjective_folder_listing.pt:9
 msgid "strategic_legend_operational_objectives"
 msgstr "Objectifs opérationnels"
 
-#: ./setuphandlers.py:873
+#: ./setuphandlers.py:932
 msgid "task_have_treated"
 msgstr "Que j'ai traité"
 
-#: ./setuphandlers.py:846
+#: ./setuphandlers.py:905
 msgid "task_im_treating"
 msgstr "Que je traite"
 
-#: ./setuphandlers.py:819
+#: ./setuphandlers.py:878
 msgid "task_to_treat"
 msgstr "Qui m'est assigné"
 
-#: ./setuphandlers.py:900
+#: ./setuphandlers.py:959
 msgid "tasks_in_my_group"
 msgstr "Dans mon service"
 
-#: ./setuphandlers.py:922
+#: ./setuphandlers.py:981
 msgid "tasks_with_due_date_passed"
 msgstr "En retard pdv échéance"

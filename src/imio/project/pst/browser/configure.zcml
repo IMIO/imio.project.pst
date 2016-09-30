@@ -15,6 +15,14 @@
         />
 
     <!-- Custom views -->
+    <!-- Customize the folder_listing for IProjectSpace -->
+    <browser:page
+        for="imio.project.core.content.projectspace.IProjectSpace"
+        name="imio-folder-listing"
+        class=".facetediframe.FacetedContainerFolderListingView"
+        template="projectspace_folder_listing.pt"
+        permission="zope2.View"
+        />
     <!-- Customize the folder_listing for IStrategicObjective -->
     <browser:page
         for="imio.project.pst.content.strategic.IStrategicObjective"

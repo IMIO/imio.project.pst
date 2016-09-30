@@ -22,10 +22,12 @@ class FacetedContainerFolderListingView(
 def get_criteria_holder(context):
     portal = api.portal.get()
     pst = portal.pst
-    if context.portal_type == 'operationalobjective':
-        return pst.pstactions
+    if context.portal_type == 'projectspace':
+        return pst.strategicobjectives
     elif context.portal_type == 'strategicobjective':
         return pst.operationalobjectives
+    elif context.portal_type == 'operationalobjective':
+        return pst.pstactions
     elif context.portal_type == 'pstaction':
         return pst.tasks
     elif not IFacetedNavigable.providedBy(context):
