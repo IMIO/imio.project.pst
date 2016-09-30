@@ -39,7 +39,7 @@ class DocumentGenerationPSTHelper(DocumentGenerationBaseHelper):
         """
             get a list of contained strategic objectives
         """
-        if self.sel_type == 'operationalobjective':
+        if self.sel_type == 'strategicobjective':
             return self.objs
         else:
             pcat = self.real_context.portal_catalog
