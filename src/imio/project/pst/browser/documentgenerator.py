@@ -8,7 +8,29 @@ from imio.project.core.config import CHILDREN_BUDGET_INFOS_ANNOTATION_KEY
 from views import _getWorkflowStates
 
 
-class DocumentGenerationPSTHelper(DXDocumentGenerationHelperView):
+class DocumentGenerationBaseHelper(DXDocumentGenerationHelperView):
+    """
+        Common methods
+    """
+
+    objs = []
+    sel_type = ''
+
+    def is_dashboard(self):
+        return 'facetedQuery' in self.request.form
+
+    def uids_to_objs(self, brains):
+        # can be used like this in normal template:
+        # do section- if view.is_dashboard()
+        # do text if view.uids_to_objs(brains)
+        self.objs = []
+        for brain in brains:
+            self.objs.append(brain.getObject())
+        self.sel_type = self.objs[0].portal_type
+        return False
+
+
+class DocumentGenerationPSTHelper(DocumentGenerationBaseHelper):
     """
         Methods used in document generation view, for pst
     """
@@ -17,16 +39,15 @@ class DocumentGenerationPSTHelper(DXDocumentGenerationHelperView):
         """
             get a list of contained strategic objectives
         """
-        pcat = self.context.portal_catalog
-        brains = pcat(portal_type='strategicobjective',
-                      path={'query': '/'.join(self.context.getPhysicalPath()), 'depth': 1},
-                      review_state=_getWorkflowStates(self.portal, 'strategicobjective', skip_initial=True),
-                      sort_on='getObjPositionInParent')
-        sos = []
-        for brain in brains:
-            obj = brain.getObject()
-            sos.append(obj)
-        return sos
+        if self.sel_type == 'operationalobjective':
+            return self.objs
+        else:
+            pcat = self.real_context.portal_catalog
+            brains = pcat(portal_type='strategicobjective',
+                          path={'query': '/'.join(self.real_context.getPhysicalPath()), 'depth': 1},
+                          review_state=_getWorkflowStates(self.portal, 'strategicobjective', skip_initial=True),
+                          sort_on='getObjPositionInParent')
+            return [brain.getObject() for brain in brains]
 
     def getOperationalObjectives(self, so=None):
         """
@@ -73,7 +94,7 @@ class BudgetHelper():
         return False
 
 
-class DocumentGenerationSOHelper(DXDocumentGenerationHelperView, BudgetHelper):
+class DocumentGenerationSOHelper(DocumentGenerationBaseHelper, BudgetHelper):
     """
         Methods used in document generation view, for strategicobjective
     """
@@ -88,15 +109,16 @@ class DocumentGenerationSOHelper(DXDocumentGenerationHelperView, BudgetHelper):
         """
             get a list of contained operational objectives
         """
-        pcat = self.real_context.portal_catalog
-        brains = pcat(portal_type='operationalobjective',
-                      path={'query': '/'.join(self.real_context.getPhysicalPath()), 'depth': 1},
-                      review_state=_getWorkflowStates(self.portal, 'operationalobjective', skip_initial=True),
-                      sort_on='getObjPositionInParent')
-        oos = []
-        for brain in brains:
-            oos.append(brain.getObject())
-        return oos
+        if self.sel_type == 'operationalobjective':
+            return self.objs
+        else:
+            context = so is None and self.real_context or so
+            pcat = self.real_context.portal_catalog
+            brains = pcat(portal_type='operationalobjective',
+                          path={'query': '/'.join(context.getPhysicalPath()), 'depth': 1},
+                          review_state=_getWorkflowStates(self.portal, 'operationalobjective', skip_initial=True),
+                          sort_on='getObjPositionInParent')
+            return [brain.getObject() for brain in brains]
 
     def getActions(self, oo=None):
         """
@@ -124,7 +146,7 @@ class DocumentGenerationSOHelper(DXDocumentGenerationHelperView, BudgetHelper):
             return ''
 
 
-class DocumentGenerationOOHelper(DXDocumentGenerationHelperView, BudgetHelper):
+class DocumentGenerationOOHelper(DocumentGenerationBaseHelper, BudgetHelper):
     """
         Methods used in document generation view, for operationalobjective
     """
@@ -145,12 +167,16 @@ class DocumentGenerationOOHelper(DXDocumentGenerationHelperView, BudgetHelper):
         """
             return a list of contained pstactions
         """
-        pcat = self.real_context.portal_catalog
-        brains = pcat(portal_type='pstaction',
-                      path={'query': '/'.join(self.context.getPhysicalPath()), 'depth': 1},
-                      review_state=_getWorkflowStates(self.portal, 'pstaction', skip_initial=True),
-                      sort_on='getObjPositionInParent')
-        return [brain.getObject() for brain in brains]
+        if self.sel_type == 'pstaction':
+            return self.objs
+        else:
+            context = oo is None and self.real_context or oo
+            pcat = self.real_context.portal_catalog
+            brains = pcat(portal_type='pstaction',
+                          path={'query': '/'.join(context.getPhysicalPath()), 'depth': 1},
+                          review_state=_getWorkflowStates(self.portal, 'pstaction', skip_initial=True),
+                          sort_on='getObjPositionInParent')
+            return [brain.getObject() for brain in brains]
 
     def formatResultIndicator(self, expected=True, sep='<br />'):
         """
@@ -162,7 +188,7 @@ class DocumentGenerationOOHelper(DXDocumentGenerationHelperView, BudgetHelper):
         return sep.join(rows)
 
 
-class DocumentGenerationPSTActionsHelper(DXDocumentGenerationHelperView, BudgetHelper):
+class DocumentGenerationPSTActionsHelper(DocumentGenerationBaseHelper, BudgetHelper):
     """
         Methods used in document generation view, for PSTAction
     """
