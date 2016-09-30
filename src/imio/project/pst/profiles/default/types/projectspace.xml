@@ -6,6 +6,9 @@
   <element value="strategicobjective"/>
   <element value="File"/>
  </property>
+ <property name="view_methods">
+  <element value="view"/>
+ </property>
 
  <action title="Edit" action_id="edit" category="object" condition_expr=""
     description="" icon_expr="" link_target=""
