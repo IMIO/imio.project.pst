@@ -20,8 +20,7 @@
    <property name="url_expr">string:@@collective.excelexport?excelexport.policy=pstactions</property>
    <property name="icon_expr"></property>
    <property name="available_expr">python:context.getId() == 'pst' and
-       context.getPortalTypeName() == 'projectspace' or
-       (context.getPhysicalPath()[-2] == 'pst' and context.getPortalTypeName() == 'Collection')
+       context.getPortalTypeName() == 'projectspace'
    </property>
    <property name="permissions">
     <element value="View"/>
