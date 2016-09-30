@@ -131,10 +131,13 @@ def _addTemplatesDirectory(context):
         {'id': 'style', 'file': u'style.odt', 'tit': 'Style général'}
     ]
     templates = [
-        {'id': 'pst', 'file': u'pst.odt', 'tit': u'PST', 'style': ['style'],
+        {'id': 'pst', 'file': u'pst.odt', 'tit': u'Doc général', 'style': ['style'],
          'types': ['projectspace', 'strategicobjective', 'operationalobjective', 'pstaction']},
 #        {'id': 'tableaubord', 'file': u'tableaubord.odt', 'tit': u'Tableau bord', 'style': [],
 #         'types': ['projectspace']},
+    ]
+    dashboard_templates = [
+        {'id': 'dpst', 'file': u'pst.odt', 'tit': u'Doc général', 'style': ['style']}
     ]
     for dic in styles:
         if not base_hasattr(folder, dic['id']):
@@ -166,6 +169,26 @@ def _addTemplatesDirectory(context):
                 # excludeFromNav=True,
                 pod_formats=['odt'],
                 pod_portal_types=dic['types'],
+                style_template=[uids.get(s, None) for s in dic.get('style', [])],
+                # merge_templates=[{'template': sub_template.UID(), 'pod_context_name': 'header',}],
+            )
+            uids[dic['id']] = tmpl.UID()
+            do_transitions(tmpl, transitions=['publish_internally'])
+
+    for dic in dashboard_templates:
+        if not base_hasattr(folder, dic['id']):
+            tmpl = api.content.create(
+                type='DashboardPODTemplate',
+                id=dic['id'],
+                title=dic['tit'],
+                odt_file=NamedBlobFile(
+                    data=context.readDataFile('templates/%s' % dic['file']),
+                    contentType='applications/odt',
+                    filename=dic['file'],
+                ),
+                container=folder,
+                # excludeFromNav=True,
+                pod_formats=['odt'],
                 style_template=[uids.get(s, None) for s in dic.get('style', [])],
                 # merge_templates=[{'template': sub_template.UID(), 'pod_context_name': 'header',}],
             )
