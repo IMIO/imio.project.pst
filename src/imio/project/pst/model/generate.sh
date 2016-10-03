@@ -1,3 +1,7 @@
+echo "Do not use anymore archgenxml"
+exit
+
+
 /srv/archgenxml/agx27/bin/archgenxml --cfg agx.conf imioprojectpst.zargo
 #manage generated.pot
 #cp temp/i18n/generated.pot ../locales/agx.pot
