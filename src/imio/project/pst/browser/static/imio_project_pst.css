@@ -46,24 +46,82 @@ body.template-view.portaltype-strategicobjective td.table_widget_label {
     background: url("++resource++imio.project.pst/pst_icons_sprite.png") no-repeat scroll 0 -416px transparent;
 }
 
+/* colorization for action workflow */
+
 .state-created {
     color: Red !important;
 }
-.state-ongoing {
-    color: #436976 !important;
+
+#plone-contentmenu-workflow .state-created {
+    border-radius: 0.5em 0.5em 0.5em 0.5em;
+    background-color: red;
+    padding: 0 0.5em;
+    color: white !important;
+    border: 2px solid red;
 }
-.state-stopped {
-    color: violet !important;
-}
-.state-terminated {
-    color: blue !important;
-}
+
 .state-to_be_scheduled {
-    color: #FFA500 !important;
-}
-.state-achieved {
     color: blue !important;
 }
+
+#plone-contentmenu-workflow .state-to_be_scheduled {
+    border-radius: 0.5em 0.5em 0.5em 0.5em;
+    background-color: blue;
+    padding: 0 0.5em;
+    color: white !important;
+    border: 2px solid blue;
+}
+
+.state-ongoing {
+    color: green !important;
+}
+
+#plone-contentmenu-workflow .state-ongoing {
+    border-radius: 0.5em 0.5em 0.5em 0.5em;
+    background-color: green;
+    padding: 0 0.5em;
+    color: white !important;
+    border: 2px solid green;
+}
+
+.state-stopped {
+    color: DarkOrange !important;
+}
+
+#plone-contentmenu-workflow .state-stopped {
+    border-radius: 0.5em 0.5em 0.5em 0.5em;
+    background-color: DarkOrange;
+    padding: 0 0.5em;
+    color: white !important;
+    border: 2px solid DarkOrange;
+}
+
+.state-terminated {
+    color: dimgrey !important;
+}
+
+#plone-contentmenu-workflow .state-terminated {
+    border-radius: 0.5em 0.5em 0.5em 0.5em;
+    background-color: dimgrey;
+    padding: 0 0.5em;
+    color: white !important;
+    border: 2px solid dimgrey;
+}
+
+/* colorization for objective workflow */
+
+.state-achieved {
+    color: dimgrey !important;
+}
+
+#plone-contentmenu-workflow .state-achieved {
+    border-radius: 0.5em 0.5em 0.5em 0.5em;
+    background-color: dimgrey;
+    padding: 0 0.5em;
+    color: white !important;
+    border: 2px solid dimgrey;
+}
+
 
 ul.navTree li.section-collections {
     display: none;

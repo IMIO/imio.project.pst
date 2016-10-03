@@ -217,7 +217,8 @@
              before_script=""
              after_script=""
              i18n:attributes="title">
-  <action url="" category="workflow" i18n:translate="">back_to_be_scheduled</action>
+  <action url="" category="workflow" i18n:translate=""
+          icon="%(portal_url)s/++resource++imio.project.pst/back_to_be_scheduled.png">back_to_be_scheduled</action>
   <guard>
     <guard-permission>Review portal content</guard-permission>
   </guard>
@@ -229,7 +230,8 @@
              before_script=""
              after_script=""
              i18n:attributes="title">
-  <action url="" category="workflow" i18n:translate="">back_to_created</action>
+  <action url="" category="workflow" i18n:translate=""
+          icon="%(portal_url)s/++resource++imio.project.pst/back_to_created.png">back_to_created</action>
   <guard>
     <guard-permission>Review portal content</guard-permission>
   </guard>
@@ -241,7 +243,8 @@
              before_script=""
              after_script=""
              i18n:attributes="title">
-  <action url="" category="workflow" i18n:translate="">back_to_ongoing</action>
+  <action url="" category="workflow" i18n:translate=""
+          icon="%(portal_url)s/++resource++imio.project.pst/back_to_ongoing.png">back_to_ongoing</action>
   <guard>
     <guard-permission>Review portal content</guard-permission>
   </guard>
@@ -253,7 +256,8 @@
              before_script=""
              after_script=""
              i18n:attributes="title">
-  <action url="" category="workflow" i18n:translate="">begin</action>
+  <action url="" category="workflow" i18n:translate=""
+          icon="%(portal_url)s/++resource++imio.project.pst/begin.png">begin</action>
   <guard>
     <guard-permission>Review portal content</guard-permission>
   </guard>
@@ -265,7 +269,8 @@
              before_script=""
              after_script=""
              i18n:attributes="title">
-  <action url="" category="workflow" i18n:translate="">finish</action>
+  <action url="" category="workflow" i18n:translate=""
+          icon="%(portal_url)s/++resource++imio.project.pst/finish.png">finish</action>
   <guard>
     <guard-permission>Review portal content</guard-permission>
   </guard>
@@ -277,7 +282,8 @@
              before_script=""
              after_script=""
              i18n:attributes="title">
-  <action url="" category="workflow" i18n:translate="">set_to_be_scheduled</action>
+  <action url="" category="workflow" i18n:translate=""
+          icon="%(portal_url)s/++resource++imio.project.pst/set_to_be_scheduled.png">set_to_be_scheduled</action>
   <guard>
     <guard-permission>Review portal content</guard-permission>
   </guard>
@@ -289,7 +295,8 @@
              before_script=""
              after_script=""
              i18n:attributes="title">
-  <action url="" category="workflow" i18n:translate="">stop</action>
+  <action url="" category="workflow" i18n:translate=""
+          icon="%(portal_url)s/++resource++imio.project.pst/stop.png">stop</action>
   <guard>
     <guard-permission>Review portal content</guard-permission>
   </guard>

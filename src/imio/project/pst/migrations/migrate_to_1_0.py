@@ -80,7 +80,7 @@ class Migrate_To_1_0(Migrator):
             'imio.project.pst',
             steps=[
                 'actions', 'catalog', 'componentregistry', 'portlets', 'propertiestool',
-                'plone.app.registry', 'typeinfo',
+                'plone.app.registry', 'typeinfo', 'workflow'
             ]
         )
         self.reinstall([
