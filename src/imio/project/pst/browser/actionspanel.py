@@ -15,21 +15,21 @@ class SortTransitionsActionsPanelView(ActionsPanelView):
 class PSTActionsPanelView(SortTransitionsActionsPanelView):
 
     transitions = [
-        'begin',
-        'set_to_be_scheduled',
-        'stop',
-        'finish',
         'back_to_created',
         'back_to_ongoing',
         'back_to_be_scheduled',
+        'begin',
+        'set_to_be_scheduled',
+        'finish',
+        'stop',
     ]
 
 
 class ObjectivesActionsPanelView(SortTransitionsActionsPanelView):
 
     transitions = [
-        'begin',
         'back_to_created',
-        'achieve',
         'back_to_ongoing',
+        'begin',
+        'achieve',
     ]
