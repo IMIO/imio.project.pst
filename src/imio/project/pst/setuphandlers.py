@@ -541,21 +541,18 @@ def addDemoData(context):
 
     site.REQUEST['PUBLISHED'] = Dummy(pst)
 
-    for strategicobjective in data:
-        strategicObj = createContentInContainer(pst, "strategicobjective", **data[strategicobjective])
+    for so_dict in data:
+        strategicObj = createContentInContainer(pst, "strategicobjective", **so_dict)
         do_transitions(strategicObj, transitions=['begin'], logger=logger)
-        for operationalobjective in data[strategicobjective]['operationalobjectives']:
-            managers = operationalobjective.pop('manager', '')
-            operationalObj = createContentInContainer(strategicObj,
-                                                      "operationalobjective",
-                                                      **operationalobjective)
+        for oo_dict in so_dict['operationalobjectives']:
+            managers = oo_dict.pop('manager', '')
+            operationalObj = createContentInContainer(strategicObj, "operationalobjective", **oo_dict)
             do_transitions(operationalObj, transitions=['begin'], logger=logger)
             if managers:
                 _edit_fields(operationalObj, {'manager': managers})
-            for action in operationalobjective['actions']:
+            for action in oo_dict['actions']:
                 managers = action.pop('manager', '')
-                action_obj = createContentInContainer(operationalObj,
-                                                      "pstaction", **action)
+                action_obj = createContentInContainer(operationalObj, "pstaction", **action)
                 do_transitions(action_obj, transitions=['set_to_be_scheduled'], logger=logger)
                 if managers:
                     _edit_fields(action_obj, {'manager': managers})
