@@ -6,7 +6,6 @@ from zope.schema.interfaces import IVocabularyFactory
 from zope.schema.vocabulary import SimpleTerm, SimpleVocabulary
 from z3c.form import validator
 
-from plone.app.textfield import RichText
 from plone.autoform import directives as form
 from plone.dexterity.schema import DexteritySchemaPolicy
 from plone.directives.form import default_value

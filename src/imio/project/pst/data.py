@@ -54,6 +54,12 @@ def get_os_oo_ac_data(groups):
                          'health_indicator': u'bon',
                          'health_indicator_details': u'',
                          'comments': _richtextval(u''),
+                         'tasks': [
+                             {'title': u'Rédiger le profil de fonction',
+                              'assigned_group': groups['service-population']},
+                             {'title': u'Ajouter une annonce sur le site internet',
+                              'assigned_group': groups['service-informatique']},
+                         ]
                          },
                         {'title': u'Créer un guichet supplémentaire dans les 3 mois',
                          'manager': [groups['service-population'], ],
@@ -68,6 +74,10 @@ def get_os_oo_ac_data(groups):
                          'health_indicator': u'bon',
                          'health_indicator_details': u'',
                          'comments': _richtextval(u''),
+                         'tasks': [
+                             {'title': u'Réparer le guichet',
+                              'assigned_group': groups['service-travaux']},
+                         ]
                          },
                         {'title': u'Mettre en ligne sur le site internet différents documents "population" à '
                                   u'télécharger de chez soi',
@@ -83,6 +93,10 @@ def get_os_oo_ac_data(groups):
                          'health_indicator': u'bon',
                          'health_indicator_details': u'',
                          'comments': _richtextval(u''),
+                         'tasks': [
+                             {'title': u'Expliquer au service comment éditer sur le site internet',
+                              'assigned_group': groups['service-informatique']},
+                         ]
                          },
                     ]
                 },
@@ -117,6 +131,14 @@ def get_os_oo_ac_data(groups):
                          'health_indicator': u'bon',
                          'health_indicator_details': u'',
                          'comments': _richtextval(u''),
+                         'tasks': [
+                             {'title': u'Acheter/fournir des pictogrammes de guidance',
+                              'assigned_group': groups['service-travaux']},
+                             {'title': u'Analyser où placer les pictogrammes',
+                              'assigned_group': groups['service-population']},
+                             {'title': u'Fixer les pictogrammes de guidance',
+                              'assigned_group': groups['service-travaux']},
+                         ]
                          },
                         {'title': u'Installer une rampe d\'accès pour PMR',
                          'manager': [groups['service-population'], groups['service-travaux']],
@@ -140,6 +162,10 @@ def get_os_oo_ac_data(groups):
                          'health_indicator': u'risque',
                          'health_indicator_details': u'',
                          'comments': _richtextval(u''),
+                         'tasks': [
+                             {'title': u'Établir le mode de fonctionnement pour les permanences',
+                              'assigned_group': groups['secretariat-communal']},
+                         ]
                          },
                     ]
                 },
@@ -176,7 +202,13 @@ def get_os_oo_ac_data(groups):
                          'budget': [],
                          'health_indicator': u'bon',
                          'health_indicator_details': u'',
-                         'comments': _richtextval(u'')
+                         'comments': _richtextval(u''),
+                         'tasks': [
+                             {'title': u'Rédiger le profil de fonction de conseiller en énergie',
+                              'assigned_group': groups['service-population']},
+                             {'title': u'Ajouter une annonce sur le site internet',
+                              'assigned_group': groups['service-informatique']},
+                         ]
                          },
                         {'title': u'Répondre à l\'appel à projet "écopasseur" de la Wallonie',
                          'manager': [groups['service-de-lurbanisme'], ],
@@ -236,7 +268,13 @@ def get_os_oo_ac_data(groups):
                                     ],
                          'health_indicator': u'bon',
                          'health_indicator_details': u'',
-                         'comments': _richtextval(u'')
+                         'comments': _richtextval(u''),
+                         'tasks': [
+                             {'title': u'Écrire le cahier des charges',
+                              'assigned_group': groups['cellule-marches-publics']},
+                             {'title': u'Choisir le prestataire',
+                              'assigned_group': groups['service-de-lurbanisme']},
+                         ]
                          },
                         {'title': u'En fonction des résultats, procéder à l\'isolation du bâtiment',
                          'manager': [groups['service-travaux']],
@@ -309,7 +347,13 @@ def get_os_oo_ac_data(groups):
                          'health_indicator_details': u'Agent traitant malade pour minimum 3 mois -> risque de retard '
                                                      u'dans le planning',
                          'comments': _richtextval(u'Attendre le placement des nouvelles poubelles (avant le '
-                                                  u'01/12/2013)')
+                                                  u'01/12/2013)'),
+                         'tasks': [
+                             {'title': u'Commander des distributeurs de sacs',
+                              'assigned_group': groups['service-travaux']},
+                             {'title': u'Placer les distributeurs de sacs',
+                              'assigned_group': groups['service-travaux']},
+                         ]
                          },
                     ]
                 },

@@ -520,10 +520,11 @@ def addDemoData(context):
         service = uuidToObject(uid)
         groups[service.id] = uid
 
-    # data has 3 levels :
+    # data has 4 levels :
     # - strategicobjective
     # - operationalobjective
     # - pstaction
+    # - task
     data = get_os_oo_ac_data(groups)
 
     # needed to avoid ComponentLookupError in edit_view.update()
@@ -544,18 +545,21 @@ def addDemoData(context):
     for so_dict in data:
         strategicObj = createContentInContainer(pst, "strategicobjective", **so_dict)
         do_transitions(strategicObj, transitions=['begin'], logger=logger)
-        for oo_dict in so_dict['operationalobjectives']:
-            managers = oo_dict.pop('manager', '')
+        for oo_dict in so_dict.get('operationalobjectives', []):
+#            managers = oo_dict.pop('manager', '')
             operationalObj = createContentInContainer(strategicObj, "operationalobjective", **oo_dict)
             do_transitions(operationalObj, transitions=['begin'], logger=logger)
-            if managers:
-                _edit_fields(operationalObj, {'manager': managers})
-            for action in oo_dict['actions']:
-                managers = action.pop('manager', '')
-                action_obj = createContentInContainer(operationalObj, "pstaction", **action)
+#            if managers:
+#                _edit_fields(operationalObj, {'manager': managers})
+            for act_dict in oo_dict.get('actions', []):
+#                managers = action.pop('manager', '')
+                action_obj = createContentInContainer(operationalObj, "pstaction", **act_dict)
                 do_transitions(action_obj, transitions=['set_to_be_scheduled'], logger=logger)
-                if managers:
-                    _edit_fields(action_obj, {'manager': managers})
+#                if managers:
+#                    _edit_fields(action_obj, {'manager': managers})
+                for task_dict in act_dict.get('tasks', []):
+                    task_obj = createContentInContainer(action_obj, "task", **task_dict)
+                    do_transitions(task_obj, transitions=['do_to_assign'], logger=logger)
 
     # add some test users
     _addPSTUsers(context)
