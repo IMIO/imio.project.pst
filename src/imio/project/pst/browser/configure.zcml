@@ -119,17 +119,13 @@
             />
     </class>
 
-    <include package="z3c.unconfigure" file="meta.zcml" />
-    <unconfigure>
-        <browser:viewlet
-            name="collective.task.list_tasks"
-            for="collective.task.behaviors.ITaskContainer"
-            class="collective.task.browser.viewlets.TasksListViewlet"
-            manager="plone.app.layout.viewlets.interfaces.IBelowContentBody"
-            layer="collective.task.interfaces.ICollectiveTaskLayer"
-            permission="zope2.View"
-            view="plone.app.layout.globals.interfaces.IViewView"
-            />
-    </unconfigure>
+    <adapter
+        name="AssignedGroupColumn"
+        for="collective.task.interfaces.ITaskContent
+             zope.interface.Interface
+             collective.task.browser.table.TasksTable"
+        provides="z3c.table.interfaces.IColumn"
+        factory=".task.AssignedGroupColumn"
+      />
 
 </configure>

@@ -3,6 +3,10 @@
 from Products.CMFPlone.utils import base_hasattr
 from plone.dexterity.browser.add import DefaultAddView, DefaultAddForm
 
+from collective.eeafaceted.z3ctable.columns import VocabularyColumn
+
+from .. import _
+
 
 class CustomAddForm(DefaultAddForm):
 
@@ -19,3 +23,12 @@ class Add(DefaultAddView):
         Add form redefinition to customize fields.
     """
     form = CustomAddForm
+
+
+class AssignedGroupColumn(VocabularyColumn):
+
+    header = _("Assigned group")
+    weight = 30
+    attrName = 'manager'
+
+    vocabulary = u'imio.project.core.content.project.manager_vocabulary'

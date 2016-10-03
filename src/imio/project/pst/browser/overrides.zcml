@@ -1,0 +1,20 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    i18n_domain="imio.project.pst">
+
+    <configure package="collective.task">
+        <browser:viewlet
+            name="collective.task.list_tasks"
+            for="collective.task.behaviors.ITaskContainer"
+            class="imio.project.pst.browser.viewlets.TasksListViewlet"
+            template="browser/templates/list_tasks.pt"
+            manager="plone.app.layout.viewlets.interfaces.IBelowContentBody"
+            layer="collective.task.interfaces.ICollectiveTaskLayer"
+            permission="zope2.View"
+            view="plone.app.layout.globals.interfaces.IViewView"
+            />
+    </configure>
+
+</configure>
