@@ -6,7 +6,7 @@
     </script>
 
     <fieldset id="pst-folder-listing">
-      <legend i18n:translate="operational_legend_actions">Actions</legend>
+      <legend i18n:translate="actions_legend_tasks">Tasks</legend>
       <!-- Folder contents -->
       <div class="faceted-form" metal:define-macro="widgets" id="faceted-form"
         tal:define="mode view/mode | string:view" tal:attributes="data-mode mode"
