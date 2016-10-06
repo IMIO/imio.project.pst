@@ -8,6 +8,7 @@ from zope.component import getUtility, getMultiAdapter
 from zope.component import queryUtility
 from zope.globalrequest import getRequest
 from zope.i18n.interfaces import ITranslationDomain
+from zope.interface import alsoProvides
 from zope.event import notify
 from zope.lifecycleevent import ObjectCreatedEvent
 
@@ -22,6 +23,7 @@ from Products.CMFPlone.utils import getToolByName
 from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
 
 from collective.contact.plonegroup.config import ORGANIZATIONS_REGISTRY, FUNCTIONS_REGISTRY
+from collective.eeafaceted.collectionwidget.interfaces import ICollectionCategories
 from imio.dashboard.utils import enableFacetedDashboardFor, _updateDefaultCollectionFor
 from imio.helpers.catalog import addOrUpdateIndexes
 from imio.helpers.security import is_develop_environment
@@ -614,6 +616,7 @@ def add_db_col_folder(folder, id, title, content_type, position, displayed=''):
     col_folder.setLocallyAllowedTypes(['DashboardCollection'])
     col_folder.setImmediatelyAddableTypes(['DashboardCollection'])
     col_folder.setExcludeFromNav(True)
+    alsoProvides(col_folder, ICollectionCategories)
     folder.portal_workflow.doActionFor(col_folder, "publish_internally")
     createBaseCollections(col_folder, content_type)
     createStateCollections(col_folder, content_type)

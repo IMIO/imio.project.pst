@@ -79,6 +79,21 @@
         permission="zope2.View"
         />
 
+    <browser:page
+        for="collective.eeafaceted.collectionwidget.interfaces.ICollectionCategories"
+        name="document_generation_helper_view"
+        class="imio.project.pst.browser.documentgenerator.DocumentGenerationPSTCategoriesHelper"
+        permission="zope2.View"
+        />
+
+    <!-- document-generation views for different types -->
+    <browser:page
+        for="collective.eeafaceted.collectionwidget.interfaces.ICollectionCategories"
+        name="document-generation"
+        class="imio.project.pst.browser.documentgenerator.CategoriesDocumentGenerationView"
+        permission="zope2.View"
+        />
+
     <!-- configure actionspanel -->
     <configure package="imio.actionspanel">
 

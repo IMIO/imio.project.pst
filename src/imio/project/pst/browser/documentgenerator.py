@@ -3,12 +3,14 @@
 from zope.annotation import IAnnotations
 
 from collective.documentgenerator.helper.dexterity import DXDocumentGenerationHelperView
+from collective.documentgenerator.helper.archetypes import ATDocumentGenerationHelperView
+from imio.dashboard.browser.overrides import IDDocumentGenerationView
 from imio.project.core.config import CHILDREN_BUDGET_INFOS_ANNOTATION_KEY
 
 from views import _getWorkflowStates
 
 
-class DocumentGenerationBaseHelper(DXDocumentGenerationHelperView):
+class DocumentGenerationBaseHelper():
     """
         Common methods
     """
@@ -26,11 +28,11 @@ class DocumentGenerationBaseHelper(DXDocumentGenerationHelperView):
         self.objs = []
         for brain in brains:
             self.objs.append(brain.getObject())
-        self.sel_type = self.objs[0].portal_type
+        self.sel_type = len(brains) and self.objs[0].portal_type or ''
         return False
 
 
-class DocumentGenerationPSTHelper(DocumentGenerationBaseHelper):
+class DocumentGenerationPSTHelper(DXDocumentGenerationHelperView, DocumentGenerationBaseHelper):
     """
         Methods used in document generation view, for pst
     """
@@ -94,7 +96,7 @@ class BudgetHelper():
         return False
 
 
-class DocumentGenerationSOHelper(DocumentGenerationBaseHelper, BudgetHelper):
+class DocumentGenerationSOHelper(DXDocumentGenerationHelperView, DocumentGenerationBaseHelper, BudgetHelper):
     """
         Methods used in document generation view, for strategicobjective
     """
@@ -146,7 +148,7 @@ class DocumentGenerationSOHelper(DocumentGenerationBaseHelper, BudgetHelper):
             return ''
 
 
-class DocumentGenerationOOHelper(DocumentGenerationBaseHelper, BudgetHelper):
+class DocumentGenerationOOHelper(DXDocumentGenerationHelperView, DocumentGenerationBaseHelper, BudgetHelper):
     """
         Methods used in document generation view, for operationalobjective
     """
@@ -188,7 +190,7 @@ class DocumentGenerationOOHelper(DocumentGenerationBaseHelper, BudgetHelper):
         return sep.join(rows)
 
 
-class DocumentGenerationPSTActionsHelper(DocumentGenerationBaseHelper, BudgetHelper):
+class DocumentGenerationPSTActionsHelper(DXDocumentGenerationHelperView, DocumentGenerationBaseHelper, BudgetHelper):
     """
         Methods used in document generation view, for PSTAction
     """
@@ -223,3 +225,25 @@ class DocumentGenerationPSTActionsHelper(DocumentGenerationBaseHelper, BudgetHel
         """
         return '<p class="Santé-%s">%s</p>' % (self.real_context.health_indicator.encode('utf8'),
                                                 self.display_text('health_indicator_details'))
+
+
+class DocumentGenerationPSTCategoriesHelper(ATDocumentGenerationHelperView, DocumentGenerationBaseHelper):
+    """
+        Helper for categories folder
+    """
+
+
+class CategoriesDocumentGenerationView(IDDocumentGenerationView):
+    """
+        Change context for folder categories => dashboard collections context
+    """
+
+    def _get_generation_context(self, helper_view):
+        """ """
+        gen_context = super(CategoriesDocumentGenerationView, self)._get_generation_context(helper_view)
+        if hasattr(helper_view, 'uids_to_objs'):
+            helper_view.uids_to_objs(gen_context.get('brains', []))
+            if helper_view.sel_type:
+                gen_context['context'] = helper_view.objs[0].aq_parent
+                gen_context['view'] = helper_view.getDGHV(gen_context['context'])
+        return gen_context
