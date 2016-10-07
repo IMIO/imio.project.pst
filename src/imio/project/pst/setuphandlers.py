@@ -24,10 +24,11 @@ from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
 
 from collective.contact.plonegroup.config import ORGANIZATIONS_REGISTRY, FUNCTIONS_REGISTRY
 from collective.eeafaceted.collectionwidget.interfaces import ICollectionCategories
+from dexterity.localroles.utils import add_fti_configuration
 from imio.dashboard.utils import enableFacetedDashboardFor, _updateDefaultCollectionFor
 from imio.helpers.catalog import addOrUpdateIndexes
 from imio.helpers.security import is_develop_environment
-from dexterity.localroles.utils import add_fti_configuration
+from imio.helpers.content import create, add_file
 
 from data import get_os_oo_ac_data
 from imio.project.pst.utils import list_wf_states
@@ -128,74 +129,31 @@ def _addTemplatesDirectory(context):
     folder = site.templates
     do_transitions(folder, transitions=['publish_internally'], logger=logger)
 
-    uids = {}
+    def get_path(filename):
+        return os.path.join(context._profile_path, filename)
+
     styles = [
-        {'id': 'style', 'file': u'style.odt', 'tit': 'Style général'}
+        {'cid': 1, 'cont': 'templates', 'id': 'style', 'title': u'Style général', 'type': 'StyleTemplate',
+         'file': u'', 'functions': [(add_file, [], {'filepath': get_path('templates/style.odt'),
+                                                    'contentType': 'applications/odt', 'attr': 'odt_file'})]}
     ]
+    cids = create(styles)
+
     templates = [
-        {'id': 'pst', 'file': u'pst.odt', 'tit': u'Doc général', 'style': ['style'],
-         'types': ['projectspace', 'strategicobjective', 'operationalobjective', 'pstaction']},
-#        {'id': 'tableaubord', 'file': u'tableaubord.odt', 'tit': u'Tableau bord', 'style': [],
-#         'types': ['projectspace']},
+        {'cid': 10, 'cont': 'templates', 'id': 'pst', 'title': u'Doc général', 'type': 'ConfigurablePODTemplate',
+         'trans': ['publish_internally'],
+         'attrs': {'style_template': [cids[1].UID()], 'pod_formats':['odt'], 'pod_portal_types': ['projectspace',
+                   'strategicobjective', 'operationalobjective', 'pstaction'],
+                   'odt_file': NamedBlobFile(data=open(get_path('templates/pst.odt'), 'r').read(),
+                                             filename=u'pst.odt', contentType='applications/odt')}},
+        {'cid': 20, 'cont': 'templates', 'id': 'dpst', 'title': u'Doc général', 'type': 'DashboardPODTemplate',
+         'trans': ['publish_internally'],
+         'attrs': {'style_template': [cids[1].UID()], 'pod_formats':['odt'], 'tal_condition': "python:"
+                   "context.getPortalTypeName() != 'Folder' or context.getId() != 'tasks'",
+                   'odt_file': NamedBlobFile(data=open(get_path('templates/pst.odt'), 'r').read(),
+                                             filename=u'pst.odt', contentType='applications/odt')}},
     ]
-    dashboard_templates = [
-        {'id': 'dpst', 'file': u'pst.odt', 'tit': u'Doc général', 'style': ['style']}
-    ]
-    for dic in styles:
-        if not base_hasattr(folder, dic['id']):
-            tmpl = api.content.create(
-                type='StyleTemplate',
-                id=dic['id'],
-                title=dic['tit'],
-                odt_file=NamedBlobFile(
-                    data=context.readDataFile('templates/%s' % dic['file']),
-                    contentType='applications/odt',
-                    filename=dic['file'],
-                ),
-                container=folder,
-            )
-            uids[dic['id']] = tmpl.UID()
-
-    for dic in templates:
-        if not base_hasattr(folder, dic['id']):
-            tmpl = api.content.create(
-                type='ConfigurablePODTemplate',
-                id=dic['id'],
-                title=dic['tit'],
-                odt_file=NamedBlobFile(
-                    data=context.readDataFile('templates/%s' % dic['file']),
-                    contentType='applications/odt',
-                    filename=dic['file'],
-                ),
-                container=folder,
-                # excludeFromNav=True,
-                pod_formats=['odt'],
-                pod_portal_types=dic['types'],
-                style_template=[uids.get(s, None) for s in dic.get('style', [])],
-                # merge_templates=[{'template': sub_template.UID(), 'pod_context_name': 'header',}],
-            )
-            uids[dic['id']] = tmpl.UID()
-            do_transitions(tmpl, transitions=['publish_internally'])
-
-    for dic in dashboard_templates:
-        if not base_hasattr(folder, dic['id']):
-            tmpl = api.content.create(
-                type='DashboardPODTemplate',
-                id=dic['id'],
-                title=dic['tit'],
-                odt_file=NamedBlobFile(
-                    data=context.readDataFile('templates/%s' % dic['file']),
-                    contentType='applications/odt',
-                    filename=dic['file'],
-                ),
-                container=folder,
-                # excludeFromNav=True,
-                pod_formats=['odt'],
-                style_template=[uids.get(s, None) for s in dic.get('style', [])],
-                # merge_templates=[{'template': sub_template.UID(), 'pod_context_name': 'header',}],
-            )
-            uids[dic['id']] = tmpl.UID()
-            do_transitions(tmpl, transitions=['publish_internally'])
+    cids.update(create(templates))
 
 
 def _addPSTprojectspace(context):
