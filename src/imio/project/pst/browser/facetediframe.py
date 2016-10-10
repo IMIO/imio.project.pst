@@ -8,12 +8,11 @@ from eea.facetednavigation.criteria.handler import Criteria as eeaCriteria
 from eea.facetednavigation.interfaces import IFacetedNavigable
 from eea.facetednavigation.widgets.storage import Criterion
 
-from imio.project.core.browser.views import ContainerFolderListingView
+from imio.helpers.browser.views import ContainerFolderListingView
 
 
-class FacetedContainerFolderListingView(
-        ContainerFolderListingView,
-        FacetedContainerView):
+class FacetedContainerFolderListingView(ContainerFolderListingView, FacetedContainerView):
+
     def __init__(self, context, request):
         ContainerFolderListingView.__init__(self, context, request)
         FacetedContainerView.__init__(self, context, request)
