@@ -159,6 +159,9 @@ class Migrate_To_1_0(Migrator):
         for prod in []:
             mark_last_version(self.portal, product=prod)
 
+        # Reorder css and js
+        self.runProfileSteps('imio.project.pst', steps=['cssregistry', 'jsregistry'])
+
         # Display duration
         self.finish()
 
