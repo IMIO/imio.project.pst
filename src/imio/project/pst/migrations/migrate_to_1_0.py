@@ -13,7 +13,7 @@ from collective.contact.plonegroup.config import FUNCTIONS_REGISTRY
 from imio.helpers.catalog import addOrUpdateIndexes
 from imio.migrator.migrator import Migrator
 from imio.project.pst.setuphandlers import (
-    configureDashboard, configure_actions_panel, configure_rolefields, reimport_faceted_config,
+    adaptDefaultPortal, configureDashboard, configure_actions_panel, configure_rolefields, reimport_faceted_config,
     add_plonegroups_to_registry, _addTemplatesDirectory)
 from imio.project.pst import _
 
@@ -56,13 +56,10 @@ class Migrate_To_1_0(Migrator):
         if not [r for r in registry[FUNCTIONS_REGISTRY] if r['fct_id'] == 'admin_resp']:
             registry[FUNCTIONS_REGISTRY] = registry[FUNCTIONS_REGISTRY] + [{'fct_title': u"Responsable administratif",
                                                                             'fct_id': u'admin_resp'}]
-        # configure externaleditor
-        registry = getUtility(IRegistry)
-        registry['externaleditor.ext_editor'] = True
-        if 'Image' in registry['externaleditor.externaleditor_enabled_types']:
-            registry['externaleditor.externaleditor_enabled_types'] = ['PODTemplate', 'ConfigurablePODTemplate',
-                                                                       'DashboardPODTemplate', 'SubTemplate',
-                                                                       'StyleTemplate']
+
+        # Adapt default portal:
+        adaptDefaultPortal(self.portal)
+
         # replace front-page
         # TO BE DONE
 

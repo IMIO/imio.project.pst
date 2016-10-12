@@ -13,6 +13,7 @@ from zope.event import notify
 from zope.lifecycleevent import ObjectCreatedEvent
 
 from plone import api
+from plone.app.controlpanel.markup import MarkupControlPanelAdapter
 from plone.app.uuid.utils import uuidToObject
 from plone.dexterity.utils import createContentInContainer
 from plone.namedfile.file import NamedBlobFile
@@ -395,6 +396,36 @@ def adaptDefaultPortal(site):
         registry['externaleditor.externaleditor_enabled_types'] = ['PODTemplate', 'ConfigurablePODTemplate',
                                                                    'DashboardPODTemplate', 'SubTemplate',
                                                                    'StyleTemplate']
+
+    # Set markup allowed types: for RichText field, don't display anymore types listbox
+    adapter = MarkupControlPanelAdapter(site)
+    adapter.set_allowed_types(['text/html'])
+
+    # Activate browser message
+    msg = site['messages-config']['browser-warning']
+    api.content.transition(obj=msg, to_state='activated')
+
+    #for collective.externaleditor
+    registry = getUtility(IRegistry)
+    registry['externaleditor.ext_editor'] = True
+    if 'Image' in registry['externaleditor.externaleditor_enabled_types']:
+        registry['externaleditor.externaleditor_enabled_types'] = ['PODTemplate', 'ConfigurablePODTemplate',
+                                                                   'DashboardPODTemplate', 'SubTemplate',
+                                                                   'StyleTemplate']
+
+    #permissions
+    #Removing owner to 'hide' sharing tab
+    site.manage_permission('Sharing page: Delegate roles', ('Manager', 'Site Administrator'),
+                           acquire=0)
+    #Hiding layout menu
+    site.manage_permission('Modify view template', ('Manager', 'Site Administrator'),
+                           acquire=0)
+    #List undo
+    site.manage_permission('List undoable changes', ('Manager', 'Site Administrator'),
+                           acquire=0)
+    #History: can revert to previous versions
+    site.manage_permission('CMFEditions: Revert to previous versions', ('Manager', 'Site Administrator'),
+                           acquire=0)
 
 
 def addDemoOrganization(context):
