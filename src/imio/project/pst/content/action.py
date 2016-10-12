@@ -73,7 +73,7 @@ class ManagerFieldValidator(validator.SimpleFieldValidator):
     def validate(self, value):
         #we call the already defined validators
         super(ManagerFieldValidator, self).validate(value)
-        member = self.context.portal_membership.getAuthenticatedMember()
+        member = api.user.get_current()
         # bypass for Managers
         if member.has_role('Manager'):
             return True
@@ -81,17 +81,19 @@ class ManagerFieldValidator(validator.SimpleFieldValidator):
         if not value:
             raise Invalid(_(u"You must choose at least one group"))
 
-        member_groups = member.getGroups()
-        # bypass for pst editors
-        if 'pst_editors' in member_groups or 'pst_managers' in member_groups:
+        member_groups = api.group.get_groups(user=member)
+        member_groups_ids = [g.id for g in member_groups]
+        if 'pst_editors' in member_groups_ids or 'pst_managers' in member_groups_ids:
             return True
+
+        member_orgs = organizations_with_suffixes(member_groups, ['actioneditor'])
 
         # if not Manager, check if the user selected at least one of the groups
         # he is member of or he will not be able to see the element after saving
 
         def check_intersection():
-            for manager in value:
-                if manager in member_groups:
+            for org in value:
+                if org in member_orgs:
                     return True
             return False
 
