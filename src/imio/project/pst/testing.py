@@ -61,7 +61,7 @@ class IntegrationTestCase(unittest2.TestCase):
         for service in (u'Personnel', u'Compta'):
             obj = createContentInContainer(own_orga['services'], 'organization', **{'title': service})
             registry[ORGANIZATIONS_REGISTRY] = registry[ORGANIZATIONS_REGISTRY] + [obj.UID()]
-            self.groups[service] = '%s_actioneditor' % obj.UID()
+            self.groups[service] = obj.UID()
             user = service.lower()
             self.portal.portal_registration.addMember(id=user, password="Project69!")
             self.portal.acl_users.source_groups.addPrincipalToGroup(user, "%s_actioneditor" % obj.UID())
@@ -90,14 +90,14 @@ class IntegrationTestCase(unittest2.TestCase):
                     'planned_end_date': datetime.date(datetime(2015, 12, 31)),
                     'representative_responsible': [],
                     'administrative_responsible': [services['personnel'].UID()],
-                    'manager': ['%s_actioneditor' % services['personnel'].UID()],
+                    'manager': [services['personnel'].UID()],
                     'extra_concerned_people': u'Police\r\nAgents constatateurs communaux\r\nAgent ',
                     'budget': [],
                     'budget_comments': u'Fonds propres (en cours de chiffrage)',
                     'comments': u'',
                     'actions': [
                         {'title': u'A1-1-1',
-                         'manager': ['%s_actioneditor' % services['personnel'].UID()],
+                         'manager': [services['personnel'].UID()],
                          'planned_end_date': datetime.date(datetime(2014, 06, 30)),
                          'extra_concerned_people': u'La firme adjudicatrice au terme du marché public',
                          'budget': [{'amount': 12500.0, 'budget_type': 'wallonie', 'year': '2013'},

@@ -6,9 +6,12 @@ from zope.schema.interfaces import IVocabularyFactory
 from zope.schema.vocabulary import SimpleTerm, SimpleVocabulary
 from z3c.form import validator
 
+from plone import api
 from plone.autoform import directives as form
 from plone.dexterity.schema import DexteritySchemaPolicy
 from plone.directives.form import default_value
+
+from collective.contact.plonegroup.utils import organizations_with_suffixes
 
 from imio.project.core.content.project import IProject
 from imio.project.core.content.project import Project
@@ -61,8 +64,9 @@ class IPSTAction(IProject):
 def default_manager(data):
     if not data.context.portal_type == 'operationalobjective':
         return []
-    member_groups = data.context.portal_membership.getAuthenticatedMember().getGroups()
-    return [g for g in data.context.manager if g in member_groups]
+    member_groups = api.group.get_groups(user=api.user.get_current())
+    orgs = organizations_with_suffixes(member_groups, ['actioneditor'])
+    return [org for org in data.context.manager if org in orgs]
 
 
 class ManagerFieldValidator(validator.SimpleFieldValidator):
