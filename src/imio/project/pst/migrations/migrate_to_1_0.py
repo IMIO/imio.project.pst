@@ -80,6 +80,9 @@ class Migrate_To_1_0(Migrator):
                 'plone.app.registry', 'typeinfo', 'workflow'
             ]
         )
+        # update security settings
+        self.portal.portal_workflow.updateRoleMappings()
+
         self.reinstall([
             'collective.documentgenerator:default',
             'collective.externaleditor:default',
