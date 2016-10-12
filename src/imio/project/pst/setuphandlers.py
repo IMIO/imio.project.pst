@@ -108,6 +108,8 @@ def post_install(context):
     _updateContactPlonegroupConfiguration(context)
     # configure dexterity.localrolesfield
     configure_rolefields(portal)
+    # configure actions panel registry
+    configure_actions_panel(portal)
 
 
 def _addTemplatesDirectory(context):
@@ -1081,3 +1083,21 @@ def configure_rolefields(portal):
                 force=force)
             if msg:
                 logger.warn(msg)
+
+
+def configure_actions_panel(portal):
+    """
+        Configure actions panel registry
+    """
+    logger.info('Configure actions panel registry')
+    registry = getUtility(IRegistry)
+
+    if not registry.get('imio.actionspanel.browser.registry.IImioActionsPanelConfig.transitions'):
+        registry['imio.actionspanel.browser.registry.IImioActionsPanelConfig.transitions'] = \
+            ['strategicobjective.back_to_created|', 'strategicobjective.back_to_ongoing|',
+             'operationalobjective.back_to_created|', 'operationalobjective.back_to_ongoing|',
+             'pstaction.back_to_created|', 'pstaction.back_to_ongoing|',
+             'pstaction.back_to_be_scheduled|', 'task.back_in_created|', 'task.back_in_to_assign|',
+             'task.back_in_to_do|', 'task.back_in_progress|', 'task.back_in_realized|', ]
+
+

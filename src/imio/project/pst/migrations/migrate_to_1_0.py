@@ -13,7 +13,7 @@ from collective.contact.plonegroup.config import FUNCTIONS_REGISTRY
 from imio.helpers.catalog import addOrUpdateIndexes
 from imio.migrator.migrator import Migrator
 from imio.project.pst.setuphandlers import (
-    configureDashboard, configure_rolefields, reimport_faceted_config,
+    configureDashboard, configure_actions_panel, configure_rolefields, reimport_faceted_config,
     add_plonegroups_to_registry, _addTemplatesDirectory)
 from imio.project.pst import _
 
@@ -146,6 +146,7 @@ class Migrate_To_1_0(Migrator):
                 default_UID=col_folder['all'].UID())
 
         add_plonegroups_to_registry()
+        configure_actions_panel(self.portal)
         configure_rolefields(self.portal)
 
         # migrate to documentgenerator
