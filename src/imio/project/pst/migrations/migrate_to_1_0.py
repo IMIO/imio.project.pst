@@ -1,20 +1,17 @@
 # -*- coding: utf-8 -*-
 import logging
-from zope.component import getUtility
 from zope.i18n import translate
 from zope.globalrequest import getRequest
 from plone import api
-from plone.registry.interfaces import IRegistry
 from Products.CMFPlone.utils import base_hasattr, safe_unicode
 
 from Products.CPUtils.Extensions.utils import mark_last_version
-from collective.contact.plonegroup.config import FUNCTIONS_REGISTRY
 
 from imio.helpers.catalog import addOrUpdateIndexes
 from imio.migrator.migrator import Migrator
 from imio.project.pst.setuphandlers import (
-    adaptDefaultPortal, configureDashboard, configure_actions_panel, configure_rolefields, reimport_faceted_config,
-    add_plonegroups_to_registry, _addTemplatesDirectory)
+    adaptDefaultPortal, add_plonegroups_to_registry, configureDashboard, configure_actions_panel, configure_rolefields,
+    reimport_faceted_config, _addTemplatesDirectory)
 from imio.project.pst import _
 
 
@@ -51,12 +48,6 @@ class Migrate_To_1_0(Migrator):
         _addTemplatesDirectory(self.context._getImportContext('imio.project.pst:default'))
 
     def various_update(self):
-        # Add new function
-        registry = getUtility(IRegistry)
-        if not [r for r in registry[FUNCTIONS_REGISTRY] if r['fct_id'] == 'admin_resp']:
-            registry[FUNCTIONS_REGISTRY] = registry[FUNCTIONS_REGISTRY] + [{'fct_title': u"Responsable administratif",
-                                                                            'fct_id': u'admin_resp'}]
-
         # Adapt default portal:
         adaptDefaultPortal(self.portal)
 

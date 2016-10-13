@@ -297,36 +297,21 @@ def _setDefaultApplicationSecurity(context):
 
 def add_plonegroups_to_registry():
     registry = getUtility(IRegistry)
+    to_add = []
     if not [r for r in registry[FUNCTIONS_REGISTRY] if r['fct_id'] == 'actioneditor']:
-        registry[FUNCTIONS_REGISTRY] = registry[FUNCTIONS_REGISTRY] + [
-            {
-                'fct_title': u"Gestionnaire d'action",
-                'fct_id': u'actioneditor'
-            }
-        ]
+        to_add.append({'fct_title': u"Gestionnaire d'action", 'fct_id': u'actioneditor'})
+
     if not [r for r in registry[FUNCTIONS_REGISTRY] if r['fct_id'] == 'admin_resp']:
-        registry[FUNCTIONS_REGISTRY] = registry[FUNCTIONS_REGISTRY] + [
-            {
-                'fct_title': u"Responsable administratif",
-                'fct_id': u'admin_resp'
-            }
-        ]
+        to_add.append({'fct_title': u"Responsable administratif", 'fct_id': u'admin_resp'})
 
     if not [r for r in registry[FUNCTIONS_REGISTRY] if r['fct_id'] == 'editeur']:
-        registry[FUNCTIONS_REGISTRY] = registry[FUNCTIONS_REGISTRY] + [
-            {
-                'fct_title': u'Éditeur',
-                'fct_id': u'editeur'
-            }
-        ]
+        to_add.append({'fct_title': u'Éditeur (agent)', 'fct_id': u'editeur'})
 
     if not [r for r in registry[FUNCTIONS_REGISTRY] if r['fct_id'] == 'validateur']:
-        registry[FUNCTIONS_REGISTRY] = registry[FUNCTIONS_REGISTRY] + [
-            {
-                'fct_title': u'Validateur',
-                'fct_id': u'validateur'
-            }
-        ]
+        to_add.append({'fct_title': u'Validateur (chef service)', 'fct_id': u'validateur'})
+
+    if to_add:
+        registry[FUNCTIONS_REGISTRY] = registry[FUNCTIONS_REGISTRY] + to_add
 
 
 def _updateContactPlonegroupConfiguration(context):
@@ -1130,5 +1115,3 @@ def configure_actions_panel(portal):
              'pstaction.back_to_created|', 'pstaction.back_to_ongoing|',
              'pstaction.back_to_be_scheduled|', 'task.back_in_created|', 'task.back_in_to_assign|',
              'task.back_in_to_do|', 'task.back_in_progress|', 'task.back_in_realized|', ]
-
-
