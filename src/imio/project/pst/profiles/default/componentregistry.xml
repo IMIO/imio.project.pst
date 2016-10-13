@@ -11,6 +11,12 @@
 
     <utility
       interface="zope.schema.interfaces.IVocabularyFactory"
+      factory="imio.project.pst.vocabularies.ManagerVocabulary"
+      name="imio.project.core.content.project.manager_vocabulary"
+    />
+
+    <utility
+      interface="zope.schema.interfaces.IVocabularyFactory"
       factory="collective.contact.plonegroup.browser.settings.SelectedOrganizationsElephantVocabulary"
       name="collective.task.AssignedGroups"
     />
