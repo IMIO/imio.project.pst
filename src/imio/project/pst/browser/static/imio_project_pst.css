@@ -29,6 +29,11 @@ body.template-view.portaltype-strategicobjective td.table_widget_label {
     float: right;
 }
 
+/* align right the plonegroup-organization link */
+#pg-orga-link {
+    float: right;
+}
+
 /* Hides */
 #formfield-form-widgets-IVersionable-changeNote {
     display: none;
