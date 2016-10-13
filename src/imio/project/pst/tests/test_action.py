@@ -32,10 +32,10 @@ class TestAction(IntegrationTestCase):
         self.login('psteditor')
         self.assertEquals(action.default_manager(Dummy(oo)), [])
         # we login as a service member
-        self.login('personnel')
+        self.login('personnel-actioneditor')
         self.assertEquals(action.default_manager(Dummy(oo)), [self.groups['Personnel']])
         # we login as a service member, the context isn't the good one
-        self.login('personnel')
+        self.login('personnel-actioneditor')
         self.assertEquals(action.default_manager(Dummy(act)), [])
 
     def test_manager_validator(self):
@@ -58,7 +58,7 @@ class TestAction(IntegrationTestCase):
         self.assertTrue('pst_editors' in member.getGroups())
         validator.validate([self.groups['Compta']])
         # constrain for service user
-        self.login('personnel')
+        self.login('personnel-actioneditor')
         with self.assertRaises(Invalid) as raised:
             validator.validate([])
         self.assertEquals(raised.exception.message,

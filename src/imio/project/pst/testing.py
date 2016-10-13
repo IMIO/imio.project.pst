@@ -62,9 +62,10 @@ class IntegrationTestCase(unittest2.TestCase):
             obj = createContentInContainer(own_orga['services'], 'organization', **{'title': service})
             registry[ORGANIZATIONS_REGISTRY] = registry[ORGANIZATIONS_REGISTRY] + [obj.UID()]
             self.groups[service] = obj.UID()
-            user = service.lower()
-            self.portal.portal_registration.addMember(id=user, password="Project69!")
-            self.portal.acl_users.source_groups.addPrincipalToGroup(user, "%s_actioneditor" % obj.UID())
+            for suffix in ['actioneditor', 'admin_resp']:
+                user = '%s-%s' % (service.lower(), suffix)
+                self.portal.portal_registration.addMember(id=user, password="Project69!")
+                self.portal.acl_users.source_groups.addPrincipalToGroup(user, "%s_%s" % (obj.UID(), suffix))
         logout()
 
     def addObjects(self):

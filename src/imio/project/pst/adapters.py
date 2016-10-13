@@ -12,8 +12,8 @@ from collective.contact.plonegroup.utils import organizations_with_suffixes
 
 from imio.project.core.content.projectspace import IProjectSpace
 
-
-UNSET_DATE_VALUE = date(3900, 1, 1)  # value used to mark the fact that a date is not set, we need a date in the future for beginning-is-late collection
+# value used to mark the fact that a date is not set, we need a date in the future for beginning-is-late collection
+UNSET_DATE_VALUE = date(3900, 1, 1)
 
 
 class UserIsAdministrativeResponsibleCriterion(object):
@@ -24,10 +24,7 @@ class UserIsAdministrativeResponsibleCriterion(object):
     @property
     def query(self):
         groups = api.group.get_groups(user=api.user.get_current())
-        orgs = []
-        orgs = organizations_with_suffixes(
-            groups, ['administrative_responsible'])
-
+        orgs = organizations_with_suffixes(groups, ['admin_resp'])
         # if orgs is empty list, nothing is returned => ok
         return {'administrative_responsible': {'query': orgs}}
 
@@ -40,10 +37,7 @@ class UserIsActionEditorCriterion(object):
     @property
     def query(self):
         groups = api.group.get_groups(user=api.user.get_current())
-        orgs = []
-        orgs = organizations_with_suffixes(
-            groups, ['actioneditor'])
-
+        orgs = organizations_with_suffixes(groups, ['actioneditor'])
         # if orgs is empty list, nothing is returned => ok
         return {'manager': {'query': orgs}}
 
@@ -58,8 +52,7 @@ class TaskInAssignedGroupCriterion(object):
     @property
     def query(self):
         groups = api.group.get_groups(user=api.user.get_current())
-        orgs = organizations_with_suffixes(
-            groups, ['validateur', 'editeur', 'lecteur'])
+        orgs = organizations_with_suffixes(groups, ['validateur', 'editeur', 'actioneditor'])
         # if orgs is empty list, nothing is returned => ok
         return {'assigned_group': {'query': orgs}}
 
@@ -72,12 +65,13 @@ class ChildrenActionDeadlineHasPassedCriterion(object):
     @property
     def query(self):
         collection_query = {
-        'planned_end_date': {'query': DateTime(), 'range': 'max'},
-        'portal_type': {'query': ['pstaction']}, 'sort_on': 'created', 'sort_order': 'descending'}
+            'planned_end_date': {'query': DateTime(), 'range': 'max'},
+            'portal_type': {'query': ['pstaction']}, 'sort_on': 'created', 'sort_order': 'descending'}
         # from plone.app.querystring import queryparser
         # collection_query = queryparser.parseFormquery(collection, collection.query)
         return {
             ':has_child': {'query': collection_query}}
+
 
 ####################
 # Indexes adapters #
