@@ -3,7 +3,8 @@
 
 from imio.project.pst.testing import IntegrationTestCase
 from ..adapters import (
-    UserIsAdministrativeResponsibleCriterion, UserIsActionEditorCriterion, TaskInAssignedGroupCriterion
+    UserIsAdministrativeResponsibleCriterion, UserIsActionEditorCriterion, TaskInAssignedGroupCriterion,
+    ChildrenActionDeadlineHasPassedCriterion
 )
 
 
@@ -30,3 +31,13 @@ class TestAdapters(IntegrationTestCase):
         crit = TaskInAssignedGroupCriterion(self.portal)
         self.login('personnel-actioneditor')
         self.assertDictEqual(crit.query, {'assigned_group': {'query': [self.groups['Personnel']]}})
+
+    def test_ChildrenActionDeadlineHasPassedCriterion(self):
+        crit = ChildrenActionDeadlineHasPassedCriterion(self.portal)
+        self.login('personnel-actioneditor')
+        dic = crit.query
+        self.assertIn(':has_child', dic)
+        self.assertIn('portal_type', dic[':has_child']['query'])
+        self.assertIn('planned_end_date', dic[':has_child']['query'])
+        self.assertIn('sort_order', dic[':has_child']['query'])
+        self.assertIn('sort_on', dic[':has_child']['query'])
