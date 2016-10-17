@@ -1,14 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from datetime import datetime
-from plone.app.textfield.value import RichTextValue
-
-
-def _richtextval(text):
-    """ Return a RichTextValue """
-    if not isinstance(text, unicode):
-        text = text.decode('utf8')
-    return RichTextValue(raw=text, mimeType='text/html', outputMimeType='text/html', encoding='utf-8')
+from imio.helpers.content import richtextval
 
 currentYear = datetime.now().year
 
@@ -19,7 +12,7 @@ def get_os_oo_ac_data(groups):
             'title': u'Etre une commune qui offre un service public moderne, efficace et efficient',
             'categories': u'volet-interne-adm-generale-amelioration-administration',
             'budget': [],
-            'budget_comments': _richtextval(u''),
+            'budget_comments': richtextval(u''),
             'operationalobjectives': [
                 {
                     'title': u"Diminuer le temps d'attente de l'usager au guichet population de 20% dans les 12 mois "
@@ -35,7 +28,7 @@ def get_os_oo_ac_data(groups):
                     'manager': [groups['service-population'], groups['service-etat-civil']],
                     'extra_concerned_people': u'',
                     'budget': [],
-                    'comments': _richtextval(u''),
+                    'comments': richtextval(u''),
                     'actions': [
                         {'title': u'Engager 2 agents pour le Service Population',
                          'manager': [groups['service-population'], ],
@@ -53,7 +46,7 @@ def get_os_oo_ac_data(groups):
                                     ],
                          'health_indicator': u'bon',
                          'health_indicator_details': u'',
-                         'comments': _richtextval(u''),
+                         'comments': richtextval(u''),
                          'tasks': [
                              {'title': u'Rédiger le profil de fonction',
                               'assigned_group': groups['service-population']},
@@ -73,7 +66,7 @@ def get_os_oo_ac_data(groups):
                                     ],
                          'health_indicator': u'bon',
                          'health_indicator_details': u'',
-                         'comments': _richtextval(u''),
+                         'comments': richtextval(u''),
                          'tasks': [
                              {'title': u'Réparer le guichet',
                               'assigned_group': groups['service-travaux']},
@@ -92,7 +85,7 @@ def get_os_oo_ac_data(groups):
                                     ],
                          'health_indicator': u'bon',
                          'health_indicator_details': u'',
-                         'comments': _richtextval(u''),
+                         'comments': richtextval(u''),
                          'tasks': [
                              {'title': u'Expliquer au service comment éditer sur le site internet',
                               'assigned_group': groups['service-informatique']},
@@ -116,7 +109,7 @@ def get_os_oo_ac_data(groups):
                     'manager': [groups['service-population'], groups['service-etat-civil']],
                     'extra_concerned_people': u'',
                     'budget': [],
-                    'comments': _richtextval(u''),
+                    'comments': richtextval(u''),
                     'actions': [
                         {'title': u'Placer des pictogrammes de guidance',
                          'manager': [groups['service-population'], ],
@@ -130,7 +123,7 @@ def get_os_oo_ac_data(groups):
                                     ],
                          'health_indicator': u'bon',
                          'health_indicator_details': u'',
-                         'comments': _richtextval(u''),
+                         'comments': richtextval(u''),
                          'tasks': [
                              {'title': u'Acheter/fournir des pictogrammes de guidance',
                               'assigned_group': groups['service-travaux']},
@@ -152,7 +145,7 @@ def get_os_oo_ac_data(groups):
                                     ],
                          'health_indicator': u'risque',
                          'health_indicator_details': u'Problème, retard dû à l\'exécution du marché',
-                         'comments': _richtextval(u''),
+                         'comments': richtextval(u''),
                          },
                         {'title': u'Mettre en place des permanences sur rendez-vous',
                          'manager': [groups['service-population'], ],
@@ -161,7 +154,7 @@ def get_os_oo_ac_data(groups):
                          'budget': [],
                          'health_indicator': u'risque',
                          'health_indicator_details': u'',
-                         'comments': _richtextval(u''),
+                         'comments': richtextval(u''),
                          'tasks': [
                              {'title': u'Établir le mode de fonctionnement pour les permanences',
                               'assigned_group': groups['secretariat-communal']},
@@ -176,7 +169,7 @@ def get_os_oo_ac_data(groups):
                      u'des gaz à effet de serre afin d\'assurer le développement durable',
             'categories': u'volet-externe-dvp-politiques-energie',
             'budget': [],
-            'budget_comments': _richtextval(u''),
+            'budget_comments': richtextval(u''),
             'operationalobjectives': [
                 {
                     'title': u'Doter la commune de compétences en matière énergétique pour fin 2014 compte tenu du '
@@ -193,7 +186,7 @@ def get_os_oo_ac_data(groups):
                     'manager': [groups['service-de-lurbanisme']],
                     'extra_concerned_people': u'',
                     'budget': [],
-                    'comments': _richtextval(u''),
+                    'comments': richtextval(u''),
                     'actions': [
                         {'title': u'Procéder à l\'engagement d\'un conseiller en énergie',
                          'manager': [groups['service-de-lurbanisme'], ],
@@ -202,7 +195,7 @@ def get_os_oo_ac_data(groups):
                          'budget': [],
                          'health_indicator': u'bon',
                          'health_indicator_details': u'',
-                         'comments': _richtextval(u''),
+                         'comments': richtextval(u''),
                          'tasks': [
                              {'title': u'Rédiger le profil de fonction de conseiller en énergie',
                               'assigned_group': groups['service-population']},
@@ -222,7 +215,7 @@ def get_os_oo_ac_data(groups):
                                     ],
                          'health_indicator': u'bon',
                          'health_indicator_details': u'',
-                         'comments': _richtextval(u'')
+                         'comments': richtextval(u'')
                          },
                         {'title': u'Inscrire systématiquement les agents du service travaux aux formations '
                                   u'énergétiques',
@@ -237,7 +230,7 @@ def get_os_oo_ac_data(groups):
                                     ],
                          'health_indicator': u'bon',
                          'health_indicator_details': u'',
-                         'comments': _richtextval(u'')
+                         'comments': richtextval(u'')
                          },
                     ]
                 },
@@ -255,7 +248,7 @@ def get_os_oo_ac_data(groups):
                     'manager': [groups['service-de-lurbanisme']],
                     'extra_concerned_people': u'',
                     'budget': [],
-                    'comments': _richtextval(u''),
+                    'comments': richtextval(u''),
                     'actions': [
                         {'title': u'Réaliser un audit énergétique de l\'administration communale',
                          'manager': [groups['service-de-lurbanisme'], ],
@@ -268,7 +261,7 @@ def get_os_oo_ac_data(groups):
                                     ],
                          'health_indicator': u'bon',
                          'health_indicator_details': u'',
-                         'comments': _richtextval(u''),
+                         'comments': richtextval(u''),
                          'tasks': [
                              {'title': u'Écrire le cahier des charges',
                               'assigned_group': groups['cellule-marches-publics']},
@@ -287,7 +280,7 @@ def get_os_oo_ac_data(groups):
                                     ],
                          'health_indicator': u'bon',
                          'health_indicator_details': u'',
-                         'comments': _richtextval(u'')
+                         'comments': richtextval(u'')
                          },
                         {'title': u'En fonction des résultats, installer une pompe à chaleur',
                          'manager': [groups['service-population'], ],
@@ -300,7 +293,7 @@ def get_os_oo_ac_data(groups):
                                     ],
                          'health_indicator': u'bon',
                          'health_indicator_details': u'Devenu sans objet compte tenu des résultats de l\'audit',
-                         'comments': _richtextval(u'')
+                         'comments': richtextval(u'')
                          },
                     ]
                 },
@@ -310,7 +303,7 @@ def get_os_oo_ac_data(groups):
             'title': u'Etre une commune où il fait bon vivre dans un cadre agréable, propre et en toute sécurité',
             'categories': u'volet-externe-dvp-politiques-proprete-securite-publique',
             'budget': [],
-            'budget_comments': _richtextval(u''),
+            'budget_comments': richtextval(u''),
             'operationalobjectives': [
                 {
                     'title': u'Assurer la propreté dans l\'ensemble des parcs de la commune de manière à '
@@ -326,9 +319,9 @@ def get_os_oo_ac_data(groups):
                     'extra_concerned_people': u'Police\r\nAgents constatateurs communaux\r\nAgent sanctionnateur '
                                               u'communal\r\nStewards urbains',
                     'budget': [],
-                    'budget_comments': _richtextval(u'Fonds propres (en cours de chiffrage) et subventions (dossier '
-                                                    u'introduit pour l\'engagement de deux stewards urbains)'),
-                    'comments': _richtextval(u''),
+                    'budget_comments': richtextval(u'Fonds propres (en cours de chiffrage) et subventions (dossier '
+                                                   u'introduit pour l\'engagement de deux stewards urbains)'),
+                    'comments': richtextval(u''),
                     'actions': [
                         {'title': u'Installer des distributeurs de sacs "ramasse crottes", dans les parcs '
                                   u'(entrée et sortie)',
@@ -341,13 +334,13 @@ def get_os_oo_ac_data(groups):
                                      'year': currentYear},
                                     {'amount': 250.0, 'budget_type': 'province', 'year': currentYear},
                                     ],
-                         'budget_comments': _richtextval(u'1000 euros\r\nBudget ordinaire\r\nArticle budgétaire '
-                                                         u'n°: ...'),
+                         'budget_comments': richtextval(u'1000 euros\r\nBudget ordinaire\r\nArticle budgétaire '
+                                                        u'n°: ...'),
                          'health_indicator': u'risque',
                          'health_indicator_details': u'Agent traitant malade pour minimum 3 mois -> risque de retard '
                                                      u'dans le planning',
-                         'comments': _richtextval(u'Attendre le placement des nouvelles poubelles (avant le '
-                                                  u'01/12/2013)'),
+                         'comments': richtextval(u'Attendre le placement des nouvelles poubelles (avant le '
+                                                 u'01/12/2013)'),
                          'tasks': [
                              {'title': u'Commander des distributeurs de sacs',
                               'assigned_group': groups['service-travaux']},
