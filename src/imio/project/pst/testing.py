@@ -2,21 +2,30 @@
 """Base module for unittesting."""
 
 import unittest2
+from Testing import ZopeTestCase as ztc
 from plone.app.testing import PloneWithPackageLayer
 from plone.app.testing import FunctionalTesting
 from plone.app.testing import IntegrationTesting
 from plone.app.testing import login, logout
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
-from plone.app.testing import TEST_USER_NAME
-from datetime import datetime
-from zope.component import getUtility
-from plone.registry.interfaces import IRegistry
-from plone.dexterity.utils import createContentInContainer
-from collective.contact.plonegroup.config import ORGANIZATIONS_REGISTRY, PLONEGROUP_ORG
+
 import imio.project.pst
 
-PST_TESTING_PROFILE = PloneWithPackageLayer(
+
+class PSTLayer(PloneWithPackageLayer):
+
+    def setUpPloneSite(self, portal):
+        super(PSTLayer, self).setUpPloneSite(portal)
+        setRoles(portal, TEST_USER_ID, ['Manager'])
+        portal.portal_setup.runAllImportStepsFromProfile('profile-imio.project.pst:demo')
+
+    def setUpZope(self, app, configurationContext):
+        ztc.utils.setupCoreSessions(app)
+        super(PSTLayer, self).setUpZope(app, configurationContext)
+
+
+PST_TESTING_PROFILE = PSTLayer(
     zcml_filename="testing.zcml",
     zcml_package=imio.project.pst,
     additional_z2_products=('Products.PasswordStrength', 'imio.dashboard', 'imio.project.pst'),
@@ -39,91 +48,18 @@ class IntegrationTestCase(unittest2.TestCase):
         super(IntegrationTestCase, self).setUp()
         self.portal = self.layer['portal']
         self.pst = self.portal['pst']
+        self.os1 = self.pst['etre-une-commune-qui-offre-un-service-public-moderne-efficace-et-efficient']
+        self.oo1 = self.os1['diminuer-le-temps-dattente-de-lusager-au-guichet-population-de-20-dans-les-12-mois'
+                            '-a-venir']
+        self.ac1 = self.oo1['engager-2-agents-pour-le-service-population']
+        act_srv = [u'cellule-marches-publics', u'secretariat-communal', u'service-etat-civil', u'service-informatique',
+                   u'service-proprete', u'service-population', u'service-travaux', u'service-de-lurbanisme']
+        srv_obj = self.portal['contacts']['plonegroup-organization']['services']
+        self.groups = dict([(srv, srv_obj[srv].UID().decode('utf8')) for srv in act_srv])
 
     def login(self, username):
         logout()
         login(self.portal, username)
-
-    def addUsers(self):
-        self.portal = self.layer['portal']
-        # login as Manager
-        setRoles(self.portal, TEST_USER_ID, ['Manager'])
-        login(self.portal, TEST_USER_NAME)
-        # add users
-        self.portal.portal_registration.addMember(id="psteditor", password="Project69!")
-        self.portal.acl_users.source_groups.addPrincipalToGroup("psteditor", "pst_editors")
-        # add contacts, plone groups, users
-        self.portal.contacts.invokeFactory('organization', id=PLONEGROUP_ORG)
-        own_orga = self.portal.contacts[PLONEGROUP_ORG]
-        createContentInContainer(own_orga, 'organization', **{'title': u'Services'})
-        self.groups = {}
-        registry = getUtility(IRegistry)
-        for service in (u'Personnel', u'Compta'):
-            obj = createContentInContainer(own_orga['services'], 'organization', **{'title': service})
-            registry[ORGANIZATIONS_REGISTRY] = registry[ORGANIZATIONS_REGISTRY] + [obj.UID()]
-            self.groups[service] = obj.UID()
-            for suffix in ['actioneditor', 'admin_resp']:
-                user = '%s-%s' % (service.lower(), suffix)
-                self.portal.portal_registration.addMember(id=user, password="Project69!")
-                self.portal.acl_users.source_groups.addPrincipalToGroup(user, "%s_%s" % (obj.UID(), suffix))
-        logout()
-
-    def addObjects(self):
-        self.portal = self.layer['portal']
-        # login as Manager
-        setRoles(self.portal, TEST_USER_ID, ['Manager'])
-        login(self.portal, TEST_USER_NAME)
-        services = self.portal.contacts['plonegroup-organization']['services']
-        data = {
-            'os1':
-            {
-            'title': u'OS1',
-            'categories': u'volet-externe-dvp-politiques-proprete-securite-publique',
-            'budget': [],
-            'budget_comments': u'',
-            'operationalobjectives': [
-                {
-                    'title': u'OO1-1',
-                    u'result_indicator': [{'value': 50, 'label': u'Nombre de sacs poubelles récoltés '
-                                          u'chaque année et à l\'échéance (31 12 2015)',
-                                          'reached_value': 0}],
-                    'priority': u'1',
-                    'planned_end_date': datetime.date(datetime(2015, 12, 31)),
-                    'representative_responsible': [],
-                    'administrative_responsible': [services['personnel'].UID()],
-                    'manager': [services['personnel'].UID()],
-                    'extra_concerned_people': u'Police\r\nAgents constatateurs communaux\r\nAgent ',
-                    'budget': [],
-                    'budget_comments': u'Fonds propres (en cours de chiffrage)',
-                    'comments': u'',
-                    'actions': [
-                        {'title': u'A1-1-1',
-                         'manager': [services['personnel'].UID()],
-                         'planned_end_date': datetime.date(datetime(2014, 06, 30)),
-                         'extra_concerned_people': u'La firme adjudicatrice au terme du marché public',
-                         'budget': [{'amount': 12500.0, 'budget_type': 'wallonie', 'year': '2013'},
-                                    ],
-                         'budget_comments': u'1000 euros\r\nBudget ordinaire\r\nArticle budgétaire n°: ...',
-                         'health_indicator': u'risque',
-                         'health_indicator_details': u'Agent traitant malade pour minimum 3 mois -> risque de retard',
-                         'comments': u'Attendre le placement des nouvelles poubelles (avant le 01 12 2013)'
-                         },
-                    ]
-                },
-            ],
-            },
-        }
-
-        # create all this in a folder named 'pst' at the root of the Plone Site
-        pst = self.portal.pst
-        for strategicobjective in data:
-            strategicObj = createContentInContainer(pst, "strategicobjective", id=strategicobjective,
-                                                    **data[strategicobjective])
-            for operationalobjective in data[strategicobjective]['operationalobjectives']:
-                operationalObj = createContentInContainer(strategicObj, "operationalobjective", **operationalobjective)
-                for action in operationalobjective['actions']:
-                    createContentInContainer(operationalObj, "pstaction", **action)
-        logout()
 
 
 class FunctionalTestCase(unittest2.TestCase):

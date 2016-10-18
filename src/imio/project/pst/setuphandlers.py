@@ -454,6 +454,8 @@ def addDemoOrganization(context):
           u'Service du Personnel', u'Service Propreté', u'Service Population',
           u'Service Travaux', u'Service de l\'Urbanisme', ]),
     ]
+    act_srv = [u'Cellule Marchés Publics', u'Secrétariat Communal', u'Service Etat-civil', u'Service Informatique',
+               u'Service Propreté', u'Service Population', u'Service Travaux', u'Service de l\'Urbanisme']
     registry = getUtility(IRegistry)
     group_ids = []
 
@@ -463,7 +465,7 @@ def addDemoOrganization(context):
         for service in services:
             obj = createContentInContainer(dep, 'organization',
                                            **{'title': service, 'organization_type': u'service'})
-            if department == 'Services' and obj.UID() not in registry[ORGANIZATIONS_REGISTRY]:
+            if service in act_srv and obj.UID() not in registry[ORGANIZATIONS_REGISTRY]:
                 group_ids.append(obj.UID())
     if group_ids:
         registry[ORGANIZATIONS_REGISTRY] = registry[ORGANIZATIONS_REGISTRY] + group_ids
@@ -552,18 +554,29 @@ def _addPSTUsers(context):
     logger.info('Adding PST users')
     site = context.getSite()
     password = 'Project69!'
+    act_srv = [u'cellule-marches-publics', u'secretariat-communal', u'service-etat-civil', u'service-informatique',
+               u'service-proprete', u'service-population', u'service-travaux', u'service-de-lurbanisme']
+    srv_obj = site['contacts']['plonegroup-organization']['services']
+    orgs = dict([(srv, srv_obj[srv].UID()) for srv in act_srv])
+    users = {
+        ('pstmanager', u'PST manager'): ["pst_managers"],
+        ('psteditor', u'PST editeur global'): ["pst_editors"],
+        ('pstreader', u'PST lecteur global'): ["pst_readers"],
+        ('chef', u'Michel Chef'): ['%s_admin_resp' % orgs[org] for org in orgs],
+        ('agent', u'Fred Agent'): ['%s_actioneditor' % orgs[org] for org in orgs],
+    }
+
     if is_develop_environment():
-        try:
-            site.portal_registration.addMember(id="pstmanager", password=password)
-            site.portal_registration.addMember(id="pstreader", password=password)
-            site.portal_registration.addMember(id="psteditor", password=password)
-            #put users in the correct group
-            site.acl_users.source_groups.addPrincipalToGroup("pstmanager", "pst_managers")
-            site.acl_users.source_groups.addPrincipalToGroup("pstreader", "pst_readers")
-            site.acl_users.source_groups.addPrincipalToGroup("psteditor", "pst_editors")
-        except ValueError, exc:
-            if not str(exc).startswith('The login name you selected is already in use'):
-                logger("Error creating user: %s" % (exc))
+        for uid, fullname in users.keys():
+            try:
+                member = site.portal_registration.addMember(id=uid, password=password)
+                member.setMemberProperties({'fullname': fullname, 'email': 'test@macommune.be'})
+                for gp in users[(uid, fullname)]:
+                    api.group.add_user(groupname=gp, username=uid)
+            except ValueError, exc:
+                if str(exc).startswith('The login name you selected is already in use'):
+                    continue
+                logger("Error creating user '%s': %s" % (uid, exc))
 
 
 COLUMNS_FOR_CONTENT_TYPES = {

@@ -9,20 +9,16 @@ from imio.project.pst.content import action
 
 
 class TestAction(IntegrationTestCase):
-    """Test installation of imio.project.pst into Plone."""
+    """Test action.py."""
 
     def setUp(self):
         """Custom shared utility setup for tests."""
         super(TestAction, self).setUp()
-        self.addUsers()
-        self.addObjects()
 
     def test_default_manager(self):
         """
             test default values
         """
-        oo = self.pst['os1']['oo1-1']
-        act = oo['a1-1-1']
 
         class Dummy(object):
             def __init__(self, context):
@@ -30,41 +26,40 @@ class TestAction(IntegrationTestCase):
 
         # we login as a pst editor
         self.login('psteditor')
-        self.assertEquals(action.default_manager(Dummy(oo)), [])
+        self.assertEquals(action.default_manager(Dummy(self.oo1)), [])
         # we login as a service member
-        self.login('personnel-actioneditor')
-        self.assertEquals(action.default_manager(Dummy(oo)), [self.groups['Personnel']])
+        self.login('agent')
+        self.assertEquals(action.default_manager(Dummy(self.oo1)), [self.groups['service-population'],
+                                                                    self.groups['service-etat-civil']])
         # we login as a service member, the context isn't the good one
-        self.login('personnel-actioneditor')
-        self.assertEquals(action.default_manager(Dummy(act)), [])
+        self.assertEquals(action.default_manager(Dummy(self.ac1)), [])
 
     def test_manager_validator(self):
         """
             test default values
         """
-        oo = self.pst['os1']['oo1-1']
-        act = oo['a1-1-1']
-        validator = action.ManagerFieldValidator(act, None, None,
+        validator = action.ManagerFieldValidator(self.ac1, None, None,
                                                  action.IPSTAction['manager'], None)
         # bypass for Managers
         self.login(TEST_USER_NAME)
+        api.group.remove_user(groupname='%s_actioneditor' % self.groups['service-proprete'], username='agent')
         member = api.user.get_current()
         self.assertTrue(member.has_role('Manager'))
         validator.validate([])
-        validator.validate([self.groups['Compta']])
+        validator.validate([self.groups['service-proprete']])
         # bypass for pst editors
         self.login('psteditor')
         member = api.user.get_current()
         self.assertTrue('pst_editors' in member.getGroups())
-        validator.validate([self.groups['Compta']])
+        validator.validate([self.groups['service-proprete']])
         # constrain for service user
-        self.login('personnel-actioneditor')
+        self.login('agent')
         with self.assertRaises(Invalid) as raised:
             validator.validate([])
         self.assertEquals(raised.exception.message,
                           u'You must choose at least one group')
         with self.assertRaises(Invalid) as raised:
-            validator.validate([self.groups[u'Compta']])
+            validator.validate([self.groups[u'service-proprete']])
         self.assertEquals(raised.exception.message,
                           u'You must choose at least one group of which you are a member')
         validator.validate(self.groups.values())
