@@ -225,7 +225,7 @@ class DocumentGenerationPSTActionsHelper(DXDocumentGenerationHelperView, Documen
         """
             get the strategic objective parent
         """
-        return self.aq_inner.aq_parent.aq_inner.aq_parent
+        return self.real_context.aq_inner.aq_parent.aq_inner.aq_parent
 
     def formatHealthIndicator(self):
         """

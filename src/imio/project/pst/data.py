@@ -11,7 +11,7 @@ def get_os_oo_ac_data(groups):
         {
             'title': u'Etre une commune qui offre un service public moderne, efficace et efficient',
             'categories': u'volet-interne-adm-generale-amelioration-administration',
-            'budget': [],
+            'budget': [{'amount': 1000.0, 'budget_type': 'wallonie', 'year': currentYear}],
             'budget_comments': richtextval(u''),
             'operationalobjectives': [
                 {
@@ -27,7 +27,7 @@ def get_os_oo_ac_data(groups):
                     'administrative_responsible': ['secretariat-communal'],
                     'manager': [groups['service-population'], groups['service-etat-civil']],
                     'extra_concerned_people': u'',
-                    'budget': [],
+                    'budget': [{'amount': 500.0, 'budget_type': 'wallonie', 'year': currentYear}],
                     'comments': richtextval(u''),
                     'actions': [
                         {'title': u'Engager 2 agents pour le Service Population',
