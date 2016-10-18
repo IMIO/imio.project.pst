@@ -6,6 +6,7 @@ from collective.documentgenerator.helper.dexterity import DXDocumentGenerationHe
 from collective.documentgenerator.helper.archetypes import ATDocumentGenerationHelperView
 from imio.dashboard.browser.overrides import IDDocumentGenerationView
 from imio.project.core.config import CHILDREN_BUDGET_INFOS_ANNOTATION_KEY
+from imio.pyutils.bs import remove_attributes, replace_entire_strings, unwrap_tags
 
 from views import _getWorkflowStates
 
@@ -75,14 +76,21 @@ class BudgetHelper():
             get the own rendered widget
         """
         soup = self.display_widget('budget', soup=True)
-        return str(soup.find('fieldset').find('table'))
+        table = soup.find('fieldset').find('table')
+        remove_attributes(table, ['class', 'id', 'data-id_prefix', 'data-name_prefix'])
+        replace_entire_strings(table)
+        unwrap_tags(table, ['span'])
+        return str(table)
 
     def getChildrenBudget(self):
         """
             get the children budget
         """
         soup = self.display_widget('budget', soup=True)
-        return str(soup.find('table', class_='budgetinfos_table'))
+        table = soup.find('table', class_='budgetinfos_table')
+        remove_attributes(table, ['class', 'id'])
+        replace_entire_strings(table)
+        return str(table)
 
     def hasChildrenBudget(self, obj):
         """
