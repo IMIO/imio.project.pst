@@ -3,12 +3,15 @@
 
 import unittest2
 from Testing import ZopeTestCase as ztc
+from Products.CMFPlone.utils import _createObjectByType
+from plone.app.robotframework.testing import REMOTE_LIBRARY_BUNDLE_FIXTURE
 from plone.app.testing import PloneWithPackageLayer
 from plone.app.testing import FunctionalTesting
 from plone.app.testing import IntegrationTesting
 from plone.app.testing import login, logout
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
+from plone.testing import z2
 
 import imio.project.pst
 
@@ -16,6 +19,8 @@ import imio.project.pst
 class PSTLayer(PloneWithPackageLayer):
 
     def setUpPloneSite(self, portal):
+        _createObjectByType('Document', portal, id='front-page')
+        portal.setDefaultPage('front-page')
         super(PSTLayer, self).setUpPloneSite(portal)
         setRoles(portal, TEST_USER_ID, ['Manager'])
         portal.portal_setup.runAllImportStepsFromProfile('profile-imio.project.pst:demo')
@@ -37,6 +42,12 @@ PST_TESTING_PROFILE_INTEGRATION = IntegrationTesting(
 
 PST_TEST_PROFILE_FUNCTIONAL = FunctionalTesting(
     bases=(PST_TESTING_PROFILE,), name="PST_TESTING_PROFILE_FUNCTIONAL")
+
+PST_ROBOT_TESTING = FunctionalTesting(
+    bases=(PST_TESTING_PROFILE,
+           REMOTE_LIBRARY_BUNDLE_FIXTURE,
+           z2.ZSERVER_FIXTURE,),
+    name="PST_ROBOT_TESTING")
 
 
 class IntegrationTestCase(unittest2.TestCase):

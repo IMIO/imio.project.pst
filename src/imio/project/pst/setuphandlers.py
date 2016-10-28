@@ -40,7 +40,7 @@ logger = logging.getLogger('imio.project.pst: setuphandlers')
 
 def _(msgid, context=None, domain='imio.project.pst'):
     translation_domain = queryUtility(ITranslationDomain, domain)
-    return translation_domain.translate(msgid, context=getRequest())
+    return translation_domain.translate(msgid, context=getRequest(), target_language='fr')
 
 
 def reimport_faceted_config(folder, xml, default_UID=None):
