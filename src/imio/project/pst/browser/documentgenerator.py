@@ -143,7 +143,7 @@ class DocumentGenerationSOHelper(DXDocumentGenerationHelperView, DocumentGenerat
         """
         try:
             return self.display_voc('categories').split(' - ')[0]
-        except IndexError:
+        except IndexError:  # pragma: no cover
             return ''
 
     def getDomain(self):
@@ -152,7 +152,7 @@ class DocumentGenerationSOHelper(DXDocumentGenerationHelperView, DocumentGenerat
         """
         try:
             return self.display_voc('categories').split(' - ')[1]
-        except IndexError:
+        except IndexError:  # pragma: no cover
             return ''
 
 

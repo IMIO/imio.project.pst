@@ -5,6 +5,7 @@ from datetime import datetime
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
 from imio.project.pst.testing import IntegrationTestCase
+from imio.project.pst.browser.documentgenerator import DocumentGenerationSOHelper
 
 
 class TestDocumentGenerator(IntegrationTestCase):
@@ -134,4 +135,26 @@ class TestDocumentGenerator(IntegrationTestCase):
         self.assertEqual(objs[0], self.ac1)
         self.assertEqual(view.getSOParent(), self.os1)
         self.assertEqual(view.formatHealthIndicator(), '<p class="Santé-bon"></p>')
-        self.assertFalse(view.hasChildrenBudget())
+        self.assertFalse(view.hasChildrenBudget(self.ac1))
+
+    def test_CategoriesDocumentGenerationView(self):
+        view = self.pst['strategicobjectives'].unrestrictedTraverse('@@document-generation')
+        # hview without uids
+        hview = self.pst['strategicobjectives'].unrestrictedTraverse('@@document_generation_helper_view')
+        dic = view._get_generation_context(hview)
+        self.assertIn('context', dic)
+        self.assertEqual(dic['context'].context, self.pst['strategicobjectives'])
+        self.assertIn('view', dic)
+        self.assertEqual(dic['view'], hview)
+        self.assertNotIn('brains', dic)
+        # hview vith brains
+        hview.request.form['uids'] = self.oo1.UID()
+        hview.request.form['facetedQuery'] = ''
+        dic = view._get_generation_context(hview)
+        self.assertIn('brains', dic)
+        self.assertIn('uids', dic)
+        self.assertListEqual(dic['uids'], [self.oo1.UID()])
+        self.assertIn('context', dic)
+        self.assertEqual(dic['context'], self.os1)
+        self.assertIn('view', dic)
+        self.assertTrue(isinstance(dic['view'], DocumentGenerationSOHelper))
