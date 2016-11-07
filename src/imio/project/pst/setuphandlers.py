@@ -29,7 +29,7 @@ from dexterity.localroles.utils import add_fti_configuration
 from imio.dashboard.utils import enableFacetedDashboardFor, _updateDefaultCollectionFor
 from imio.helpers.catalog import addOrUpdateIndexes
 from imio.helpers.security import is_develop_environment
-from imio.helpers.content import create, add_file
+from imio.helpers.content import create, add_file, transitions
 
 from data import get_os_oo_ac_data
 from imio.project.pst.utils import list_wf_states
@@ -361,6 +361,7 @@ def adaptDefaultPortal(site):
         frontpage.setText(_("front_page_text"), mimetype='text/html')
         #remove the presentation mode
         frontpage.setPresentation(False)
+        transitions(frontpage, ('retract', 'publish_internally'))
         frontpage.reindexObject()
         logger.info('front page adapted')
 
