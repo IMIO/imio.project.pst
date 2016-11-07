@@ -10,6 +10,7 @@
   <include package="collective.contact.plonegroup" />
   <include package="communesplone.layout" />
   <include package="plonetheme.imioapps" />
+  <includeDependenciesOverrides package="." />
 
   <genericsetup:registerProfile
       name="testing"
