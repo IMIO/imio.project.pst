@@ -118,6 +118,13 @@
 
 
     <!-- ADD / EDIT FORMS -->
+    <browser:page
+        for="collective.task.interfaces.ITaskContent"
+        name="edit"
+        class=".task.TaskEdit"
+        permission="cmf.ModifyPortalContent"
+        />
+
     <adapter
         for="Products.CMFCore.interfaces.IFolderish
              zope.publisher.interfaces.browser.IDefaultBrowserLayer
