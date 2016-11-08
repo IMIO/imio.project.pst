@@ -49,7 +49,7 @@ def get_os_oo_ac_data(groups):
                          'comments': richtextval(u''),
                          'tasks': [
                              {'title': u'Rédiger le profil de fonction',
-                              'assigned_group': groups['service-population']},
+                              'assigned_group': groups['service-population'], 'assigned_user': 'agent'},
                              {'title': u'Ajouter une annonce sur le site internet',
                               'assigned_group': groups['service-informatique']},
                          ]
