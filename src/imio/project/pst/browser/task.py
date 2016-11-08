@@ -70,8 +70,9 @@ class Add(DefaultAddView):
 
 class AssignedGroupColumn(VocabularyColumn):
 
-    header = _("Assigned group")
+    header = _t("Assigned group")
     weight = 30
-    attrName = 'manager'
+    attrName = 'assigned_group'
 
-    vocabulary = u'imio.project.core.content.project.manager_vocabulary'
+    vocabulary = u'collective.task.AssignedGroups'
+
