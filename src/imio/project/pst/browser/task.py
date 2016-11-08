@@ -12,8 +12,6 @@ from collective.contact.plonegroup.utils import voc_selected_org_suffix_users
 from collective.eeafaceted.z3ctable.columns import VocabularyColumn
 from collective.task import _ as _t
 
-from .. import _
-
 
 def filter_task_assigned_users(group):
     """

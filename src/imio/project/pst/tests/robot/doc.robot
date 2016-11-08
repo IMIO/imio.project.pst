@@ -57,7 +57,21 @@ Consultation
     Sleep  0.3
     Capture and crop page screenshot  doc/utilisation/2-2-1 visualisation tache.png  css=.site-plone  id=portal-column-content
 
+Menu courrier
+# partie 2.2.2 Menu de recherches prédéfinies
+    Enable autologin as  Manager
+    Set autologin username  psteditor
+    Go to  ${PLONE_URL}/pst
+    Wait until element is visible  css=.faceted-table-results  10
+    Sleep  0.3
+    Capture and crop page screenshot  doc/utilisation/2-2-2 menu recherches.png  css=.portletWidgetCollection
+    Go to  ${PLONE_URL}/pst/${OS}/${OO}/${Action}
+    Wait until element is visible  css=.faceted-table-results  10
+    Sleep  0.3
+    Capture and crop page screenshot  doc/utilisation/2-2-2 navigation.png  css=.portletNavigationTree
+
 *** Keywords ***
 Suite Setup
     Open test browser
     Set Window Size  1280  1200
+    Set Suite Variable  ${CROP_MARGIN}  2
