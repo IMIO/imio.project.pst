@@ -141,13 +141,4 @@
             />
     </class>
 
-    <adapter
-        name="AssignedGroupColumn"
-        for="collective.task.interfaces.ITaskContent
-             zope.interface.Interface
-             collective.task.browser.table.TasksTable"
-        provides="z3c.table.interfaces.IColumn"
-        factory=".task.AssignedGroupColumn"
-      />
-
 </configure>
