@@ -17,7 +17,7 @@
 
     <utility
       interface="zope.schema.interfaces.IVocabularyFactory"
-      factory="collective.contact.plonegroup.browser.settings.SelectedOrganizationsElephantVocabulary"
+      factory="imio.project.pst.vocabularies.ManagerVocabulary"
       name="collective.task.AssignedGroups"
     />
 
