@@ -70,6 +70,15 @@ Menu courrier
     Sleep  0.3
     Capture and crop page screenshot  doc/utilisation/2-2-2 navigation.png  css=.portletNavigationTree
 
+Tableaux de bord
+# partie 2.2.3 Tableaux de bord
+    Enable autologin as  Manager
+    Set autologin username  psteditor
+    Go to  ${PLONE_URL}/pst
+    Wait until element is visible  css=.faceted-table-results  10
+    Select collection  pst/operationalobjectives/all
+    Capture and crop page screenshot  doc/utilisation/2-2-3 tableaux de bord général.png  id=content
+
 *** Keywords ***
 Suite Setup
     Open test browser
