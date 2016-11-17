@@ -13,7 +13,8 @@ Suite Teardown  Close all browsers
 *** Variables ***
 
 ${SELENIUM_RUN_ON_FAILURE}  Debug
-${OS}  etre-une-commune-qui-offre-un-service-public-moderne-efficace-et-efficient
+${OS1}  etre-une-commune-qui-offre-un-service-public-moderne-efficace-et-efficient
+${OS2}  etre-une-commune-ou-il-fait-bon-vivre-dans-un-cadre-agreable-propre-et-en-toute-securite
 ${OO}  diminuer-le-temps-dattente-de-lusager-au-guichet-population-de-20-dans-les-12-mois-a-venir
 ${Action}  engager-2-agents-pour-le-service-population
 ${task}  rediger-le-profil-de-fonction
@@ -32,7 +33,7 @@ Premiers pas
     Capture and crop page screenshot  doc/utilisation/2-1 page d'accueil.png  id=portal-header  id=parent-fieldname-description
     Capture and crop page screenshot  doc/utilisation/2-1 fil d'ariane.png  id=breadcrumbs-you-are-here  id=breadcrumbs-home
 
-Consultation
+Visualisation
 # partie 2.2.1 Visualisation d'un élément
     Enable autologin as  pstreader
     Set autologin username  pstreader
@@ -40,19 +41,19 @@ Consultation
     Wait until element is visible  css=.faceted-table-results  10
     Sleep  0.3
     Capture and crop page screenshot  doc/utilisation/2-2-1 visualisation pst.png  css=.site-plone  id=portal-footer-wrapper
-    Go to  ${PLONE_URL}/pst/${OS}
+    Go to  ${PLONE_URL}/pst/${OS1}
     Wait until element is visible  css=.faceted-table-results  10
     Sleep  0.3
     Capture and crop page screenshot  doc/utilisation/2-2-1 visualisation os.png  css=.site-plone  id=portal-column-content
-    Go to  ${PLONE_URL}/pst/${OS}/${OO}
+    Go to  ${PLONE_URL}/pst/${OS1}/${OO}
     Wait until element is visible  css=.faceted-table-results  10
     Sleep  0.3
     Capture and crop page screenshot  doc/utilisation/2-2-1 visualisation oo.png  css=.site-plone  id=portal-column-content
-    Go to  ${PLONE_URL}/pst/${OS}/${OO}/${Action}
+    Go to  ${PLONE_URL}/pst/${OS1}/${OO}/${Action}
     Wait until element is visible  css=.faceted-table-results  10
     Sleep  0.3
     Capture and crop page screenshot  doc/utilisation/2-2-1 visualisation action.png  css=.site-plone  id=portal-column-content
-    Go to  ${PLONE_URL}/pst/${OS}/${OO}/${Action}/${task}
+    Go to  ${PLONE_URL}/pst/${OS1}/${OO}/${Action}/${task}
     Wait until element is visible  formfield-form-widgets-ITask-due_date  10
     Sleep  0.3
     Capture and crop page screenshot  doc/utilisation/2-2-1 visualisation tache.png  css=.site-plone  id=portal-column-content
@@ -65,7 +66,7 @@ Menu courrier
     Wait until element is visible  css=.faceted-table-results  10
     Sleep  0.3
     Capture and crop page screenshot  doc/utilisation/2-2-2 menu recherches.png  css=.portletWidgetCollection
-    Go to  ${PLONE_URL}/pst/${OS}/${OO}/${Action}
+    Go to  ${PLONE_URL}/pst/${OS1}/${OO}/${Action}
     Wait until element is visible  css=.faceted-table-results  10
     Sleep  0.3
     Capture and crop page screenshot  doc/utilisation/2-2-2 navigation.png  css=.portletNavigationTree
@@ -78,6 +79,68 @@ Tableaux de bord
     Wait until element is visible  css=.faceted-table-results  10
     Select collection  pst/operationalobjectives/all
     Capture and crop page screenshot  doc/utilisation/2-2-3 tableaux de bord général.png  id=content
+    Click element  css=.faceted-sections-buttons-more
+    Wait until element is visible  id=top---advanced---widgets  10
+    Sleep  1
+    Capture and crop page screenshot  doc/utilisation/2-2-3 tableaux de bord filtres avances.png  id=top---advanced---widgets
+    # Go to  ${PLONE_URL}/filtre_add.png
+    # Sleep  1
+    # Capture and crop page screenshot  doc/utilisation/2-2-3 tableaux de bord filtres avances icone.png  css=body img
+
+Génération de documents
+# partie 2.2.4 Génération de documents
+    Enable autologin as  Manager
+    Set autologin username  psteditor
+    Go to  ${PLONE_URL}/pst
+    Wait until element is visible  css=.faceted-table-results  10
+    Capture and crop page screenshot  doc/utilisation/2-2-4 génération liste documents.png  css=#viewlet-below-content-title #doc-generation-view li
+    Capture and crop page screenshot  doc/utilisation/2-2-4 génération document élément.png  css=.documentFirstHeading  id=doc-generation-view
+    Capture and crop page screenshot  doc/utilisation/2-2-4 génération document tb.png  css=#pst-folder-listing legend  css=.faceted-table-results thead
+
+Modification
+# partie 2.3 Modification
+    Enable autologin as  psteditor
+    Set autologin username  psteditor
+    Go to  ${PLONE_URL}/pst/${OS2}
+    Wait until element is visible  css=.faceted-table-results  10
+    Sleep  0.3
+    Capture and crop page screenshot  doc/utilisation/2-3 modification barre verte.png  id=viewlet-above-content  id=edit-bar  css=.documentFirstHeading
+    Go to  ${PLONE_URL}/pst/${OS2}/edit
+    Wait until element is visible  formfield-form-widgets-comments  10
+    Sleep  0.3
+    Capture and crop page screenshot  doc/utilisation/2-3 modification financement dernière ligne.png  id=formfield-form-widgets-budget
+    Input text  name=form.widgets.budget.0.widgets.amount  1000
+    Click element  css=#formfield-form-widgets-budget label
+    Sleep  0.5
+    Capture and crop page screenshot  doc/utilisation/2-3 modification financement ligne ajoutée.png  id=formfield-form-widgets-budget
+    Capture and crop page screenshot  doc/utilisation/2-3 modification boutons.png  id=form-buttons-save  id=form-buttons-cancel
+
+Tâche
+# partie 2.5 Ajout d'une tâche
+    Enable autologin as  psteditor
+    Go to  ${PLONE_URL}/pst/${OS1}/${OO}/${Action}/++add++task
+    Wait until element is visible  cke_form.widgets.ITask.task_description  10
+    Sleep  0.3
+    Capture and crop page screenshot  doc/utilisation/2-5-1 tache ajout vierge.png  id=content
+    Input text  name=form.widgets.title  Placer le CV dans notre référentiel
+    Click button  id=form-buttons-save
+    Capture and crop page screenshot  doc/utilisation/2-5-1 tache ajout complete.png  id=content
+    ${UID} =  Path to uid  /${PLONE_SITE_ID}/pst/${OS1}/${OO}/${Action}/placer-le-cv-dans-notre-referentiel
+    Fire transition  ${UID}  do_to_assign
+    Go to  ${PLONE_URL}/pst/${OS1}/${OO}/${Action}/placer-le-cv-dans-notre-referentiel
+    Wait until element is visible  css=#plone-contentmenu-workflow span.state-to_assign  10
+    Capture and crop page screenshot  doc/utilisation/2-5-1 tache ajout to assign.png  id=content
+# partie 2.7.2 Visualisation d'une tâche
+    Go to  ${PLONE_URL}/pst/${OS1}/${OO}/${Action}
+    Wait until element is visible  css=.faceted-table-results  10
+    Sleep  0.5
+    Capture and crop page screenshot  doc/utilisation/2-5-2 tache dans action.png  id=content
+    Go to  ${PLONE_URL}/pst
+    Wait until element is visible  css=.faceted-table-results  10
+    Select collection  pst/tasks/all
+    Wait until element is visible  css=.th_header_assigned_group  10
+    Capture and crop page screenshot  doc/utilisation/2-5-2 tache dans tableau.png  id=content
+
 
 *** Keywords ***
 Suite Setup
