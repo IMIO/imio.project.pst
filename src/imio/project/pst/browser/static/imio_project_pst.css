@@ -35,7 +35,7 @@ body.template-view.portaltype-strategicobjective td.table_widget_label {
 }
 
 /* Hides */
-#formfield-form-widgets-IVersionable-changeNote {
+#formfield-form-widgets-IVersionable-changeNote, #download_vcard {
     display: none;
 }
 
