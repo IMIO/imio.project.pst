@@ -389,7 +389,11 @@ def adaptDefaultPortal(site):
 
     # Activate browser message
     msg = site['messages-config']['browser-warning']
-    api.content.transition(obj=msg, to_state='activated')
+    try:
+        # test if robotframework is there
+        from robot import run  # NOQA
+    except ImportError:
+        api.content.transition(obj=msg, to_state='activated')
 
     #for collective.externaleditor
     registry = getUtility(IRegistry)

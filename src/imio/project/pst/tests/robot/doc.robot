@@ -12,6 +12,7 @@ Suite Teardown  Close all browsers
 
 *** Variables ***
 
+${BROWSER}  GoogleChrome
 ${SELENIUM_RUN_ON_FAILURE}  Debug
 ${OS1}  etre-une-commune-qui-offre-un-service-public-moderne-efficace-et-efficient
 ${OS2}  etre-une-commune-ou-il-fait-bon-vivre-dans-un-cadre-agreable-propre-et-en-toute-securite
@@ -114,6 +115,8 @@ Modification
     Sleep  0.5
     Capture and crop page screenshot  doc/utilisation/2-3 modification financement ligne ajoutée.png  id=formfield-form-widgets-budget
     Capture and crop page screenshot  doc/utilisation/2-3 modification boutons.png  id=form-buttons-save  id=form-buttons-cancel
+    Click button  id=form-buttons-cancel
+    Sleep  0.3
 
 Tâche
 # partie 2.5 Ajout d'une tâche
@@ -141,9 +144,42 @@ Tâche
     Wait until element is visible  css=.th_header_assigned_group  10
     Capture and crop page screenshot  doc/utilisation/2-5-2 tache dans tableau.png  id=content
 
+Contacts
+# partie 3.3 Contacts
+    Enable autologin as  Manager
+    Set autologin username  psteditor
+    Go to  ${PLONE_URL}/contacts
+    Wait until element is visible  css=#organizations a  10
+    Capture and crop page screenshot  doc/configuration/3-3 annuaire.png  id=portal-header  id=content
+    Go to  ${PLONE_URL}/contacts/plonegroup-organization
+    Wait until element is visible  css=a.addnewcontactfromorganization  10
+    Update element style  id=organization  width  400px !important
+    Sleep  1
+    Capture and crop page screenshot  doc/configuration/3-3 mon organisation.png  css=h1.org  id=sub_organizations
+    Go to  ${PLONE_URL}/contacts/plonegroup-organization/services
+    Wait until element is visible  css=a.addnewcontactfromorganization  10
+    Update element style  id=organization  width  400px !important
+    Sleep  1
+    Capture and crop page screenshot  doc/configuration/3-3 mes services.png  css=h1.org  id=sub_organizations
+    Click element  user-name
+    Wait until element is visible  css=li#personaltools-plone_setup  10
+    Capture and crop page screenshot  doc/configuration/3-3 configuration site.png  id=livesearch0  css=dd.actionMenuContent
+    Go to  ${PLONE_URL}/@@overview-controlpanel
+    Wait until page contains  Configuration de module  10
+    Update element style  css=dl.warning  display  None
+    ${note50}  Add pointy note  css=.configlets li a[href$="/@@contact-plonegroup-settings"]  C'est là  position=top  color=blue
+    Capture and crop page screenshot  doc/configuration/3-3 lien config services.png  css=h2:nth-of-type(2)  css=h2:nth-of-type(3)  ${note50}
+    Remove element  ${note50}
+    # datagridfield doesn't work in robot
+    #Go to  ${PLONE_URL}/@@contact-plonegroup-settings
+    #Wait until element is visible  id=pg-orga-link  10
+    #Capture and crop page screenshot  doc/configuration/3-3 config services.png  id=content
+    Go to  ${PLONE_URL}/@@usergroup-usermembership?userid=psteditor
+    Wait until element is visible  css=table.listing  10
+    Capture and crop page screenshot  doc/configuration/3-3 groupes plone.png  id=content
 
 *** Keywords ***
 Suite Setup
     Open test browser
-    Set Window Size  1280  1200
+    Set Window Size  1280  4000
     Set Suite Variable  ${CROP_MARGIN}  2
