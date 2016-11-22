@@ -246,9 +246,9 @@ class CategoriesDocumentGenerationView(IDDocumentGenerationView):
         Change context for folder categories => dashboard collections context
     """
 
-    def _get_generation_context(self, helper_view):
+    def _get_generation_context(self, helper_view, pod_template):
         """ """
-        gen_context = super(CategoriesDocumentGenerationView, self)._get_generation_context(helper_view)
+        gen_context = super(CategoriesDocumentGenerationView, self)._get_generation_context(helper_view, pod_template)
         if hasattr(helper_view, 'uids_to_objs'):
             helper_view.uids_to_objs(gen_context.get('brains', []))
             if helper_view.sel_type:

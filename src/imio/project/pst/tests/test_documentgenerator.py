@@ -138,19 +138,23 @@ class TestDocumentGenerator(IntegrationTestCase):
         self.assertFalse(view.hasChildrenBudget(self.ac1))
 
     def test_CategoriesDocumentGenerationView(self):
+        pod_template = self.portal['templates']['dpst']
+        pod_template.context_variables = [{'name': 'details', 'value': '1'}]
         view = self.pst['strategicobjectives'].unrestrictedTraverse('@@document-generation')
         # hview without uids
         hview = self.pst['strategicobjectives'].unrestrictedTraverse('@@document_generation_helper_view')
-        dic = view._get_generation_context(hview)
+        dic = view._get_generation_context(hview, pod_template)
         self.assertIn('context', dic)
         self.assertEqual(dic['context'].context, self.pst['strategicobjectives'])
         self.assertIn('view', dic)
         self.assertEqual(dic['view'], hview)
+        self.assertIn('details', dic)
+        self.assertEqual(dic['details'], '1')
         self.assertNotIn('brains', dic)
         # hview vith brains
         hview.request.form['uids'] = self.oo1.UID()
         hview.request.form['facetedQuery'] = ''
-        dic = view._get_generation_context(hview)
+        dic = view._get_generation_context(hview, pod_template)
         self.assertIn('brains', dic)
         self.assertIn('uids', dic)
         self.assertListEqual(dic['uids'], [self.oo1.UID()])
@@ -158,3 +162,5 @@ class TestDocumentGenerator(IntegrationTestCase):
         self.assertEqual(dic['context'], self.os1)
         self.assertIn('view', dic)
         self.assertTrue(isinstance(dic['view'], DocumentGenerationSOHelper))
+        self.assertIn('details', dic)
+        self.assertEqual(dic['details'], '1')
