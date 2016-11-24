@@ -265,13 +265,14 @@ class DocumentGenerationPSTActionsHelper(DXDocumentGenerationHelperView, Documen
             Get tasks ordered by path
         """
         pcat = self.real_context.portal_catalog
-        brains = list(pcat(portal_type='task',
-                           path={'query': '/'.join(self.real_context.getPhysicalPath()), 'depth': depth},
-                           review_state=_getWorkflowStates(self.portal, 'task', skip_initial=True),
-                           sort_on='path'))
+        brains = pcat(portal_type='task',
+                      path={'query': '/'.join(self.real_context.getPhysicalPath()), 'depth': depth},
+                      review_state=_getWorkflowStates(self.portal, 'task', skip_initial=True),
+                      sort_on='path')
+        brains = [brain.getObject() for brain in brains]
         if depth > 1 and brains:
             brains.pop(0)
-        return [brain.getObject() for brain in brains]
+        return brains
 
 
 class DocumentGenerationPSTCategoriesHelper(ATDocumentGenerationHelperView, DocumentGenerationBaseHelper):
