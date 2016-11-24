@@ -267,7 +267,7 @@ class DocumentGenerationPSTActionsHelper(DXDocumentGenerationHelperView, Documen
         pcat = self.real_context.portal_catalog
         brains = pcat(portal_type='tasks',
                       path={'query': '/'.join(self.real_context.getPhysicalPath()), 'depth': depth},
-                      review_state=_getWorkflowStates(self.portal, 'tasks', skip_initial=True),
+                      review_state=_getWorkflowStates(self.portal, 'task', skip_initial=True),
                       sort_on='path')
         if depth > 1 and brains:
             brains.pop(0)
