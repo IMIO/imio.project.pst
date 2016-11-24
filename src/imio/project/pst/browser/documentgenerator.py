@@ -32,6 +32,14 @@ class DocumentGenerationBaseHelper():
         self.sel_type = len(brains) and self.objs[0].portal_type or ''
         return False
 
+    def context_var(self, name, default=''):
+        """ Return context_variable value if defined or return default """
+        ctx = self.appy_renderer.contentParser.env.context
+        if name in ctx:
+            return ctx['name']
+        else:
+            return default
+
 
 class DocumentGenerationPSTHelper(DXDocumentGenerationHelperView, DocumentGenerationBaseHelper):
     """
