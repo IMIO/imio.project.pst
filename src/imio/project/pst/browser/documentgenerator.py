@@ -269,10 +269,7 @@ class DocumentGenerationPSTActionsHelper(DXDocumentGenerationHelperView, Documen
                       path={'query': '/'.join(self.real_context.getPhysicalPath()), 'depth': depth},
                       review_state=_getWorkflowStates(self.portal, 'task', skip_initial=True),
                       sort_on='path')
-        brains = [brain.getObject() for brain in brains]
-        if depth > 1 and brains:
-            brains.pop(0)
-        return brains
+        return [brain.getObject() for brain in brains]
 
 
 class DocumentGenerationPSTCategoriesHelper(ATDocumentGenerationHelperView, DocumentGenerationBaseHelper):
