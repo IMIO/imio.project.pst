@@ -265,7 +265,7 @@ class DocumentGenerationPSTActionsHelper(DXDocumentGenerationHelperView, Documen
             Get tasks ordered by path
         """
         pcat = self.real_context.portal_catalog
-        brains = pcat(portal_type='tasks',
+        brains = pcat(portal_type='task',
                       path={'query': '/'.join(self.real_context.getPhysicalPath()), 'depth': depth},
                       review_state=_getWorkflowStates(self.portal, 'task', skip_initial=True),
                       sort_on='path')
