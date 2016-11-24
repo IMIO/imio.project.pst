@@ -46,6 +46,9 @@ class TestDocumentGenerator(IntegrationTestCase):
         objs = view.getActions(self.oo1)
         self.assertEqual(len(objs), 3)
         self.assertEqual(objs[0], self.ac1)
+        objs = view.getTasks(self.ac1)
+        self.assertEqual(len(objs), 2)
+        self.assertEqual(objs[0], self.tk1)
 
     def test_DocumentGenerationSOHelper(self):
         currentYear = datetime.now().year
@@ -87,6 +90,9 @@ class TestDocumentGenerator(IntegrationTestCase):
         objs = view.getActions(self.oo1)
         self.assertEqual(len(objs), 3)
         self.assertEqual(objs[0], self.ac1)
+        objs = view.getTasks(self.ac1)
+        self.assertEqual(len(objs), 2)
+        self.assertEqual(objs[0], self.tk1)
 
     def test_DocumentGenerationOOHelper(self):
         view = self.oo1.unrestrictedTraverse('@@document_generation_helper_view')
@@ -119,6 +125,9 @@ class TestDocumentGenerator(IntegrationTestCase):
         objs = view.getActions(self.oo1)
         self.assertEqual(len(objs), 1)
         self.assertEqual(objs[0], self.ac1)
+        objs = view.getTasks(self.ac1)
+        self.assertEqual(len(objs), 2)
+        self.assertEqual(objs[0], self.tk1)
 
     def test_DocumentGenerationPSTActionsHelper(self):
         view = self.ac1.unrestrictedTraverse('@@document_generation_helper_view')
@@ -136,6 +145,9 @@ class TestDocumentGenerator(IntegrationTestCase):
         self.assertEqual(view.getSOParent(), self.os1)
         self.assertEqual(view.formatHealthIndicator(), '<p class="Santé-bon"></p>')
         self.assertFalse(view.hasChildrenBudget(self.ac1))
+        objs = view.getTasks(self.ac1)
+        self.assertEqual(len(objs), 2)
+        self.assertEqual(objs[0], self.tk1)
 
     def test_CategoriesDocumentGenerationView(self):
         pod_template = self.portal['templates']['dpst']
