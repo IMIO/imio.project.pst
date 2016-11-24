@@ -74,6 +74,12 @@ class DocumentGenerationPSTHelper(DXDocumentGenerationHelperView, DocumentGenera
         acts = self.getDGHV(oo).getActions()
         return acts
 
+    def getTasks(self, action=None, depth=99):
+        """
+            Get tasks ordered by path
+        """
+        return self.getDGHV(action).getTasks(depth=depth)
+
 
 class BudgetHelper():
     """
@@ -145,6 +151,12 @@ class DocumentGenerationSOHelper(DXDocumentGenerationHelperView, DocumentGenerat
         acts = self.getDGHV(oo).getActions()
         return acts
 
+    def getTasks(self, action=None, depth=99):
+        """
+            Get tasks ordered by path
+        """
+        return self.getDGHV(action).getTasks(depth=depth)
+
     def getSection(self):
         """
             get the first part of a category value
@@ -196,6 +208,12 @@ class DocumentGenerationOOHelper(DXDocumentGenerationHelperView, DocumentGenerat
                           sort_on='getObjPositionInParent')
             return [brain.getObject() for brain in brains]
 
+    def getTasks(self, action=None, depth=99):
+        """
+            Get tasks ordered by path
+        """
+        return self.getDGHV(action).getTasks(depth=depth)
+
     def formatResultIndicator(self, expected=True, sep='<br />'):
         """
             return the result indicator as a string
@@ -241,6 +259,19 @@ class DocumentGenerationPSTActionsHelper(DXDocumentGenerationHelperView, Documen
         """
         return '<p class="Santé-%s">%s</p>' % (self.real_context.health_indicator.encode('utf8'),
                                                 self.display_text('health_indicator_details'))
+
+    def getTasks(self, action=None, depth=99):
+        """
+            Get tasks ordered by path
+        """
+        pcat = self.real_context.portal_catalog
+        brains = pcat(portal_type='tasks',
+                      path={'query': '/'.join(self.real_context.getPhysicalPath()), 'depth': depth},
+                      review_state=_getWorkflowStates(self.portal, 'tasks', skip_initial=True),
+                      sort_on='path')
+        if depth > 1 and brains:
+            brains.pop(0)
+        return [brain.getObject() for brain in brains]
 
 
 class DocumentGenerationPSTCategoriesHelper(ATDocumentGenerationHelperView, DocumentGenerationBaseHelper):
