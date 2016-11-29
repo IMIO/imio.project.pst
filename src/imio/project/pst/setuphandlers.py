@@ -160,7 +160,8 @@ def _addTemplatesDirectory(context):
         {'cid': 20, 'cont': 'templates', 'id': 'dpst', 'title': u'Doc général', 'type': 'DashboardPODTemplate',
          'trans': ['publish_internally'],
          'attrs': {'style_template': [cids[1].UID()], 'pod_formats':['odt'], 'tal_condition': "python:"
-                   "context.getPortalTypeName() != 'Folder' or context.getId() != 'tasks'",
+                   "not((context.getPortalTypeName() == 'Folder' and context.getId() == 'tasks') or "
+                   "context.getPortalTypeName() == 'pstaction')",
                    'context_variables': [{'name': u'with_tasks', 'value': u''}],
                    'odt_file': NamedBlobFile(data=open(get_path('templates/pst.odt'), 'r').read(),
                                              filename=u'pst.odt', contentType='applications/odt')}},
@@ -171,6 +172,35 @@ def _addTemplatesDirectory(context):
                    'context_variables': [{'name': u'with_tasks', 'value': u'1'}],
                    'odt_file': NamedBlobFile(data=open(get_path('templates/pst.odt'), 'r').read(),
                                              filename=u'pst.odt', contentType='applications/odt')}},
+        {'cid': 30, 'cont': 'templates', 'id': 'tdb', 'title': u'Tableau de bord', 'type': 'ConfigurablePODTemplate',
+         'trans': ['publish_internally'],
+         'attrs': {'style_template': [cids[1].UID()], 'pod_formats':['odt'], 'pod_portal_types': ['projectspace',
+                   'strategicobjective', 'operationalobjective', 'pstaction'],
+                   'context_variables': [{'name': u'with_tasks', 'value': u''}],
+                   'odt_file': NamedBlobFile(data=open(get_path('templates/tableaubord.odt'), 'r').read(),
+                                             filename=u'tableaubord.odt', contentType='applications/odt')}},
+        {'cid': 35, 'cont': 'templates', 'id': 'tdb-tasks', 'title': u'Tableau de bord avec tâches',
+         'type': 'ConfigurablePODTemplate', 'trans': ['publish_internally'],
+         'attrs': {'style_template': [cids[1].UID()], 'pod_formats':['odt'], 'pod_portal_types': ['projectspace',
+                   'strategicobjective', 'operationalobjective', 'pstaction'],
+                   'context_variables': [{'name': u'with_tasks', 'value': u'1'}],
+                   'odt_file': NamedBlobFile(data=open(get_path('templates/tableaubord.odt'), 'r').read(),
+                                             filename=u'tableaubord.odt', contentType='applications/odt')}},
+        {'cid': 40, 'cont': 'templates', 'id': 'dtbd', 'title': u'Tableau de bord', 'type': 'DashboardPODTemplate',
+         'trans': ['publish_internally'],
+         'attrs': {'style_template': [cids[1].UID()], 'pod_formats':['odt'], 'tal_condition': "python:"
+                   "not((context.getPortalTypeName() == 'Folder' and context.getId() == 'tasks') or "
+                   "context.getPortalTypeName() == 'pstaction')",
+                   'context_variables': [{'name': u'with_tasks', 'value': u''}],
+                   'odt_file': NamedBlobFile(data=open(get_path('templates/tableaubord.odt'), 'r').read(),
+                                             filename=u'tableaubord.odt', contentType='applications/odt')}},
+        {'cid': 45, 'cont': 'templates', 'id': 'dtbd-tasks', 'title': u'Tableau de bord avec tâches',
+         'type': 'DashboardPODTemplate', 'trans': ['publish_internally'],
+         'attrs': {'style_template': [cids[1].UID()], 'pod_formats':['odt'], 'tal_condition': "python:"
+                   "context.getPortalTypeName() != 'Folder' or context.getId() != 'tasks'",
+                   'context_variables': [{'name': u'with_tasks', 'value': u'1'}],
+                   'odt_file': NamedBlobFile(data=open(get_path('templates/tableaubord.odt'), 'r').read(),
+                                             filename=u'tableaubord.odt', contentType='applications/odt')}},
     ]
     cids.update(create(templates))
 
