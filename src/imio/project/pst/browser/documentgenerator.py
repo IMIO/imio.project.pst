@@ -20,9 +20,11 @@ class DocumentGenerationBaseHelper():
     sel_type = ''
 
     def is_dashboard(self):
+        """ Test if template is rendered from a dashboard """
         return 'facetedQuery' in self.request.form
 
     def uids_to_objs(self, brains):
+        """ set objects from brains """
         # can be used like this in normal template:
         # do section- if view.is_dashboard()
         # do text if view.uids_to_objs(brains)
@@ -39,6 +41,16 @@ class DocumentGenerationBaseHelper():
             return ctx['name']
         else:
             return default
+
+    def flatten_structure(self):
+        """
+        """
+        ret = []
+        for os in self.getStrategicObjectives():
+            for oo in self.getOperationalObjectives(so=os):
+                for act in self.getActions(oo=oo):
+                    ret.append((os, oo, act))
+        return ret
 
 
 class DocumentGenerationPSTHelper(DXDocumentGenerationHelperView, DocumentGenerationBaseHelper):
