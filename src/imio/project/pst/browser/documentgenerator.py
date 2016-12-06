@@ -43,13 +43,15 @@ class DocumentGenerationBaseHelper():
             return default
 
     def flatten_structure(self):
-        """
-        """
+        """ Return tuples of flattened objects """
+        # TO BE CONTINUED
         ret = []
-        for os in self.getStrategicObjectives():
-            for oo in self.getOperationalObjectives(so=os):
+        for so in self.getStrategicObjectives():
+            so_v = self.getDGHV(so, appy_rdr=self.appy_renderer)
+            so_dic = {'obj': so, 'vw': so_v}
+            for oo in self.getOperationalObjectives(so=so):
                 for act in self.getActions(oo=oo):
-                    ret.append((os, oo, act))
+                    ret.append((so_dic, oo, act))
         return ret
 
 
