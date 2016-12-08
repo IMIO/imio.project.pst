@@ -19,7 +19,7 @@ long_description = (
 
 setup(
     name='imio.project.pst',
-    version='0.3.1dev',
+    version='1.0',
     description="PST management",
     long_description=long_description,
     # Get more from http://pypi.python.org/pypi?%3Aaction=list_classifiers
