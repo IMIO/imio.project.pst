@@ -10,6 +10,8 @@ Changelog
   [sgeulette]
 - Use collective.documentgenerator
   [sgeulette]
+- Various corrections and improvements
+  [sgeulette]
 
 0.3.1 (2015-04-10)
 ----------------
