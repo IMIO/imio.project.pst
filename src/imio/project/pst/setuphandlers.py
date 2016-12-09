@@ -28,7 +28,7 @@ from collective.eeafaceted.collectionwidget.interfaces import ICollectionCategor
 from dexterity.localroles.utils import add_fti_configuration
 from imio.dashboard.utils import enableFacetedDashboardFor, _updateDefaultCollectionFor
 from imio.helpers.catalog import addOrUpdateIndexes
-from imio.helpers.security import is_develop_environment
+from imio.helpers.security import get_environment, generate_password
 from imio.helpers.content import create, add_file, transitions
 
 from data import get_os_oo_ac_data
@@ -605,6 +605,10 @@ def _addPSTUsers(context):
     logger.info('Adding PST users')
     site = context.getSite()
     password = 'Project69!'
+    if get_environment() == 'prod':
+        password = generate_password()
+        logger.info("Generated password='%s'" % password)
+        site.plone_utils.addPortalMessage("Generated password='%s'" % password, type='warning')
     act_srv = [u'cellule-marches-publics', u'secretariat-communal', u'service-etat-civil', u'service-informatique',
                u'service-proprete', u'service-population', u'service-travaux', u'service-de-lurbanisme']
     srv_obj = site['contacts']['plonegroup-organization']['services']
@@ -617,17 +621,16 @@ def _addPSTUsers(context):
         ('agent', u'Fred Agent'): ['%s_actioneditor' % orgs[org] for org in orgs],
     }
 
-    if is_develop_environment():
-        for uid, fullname in users.keys():
-            try:
-                member = site.portal_registration.addMember(id=uid, password=password)
-                member.setMemberProperties({'fullname': fullname, 'email': 'test@macommune.be'})
-                for gp in users[(uid, fullname)]:
-                    api.group.add_user(groupname=gp, username=uid)
-            except ValueError, exc:
-                if str(exc).startswith('The login name you selected is already in use'):
-                    continue
-                logger("Error creating user '%s': %s" % (uid, exc))
+    for uid, fullname in users.keys():
+        try:
+            member = site.portal_registration.addMember(id=uid, password=password)
+            member.setMemberProperties({'fullname': fullname, 'email': 'test@macommune.be'})
+            for gp in users[(uid, fullname)]:
+                api.group.add_user(groupname=gp, username=uid)
+        except ValueError, exc:
+            if str(exc).startswith('The login name you selected is already in use'):
+                continue
+            logger("Error creating user '%s': %s" % (uid, exc))
 
 
 COLUMNS_FOR_CONTENT_TYPES = {
