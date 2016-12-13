@@ -617,8 +617,8 @@ def _addPSTUsers(context):
         ('pstmanager', u'PST manager'): ["pst_managers"],
         ('psteditor', u'PST editeur global'): ["pst_editors"],
         ('pstreader', u'PST lecteur global'): ["pst_readers"],
-        ('chef', u'Michel Chef'): ['%s_admin_resp' % orgs[org] for org in orgs],
-        ('agent', u'Fred Agent'): ['%s_actioneditor' % orgs[org] for org in orgs],
+        ('chef', u'Michel Chef'): ['%s_admin_resp' % orgs[org] for org in orgs] + ["pst_readers"],
+        ('agent', u'Fred Agent'): ['%s_actioneditor' % orgs[org] for org in orgs] + ["pst_readers"],
     }
 
     for uid, fullname in users.keys():
