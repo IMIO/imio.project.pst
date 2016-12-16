@@ -35,7 +35,12 @@ body.template-view.portaltype-strategicobjective td.table_widget_label {
 }
 
 /* Hides */
-#formfield-form-widgets-IVersionable-changeNote, #download_vcard {
+#formfield-form-widgets-IVersionable-changeNote, #download_vcard,
+.template-edit .documentEditable div#formfield-form-widgets-reference_number,
+.template-strategicobjective div#formfield-form-widgets-reference_number,
+.template-operationalobjective div#formfield-form-widgets-reference_number,
+.template-pstaction div#formfield-form-widgets-reference_number
+{
     display: none;
 }
 
