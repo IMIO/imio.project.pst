@@ -30,6 +30,7 @@ from imio.dashboard.utils import enableFacetedDashboardFor, _updateDefaultCollec
 from imio.helpers.catalog import addOrUpdateIndexes
 from imio.helpers.security import get_environment, generate_password
 from imio.helpers.content import create, add_file, transitions
+from imio.project.core.utils import getProjectSpace
 
 from data import get_os_oo_ac_data
 from imio.project.pst.utils import list_wf_states
@@ -722,6 +723,7 @@ def createStateCollections(folder, content_type):
 
     for state in list_wf_states(folder, content_type):
         col_id = "searchfor_%s" % state
+        ps_path = '/'.join(getProjectSpace(folder).getPhysicalPath())
         if not base_hasattr(folder, col_id):
             folder.invokeFactory(
                 "DashboardCollection",
@@ -729,7 +731,8 @@ def createStateCollections(folder, content_type):
                 title=state_title_mapping[state],
                 query=[
                     {'i': 'portal_type', 'o': 'plone.app.querystring.operation.selection.is', 'v': [content_type]},
-                    {'i': 'review_state', 'o': 'plone.app.querystring.operation.selection.is', 'v': [state]}
+                    {'i': 'review_state', 'o': 'plone.app.querystring.operation.selection.is', 'v': [state]},
+                    {'i': 'path', 'o': 'plone.app.querystring.operation.string.path', 'v': ps_path}
                 ],
                 customViewFields=COLUMNS_FOR_CONTENT_TYPES[content_type],
                 tal_condition=conditions[content_type].get(state),
@@ -774,6 +777,7 @@ def createDashboardCollections(folder, collections):
 
 
 def createBaseCollections(folder, content_type):
+    ps_path = '/'.join(getProjectSpace(folder).getPhysicalPath())
     collections = [
         {
             'id': 'all',
@@ -781,6 +785,7 @@ def createBaseCollections(folder, content_type):
             'subj': (u'search', ),
             'query': [
                 {'i': 'portal_type', 'o': 'plone.app.querystring.operation.selection.is', 'v': [content_type]},
+                {'i': 'path', 'o': 'plone.app.querystring.operation.string.path', 'v': ps_path}
             ],
             'cond': u"",
             'bypass': [],
@@ -804,6 +809,7 @@ def createBaseCollections(folder, content_type):
                     {'i': 'portal_type', 'o': 'plone.app.querystring.operation.selection.is', 'v': [content_type]},
                     {'i': 'CompoundCriterion', 'o': 'plone.app.querystring.operation.compound.is',
                      'v': 'user-is-administrative-responsible'},
+                    {'i': 'path', 'o': 'plone.app.querystring.operation.string.path', 'v': ps_path}
                 ],
                 'cond': u"",
                 'bypass': [],
@@ -820,6 +826,7 @@ def createBaseCollections(folder, content_type):
                     {'i': 'portal_type', 'o': 'plone.app.querystring.operation.selection.is', 'v': [content_type]},
                     {'i': 'CompoundCriterion', 'o': 'plone.app.querystring.operation.compound.is',
                      'v': 'user-is-actioneditor'},
+                    {'i': 'path', 'o': 'plone.app.querystring.operation.string.path', 'v': ps_path}
                 ],
                 'cond': u"",
                 'bypass': [],
@@ -836,6 +843,7 @@ def createBaseCollections(folder, content_type):
                     {'i': 'portal_type', 'o': 'plone.app.querystring.operation.selection.is', 'v': [content_type]},
                     {'i': 'CompoundCriterion', 'o': 'plone.app.querystring.operation.compound.is',
                      'v': 'has-child-action-deadline-has-passed'},
+                    {'i': 'path', 'o': 'plone.app.querystring.operation.string.path', 'v': ps_path}
                 ],
                 'cond': u"",
                 'bypass': [],
@@ -855,6 +863,7 @@ def createBaseCollections(folder, content_type):
                     {'i': 'portal_type', 'o': 'plone.app.querystring.operation.selection.is', 'v': [content_type]},
                     {'i': 'CompoundCriterion', 'o': 'plone.app.querystring.operation.compound.is',
                      'v': 'user-is-actioneditor'},
+                    {'i': 'path', 'o': 'plone.app.querystring.operation.string.path', 'v': ps_path}
                 ],
                 'cond': u"",
                 'bypass': [],
@@ -870,6 +879,7 @@ def createBaseCollections(folder, content_type):
                 'query': [
                     {'i': 'portal_type', 'o': 'plone.app.querystring.operation.selection.is', 'v': [content_type]},
                     {'i': 'planned_end_date', 'o': 'plone.app.querystring.operation.date.beforeToday'},
+                    {'i': 'path', 'o': 'plone.app.querystring.operation.string.path', 'v': ps_path}
                 ],
                 'cond': u"",
                 'bypass': [],
@@ -886,6 +896,7 @@ def createBaseCollections(folder, content_type):
                     {'i': 'portal_type', 'o': 'plone.app.querystring.operation.selection.is', 'v': [content_type]},
                     {'i': 'planned_begin_date', 'o': 'plone.app.querystring.operation.date.beforeToday'},
                     {'i': 'effective_begin_date', 'o': 'plone.app.querystring.operation.date.afterToday'},
+                    {'i': 'path', 'o': 'plone.app.querystring.operation.string.path', 'v': ps_path}
                 ],
                 'cond': u"",
                 'bypass': [],
@@ -925,20 +936,10 @@ def createBaseCollections(folder, content_type):
                 'tit': _('task_to_treat'),
                 'subj': (u'todo', ),
                 'query': [
-                    {
-                        'i': 'portal_type',
-                        'o': 'plone.app.querystring.operation.selection.is',
-                        'v': ['task']
-                    },
-                    {
-                        'i': 'assigned_user',
-                        'o': 'plone.app.querystring.operation.string.currentUser'
-                    },
-                    {
-                        'i': 'review_state',
-                        'o': 'plone.app.querystring.operation.selection.is',
-                        'v': ['to_do']
-                    }
+                    {'i': 'portal_type', 'o': 'plone.app.querystring.operation.selection.is', 'v': ['task']},
+                    {'i': 'assigned_user', 'o': 'plone.app.querystring.operation.string.currentUser'},
+                    {'i': 'review_state', 'o': 'plone.app.querystring.operation.selection.is', 'v': ['to_do']},
+                    {'i': 'path', 'o': 'plone.app.querystring.operation.string.path', 'v': ps_path}
                 ],
                 'cond': u"",
                 'bypass': [],
@@ -952,20 +953,10 @@ def createBaseCollections(folder, content_type):
                 'tit': _('task_im_treating'),
                 'subj': (u'todo', ),
                 'query': [
-                    {
-                        'i': 'portal_type',
-                        'o': 'plone.app.querystring.operation.selection.is',
-                        'v': ['task']
-                    },
-                    {
-                        'i': 'assigned_user',
-                        'o': 'plone.app.querystring.operation.string.currentUser'
-                    },
-                    {
-                        'i': 'review_state',
-                        'o': 'plone.app.querystring.operation.selection.is',
-                        'v': ['in_progress']
-                    }
+                    {'i': 'portal_type', 'o': 'plone.app.querystring.operation.selection.is', 'v': ['task']},
+                    {'i': 'assigned_user', 'o': 'plone.app.querystring.operation.string.currentUser'},
+                    {'i': 'review_state', 'o': 'plone.app.querystring.operation.selection.is', 'v': ['in_progress']},
+                    {'i': 'path', 'o': 'plone.app.querystring.operation.string.path', 'v': ps_path}
                 ],
                 'cond': u"",
                 'bypass': [],
@@ -979,20 +970,11 @@ def createBaseCollections(folder, content_type):
                 'tit': _('task_have_treated'),
                 'subj': (u'search', ),
                 'query': [
-                    {
-                        'i': 'portal_type',
-                        'o': 'plone.app.querystring.operation.selection.is',
-                        'v': ['task']
-                    },
-                    {
-                        'i': 'assigned_user',
-                        'o': 'plone.app.querystring.operation.string.currentUser'
-                    },
-                    {
-                        'i': 'review_state',
-                        'o': 'plone.app.querystring.operation.selection.is',
-                        'v': ['closed', 'realized']
-                    }
+                    {'i': 'portal_type', 'o': 'plone.app.querystring.operation.selection.is', 'v': ['task']},
+                    {'i': 'assigned_user', 'o': 'plone.app.querystring.operation.string.currentUser'},
+                    {'i': 'review_state', 'o': 'plone.app.querystring.operation.selection.is',
+                     'v': ['closed', 'realized']},
+                    {'i': 'path', 'o': 'plone.app.querystring.operation.string.path', 'v': ps_path}
                 ],
                 'cond': u"",
                 'bypass': [],
@@ -1006,15 +988,10 @@ def createBaseCollections(folder, content_type):
                 'tit': _('tasks_in_my_group'),
                 'subj': (u'search', ),
                 'query': [
-                    {
-                        'i': 'portal_type', 'o': 'plone.app.querystring.operation.selection.is',
-                        'v': ['task']
-                    },
-                    {
-                        'i': 'CompoundCriterion',
-                        'o': 'plone.app.querystring.operation.compound.is',
-                        'v': 'task-in-assigned-group'
-                    }
+                    {'i': 'portal_type', 'o': 'plone.app.querystring.operation.selection.is', 'v': ['task']},
+                    {'i': 'CompoundCriterion', 'o': 'plone.app.querystring.operation.compound.is',
+                     'v': 'task-in-assigned-group'},
+                    {'i': 'path', 'o': 'plone.app.querystring.operation.string.path', 'v': ps_path}
                 ],
                 'cond': u"",
                 'bypass': [],
@@ -1028,14 +1005,9 @@ def createBaseCollections(folder, content_type):
                 'tit': _('tasks_with_due_date_passed'),
                 'subj': (u'search', ),
                 'query': [
-                    {
-                        'i': 'portal_type', 'o': 'plone.app.querystring.operation.selection.is',
-                        'v': ['task']
-                    },
-                    {
-                        'i': 'due_date',
-                        'o': 'plone.app.querystring.operation.date.beforeToday'
-                    },
+                    {'i': 'portal_type', 'o': 'plone.app.querystring.operation.selection.is', 'v': ['task']},
+                    {'i': 'due_date', 'o': 'plone.app.querystring.operation.date.beforeToday'},
+                    {'i': 'path', 'o': 'plone.app.querystring.operation.string.path', 'v': ps_path}
                 ],
                 'cond': u"",
                 'bypass': [],
