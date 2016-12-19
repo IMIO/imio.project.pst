@@ -61,6 +61,9 @@ class Migrate_To_1_0(Migrator):
         # /cputils_removeStep?step=imioprojectpst-adaptDefaultPortal
         if 'imioprojectpst-adaptDefaultPortal' in ir._registered:
             del ir._registered['imioprojectpst-adaptDefaultPortal']
+        self.upgradeProfile('collective.contact.core:default')
+        self.upgradeProfile('collective.contact.plonegroup:default')
+        self.upgradeProfile('plone.formwidget.masterselect:default')
         self.reinstall([
             'dexterity.localrolesfield:default',
         ])
@@ -148,7 +151,9 @@ class Migrate_To_1_0(Migrator):
         # update portal_catalog
         self.refreshDatabase()
 
-        for prod in []:
+        for prod in ['collective.z3cform.datagridfield', 'imio.project.core', 'imio.project.pst', 'plonetheme.classic',
+                     'plone.app.collection', 'plone.app.dexterity', 'plone.app.intid', 'plone.app.relationfield',
+                     'plone.formwidget.autocomplete', 'plone.formwidget.contenttree']:
             mark_last_version(self.portal, product=prod)
 
         # Reorder css and js
