@@ -150,7 +150,7 @@ class TestDocumentGenerator(IntegrationTestCase):
         self.assertEqual(objs[0], self.tk1)
 
     def test_CategoriesDocumentGenerationView(self):
-        pod_template = self.portal['templates']['dpst']
+        pod_template = self.portal['templates']['ddetail']
         pod_template.context_variables = [{'name': 'details', 'value': '1'}]
         view = self.pst['strategicobjectives'].unrestrictedTraverse('@@document-generation')
         # hview without uids
