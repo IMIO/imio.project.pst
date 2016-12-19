@@ -8,10 +8,12 @@ from Products.CMFPlone.utils import base_hasattr, safe_unicode
 from Products.CPUtils.Extensions.utils import mark_last_version
 
 from imio.helpers.catalog import addOrUpdateIndexes
+from imio.helpers.content import transitions
 from imio.migrator.migrator import Migrator
 from imio.project.pst.setuphandlers import (
     adaptDefaultPortal, add_plonegroups_to_registry, configureDashboard, configure_actions_panel, configure_rolefields,
     reimport_faceted_config, _addTemplatesDirectory)
+from ..setuphandlers import _ as _translate
 from imio.project.pst import _
 
 
@@ -52,7 +54,12 @@ class Migrate_To_1_0(Migrator):
         adaptDefaultPortal(self.portal)
 
         # replace front-page
-        # TO BE DONE
+        frontpage = getattr(self.portal, 'front-page')
+        frontpage.setTitle(_translate("front_page_title"))
+        frontpage.setDescription(_translate("front_page_descr"))
+        frontpage.setText(_translate("front_page_text"), mimetype='text/html')
+        transitions(frontpage, ('retract', 'publish_internally'))
+        frontpage.reindexObject()
 
     def run(self):
         # Removed old import step
