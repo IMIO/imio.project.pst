@@ -52,6 +52,9 @@ class Migrate_To_1_0(Migrator):
     def various_update(self):
         # Adapt default portal:
         adaptDefaultPortal(self.portal)
+        # remove local roles on project spaces (old ones too)
+        for brain in self.pc(portal_type='projectspace'):
+            brain.getObject().manage_delLocalRoles(["pst_managers", "pst_editors", "pst_readers"])
 
         # replace front-page
         frontpage = getattr(self.portal, 'front-page')
@@ -71,16 +74,10 @@ class Migrate_To_1_0(Migrator):
         self.upgradeProfile('collective.contact.core:default')
         self.upgradeProfile('collective.contact.plonegroup:default')
         self.upgradeProfile('plone.formwidget.masterselect:default')
-        self.reinstall([
-            'dexterity.localrolesfield:default',
-        ])
-        self.runProfileSteps(
-            'imio.project.pst',
-            steps=[
-                'actions', 'catalog', 'componentregistry', 'jsregistry', 'portlets', 'propertiestool',
-                'plone.app.registry', 'typeinfo', 'workflow'
-            ]
-        )
+        self.reinstall(['dexterity.localrolesfield:default'])
+        self.runProfileSteps('imio.project.pst', steps=['actions', 'catalog', 'componentregistry', 'jsregistry',
+                                                        'portlets', 'propertiestool', 'plone.app.registry',
+                                                        'typeinfo', 'workflow'])
         # update security settings
         self.portal.portal_workflow.updateRoleMappings()
 

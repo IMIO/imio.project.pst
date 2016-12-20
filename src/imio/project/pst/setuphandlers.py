@@ -334,12 +334,8 @@ def _setDefaultApplicationSecurity(context):
         return
     logger.info('Setting default application security')
     site = context.getSite()
-    # permissions for the PST projectspace
-    site.pst.manage_addLocalRoles("pst_managers", ('Reader', 'Editor', 'Reviewer', 'Contributor', ))
-    site.pst.manage_addLocalRoles("pst_editors", ('Reader', 'Editor', 'Reviewer', 'Contributor', ))
-    site.pst.manage_addLocalRoles("pst_readers", ('Reader', ))
     # permissions for the contacts
-    site.contacts.manage_addLocalRoles("pst_managers", ('Reader', 'Editor', 'Reviewer', 'Contributor', ))
+    site.contacts.manage_addLocalRoles("pst_editors", ('Reader', 'Editor', 'Reviewer', 'Contributor', ))
 
 
 def add_plonegroups_to_registry():
@@ -1027,16 +1023,33 @@ def createBaseCollections(folder, content_type):
 def configure_rolefields(portal):
     """Configure the rolefields on types."""
     config = {
+        'projectspace': {
+            'static_config': {
+                'internally_published': {'pst_editors': {'roles': ['Reader', 'Editor', 'Reviewer', 'Contributor']},
+                                         'pst_readers': {'roles': ['Reader']}}
+            }
+        },
         'pstaction': {
+            'static_config': {
+                'created': {'pst_editors': {'roles': ['Reader', 'Editor', 'Reviewer', 'Contributor']}},
+                'to_be_scheduled': {'pst_editors': {'roles': ['Reader', 'Editor', 'Reviewer', 'Contributor']},
+                                    'pst_readers': {'roles': ['Reader']}},
+                'ongoing': {'pst_editors': {'roles': ['Reader', 'Editor', 'Reviewer', 'Contributor']},
+                            'pst_readers': {'roles': ['Reader']}},
+                'stopped': {'pst_editors': {'roles': ['Reader', 'Editor', 'Reviewer', 'Contributor']},
+                            'pst_readers': {'roles': ['Reader']}},
+                'terminated': {'pst_editors': {'roles': ['Reader', 'Editor', 'Reviewer', 'Contributor']},
+                               'pst_readers': {'roles': ['Reader']}},
+            },
             'manager': {
                 'created': {
-                    'actioneditor': {'roles': ['Editor', 'Reviewer']}
+                    'actioneditor': {'roles': ['Editor', 'Reviewer', 'Contributor']}
                 },
                 'to_be_scheduled': {
-                    'actioneditor': {'roles': ['Editor', 'Reviewer']}
+                    'actioneditor': {'roles': ['Editor', 'Reviewer', 'Contributor']}
                 },
                 'ongoing': {
-                    'actioneditor': {'roles': ['Editor', 'Reviewer']}
+                    'actioneditor': {'roles': ['Editor', 'Reviewer', 'Contributor']}
                 },
                 'terminated': {
                     'actioneditor': {'roles': ['Editor', 'Reviewer']}
@@ -1120,6 +1133,7 @@ def configure_rolefields(portal):
                     },
                 },
             },
+            'assigned_user': {}  # clear default config
         },
     }
     for portal_type, roles_config in config.iteritems():
@@ -1132,12 +1146,14 @@ def configure_rolefields(portal):
                         portal.portal_types.task.localroles['assigned_group'].get('created') and
                         '' in portal.portal_types.task.localroles['assigned_group']['created']):
                     force = True
+                if (base_hasattr(portal.portal_types.task, 'localroles') and
+                        portal.portal_types.task.localroles.get('assigned_user', '') and
+                        portal.portal_types.task.localroles['assigned_user'].get('created') and
+                        '' in portal.portal_types.task.localroles['assigned_user']['created'] and
+                        not portal.portal_types.task.localroles['assigned_user']['created']['']['roles']):
+                    force = True
 
-            msg = add_fti_configuration(
-                portal_type, roles_config[keyname], keyname=keyname,
-                force=force)
-            if msg:
-                logger.warn(msg)
+            add_fti_configuration(portal_type, roles_config[keyname], keyname=keyname, force=force)
 
 
 def configure_actions_panel(portal):

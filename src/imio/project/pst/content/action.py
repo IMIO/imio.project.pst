@@ -107,6 +107,8 @@ class ManagerFieldValidator(validator.SimpleFieldValidator):
 class PSTAction(Project):
     """ """
     implements(IPSTAction)
+    # we block local roles acquisition
+    __ac_local_roles_block__ = True
 
     def Title(self):
         return '%s (A.%s)' % (self.title.encode('utf8'), self.reference_number)
