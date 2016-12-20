@@ -49,6 +49,10 @@ class Migrate_To_1_0(Migrator):
         # remove local roles on project spaces (old ones too)
         for brain in self.pc(portal_type='projectspace'):
             brain.getObject().manage_delLocalRoles(["pst_managers", "pst_editors", "pst_readers"])
+        try:
+            api.group.delete(groupname="pst_managers")
+        except:
+            pass
 
         # replace front-page
         frontpage = getattr(self.portal, 'front-page')

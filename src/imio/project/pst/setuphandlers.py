@@ -317,9 +317,6 @@ def _addPSTGroups(context):
         return
     logger.info('Adding PST groups')
     site = context.getSite()
-    #add 3 groups
-    #one with pst Managers
-    site.portal_groups.addGroup("pst_managers", title="PST Managers")
     #one with pst Readers
     site.portal_groups.addGroup("pst_readers", title="PST Readers")
     #one with pst Editors
@@ -611,7 +608,6 @@ def _addPSTUsers(context):
     srv_obj = site['contacts']['plonegroup-organization']['services']
     orgs = dict([(srv, srv_obj[srv].UID()) for srv in act_srv])
     users = {
-        ('pstmanager', u'PST manager'): ["pst_managers"],
         ('psteditor', u'PST editeur global'): ["pst_editors"],
         ('pstreader', u'PST lecteur global'): ["pst_readers"],
         ('chef', u'Michel Chef'): ['%s_admin_resp' % orgs[org] for org in orgs] + ["pst_readers"],

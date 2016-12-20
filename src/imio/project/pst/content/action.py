@@ -83,7 +83,7 @@ class ManagerFieldValidator(validator.SimpleFieldValidator):
 
         member_groups = api.group.get_groups(user=member)
         member_groups_ids = [g.id for g in member_groups]
-        if 'pst_editors' in member_groups_ids or 'pst_managers' in member_groups_ids:
+        if 'pst_editors' in member_groups_ids:
             return True
 
         member_orgs = organizations_with_suffixes(member_groups, ['actioneditor'])
