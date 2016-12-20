@@ -317,9 +317,6 @@ def _addPSTGroups(context):
         return
     logger.info('Adding PST groups')
     site = context.getSite()
-    #add 3 groups
-    #one with pst Managers
-    site.portal_groups.addGroup("pst_managers", title="PST Managers")
     #one with pst Readers
     site.portal_groups.addGroup("pst_readers", title="PST Readers")
     #one with pst Editors
@@ -611,7 +608,6 @@ def _addPSTUsers(context):
     srv_obj = site['contacts']['plonegroup-organization']['services']
     orgs = dict([(srv, srv_obj[srv].UID()) for srv in act_srv])
     users = {
-        ('pstmanager', u'PST manager'): ["pst_managers"],
         ('psteditor', u'PST editeur global'): ["pst_editors"],
         ('pstreader', u'PST lecteur global'): ["pst_readers"],
         ('chef', u'Michel Chef'): ['%s_admin_resp' % orgs[org] for org in orgs] + ["pst_readers"],
@@ -1042,95 +1038,55 @@ def configure_rolefields(portal):
                                'pst_readers': {'roles': ['Reader']}},
             },
             'manager': {
-                'created': {
-                    'actioneditor': {'roles': ['Editor', 'Reviewer', 'Contributor']}
-                },
-                'to_be_scheduled': {
-                    'actioneditor': {'roles': ['Editor', 'Reviewer', 'Contributor']}
-                },
-                'ongoing': {
-                    'actioneditor': {'roles': ['Editor', 'Reviewer', 'Contributor']}
-                },
-                'terminated': {
-                    'actioneditor': {'roles': ['Editor', 'Reviewer']}
-                },
-                'stopped': {
-                    'actioneditor': {'roles': ['Editor', 'Reviewer']}
-                },
+                'created': {'actioneditor': {'roles': ['Editor', 'Reviewer', 'Contributor']}},
+                'to_be_scheduled': {'actioneditor': {'roles': ['Editor', 'Reviewer', 'Contributor']}},
+                'ongoing': {'actioneditor': {'roles': ['Editor', 'Reviewer', 'Contributor']}},
+                'terminated': {'actioneditor': {'roles': ['Editor', 'Reviewer']}},
+                'stopped': {'actioneditor': {'roles': ['Editor', 'Reviewer']}},
             }
         },
         'operationalobjective': {
             'manager': {
-                'achieved': {
-                    'actioneditor': {'roles': ['Contributor']}
-                },
-                'created': {
-                    'actioneditor': {'roles': ['Contributor']}
-                },
-                'ongoing': {
-                    'actioneditor': {'roles': ['Contributor']}
-                },
+                'achieved': {'actioneditor': {'roles': ['Contributor']}},
+                'created': {'actioneditor': {'roles': ['Contributor']}},
+                'ongoing': {'actioneditor': {'roles': ['Contributor']}},
             },
             'administrative_responsible': {
-                'achieved': {
-                    'admin_resp': {'roles': ['Reader']},
-                },
-                'created': {
-                    'admin_resp': {'roles': ['Reader']},
-                },
-                'ongoing': {
-                    'admin_resp': {'roles': ['Reader']},
-                }
+                'achieved': {'admin_resp': {'roles': ['Reader']}},
+                'created': {'admin_resp': {'roles': ['Reader']}},
+                'ongoing': {'admin_resp': {'roles': ['Reader']}}
             }
             # TODO: representative_responsible
         },
         'task': {
             'assigned_group': {
                 'to_assign': {
-                    'validateur': {
-                        'roles': ['Contributor', 'Editor', 'Reviewer'],
-                        'rel': "{'collective.task.related_taskcontainer':['Reader']}"
-                    },
+                    'validateur': {'roles': ['Contributor', 'Editor', 'Reviewer'],
+                                   'rel': "{'collective.task.related_taskcontainer':['Reader']}"},
                 },
                 'to_do': {
-                    'editeur': {
-                        'roles': ['Contributor', 'Editor'],
-                        'rel': "{'collective.task.related_taskcontainer':['Reader']}"
-                    },
-                    'validateur': {
-                        'roles': ['Contributor', 'Editor', 'Reviewer'],
-                        'rel': "{'collective.task.related_taskcontainer':['Reader']}"
-                    },
+                    'editeur': {'roles': ['Contributor', 'Editor'],
+                                'rel': "{'collective.task.related_taskcontainer':['Reader']}"},
+                    'validateur': {'roles': ['Contributor', 'Editor', 'Reviewer'],
+                                   'rel': "{'collective.task.related_taskcontainer':['Reader']}"},
                 },
                 'in_progress': {
-                    'editeur': {
-                        'roles': ['Contributor', 'Editor'],
-                        'rel': "{'collective.task.related_taskcontainer':['Reader']}"
-                    },
-                    'validateur': {
-                        'roles': ['Contributor', 'Editor', 'Reviewer'],
-                        'rel': "{'collective.task.related_taskcontainer':['Reader']}"
-                    },
+                    'editeur': {'roles': ['Contributor', 'Editor'],
+                                'rel': "{'collective.task.related_taskcontainer':['Reader']}"},
+                    'validateur': {'roles': ['Contributor', 'Editor', 'Reviewer'],
+                                   'rel': "{'collective.task.related_taskcontainer':['Reader']}"},
                 },
                 'realized': {
-                    'editeur': {
-                        'roles': ['Contributor', 'Editor'],
-                        'rel': "{'collective.task.related_taskcontainer':['Reader']}"
-                    },
-                    'validateur': {
-                        'roles': ['Contributor', 'Editor', 'Reviewer'],
-                        'rel': "{'collective.task.related_taskcontainer':['Reader']}"
-                    },
+                    'editeur': {'roles': ['Contributor', 'Editor'],
+                                'rel': "{'collective.task.related_taskcontainer':['Reader']}"},
+                    'validateur': {'roles': ['Contributor', 'Editor', 'Reviewer'],
+                                   'rel': "{'collective.task.related_taskcontainer':['Reader']}"},
                 },
                 'closed': {
-                    'editeur': {
-                        'roles': ['Reader'],
-                        'rel': "{'collective.task.related_taskcontainer':['Reader']}"
-                    },
-                    'validateur': {
-                        'roles': ['Editor', 'Reviewer'],
-                        'rel': "{'collective.task.related_taskcontainer':['Reader']}"
-                    },
+                    'editeur': {'roles': ['Reader'],
+                                'rel': "{'collective.task.related_taskcontainer':['Reader']}"},
+                    'validateur': {'roles': ['Editor', 'Reviewer'],
+                                   'rel': "{'collective.task.related_taskcontainer':['Reader']}"},
                 },
             },
             'assigned_user': {}  # clear default config

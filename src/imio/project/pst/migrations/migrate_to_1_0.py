@@ -31,15 +31,9 @@ class Migrate_To_1_0(Migrator):
             action = brain.getObject()
             action.manager = [m[:-13] for m in action.manager if m.endswith('_actioneditor')]
             if base_hasattr(action, 'work_plan') and action.work_plan:
-                title = translate(
-                    _("Work plan: ${action_title}",
-                      mapping={'action_title': safe_unicode(action.Title())}),
-                    context=getRequest())
-                task = api.content.create(
-                    container=action,
-                    title=title,
-                    type='task',
-                )
+                title = translate(_("Work plan: ${action_title}",
+                                    mapping={'action_title': safe_unicode(action.Title())}), context=getRequest())
+                task = api.content.create(container=action, title=title, type='task')
                 task.task_description = action.work_plan.raw
                 # action.work_plan = None
 
@@ -55,6 +49,10 @@ class Migrate_To_1_0(Migrator):
         # remove local roles on project spaces (old ones too)
         for brain in self.pc(portal_type='projectspace'):
             brain.getObject().manage_delLocalRoles(["pst_managers", "pst_editors", "pst_readers"])
+        try:
+            api.group.delete(groupname="pst_managers")
+        except:
+            pass
 
         # replace front-page
         frontpage = getattr(self.portal, 'front-page')
@@ -138,10 +136,7 @@ class Migrate_To_1_0(Migrator):
         }
         for col_folder_id, content_type in mapping.iteritems():
             col_folder = self.portal.pst[col_folder_id]
-            reimport_faceted_config(
-                col_folder,
-                xml='{}.xml'.format(content_type),
-                default_UID=col_folder['all'].UID())
+            reimport_faceted_config(col_folder, xml='{}.xml'.format(content_type), default_UID=col_folder['all'].UID())
 
         add_plonegroups_to_registry()
         configure_actions_panel(self.portal)
