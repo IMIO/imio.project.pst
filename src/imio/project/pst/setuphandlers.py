@@ -1025,6 +1025,19 @@ def configure_rolefields(portal):
                                          'pst_readers': {'roles': ['Reader']}}
             }
         },
+        'operationalobjective': {
+            'manager': {
+                'achieved': {'actioneditor': {'roles': ['Contributor']}},
+                'created': {'actioneditor': {'roles': ['Contributor']}},
+                'ongoing': {'actioneditor': {'roles': ['Contributor']}},
+            },
+            'administrative_responsible': {
+                'achieved': {'admin_resp': {'roles': ['Reader']}},
+                'created': {'admin_resp': {'roles': ['Reader']}},
+                'ongoing': {'admin_resp': {'roles': ['Reader']}}
+            }
+            # TODO: representative_responsible
+        },
         'pstaction': {
             'static_config': {
                 'created': {'pst_editors': {'roles': ['Reader', 'Editor', 'Reviewer', 'Contributor']}},
@@ -1044,19 +1057,6 @@ def configure_rolefields(portal):
                 'terminated': {'actioneditor': {'roles': ['Editor', 'Reviewer']}},
                 'stopped': {'actioneditor': {'roles': ['Editor', 'Reviewer']}},
             }
-        },
-        'operationalobjective': {
-            'manager': {
-                'achieved': {'actioneditor': {'roles': ['Contributor']}},
-                'created': {'actioneditor': {'roles': ['Contributor']}},
-                'ongoing': {'actioneditor': {'roles': ['Contributor']}},
-            },
-            'administrative_responsible': {
-                'achieved': {'admin_resp': {'roles': ['Reader']}},
-                'created': {'admin_resp': {'roles': ['Reader']}},
-                'ongoing': {'admin_resp': {'roles': ['Reader']}}
-            }
-            # TODO: representative_responsible
         },
         'task': {
             'assigned_group': {
