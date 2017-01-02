@@ -610,8 +610,10 @@ def _addPSTUsers(context):
     users = {
         ('psteditor', u'PST editeur global'): ["pst_editors"],
         ('pstreader', u'PST lecteur global'): ["pst_readers"],
-        ('chef', u'Michel Chef'): ['%s_admin_resp' % orgs[org] for org in orgs] + ["pst_readers"],
-        ('agent', u'Fred Agent'): ['%s_actioneditor' % orgs[org] for org in orgs] + ["pst_readers"],
+        ('chef', u'Michel Chef'): (['%s_%s' % (orgs[org], fct) for org in orgs for fct in ('admin_resp', 'validateur')]
+                                   + ["pst_readers"]),
+        ('agent', u'Fred Agent'): (['%s_%s' % (orgs[org], fct) for org in orgs for fct in ('actioneditor', 'editeur')]
+                                   + ["pst_readers"]),
     }
 
     for uid, fullname in users.keys():
@@ -900,29 +902,23 @@ def createBaseCollections(folder, content_type):
         ],
 
         'task': [
-            # {
-            #     'id': 'to_validate',
-            #     'tit': _('tasks_to_validate'),
-            #     'subj': (u'todo', ),
-            #     'query': [
-            #         {
-            #             'i': 'portal_type',
-            #             'o': 'plone.app.querystring.operation.selection.is',
-            #             'v': ['task']
-            #         },
-            #         {
-            #             'i': 'CompoundCriterion',
-            #             'o': 'plone.app.querystring.operation.compound.is',
-            #             'v': 'task-validation'
-            #         }
-            #     ],
-            #     'cond': u"python:object.restrictedTraverse('idm-utils').user_has_review_level('task')",
-            #     'bypass': ['Manager', 'Site Administrator'],
-            #     'flds': COLUMNS_FOR_CONTENT_TYPES[content_type],
-            #     'sort': u'created',
-            #     'rev': True,
-            #     'count': True
-            # },
+            {
+                'id': 'to_assign',
+                'tit': _('tasks_to_assign'),
+                'subj': (u'todo', ),
+                'query': [
+                    {'i': 'portal_type', 'o': 'plone.app.querystring.operation.selection.is', 'v': ['task']},
+                    {'i': 'review_state', 'o': 'plone.app.querystring.operation.selection.is', 'v': ['to_assign']},
+                    {'i': 'CompoundCriterion', 'o': 'plone.app.querystring.operation.compound.is',
+                     'v': 'task-validation'}
+                ],
+                'cond': u"python:object.restrictedTraverse('pst-utils').user_has_review_level()",
+                'bypass': ['Manager', 'Site Administrator'],
+                'flds': COLUMNS_FOR_CONTENT_TYPES[content_type],
+                'sort': u'created',
+                'rev': True,
+                'count': True
+            },
             {
                 'id': 'to_treat',
                 'tit': _('task_to_treat'),
@@ -991,6 +987,23 @@ def createBaseCollections(folder, content_type):
                 'sort': u'created',
                 'rev': True,
                 'count': False
+            },
+            {
+                'id': 'to_close',
+                'tit': _('tasks_to_close'),
+                'subj': (u'todo', ),
+                'query': [
+                    {'i': 'portal_type', 'o': 'plone.app.querystring.operation.selection.is', 'v': ['task']},
+                    {'i': 'review_state', 'o': 'plone.app.querystring.operation.selection.is', 'v': ['realized']},
+                    {'i': 'CompoundCriterion', 'o': 'plone.app.querystring.operation.compound.is',
+                     'v': 'task-validation'}
+                ],
+                'cond': u"python:object.restrictedTraverse('pst-utils').user_has_review_level()",
+                'bypass': ['Manager', 'Site Administrator'],
+                'flds': COLUMNS_FOR_CONTENT_TYPES[content_type],
+                'sort': u'created',
+                'rev': True,
+                'count': True
             },
             {
                 'id': 'due_date_passed',

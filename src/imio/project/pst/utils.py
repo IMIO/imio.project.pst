@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
+from plone import api
 from plone.memoize import ram
 from Products.CMFPlone.utils import getToolByName
+from Products.Five import BrowserView
 
+from collective.contact.plonegroup.utils import organizations_with_suffixes
 from imio.helpers.cache import get_cachekey_volatile
 
 
@@ -57,3 +60,30 @@ def list_wf_states(context, portal_type):
     for missing in state_ids:
         ret.append(missing)
     return ret
+
+
+# views
+
+class UtilsMethods(BrowserView):
+    """ View containing utils methods """
+
+    def user_is_admin(self):
+        """ Test if current user is admin """
+        user = api.user.get_current()
+        if user.has_role(['Manager', 'Site Administrator']):
+            return True
+        return False
+
+    def current_user_groups(self, user):
+        """ Return current user groups """
+        return api.group.get_groups(user=user)
+
+    def current_user_groups_ids(self, user):
+        """ Return current user groups ids """
+        return [g.id for g in self.current_user_groups(user)]
+
+    def user_has_review_level(self, suffixes=['validateur']):
+        """ Test if the current user has a review level """
+        groups = api.group.get_groups(user=api.user.get_current())
+        orgs = organizations_with_suffixes(groups, suffixes)
+        return (orgs and True or False)
