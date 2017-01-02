@@ -16,6 +16,27 @@ from imio.project.core.content.projectspace import IProjectSpace
 UNSET_DATE_VALUE = date(3900, 1, 1)
 
 
+def validation_criterion(context, portal_type):
+    """ Return a query criterion corresponding to current user validation level """
+    groups = api.group.get_groups(user=api.user.get_current())
+    orgs = organizations_with_suffixes(groups, ['validateur'])
+    ret = {'assigned_group': {'query': orgs}}
+    return ret
+
+
+class TaskValidationCriterion(object):
+    """
+        Return catalog criteria following validation group member
+    """
+
+    def __init__(self, context):
+        self.context = context
+
+    @property
+    def query(self):
+        return validation_criterion(self.context, 'task')
+
+
 class UserIsAdministrativeResponsibleCriterion(object):
 
     def __init__(self, context):

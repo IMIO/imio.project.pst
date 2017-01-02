@@ -1,5 +1,6 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
     xmlns:five="http://namespaces.zope.org/five"
     xmlns:i18n="http://namespaces.zope.org/i18n"
     i18n_domain="imio.project.pst">
@@ -62,6 +63,10 @@
              provides="collective.compoundcriterion.interfaces.ICompoundCriterionFilter"
              name="has-child-action-deadline-has-passed" />
 
+    <adapter for="*"
+             factory=".adapters.TaskValidationCriterion"
+             provides="collective.compoundcriterion.interfaces.ICompoundCriterionFilter"
+             name="task-validation" />
 
     <include package="z3c.unconfigure" file="meta.zcml" />
     <include package="eea.facetednavigation" />
@@ -80,5 +85,19 @@
     <adapter name="progress" factory=".adapters.progress_index" />
     <adapter name="extra_concerned_people" factory=".adapters.extra_concerned_people_index" />
     <adapter name="effective_begin_date" factory=".adapters.effective_begin_date_index" />
+
+    <!-- UTILS METHODS -->
+    <browser:page
+        for="Products.CMFCore.interfaces.IContentish"
+        name="pst-utils"
+        class=".utils.UtilsMethods"
+        permission="zope2.View"
+        allowed_attributes="
+            current_user_groups
+            current_user_groups_ids
+            user_has_review_level
+            user_is_admin
+        "
+    />
 
 </configure>
