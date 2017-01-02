@@ -12,7 +12,8 @@ Suite Teardown  Close all browsers
 
 *** Variables ***
 
-${BROWSER}  GoogleChrome
+#${BROWSER}  GoogleChrome
+${BROWSER}  Firefox
 ${SELENIUM_RUN_ON_FAILURE}  Debug
 ${OS1}  etre-une-commune-qui-offre-un-service-public-moderne-efficace-et-efficient
 ${OS2}  etre-une-commune-ou-il-fait-bon-vivre-dans-un-cadre-agreable-propre-et-en-toute-securite
@@ -127,6 +128,7 @@ Tâche
     Capture and crop page screenshot  doc/utilisation/2-5-1 tache ajout vierge.png  id=content
     Input text  name=form.widgets.title  Placer le CV dans notre référentiel
     Click button  id=form-buttons-save
+    Sleep  0.5
     Capture and crop page screenshot  doc/utilisation/2-5-1 tache ajout complete.png  id=content
     ${UID} =  Path to uid  /${PLONE_SITE_ID}/pst/${OS1}/${OO}/${Action}/placer-le-cv-dans-notre-referentiel
     Fire transition  ${UID}  do_to_assign
