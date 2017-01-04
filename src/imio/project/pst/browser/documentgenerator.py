@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from plone import api
 from zope.annotation import IAnnotations
 
 from collective.documentgenerator.helper.dexterity import DXDocumentGenerationHelperView
@@ -44,15 +45,33 @@ class DocumentGenerationBaseHelper():
 
     def flatten_structure(self):
         """ Return tuples of flattened objects """
-        # TO BE CONTINUED
         ret = []
-        for so in self.getStrategicObjectives():
+        for so in self.getStrategicObjectives(skip_states=[]):
             so_v = self.getDGHV(so, appy_rdr=self.appy_renderer)
-            so_dic = {'obj': so, 'vw': so_v}
-            for oo in self.getOperationalObjectives(so=so):
-                for act in self.getActions(oo=oo):
-                    ret.append((so_dic, oo, act))
+            oos = self.getOperationalObjectives(so=so, skip_states=[])
+            if not oos:
+                ret.append((so_v, None, None))
+                continue
+            for oo in oos:
+                oo_v = self.getDGHV(oo, appy_rdr=self.appy_renderer)
+                acts = self.getActions(oo=oo, skip_states=[])
+                if not acts:
+                    ret.append((so_v, oo_v, None))
+                    continue
+                for act in acts:
+                    act_v = self.getDGHV(act, appy_rdr=self.appy_renderer)
+                    ret.append((so_v, oo_v, act_v))
         return ret
+
+    def get_state(self, obj, title=True):
+        """ Return state of object. """
+        state = api.content.get_state(obj, default=None)
+        if not state:
+            return '-'
+        if title:
+            wtool = api.portal.get_tool('portal_workflow')
+            state = wtool.getTitleForStateOnType(state, obj.portal_type)
+        return state
 
 
 class DocumentGenerationPSTHelper(DXDocumentGenerationHelperView, DocumentGenerationBaseHelper):
@@ -272,7 +291,7 @@ class DocumentGenerationPSTActionsHelper(DXDocumentGenerationHelperView, Documen
             Return the health indicator details with a specific html class following the health indicator field
         """
         return '<p class="Santé-%s">%s</p>' % (self.real_context.health_indicator.encode('utf8'),
-                                                self.display_text('health_indicator_details'))
+                                                self.display_text_as_html('health_indicator_details'))
 
     def getTasks(self, action=None, depth=99, skip_states=['created']):
         """
