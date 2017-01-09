@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from plone import api
 from zope.annotation import IAnnotations
 
 from collective.documentgenerator.helper.dexterity import DXDocumentGenerationHelperView
@@ -63,16 +62,6 @@ class DocumentGenerationBaseHelper():
                     ret.append((so_v, oo_v, act_v))
         return ret
 
-    def get_state(self, obj, title=True):
-        """ Return state of object. """
-        state = api.content.get_state(obj, default=None)
-        if not state:
-            return '-'
-        if title:
-            wtool = api.portal.get_tool('portal_workflow')
-            state = wtool.getTitleForStateOnType(state, obj.portal_type)
-        return state
-
 
 class DocumentGenerationPSTHelper(DXDocumentGenerationHelperView, DocumentGenerationBaseHelper):
     """
@@ -128,6 +117,12 @@ class BudgetHelper():
         replace_entire_strings(table)
         unwrap_tags(table, ['span'])
         return str(table)
+
+    def getOwnBudgetAsText(self):
+        """
+            get the own rendered widget
+        """
+        return ''
 
     def getChildrenBudget(self):
         """
