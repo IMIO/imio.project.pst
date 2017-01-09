@@ -107,8 +107,9 @@ class TestDocumentGenerator(IntegrationTestCase):
         objs = view.getActions(self.oo1)
         self.assertEqual(len(objs), 3)
         self.assertEqual(objs[0], self.ac1)
-        self.assertEqual(view.formatResultIndicator(), "Diminution du temps d'attente (en %) = 20")
+        self.assertEqual(view.formatResultIndicator(), "Diminution du temps d'attente (en %) = 0 / 20")
         self.assertEqual(view.formatResultIndicator(expected=False), "Diminution du temps d'attente (en %) = 0")
+        self.assertEqual(view.formatResultIndicator(reached=False), "Diminution du temps d'attente (en %) = 20")
         # on dashboard
         view.request.form['facetedQuery'] = ''
         self.assertTrue(view.is_dashboard())

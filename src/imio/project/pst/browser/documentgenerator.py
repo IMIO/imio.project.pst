@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from zope.annotation import IAnnotations
-
+from zope.component import getUtility
+from zope.schema.interfaces import IVocabularyFactory
 from collective.documentgenerator.helper.dexterity import DXDocumentGenerationHelperView
 from collective.documentgenerator.helper.archetypes import ATDocumentGenerationHelperView
 from imio.dashboard.browser.overrides import IDDocumentGenerationView
@@ -122,7 +123,22 @@ class BudgetHelper():
         """
             get the own rendered widget
         """
-        return ''
+        #[{'amount': 12500.0, 'budget_type': 'wallonie', 'year': 2017}, {'amount': 2500.0, 'budget_type': 'europe',
+        #'year': 2017}, {'amount': 250.0, 'budget_type': 'federation-wallonie-bruxelles', 'year': 2017},
+        #{'amount': 250.0, 'budget_type': 'province', 'year': 2017}]
+        if not self.real_context.budget:
+            return ''
+        ret = []
+        budget_types = {}
+        factory = getUtility(IVocabularyFactory, 'imio.project.core.content.project.budget_type_vocabulary')
+        voc = factory(self.real_context)
+        for term in voc:
+            budget_types[term.value] = term.title.encode('utf8')
+
+        for dic in self.real_context.budget:
+            ret.append("%d pour %s: %d€" % (dic['year'], budget_types.get(dic['budget_type'], dic['budget_type']),
+                       dic['amount']))
+        return ' | '.join(ret)
 
     def getChildrenBudget(self):
         """
@@ -242,13 +258,18 @@ class DocumentGenerationOOHelper(DXDocumentGenerationHelperView, DocumentGenerat
         """
         return self.getDGHV(action).getTasks(depth=depth, skip_states=['created'])
 
-    def formatResultIndicator(self, expected=True, sep='<br />'):
+    def formatResultIndicator(self, reached=True, expected=True, sep=' | '):
         """
             return the result indicator as a string
         """
         rows = []
         for row in self.real_context.result_indicator:
-            rows.append("%s = %d" % (row['label'].encode('utf8'), expected and row['value'] or row['reached_value']))
+            if reached and expected:
+                rows.append("%s = %d / %d" % (row['label'].encode('utf8'), row['reached_value'], row['value']))
+            elif reached:
+                rows.append("%s = %d" % (row['label'].encode('utf8'), row['reached_value']))
+            elif expected:
+                rows.append("%s = %d" % (row['label'].encode('utf8'), row['value']))
         return sep.join(rows)
 
 
