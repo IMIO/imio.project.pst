@@ -35,16 +35,12 @@ class DocumentGenerationBaseHelper():
         self.sel_type = len(brains) and self.objs[0].portal_type or ''
         return False
 
-    def context_var(self, name, default=''):
-        """ Return context_variable value if defined or return default """
-        ctx = self.appy_renderer.contentParser.env.context
-        if name in ctx:
-            return ctx['name']
-        else:
-            return default
-
     def flatten_structure(self):
         """ Return tuples of flattened objects """
+        if self.is_dashboard():
+            brains = self.context_var('brains', default=None)
+            if brains is not None:
+                self.uids_to_objs(brains)
         ret = []
         for so in self.getStrategicObjectives(skip_states=[]):
             so_v = self.getDGHV(so, appy_rdr=self.appy_renderer)

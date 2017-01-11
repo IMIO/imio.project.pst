@@ -87,3 +87,17 @@ class UtilsMethods(BrowserView):
         groups = api.group.get_groups(user=api.user.get_current())
         orgs = organizations_with_suffixes(groups, suffixes)
         return (orgs and True or False)
+
+    def is_in_user_groups(self, groups=[], admin=True, test='any', user=None):
+        """ Test if one or all of a given group list is part of the current user groups """
+        # for admin, we bypass the check
+        if admin and self.user_is_admin():
+            return True
+        if not user:
+            user = api.user.get_current()
+        u_groups = self.current_user_groups_ids(user)
+        if test == 'any':
+            return any(x in u_groups for x in groups)
+        elif test == 'all':
+            return all(x in u_groups for x in groups)
+        return False

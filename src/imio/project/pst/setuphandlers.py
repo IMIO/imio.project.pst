@@ -139,17 +139,12 @@ def _addTemplatesDirectory(context):
     styles = [
         {'cid': 1, 'cont': 'templates', 'id': 'style', 'title': u'Style général', 'type': 'StyleTemplate',
          'file': u'', 'functions': [(add_file, [], {'filepath': get_path('templates/style.odt'),
-                                                    'contentType': 'applications/odt', 'attr': 'odt_file'})]}
+                                                    'contentType': 'applications/odt', 'attr': 'odt_file'})],
+         'trans': ['publish_internally']}
     ]
     cids = create(styles)
 
     templates = [
-        {'cid': 0, 'cont': 'templates', 'id': 'export', 'title': u'Export', 'type': 'ConfigurablePODTemplate',
-         'trans': ['publish_internally'],
-         'attrs': {'pod_formats': ['ods'], 'pod_portal_types': ['projectspace', 'strategicobjective',
-                   'operationalobjective', 'pstaction'],
-                   'odt_file': NamedBlobFile(data=open(get_path('templates/export.ods'), 'r').read(),
-                                             filename=u'export.ods', contentType='applications/ods')}},
         {'cid': 10, 'cont': 'templates', 'id': 'detail', 'title': u'Détaillé', 'type': 'ConfigurablePODTemplate',
          'trans': ['publish_internally'],
          'attrs': {'style_template': [cids[1].UID()], 'pod_formats': ['odt'], 'pod_portal_types': ['projectspace',
@@ -208,6 +203,21 @@ def _addTemplatesDirectory(context):
                    'context_variables': [{'name': u'with_tasks', 'value': u'1'}],
                    'odt_file': NamedBlobFile(data=open(get_path('templates/suivi.odt'), 'r').read(),
                                              filename=u'suivi.odt', contentType='applications/odt')}},
+        {'cid': 50, 'cont': 'templates', 'id': 'export', 'title': u'Export', 'type': 'ConfigurablePODTemplate',
+         'trans': ['publish_internally'],
+         'attrs': {'pod_formats': ['ods'], 'pod_portal_types': ['projectspace', 'strategicobjective',
+                   'operationalobjective', 'pstaction'], 'tal_condition': "python:"
+                   "context.restrictedTraverse('pst-utils').is_in_user_groups(user=member, groups=['pst_editors'])",
+                   'odt_file': NamedBlobFile(data=open(get_path('templates/export.ods'), 'r').read(),
+                                             filename=u'export.ods', contentType='applications/ods')}},
+        {'cid': 55, 'cont': 'templates', 'id': 'dexport', 'title': u'Export', 'type': 'DashboardPODTemplate',
+         'trans': ['publish_internally'],
+         'attrs': {'pod_formats': ['ods'], 'tal_condition': "python:"
+                   "not((context.getPortalTypeName() == 'Folder' and context.getId() == 'tasks') or "
+                   "context.getPortalTypeName() == 'pstaction') and context.restrictedTraverse('pst-utils')"
+                   ".is_in_user_groups(user=member, groups=['pst_editors'])",
+                   'odt_file': NamedBlobFile(data=open(get_path('templates/export.ods'), 'r').read(),
+                                             filename=u'export.ods', contentType='applications/ods')}},
     ]
     cids.update(create(templates))
 
