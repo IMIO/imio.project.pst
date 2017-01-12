@@ -1,7 +1,6 @@
-from plone.memoize import forever
+# -*- coding: utf-8 -*-
 
 
-@forever.memoize
 def _getWorkflowStates(portal, portal_type, skip_initial=False, skip_states=[]):
     """
         Return a list of a portal_type workflow states

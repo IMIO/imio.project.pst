@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from zope.annotation import IAnnotations
-
+from zope.component import getUtility
+from zope.schema.interfaces import IVocabularyFactory
 from collective.documentgenerator.helper.dexterity import DXDocumentGenerationHelperView
 from collective.documentgenerator.helper.archetypes import ATDocumentGenerationHelperView
 from imio.dashboard.browser.overrides import IDDocumentGenerationView
@@ -34,24 +35,28 @@ class DocumentGenerationBaseHelper():
         self.sel_type = len(brains) and self.objs[0].portal_type or ''
         return False
 
-    def context_var(self, name, default=''):
-        """ Return context_variable value if defined or return default """
-        ctx = self.appy_renderer.contentParser.env.context
-        if name in ctx:
-            return ctx['name']
-        else:
-            return default
-
     def flatten_structure(self):
         """ Return tuples of flattened objects """
-        # TO BE CONTINUED
+        if self.is_dashboard():
+            brains = self.context_var('brains', default=None)
+            if brains is not None:
+                self.uids_to_objs(brains)
         ret = []
-        for so in self.getStrategicObjectives():
+        for so in self.getStrategicObjectives(skip_states=[]):
             so_v = self.getDGHV(so, appy_rdr=self.appy_renderer)
-            so_dic = {'obj': so, 'vw': so_v}
-            for oo in self.getOperationalObjectives(so=so):
-                for act in self.getActions(oo=oo):
-                    ret.append((so_dic, oo, act))
+            oos = self.getOperationalObjectives(so=so, skip_states=[])
+            if not oos:
+                ret.append((so_v, None, None))
+                continue
+            for oo in oos:
+                oo_v = self.getDGHV(oo, appy_rdr=self.appy_renderer)
+                acts = self.getActions(oo=oo, skip_states=[])
+                if not acts:
+                    ret.append((so_v, oo_v, None))
+                    continue
+                for act in acts:
+                    act_v = self.getDGHV(act, appy_rdr=self.appy_renderer)
+                    ret.append((so_v, oo_v, act_v))
         return ret
 
 
@@ -60,7 +65,7 @@ class DocumentGenerationPSTHelper(DXDocumentGenerationHelperView, DocumentGenera
         Methods used in document generation view, for pst
     """
 
-    def getStrategicObjectives(self):
+    def getStrategicObjectives(self, skip_states=['created']):
         """
             get a list of contained strategic objectives
         """
@@ -70,29 +75,29 @@ class DocumentGenerationPSTHelper(DXDocumentGenerationHelperView, DocumentGenera
             pcat = self.real_context.portal_catalog
             brains = pcat(portal_type='strategicobjective',
                           path={'query': '/'.join(self.real_context.getPhysicalPath()), 'depth': 1},
-                          review_state=_getWorkflowStates(self.portal, 'strategicobjective', skip_initial=True),
+                          review_state=_getWorkflowStates(self.portal, 'strategicobjective', skip_states=skip_states),
                           sort_on='getObjPositionInParent')
             return [brain.getObject() for brain in brains]
 
-    def getOperationalObjectives(self, so=None):
+    def getOperationalObjectives(self, so=None, skip_states=['created']):
         """
             get a list of contained operational objectives
         """
-        oos = self.getDGHV(so).getOperationalObjectives()
+        oos = self.getDGHV(so).getOperationalObjectives(skip_states=['created'])
         return oos
 
-    def getActions(self, oo=None):
+    def getActions(self, oo=None, skip_states=['created']):
         """
             return a list of contained pstactions
         """
-        acts = self.getDGHV(oo).getActions()
+        acts = self.getDGHV(oo).getActions(skip_states=['created'])
         return acts
 
-    def getTasks(self, action=None, depth=99):
+    def getTasks(self, action=None, depth=99, skip_states=['created']):
         """
             Get tasks ordered by path
         """
-        return self.getDGHV(action).getTasks(depth=depth)
+        return self.getDGHV(action).getTasks(depth=depth, skip_states=['created'])
 
 
 class BudgetHelper():
@@ -109,6 +114,27 @@ class BudgetHelper():
         replace_entire_strings(table)
         unwrap_tags(table, ['span'])
         return str(table)
+
+    def getOwnBudgetAsText(self):
+        """
+            get the own rendered widget
+        """
+        #[{'amount': 12500.0, 'budget_type': 'wallonie', 'year': 2017}, {'amount': 2500.0, 'budget_type': 'europe',
+        #'year': 2017}, {'amount': 250.0, 'budget_type': 'federation-wallonie-bruxelles', 'year': 2017},
+        #{'amount': 250.0, 'budget_type': 'province', 'year': 2017}]
+        if not self.real_context.budget:
+            return ''
+        ret = []
+        budget_types = {}
+        factory = getUtility(IVocabularyFactory, 'imio.project.core.content.project.budget_type_vocabulary')
+        voc = factory(self.real_context)
+        for term in voc:
+            budget_types[term.value] = term.title.encode('utf8')
+
+        for dic in self.real_context.budget:
+            ret.append("%d pour %s: %d€" % (dic['year'], budget_types.get(dic['budget_type'], dic['budget_type']),
+                       dic['amount']))
+        return ' | '.join(ret)
 
     def getChildrenBudget(self):
         """
@@ -137,13 +163,13 @@ class DocumentGenerationSOHelper(DXDocumentGenerationHelperView, DocumentGenerat
         Methods used in document generation view, for strategicobjective
     """
 
-    def getStrategicObjectives(self):
+    def getStrategicObjectives(self, skip_states=['created']):
         """
             get a list of unique contained strategic objective
         """
         return [self.real_context]
 
-    def getOperationalObjectives(self, so=None):
+    def getOperationalObjectives(self, so=None, skip_states=['created']):
         """
             get a list of contained operational objectives
         """
@@ -154,22 +180,22 @@ class DocumentGenerationSOHelper(DXDocumentGenerationHelperView, DocumentGenerat
             pcat = self.real_context.portal_catalog
             brains = pcat(portal_type='operationalobjective',
                           path={'query': '/'.join(context.getPhysicalPath()), 'depth': 1},
-                          review_state=_getWorkflowStates(self.portal, 'operationalobjective', skip_initial=True),
+                          review_state=_getWorkflowStates(self.portal, 'operationalobjective', skip_states=skip_states),
                           sort_on='getObjPositionInParent')
             return [brain.getObject() for brain in brains]
 
-    def getActions(self, oo=None):
+    def getActions(self, oo=None, skip_states=['created']):
         """
             return a list of contained pstactions
         """
-        acts = self.getDGHV(oo).getActions()
+        acts = self.getDGHV(oo).getActions(skip_states=['created'])
         return acts
 
-    def getTasks(self, action=None, depth=99):
+    def getTasks(self, action=None, depth=99, skip_states=['created']):
         """
             Get tasks ordered by path
         """
-        return self.getDGHV(action).getTasks(depth=depth)
+        return self.getDGHV(action).getTasks(depth=depth, skip_states=['created'])
 
     def getSection(self):
         """
@@ -195,19 +221,19 @@ class DocumentGenerationOOHelper(DXDocumentGenerationHelperView, DocumentGenerat
         Methods used in document generation view, for operationalobjective
     """
 
-    def getStrategicObjectives(self):
+    def getStrategicObjectives(self, skip_states=['created']):
         """
             get a list of the parent strategic objective of the current operationalobjective
         """
         return [self.real_context.aq_inner.aq_parent]
 
-    def getOperationalObjectives(self, so=None):
+    def getOperationalObjectives(self, so=None, skip_states=['created']):
         """
             get a list of an unique contained operational objective
         """
         return [self.real_context]
 
-    def getActions(self, oo=None):
+    def getActions(self, oo=None, skip_states=['created']):
         """
             return a list of contained pstactions
         """
@@ -218,23 +244,28 @@ class DocumentGenerationOOHelper(DXDocumentGenerationHelperView, DocumentGenerat
             pcat = self.real_context.portal_catalog
             brains = pcat(portal_type='pstaction',
                           path={'query': '/'.join(context.getPhysicalPath()), 'depth': 1},
-                          review_state=_getWorkflowStates(self.portal, 'pstaction', skip_initial=True),
+                          review_state=_getWorkflowStates(self.portal, 'pstaction', skip_states=skip_states),
                           sort_on='getObjPositionInParent')
             return [brain.getObject() for brain in brains]
 
-    def getTasks(self, action=None, depth=99):
+    def getTasks(self, action=None, depth=99, skip_states=['created']):
         """
             Get tasks ordered by path
         """
-        return self.getDGHV(action).getTasks(depth=depth)
+        return self.getDGHV(action).getTasks(depth=depth, skip_states=['created'])
 
-    def formatResultIndicator(self, expected=True, sep='<br />'):
+    def formatResultIndicator(self, reached=True, expected=True, sep=' | '):
         """
             return the result indicator as a string
         """
         rows = []
         for row in self.real_context.result_indicator:
-            rows.append("%s = %d" % (row['label'].encode('utf8'), expected and row['value'] or row['reached_value']))
+            if reached and expected:
+                rows.append("%s = %d / %d" % (row['label'].encode('utf8'), row['reached_value'], row['value']))
+            elif reached:
+                rows.append("%s = %d" % (row['label'].encode('utf8'), row['reached_value']))
+            elif expected:
+                rows.append("%s = %d" % (row['label'].encode('utf8'), row['value']))
         return sep.join(rows)
 
 
@@ -243,19 +274,19 @@ class DocumentGenerationPSTActionsHelper(DXDocumentGenerationHelperView, Documen
         Methods used in document generation view, for PSTAction
     """
 
-    def getStrategicObjectives(self):
+    def getStrategicObjectives(self, skip_states=['created']):
         """
             get a list of the parent strategic objective of the current operationalobjective
         """
         return [self.real_context.aq_inner.aq_parent.aq_inner.aq_parent]
 
-    def getOperationalObjectives(self, so=None):
+    def getOperationalObjectives(self, so=None, skip_states=['created']):
         """
             get a list of an unique contained operational objective
         """
         return [self.real_context.aq_inner.aq_parent]
 
-    def getActions(self, oo=None):
+    def getActions(self, oo=None, skip_states=['created']):
         """
             return a list of contained pstactions
         """
@@ -272,16 +303,16 @@ class DocumentGenerationPSTActionsHelper(DXDocumentGenerationHelperView, Documen
             Return the health indicator details with a specific html class following the health indicator field
         """
         return '<p class="Santé-%s">%s</p>' % (self.real_context.health_indicator.encode('utf8'),
-                                                self.display_text('health_indicator_details'))
+                                                self.display_text_as_html('health_indicator_details'))
 
-    def getTasks(self, action=None, depth=99):
+    def getTasks(self, action=None, depth=99, skip_states=['created']):
         """
             Get tasks ordered by path
         """
         pcat = self.real_context.portal_catalog
         brains = pcat(portal_type='task',
                       path={'query': '/'.join(self.real_context.getPhysicalPath()), 'depth': depth},
-                      review_state=_getWorkflowStates(self.portal, 'task', skip_initial=True),
+                      review_state=_getWorkflowStates(self.portal, 'task', skip_states=skip_states),
                       sort_on='path')
         return [brain.getObject() for brain in brains]
 

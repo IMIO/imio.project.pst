@@ -18,11 +18,11 @@
     <include package="plone.app.versioningbehavior" />
     <include package="plone.directives.form" />
     <include package="plonetheme.imioapps" />
-    <include package="collective.excelexport" />
+    <!--include package="collective.excelexport" /-->
     <include package="collective.task" />
     <include package=".browser" />
     <include package=".content" />
-    <include package=".excelexport" />
+    <!--include package=".excelexport" /-->
     <include file="subscribers.zcml" />
     <include file="profiles.zcml" />
     <include file="columns.zcml" />
@@ -97,6 +97,7 @@
             current_user_groups_ids
             user_has_review_level
             user_is_admin
+            is_in_user_groups
         "
     />
 
