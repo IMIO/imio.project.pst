@@ -96,7 +96,7 @@ def post_install(context):
     # addOrUpdateIndexes(portal, {'manager': ('KeywordIndex', {})})
 
     # add a default 'templates' directory containing the odt templates
-    _addTemplatesDirectory(context)
+    # _addTemplatesDirectory(context)  # import step
     # add a default 'PST' projectspace where to store objectives and actions. Add dashboard
     _addPSTprojectspace(context)
 
