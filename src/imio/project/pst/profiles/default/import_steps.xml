@@ -9,4 +9,12 @@
     <dependency step="typeinfo" />
     <dependency step="workflow" />
     </import-step>
+    <import-step
+            id="imioprojectpst-templates"
+            handler="imio.project.pst.setuphandlers._addTemplatesDirectory"
+            title="Add documentgenerator templates dir and files"
+            version="2013-06-10T11:00:00.00000">
+        Add documentgenerator templates dir and files for imio.project.pst
+    <dependency step="imioprojectpst-postInstall" />
+    </import-step>
 </import-steps>
