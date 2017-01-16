@@ -150,9 +150,11 @@ class Migrate_To_1_0(Migrator):
         # update portal_catalog
         self.refreshDatabase()
 
-        for prod in ['collective.z3cform.datagridfield', 'imio.project.core', 'imio.project.pst', 'plonetheme.classic',
+        for prod in ['collective.ckeditor', 'collective.contact.core', 'collective.contact.plonegroup',
+                     'collective.plonefinder', 'collective.quickupload', 'collective.z3cform.datagridfield',
+                     'imio.project.core', 'imio.project.pst', 'plonetheme.classic',
                      'plone.app.collection', 'plone.app.dexterity', 'plone.app.intid', 'plone.app.relationfield',
-                     'plone.formwidget.autocomplete', 'plone.formwidget.contenttree']:
+                     'plone.formwidget.masterselect', 'plone.formwidget.autocomplete', 'plone.formwidget.contenttree']:
             mark_last_version(self.portal, product=prod)
 
         # Reorder css and js
