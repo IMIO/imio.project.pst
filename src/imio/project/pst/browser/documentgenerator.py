@@ -43,19 +43,19 @@ class DocumentGenerationBaseHelper():
                 self.uids_to_objs(brains)
         ret = []
         for so in self.getStrategicObjectives(skip_states=[]):
-            so_v = self.getDGHV(so, appy_rdr=self.appy_renderer)
+            so_v = self.getDGHV(so)
             oos = self.getOperationalObjectives(so=so, skip_states=[])
             if not oos:
                 ret.append((so_v, None, None))
                 continue
             for oo in oos:
-                oo_v = self.getDGHV(oo, appy_rdr=self.appy_renderer)
+                oo_v = self.getDGHV(oo)
                 acts = self.getActions(oo=oo, skip_states=[])
                 if not acts:
                     ret.append((so_v, oo_v, None))
                     continue
                 for act in acts:
-                    act_v = self.getDGHV(act, appy_rdr=self.appy_renderer)
+                    act_v = self.getDGHV(act)
                     ret.append((so_v, oo_v, act_v))
         return ret
 
