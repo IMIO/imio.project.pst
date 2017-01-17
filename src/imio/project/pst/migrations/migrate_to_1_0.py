@@ -6,6 +6,7 @@ from plone import api
 from Products.CMFPlone.utils import base_hasattr, safe_unicode
 
 from Products.CPUtils.Extensions.utils import mark_last_version
+from collective.messagesviewlet.utils import add_message
 
 from imio.helpers.catalog import addOrUpdateIndexes
 from imio.helpers.content import transitions
@@ -146,6 +147,12 @@ class Migrate_To_1_0(Migrator):
         self.migrate_templates()
 
         self.upgradeAll()
+
+        # add documentation message
+        add_message('doc1-0', 'Documentation 1.0', u'<p>Vous pouvez consulter la <a href="http://www.imio.be/support'
+                    '/documentation/manual/gestion-de-projet-1.0" target="_blank">documentation en ligne de la '
+                    'nouvelle version</a>.</p>', msg_type='significant', can_hide=True, req_roles=['Authenticated'],
+                    activate=True)
 
         # update portal_catalog
         self.refreshDatabase()
