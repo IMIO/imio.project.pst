@@ -330,6 +330,7 @@ def _addPSTprojectspace(context):
     behaviour.setConstrainTypesMode(1)
     behaviour.setLocallyAllowedTypes(['strategicobjective', 'File', ])
     behaviour.setImmediatelyAddableTypes(['strategicobjective', 'File', ])
+    transitions(projectspace, ['publish_internally'])
 
 
 def _addPSTGroups(context):
