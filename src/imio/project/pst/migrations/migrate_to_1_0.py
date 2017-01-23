@@ -49,7 +49,10 @@ class Migrate_To_1_0(Migrator):
         adaptDefaultPortal(self.portal)
         # remove local roles on project spaces (old ones too)
         for brain in self.pc(portal_type='projectspace'):
-            brain.getObject().manage_delLocalRoles(["pst_managers", "pst_editors", "pst_readers"])
+            obj = brain.getObject()
+            obj.manage_delLocalRoles(["pst_managers", "pst_editors", "pst_readers"])
+            transitions(obj, ['publish_internally'])
+
         try:
             api.group.delete(groupname="pst_managers")
         except:
