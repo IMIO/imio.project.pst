@@ -83,21 +83,21 @@ class DocumentGenerationPSTHelper(DXDocumentGenerationHelperView, DocumentGenera
         """
             get a list of contained operational objectives
         """
-        oos = self.getDGHV(so).getOperationalObjectives(skip_states=['created'])
+        oos = self.getDGHV(so).getOperationalObjectives(skip_states=skip_states)
         return oos
 
     def getActions(self, oo=None, skip_states=['created']):
         """
             return a list of contained pstactions
         """
-        acts = self.getDGHV(oo).getActions(skip_states=['created'])
+        acts = self.getDGHV(oo).getActions(skip_states=skip_states)
         return acts
 
     def getTasks(self, action=None, depth=99, skip_states=['created']):
         """
             Get tasks ordered by path
         """
-        return self.getDGHV(action).getTasks(depth=depth, skip_states=['created'])
+        return self.getDGHV(action).getTasks(depth=depth, skip_states=skip_states)
 
 
 class BudgetHelper():
@@ -188,14 +188,14 @@ class DocumentGenerationSOHelper(DXDocumentGenerationHelperView, DocumentGenerat
         """
             return a list of contained pstactions
         """
-        acts = self.getDGHV(oo).getActions(skip_states=['created'])
+        acts = self.getDGHV(oo).getActions(skip_states=skip_states)
         return acts
 
     def getTasks(self, action=None, depth=99, skip_states=['created']):
         """
             Get tasks ordered by path
         """
-        return self.getDGHV(action).getTasks(depth=depth, skip_states=['created'])
+        return self.getDGHV(action).getTasks(depth=depth, skip_states=skip_states)
 
     def getSection(self):
         """
@@ -252,7 +252,7 @@ class DocumentGenerationOOHelper(DXDocumentGenerationHelperView, DocumentGenerat
         """
             Get tasks ordered by path
         """
-        return self.getDGHV(action).getTasks(depth=depth, skip_states=['created'])
+        return self.getDGHV(action).getTasks(depth=depth, skip_states=skip_states)
 
     def formatResultIndicator(self, reached=True, expected=True, sep=' | '):
         """
