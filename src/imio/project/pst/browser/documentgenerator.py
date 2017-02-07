@@ -69,7 +69,7 @@ class DocumentGenerationPSTHelper(DXDocumentGenerationHelperView, DocumentGenera
         """
             get a list of contained strategic objectives
         """
-        if self.sel_type == 'strategicobjective':
+        if self.is_dashboard() and self.sel_type == 'strategicobjective':
             return self.objs
         else:
             pcat = self.real_context.portal_catalog
@@ -167,14 +167,22 @@ class DocumentGenerationSOHelper(DXDocumentGenerationHelperView, DocumentGenerat
         """
             get a list of unique contained strategic objective
         """
-        return [self.real_context]
+        if self.is_dashboard() and self.sel_type == 'operationalobjective':
+            ret = []
+            for obj in self.objs:
+                os = obj.__parent__
+                if os not in ret:
+                    ret.append(os)
+            return ret
+        else:
+            return [self.real_context]
 
     def getOperationalObjectives(self, so=None, skip_states=['created']):
         """
             get a list of contained operational objectives
         """
-        if self.sel_type == 'operationalobjective':
-            return self.objs
+        if self.is_dashboard() and self.sel_type == 'operationalobjective':
+            return [oo for oo in self.objs if oo.__parent__ == so]
         else:
             context = so is None and self.real_context or so
             pcat = self.real_context.portal_catalog
@@ -225,20 +233,38 @@ class DocumentGenerationOOHelper(DXDocumentGenerationHelperView, DocumentGenerat
         """
             get a list of the parent strategic objective of the current operationalobjective
         """
-        return [self.real_context.aq_inner.aq_parent]
+        if self.is_dashboard() and self.sel_type == 'pstaction':
+            ret = []
+            for obj in self.objs:
+                os = obj.__parent__.__parent__
+                if os not in ret:
+                    ret.append(os)
+            return ret
+        else:
+            return [self.real_context.aq_inner.aq_parent]
 
     def getOperationalObjectives(self, so=None, skip_states=['created']):
         """
             get a list of an unique contained operational objective
         """
-        return [self.real_context]
+        if self.is_dashboard() and self.sel_type == 'pstaction':
+            ret = []
+            for obj in self.objs:
+                oo = obj.__parent__
+                if oo.__parent__ != so:
+                    continue
+                if oo not in ret:
+                    ret.append(oo)
+            return ret
+        else:
+            return [self.real_context]
 
     def getActions(self, oo=None, skip_states=['created']):
         """
             return a list of contained pstactions
         """
-        if self.sel_type == 'pstaction':
-            return self.objs
+        if self.is_dashboard() and self.sel_type == 'pstaction':
+            return [act for act in self.objs if act.__parent__ == oo]
         else:
             context = oo is None and self.real_context or oo
             pcat = self.real_context.portal_catalog
@@ -278,25 +304,47 @@ class DocumentGenerationPSTActionsHelper(DXDocumentGenerationHelperView, Documen
         """
             get a list of the parent strategic objective of the current operationalobjective
         """
-        return [self.real_context.aq_inner.aq_parent.aq_inner.aq_parent]
+        if self.is_dashboard() and self.sel_type == 'task':
+            ret = []
+            for obj in self.objs:
+                os = obj.__parent__.__parent__.__parent__
+                if os not in ret:
+                    ret.append(os)
+            return ret
+        else:
+            return [self.real_context.aq_inner.aq_parent.aq_inner.aq_parent]
 
     def getOperationalObjectives(self, so=None, skip_states=['created']):
         """
             get a list of an unique contained operational objective
         """
-        return [self.real_context.aq_inner.aq_parent]
+        if self.is_dashboard() and self.sel_type == 'task':
+            ret = []
+            for obj in self.objs:
+                oo = obj.__parent__.__parent__
+                if oo.__parent__ != so:
+                    continue
+                if oo not in ret:
+                    ret.append(oo)
+            return ret
+        else:
+            return [self.real_context.aq_inner.aq_parent]
 
     def getActions(self, oo=None, skip_states=['created']):
         """
             return a list of contained pstactions
         """
-        return [self.real_context]
-
-    def getSOParent(self):
-        """
-            get the strategic objective parent
-        """
-        return self.real_context.aq_inner.aq_parent.aq_inner.aq_parent
+        if self.is_dashboard() and self.sel_type == 'task':
+            ret = []
+            for obj in self.objs:
+                act = obj.__parent__
+                if act.__parent__ != oo:
+                    continue
+                if act not in ret:
+                    ret.append(act)
+            return ret
+        else:
+            return [self.real_context]
 
     def formatHealthIndicator(self):
         """
@@ -309,12 +357,16 @@ class DocumentGenerationPSTActionsHelper(DXDocumentGenerationHelperView, Documen
         """
             Get tasks ordered by path
         """
-        pcat = self.real_context.portal_catalog
-        brains = pcat(portal_type='task',
-                      path={'query': '/'.join(self.real_context.getPhysicalPath()), 'depth': depth},
-                      review_state=_getWorkflowStates(self.portal, 'task', skip_states=skip_states),
-                      sort_on='path')
-        return [brain.getObject() for brain in brains]
+        if self.is_dashboard() and self.sel_type == 'task':
+            return [tsk for tsk in self.objs if tsk.__parent__ == action]
+        else:
+            context = action is None and self.real_context or action
+            pcat = self.real_context.portal_catalog
+            brains = pcat(portal_type='task',
+                          path={'query': '/'.join(context.getPhysicalPath()), 'depth': depth},
+                          review_state=_getWorkflowStates(self.portal, 'task', skip_states=skip_states),
+                          sort_on='path')
+            return [brain.getObject() for brain in brains]
 
 
 class DocumentGenerationPSTCategoriesHelper(ATDocumentGenerationHelperView, DocumentGenerationBaseHelper):
