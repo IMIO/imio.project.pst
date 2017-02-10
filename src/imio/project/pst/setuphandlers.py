@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-import os
 import logging
 logger = logging.getLogger('imio.project.pst')
 from Acquisition import aq_base
@@ -16,7 +15,6 @@ from plone import api
 from plone.app.controlpanel.markup import MarkupControlPanelAdapter
 from plone.app.uuid.utils import uuidToObject
 from plone.dexterity.utils import createContentInContainer
-from plone.namedfile.file import NamedBlobFile
 from plone.registry.interfaces import IRegistry
 from Products.CMFCore.WorkflowCore import WorkflowException
 from Products.CMFPlone.utils import base_hasattr
@@ -24,16 +22,18 @@ from Products.CMFPlone.utils import getToolByName
 from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
 
 from collective.contact.plonegroup.config import ORGANIZATIONS_REGISTRY, FUNCTIONS_REGISTRY
+from collective.documentgenerator.utils import update_templates
 from collective.eeafaceted.collectionwidget.interfaces import ICollectionCategories
 from dexterity.localroles.utils import add_fti_configuration
 from imio.dashboard.utils import enableFacetedDashboardFor, _updateDefaultCollectionFor
 from imio.helpers.catalog import addOrUpdateIndexes
 from imio.helpers.security import get_environment, generate_password
-from imio.helpers.content import create, add_file, transitions
+from imio.helpers.content import create, transitions
 from imio.project.core.utils import getProjectSpace
 
-from data import get_os_oo_ac_data
-from imio.project.pst.utils import list_wf_states
+from data import get_os_oo_ac_data, get_styles_templates, get_templates, TMPL_DIR
+from utils import list_wf_states
+from . import add_path, PRODUCT_DIR
 
 
 logger = logging.getLogger('imio.project.pst: setuphandlers')
@@ -47,14 +47,14 @@ def _(msgid, context=None, domain='imio.project.pst'):
 def reimport_faceted_config(folder, xml, default_UID=None):
     """Reimport faceted navigation config."""
     folder.unrestrictedTraverse('@@faceted_exportimport').import_xml(
-        import_file=open(os.path.dirname(__file__) + '/faceted_conf/%s' % xml))
+        import_file=open(add_path('faceted_conf/%s' % xml)))
     if default_UID:
         _updateDefaultCollectionFor(folder, default_UID)
 
 
 def configure_faceted_folder(folder, xml=None, default_UID=None):
     """Configure faceted navigation for incoming-mail folder."""
-    enableFacetedDashboardFor(folder, xml and os.path.dirname(__file__) + '/faceted_conf/%s' % xml or None)
+    enableFacetedDashboardFor(folder, xml and add_path('faceted_conf/%s' % xml) or None)
     if default_UID:
         _updateDefaultCollectionFor(folder, default_UID)
 
@@ -133,100 +133,29 @@ def _addTemplatesDirectory(context):
     folder = site.templates
     do_transitions(folder, transitions=['publish_internally'], logger=logger)
 
-    def get_path(filename):
-        return os.path.join(context._profile_path, filename)
+    cids = create(get_styles_templates())
+    cids.update(create(get_templates(cids)))
 
-    styles = [
-        {'cid': 1, 'cont': 'templates', 'id': 'style', 'title': u'Style général', 'type': 'StyleTemplate',
-         'file': u'', 'functions': [(add_file, [], {'filepath': get_path('templates/style.odt'),
-                                                    'contentType': 'applications/odt', 'attr': 'odt_file'})],
-         'trans': ['publish_internally']}
-    ]
-    cids = create(styles)
 
-    templates = [
-        {'cid': 10, 'cont': 'templates', 'id': 'detail', 'title': u'Détaillé', 'type': 'ConfigurablePODTemplate',
-         'trans': ['publish_internally'],
-         'attrs': {'style_template': [cids[1].UID()], 'pod_formats': ['odt'], 'pod_portal_types': ['projectspace',
-                   'strategicobjective', 'operationalobjective', 'pstaction'],
-                   'context_variables': [{'name': u'with_tasks', 'value': u''}],
-                   'odt_file': NamedBlobFile(data=open(get_path('templates/detail.odt'), 'r').read(),
-                                             filename=u'detail.odt', contentType='applications/odt')}},
+def _extract_templates_infos(lst):
+    ret = []
+    for dic in lst:
+        ret.append(('templates/%s' % dic['id'], '%s/%s' % (TMPL_DIR, dic['attrs']['odt_file'].filename)))
+    return ret
 
-        {'cid': 15, 'cont': 'templates', 'id': 'detail-tasks', 'title': u'Détaillé avec tâches',
-         'type': 'ConfigurablePODTemplate', 'trans': ['publish_internally'],
-         'attrs': {'style_template': [cids[1].UID()], 'pod_formats': ['odt'], 'pod_portal_types': ['projectspace',
-                   'strategicobjective', 'operationalobjective', 'pstaction'],
-                   'context_variables': [{'name': u'with_tasks', 'value': u'1'}],
-                   'odt_file': NamedBlobFile(data=open(get_path('templates/detail.odt'), 'r').read(),
-                                             filename=u'detail.odt', contentType='applications/odt')}},
 
-        {'cid': 20, 'cont': 'templates', 'id': 'ddetail', 'title': u'Détaillé', 'type': 'DashboardPODTemplate',
-         'trans': ['publish_internally'],
-         'attrs': {'style_template': [cids[1].UID()], 'pod_formats': ['odt'], 'tal_condition': "python:"
-                   "not((context.getPortalTypeName() == 'Folder' and context.getId() == 'tasks') or "
-                   "context.getPortalTypeName() == 'pstaction')",
-                   'context_variables': [{'name': u'with_tasks', 'value': u''}],
-                   'odt_file': NamedBlobFile(data=open(get_path('templates/detail.odt'), 'r').read(),
-                                             filename=u'detail.odt', contentType='applications/odt')}},
-
-        {'cid': 25, 'cont': 'templates', 'id': 'ddetail-tasks', 'title': u'Détaillé avec tâches',
-         'type': 'DashboardPODTemplate', 'trans': ['publish_internally'],
-         'attrs': {'style_template': [cids[1].UID()], 'pod_formats': ['odt'], 'tal_condition': "",
-                   'context_variables': [{'name': u'with_tasks', 'value': u'1'}],
-                   'odt_file': NamedBlobFile(data=open(get_path('templates/detail.odt'), 'r').read(),
-                                             filename=u'detail.odt', contentType='applications/odt')}},
-
-        {'cid': 30, 'cont': 'templates', 'id': 'follow', 'title': u'Suivi', 'type': 'ConfigurablePODTemplate',
-         'trans': ['publish_internally'],
-         'attrs': {'style_template': [cids[1].UID()], 'pod_formats': ['odt'], 'pod_portal_types': ['projectspace',
-                   'strategicobjective', 'operationalobjective', 'pstaction'],
-                   'context_variables': [{'name': u'with_tasks', 'value': u''}],
-                   'odt_file': NamedBlobFile(data=open(get_path('templates/suivi.odt'), 'r').read(),
-                                             filename=u'suivi.odt', contentType='applications/odt')}},
-
-        {'cid': 35, 'cont': 'templates', 'id': 'follow-tasks', 'title': u'Suivi avec tâches',
-         'type': 'ConfigurablePODTemplate', 'trans': ['publish_internally'],
-         'attrs': {'style_template': [cids[1].UID()], 'pod_formats': ['odt'], 'pod_portal_types': ['projectspace',
-                   'strategicobjective', 'operationalobjective', 'pstaction'],
-                   'context_variables': [{'name': u'with_tasks', 'value': u'1'}],
-                   'odt_file': NamedBlobFile(data=open(get_path('templates/suivi.odt'), 'r').read(),
-                                             filename=u'suivi.odt', contentType='applications/odt')}},
-
-        {'cid': 40, 'cont': 'templates', 'id': 'dfollow', 'title': u'Suivi', 'type': 'DashboardPODTemplate',
-         'trans': ['publish_internally'],
-         'attrs': {'style_template': [cids[1].UID()], 'pod_formats': ['odt'], 'tal_condition': "python:"
-                   "not((context.getPortalTypeName() == 'Folder' and context.getId() == 'tasks') or "
-                   "context.getPortalTypeName() == 'pstaction')",
-                   'context_variables': [{'name': u'with_tasks', 'value': u''}],
-                   'odt_file': NamedBlobFile(data=open(get_path('templates/suivi.odt'), 'r').read(),
-                                             filename=u'suivi.odt', contentType='applications/odt')}},
-
-        {'cid': 45, 'cont': 'templates', 'id': 'dfollow-tasks', 'title': u'Suivi avec tâches',
-         'type': 'DashboardPODTemplate', 'trans': ['publish_internally'],
-         'attrs': {'style_template': [cids[1].UID()], 'pod_formats': ['odt'], 'tal_condition': "",
-                   'context_variables': [{'name': u'with_tasks', 'value': u'1'}],
-                   'odt_file': NamedBlobFile(data=open(get_path('templates/suivi.odt'), 'r').read(),
-                                             filename=u'suivi.odt', contentType='applications/odt')}},
-
-        {'cid': 50, 'cont': 'templates', 'id': 'export', 'title': u'Export', 'type': 'ConfigurablePODTemplate',
-         'trans': ['publish_internally'],
-         'attrs': {'pod_formats': ['ods'], 'pod_portal_types': ['projectspace', 'strategicobjective',
-                   'operationalobjective', 'pstaction'], 'tal_condition': "python:"
-                   "context.restrictedTraverse('pst-utils').is_in_user_groups(user=member, groups=['pst_editors'])",
-                   'odt_file': NamedBlobFile(data=open(get_path('templates/export.ods'), 'r').read(),
-                                             filename=u'export.ods', contentType='applications/ods')}},
-
-        {'cid': 55, 'cont': 'templates', 'id': 'dexport', 'title': u'Export', 'type': 'DashboardPODTemplate',
-         'trans': ['publish_internally'],
-         'attrs': {'pod_formats': ['ods'], 'tal_condition': "python:"
-                   "not((context.getPortalTypeName() == 'Folder' and context.getId() == 'tasks') or "
-                   "context.getPortalTypeName() == 'pstaction') and context.restrictedTraverse('pst-utils')"
-                   ".is_in_user_groups(user=member, groups=['pst_editors'])",
-                   'odt_file': NamedBlobFile(data=open(get_path('templates/export.ods'), 'r').read(),
-                                             filename=u'export.ods', contentType='applications/ods')}},
-    ]
-    cids.update(create(templates))
+def update_dg_templates(context):
+    """ Update documentgenerator templates"""
+    if context.readDataFile("imioprojectpst_update_marker.txt") is None:
+        return
+    site = context.getSite()
+    templates = _extract_templates_infos(get_styles_templates())
+    templates += _extract_templates_infos(get_templates({1: site.templates['style']}))
+    logger.info('Updating templates')
+    templates = update_templates(templates)
+    log = ["Template '%s' (%s): %s" % (tup[0], tup[1][len(PRODUCT_DIR)+1:], tup[2]) for tup in templates]
+    [logger.info(msg) for msg in log]
+    return '\n'.join(log)
 
 
 def _addPSTprojectspace(context):

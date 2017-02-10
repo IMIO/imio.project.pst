@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<import-steps>
+    <import-step
+            id="imioprojectpst-update-templates"
+            handler="imio.project.pst.setuphandlers.update_dg_templates"
+            title="Templates update step for imio.project.pst"
+            version="2017-02-10T11:00:00.00000">
+        Templates update step for imio.project.pst
+    </import-step>
+</import-steps>
