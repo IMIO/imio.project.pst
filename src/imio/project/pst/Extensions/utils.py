@@ -1,5 +1,5 @@
 import os
-from imio.project.pst import setuphandlers
+from imio.project.pst import add_path
 
 
 def update_templates(self):
@@ -14,7 +14,7 @@ def update_templates(self):
     ]
     out = []
     folder = self.templates
-    templates_dir = os.path.join(os.path.dirname(setuphandlers.__file__), 'profiles', 'default', 'templates')
+    templates_dir = add_path('profiles/default/templates')
     for id, filename in templates:
         filename_path = os.path.join(templates_dir, filename)
         try:
