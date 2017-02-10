@@ -21,6 +21,15 @@
         provides="Products.GenericSetup.interfaces.EXTENSION"
         />
 
+    <genericsetup:registerProfile
+        name="update"
+        title="imio.project.pst update profile to run individually some update steps"
+        directory="profiles/update"
+        description="Update profile to run individually some update steps"
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+        for="Products.CMFCore.interfaces.ISiteRoot"
+        />
+
     <genericsetup:upgradeStep
         title="Go to imio.project.pst 0.2"
         description=""
