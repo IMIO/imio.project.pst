@@ -6,7 +6,7 @@
     <subscriber
         for="imio.project.core.content.projectspace.IProjectSpace
              zope.container.interfaces.IObjectAddedEvent"
-        handler=".events.adaptConstrainTypesForProjectSpace"
+        handler=".subscribers.adaptConstrainTypesForProjectSpace"
         />
 
 </configure>
