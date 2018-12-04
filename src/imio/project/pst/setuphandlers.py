@@ -1,39 +1,46 @@
 # -*- coding: utf-8 -*-
 
-import logging
-logger = logging.getLogger('imio.project.pst')
 from Acquisition import aq_base
-from zope.component import getUtility, getMultiAdapter
-from zope.component import queryUtility
-from zope.globalrequest import getRequest
-from zope.i18n.interfaces import ITranslationDomain
-from zope.interface import alsoProvides
-from zope.event import notify
-from zope.lifecycleevent import ObjectCreatedEvent
-
+from collective.contact.plonegroup.config import FUNCTIONS_REGISTRY
+from collective.contact.plonegroup.config import ORGANIZATIONS_REGISTRY
+from collective.documentgenerator.utils import update_templates
+from collective.eeafaceted.collectionwidget.interfaces import ICollectionCategories
+from data import get_os_oo_ac_data
+from data import get_styles_templates
+from data import get_templates
+from data import TMPL_DIR
+from dexterity.localroles.utils import add_fti_configuration
+from imio.dashboard.utils import _updateDefaultCollectionFor
+from imio.dashboard.utils import enableFacetedDashboardFor
+from imio.helpers.catalog import addOrUpdateIndexes
+from imio.helpers.content import create
+from imio.helpers.content import transitions
+from imio.helpers.security import generate_password
+from imio.helpers.security import get_environment
+from imio.project.core.utils import getProjectSpace
+from imio.project.pst import add_path
+from imio.project.pst import PRODUCT_DIR
+from imio.project.pst.interfaces import IImioPSTProject
 from plone import api
 from plone.app.controlpanel.markup import MarkupControlPanelAdapter
 from plone.app.uuid.utils import uuidToObject
 from plone.dexterity.utils import createContentInContainer
 from plone.registry.interfaces import IRegistry
 from Products.CMFCore.WorkflowCore import WorkflowException
+from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
 from Products.CMFPlone.utils import base_hasattr
 from Products.CMFPlone.utils import getToolByName
-from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
-
-from collective.contact.plonegroup.config import ORGANIZATIONS_REGISTRY, FUNCTIONS_REGISTRY
-from collective.documentgenerator.utils import update_templates
-from collective.eeafaceted.collectionwidget.interfaces import ICollectionCategories
-from dexterity.localroles.utils import add_fti_configuration
-from imio.dashboard.utils import enableFacetedDashboardFor, _updateDefaultCollectionFor
-from imio.helpers.catalog import addOrUpdateIndexes
-from imio.helpers.security import get_environment, generate_password
-from imio.helpers.content import create, transitions
-from imio.project.core.utils import getProjectSpace
-
-from data import get_os_oo_ac_data, get_styles_templates, get_templates, TMPL_DIR
 from utils import list_wf_states
-from . import add_path, PRODUCT_DIR
+from zope.component import getMultiAdapter
+from zope.component import getUtility
+from zope.component import queryUtility
+from zope.event import notify
+from zope.globalrequest import getRequest
+from zope.i18n.interfaces import ITranslationDomain
+from zope.interface import alsoProvides
+from zope.lifecycleevent import ObjectCreatedEvent
+
+import logging
 
 
 logger = logging.getLogger('imio.project.pst: setuphandlers')
@@ -249,6 +256,7 @@ def _addPSTprojectspace(context):
     params['budget_types'] = budget_types
     createContentInContainer(site, 'projectspace', **params)
     projectspace = site.pst
+    alsoProvides(projectspace, IImioPSTProject)
     # we do not publish because, in published state, editors cannot more modify
     # do_transitions(projectspace, transitions=['publish_internally'], logger=logger)
     # set locally allowed types
