@@ -87,7 +87,7 @@
     <adapter name="effective_begin_date" factory=".adapters.effective_begin_date_index" />
 
     <!-- UTILS METHODS -->
-    <browser:page
+    <browser:view
         for="Products.CMFCore.interfaces.IContentish"
         name="pst-utils"
         class=".utils.UtilsMethods"

@@ -1,0 +1,116 @@
+├── adapters.py :criterions, indexes
+├── browser
+│   ├── actionspanel.py : order transitions
+│   ├── configure.zcml : folderlisting views, dg views, add/edit, actionspanel
+│   ├── documentgenerator.py : helper views, generation views
+│   ├── facetediframe.py : folderlisting view, criteria, listing
+│   ├── facetediframe.zcml : marker, criteria, listing
+│   ├── interfaces.py : marker
+│   ├── operationalobjective_folder_listing.pt
+│   ├── overrides.zcml : task viewlet, column
+│   ├── portletdashboard.py
+│   ├── portletdashboard.zcml
+│   ├── portlet_mainimioprojectpst.pt
+│   ├── projectspace_folder_listing.pt
+│   ├── pstaction_folder_listing.pt
+│   ├── static
+│   │   ├── achieve.png
+│   │   ├── back_to_be_scheduled.png
+│   │   ├── back_to_created.png
+│   │   ├── back_to_ongoing.png
+│   │   ├── begin.png
+│   │   ├── finish.png
+│   │   ├── imio_project_pst.css
+│   │   ├── imio_project_pst.js
+│   │   ├── operationalobjective_icon.png
+│   │   ├── pstaction_icon.png
+│   │   ├── pst_icons_sprite.png
+│   │   ├── set_to_be_scheduled.png
+│   │   ├── stop.png
+│   │   └── strategicobjective_icon.png
+│   ├── strategicobjective_folder_listing.pt
+│   ├── task.py : add/edit, column
+│   ├── viewlets.py : task viewlet not displayed on action
+│   └── views.py : _getWorkflowStates
+├── columns.py : dashboard columns
+├── columns.zcml : dashboard columns
+├── configure.zcml : criterion, indexes, utils view, catalog utility
+├── content
+│   ├── action.py
+│   ├── configure.zcml : vocabularies
+│   ├── operational.py : ONE CLASS TO DELETE
+│   └── strategic.py
+├── data.py : demo data
+├── excelexport : TO REMOVE
+│   ├── configure.zcml
+│   ├── __init__.py
+│   ├── project.py
+│   └── styles.py
+├── Extensions
+│   └── utils.py : TO REMOVE
+├── facetedcatalog.py : query manipulation
+├── faceted_conf
+│   ├── default_dashboard_widgets.xml
+│   ├── operationalobjective.xml
+│   ├── pstaction.xml
+│   ├── strategicobjective.xml
+│   └── task.xml
+├── __init__.py : add_path
+├── interfaces.py  :layer, pst marker
+├── locales
+├── migrations
+├── model
+├── overrides.zcml
+├── profiles
+│   ├── default
+│   │   ├── actions.xml
+│   │   ├── browserlayer.xml
+│   │   ├── catalog.xml
+│   │   ├── componentregistry.xml
+│   │   ├── cssregistry.xml
+│   │   ├── diff_tool.xml.notnow
+│   │   ├── imioprojectpst_marker.txt
+│   │   ├── import_steps.xml
+│   │   ├── jsregistry.xml
+│   │   ├── metadata.xml
+│   │   ├── portlets.xml
+│   │   ├── propertiestool.xml
+│   │   ├── registry.xml
+│   │   ├── templates
+│   │   │   ├── detail.odt
+│   │   │   ├── export.ods
+│   │   │   ├── style.odt
+│   │   │   ├── suivi.odt
+│   │   │   └── tableaubord.odt
+│   │   ├── types
+│   │   │   ├── operationalobjective.xml
+│   │   │   ├── projectspace.xml
+│   │   │   ├── pstaction.xml
+│   │   │   └── strategicobjective.xml
+│   │   ├── types.xml
+│   │   ├── workflows
+│   │   │   ├── pst_action_workflow
+│   │   │   │   └── definition.xml
+│   │   │   └── pst_objective_workflow
+│   │   │       └── definition.xml
+│   │   └── workflows.xml
+│   ├── demo
+│   │   ├── imioprojectpst_demo_marker.txt
+│   │   ├── import_steps.xml
+│   │   ├── metadata.xml
+│   │   ├── portlets.xml
+│   │   └── repositorytool.xml
+│   ├── testing
+│   │   ├── cssregistry.xml
+│   │   ├── metadata.xml
+│   │   └── propertiestool.xml
+│   └── update
+│       ├── imioprojectpst_update_marker.txt
+│       └── import_steps.xml
+├── profiles.zcml
+├── setuphandlers.py
+├── subscribers.py : projectspace added
+├── subscribers.zcml : projectspace added
+├── utils.py : utils view, wf states
+├── vocabularies.py : states vocabularies
+└── vocabularies.zcml : states vocabularies
