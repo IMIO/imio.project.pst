@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 
+from plone import api
+from Products.Five.browser import BrowserView
+
 
 def _getWorkflowStates(portal, portal_type, skip_initial=False, skip_states=[]):
     """
@@ -18,3 +21,29 @@ def _getWorkflowStates(portal, portal_type, skip_initial=False, skip_states=[]):
             continue
         ret.append(state)
     return ret
+
+
+class ArchiveView(BrowserView):
+    """
+        Common methods
+    """
+
+    def archive(self):
+        """ """
+        portal = api.portal.get()
+        new_pst = api.content.copy(self.context, portal, 'pst-tmp', False)
+        self.context = api.content.rename(self.context, 'pst-2012-2018')
+        self.context.title = u'PST (2012-2018)'
+        self.context.reindexObject()
+        new_pst = api.content.rename(new_pst, 'pst')
+        new_pst.title = u'PST (2018-2024)'
+        new_pst.reindexObject()
+        path = '/'.join(self.context.getPhysicalPath())
+        for brain in portal.portal_catalog(path=path, portal_type='DashboardCollection'):
+            obj = brain.getObject()
+            query = obj.query
+            for elt in query:
+                if elt['i'] == 'path':
+                    elt['v'] = path
+            obj.query = query
+        return
