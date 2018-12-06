@@ -98,6 +98,7 @@
             user_has_review_level
             user_is_admin
             is_in_user_groups
+            is_pst_project
         "
     />
 

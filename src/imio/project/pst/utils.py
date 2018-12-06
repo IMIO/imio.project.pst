@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from imio.project.pst.interfaces import IImioPSTProject
 from plone import api
 from plone.memoize import ram
 from Products.CMFPlone.utils import getToolByName
@@ -101,3 +102,8 @@ class UtilsMethods(BrowserView):
         elif test == 'all':
             return all(x in u_groups for x in groups)
         return False
+
+    def is_pst_project(self):
+        """ """
+        return IImioPSTProject.providedBy(self.context)
+
