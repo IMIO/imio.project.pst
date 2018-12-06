@@ -254,6 +254,7 @@ def _addPSTprojectspace(context):
          'key': "autres"},
     ]
     params['budget_types'] = budget_types
+    params['budget_years'] = [2019, 2020, 2021, 2022, 2023, 2024]
     createContentInContainer(site, 'projectspace', **params)
     projectspace = site.pst
     alsoProvides(projectspace, IImioPSTProject)
