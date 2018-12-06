@@ -1,14 +1,13 @@
-import pkg_resources
-from Products.Five import BrowserView
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from plone import api
-
 from eea.facetednavigation.browser.app.view import FacetedContainerView
 from eea.facetednavigation.criteria.handler import Criteria as eeaCriteria
 from eea.facetednavigation.interfaces import IFacetedNavigable
 from eea.facetednavigation.widgets.storage import Criterion
-
 from imio.helpers.browser.views import ContainerFolderListingView
+from imio.project.core.utils import getProjectSpace
+from Products.Five import BrowserView
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+
+import pkg_resources
 
 
 class FacetedContainerFolderListingView(ContainerFolderListingView, FacetedContainerView):
@@ -19,8 +18,7 @@ class FacetedContainerFolderListingView(ContainerFolderListingView, FacetedConta
 
 
 def get_criteria_holder(context):
-    portal = api.portal.get()
-    pst = portal.pst
+    pst = getProjectSpace(context)
     if context.portal_type == 'projectspace':
         return pst.strategicobjectives
     elif context.portal_type == 'strategicobjective':

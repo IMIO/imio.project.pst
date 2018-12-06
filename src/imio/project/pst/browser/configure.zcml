@@ -141,4 +141,13 @@
             />
     </class>
 
+    <!-- Products views -->
+    <browser:page
+        for="imio.project.pst.interfaces.IImioPSTProject"
+        name="archive"
+        class="imio.project.pst.browser.views.ArchiveView"
+        permission="cmf.ManagePortal"
+        allowed_attributes='archive'
+        />
+
 </configure>
