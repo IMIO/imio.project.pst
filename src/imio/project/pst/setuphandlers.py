@@ -258,12 +258,13 @@ def _addPSTprojectspace(context):
     createContentInContainer(site, 'projectspace', **params)
     projectspace = site.pst
     alsoProvides(projectspace, IImioPSTProject)
-    # we do not publish because, in published state, editors cannot more modify
-    # do_transitions(projectspace, transitions=['publish_internally'], logger=logger)
-    # set locally allowed types
+    # local roles
+    projectspace.manage_addLocalRoles("pst_editors", ('Reader', 'Editor', 'Reviewer', 'Contributor', ))
+    # dashboard
     configureDashboard(projectspace)
     # set default view to not be a faceted view
     projectspace.setLayout('view')
+    # set locally allowed types
     behaviour = ISelectableConstrainTypes(projectspace)
     behaviour.setConstrainTypesMode(1)
     behaviour.setLocallyAllowedTypes(['strategicobjective', 'File', ])
@@ -996,8 +997,7 @@ def configure_rolefields(portal):
     config = {
         'projectspace': {
             'static_config': {
-                'internally_published': {'pst_editors': {'roles': ['Reader', 'Editor', 'Reviewer', 'Contributor']},
-                                         'pst_readers': {'roles': ['Reader']}}
+                'internally_published': {'pst_readers': {'roles': ['Reader']}}
             }
         },
         'operationalobjective': {
