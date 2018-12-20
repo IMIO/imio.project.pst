@@ -38,7 +38,9 @@ class ArchiveView(BrowserView):
         self.context.reindexObject()
         new_pst = api.content.rename(new_pst, 'pst')
         new_pst.title = u'PST (2018-2024)'
+        new_pst.manage_addLocalRoles("pst_editors", ('Reader', 'Editor', 'Reviewer', 'Contributor', ))
         new_pst.reindexObject()
+        new_pst.reindexObjectSecurity()
         path = '/'.join(self.context.getPhysicalPath())
         for brain in portal.portal_catalog(path=path, portal_type='DashboardCollection'):
             obj = brain.getObject()
