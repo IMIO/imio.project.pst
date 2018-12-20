@@ -10,7 +10,7 @@
    <property name="title">Sort on</property>
    <property name="position">top</property>
    <property name="section">default</property>
-   <property name="hidden">1</property>
+   <property name="hidden">True</property>
    <property name="vocabulary"></property>
    <property name="default"></property>
   </criterion>
@@ -20,15 +20,15 @@
    <property name="title">Base collections</property>
    <property name="position">top</property>
    <property name="section">default</property>
-   <property name="hidden">1</property>
-   <property name="count">0</property>
-   <property name="sortcountable">0</property>
-   <property name="hidezerocount">0</property>
+   <property name="hidden">True</property>
+   <property name="count">False</property>
+   <property name="sortcountable">False</property>
+   <property name="hidezerocount">False</property>
    <property
       name="vocabulary">collective.eeafaceted.collectionwidget.cachedcollectionvocabulary</property>
-   <property name="hidealloption">1</property>
+   <property name="hidealloption">True</property>
    <property name="maxitems">0</property>
-   <property name="sortreversed">0</property>
+   <property name="sortreversed">False</property>
    <property name="default"></property>
   </criterion>
 
@@ -37,11 +37,11 @@
    <property name="title">Search</property>
    <property name="position">center</property>
    <property name="section">default</property>
-   <property name="hidden">0</property>
+   <property name="hidden">False</property>
    <property name="index">SearchableText</property>
    <property name="default"/>
-   <property name="onlyallelements">1</property>
-   <property name="wildcard">1</property>
+   <property name="onlyallelements">True</property>
+   <property name="wildcard">True</property>
   </criterion>
 
   <criterion name="c3" i18n:attributes="title">
@@ -49,7 +49,7 @@
    <property name="title">Per page</property>
    <property name="position">center</property>
    <property name="section">default</property>
-   <property name="hidden">0</property>
+   <property name="hidden">False</property>
    <property name="start">20</property>
    <property name="end">1000</property>
    <property name="step">20</property>
@@ -62,17 +62,17 @@
    <property name="title">Review state</property>
    <property name="position">top</property>
    <property name="section">advanced</property>
-   <property name="hidden">0</property>
-   <property name="count">0</property>
-   <property name="sortcountable">0</property>
-   <property name="hidezerocount">0</property>
+   <property name="hidden">False</property>
+   <property name="count">False</property>
+   <property name="sortcountable">False</property>
+   <property name="hidezerocount">False</property>
    <property name="index">review_state</property>
    <property name="operator">or</property>
-   <property name="operator_visible">0</property>
+   <property name="operator_visible">False</property>
    <property name="vocabulary">imio.project.pst.OOReviewStatesVocabulary</property>
    <property name="catalog"></property>
-   <property name="maxitems"></property>
-   <property name="sortreversed">0</property>
+   <property name="maxitems">0</property>
+   <property name="sortreversed">False</property>
    <property name="default"/>
   </criterion>
 
@@ -81,18 +81,18 @@
    <property name="title">Categories</property>
    <property name="position">top</property>
    <property name="section">advanced</property>
-   <property name="hidden">0</property>
-   <property name="count">0</property>
-   <property name="sortcountable">0</property>
-   <property name="hidezerocount">0</property>
+   <property name="hidden">False</property>
+   <property name="count">False</property>
+   <property name="sortcountable">False</property>
+   <property name="hidezerocount">False</property>
    <property name="index">categories</property>
    <property name="operator">or</property>
-   <property name="operator_visible">0</property>
+   <property name="operator_visible">False</property>
    <property
       name="vocabulary">imio.project.core.content.project.categories_vocabulary</property>
    <property name="catalog"></property>
-   <property name="maxitems"></property>
-   <property name="sortreversed">0</property>
+   <property name="maxitems">0</property>
+   <property name="sortreversed">False</property>
    <property name="default"/>
   </criterion>
 
@@ -101,17 +101,17 @@
    <property name="title">Priority</property>
    <property name="position">top</property>
    <property name="section">advanced</property>
-   <property name="hidden">0</property>
-   <property name="count">0</property>
-   <property name="sortcountable">0</property>
-   <property name="hidezerocount">0</property>
+   <property name="hidden">False</property>
+   <property name="count">False</property>
+   <property name="sortcountable">False</property>
+   <property name="hidezerocount">False</property>
    <property name="index">priority</property>
    <property name="operator">or</property>
-   <property name="operator_visible">0</property>
+   <property name="operator_visible">False</property>
    <property name="vocabulary">imio.project.core.content.project.priority_vocabulary</property>
    <property name="catalog"></property>
-   <property name="maxitems"></property>
-   <property name="sortreversed">0</property>
+   <property name="maxitems">0</property>
+   <property name="sortreversed">False</property>
    <property name="default"/>
   </criterion>
 
@@ -120,17 +120,17 @@
    <property name="title">Representative responsible</property>
    <property name="position">top</property>
    <property name="section">advanced</property>
-   <property name="hidden">0</property>
-   <property name="count">0</property>
-   <property name="sortcountable">0</property>
-   <property name="hidezerocount">0</property>
+   <property name="hidden">False</property>
+   <property name="count">False</property>
+   <property name="sortcountable">False</property>
+   <property name="hidezerocount">False</property>
    <property name="index">representative_responsible</property>
    <property name="operator">or</property>
-   <property name="operator_visible">0</property>
+   <property name="operator_visible">False</property>
    <property name="vocabulary">imio.project.pst.content.operational.representative_responsible_vocabulary</property>
    <property name="catalog"></property>
-   <property name="maxitems"></property>
-   <property name="sortreversed">0</property>
+   <property name="maxitems">0</property>
+   <property name="sortreversed">False</property>
    <property name="default"/>
   </criterion>
 
@@ -139,17 +139,17 @@
    <property name="title">Administrative responsible</property>
    <property name="position">top</property>
    <property name="section">advanced</property>
-   <property name="hidden">0</property>
-   <property name="count">0</property>
-   <property name="sortcountable">0</property>
-   <property name="hidezerocount">0</property>
+   <property name="hidden">False</property>
+   <property name="count">False</property>
+   <property name="sortcountable">False</property>
+   <property name="hidezerocount">False</property>
    <property name="index">administrative_responsible</property>
    <property name="operator">or</property>
-   <property name="operator_visible">0</property>
+   <property name="operator_visible">False</property>
    <property name="vocabulary">imio.project.pst.content.operational.administrative_responsible_vocabulary</property>
    <property name="catalog"></property>
-   <property name="maxitems"></property>
-   <property name="sortreversed">0</property>
+   <property name="maxitems">0</property>
+   <property name="sortreversed">False</property>
    <property name="default"/>
   </criterion>
 
@@ -158,17 +158,17 @@
    <property name="title">Manager</property>
    <property name="position">top</property>
    <property name="section">advanced</property>
-   <property name="hidden">0</property>
-   <property name="count">0</property>
-   <property name="sortcountable">0</property>
-   <property name="hidezerocount">0</property>
+   <property name="hidden">False</property>
+   <property name="count">False</property>
+   <property name="sortcountable">False</property>
+   <property name="hidezerocount">False</property>
    <property name="index">manager</property>
    <property name="operator">or</property>
-   <property name="operator_visible">0</property>
+   <property name="operator_visible">False</property>
    <property name="vocabulary">imio.project.core.content.project.manager_vocabulary</property>
    <property name="catalog"></property>
-   <property name="maxitems"></property>
-   <property name="sortreversed">0</property>
+   <property name="maxitems">0</property>
+   <property name="sortreversed">False</property>
    <property name="default"/>
   </criterion>
 
@@ -177,7 +177,7 @@
    <property name="title">Planned end date</property>
    <property name="position">top</property>
    <property name="section">advanced</property>
-   <property name="hidden">0</property>
+   <property name="hidden">False</property>
    <property name="index">planned_end_date</property>
    <property name="default"></property>
    <property name="calYearRange">c-10:c+10</property>
@@ -189,11 +189,11 @@
    <property name="title">Extra concerned people</property>
    <property name="position">top</property>
    <property name="section">advanced</property>
-   <property name="hidden">0</property>
+   <property name="hidden">False</property>
    <property name="index">extra_concerned_people</property>
    <property name="default"></property>
-   <property name="onlyallelements">1</property>
-   <property name="wildcard">0</property>
+   <property name="onlyallelements">True</property>
+   <property name="wildcard">False</property>
   </criterion>
 
  </criteria>
