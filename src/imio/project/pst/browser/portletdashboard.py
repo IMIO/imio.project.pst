@@ -1,7 +1,7 @@
 from collective.eeafaceted.collectionwidget.widgets.widget import CollectionWidget
 from collective.eeafaceted.dashboard.browser.facetedcollectionportlet import Renderer as BaseRenderer
 from eea.facetednavigation.criteria.interfaces import ICriteria
-from imio.project.pst.facetediframe import get_criteria_holder
+from imio.project.pst.browser.facetediframe import get_criteria_holder
 
 
 class Renderer(BaseRenderer):
