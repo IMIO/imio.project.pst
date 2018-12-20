@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from imio.dashboard.utils import _updateDefaultCollectionFor
+from collective.eeafaceted.collectionwidget.utils import _updateDefaultCollectionFor
 from plone import api
 from Products.Five.browser import BrowserView
 
@@ -50,7 +50,7 @@ class ArchiveView(BrowserView):
                     elt['v'] = path
             obj.query = query
         for obj in [new_pst.strategicobjectives, new_pst.operationalobjectives, new_pst.pstactions,
-                new_pst.tasks]:
+                    new_pst.tasks]:
             default_col = obj['all'].UID()  # could be dynamic... base on relative path to old uid
             _updateDefaultCollectionFor(obj, default_col)
         new_pst.budget_years = [2019, 2020, 2021, 2022, 2023, 2024]
