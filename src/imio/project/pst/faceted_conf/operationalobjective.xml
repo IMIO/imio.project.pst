@@ -73,7 +73,6 @@
    <property name="catalog"></property>
    <property name="maxitems">0</property>
    <property name="sortreversed">False</property>
-   <property name="default"/>
   </criterion>
 
   <criterion name="categories" i18n:attributes="title">
@@ -93,7 +92,6 @@
    <property name="catalog"></property>
    <property name="maxitems">0</property>
    <property name="sortreversed">False</property>
-   <property name="default"/>
   </criterion>
 
   <criterion name="priority" i18n:attributes="title">
@@ -112,7 +110,6 @@
    <property name="catalog"></property>
    <property name="maxitems">0</property>
    <property name="sortreversed">False</property>
-   <property name="default"/>
   </criterion>
 
   <criterion name="representativeresponsible" i18n:attributes="title">
@@ -131,7 +128,6 @@
    <property name="catalog"></property>
    <property name="maxitems">0</property>
    <property name="sortreversed">False</property>
-   <property name="default"/>
   </criterion>
 
   <criterion name="administrativeresponsible" i18n:attributes="title">
@@ -150,7 +146,6 @@
    <property name="catalog"></property>
    <property name="maxitems">0</property>
    <property name="sortreversed">False</property>
-   <property name="default"/>
   </criterion>
 
   <criterion name="manager" i18n:attributes="title">
@@ -169,7 +164,6 @@
    <property name="catalog"></property>
    <property name="maxitems">0</property>
    <property name="sortreversed">False</property>
-   <property name="default"/>
   </criterion>
 
   <criterion name="plannedenddate" i18n:attributes="title">
