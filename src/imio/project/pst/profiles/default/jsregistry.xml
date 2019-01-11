@@ -107,9 +107,7 @@
 
     <javascript id="++resource++collective.contact.plonegroup/plonegroup.js" insert-after="++resource++collective.contact.core/forms.js" />
 
-    <javascript id="++resource++imio.project.core/imio_project_core.js" insert-after="++resource++collective.contact.plonegroup/plonegroup.js" />
-
-    <javascript id="++resource++jquery.cookie.js" insert-after="++resource++imio.project.core/imio_project_core.js" />
+    <javascript id="++resource++jquery.cookie.js" insert-after="++resource++collective.contact.plonegroup/plonegroup.js" />
 
     <javascript id="++resource++jquery.ajaxfileupload.js" insert-after="++resource++jquery.cookie.js" />
 
@@ -243,6 +241,8 @@
 
     <javascript id="++resource++plone.formwidget.querystring.querywidget.js" insert-after="++resource++ckeditor_for_plone/ckeditor_plone.js" />
 
-    <javascript id="++resource++imio.project.pst/imio_project_pst.js" insert-after="++resource++plone.formwidget.querystring.querywidget.js" />
+    <javascript id="++resource++imio.project.core/imio_project_core.js" insert-after="++resource++plone.formwidget.querystring.querywidget.js" />
+
+    <javascript id="++resource++imio.project.pst/imio_project_pst.js" insert-after="++resource++imio.project.core/imio_project_core.js" />
 
 </object>

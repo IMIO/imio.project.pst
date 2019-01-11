@@ -108,7 +108,7 @@
 
  <stylesheet id="++resource++eea.faceted-navigation-edit.css" insert-after="++resource++eea.facetednavigation.widgets.alphabets.view.css" />
 
- <stylesheet id="++resource++eea.facetednavigation.widgets.text.edit.css" insert-after="++resource++collective.eeafaceted.collectionwidget.edit.css" />
+ <stylesheet id="++resource++eea.facetednavigation.widgets.text.edit.css" insert-after="++resource++eea.faceted-navigation-edit.css" />
 
  <stylesheet id="++resource++eea.facetednavigation.widgets.tal.edit.css" insert-after="++resource++eea.facetednavigation.widgets.text.edit.css" />
 
