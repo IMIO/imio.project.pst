@@ -254,7 +254,11 @@ def _addPSTprojectspace(context):
          'key': "autres"},
     ]
     params['budget_types'] = budget_types
-    params['budget_years'] = [2019, 2020, 2021, 2022, 2023, 2024]
+    if getattr(site, '_TESTING_SITE_', False):
+        params['budget_years'] = [2019, 2020, 2021, 2022, 2023, 2024]
+    else:
+        params['budget_years'] = [2019, 2020, 2021, 2022, 2023, 2024]
+
     createContentInContainer(site, 'projectspace', **params)
     projectspace = site.pst
     alsoProvides(projectspace, IImioPSTProject)
@@ -500,6 +504,12 @@ def addDemoData(context):
         return
     site = context.getSite()
 
+    def getPSTStartYear(site):
+        if getattr(site, '_TESTING_SITE_', False):
+            return 2019
+        else:
+            return 2019
+
     logger.info('Adding demo data')
     registry = getUtility(IRegistry)
     registry[ORGANIZATIONS_REGISTRY]
@@ -513,7 +523,7 @@ def addDemoData(context):
     # - operationalobjective
     # - pstaction
     # - task
-    data = get_os_oo_ac_data(groups)
+    data = get_os_oo_ac_data(groups, getPSTStartYear(site))
 
     # needed to avoid ComponentLookupError in edit_view.update()
     from zope.event import notify

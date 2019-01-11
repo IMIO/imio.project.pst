@@ -19,6 +19,7 @@ import imio.project.pst
 class PSTLayer(PloneWithPackageLayer):
 
     def setUpPloneSite(self, portal):
+        setattr(portal, '_TESTING_SITE_', True)
         _createObjectByType('Document', portal, id='front-page')
         portal.setDefaultPage('front-page')
         super(PSTLayer, self).setUpPloneSite(portal)

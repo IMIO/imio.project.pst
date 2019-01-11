@@ -5,7 +5,6 @@ from plone.namedfile.file import NamedBlobFile
 from imio.helpers.content import richtextval
 from . import add_path
 
-currentYear = datetime.now().year
 TMPL_DIR = add_path('profiles/default/templates')
 
 
@@ -103,7 +102,7 @@ def get_templates(cids):
     ]
 
 
-def get_os_oo_ac_data(groups):
+def get_os_oo_ac_data(groups, currentYear):
     return [
         {
             'title': u'Etre une commune qui offre un service public moderne, efficace et efficient',
