@@ -5,7 +5,7 @@ from zope.component import getUtility
 from zope.schema.interfaces import IVocabularyFactory
 from collective.documentgenerator.helper.dexterity import DXDocumentGenerationHelperView
 from collective.documentgenerator.helper.archetypes import ATDocumentGenerationHelperView
-from imio.dashboard.browser.overrides import IDDocumentGenerationView
+from collective.eeafaceted.dashboard.browser.overrides import DashboardDocumentGenerationView
 from imio.project.core.config import CHILDREN_BUDGET_INFOS_ANNOTATION_KEY
 from imio.pyutils.bs import remove_attributes, replace_entire_strings, unwrap_tags
 
@@ -375,7 +375,7 @@ class DocumentGenerationPSTCategoriesHelper(ATDocumentGenerationHelperView, Docu
     """
 
 
-class CategoriesDocumentGenerationView(IDDocumentGenerationView):
+class CategoriesDocumentGenerationView(DashboardDocumentGenerationView):
     """
         Change context for folder categories => dashboard collections context
     """

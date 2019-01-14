@@ -51,7 +51,6 @@ class TestDocumentGenerator(IntegrationTestCase):
         self.assertEqual(objs[0], self.tk1)
 
     def test_DocumentGenerationSOHelper(self):
-        currentYear = datetime.now().year
         view = self.os1.unrestrictedTraverse('@@document_generation_helper_view')
         # not on dashboard
         self.assertFalse(view.is_dashboard())
@@ -68,11 +67,11 @@ class TestDocumentGenerator(IntegrationTestCase):
         self.assertEqual(view.getDomain(), u"Amélioration de l'Administration")
         self.portal.REQUEST['PUBLISHED'] = view
         self.assertEqual(view.getOwnBudget(), '<table><thead><tr><th>Budget_type</th><th>Year</th><th>Amount</th></tr>'
-                         '</thead><tbody><tr><td>Wallonie</td><td>%s</td><td>1,000.0</td><td></td></tr></tbody></table>'
-                         % currentYear)
+                         '</thead><tbody><tr><td>Wallonie</td><td>2019</td><td>1,000.0</td><td></td></tr>'
+                         '</tbody></table>')
         self.assertTrue(view.hasChildrenBudget(self.os1))
-        self.assertIn('<tfoot><tr><td>Totals</td><td>32767.5</td><td>-</td><td>-</td><td>-</td><td>-</td>'
-                      '<td>27860.0</td><td>4907.5</td></tr></tfoot>', view.getChildrenBudget())
+        self.assertIn('<tfoot><tr><td>Totals</td><td>32767.5</td><td>27860.0</td><td>4907.5</td><td>-</td><td>-</td>'
+                      '<td>-</td><td>-</td></tr></tfoot>', view.getChildrenBudget())
         # on dashboard
         view.request.form['facetedQuery'] = ''
         self.assertTrue(view.is_dashboard())

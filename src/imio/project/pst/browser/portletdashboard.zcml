@@ -7,9 +7,9 @@
     <include package="plone.app.portlets" />
 
     <plone:portletRenderer
-       portlet="imio.dashboard.browser.facetedcollectionportlet.IFacetedCollectionPortlet"
+       portlet="collective.eeafaceted.dashboard.browser.facetedcollectionportlet.IFacetedCollectionPortlet"
        class=".portletdashboard.Renderer"
-       layer="..interfaces.IImioProjectPSTLayer"
+       layer="imio.project.pst.interfaces.IImioProjectPSTLayer"
     />
 
 </configure>

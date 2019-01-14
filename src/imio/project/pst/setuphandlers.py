@@ -5,13 +5,13 @@ from collective.contact.plonegroup.config import FUNCTIONS_REGISTRY
 from collective.contact.plonegroup.config import ORGANIZATIONS_REGISTRY
 from collective.documentgenerator.utils import update_templates
 from collective.eeafaceted.collectionwidget.interfaces import ICollectionCategories
+from collective.eeafaceted.collectionwidget.utils import _updateDefaultCollectionFor
+from collective.eeafaceted.dashboard.utils import enableFacetedDashboardFor
 from data import get_os_oo_ac_data
 from data import get_styles_templates
 from data import get_templates
 from data import TMPL_DIR
 from dexterity.localroles.utils import add_fti_configuration
-from imio.dashboard.utils import _updateDefaultCollectionFor
-from imio.dashboard.utils import enableFacetedDashboardFor
 from imio.helpers.catalog import addOrUpdateIndexes
 from imio.helpers.content import create
 from imio.helpers.content import transitions
@@ -254,7 +254,11 @@ def _addPSTprojectspace(context):
          'key': "autres"},
     ]
     params['budget_types'] = budget_types
-    params['budget_years'] = [2019, 2020, 2021, 2022, 2023, 2024]
+    if getattr(site, '_TESTING_SITE_', False):
+        params['budget_years'] = [2019, 2020, 2021, 2022, 2023, 2024]
+    else:
+        params['budget_years'] = [2019, 2020, 2021, 2022, 2023, 2024]
+
     createContentInContainer(site, 'projectspace', **params)
     projectspace = site.pst
     alsoProvides(projectspace, IImioPSTProject)
@@ -500,6 +504,12 @@ def addDemoData(context):
         return
     site = context.getSite()
 
+    def getPSTStartYear(site):
+        if getattr(site, '_TESTING_SITE_', False):
+            return 2019
+        else:
+            return 2019
+
     logger.info('Adding demo data')
     registry = getUtility(IRegistry)
     registry[ORGANIZATIONS_REGISTRY]
@@ -513,7 +523,7 @@ def addDemoData(context):
     # - operationalobjective
     # - pstaction
     # - task
-    data = get_os_oo_ac_data(groups)
+    data = get_os_oo_ac_data(groups, getPSTStartYear(site))
 
     # needed to avoid ComponentLookupError in edit_view.update()
     from zope.event import notify
@@ -699,12 +709,12 @@ def createStateCollections(folder, content_type):
                 sort_on=u'created',
                 sort_reversed=True,
                 b_size=30,
-                limit=0)
+                limit=0,
+                enabled=True)
             col = folder[col_id]
             col.setSubject((u'search', ))
             col.reindexObject(['Subject'])
             col.setLayout('tabular_view')
-            folder.portal_workflow.doActionFor(col, "publish_internally")
 
 
 def createDashboardCollections(folder, collections):
@@ -722,9 +732,9 @@ def createDashboardCollections(folder, collections):
                                  sort_on=dic['sort'],
                                  sort_reversed=dic['rev'],
                                  b_size=30,
-                                 limit=0)
+                                 limit=0,
+                                 enabled=True)
             collection = folder[dic['id']]
-            folder.portal_workflow.doActionFor(collection, "publish_internally")
             if 'subj' in dic:
                 collection.setSubject(dic['subj'])
                 collection.reindexObject(['Subject'])

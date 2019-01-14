@@ -1,28 +1,25 @@
 """ Custom catalog
 """
+from BTrees.IIBTree import IISet
+from BTrees.IIBTree import weightedIntersection
 from copy import deepcopy
-import logging
-from zope.event import notify
-from zope.interface import implements
-from Products.CMFCore.utils import getToolByName
-from BTrees.IIBTree import IIBucket
 from eea.facetednavigation.events import QueryWillBeExecutedEvent
-from eea.facetednavigation.search.interfaces import IFacetedCatalog
-from eea.facetednavigation.search.interfaces import ICollection
-from eea.facetednavigation.search import parseFormquery
+from eea.facetednavigation.plonex import parseFormquery
+from eea.facetednavigation.search.catalog import FacetedCatalog as eeaFacetedCatalog
+from eea.facetednavigation.search.catalog import ICollection
+from Products.CMFCore.utils import getToolByName
+from zope.event import notify
+
+import logging
 
 try:
     from plone.app.contenttypes import interfaces as PACI
-    from plone.app.contenttypes.behaviors.collection import \
-            ICollection as ICollection_behavior
+    from plone.app.contenttypes.behaviors.collection import ICollection as ICollection_behavior
     HAS_PAT = True
 except ImportError:
     HAS_PAT = False
 
 logger = logging.getLogger('eea.facetednavigation.search.catalog')
-
-from BTrees.IIBTree import weightedIntersection, IISet
-from eea.facetednavigation.search.catalog import FacetedCatalog as eeaFacetedCatalog
 
 
 class FacetedCatalog(eeaFacetedCatalog):
@@ -142,8 +139,8 @@ class FacetedCatalog(eeaFacetedCatalog):
                 sort_index = ctool._catalog.indexes[sort_on]
                 reverse = 1 if sort_order == 'descending' else 0
                 brains = ctool._catalog.sortResults(rs, sort_index, reverse,
-                    limit, merge=1, actual_result_count=rlen, b_start=b_start,
-                    b_size=b_size)
+                                                    limit, merge=1, actual_result_count=rlen, b_start=b_start,
+                                                    b_size=b_size)
             else:
                 brains = brains.__class__(brains._func, rs, rlen, rlen)
         else:

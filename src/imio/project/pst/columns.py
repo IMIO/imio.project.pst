@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
 """Custom columns."""
 from collective.eeafaceted.z3ctable import _ as _cez
-from collective.eeafaceted.z3ctable.columns import (
-    BaseColumn, DateColumn, MemberIdColumn, VocabularyColumn)
+from collective.eeafaceted.z3ctable.columns import ActionsColumn
+from collective.eeafaceted.z3ctable.columns import BaseColumn
+from collective.eeafaceted.z3ctable.columns import DateColumn
+from collective.eeafaceted.z3ctable.columns import MemberIdColumn
+from collective.eeafaceted.z3ctable.columns import PrettyLinkColumn
+from collective.eeafaceted.z3ctable.columns import VocabularyColumn
 from collective.task.interfaces import ITaskMethods
-
-from imio.dashboard.columns import ActionsColumn, PrettyLinkColumn
 from imio.project.pst.adapters import UNSET_DATE_VALUE
 
 
