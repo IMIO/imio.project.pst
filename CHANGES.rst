@@ -1,11 +1,19 @@
 Changelog
 =========
 
-1.1 (unreleased)
+1.1 (2019-01-15)
 ----------------
 
-- Nothing changed yet.
-
+- Migrated to collective.eeafaceted.dashboard
+  [sgeulette]
+- Added archive action
+  [sgeulette]
+- Added marker interface on pst project
+  [sgeulette]
+- Improved export doc
+  [sgeulette]
+- Added task collections.
+  [sgeulette]
 
 1.0 (2016-12-08)
 ----------------
