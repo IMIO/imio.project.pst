@@ -57,7 +57,12 @@ class Migrate_To_1_1(Migrator):
         # update portal_catalog
         # self.refreshDatabase()
 
-        for prod in ['collective.eeafaceted.colletionwidget', 'collective.eeafaceted.z3ctable', 'collective.behavior.talcondition', 'collective.compoundcriterion', 'collective.z3cform.datetimewidget', 'eea.facetednavigation', 'eea.jquery', 'imio.dashboard', 'imio.project.core', 'plone.app.dexterity', 'plone.formwidget.autocomplete', 'plone.formwidget.contenttree', 'plonetheme.classic']:
+        for prod in ['collective.eeafaceted.colletionwidget', 'collective.eeafaceted.z3ctable',
+                     'collective.behavior.talcondition', 'collective.compoundcriterion',
+                     'collective.z3cform.datetimewidget', 'eea.facetednavigation', 'eea.jquery', 'imio.dashboard',
+                     'imio.project.core', 'imio.project.pst', 'plone.app.collection', 'plone.app.dexterity',
+                     'plone.formwidget.autocomplete', 'plone.formwidget.contenttree', 'plone.formwidget.datetime',
+                     'plonetheme.classic']:
             mark_last_version(self.portal, product=prod)
 
         # Reorder css and js
