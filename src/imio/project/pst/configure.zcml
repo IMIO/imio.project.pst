@@ -88,7 +88,7 @@
 
     <!-- UTILS METHODS -->
     <browser:view
-        for="Products.CMFCore.interfaces.IContentish"
+        for="*"
         name="pst-utils"
         class=".utils.UtilsMethods"
         permission="zope2.View"
