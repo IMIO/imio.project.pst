@@ -41,6 +41,11 @@ class Migrate_To_1_1(Migrator):
         self.ps.setLastVersionForProfile('collective.ckeditor:default', '4330')
         self.upgradeProfile('collective.ckeditor:default')
         self.upgradeProfile('plonetheme.imioapps:default')
+        self.upgradeProfile('imio.actionspanel:default')
+        # add icon to existing actions
+        self.runProfileSteps('plonetheme.imioapps', steps=['actions'], profile='default')
+        self.upgradeProfile('collective.contact.core:default')
+
 
         for brain in self.pc(portal_type='projectspace'):
             ps = brain.getObject()

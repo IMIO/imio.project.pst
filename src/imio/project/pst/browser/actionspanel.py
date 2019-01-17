@@ -5,6 +5,9 @@ from zope.component import getMultiAdapter
 
 
 class ProjectSpaceActionsPanelView(ActionsPanelView):
+    """
+      This manage the view displaying actions on projectspace.
+    """
 
     transitions = [
         'hide',
@@ -13,9 +16,6 @@ class ProjectSpaceActionsPanelView(ActionsPanelView):
         'publish_internally',
     ]
 
-    """
-      This manage the view displaying actions on context.
-    """
     def __init__(self, context, request):
         super(ProjectSpaceActionsPanelView, self).__init__(context, request)
         self.context = context
@@ -37,12 +37,12 @@ class ProjectSpaceActionsPanelView(ActionsPanelView):
 
 
 class SortTransitionsActionsPanelView(ActionsPanelView):
-
-    transitions = []
-
     """
       This manage the view displaying actions on context.
     """
+
+    transitions = []
+
     def __init__(self, context, request):
         super(SortTransitionsActionsPanelView, self).__init__(context, request)
         self.context = context
@@ -77,6 +77,8 @@ class PSTActionsPanelView(SortTransitionsActionsPanelView):
         'stop',
     ]
 
+
+# VIEWLETS #
 
 class PstActionsPanelViewlet(ActionsPanelViewlet):
     """
