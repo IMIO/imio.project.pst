@@ -39,6 +39,11 @@ body.template-view.portaltype-strategicobjective td.table_widget_label {
     display: none;
 }
 
+#contentActionMenus #faceted_settings, #contentActionMenus #plone-contentmenu-display,
+#contentActionMenus #plone-contentmenu-actions a[id^="plone-contentmenu-actions-faceted."] {
+    display: None !important;
+}
+
 /* icons on types */
 .icons-on .contenttype-strategicobjective, .icons-on .contenttype-operationalobjective, .icons-on .contenttype-pstaction {
     display: inline-block;

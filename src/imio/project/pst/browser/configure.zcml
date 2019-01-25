@@ -97,6 +97,24 @@
     <!-- configure actionspanel -->
     <configure package="imio.actionspanel">
 
+        <browser:viewlet
+            name="imio.actionspanel"
+            for="imio.project.core.content.projectspace.IProjectSpace"
+            manager="plone.app.layout.viewlets.interfaces.IAboveContentTitle"
+            layer="imio.actionspanel.interfaces.IActionsPanelLayer"
+            class="imio.project.pst.browser.actionspanel.PstActionsPanelViewlet"
+            template="browser/actions_panel_viewlet.pt"
+            permission="zope2.View" />
+
+        <browser:viewlet
+            name="imio.actionspanel"
+            for="imio.project.core.content.project.IProject"
+            manager="plone.app.layout.viewlets.interfaces.IAboveContentTitle"
+            layer="imio.actionspanel.interfaces.IActionsPanelLayer"
+            class="imio.project.pst.browser.actionspanel.PstActionsPanelViewlet"
+            template="browser/actions_panel_viewlet.pt"
+            permission="zope2.View" />
+
         <browser:page
             for="imio.project.pst.content.action.IPSTAction"
             name="actions_panel"
@@ -110,6 +128,14 @@
             for="imio.project.core.content.project.IProject"
             name="actions_panel"
             class="imio.project.pst.browser.actionspanel.ObjectivesActionsPanelView"
+            layer="imio.actionspanel.interfaces.IActionsPanelLayer"
+            template="browser/actions_panel.pt"
+            permission="zope2.View" />
+
+        <browser:page
+            for="imio.project.core.content.projectspace.IProjectSpace"
+            name="actions_panel"
+            class="imio.project.pst.browser.actionspanel.ProjectSpaceActionsPanelView"
             layer="imio.actionspanel.interfaces.IActionsPanelLayer"
             template="browser/actions_panel.pt"
             permission="zope2.View" />

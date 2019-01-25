@@ -1,16 +1,18 @@
 # -*- coding: utf-8 -*-
+from AccessControl import getSecurityManager
+from collective.contact.plonegroup.utils import organizations_with_suffixes
 from datetime import date
 from DateTime import DateTime
-
+from imio.project.core.content.projectspace import IProjectSpace
 from plone import api
+from plone.app.contentmenu.menu import ActionsSubMenuItem as OrigActionsSubMenuItem
+from plone.app.contentmenu.menu import FactoriesSubMenuItem as OrigFactoriesSubMenuItem
+from plone.app.contentmenu.menu import WorkflowMenu as OrigWorkflowMenu
 from plone.indexer import indexer
 from Products.CMFCore.interfaces import IContentish
 from Products.CMFPlone.utils import base_hasattr
 from Products.PluginIndexes.common.UnIndex import _marker as common_marker
 
-from collective.contact.plonegroup.utils import organizations_with_suffixes
-
-from imio.project.core.content.projectspace import IProjectSpace
 
 # value used to mark the fact that a date is not set, we need a date in the future for beginning-is-late collection
 UNSET_DATE_VALUE = date(3900, 1, 1)
@@ -170,3 +172,34 @@ def effective_begin_date_index(obj):
         return obj.effective_begin_date
 
     return UNSET_DATE_VALUE
+
+
+################
+# GUI cleaning #
+################
+
+
+class ActionsSubMenuItem(OrigActionsSubMenuItem):
+
+    def available(self):
+        # plone.api.user.has_permission doesn't work with zope admin
+        if not getSecurityManager().checkPermission('Manage portal', self.context):
+            return False
+        return super(ActionsSubMenuItem, self).available()
+
+
+class FactoriesSubMenuItem(OrigFactoriesSubMenuItem):
+
+    def available(self):
+        # plone.api.user.has_permission doesn't work with zope admin
+        if not getSecurityManager().checkPermission('Manage portal', self.context):
+            return False
+        return super(FactoriesSubMenuItem, self).available()
+
+
+class WorkflowMenu(OrigWorkflowMenu):
+
+    def getMenuItems(self, context, request):
+        if not getSecurityManager().checkPermission('Manage portal', context):
+            return []
+        return super(WorkflowMenu, self).getMenuItems(context, request)

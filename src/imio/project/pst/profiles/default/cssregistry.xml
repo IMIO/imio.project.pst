@@ -174,7 +174,9 @@
 
  <stylesheet id="imioapps.css" insert-after="imioapps_IEFixes.css" />
 
- <stylesheet id="pstskin.css" insert-after="imioapps.css" />
+ <stylesheet id="imioapps_ckeditor_moonolisa.css" insert-after="imioapps.css" />
+
+<stylesheet id="pstskin.css" insert-after="imioapps_ckeditor_moonolisa.css" />
 
  <stylesheet id="++resource++imio.project.core/imio_project_core.css" insert-after="pstskin.css" />
 
