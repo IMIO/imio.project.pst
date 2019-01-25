@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from collective.documentgenerator.utils import update_oo_config
 from collective.eeafaceted.collectionwidget.utils import _updateDefaultCollectionFor
 from imio.helpers.content import transitions
 from imio.migrator.migrator import Migrator
@@ -46,7 +47,6 @@ class Migrate_To_1_1(Migrator):
         self.runProfileSteps('plonetheme.imioapps', steps=['actions'], profile='default')
         self.upgradeProfile('collective.contact.core:default')
 
-
         for brain in self.pc(portal_type='projectspace'):
             ps = brain.getObject()
             if 'operationalobjectives' not in ps:
@@ -72,6 +72,9 @@ class Migrate_To_1_1(Migrator):
 
         # update portal_catalog
         # self.refreshDatabase()
+
+        # check if oo port must be changed
+        update_oo_config()
 
         for prod in ['collective.eeafaceted.colletionwidget', 'collective.eeafaceted.z3ctable',
                      'collective.behavior.talcondition', 'collective.compoundcriterion', 'collective.ckeditor',
