@@ -156,7 +156,9 @@
 
  <stylesheet id="++resource++collective.eeafaceted.collectionwidget.view.css" insert-after="++resource++collective.eeafaceted.collectionwidget.edit.css" />
 
- <stylesheet id="++resource++collective.eeafaceted.batchactions/batch_actions.css" insert-after="++resource++collective.eeafaceted.collectionwidget.view.css" />
+ <stylesheet id="++resource++collective.contact.plonegroup/plonegroup.css" insert-after="++resource++collective.eeafaceted.collectionwidget.view.css" />
+
+ <stylesheet id="++resource++collective.eeafaceted.batchactions/batch_actions.css" insert-after="++resource++collective.contact.plonegroup/plonegroup.css" />
 
  <stylesheet id="++resource++eea.faceted-navigation.css" insert-after="++resource++collective.eeafaceted.batchactions/batch_actions.css" />
 

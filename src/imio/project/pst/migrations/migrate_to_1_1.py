@@ -46,6 +46,7 @@ class Migrate_To_1_1(Migrator):
         # add icon to existing actions
         self.runProfileSteps('plonetheme.imioapps', steps=['actions'], profile='default')
         self.upgradeProfile('collective.contact.core:default')
+        self.upgradeProfile('collective.contact.plonegroup:default')
 
         for brain in self.pc(portal_type='projectspace'):
             ps = brain.getObject()
