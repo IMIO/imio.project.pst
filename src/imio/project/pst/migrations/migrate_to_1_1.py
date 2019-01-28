@@ -46,6 +46,9 @@ class Migrate_To_1_1(Migrator):
         # add icon to existing actions
         self.runProfileSteps('plonetheme.imioapps', steps=['actions'], profile='default')
         self.upgradeProfile('collective.contact.core:default')
+        self.upgradeProfile('collective.contact.plonegroup:default')
+        self.upgradeProfile('collective.documentgenerator:default')
+        self.portal.templates.layout = 'dg-templates-listing'
 
         for brain in self.pc(portal_type='projectspace'):
             ps = brain.getObject()
@@ -59,9 +62,8 @@ class Migrate_To_1_1(Migrator):
         # ordering viewlets
         self.runProfileSteps('imio.project.core', steps=['viewlets'], profile='default')
 
-#        self.runProfileSteps('imio.project.pst', steps=['actions', 'catalog', 'componentregistry', 'jsregistry',
-#                                                        'portlets', 'propertiestool', 'plone.app.registry',
-#                                                        'typeinfo', 'workflow'])
+        self.runProfileSteps('imio.project.pst', steps=['typeinfo'])
+# 'actions', 'catalog', 'componentregistry', 'jsregistry', 'portlets', 'propertiestool', 'plone.app.registry', 'workflow'
 
         # update security settings
         # self.portal.portal_workflow.updateRoleMappings()
