@@ -47,6 +47,8 @@ class Migrate_To_1_1(Migrator):
         self.runProfileSteps('plonetheme.imioapps', steps=['actions'], profile='default')
         self.upgradeProfile('collective.contact.core:default')
         self.upgradeProfile('collective.contact.plonegroup:default')
+        self.upgradeProfile('collective.documentgenerator:default')
+        self.portal.templates.layout = 'dg-templates-listing'
 
         for brain in self.pc(portal_type='projectspace'):
             ps = brain.getObject()
