@@ -120,6 +120,13 @@ def post_install(context):
     # configure actions panel registry
     configure_actions_panel(portal)
 
+    # add usefull methods
+    try:
+        from Products.ExternalMethod.ExternalMethod import manage_addExternalMethod
+        manage_addExternalMethod(portal, 'sge_clean_examples', '', 'imio.project.pst.utils', 'clean_examples')
+    except:
+        pass
+
 
 def _addTemplatesDirectory(context):
     """Add a root directory for templates"""
