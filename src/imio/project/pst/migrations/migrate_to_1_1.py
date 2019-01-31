@@ -62,8 +62,8 @@ class Migrate_To_1_1(Migrator):
         # ordering viewlets
         self.runProfileSteps('imio.project.core', steps=['viewlets'], profile='default')
 
-        self.runProfileSteps('imio.project.pst', steps=['typeinfo'])
-# 'actions', 'catalog', 'componentregistry', 'jsregistry', 'portlets', 'propertiestool', 'plone.app.registry', 'workflow'
+        self.runProfileSteps('imio.project.pst', steps=['actions', 'typeinfo'])
+# 'catalog', 'componentregistry', 'jsregistry', 'portlets', 'propertiestool', 'plone.app.registry', 'workflow'
 
         # update security settings
         # self.portal.portal_workflow.updateRoleMappings()
