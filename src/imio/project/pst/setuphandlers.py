@@ -14,6 +14,7 @@ from data import TMPL_DIR
 from dexterity.localroles.utils import add_fti_configuration
 from imio.helpers.catalog import addOrUpdateIndexes
 from imio.helpers.content import create
+from imio.helpers.content import richtextval
 from imio.helpers.content import transitions
 from imio.helpers.security import generate_password
 from imio.helpers.security import get_environment
@@ -140,10 +141,11 @@ def _addTemplatesDirectory(context):
         params = {'title': "Templates"}
         site.invokeFactory('Folder', 'templates', **params)
         folder = site.templates
-        folder.setConstrainTypesMode(1)
-        folder.setLocallyAllowedTypes(['ConfigurablePODTemplate', 'StyleTemplate', 'DashboardPODTemplate'])
-        folder.setImmediatelyAddableTypes(['ConfigurablePODTemplate', 'StyleTemplate', 'DashboardPODTemplate'])
-        folder.setExcludeFromNav(True)
+        behaviour = ISelectableConstrainTypes(folder)
+        behaviour.setConstrainTypesMode(1)
+        behaviour.setLocallyAllowedTypes(['ConfigurablePODTemplate', 'StyleTemplate', 'DashboardPODTemplate'])
+        behaviour.setImmediatelyAddableTypes(['ConfigurablePODTemplate', 'StyleTemplate', 'DashboardPODTemplate'])
+        folder.exclude_from_nav = True
     folder = site.templates
     do_transitions(folder, transitions=['publish_internally'], logger=logger)
 
@@ -370,11 +372,11 @@ def adaptDefaultPortal(site):
     #change the content of the front-page
     if 'front-page' in site and 'pst' not in site:
         frontpage = getattr(site, 'front-page')
-        frontpage.setTitle(_("front_page_title"))
-        frontpage.setDescription(_("front_page_descr"))
-        frontpage.setText(_("front_page_text"), mimetype='text/html')
+        frontpage.title = _("front_page_title")
+        frontpage.description = _("front_page_descr")
+        frontpage.text = richtextval(_("front_page_text"))
         #remove the presentation mode
-        frontpage.setPresentation(False)
+        #frontpage.setPresentation(False)
         transitions(frontpage, ('retract', 'publish_internally'))
         frontpage.reindexObject()
         logger.info('front page adapted')
@@ -630,10 +632,12 @@ def add_db_col_folder(folder, id, title, content_type, position, displayed=''):
         folder, id=id, title=title, rights=displayed)
     folder.moveObjectToPosition(id, position)
     col_folder = folder[id]
-    col_folder.setConstrainTypesMode(1)
-    col_folder.setLocallyAllowedTypes(['DashboardCollection'])
-    col_folder.setImmediatelyAddableTypes(['DashboardCollection'])
-    col_folder.setExcludeFromNav(True)
+
+    behaviour = ISelectableConstrainTypes(col_folder)
+    behaviour.setConstrainTypesMode(1)
+    behaviour.setLocallyAllowedTypes(['DashboardCollection'])
+    behaviour.setImmediatelyAddableTypes(['DashboardCollection'])
+    col_folder.exclude_from_nav = True
     alsoProvides(col_folder, ICollectionCategories)
     folder.portal_workflow.doActionFor(col_folder, "publish_internally")
     createBaseCollections(col_folder, content_type)

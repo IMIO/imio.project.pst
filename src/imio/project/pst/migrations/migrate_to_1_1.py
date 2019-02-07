@@ -1,17 +1,54 @@
 # -*- coding: utf-8 -*-
 from collective.documentgenerator.utils import update_oo_config
+from collective.eeafaceted.collectionwidget.interfaces import ICollectionCategories
 from collective.eeafaceted.collectionwidget.utils import _updateDefaultCollectionFor
+from eea.facetednavigation.criteria.handler import Criteria
+from eea.facetednavigation.criteria.interfaces import ICriteria
+from eea.facetednavigation.interfaces import IFacetedNavigable
+from eea.facetednavigation.layout.interfaces import IFacetedLayout
+from eea.facetednavigation.settings.interfaces import IDisableSmartFacets
+from eea.facetednavigation.settings.interfaces import IHidePloneLeftColumn
+from eea.facetednavigation.settings.interfaces import IHidePloneRightColumn
+from imio.helpers.content import richtextval
 from imio.helpers.content import transitions
 from imio.migrator.migrator import Migrator
 from imio.project.pst import add_path
 from imio.project.pst.setuphandlers import _ as _translate
+from plone.app.contenttypes.interfaces import IPloneAppContenttypesLayer
+from plone.app.contenttypes.migration.migration import BaseCustomMigator
 from Products.CMFPlone.utils import base_hasattr
 from Products.CPUtils.Extensions.utils import mark_last_version
+from zope.component import getMultiAdapter
+from zope.interface import alsoProvides
 
 import logging
 
 
 logger = logging.getLogger('imio.project.pst')
+
+interfaces = [
+    ICollectionCategories,
+    IDisableSmartFacets,
+    IFacetedNavigable,
+    IHidePloneLeftColumn,
+    IHidePloneRightColumn,
+]
+
+
+class FolderMigrator(BaseCustomMigator):
+    """ Folder migration"""
+
+    def migrate(self, old, new):
+        new_path = "/".join(new.getPhysicalPath())
+        for iface in interfaces:
+            if iface.providedBy(old):
+                alsoProvides(new, iface)
+                logger.warn("{0} also provides {1}".format(new_path, str(iface)))
+        if IFacetedNavigable.providedBy(old):
+            criteria = Criteria(new)
+            criteria._update(ICriteria(old).criteria)
+            IFacetedLayout(new).update_layout('faceted-table-items')
+            logger.warn("Added faceted criteria and layout to {0}".format(new_path))
 
 
 class Migrate_To_1_1(Migrator):
@@ -24,11 +61,19 @@ class Migrate_To_1_1(Migrator):
     def various_update(self):
         # replace front-page
         frontpage = getattr(self.portal, 'front-page')
-        frontpage.setTitle(_translate("front_page_title"))
-        frontpage.setDescription(_translate("front_page_descr"))
-        frontpage.setText(_translate("front_page_text"), mimetype='text/html')
+        frontpage.title = _translate("front_page_title")
+        frontpage.description = _translate("front_page_descr")
+        frontpage.text = richtextval(_translate("front_page_text"))
         transitions(frontpage, ('retract', 'publish_internally'))
         frontpage.reindexObject()
+
+    def AT2Dx(self):
+        request = getattr(self.portal, 'REQUEST', None)
+        self.reinstall(['plone.app.contenttypes:default'])
+        alsoProvides(request, IPloneAppContenttypesLayer)
+        migration_view = getMultiAdapter((self.portal, request), name=u'migrate_from_atct')
+        results = migration_view(migrate=1, content_types=['Document', 'Folder', 'BlobFile'])
+        logger.warn(results)
 
     def run(self):
         # upgrade imio.dashboard
@@ -67,6 +112,8 @@ class Migrate_To_1_1(Migrator):
 
         # update security settings
         # self.portal.portal_workflow.updateRoleMappings()
+
+        self.AT2Dx()
 
         self.various_update()
 
