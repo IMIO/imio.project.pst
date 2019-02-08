@@ -16,6 +16,7 @@ from imio.project.pst import add_path
 from imio.project.pst.setuphandlers import _ as _translate
 from plone.app.contenttypes.interfaces import IPloneAppContenttypesLayer
 from plone.app.contenttypes.migration.migration import BaseCustomMigator
+from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
 from Products.CMFPlone.utils import base_hasattr
 from Products.CPUtils.Extensions.utils import mark_last_version
 from zope.component import getMultiAdapter
@@ -44,6 +45,14 @@ class FolderMigrator(BaseCustomMigator):
             if iface.providedBy(old):
                 alsoProvides(new, iface)
                 logger.warn("{0} also provides {1}".format(new_path, str(iface)))
+
+        if old.getConstrainTypesMode() != 0:
+            behaviour = ISelectableConstrainTypes(new)
+            behaviour.setConstrainTypesMode(1)
+            if old.getConstrainTypesMode() == 1:
+                behaviour.setLocallyAllowedTypes(old.getLocallyAllowedTypes())
+                behaviour.setImmediatelyAddableTypes(old.getImmediatelyAddableTypes())
+
         if IFacetedNavigable.providedBy(old):
             criteria = Criteria(new)
             criteria._update(ICriteria(old).criteria)
@@ -66,6 +75,7 @@ class Migrate_To_1_1(Migrator):
         frontpage.text = richtextval(_translate("front_page_text"))
         transitions(frontpage, ('retract', 'publish_internally'))
         frontpage.reindexObject()
+        self.portal.templates.layout = 'dg-templates-listing'
 
     def AT2Dx(self):
         request = getattr(self.portal, 'REQUEST', None)
@@ -93,7 +103,6 @@ class Migrate_To_1_1(Migrator):
         self.upgradeProfile('collective.contact.core:default')
         self.upgradeProfile('collective.contact.plonegroup:default')
         self.upgradeProfile('collective.documentgenerator:default')
-        self.portal.templates.layout = 'dg-templates-listing'
 
         for brain in self.pc(portal_type='projectspace'):
             ps = brain.getObject()
