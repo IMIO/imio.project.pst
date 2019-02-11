@@ -76,6 +76,8 @@ class Migrate_To_1_1(Migrator):
         transitions(frontpage, ('retract', 'publish_internally'))
         frontpage.reindexObject()
         self.portal.templates.layout = 'dg-templates-listing'
+        self.portal.contacts.exclude_from_nav = True
+        self.portal.contacts.reindexObject(['exclude_from_nav'])
 
     def AT2Dx(self):
         request = getattr(self.portal, 'REQUEST', None)

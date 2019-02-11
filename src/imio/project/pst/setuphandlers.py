@@ -444,6 +444,8 @@ def addDemoOrganization(context):
 
     logger.info('Adding demo organizations')
     contacts = site.contacts
+    contacts.exclude_from_nav = True
+    contacts.reindexObject(['exclude_from_nav'])
     # change the state of contacts
     do_transitions(contacts, transitions=['publish_internally'], logger=logger)
 
