@@ -78,8 +78,8 @@ class ManagerFieldValidator(validator.SimpleFieldValidator):
         if member.has_role('Manager'):
             return True
 
-        if not value:
-            raise Invalid(_(u"You must choose at least one group"))
+        # if not value:  # covered by min_length
+        #     raise Invalid(_(u"You must choose at least one group"))
 
         member_groups = api.group.get_groups(user=member)
         member_groups_ids = [g.id for g in member_groups]

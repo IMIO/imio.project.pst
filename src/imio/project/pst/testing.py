@@ -5,6 +5,7 @@ import unittest2
 from Testing import ZopeTestCase as ztc
 from Products.CMFPlone.utils import _createObjectByType
 from plone.app.robotframework.testing import REMOTE_LIBRARY_BUNDLE_FIXTURE
+from plone.app.testing import applyProfile
 from plone.app.testing import PloneWithPackageLayer
 from plone.app.testing import FunctionalTesting
 from plone.app.testing import IntegrationTesting
@@ -20,8 +21,11 @@ class PSTLayer(PloneWithPackageLayer):
 
     def setUpPloneSite(self, portal):
         setattr(portal, '_TESTING_SITE_', True)
+        applyProfile(portal, 'Products.CMFPlone:plone')
+#        applyProfile(portal, 'Products.CMFPlone:plone-content')  # could be done too
         _createObjectByType('Document', portal, id='front-page')
         portal.setDefaultPage('front-page')
+
         super(PSTLayer, self).setUpPloneSite(portal)
         setRoles(portal, TEST_USER_ID, ['Manager'])
         portal.portal_setup.runAllImportStepsFromProfile('profile-imio.project.pst:demo')
@@ -34,7 +38,8 @@ class PSTLayer(PloneWithPackageLayer):
 PST_TESTING_PROFILE = PSTLayer(
     zcml_filename="testing.zcml",
     zcml_package=imio.project.pst,
-    additional_z2_products=('Products.PasswordStrength', 'imio.dashboard', 'imio.project.pst'),
+    additional_z2_products=('Products.PasswordStrength', 'Products.DateRecurringIndex', 'imio.dashboard',
+                            'imio.project.pst'),
     gs_profile_id='imio.project.pst:testing',
     name="PST_TESTS_PROFILE")
 
