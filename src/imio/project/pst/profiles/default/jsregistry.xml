@@ -31,7 +31,15 @@
 
     <javascript id="++resource++plone.app.jquerytools.tooltip.plugins.js" insert-after="++resource++plone.app.jquerytools.tooltip.js" />
 
-    <javascript id="nodeutilities.js" insert-after="++resource++plone.app.jquerytools.tooltip.plugins.js" />
+    <javascript id="++resource++plone.formwidget.recurrence/jquery.tmpl-beta1.js" insert-after="++resource++plone.app.jquerytools.tooltip.plugins.js" />
+
+    <javascript id="++resource++plone.formwidget.recurrence/jquery.recurrenceinput.js" insert-after="++resource++plone.formwidget.recurrence/jquery.tmpl-beta1.js" />
+
+    <javascript id="++resource++plone.app.event/event.js" insert-after="++resource++plone.formwidget.recurrence/jquery.recurrenceinput.js" />
+
+    <javascript id="++resource++plone.app.event.portlet_calendar.js" insert-after="++resource++plone.app.event/event.js" />
+
+    <javascript id="nodeutilities.js" insert-after="++resource++plone.app.event.portlet_calendar.js" />
 
     <javascript id="cookie_functions.js" insert-after="nodeutilities.js" />
 
