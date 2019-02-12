@@ -2,6 +2,7 @@
 <object name="directory">
  <property name="behaviors" purge="False">
   <element value="plone.app.lockingbehavior.behaviors.ILocking" />
+  <element value="plone.app.dexterity.behaviors.exclfromnav.IExcludeFromNavigation" />
  </property>
  <property name="allowed_content_types">
   <element value="organization"/>

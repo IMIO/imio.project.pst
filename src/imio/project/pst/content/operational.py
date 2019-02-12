@@ -28,6 +28,7 @@ class IOperationalObjective(IProject):
             vocabulary=u'imio.project.pst.content.operational.representative_responsible_vocabulary',
         ),
         required=True,
+        min_length=1,
     )
 
     administrative_responsible = LocalRolesField(
@@ -37,6 +38,7 @@ class IOperationalObjective(IProject):
             vocabulary=u'imio.project.core.content.project.manager_vocabulary',
         ),
         required=True,
+        min_length=1,
     )
 
     manager = LocalRolesField(
@@ -46,6 +48,7 @@ class IOperationalObjective(IProject):
             vocabulary='imio.project.core.content.project.manager_vocabulary'
         ),
         required=True,
+        min_length=1,
     )
 
     # reorder new added fields

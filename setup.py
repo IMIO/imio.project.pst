@@ -60,6 +60,7 @@ setup(
         'imio.project.core',
         'imio.migrator',
         'imio.pyutils',
+        'plone.app.contenttypes',
         'plone.app.versioningbehavior',
         'plone.directives.form',
         'plonetheme.imioapps',

@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
 """ Content action tests for this package."""
 
-from zope.interface import Invalid
+from imio.project.pst.content import action
+from imio.project.pst.testing import IntegrationTestCase
 from plone import api
 from plone.app.testing import TEST_USER_NAME
-from imio.project.pst.testing import IntegrationTestCase
-from imio.project.pst.content import action
+from zope.interface import Invalid
+from zope.schema._bootstrapinterfaces import RequiredMissing
+from zope.schema._bootstrapinterfaces import TooShort
 
 
 class TestAction(IntegrationTestCase):
@@ -45,7 +47,10 @@ class TestAction(IntegrationTestCase):
         api.group.remove_user(groupname='%s_actioneditor' % self.groups['service-proprete'], username='agent')
         member = api.user.get_current()
         self.assertTrue(member.has_role('Manager'))
-        validator.validate([])
+        with self.assertRaises(RequiredMissing) as raised:  # field required
+            validator.validate(None)
+        with self.assertRaises(TooShort) as raised:  # field min_length
+            validator.validate([])
         validator.validate([self.groups['service-proprete']])
         # bypass for pst editors
         self.login('psteditor')
@@ -54,10 +59,10 @@ class TestAction(IntegrationTestCase):
         validator.validate([self.groups['service-proprete']])
         # constrain for service user
         self.login('agent')
-        with self.assertRaises(Invalid) as raised:
-            validator.validate([])
-        self.assertEquals(raised.exception.message,
-                          u'You must choose at least one group')
+        # with self.assertRaises(Invalid) as raised:
+        #     validator.validate([])
+        # self.assertEquals(raised.exception.message,
+        #                   u'You must choose at least one group')
         with self.assertRaises(Invalid) as raised:
             validator.validate([self.groups[u'service-proprete']])
         self.assertEquals(raised.exception.message,
