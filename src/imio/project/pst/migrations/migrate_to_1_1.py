@@ -105,6 +105,7 @@ class Migrate_To_1_1(Migrator):
         self.upgradeProfile('collective.contact.core:default')
         self.upgradeProfile('collective.contact.plonegroup:default')
         self.upgradeProfile('collective.documentgenerator:default')
+        self.runProfileSteps('imio.helpers', steps=['jsregistry'])
 
         for brain in self.pc(portal_type='projectspace'):
             ps = brain.getObject()
