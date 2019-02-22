@@ -2,6 +2,7 @@
 from collective.documentgenerator.utils import update_oo_config
 from collective.eeafaceted.collectionwidget.interfaces import ICollectionCategories
 from collective.eeafaceted.collectionwidget.utils import _updateDefaultCollectionFor
+from collective.task.interfaces import ITaskContentMethods
 from eea.facetednavigation.criteria.handler import Criteria
 from eea.facetednavigation.criteria.interfaces import ICriteria
 from eea.facetednavigation.interfaces import IFacetedNavigable
@@ -14,11 +15,14 @@ from imio.helpers.content import transitions
 from imio.migrator.migrator import Migrator
 from imio.project.pst import add_path
 from imio.project.pst.setuphandlers import _ as _translate
+from imio.project.pst.setuphandlers import configure_task_config
+from imio.project.pst.setuphandlers import configure_task_rolefields
 from plone.app.contenttypes.interfaces import IPloneAppContenttypesLayer
 from plone.app.contenttypes.migration.migration import BaseCustomMigator
 from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
 from Products.CMFPlone.utils import base_hasattr
 from Products.CPUtils.Extensions.utils import mark_last_version
+from zope.component import getAdapter
 from zope.component import getMultiAdapter
 from zope.interface import alsoProvides
 
@@ -87,6 +91,16 @@ class Migrate_To_1_1(Migrator):
         results = migration_view(migrate=1, content_types=['Document', 'Folder', 'BlobFile'])
         logger.warn(results)
 
+    def migrate_tasks(self):
+        configure_task_config(self.portal)
+        configure_task_rolefields(self.portal, force=True)
+        for brain in self.pc(portal_type='task', sort_on='path'):
+            adapted = getAdapter(brain.getObject(), ITaskContentMethods)
+            fields = adapted.get_parents_fields()
+            for field in fields:
+                adapted.set_parents_value(field,
+                                          adapted.calculate_parents_value(field, fields[field]))
+
     def run(self):
         # upgrade imio.dashboard
         self.upgradeProfile('imio.dashboard:default')
@@ -106,6 +120,7 @@ class Migrate_To_1_1(Migrator):
         self.upgradeProfile('collective.contact.plonegroup:default')
         self.upgradeProfile('collective.documentgenerator:default')
         self.runProfileSteps('imio.helpers', steps=['jsregistry'])
+        self.upgradeProfile('collective.task:default')
 
         for brain in self.pc(portal_type='projectspace'):
             ps = brain.getObject()
@@ -121,6 +136,8 @@ class Migrate_To_1_1(Migrator):
 
         self.runProfileSteps('imio.project.pst', steps=['actions', 'typeinfo'])
 # 'catalog', 'componentregistry', 'jsregistry', 'portlets', 'propertiestool', 'plone.app.registry', 'workflow'
+
+        self.migrate_tasks()
 
         # update security settings
         # self.portal.portal_workflow.updateRoleMappings()
