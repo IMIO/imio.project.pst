@@ -102,7 +102,7 @@ class Migrate_To_1_1(Migrator):
                                           adapted.calculate_parents_value(field, fields[field]))
 
     def run(self):
-        # upgrade imio.dashboard
+        self.upgradeProfile('collective.messagesviewlet:default')
         self.upgradeProfile('imio.dashboard:default')
         # skip 4320 to 4330. Do it programmatically
         ckp = self.portal.portal_properties.ckeditor_properties
