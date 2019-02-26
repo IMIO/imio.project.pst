@@ -68,6 +68,7 @@ class ManagerColumn(VocabularyColumn):
 class TaskParentColumn(PrettyLinkColumn):
 
     params = {'showContentIcon': True, 'target': '_blank'}
+    header = _cez('header_task_parent')
 
     def renderCell(self, item):
         obj = self._getObject(item)
