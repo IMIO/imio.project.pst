@@ -143,5 +143,6 @@ class PstActionsPanelViewlet(ActionsPanelViewlet):
     """ actions panel viewlet """
 
     def renderViewlet(self):
-        view = getMultiAdapter((self.context, self.request), name='actions_panel')
-        return view(useIcons=False, showTransitions=True, showOwnDelete=False, showAddContent=True, showActions=True)
+        if self.show():
+            view = getMultiAdapter((self.context, self.request), name='actions_panel')
+            return view(useIcons=False, showTransitions=True, showOwnDelete=False, showAddContent=True, showActions=True)
