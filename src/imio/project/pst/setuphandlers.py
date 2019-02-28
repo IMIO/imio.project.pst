@@ -21,7 +21,11 @@ from imio.helpers.security import get_environment
 from imio.project.core.utils import getProjectSpace
 from imio.project.pst import add_path
 from imio.project.pst import PRODUCT_DIR
+from imio.project.pst.interfaces import IActionDashboardBatchActions
 from imio.project.pst.interfaces import IImioPSTProject
+from imio.project.pst.interfaces import IOODashboardBatchActions
+from imio.project.pst.interfaces import IOSDashboardBatchActions
+from imio.project.pst.interfaces import ITaskDashboardBatchActions
 from plone import api
 from plone.app.controlpanel.markup import MarkupControlPanelAdapter
 from plone.app.uuid.utils import uuidToObject
@@ -425,17 +429,15 @@ def adaptDefaultPortal(site):
 
     #permissions
     #Removing owner to 'hide' sharing tab
-    site.manage_permission('Sharing page: Delegate roles', ('Manager', 'Site Administrator'),
-                           acquire=0)
+    site.manage_permission('Sharing page: Delegate roles', ('Manager', 'Site Administrator'), acquire=0)
     #Hiding layout menu
-    site.manage_permission('Modify view template', ('Manager', 'Site Administrator'),
-                           acquire=0)
+    site.manage_permission('Modify view template', ('Manager', 'Site Administrator'), acquire=0)
     #List undo
-    site.manage_permission('List undoable changes', ('Manager', 'Site Administrator'),
-                           acquire=0)
+    site.manage_permission('List undoable changes', ('Manager', 'Site Administrator'), acquire=0)
     #History: can revert to previous versions
-    site.manage_permission('CMFEditions: Revert to previous versions', ('Manager', 'Site Administrator'),
-                           acquire=0)
+    site.manage_permission('CMFEditions: Revert to previous versions', ('Manager', 'Site Administrator'), acquire=0)
+    #Hiding folder contents
+    site.manage_permission('List folder contents', ('Manager', 'Site Administrator'), acquire=0)
 
 
 def addDemoOrganization(context):
@@ -659,14 +661,15 @@ def configureDashboard(pst):
     """Configure dashboard (add folders and collections)."""
     collection_folders = [
         # (folder id, folder title, content type for the collections)
-        ('strategicobjectives', _("Strategic objectives"), 'strategicobjective'),
-        ('operationalobjectives', _("Operational objectives"), 'operationalobjective'),
-        ('pstactions', _("Actions"), 'pstaction'),
-        ('tasks', _("Tasks"), 'task'),
+        ('strategicobjectives', _("Strategic objectives"), 'strategicobjective', IOSDashboardBatchActions),
+        ('operationalobjectives', _("Operational objectives"), 'operationalobjective', IOODashboardBatchActions),
+        ('pstactions', _("Actions"), 'pstaction', IActionDashboardBatchActions),
+        ('tasks', _("Tasks"), 'task', ITaskDashboardBatchActions),
     ]
-    for i, (name, title, content_type) in enumerate(collection_folders):
+    for i, (name, title, content_type, inf) in enumerate(collection_folders):
         if name not in pst:
-            add_db_col_folder(pst, name, title, content_type, i, displayed='')
+            folder = add_db_col_folder(pst, name, title, content_type, i, displayed='')
+            alsoProvides(folder, inf)
 
     # configure faceted for container
     # default_UID = pst['strategicobjectives']['all'].UID()

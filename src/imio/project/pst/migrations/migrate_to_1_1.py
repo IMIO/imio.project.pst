@@ -14,6 +14,14 @@ from imio.helpers.content import richtextval
 from imio.helpers.content import transitions
 from imio.migrator.migrator import Migrator
 from imio.project.pst import add_path
+from imio.project.pst.content.action import IPSTAction
+from imio.project.pst.content.operational import IOperationalObjective
+from imio.project.pst.content.strategic import IStrategicObjective
+from imio.project.pst.interfaces import IActionDashboardBatchActions
+from imio.project.pst.interfaces import IImioPSTProject
+from imio.project.pst.interfaces import IOODashboardBatchActions
+from imio.project.pst.interfaces import IOSDashboardBatchActions
+from imio.project.pst.interfaces import ITaskDashboardBatchActions
 from imio.project.pst.setuphandlers import _ as _translate
 from imio.project.pst.setuphandlers import configure_task_config
 from imio.project.pst.setuphandlers import configure_task_rolefields
@@ -82,6 +90,8 @@ class Migrate_To_1_1(Migrator):
         self.portal.templates.layout = 'dg-templates-listing'
         self.portal.contacts.exclude_from_nav = True
         self.portal.contacts.reindexObject(['exclude_from_nav'])
+        #Hiding folder contents
+        self.portal.manage_permission('List folder contents', ('Manager', 'Site Administrator'), acquire=0)
 
     def AT2Dx(self):
         request = getattr(self.portal, 'REQUEST', None)
@@ -94,12 +104,39 @@ class Migrate_To_1_1(Migrator):
     def migrate_tasks(self):
         configure_task_config(self.portal)
         configure_task_rolefields(self.portal, force=True)
-        for brain in self.pc(portal_type='task', sort_on='path'):
+        brains = self.pc(portal_type='task', sort_on='path')
+        logger.info("Setting parent fields on {:d} tasks".format(len(brains)))
+        for brain in brains:
             adapted = getAdapter(brain.getObject(), ITaskContentMethods)
             fields = adapted.get_parents_fields()
+            # logger.info("Setting parent fields '{}' on '{}'".format(fields.keys(),
+            # adapted.context.absolute_url_path()))
             for field in fields:
                 adapted.set_parents_value(field,
                                           adapted.calculate_parents_value(field, fields[field]))
+
+    def adapt_dashboards(self):
+        # mark dashboards
+        for brain in self.pc(object_provides='imio.project.pst.interfaces.IImioPSTProject'):
+            pst = brain.getObject()
+            for id, inf in (('strategicobjectives', IOSDashboardBatchActions),
+                            ('operationalobjectives', IOODashboardBatchActions),
+                            ('pstactions', IActionDashboardBatchActions),
+                            ('tasks', ITaskDashboardBatchActions)):
+                folder = pst[id]
+                logger.info("Adding interface '{}' on '{}'".format(inf.__identifier__, folder.absolute_url_path()))
+                alsoProvides(folder, inf)
+                if id == 'operationalobjectives':
+                    xmlpath = add_path('faceted_conf/operationalobjective.xml')
+                    folder.unrestrictedTraverse('@@faceted_exportimport').import_xml(import_file=open(xmlpath))
+                    _updateDefaultCollectionFor(folder, folder['all'].UID())
+        for inf, marker in ((IImioPSTProject, IOSDashboardBatchActions),
+                            (IStrategicObjective, IOODashboardBatchActions),
+                            (IOperationalObjective, IActionDashboardBatchActions),
+                            (IPSTAction, ITaskDashboardBatchActions)):
+            logger.info("Setting interface '{}' on '{}' objects".format(marker.__identifier__, inf.__identifier__))
+            for brain in self.pc(object_provides=inf.__identifier__):
+                alsoProvides(brain.getObject(), marker)
 
     def run(self):
         self.upgradeProfile('collective.messagesviewlet:default')
@@ -122,27 +159,20 @@ class Migrate_To_1_1(Migrator):
         self.runProfileSteps('imio.helpers', steps=['jsregistry'])
         self.upgradeProfile('collective.task:default')
 
-        for brain in self.pc(portal_type='projectspace'):
-            ps = brain.getObject()
-            if 'operationalobjectives' not in ps:
-                continue
-            folder = ps['operationalobjectives']
-            xmlpath = add_path('faceted_conf/operationalobjective.xml')
-            folder.unrestrictedTraverse('@@faceted_exportimport').import_xml(import_file=open(xmlpath))
-            _updateDefaultCollectionFor(folder, folder['all'].UID())
-
         # ordering viewlets
         self.runProfileSteps('imio.project.core', steps=['viewlets'], profile='default')
 
         self.runProfileSteps('imio.project.pst', steps=['actions', 'typeinfo'])
 # 'catalog', 'componentregistry', 'jsregistry', 'portlets', 'propertiestool', 'plone.app.registry', 'workflow'
 
+        self.AT2Dx()
+
+        self.adapt_dashboards()
+
         self.migrate_tasks()
 
         # update security settings
         # self.portal.portal_workflow.updateRoleMappings()
-
-        self.AT2Dx()
 
         self.various_update()
 

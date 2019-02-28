@@ -4,8 +4,14 @@ Changelog
 1.2 (unreleased)
 ----------------
 
-- Nothing changed yet.
-
+- Added batch actions
+  [sgeulette]
+- Clean green bar. Added actions panel.
+  [sgeulette]
+- Integrated imio.pm.wsclient
+  [sgeulette]
+- Migrated all to dexterity
+  [sgeulette]
 
 1.1 (2019-01-15)
 ----------------
