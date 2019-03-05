@@ -8,6 +8,7 @@ from zope.i18nmessageid import MessageFactory
 _ = MessageFactory('imio.project.pst')
 
 PRODUCT_DIR = os.path.dirname(__file__)
+ASSIGNED_USER_FUNCTIONS = ['editeur', 'validateur']
 
 
 def initialize(context):

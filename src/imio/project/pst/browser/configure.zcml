@@ -177,6 +177,21 @@
     </configure>
 
 
+    <!-- Batch Actions -->
+    <browser:page
+        for="imio.project.pst.interfaces.ITaskDashboardBatchActions"
+        name="assignedgroup-batch-action"
+        class=".batchactions.AssignedGroupBatchActionForm"
+        permission="zope2.View"
+        />
+
+    <browser:page
+        for="imio.project.pst.interfaces.ITaskDashboardBatchActions"
+        name="assigneduser-batch-action"
+        class=".batchactions.AssignedUserBatchActionForm"
+        permission="zope2.View"
+        />
+
     <!-- ADD / EDIT FORMS -->
     <browser:page
         for="collective.task.interfaces.ITaskContent"
