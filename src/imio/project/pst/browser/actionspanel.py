@@ -20,11 +20,13 @@ def actionspanelview_cachekey(method,
         * review state
         * current user
         * user groups
+        * parent state for delete, cut, rename
+        * paste
     """
     user = self.request['AUTHENTICATED_USER']
     return (useIcons, showOwnDelete, showActions, showAddContent,
             self.context, user.getId(), self.context.modified(), api.content.get_state(self.context, default=None),
-            sorted(user.getGroups()))
+            sorted(user.getGroups()), api.content.get_state(self.parent, default=None), self.parent.cb_dataValid())
 
 
 class ProjectSpaceActionsPanelView(ActionsPanelView):
@@ -67,6 +69,7 @@ class SortTransitionsActionsPanelView(ActionsPanelView):
     def __init__(self, context, request):
         super(SortTransitionsActionsPanelView, self).__init__(context, request)
         self.context = context
+        self.parent = context.aq_parent
         self.request = request
         self.ACCEPTABLE_ACTIONS = ('cut', 'copy', 'paste', 'delete', )
 
@@ -145,4 +148,5 @@ class PstActionsPanelViewlet(ActionsPanelViewlet):
     def renderViewlet(self):
         if self.show():
             view = getMultiAdapter((self.context, self.request), name='actions_panel')
-            return view(useIcons=False, showTransitions=True, showOwnDelete=False, showAddContent=True, showActions=True)
+            return view(useIcons=False, showTransitions=True, showOwnDelete=False, showAddContent=True,
+                        showActions=True)
