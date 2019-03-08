@@ -94,3 +94,9 @@ msgstr ""
 
 msgid "task_parent"
 msgstr ""
+
+msgid "header_history_actions"
+msgstr ""
+
+msgid "history_actions"
+msgstr ""

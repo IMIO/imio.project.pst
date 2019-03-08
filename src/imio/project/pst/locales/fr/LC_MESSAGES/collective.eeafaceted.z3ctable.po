@@ -54,6 +54,9 @@ msgstr "Date fin effective"
 msgid "header_health_indicator"
 msgstr "Indice de santé"
 
+msgid "header_history_actions"
+msgstr "Actions"
+
 msgid "header_manager"
 msgstr "Gestionnaire"
 
@@ -74,6 +77,9 @@ msgstr "Élément associé"
 
 msgid "health_indicator"
 msgstr "Indice de santé"
+
+msgid "history_actions"
+msgstr "Actions PST"
 
 msgid "manager"
 msgstr "Gestionnaire"

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2018-12-06 10:55+0000\n"
+"POT-Creation-Date: 2019-03-08 13:22+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,23 +15,17 @@ msgstr ""
 "Domain: imio.project.pst\n"
 "X-is-fallback-for: fr-fr fr-be fr-ca\n"
 
-#: ./setuphandlers.py:635
+#: ./setuphandlers.py:672
 msgid "Actions"
 msgstr "Actions"
 
-#: ./content/operational.py:34
+#: ./content/operational.py:35
 msgid "Administrative responsible"
 msgstr "Responsable administratif"
 
-#: ./setuphandlers.py:739
+#: ./setuphandlers.py:777
 msgid "All"
 msgstr "Tous"
-
-#: ./browser/operationalobjective_folder_listing.pt:47
-#: ./browser/projectspace_folder_listing.pt:46
-#: ./browser/pstaction_folder_listing.pt:38
-msgid "Annexes"
-msgstr "Annexes"
 
 #: ./profiles/default/actions.xml
 msgid "Archive PST"
@@ -41,7 +35,7 @@ msgstr "Archiver le PST"
 msgid "Choose a health level."
 msgstr "Choisir un indice de santé."
 
-#: ./content/operational.py:35
+#: ./content/operational.py:36
 msgid "Choose principals that will be administrative responsible for this project."
 msgstr "Sélectionner les utilisateurs qui seront responsable administratif de l'objectif."
 
@@ -97,7 +91,7 @@ msgstr "Objectifs stratégiques"
 msgid "Main_menu_title"
 msgstr "Menu PST"
 
-#: ./setuphandlers.py:634
+#: ./setuphandlers.py:671
 msgid "Operational objectives"
 msgstr "Objectifs opérationnels"
 
@@ -121,47 +115,47 @@ msgstr "Échéance"
 msgid "Representative responsible"
 msgstr "Responsable mandataire"
 
-#: ./setuphandlers.py:663
+#: ./setuphandlers.py:701
 msgid "State: achieved"
 msgstr "État: clôturé"
 
-#: ./setuphandlers.py:671
+#: ./setuphandlers.py:709
 msgid "State: closed"
 msgstr "État: clôturé"
 
-#: ./setuphandlers.py:661
+#: ./setuphandlers.py:699
 msgid "State: created"
 msgstr "État: en création"
 
-#: ./setuphandlers.py:673
+#: ./setuphandlers.py:711
 msgid "State: in progress"
 msgstr "État: en cours"
 
-#: ./setuphandlers.py:662
+#: ./setuphandlers.py:700
 msgid "State: ongoing"
 msgstr "État: en cours"
 
-#: ./setuphandlers.py:674
+#: ./setuphandlers.py:712
 msgid "State: realized"
 msgstr "État: réalisé"
 
-#: ./setuphandlers.py:669
+#: ./setuphandlers.py:707
 msgid "State: stopped"
 msgstr "État: annulé"
 
-#: ./setuphandlers.py:668
+#: ./setuphandlers.py:706
 msgid "State: terminated"
 msgstr "État: finalisé"
 
-#: ./setuphandlers.py:676
+#: ./setuphandlers.py:714
 msgid "State: to assign"
 msgstr "État: à assigner"
 
-#: ./setuphandlers.py:666
+#: ./setuphandlers.py:704
 msgid "State: to be scheduled"
 msgstr "État: à agender"
 
-#: ./setuphandlers.py:675
+#: ./setuphandlers.py:713
 msgid "State: to do"
 msgstr "État: à faire"
 
@@ -169,7 +163,7 @@ msgstr "État: à faire"
 msgid "Steps to ease tests of imio.project.pst"
 msgstr "Steps to ease tests of imio.project.pst"
 
-#: ./setuphandlers.py:633
+#: ./setuphandlers.py:670
 msgid "Strategic objectives"
 msgstr "Objectifs stratégiques"
 
@@ -177,41 +171,41 @@ msgstr "Objectifs stratégiques"
 msgid "StrategicObjective"
 msgstr "Objectif stratégique"
 
-#: ./setuphandlers.py:636
+#: ./setuphandlers.py:673
 msgid "Tasks"
 msgstr "Tâches"
+
+#: ./overrides.zcml:25
+msgid "The 'workflow' menu - allows the user to execute workflow transitions"
+msgstr "The 'workflow' menu - allows the user to execute workflow transitions"
 
 #: ./profiles.zcml:31
 msgid "Update profile to run individually some update steps"
 msgstr "Update profile to run individually some update steps"
 
-#: ./setuphandlers.py:761
+#: ./setuphandlers.py:799
 msgid "Which I am administrative responsible"
 msgstr "Dont je suis responsable administratif"
 
-#: ./setuphandlers.py:778
+#: ./setuphandlers.py:816
 msgid "Which I am manager"
 msgstr "Dont je suis gestionnaire"
 
-#: ./setuphandlers.py:795
+#: ./setuphandlers.py:833
 msgid "Which an action deadline has passed"
 msgstr "En retard pdv échéance actions"
 
-#: ./setuphandlers.py:848
+#: ./setuphandlers.py:886
 msgid "Which beginning is late"
 msgstr "En retard pdv date début effective"
 
-#: ./setuphandlers.py:832
+#: ./setuphandlers.py:870
 msgid "Which deadline has passed"
 msgstr "En retard pdv échéance"
 
 #: ./migrations/migrate_to_1_0.py:35
 msgid "Work plan: ${action_title}"
 msgstr "Plan de travail: ${action_title}"
-
-#: ./content/action.py:82
-msgid "You must choose at least one group"
-msgstr "Vous devez au moins choisir un groupe"
 
 #: ./content/action.py:101
 msgid "You must choose at least one group of which you are a member"
@@ -222,20 +216,20 @@ msgstr "Vous devez choisir au moins un des groupes dont vous êtes membre"
 msgid "actions_legend_tasks"
 msgstr "Tâches"
 
-#: ./setuphandlers.py:361
+#: ./setuphandlers.py:384
 msgid "front_page_descr"
 msgstr "Bienvenue sur votre outil de gestion du PST"
 
-#: ./setuphandlers.py:362
+#: ./setuphandlers.py:385
 msgid "front_page_text"
 msgstr "<p>&nbsp;</p><p>L'application de gestion du PST contient actuellement les <strong>fonctionnalités suivantes</strong>:</p><ul><li>encodage des objectifs stratégiques, des objectifs opérationnels et des actions</li><li>encodage de tâches</li><li>visualisation des éléments via des tableaux de bord filtrables</li><li>génération de document au format bureautique</li><li>exportation des données au format excel</li><li>gestion des contacts (services traitants, échevins)</li><li>gestion des droits par service</li><li>workflow de traitement sur tous les types d'éléments</li><li>référence unique par élément, facilitant la recherche</li><li>...</li></ul><p>&nbsp;</p><p>Deux <strong>documents</strong> sont actuellement <strong>générés</strong>:</p><ul><li>\"Détaillé\"<ul><li>Il présente les éléments de manière structurée (arborescente).</li><li>Il contient toutes les informations enregistrées sur les OS, OO, actions. Une variante rajoute les tâches.</li><li>Son contenu varie en fonction du contexte où il est généré ou de la sélection effectuée dans un tableau de bord</li></ul></li><li>\"Suivi\"<ul><li>Il présente les éléments de manière structurée (arborescente).</li><li>Il contient les informations importantes de suivi sur les OS, OO, actions. Une variante rajoute les tâches.</li><li>Son contenu varie en fonction du contexte où il est généré ou de la sélection effectuée dans un tableau de bord</li></ul></li></ul><p>&nbsp;<p>Les <strong>fonctionnalités à venir</strong>:</p></p><ul><li>lien avec la gestion du collège / conseil</li><li>gestion de dossiers</li><li>remontée de données budgétaires</li><li>etc.</li></ul>"
 
-#: ./setuphandlers.py:360
+#: ./setuphandlers.py:383
 msgid "front_page_title"
 msgstr "Programme Stratégique Transversal 1.1"
 
 #: ./profiles.zcml:14
-#: ./setuphandlers.py:49
+#: ./setuphandlers.py:54
 msgid "imio.project.pst"
 msgstr "imio.project.pst"
 
@@ -266,30 +260,30 @@ msgstr "Objectifs stratégiques"
 msgid "strategic_legend_operational_objectives"
 msgstr "Objectifs opérationnels"
 
-#: ./setuphandlers.py:919
+#: ./setuphandlers.py:957
 msgid "task_have_treated"
 msgstr "Que j'ai traité"
 
-#: ./setuphandlers.py:902
+#: ./setuphandlers.py:940
 msgid "task_im_treating"
 msgstr "Que je traite"
 
-#: ./setuphandlers.py:885
+#: ./setuphandlers.py:923
 msgid "task_to_treat"
 msgstr "Qui m'est assigné"
 
-#: ./setuphandlers.py:937
+#: ./setuphandlers.py:975
 msgid "tasks_in_my_group"
 msgstr "Dans mon service"
 
-#: ./setuphandlers.py:868
+#: ./setuphandlers.py:906
 msgid "tasks_to_assign"
 msgstr "À assigner"
 
-#: ./setuphandlers.py:954
+#: ./setuphandlers.py:992
 msgid "tasks_to_close"
 msgstr "À clôturer"
 
-#: ./setuphandlers.py:971
+#: ./setuphandlers.py:1009
 msgid "tasks_with_due_date_passed"
 msgstr "En retard pdv échéance"
