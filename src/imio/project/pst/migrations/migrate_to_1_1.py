@@ -92,8 +92,15 @@ class Migrate_To_1_1(Migrator):
         self.portal.contacts.reindexObject(['exclude_from_nav'])
         #Hiding folder contents
         self.portal.manage_permission('List folder contents', ('Manager', 'Site Administrator'), acquire=0)
+        paob = self.portal.portal_actions.object_buttons
+        for act in ('faceted.sync', 'faceted.disable', 'faceted.enable', 'faceted.search.disable',
+                    'faceted.search.enable', 'faceted.actions.disable', 'faceted.actions.enable'):
+            if act in paob:
+                paob[act].visible = False
 
     def AT2Dx(self):
+        if self.portal['front-page'].meta_type == 'Dexterity Item':
+            return
         request = getattr(self.portal, 'REQUEST', None)
         self.reinstall(['plone.app.contenttypes:default'])
         alsoProvides(request, IPloneAppContenttypesLayer)
