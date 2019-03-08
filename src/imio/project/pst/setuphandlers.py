@@ -439,6 +439,12 @@ def adaptDefaultPortal(site):
     #Hiding folder contents
     site.manage_permission('List folder contents', ('Manager', 'Site Administrator'), acquire=0)
 
+    paob = site.portal_actions.object_buttons
+    for act in ('faceted.sync', 'faceted.disable', 'faceted.enable', 'faceted.search.disable',
+                'faceted.search.enable', 'faceted.actions.disable', 'faceted.actions.enable'):
+        if act in paob:
+            paob[act].visible = False
+
 
 def addDemoOrganization(context):
     """
