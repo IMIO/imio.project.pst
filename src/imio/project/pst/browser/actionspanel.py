@@ -20,13 +20,12 @@ def actionspanelview_cachekey(method,
         * review state
         * current user
         * user groups
-        * parent state for delete, cut, rename
         * paste
     """
     user = self.request['AUTHENTICATED_USER']
     return (useIcons, showOwnDelete, showActions, showAddContent,
             self.context, user.getId(), self.context.modified(), api.content.get_state(self.context, default=None),
-            sorted(user.getGroups()), api.content.get_state(self.parent, default=None), self.parent.cb_dataValid())
+            sorted(user.getGroups()), self.parent.cb_dataValid())
 
 
 class ProjectSpaceActionsPanelView(ActionsPanelView):
