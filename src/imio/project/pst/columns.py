@@ -13,11 +13,7 @@ from imio.project.pst.adapters import UNSET_DATE_VALUE
 
 class HistoryActionsColumn(ActionsColumn):
 
-    header = _cez("header_actions")
-    header_js = '<script type="text/javascript">jQuery(document).ready(initializeOverlays);' \
-                'jQuery(document).ready(preventDefaultClickTransition);</script>'
-    params = {'showHistory': True, 'showActions': False}
-    view_name = 'actions_panel'
+    params = {'showHistory': True, 'showActions': True}
 
 
 class CategoriesColumn(VocabularyColumn):
@@ -68,6 +64,7 @@ class ManagerColumn(VocabularyColumn):
 class TaskParentColumn(PrettyLinkColumn):
 
     params = {'showContentIcon': True, 'target': '_blank'}
+    header = _cez('header_task_parent')
 
     def renderCell(self, item):
         obj = self._getObject(item)

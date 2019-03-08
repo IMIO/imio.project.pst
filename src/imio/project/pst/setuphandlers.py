@@ -21,7 +21,11 @@ from imio.helpers.security import get_environment
 from imio.project.core.utils import getProjectSpace
 from imio.project.pst import add_path
 from imio.project.pst import PRODUCT_DIR
+from imio.project.pst.interfaces import IActionDashboardBatchActions
 from imio.project.pst.interfaces import IImioPSTProject
+from imio.project.pst.interfaces import IOODashboardBatchActions
+from imio.project.pst.interfaces import IOSDashboardBatchActions
+from imio.project.pst.interfaces import ITaskDashboardBatchActions
 from plone import api
 from plone.app.controlpanel.markup import MarkupControlPanelAdapter
 from plone.app.uuid.utils import uuidToObject
@@ -118,6 +122,10 @@ def post_install(context):
     _updateContactPlonegroupConfiguration(context)
     # configure dexterity.localrolesfield
     configure_rolefields(portal)
+    # configure collective.task
+    configure_task_config(portal)
+    # configure collective.task localroles
+    configure_task_rolefields(portal)
     # configure actions panel registry
     configure_actions_panel(portal)
 
@@ -421,17 +429,21 @@ def adaptDefaultPortal(site):
 
     #permissions
     #Removing owner to 'hide' sharing tab
-    site.manage_permission('Sharing page: Delegate roles', ('Manager', 'Site Administrator'),
-                           acquire=0)
+    site.manage_permission('Sharing page: Delegate roles', ('Manager', 'Site Administrator'), acquire=0)
     #Hiding layout menu
-    site.manage_permission('Modify view template', ('Manager', 'Site Administrator'),
-                           acquire=0)
+    site.manage_permission('Modify view template', ('Manager', 'Site Administrator'), acquire=0)
     #List undo
-    site.manage_permission('List undoable changes', ('Manager', 'Site Administrator'),
-                           acquire=0)
+    site.manage_permission('List undoable changes', ('Manager', 'Site Administrator'), acquire=0)
     #History: can revert to previous versions
-    site.manage_permission('CMFEditions: Revert to previous versions', ('Manager', 'Site Administrator'),
-                           acquire=0)
+    site.manage_permission('CMFEditions: Revert to previous versions', ('Manager', 'Site Administrator'), acquire=0)
+    #Hiding folder contents
+    site.manage_permission('List folder contents', ('Manager', 'Site Administrator'), acquire=0)
+
+    paob = site.portal_actions.object_buttons
+    for act in ('faceted.sync', 'faceted.disable', 'faceted.enable', 'faceted.search.disable',
+                'faceted.search.enable', 'faceted.actions.disable', 'faceted.actions.enable'):
+        if act in paob:
+            paob[act].visible = False
 
 
 def addDemoOrganization(context):
@@ -655,14 +667,15 @@ def configureDashboard(pst):
     """Configure dashboard (add folders and collections)."""
     collection_folders = [
         # (folder id, folder title, content type for the collections)
-        ('strategicobjectives', _("Strategic objectives"), 'strategicobjective'),
-        ('operationalobjectives', _("Operational objectives"), 'operationalobjective'),
-        ('pstactions', _("Actions"), 'pstaction'),
-        ('tasks', _("Tasks"), 'task'),
+        ('strategicobjectives', _("Strategic objectives"), 'strategicobjective', IOSDashboardBatchActions),
+        ('operationalobjectives', _("Operational objectives"), 'operationalobjective', IOODashboardBatchActions),
+        ('pstactions', _("Actions"), 'pstaction', IActionDashboardBatchActions),
+        ('tasks', _("Tasks"), 'task', ITaskDashboardBatchActions),
     ]
-    for i, (name, title, content_type) in enumerate(collection_folders):
+    for i, (name, title, content_type, inf) in enumerate(collection_folders):
         if name not in pst:
-            add_db_col_folder(pst, name, title, content_type, i, displayed='')
+            folder = add_db_col_folder(pst, name, title, content_type, i, displayed='')
+            alsoProvides(folder, inf)
 
     # configure faceted for container
     # default_UID = pst['strategicobjectives']['all'].UID()
@@ -1056,58 +1069,136 @@ def configure_rolefields(portal):
                 'stopped': {'actioneditor': {'roles': ['Editor', 'Reviewer']}},
             }
         },
-        'task': {
-            'assigned_group': {
-                'to_assign': {
-                    'validateur': {'roles': ['Contributor', 'Editor', 'Reviewer'],
-                                   'rel': "{'collective.task.related_taskcontainer':['Reader']}"},
-                },
-                'to_do': {
-                    'editeur': {'roles': ['Contributor', 'Editor'],
-                                'rel': "{'collective.task.related_taskcontainer':['Reader']}"},
-                    'validateur': {'roles': ['Contributor', 'Editor', 'Reviewer'],
-                                   'rel': "{'collective.task.related_taskcontainer':['Reader']}"},
-                },
-                'in_progress': {
-                    'editeur': {'roles': ['Contributor', 'Editor'],
-                                'rel': "{'collective.task.related_taskcontainer':['Reader']}"},
-                    'validateur': {'roles': ['Contributor', 'Editor', 'Reviewer'],
-                                   'rel': "{'collective.task.related_taskcontainer':['Reader']}"},
-                },
-                'realized': {
-                    'editeur': {'roles': ['Contributor', 'Editor'],
-                                'rel': "{'collective.task.related_taskcontainer':['Reader']}"},
-                    'validateur': {'roles': ['Contributor', 'Editor', 'Reviewer'],
-                                   'rel': "{'collective.task.related_taskcontainer':['Reader']}"},
-                },
-                'closed': {
-                    'editeur': {'roles': ['Reader'],
-                                'rel': "{'collective.task.related_taskcontainer':['Reader']}"},
-                    'validateur': {'roles': ['Editor', 'Reviewer'],
-                                   'rel': "{'collective.task.related_taskcontainer':['Reader']}"},
-                },
-            },
-            'assigned_user': {}  # clear default config
-        },
     }
     for portal_type, roles_config in config.iteritems():
         for keyname in roles_config:
-            # don't overwrite existing configuration unless for task type if not set yet
-            force = False
-            if portal_type == 'task':
-                if (base_hasattr(portal.portal_types.task, 'localroles') and
-                        portal.portal_types.task.localroles.get('assigned_group', '') and
-                        portal.portal_types.task.localroles['assigned_group'].get('created') and
-                        '' in portal.portal_types.task.localroles['assigned_group']['created']):
-                    force = True
-                if (base_hasattr(portal.portal_types.task, 'localroles') and
-                        portal.portal_types.task.localroles.get('assigned_user', '') and
-                        portal.portal_types.task.localroles['assigned_user'].get('created') and
-                        '' in portal.portal_types.task.localroles['assigned_user']['created'] and
-                        not portal.portal_types.task.localroles['assigned_user']['created']['']['roles']):
-                    force = True
+            add_fti_configuration(portal_type, roles_config[keyname], keyname=keyname, force=False)
 
-            add_fti_configuration(portal_type, roles_config[keyname], keyname=keyname, force=force)
+
+def configure_task_config(context):
+    """
+        Configure collective task
+    """
+    PARENTS_FIELDS_CONFIG = [
+        {'fieldname': u'parents_assigned_groups', 'attribute': u'assigned_group', 'attribute_prefix': u'ITask',
+         'provided_interface': u'collective.task.interfaces.ITaskContent'},
+        {'fieldname': u'parents_enquirers', 'attribute': u'enquirer', 'attribute_prefix': u'ITask',
+         'provided_interface': u'collective.task.interfaces.ITaskContent'},
+        {'fieldname': u'parents_assigned_groups', 'attribute': u'manager', 'attribute_prefix': None,
+         'provided_interface': u'imio.project.pst.content.action.IPSTAction'},
+    ]
+    registry = getUtility(IRegistry)
+    logger.info("Configure registry")
+    registry['collective.task.parents_fields'] = PARENTS_FIELDS_CONFIG
+
+
+def configure_task_rolefields(portal, force=False):
+    """
+        Configure the rolefields on task
+    """
+    roles_config = {
+        'static_config': {
+            'created': {
+                'pst_editors': {'roles': ['Contributor', 'Editor', 'Reviewer']},
+            },
+            'to_assign': {
+                'pst_editors': {'roles': ['Contributor', 'Editor', 'Reviewer']},
+            },
+            'to_do': {
+                'pst_editors': {'roles': ['Contributor', 'Editor', 'Reviewer']},
+            },
+            'in_progress': {
+                'pst_editors': {'roles': ['Contributor', 'Editor', 'Reviewer']},
+            },
+            'realized': {
+                'pst_editors': {'roles': ['Contributor', 'Editor', 'Reviewer']},
+            },
+            'closed': {
+                'pst_editors': {'roles': ['Contributor', 'Editor', 'Reviewer']},
+            },
+        },
+        'assigned_group': {
+            'to_assign': {
+                'validateur': {'roles': ['Contributor', 'Editor', 'Reviewer'],
+                               'rel': "{'collective.task.related_taskcontainer':['Reader']}"},
+            },
+            'to_do': {
+                'editeur': {'roles': ['Contributor', 'Editor'],
+                            'rel': "{'collective.task.related_taskcontainer':['Reader']}"},
+                'validateur': {'roles': ['Contributor', 'Editor', 'Reviewer'],
+                               'rel': "{'collective.task.related_taskcontainer':['Reader']}"},
+            },
+            'in_progress': {
+                'editeur': {'roles': ['Contributor', 'Editor'],
+                            'rel': "{'collective.task.related_taskcontainer':['Reader']}"},
+                'validateur': {'roles': ['Contributor', 'Editor', 'Reviewer'],
+                               'rel': "{'collective.task.related_taskcontainer':['Reader']}"},
+            },
+            'realized': {
+                'editeur': {'roles': ['Contributor', 'Editor'],
+                            'rel': "{'collective.task.related_taskcontainer':['Reader']}"},
+                'validateur': {'roles': ['Contributor', 'Editor', 'Reviewer'],
+                               'rel': "{'collective.task.related_taskcontainer':['Reader']}"},
+            },
+            'closed': {
+                'editeur': {'roles': ['Reader'],
+                            'rel': "{'collective.task.related_taskcontainer':['Reader']}"},
+                'validateur': {'roles': ['Editor', 'Reviewer'],
+                               'rel': "{'collective.task.related_taskcontainer':['Reader']}"},
+            },
+        },
+        'assigned_user': {
+        },
+        'enquirer': {
+        },
+        'parents_assigned_groups': {
+            'created': {
+                'actioneditor': {'roles': ['Reader']},
+                'editeur': {'roles': ['Reader']},
+                'validateur': {'roles': ['Reader']},
+            },
+            'to_assign': {
+                'actioneditor': {'roles': ['Reader']},
+                'editeur': {'roles': ['Reader']},
+                'validateur': {'roles': ['Reader']},
+            },
+            'to_do': {
+                'actioneditor': {'roles': ['Reader']},
+                'editeur': {'roles': ['Reader']},
+                'validateur': {'roles': ['Reader']},
+            },
+            'in_progress': {
+                'actioneditor': {'roles': ['Reader']},
+                'editeur': {'roles': ['Reader']},
+                'validateur': {'roles': ['Reader']},
+            },
+            'realized': {
+                'actioneditor': {'roles': ['Reader']},
+                'editeur': {'roles': ['Reader']},
+                'validateur': {'roles': ['Reader']},
+            },
+            'closed': {
+                'actioneditor': {'roles': ['Reader']},
+                'editeur': {'roles': ['Reader']},
+                'validateur': {'roles': ['Reader']},
+            },
+        },
+        'parents_enquirers': {
+        },
+    }
+
+        # we overwrite existing configuration from task installation !
+    if (base_hasattr(portal.portal_types.task, 'localroles') and
+            portal.portal_types.task.localroles.get('assigned_group', '') and
+            portal.portal_types.task.localroles['assigned_group'].get('created') and
+            '' in portal.portal_types.task.localroles['assigned_group']['created']):
+        force = True
+
+    for keyname in roles_config:
+        logger.info("Setting task local roles configuration for '%s' with force=%s" % (keyname, force))
+        msg = add_fti_configuration('task', roles_config[keyname], keyname=keyname, force=force)
+        if msg:
+            logger.warn(msg)
 
 
 def configure_actions_panel(portal):

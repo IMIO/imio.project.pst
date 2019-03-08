@@ -6,7 +6,25 @@
     <subscriber
         for="imio.project.core.content.projectspace.IProjectSpace
              zope.container.interfaces.IObjectAddedEvent"
-        handler=".subscribers.adaptConstrainTypesForProjectSpace"
+        handler=".subscribers.projectspace_created"
+        />
+
+    <subscriber
+        for="imio.project.pst.content.strategic.IStrategicObjective
+             zope.container.interfaces.IObjectAddedEvent"
+        handler=".subscribers.strategic_created"
+        />
+
+    <subscriber
+        for="imio.project.pst.content.operational.IOperationalObjective
+             zope.container.interfaces.IObjectAddedEvent"
+        handler=".subscribers.operational_created"
+        />
+
+    <subscriber
+        for="imio.project.pst.content.action.IPSTAction
+             zope.container.interfaces.IObjectAddedEvent"
+        handler=".subscribers.pstaction_created"
         />
 
 </configure>

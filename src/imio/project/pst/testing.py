@@ -1,26 +1,29 @@
 # -*- coding: utf-8 -*-
 """Base module for unittesting."""
 
-import unittest2
-from Testing import ZopeTestCase as ztc
-from Products.CMFPlone.utils import _createObjectByType
 from plone.app.robotframework.testing import REMOTE_LIBRARY_BUNDLE_FIXTURE
 from plone.app.testing import applyProfile
-from plone.app.testing import PloneWithPackageLayer
 from plone.app.testing import FunctionalTesting
 from plone.app.testing import IntegrationTesting
-from plone.app.testing import login, logout
+from plone.app.testing import login
+from plone.app.testing import logout
+from plone.app.testing import PloneWithPackageLayer
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
 from plone.testing import z2
+from Products.CMFPlone.utils import _createObjectByType
+from Testing import ZopeTestCase as ztc
+from zope.globalrequest.local import setLocal
 
 import imio.project.pst
+import unittest2
 
 
 class PSTLayer(PloneWithPackageLayer):
 
     def setUpPloneSite(self, portal):
         setattr(portal, '_TESTING_SITE_', True)
+        setLocal('request', portal.REQUEST)
         applyProfile(portal, 'Products.CMFPlone:plone')
 #        applyProfile(portal, 'Products.CMFPlone:plone-content')  # could be done too
         _createObjectByType('Document', portal, id='front-page')

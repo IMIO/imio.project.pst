@@ -35,12 +35,30 @@
  </object>
 
  <object name="object_buttons" meta_type="CMF Action Category">
+
   <object name="archive" meta_type="CMF Action" i18n:domain="imio.project.pst">
    <property name="title" i18n:translate="">Archive PST</property>
    <property name="url_expr">string:$object_url/@@archive/archive</property>
    <property name="available_expr">object/@@pst-utils/is_pst_project</property>
    <property name="visible">True</property>
   </object>
+
+  <object name="faceted.sync" meta_type="CMF Action" i18n:domain="eea">
+   <property name="visible">False</property>
+  </object>
+
+  <object name="delete" meta_type="CMF Action" i18n:domain="plone">
+   <property name="available_expr">python: not globals_view.isPortalOrPortalDefaultPage()</property>
+  </object>
+
+  <object name="cut" meta_type="CMF Action" i18n:domain="plone">
+   <property name="available_expr">python: checkPermission("Copy or Move", object) and not globals_view.isPortalOrPortalDefaultPage()</property>
+  </object>
+
+  <object name="rename" meta_type="CMF Action" i18n:domain="plone">
+   <property name="available_expr">python: checkPermission("Copy or Move", object) and checkPermission("Add portal content", object) and not globals_view.isPortalOrPortalDefaultPage()</property>
+  </object>
+
  </object>
 
 </object>

@@ -227,7 +227,9 @@
 
     <javascript id="++resource++collective.eeafaceted.z3ctable/collective.eeafaceted.z3ctable.js" insert-after="++resource++collective.eeafaceted.dashboard/collective.eeafaceted.dashboard.js" />
 
-    <javascript id="++resource++imio.actionspanel/actionspanel.js" insert-after="++resource++collective.eeafaceted.z3ctable/collective.eeafaceted.z3ctable.js" />
+    <javascript id="++resource++imio.helpers/helpers.js" insert-after="++resource++collective.eeafaceted.z3ctable/collective.eeafaceted.z3ctable.js" />
+
+    <javascript id="++resource++imio.actionspanel/actionspanel.js" insert-after="++resource++imio.helpers/helpers.js" />
 
     <javascript id="actions_panel_javascript_variables.js" insert-after="++resource++imio.actionspanel/actionspanel.js" />
 

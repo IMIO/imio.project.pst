@@ -14,6 +14,14 @@ Changelog
   [sgeulette]
 - Added task collections.
   [sgeulette]
+- Added batch actions
+  [sgeulette]
+- Clean green bar. Added actions panel.
+  [sgeulette]
+- Integrated imio.pm.wsclient
+  [sgeulette]
+- Migrated all to dexterity
+  [sgeulette]
 
 1.0 (2016-12-08)
 ----------------
