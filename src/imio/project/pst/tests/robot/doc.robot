@@ -185,3 +185,8 @@ Suite Setup
     Open test browser
     Set Window Size  1280  4000
     Set Suite Variable  ${CROP_MARGIN}  2
+    Set Selenium Implicit Wait  2
+    Set Selenium Speed  0.2
+    Enable autologin as  Manager
+    Go to  ${PLONE_URL}/robot_init
+    Disable autologin
