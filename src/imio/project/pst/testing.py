@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """Base module for unittesting."""
 
+from imio.pyutils.system import runCommand
 from plone.app.robotframework.testing import REMOTE_LIBRARY_BUNDLE_FIXTURE
 from plone.app.testing import applyProfile
 from plone.app.testing import FunctionalTesting
@@ -16,6 +17,7 @@ from Testing import ZopeTestCase as ztc
 from zope.globalrequest.local import setLocal
 
 import imio.project.pst
+import os
 import unittest2
 
 
@@ -36,6 +38,11 @@ class PSTLayer(PloneWithPackageLayer):
     def setUpZope(self, app, configurationContext):
         ztc.utils.setupCoreSessions(app)
         super(PSTLayer, self).setUpZope(app, configurationContext)
+        (stdout, stderr, st) = runCommand('%s/bin/soffice.sh restart' % os.getenv('PWD'))
+
+    def tearDownZope(self, app):
+        """Tear down Zope."""
+        (stdout, stderr, st) = runCommand('%s/bin/soffice.sh stop' % os.getenv('PWD'))
 
 
 PST_TESTING_PROFILE = PSTLayer(
