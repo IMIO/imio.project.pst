@@ -4,15 +4,6 @@ Changelog
 1.2 (unreleased)
 ----------------
 
-- Added batch actions
-  [sgeulette]
-- Clean green bar. Added actions panel.
-  [sgeulette]
-- Integrated imio.pm.wsclient
-  [sgeulette]
-- Migrated all to dexterity
-  [sgeulette]
-
 1.1 (2019-01-15)
 ----------------
 
@@ -25,6 +16,14 @@ Changelog
 - Improved export doc
   [sgeulette]
 - Added task collections.
+  [sgeulette]
+- Added batch actions
+  [sgeulette]
+- Clean green bar. Added actions panel.
+  [sgeulette]
+- Integrated imio.pm.wsclient
+  [sgeulette]
+- Migrated all to dexterity
   [sgeulette]
 
 1.0 (2016-12-08)
