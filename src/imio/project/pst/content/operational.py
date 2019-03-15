@@ -87,7 +87,7 @@ class RepresentativeResponsibleVocabulary(object):
 
     def __call__(self, context):
         """"""
-        return getVocabularyTermsForOrganization(context, 'echevins')
+        return getVocabularyTermsForOrganization(context, 'echevins', 'active')
 
 
 class OperationalObjectiveSchemaPolicy(DexteritySchemaPolicy):
