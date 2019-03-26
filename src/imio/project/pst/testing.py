@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """Base module for unittesting."""
 
+from imio.pyutils.system import runCommand
 from plone.app.robotframework.testing import REMOTE_LIBRARY_BUNDLE_FIXTURE
 from plone.app.testing import applyProfile
 from plone.app.testing import FunctionalTesting
@@ -11,11 +12,12 @@ from plone.app.testing import PloneWithPackageLayer
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
 from plone.testing import z2
-from Products.CMFPlone.utils import _createObjectByType
+from Products.ExternalMethod.ExternalMethod import manage_addExternalMethod
 from Testing import ZopeTestCase as ztc
 from zope.globalrequest.local import setLocal
 
 import imio.project.pst
+import os
 import unittest2
 
 
@@ -26,8 +28,8 @@ class PSTLayer(PloneWithPackageLayer):
         setLocal('request', portal.REQUEST)
         applyProfile(portal, 'Products.CMFPlone:plone')
 #        applyProfile(portal, 'Products.CMFPlone:plone-content')  # could be done too
-        _createObjectByType('Document', portal, id='front-page')
-        portal.setDefaultPage('front-page')
+        manage_addExternalMethod(portal, 'lock-unlock', '', 'imio.project.pst.robot', 'lock')
+        manage_addExternalMethod(portal, 'robot_init', '', 'imio.project.pst.robot', 'robot_init')
 
         super(PSTLayer, self).setUpPloneSite(portal)
         setRoles(portal, TEST_USER_ID, ['Manager'])
@@ -36,6 +38,11 @@ class PSTLayer(PloneWithPackageLayer):
     def setUpZope(self, app, configurationContext):
         ztc.utils.setupCoreSessions(app)
         super(PSTLayer, self).setUpZope(app, configurationContext)
+        (stdout, stderr, st) = runCommand('%s/bin/soffice.sh restart' % os.getenv('PWD'))
+
+    def tearDownZope(self, app):
+        """Tear down Zope."""
+        (stdout, stderr, st) = runCommand('%s/bin/soffice.sh stop' % os.getenv('PWD'))
 
 
 PST_TESTING_PROFILE = PSTLayer(
