@@ -32,7 +32,7 @@ Premiers pas
     #Log in  encodeur  Project69!
     Go to  ${PLONE_URL}
     Sleep  0.3
-    Capture and crop page screenshot  doc/utilisation/2-1 page d'accueil.png  id=portal-header  id=parent-fieldname-description
+    Capture and crop page screenshot  doc/utilisation/2-1 page d'accueil.png  id=portal-header  css=.documentDescription
     Capture and crop page screenshot  doc/utilisation/2-1 fil d'ariane.png  id=breadcrumbs-you-are-here  id=breadcrumbs-home
 
 Visualisation
@@ -52,9 +52,15 @@ Visualisation
     Sleep  0.3
     Capture and crop page screenshot  doc/utilisation/2-2-1 visualisation oo.png  css=.site-plone  id=portal-column-content
     Go to  ${PLONE_URL}/pst/${OS1}/${OO}/${Action}
-    Wait until element is visible  css=.faceted-table-results  10
+    Wait until element is visible  css=.table_faceted_results  10
     Sleep  0.3
     Capture and crop page screenshot  doc/utilisation/2-2-1 visualisation action.png  css=.site-plone  id=portal-column-content
+    Enable autologin as  agent
+    Set autologin username  agent
+    Go to  ${PLONE_URL}/pst/${OS1}/${OO}/${Action}
+    Wait until element is visible  css=.faceted-table-results  10
+    Sleep  0.3
+    Capture and crop page screenshot  doc/utilisation/2-2-1 visualisation action2.png  css=.site-plone  id=portal-column-content
     Go to  ${PLONE_URL}/pst/${OS1}/${OO}/${Action}/${task}
     Wait until element is visible  formfield-form-widgets-ITask-due_date  10
     Sleep  0.3
@@ -150,19 +156,8 @@ Contacts
 # partie 3.3 Contacts
     Enable autologin as  Manager
     Set autologin username  psteditor
-    Go to  ${PLONE_URL}/contacts
-    Wait until element is visible  css=#organizations a  10
-    Capture and crop page screenshot  doc/configuration/3-3 annuaire.png  id=portal-header  id=content
-    Go to  ${PLONE_URL}/contacts/plonegroup-organization
-    Wait until element is visible  css=a.addnewcontactfromorganization  10
-    Update element style  id=organization  width  400px !important
-    Sleep  1
-    Capture and crop page screenshot  doc/configuration/3-3 mon organisation.png  css=h1.org  id=sub_organizations
-    Go to  ${PLONE_URL}/contacts/plonegroup-organization/services
-    Wait until element is visible  css=a.addnewcontactfromorganization  10
-    Update element style  id=organization  width  400px !important
-    Sleep  1
-    Capture and crop page screenshot  doc/configuration/3-3 mes services.png  css=h1.org  id=sub_organizations
+    Go to  ${PLONE_URL}/pst
+    Sleep  0.5
     Click element  user-name
     Wait until element is visible  css=li#personaltools-plone_setup  10
     Capture and crop page screenshot  doc/configuration/3-3 configuration site.png  id=livesearch0  css=dd.actionMenuContent
@@ -176,6 +171,19 @@ Contacts
     #Go to  ${PLONE_URL}/@@contact-plonegroup-settings
     #Wait until element is visible  id=pg-orga-link  10
     #Capture and crop page screenshot  doc/configuration/3-3 config services.png  id=content
+    #Go to  ${PLONE_URL}/contacts
+    #Wait until element is visible  css=#organizations a  10
+    #Capture and crop page screenshot  doc/configuration/3-3 annuaire.png  id=portal-header  id=content
+    Go to  ${PLONE_URL}/contacts/plonegroup-organization
+    Wait until element is visible  css=a.addnewcontactfromorganization  10
+    # Update element style  id=organization  width  400px !important
+    Sleep  1
+    Capture and crop page screenshot  doc/configuration/3-3 mon organisation.png  css=h1.org  css=table.templates-listing
+    Go to  ${PLONE_URL}/contacts/plonegroup-organization/services
+    Wait until element is visible  css=a.addnewcontactfromorganization  10
+    # Update element style  id=organization  width  400px !important
+    Sleep  1
+    Capture and crop page screenshot  doc/configuration/3-3 mes services.png  css=h1.org  css=table.templates-listing
     Go to  ${PLONE_URL}/@@usergroup-usermembership?userid=psteditor
     Wait until element is visible  css=table.listing  10
     Capture and crop page screenshot  doc/configuration/3-3 groupes plone.png  id=content
