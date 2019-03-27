@@ -183,6 +183,10 @@ class Migrate_To_1_1(Migrator):
 
         self.various_update()
 
+        # templates
+        self.runProfileSteps('imio.project.pst', steps=['imioprojectpst-update-templates'], profile='update')
+        self.runProfileSteps('imio.project.pst', steps=['imioprojectpst-templates'], profile='default')
+
         # self.upgradeAll()
 
         # update portal_catalog

@@ -63,6 +63,16 @@ def list_wf_states(context, portal_type):
     return ret
 
 
+def filter_states(context, portal_type, skip_states=[]):
+    """
+        Return a list of filtered states
+    """
+    states = list_wf_states(context, portal_type)
+    if skip_states:
+        return [st for st in states if st not in skip_states]
+    return states
+
+
 # views
 
 class UtilsMethods(BrowserView):
@@ -106,4 +116,3 @@ class UtilsMethods(BrowserView):
     def is_pst_project(self):
         """ """
         return IImioPSTProject.providedBy(self.context)
-
