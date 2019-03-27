@@ -157,8 +157,8 @@ def _addTemplatesDirectory(context):
     folder = site.templates
     do_transitions(folder, transitions=['publish_internally'], logger=logger)
 
-    cids = create(get_styles_templates())
-    cids.update(create(get_templates(cids)))
+    cids = create(get_styles_templates(), pos=True)
+    cids.update(create(get_templates(cids), pos=True))
 
 
 def _extract_templates_infos(lst):

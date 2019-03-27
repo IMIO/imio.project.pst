@@ -31,7 +31,7 @@
 │   ├── strategicobjective_folder_listing.pt
 │   ├── task.py : add/edit, column
 │   ├── viewlets.py : task viewlet not displayed on action
-│   └── views.py : _getWorkflowStates
+│   └── views.py : ArchiveView
 ├── columns.py : dashboard columns
 ├── columns.zcml : dashboard columns
 ├── configure.zcml : criterion, indexes, utils view, catalog utility
@@ -41,11 +41,6 @@
 │   ├── operational.py : ONE CLASS TO DELETE
 │   └── strategic.py
 ├── data.py : demo data
-├── excelexport : TO REMOVE
-│   ├── configure.zcml
-│   ├── __init__.py
-│   ├── project.py
-│   └── styles.py
 ├── Extensions
 │   └── utils.py : TO REMOVE
 ├── facetedcatalog.py : query manipulation

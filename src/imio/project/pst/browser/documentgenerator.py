@@ -1,15 +1,16 @@
 # -*- coding: utf-8 -*-
 
+from collective.documentgenerator.helper.archetypes import ATDocumentGenerationHelperView
+from collective.documentgenerator.helper.dexterity import DXDocumentGenerationHelperView
+from collective.eeafaceted.dashboard.browser.overrides import DashboardDocumentGenerationView
+from imio.project.core.config import CHILDREN_BUDGET_INFOS_ANNOTATION_KEY
+from imio.project.pst.utils import filter_states
+from imio.pyutils.bs import remove_attributes
+from imio.pyutils.bs import replace_entire_strings
+from imio.pyutils.bs import unwrap_tags
 from zope.annotation import IAnnotations
 from zope.component import getUtility
 from zope.schema.interfaces import IVocabularyFactory
-from collective.documentgenerator.helper.dexterity import DXDocumentGenerationHelperView
-from collective.documentgenerator.helper.archetypes import ATDocumentGenerationHelperView
-from collective.eeafaceted.dashboard.browser.overrides import DashboardDocumentGenerationView
-from imio.project.core.config import CHILDREN_BUDGET_INFOS_ANNOTATION_KEY
-from imio.pyutils.bs import remove_attributes, replace_entire_strings, unwrap_tags
-
-from views import _getWorkflowStates
 
 
 class DocumentGenerationBaseHelper():
@@ -59,6 +60,9 @@ class DocumentGenerationBaseHelper():
                     ret.append((so_v, oo_v, act_v))
         return ret
 
+    def skip_states(self):
+        return self.context_var('skip_states', 'created').split(',')
+
 
 class DocumentGenerationPSTHelper(DXDocumentGenerationHelperView, DocumentGenerationBaseHelper):
     """
@@ -75,7 +79,7 @@ class DocumentGenerationPSTHelper(DXDocumentGenerationHelperView, DocumentGenera
             pcat = self.real_context.portal_catalog
             brains = pcat(portal_type='strategicobjective',
                           path={'query': '/'.join(self.real_context.getPhysicalPath()), 'depth': 1},
-                          review_state=_getWorkflowStates(self.portal, 'strategicobjective', skip_states=skip_states),
+                          review_state=filter_states(self.portal, 'strategicobjective', skip_states),
                           sort_on='getObjPositionInParent')
             return [brain.getObject() for brain in brains]
 
@@ -188,7 +192,7 @@ class DocumentGenerationSOHelper(DXDocumentGenerationHelperView, DocumentGenerat
             pcat = self.real_context.portal_catalog
             brains = pcat(portal_type='operationalobjective',
                           path={'query': '/'.join(context.getPhysicalPath()), 'depth': 1},
-                          review_state=_getWorkflowStates(self.portal, 'operationalobjective', skip_states=skip_states),
+                          review_state=filter_states(self.portal, 'operationalobjective', skip_states),
                           sort_on='getObjPositionInParent')
             return [brain.getObject() for brain in brains]
 
@@ -270,7 +274,7 @@ class DocumentGenerationOOHelper(DXDocumentGenerationHelperView, DocumentGenerat
             pcat = self.real_context.portal_catalog
             brains = pcat(portal_type='pstaction',
                           path={'query': '/'.join(context.getPhysicalPath()), 'depth': 1},
-                          review_state=_getWorkflowStates(self.portal, 'pstaction', skip_states=skip_states),
+                          review_state=filter_states(self.portal, 'pstaction', skip_states),
                           sort_on='getObjPositionInParent')
             return [brain.getObject() for brain in brains]
 
@@ -364,7 +368,7 @@ class DocumentGenerationPSTActionsHelper(DXDocumentGenerationHelperView, Documen
             pcat = self.real_context.portal_catalog
             brains = pcat(portal_type='task',
                           path={'query': '/'.join(context.getPhysicalPath()), 'depth': depth},
-                          review_state=_getWorkflowStates(self.portal, 'task', skip_states=skip_states),
+                          review_state=filter_states(self.portal, 'task', skip_states),
                           sort_on='path')
             return [brain.getObject() for brain in brains]
 
