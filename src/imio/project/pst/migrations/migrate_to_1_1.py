@@ -94,7 +94,8 @@ class Migrate_To_1_1(Migrator):
         self.portal.manage_permission('List folder contents', ('Manager', 'Site Administrator'), acquire=0)
         paob = self.portal.portal_actions.object_buttons
         for act in ('faceted.sync', 'faceted.disable', 'faceted.enable', 'faceted.search.disable',
-                    'faceted.search.enable', 'faceted.actions.disable', 'faceted.actions.enable'):
+                    'faceted.search.enable', 'faceted.actions.disable', 'faceted.actions.enable',
+                    'ical_import_enable', 'ical_import_disable'):
             if act in paob:
                 paob[act].visible = False
 
@@ -147,6 +148,8 @@ class Migrate_To_1_1(Migrator):
 
     def run(self):
         self.upgradeProfile('collective.messagesviewlet:default')
+        # call the following to correct criterion to avoid error messages in dashboard upgrade, where there was a typo
+        self.upgradeProfile('collective.eeafaceted.collectionwidget:default')
         self.upgradeProfile('imio.dashboard:default')
         # skip 4320 to 4330. Do it programmatically
         ckp = self.portal.portal_properties.ckeditor_properties
