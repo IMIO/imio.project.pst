@@ -204,9 +204,9 @@ class Migrate_To_1_1(Migrator):
                      'collective.z3cform.datagridfield', 'collective.z3cform.datetimewidget', 'communesplone.layout',
                      'dexterity.localroles', 'dexterity.localrolesfield', 'eea.facetednavigation', 'eea.jquery',
                      'imio.dashboard', 'imio.history', 'imio.project.core', 'imio.project.pst', 'PasswordStrength',
-                     'plone.app.collection', 'plone.app.dexterity', 'plone.formwidget.autocomplete',
-                     'plone.formwidget.contenttree', 'plone.formwidget.datetime', 'plonetheme.classic',
-                     'plonetheme.imioapps']:
+                     'plone.app.collection', 'plone.app.dexterity', 'plone.app.versioningbehavior',
+                     'plone.formwidget.autocomplete', 'plone.formwidget.contenttree',
+                     'plone.formwidget.datetime', 'plonetheme.classic', 'plonetheme.imioapps']:
             mark_last_version(self.portal, product=prod)
 
         # Reorder css and js
