@@ -26,4 +26,11 @@
         factory="imio.project.pst.browser.task.AssignedGroupColumn"
       />
 
+    <browser:page
+          for="plone.dexterity.interfaces.IDexterityContent"
+          name="version-view"
+          permission="zope2.View"
+          class=".browser.views.VersionView"
+          />
+
 </configure>
