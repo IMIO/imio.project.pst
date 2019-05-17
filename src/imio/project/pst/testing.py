@@ -18,7 +18,7 @@ from zope.globalrequest.local import setLocal
 
 import imio.project.pst
 import os
-import unittest2
+import unittest
 
 
 class PSTLayer(PloneWithPackageLayer):
@@ -66,7 +66,7 @@ PST_ROBOT_TESTING = FunctionalTesting(
     name="PST_ROBOT_TESTING")
 
 
-class IntegrationTestCase(unittest2.TestCase):
+class IntegrationTestCase(unittest.TestCase):
     """Base class for integration tests."""
 
     layer = PST_TESTING_PROFILE_INTEGRATION
@@ -90,7 +90,7 @@ class IntegrationTestCase(unittest2.TestCase):
         login(self.portal, username)
 
 
-class FunctionalTestCase(unittest2.TestCase):
+class FunctionalTestCase(unittest.TestCase):
     """Base class for functional tests."""
 
     layer = PST_TEST_PROFILE_FUNCTIONAL

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from collective.documentgenerator.utils import update_oo_config
 from collective.eeafaceted.collectionwidget.utils import _updateDefaultCollectionFor
+from eea.facetednavigation.interfaces import ICriteria
 from imio.helpers.content import richtextval
 from imio.helpers.content import transitions
 from imio.migrator.migrator import Migrator
@@ -38,6 +39,8 @@ class Migrate_To_1_2(Migrator):
         for brain in self.pc(object_provides='imio.project.pst.interfaces.IImioPSTProject'):
             pst = brain.getObject()
             folder = pst['pstactions']
+            if u'representativeresponsible' in [cid for cid, crit in ICriteria(folder).items()]:
+                continue
             xmlpath = add_path('faceted_conf/pstaction.xml')
             folder.unrestrictedTraverse('@@faceted_exportimport').import_xml(import_file=open(xmlpath))
             _updateDefaultCollectionFor(folder, folder['all'].UID())
@@ -46,6 +49,8 @@ class Migrate_To_1_2(Migrator):
 
         # check if oo port must be changed
         update_oo_config()
+
+        self.runProfileSteps('imio.project.pst', steps=['typeinfo'])
 
         self.various_update()
         self.adapt_dashboards()

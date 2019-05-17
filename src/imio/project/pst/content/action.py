@@ -1,27 +1,37 @@
 # -*- coding: utf-8 -*-
 
-from zope.interface import implements, Invalid
-from zope import schema
-from zope.schema.interfaces import IVocabularyFactory
-from zope.schema.vocabulary import SimpleTerm, SimpleVocabulary
-from z3c.form import validator
-
+from collective.contact.plonegroup.utils import organizations_with_suffixes
+from dexterity.localrolesfield.field import LocalRolesField
+from imio.project.core.content.project import IProject
+from imio.project.core.content.project import Project
+from imio.project.pst import _
 from plone import api
 from plone.autoform import directives as form
 from plone.dexterity.schema import DexteritySchemaPolicy
 from plone.directives.form import default_value
-
-from collective.contact.plonegroup.utils import organizations_with_suffixes
-
-from imio.project.core.content.project import IProject
-from imio.project.core.content.project import Project
-from imio.project.pst import _
+from z3c.form import validator
+from zope import schema
+from zope.interface import implements
+from zope.interface import Invalid
+from zope.schema.interfaces import IVocabularyFactory
+from zope.schema.vocabulary import SimpleTerm
+from zope.schema.vocabulary import SimpleVocabulary
 
 
 class IPSTAction(IProject):
     """
         PSTAction schema, field ordering
     """
+
+    representative_responsible = LocalRolesField(
+        title=_(u"Representative responsible"),
+        description=_(u"Choose principals that will be representative responsible for this project. "
+                      u"If nothing choosed, the oo value is used for searches."),
+        value_type=schema.Choice(
+            vocabulary=u'imio.project.pst.content.operational.representative_responsible_vocabulary',
+        ),
+        required=False,
+    )
 
     health_indicator = schema.Choice(
         title=_(u'Health indicator'),
@@ -43,6 +53,7 @@ class IPSTAction(IProject):
     form.order_before(progress='comments')
     form.order_before(health_indicator='comments')
     form.order_before(health_indicator_details='comments')
+    form.order_before(representative_responsible='comments')
     form.order_before(manager='comments')
     form.order_before(visible_for='comments')
     form.order_before(extra_concerned_people='comments')

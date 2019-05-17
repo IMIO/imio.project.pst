@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2019-03-08 13:22+0000\n"
+"POT-Creation-Date: 2019-05-17 13:41+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,7 +33,7 @@ msgstr ""
 msgid "Archive PST"
 msgstr ""
 
-#: ./content/action.py:28
+#: ./content/action.py:38
 msgid "Choose a health level."
 msgstr ""
 
@@ -45,7 +45,11 @@ msgstr ""
 msgid "Choose principals that will be representative responsible for this project."
 msgstr ""
 
-#: ./content/action.py:34
+#: ./content/action.py:28
+msgid "Choose principals that will be representative responsible for this project. If nothing choosed, the oo value is used for searches."
+msgstr ""
+
+#: ./content/action.py:44
 msgid "Details concerning the action health."
 msgstr ""
 
@@ -57,11 +61,11 @@ msgstr ""
 msgid "Effective end date"
 msgstr ""
 
-#: ./content/action.py:27
+#: ./content/action.py:37
 msgid "Health indicator"
 msgstr ""
 
-#: ./content/action.py:33
+#: ./content/action.py:43
 msgid "Health indicator_details"
 msgstr ""
 
@@ -113,6 +117,7 @@ msgstr ""
 msgid "Planned end date"
 msgstr ""
 
+#: ./content/action.py:27
 #: ./content/operational.py:25
 msgid "Representative responsible"
 msgstr ""
@@ -209,7 +214,7 @@ msgstr ""
 msgid "Work plan: ${action_title}"
 msgstr ""
 
-#: ./content/action.py:101
+#: ./content/action.py:112
 msgid "You must choose at least one group of which you are a member"
 msgstr ""
 
