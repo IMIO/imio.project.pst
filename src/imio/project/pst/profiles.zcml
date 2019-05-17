@@ -78,4 +78,12 @@
         handler="imio.project.pst.migrations.migrate_to_1_1.migrate"
         profile="imio.project.pst:default" />
 
+    <genericsetup:upgradeStep
+        title="Go to imio.project.pst 1.2"
+        description=""
+        source="1.1"
+        destination="1.2"
+        handler="imio.project.pst.migrations.migrate_to_1_2.migrate"
+        profile="imio.project.pst:default" />
+
 </configure>

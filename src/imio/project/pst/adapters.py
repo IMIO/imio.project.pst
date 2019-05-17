@@ -122,6 +122,10 @@ def priority_index(obj):
 def representative_responsible_index(obj):
     if base_hasattr(obj, 'representative_responsible') and obj.representative_responsible:
         return obj.representative_responsible
+    if obj.portal_type == 'pstaction':
+        oo = obj.aq_inner.aq_parent
+        if oo.representative_responsible:
+            return oo.representative_responsible
 
     return common_marker
 
