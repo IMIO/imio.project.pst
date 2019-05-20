@@ -225,4 +225,15 @@
         allowed_attributes='archive'
         />
 
+    <!-- Specific view for versioning -->
+    <configure package="plone.dexterity">
+        <browser:page
+            for="plone.dexterity.interfaces.IDexterityContent"
+            name="content-core-version"
+            class="plone.dexterity.browser.view.DefaultView"
+            template="browser/itemcontentcore.pt"
+            permission="zope2.View"
+            />
+    </configure>
+
 </configure>

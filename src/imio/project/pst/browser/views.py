@@ -2,7 +2,9 @@
 
 from collective.eeafaceted.collectionwidget.utils import _updateDefaultCollectionFor
 from plone import api
+from plone.app.versioningbehavior.browser import VersionView as OVV
 from Products.Five.browser import BrowserView
+from zope.component import getMultiAdapter
 
 
 class ArchiveView(BrowserView):
@@ -36,3 +38,16 @@ class ArchiveView(BrowserView):
             _updateDefaultCollectionFor(obj, default_col)
         new_pst.budget_years = [2019, 2020, 2021, 2022, 2023, 2024]
         return self.request.RESPONSE.redirect(new_pst.absolute_url())
+
+
+class VersionView(OVV):
+    """ override of call from 1.2.10 """
+
+    def __call__(self):
+        version_id = self.request.get('version_id', None)
+        if not version_id:
+            raise ValueError(u'Missing parameter on the request: version_id')
+
+        content_core_view = getMultiAdapter((self.context, self.request), name='content-core-version')
+        html = content_core_view()
+        return self._convert_download_links(html, version_id)
