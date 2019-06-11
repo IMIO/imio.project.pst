@@ -4,6 +4,11 @@ Changelog
 1.2 (unreleased)
 ----------------
 
+- Order management of items
+  [sgeulette]
+- Corrected history
+  [sgeulette]
+
 1.1 (2019-01-15)
 ----------------
 

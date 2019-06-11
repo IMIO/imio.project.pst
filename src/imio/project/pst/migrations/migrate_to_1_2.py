@@ -7,6 +7,7 @@ from imio.helpers.content import transitions
 from imio.migrator.migrator import Migrator
 from imio.project.pst import add_path
 from imio.project.pst.setuphandlers import _ as _translate
+from imio.project.pst.setuphandlers import reimport_faceted_config
 from Products.CPUtils.Extensions.utils import mark_last_version
 
 import logging
@@ -38,19 +39,29 @@ class Migrate_To_1_2(Migrator):
         # update actions search
         for brain in self.pc(object_provides='imio.project.pst.interfaces.IImioPSTProject'):
             pst = brain.getObject()
-            folder = pst['pstactions']
-            if u'representativeresponsible' in [cid for cid, crit in ICriteria(folder).items()]:
-                continue
-            xmlpath = add_path('faceted_conf/pstaction.xml')
-            folder.unrestrictedTraverse('@@faceted_exportimport').import_xml(import_file=open(xmlpath))
-            _updateDefaultCollectionFor(folder, folder['all'].UID())
+            mapping = {
+                'strategicobjectives': 'strategicobjective',
+                'operationalobjectives': 'operationalobjective',
+                'pstactions': 'pstaction',
+                'tasks': 'task'
+            }
+            for col_folder_id, content_type in mapping.iteritems():
+                col_folder = pst[col_folder_id]
+                reimport_faceted_config(col_folder, xml='{}.xml'.format(content_type),
+                                        default_UID=col_folder['all'].UID())
+        # collections
+        brains = self.catalog.searchResults(portal_type='DashboardCollection')
+        for brain in brains:
+            col = brain.getObject()
+            col.sort_on = None
+            col.sort_reversed = None
 
     def run(self):
 
         # check if oo port must be changed
         update_oo_config()
 
-        self.runProfileSteps('imio.project.pst', steps=['typeinfo'])
+        self.runProfileSteps('imio.project.pst', steps=['plone.app.registry', 'typeinfo'])
 
         self.various_update()
         self.adapt_dashboards()

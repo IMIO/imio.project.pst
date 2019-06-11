@@ -732,7 +732,7 @@ def createStateCollections(folder, content_type):
                 showNumberOfItems=(
                     state in showNumberOfItems.get(content_type, [])),
                 roles_bypassing_talcondition=['Manager', 'Site Administrator'],
-                sort_on=u'created',
+                sort_on=u'sortable_title',
                 sort_reversed=True,
                 b_size=30,
                 limit=0,
@@ -783,8 +783,8 @@ def createBaseCollections(folder, content_type):
             'cond': u"",
             'bypass': [],
             'flds': COLUMNS_FOR_CONTENT_TYPES[content_type],
-            'sort': u'created',
-            'rev': True,
+            'sort': u'sortable_title',
+            'rev': False,
             'count': False
         },
     ]
@@ -807,8 +807,8 @@ def createBaseCollections(folder, content_type):
                 'cond': u"",
                 'bypass': [],
                 'flds': COLUMNS_FOR_CONTENT_TYPES[content_type],
-                'sort': u'created',
-                'rev': True,
+                'sort': u'sortable_title',
+                'rev': False,
                 'count': False
             },
             {
@@ -824,8 +824,8 @@ def createBaseCollections(folder, content_type):
                 'cond': u"",
                 'bypass': [],
                 'flds': COLUMNS_FOR_CONTENT_TYPES[content_type],
-                'sort': u'created',
-                'rev': True,
+                'sort': u'sortable_title',
+                'rev': False,
                 'count': False
             },
             {
@@ -841,8 +841,8 @@ def createBaseCollections(folder, content_type):
                 'cond': u"",
                 'bypass': [],
                 'flds': COLUMNS_FOR_CONTENT_TYPES[content_type],
-                'sort': u'created',
-                'rev': True,
+                'sort': u'sortable_title',
+                'rev': False,
                 'count': False
             },
         ],
@@ -861,8 +861,8 @@ def createBaseCollections(folder, content_type):
                 'cond': u"",
                 'bypass': [],
                 'flds': COLUMNS_FOR_CONTENT_TYPES[content_type],
-                'sort': u'created',
-                'rev': True,
+                'sort': u'sortable_title',
+                'rev': False,
                 'count': False
             },
             {
@@ -877,8 +877,8 @@ def createBaseCollections(folder, content_type):
                 'cond': u"",
                 'bypass': [],
                 'flds': COLUMNS_FOR_CONTENT_TYPES[content_type],
-                'sort': u'created',
-                'rev': True,
+                'sort': u'sortable_title',
+                'rev': False,
                 'count': False
             },
             {
@@ -894,8 +894,8 @@ def createBaseCollections(folder, content_type):
                 'cond': u"",
                 'bypass': [],
                 'flds': COLUMNS_FOR_CONTENT_TYPES[content_type],
-                'sort': u'created',
-                'rev': True,
+                'sort': u'sortable_title',
+                'rev': False,
                 'count': False
             },
         ],
@@ -914,8 +914,8 @@ def createBaseCollections(folder, content_type):
                 'cond': u"python:object.restrictedTraverse('pst-utils').user_has_review_level()",
                 'bypass': ['Manager', 'Site Administrator'],
                 'flds': COLUMNS_FOR_CONTENT_TYPES[content_type],
-                'sort': u'created',
-                'rev': True,
+                'sort': u'sortable_title',
+                'rev': False,
                 'count': True
             },
             {
@@ -931,8 +931,8 @@ def createBaseCollections(folder, content_type):
                 'cond': u"",
                 'bypass': [],
                 'flds': COLUMNS_FOR_CONTENT_TYPES[content_type],
-                'sort': u'created',
-                'rev': True,
+                'sort': u'sortable_title',
+                'rev': False,
                 'count': True
             },
             {
@@ -948,8 +948,8 @@ def createBaseCollections(folder, content_type):
                 'cond': u"",
                 'bypass': [],
                 'flds': COLUMNS_FOR_CONTENT_TYPES[content_type],
-                'sort': u'created',
-                'rev': True,
+                'sort': u'sortable_title',
+                'rev': False,
                 'count': True
             },
             {
@@ -966,8 +966,8 @@ def createBaseCollections(folder, content_type):
                 'cond': u"",
                 'bypass': [],
                 'flds': COLUMNS_FOR_CONTENT_TYPES[content_type],
-                'sort': u'created',
-                'rev': True,
+                'sort': u'sortable_title',
+                'rev': False,
                 'count': False
             },
             {
@@ -983,8 +983,8 @@ def createBaseCollections(folder, content_type):
                 'cond': u"",
                 'bypass': [],
                 'flds': COLUMNS_FOR_CONTENT_TYPES[content_type],
-                'sort': u'created',
-                'rev': True,
+                'sort': u'sortable_title',
+                'rev': False,
                 'count': False
             },
             {
@@ -1000,8 +1000,8 @@ def createBaseCollections(folder, content_type):
                 'cond': u"python:object.restrictedTraverse('pst-utils').user_has_review_level()",
                 'bypass': ['Manager', 'Site Administrator'],
                 'flds': COLUMNS_FOR_CONTENT_TYPES[content_type],
-                'sort': u'created',
-                'rev': True,
+                'sort': u'sortable_title',
+                'rev': False,
                 'count': True
             },
             {
@@ -1016,8 +1016,8 @@ def createBaseCollections(folder, content_type):
                 'cond': u"",
                 'bypass': [],
                 'flds': COLUMNS_FOR_CONTENT_TYPES[content_type],
-                'sort': u'created',
-                'rev': True,
+                'sort': u'sortable_title',
+                'rev': False,
                 'count': False
             },
         ],

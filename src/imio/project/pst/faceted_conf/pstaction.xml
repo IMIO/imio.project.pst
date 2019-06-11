@@ -12,7 +12,7 @@
    <property name="section">default</property>
    <property name="hidden">True</property>
    <property name="vocabulary"></property>
-   <property name="default"></property>
+   <property name="default">sortable_title</property>
   </criterion>
 
   <criterion name="c1">

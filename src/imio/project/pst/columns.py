@@ -15,6 +15,10 @@ class HistoryActionsColumn(ActionsColumn):
 
     params = {'showHistory': True, 'showActions': True}
 
+    def renderCell(self, item):
+        self.params['showArrows'] = (self.request.form.get('c0[]', '') == 'getObjPositionInParent')
+        return super(HistoryActionsColumn, self).renderCell(item)
+
 
 class CategoriesColumn(VocabularyColumn):
 

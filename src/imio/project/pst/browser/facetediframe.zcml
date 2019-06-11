@@ -4,7 +4,7 @@
     xmlns:plone="http://namespaces.plone.org/plone"
     i18n_domain="imio.project.pst">
 
-    <class class="imio.project.core.content.projectspace.IProjectSpace">
+    <class class="imio.project.core.content.projectspace.ProjectSpace">
       <implements interface=".interfaces.IMyFacetedNavigable" />
       <implements interface="eea.facetednavigation.settings.interfaces.IDisableSmartFacets" />
     </class>

@@ -85,4 +85,10 @@
        <value key="group">Dates</value>
     </records>
 
+    <records interface="plone.app.querystring.interfaces.IQueryField"
+             prefix="plone.app.querystring.field.getObjPositionInParent">
+        <value key="enabled">False</value>
+        <value key="sortable">True</value>
+    </records>
+
 </registry>

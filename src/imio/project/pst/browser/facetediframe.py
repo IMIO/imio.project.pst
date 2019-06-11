@@ -44,7 +44,20 @@ class Criteria(eeaCriteria):
         super(Criteria, self).__init__(context)
         self.context = get_criteria_holder(context)
 
-        self.criteria = self._criteria()
+        self.criteria = []
+        for crit in self._criteria():
+            if crit.widget == u'sorting':
+                criterion = Criterion(**{
+                    '_cid_': u'c0',
+                    'title': u'Sort on',
+                    'position': u'top',
+                    'section': u'default',
+                    'hidden': u'False',
+                    'default': u'getObjPositionInParent',
+                    'widget': u'sorting'})
+                self.criteria.append(criterion)
+                continue
+            self.criteria.append(crit)
         portal_path = len(original_context.portal_url.getPortalPath())
         criterion = Criterion(**{
             '_cid_': u'restrictpath',
@@ -58,7 +71,7 @@ class Criteria(eeaCriteria):
             'theme': u'green',
             'title': u'path',
             'widget': u'path'})
-        self.criteria = self.criteria + [criterion]
+        self.criteria.append(criterion)
 
 
 class Listing(BrowserView):

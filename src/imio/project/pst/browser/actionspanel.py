@@ -12,6 +12,7 @@ def actionspanelview_cachekey(method,
                               showOwnDelete=False,
                               showActions=True,
                               showAddContent=False,
+                              showArrows=True,
                               **kwargs):
     """ cachekey method using only modified params. Must be adapted if changes !!
         We will add the following informations:
@@ -23,7 +24,7 @@ def actionspanelview_cachekey(method,
         * paste
     """
     user = self.request['AUTHENTICATED_USER']
-    return (useIcons, showOwnDelete, showActions, showAddContent,
+    return (useIcons, showOwnDelete, showActions, showAddContent, showArrows,
             self.context, user.getId(), self.context.modified(), api.content.get_state(self.context, default=None),
             sorted(user.getGroups()), self.parent.cb_dataValid())
 
@@ -57,6 +58,36 @@ class ProjectSpaceActionsPanelView(ActionsPanelView):
         for item in new_lst:
             lst.append(item)
 
+    @ram.cache(actionspanelview_cachekey)
+    def __call__(self,  # default values will be used in dashboards !
+                 useIcons=True,
+                 #showTransitions=True,
+                 #appendTypeNameToTransitionLabel=False,
+                 #showEdit=True,
+                 #showExtEdit=False,
+                 showOwnDelete=False,
+                 showActions=True,
+                 showAddContent=False,
+                 #showHistory=False,
+                 #showHistoryLastEventHasComments=True,
+                 showArrows=True,
+                 arrowsPortalTypeAware=True,
+                 **kwargs):
+        return super(ProjectSpaceActionsPanelView, self).__call__(
+            useIcons=useIcons,
+            #showTransitions=showTransitions,
+            #appendTypeNameToTransitionLabel=appendTypeNameToTransitionLabel,
+            #showEdit=showEdit,
+            #showExtEdit=showExtEdit,
+            showOwnDelete=showOwnDelete,
+            showActions=showActions,
+            showAddContent=showAddContent,
+            #showHistory=showHistory,
+            #showHistoryLastEventHasComments=showHistoryLastEventHasComments,
+            showArrows=showArrows,
+            arrowsPortalTypeAware=arrowsPortalTypeAware,
+            **kwargs)
+
 
 class SortTransitionsActionsPanelView(ActionsPanelView):
     """
@@ -89,8 +120,8 @@ class SortTransitionsActionsPanelView(ActionsPanelView):
                  showAddContent=False,
                  #showHistory=False,
                  #showHistoryLastEventHasComments=True,
-                 #showArrows=False,
-                 #arrowsPortalTypeAware=False,
+                 showArrows=True,
+                 arrowsPortalTypeAware=True,
                  **kwargs):
         return super(SortTransitionsActionsPanelView, self).__call__(
             useIcons=useIcons,
@@ -103,8 +134,8 @@ class SortTransitionsActionsPanelView(ActionsPanelView):
             showAddContent=showAddContent,
             #showHistory=showHistory,
             #showHistoryLastEventHasComments=showHistoryLastEventHasComments,
-            #showArrows=showArrows,
-            #arrowsPortalTypeAware=arrowsPortalTypeAware,
+            showArrows=showArrows,
+            arrowsPortalTypeAware=arrowsPortalTypeAware,
             **kwargs)
 
 
@@ -148,4 +179,4 @@ class PstActionsPanelViewlet(ActionsPanelViewlet):
         if self.show():
             view = getMultiAdapter((self.context, self.request), name='actions_panel')
             return view(useIcons=False, showTransitions=True, showOwnDelete=False, showAddContent=True,
-                        showActions=True)
+                        showActions=True, showArrows=False, arrowsPortalTypeAware=False)

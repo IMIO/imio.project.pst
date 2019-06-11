@@ -1,5 +1,13 @@
 /* imio.project.pst stylesheet */
 
+/* hide sort criterion in top section on types */
+.template-view.portaltype-projectspace #top---default---widgets,
+.template-view.portaltype-strategicobjective #top---default---widgets,
+.template-view.portaltype-operationalobjective #top---default---widgets,
+.template-view.portaltype-pstaction #top---default---widgets {
+    display: none;
+}
+
 .health_indicator_color_bon {
     color: white;
     background-color: green !important;
