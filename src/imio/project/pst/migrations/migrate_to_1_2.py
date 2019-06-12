@@ -1,16 +1,14 @@
 # -*- coding: utf-8 -*-
 from collective.documentgenerator.utils import update_oo_config
-from collective.eeafaceted.collectionwidget.utils import _updateDefaultCollectionFor
-from eea.facetednavigation.interfaces import ICriteria
 from imio.helpers.content import richtextval
 from imio.helpers.content import transitions
 from imio.migrator.migrator import Migrator
-from imio.project.pst import add_path
 from imio.project.pst.setuphandlers import _ as _translate
 from imio.project.pst.setuphandlers import reimport_faceted_config
 from Products.CPUtils.Extensions.utils import mark_last_version
 
 import logging
+import os
 
 
 logger = logging.getLogger('imio.project.pst')
@@ -55,6 +53,11 @@ class Migrate_To_1_2(Migrator):
             col = brain.getObject()
             col.sort_on = None
             col.sort_reversed = None
+            if (os.path.basename(os.path.dirname(brain.getPath())) in ('operationalobjectives', 'pstactions')
+                    and 'parents' not in col.customViewFields):
+                nl = list(col.customViewFields)
+                nl.insert(col.customViewFields.index(u'pretty_link') + 1, u'parents')
+                col.customViewFields = tuple(nl)
 
     def run(self):
 

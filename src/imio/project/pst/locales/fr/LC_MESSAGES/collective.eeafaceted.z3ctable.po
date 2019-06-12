@@ -60,6 +60,9 @@ msgstr "Actions"
 msgid "header_manager"
 msgstr "Gestionnaire"
 
+msgid "header_parents"
+msgstr "Parents"
+
 msgid "header_planned_begin_date"
 msgstr "Date début prévue"
 
@@ -83,6 +86,9 @@ msgstr "Actions PST"
 
 msgid "manager"
 msgstr "Gestionnaire"
+
+msgid "parents"
+msgstr "Parents"
 
 msgid "planned_begin_date"
 msgstr "Date de début prévue"

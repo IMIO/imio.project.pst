@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from collective.eeafaceted.collectionwidget.utils import _updateDefaultCollectionFor
+from collective.eeafaceted.dashboard.browser.overrides import DashboardFacetedTableView as DFTV
 from plone import api
 from plone.app.versioningbehavior.browser import VersionView as OVV
 from Products.Five.browser import BrowserView
@@ -51,3 +52,12 @@ class VersionView(OVV):
         content_core_view = getMultiAdapter((self.context, self.request), name='content-core-version')
         html = content_core_view()
         return self._convert_download_links(html, version_id)
+
+
+class OSOOFacetedTableView(DFTV):
+    """ """
+
+    def _getViewFields(self):
+        """Returns fields we want to show in the table."""
+        # selectedViewFields is a list of tuples (id, title)
+        return [elt[0] for elt in self.collection.selectedViewFields() if elt[0] != 'parents']

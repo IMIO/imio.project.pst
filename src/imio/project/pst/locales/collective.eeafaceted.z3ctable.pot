@@ -100,3 +100,10 @@ msgstr ""
 
 msgid "history_actions"
 msgstr ""
+
+msgid "header_parents"
+msgstr ""
+
+msgid "parents"
+msgstr ""
+

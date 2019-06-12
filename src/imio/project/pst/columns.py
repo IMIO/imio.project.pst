@@ -10,6 +10,8 @@ from collective.eeafaceted.z3ctable.columns import VocabularyColumn
 from collective.task.interfaces import ITaskMethods
 from imio.project.pst.adapters import UNSET_DATE_VALUE
 
+import cgi
+
 
 class HistoryActionsColumn(ActionsColumn):
 
@@ -89,3 +91,31 @@ class AssignedUserColumn(MemberIdColumn):
 class DueDateColumn(DateColumn):
 
     attrName = u'due_date'
+
+
+class ParentsColumn(BaseColumn):
+
+    sort_index = -1
+
+    def renderCell(self, item):
+        ret = []
+        obj = self._getObject(item)
+        if item.portal_type == 'pstaction':
+            parent = obj.aq_inner.aq_parent
+            ret.append(u'<a href="{}" target="_blank" title="{}">'
+                       u'<span class="pretty_link_content">OO.{}</span></a>'.format(parent.absolute_url(),
+                                                                                    cgi.escape(parent.title,
+                                                                                               quote=True),
+                                                                                    parent.reference_number))
+            obj = parent
+        if item.portal_type in ('operationalobjective', 'pstaction'):
+            parent = obj.aq_inner.aq_parent
+            ret.insert(0, u'<a href="{}" target="_blank" title="{}">'
+                       u'<span class="pretty_link_content">OS.{}</span></a>'.format(parent.absolute_url(),
+                                                                                    cgi.escape(parent.title,
+                                                                                               quote=True),
+                                                                                    parent.reference_number))
+        if ret:
+            return '<ul class="parents_col"><li>%s</li></ul>' % ('</li>\n<li>'.join(ret))
+        else:
+            return '-'

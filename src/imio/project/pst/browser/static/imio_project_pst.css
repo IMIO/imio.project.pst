@@ -57,6 +57,11 @@ body.template-view.portaltype-strategicobjective td.table_widget_label {
     display: None !important;
 }
 
+#content ul.parents_col {
+    list-style-type: none;
+    margin-left: 0;
+}
+
 /* icons on types */
 .icons-on .contenttype-strategicobjective, .icons-on .contenttype-operationalobjective, .icons-on .contenttype-pstaction {
     display: inline-block;
