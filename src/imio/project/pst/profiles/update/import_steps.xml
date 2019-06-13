@@ -7,4 +7,12 @@
             version="2017-02-10T11:00:00.00000">
         Templates update step for imio.project.pst
     </import-step>
+
+    <import-step
+            id="imioprojectpst-configure-wsclient"
+            handler="imio.project.pst.setuphandlers.configure_wsclient"
+            title="imio.pm.wsclient configure step for imio.project.pst"
+            version="2019-06-12T11:00:00.00000">
+        imio.pm.wsclient configure step for imio.project.pst
+    </import-step>
 </import-steps>

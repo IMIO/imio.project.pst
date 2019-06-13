@@ -138,6 +138,15 @@ class SortTransitionsActionsPanelView(ActionsPanelView):
             arrowsPortalTypeAware=arrowsPortalTypeAware,
             **kwargs)
 
+    def get_wsclient_actions(self):
+        """ Return wsclient actions """
+        ret = []
+        object_buttons = self.portal.portal_actions.object_buttons
+        for object_button in object_buttons.objectValues():
+            if object_button.id.startswith('plonemeeting_wsclient_action_'):
+                ret.append(object_button.id)
+        return ret
+
 
 class ObjectivesActionsPanelView(SortTransitionsActionsPanelView):
 
@@ -149,6 +158,10 @@ class ObjectivesActionsPanelView(SortTransitionsActionsPanelView):
 
 class PSTActionsPanelView(SortTransitionsActionsPanelView):
 
+    def __init__(self, context, request):
+        super(PSTActionsPanelView, self).__init__(context, request)
+        self.ACCEPTABLE_ACTIONS = list(self.ACCEPTABLE_ACTIONS) + self.get_wsclient_actions()
+
     transitions = [
         'back_to_created', 'back_to_ongoing', 'back_to_be_scheduled',
         'begin', 'set_to_be_scheduled', 'finish', 'stop',
@@ -156,6 +169,10 @@ class PSTActionsPanelView(SortTransitionsActionsPanelView):
 
 
 class TaskActionsPanelView(SortTransitionsActionsPanelView):
+
+    def __init__(self, context, request):
+        super(TaskActionsPanelView, self).__init__(context, request)
+        self.ACCEPTABLE_ACTIONS = list(self.ACCEPTABLE_ACTIONS) + self.get_wsclient_actions()
 
     transitions = [
         'back_in_created', 'back_in_to_assign', 'back_in_to_do', 'back_in_progress', 'back_in_realized',

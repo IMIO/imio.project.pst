@@ -36,6 +36,7 @@ from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
 from Products.CMFPlone.utils import base_hasattr
 from Products.CMFPlone.utils import getToolByName
 from utils import list_wf_states
+from zope.component import getGlobalSiteManager
 from zope.component import getMultiAdapter
 from zope.component import getUtility
 from zope.component import queryUtility
@@ -44,8 +45,11 @@ from zope.globalrequest import getRequest
 from zope.i18n.interfaces import ITranslationDomain
 from zope.interface import alsoProvides
 from zope.lifecycleevent import ObjectCreatedEvent
+from zope.schema.vocabulary import SimpleTerm
+from zope.schema.vocabulary import SimpleVocabulary
 
 import logging
+import os
 
 
 logger = logging.getLogger('imio.project.pst: setuphandlers')
@@ -416,6 +420,7 @@ def adaptDefaultPortal(site):
     try:
         # test if robotframework is there
         from robot import run  # NOQA
+        run  # avoid pyflakes message
     except ImportError:
         api.content.transition(obj=msg, to_state='activated')
 
@@ -1215,3 +1220,56 @@ def configure_actions_panel(portal):
              'pstaction.back_to_created|', 'pstaction.back_to_ongoing|',
              'pstaction.back_to_be_scheduled|', 'task.back_in_created|', 'task.back_in_to_assign|',
              'task.back_in_to_do|', 'task.back_in_progress|', 'task.back_in_realized|', ]
+
+
+def configure_wsclient(context):
+    """ Configure wsclient """
+    if context.readDataFile("imioprojectpst_update_marker.txt") is None:
+        return
+    site = context.getSite()
+    logger.info('Configure wsclient step')
+    log = ['Installing imio.pm.wsclient']
+    site.portal_setup.runAllImportStepsFromProfile('profile-imio.pm.wsclient:default')
+
+    log.append('Defining settings')
+    prefix = 'imio.pm.wsclient.browser.settings.IWS4PMClientSettings'
+    if not api.portal.get_registry_record('{}.pm_url'.format(prefix), default=False):
+        pmurl = psturl = os.getenv('PUBLIC_URL', '')
+        pmurl = pmurl.replace('-prj', '-pm')
+        if pmurl != psturl:
+            api.portal.set_registry_record('{}.pm_url'.format(prefix), u'{}/ws4pm.wsdl'.format(pmurl))
+        api.portal.set_registry_record('{}.pm_username'.format(prefix), u'admin')
+        pmpass = os.getenv('PM_PASS', '')
+        if pmpass:
+            api.portal.set_registry_record('{}.pm_password'.format(prefix), pmpass)
+        api.portal.set_registry_record('{}.only_one_sending'.format(prefix), False)
+        from imio.pm.wsclient.browser.vocabularies import pm_item_data_vocabulary
+        orig_call = pm_item_data_vocabulary.__call__
+        pm_item_data_vocabulary.__call__ = lambda self, context: SimpleVocabulary([SimpleTerm(u'title'),
+                                                                                   SimpleTerm(u'description'),
+                                                                                   SimpleTerm(u'detailedDescription')])
+        api.portal.set_registry_record('{}.field_mappings'.format(prefix),
+                                       [{'field_name': u'title', 'expression': u'context/Title'},
+                                        {'field_name': u'description',
+                                         'expression': u'context/@@ProjectWSClient/description'},
+                                        {'field_name': u'detailedDescription',
+                                         'expression': u'context/@@ProjectWSClient/detailed_description'}])
+        pm_item_data_vocabulary.__call__ = orig_call
+        #api.portal.set_registry_record('{}.user_mappings'.format(prefix),
+        #                               [{'local_userid': u'admin', 'pm_userid': u'dgen'}])
+        from imio.pm.wsclient.browser.vocabularies import pm_meeting_config_id_vocabulary
+        orig_call = pm_meeting_config_id_vocabulary.__call__
+        pm_meeting_config_id_vocabulary.__call__ = lambda self, context: SimpleVocabulary(
+            [SimpleTerm(u'meeting-config-college')])
+        from imio.pm.wsclient.browser.settings import notify_configuration_changed
+        from plone.registry.interfaces import IRecordModifiedEvent
+        gsm = getGlobalSiteManager()
+        gsm.unregisterHandler(notify_configuration_changed, (IRecordModifiedEvent, ))
+        api.portal.set_registry_record('{}.generated_actions'.format(prefix),
+                                       [{'pm_meeting_config_id': u'meeting-config-college',
+                                         'condition': u"python: context.getPortalTypeName() in ('pstaction', 'task')",
+                                         'permissions': 'Modify view template'}])
+        pm_meeting_config_id_vocabulary.__call__ = orig_call
+        gsm.registerHandler(notify_configuration_changed, (IRecordModifiedEvent, ))
+    [logger.info(msg) for msg in log]
+    return '\n'.join(log)
