@@ -1,5 +1,6 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
     i18n_domain="imio.project.pst">
 
     <utility
@@ -13,5 +14,15 @@
       factory=".operational.RepresentativeResponsibleVocabulary"
       name="imio.project.pst.content.operational.representative_responsible_vocabulary"
     />
+
+    <!--configure package="plone.dexterity">
+        <browser:page
+            for="imio.project.pst.content.operational.IOperationalObjective"
+            name="view"
+            class="imio.project.pst.content.operational.OOView"
+            template="browser/item.pt"
+            permission="zope2.View"
+        />
+    </configure-->
 
 </configure>
