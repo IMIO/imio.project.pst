@@ -95,7 +95,7 @@ class DueDateColumn(DateColumn):
 
 class ParentsColumn(BaseColumn):
 
-    sort_index = -1
+    sort_index = 'path'
 
     def renderCell(self, item):
         ret = []
