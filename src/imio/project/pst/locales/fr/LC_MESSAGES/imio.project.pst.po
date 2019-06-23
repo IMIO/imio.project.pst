@@ -231,7 +231,7 @@ msgstr "<p>&nbsp;</p><p>L'application de gestion du PST contient actuellement le
 
 #: ./setuphandlers.py:383
 msgid "front_page_title"
-msgstr "Programme Stratégique Transversal 1.1"
+msgstr "Programme Stratégique Transversal 1.2"
 
 #: ./profiles.zcml:14
 #: ./setuphandlers.py:54
