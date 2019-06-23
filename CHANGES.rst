@@ -8,6 +8,14 @@ Changelog
   [sgeulette]
 - Corrected history
   [sgeulette]
+- Added step to configure imio.pm.wsclient
+  [sgeulette]
+- Added representative responsible field on action
+  [sgeulette]
+- Added templates with created state
+  [sgeulette]
+- Modified delete action
+  [sgeulette]
 
 1.1 (2019-01-15)
 ----------------
@@ -44,7 +52,7 @@ Changelog
   [sgeulette]
 
 0.3.1 (2015-04-10)
-----------------
+------------------
 - Update the front page text
 - Move the reference number at the end of title
 - Add a strategic objectives topic as a projectspace default page
