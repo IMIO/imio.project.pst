@@ -182,7 +182,8 @@ def get_os_oo_ac_data(groups, currentYear):
     return [
         {
             'title': u'Etre une commune qui offre un service public moderne, efficace et efficient',
-            'categories': u'volet-interne-adm-generale-amelioration-administration',
+            'categories': [u'volet-interne-adm-generale-amelioration-administration',
+                           u'volet-interne-adm-generale-accessibilite-administration'],
             'budget': [{'amount': 1000.0, 'budget_type': 'wallonie', 'year': currentYear}],
             'budget_comments': richtextval(u''),
             'operationalobjectives': [
@@ -339,7 +340,7 @@ def get_os_oo_ac_data(groups, currentYear):
         {
             'title': u'Etre une commune qui s\'inscrit dans la lignée des accords de réductions '
                      u'des gaz à effet de serre afin d\'assurer le développement durable',
-            'categories': u'volet-externe-dvp-politiques-energie',
+            'categories': [u'volet-externe-dvp-politiques-energie', u'volet-externe-dvp-politiques-environnement'],
             'budget': [],
             'budget_comments': richtextval(u''),
             'operationalobjectives': [
@@ -473,7 +474,8 @@ def get_os_oo_ac_data(groups, currentYear):
         },
         {
             'title': u'Etre une commune où il fait bon vivre dans un cadre agréable, propre et en toute sécurité',
-            'categories': u'volet-externe-dvp-politiques-proprete-securite-publique',
+            'categories': [u'volet-externe-dvp-politiques-proprete-securite-publique',
+                           u'volet-externe-dvp-politiques-amenagement-territoire'],
             'budget': [],
             'budget_comments': richtextval(u''),
             'operationalobjectives': [
