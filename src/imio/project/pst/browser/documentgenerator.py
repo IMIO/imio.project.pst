@@ -213,7 +213,6 @@ class DocumentGenerationSOHelper(DXDocumentGenerationHelperView, DocumentGenerat
         """
             get the first part of a category value
         """
-        import ipdb; ipdb.set_trace()
         for cat in self.display_voc('categories', separator='|').split('|'):
             if ' - ' in cat:
                 return cat.split(' - ')[0]
