@@ -63,7 +63,6 @@ class IPSTAction(IProject):
 
     # hide some fields
     form.omitted('visible_for')
-    form.omitted('categories')
     form.omitted('priority')
     form.omitted('result_indicator')
 
