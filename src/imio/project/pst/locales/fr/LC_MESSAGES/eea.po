@@ -28,7 +28,7 @@ msgstr "Menu"
 #: ../faceted_conf/operationalobjective:
 #: ../faceted_conf/strategicobjective:
 msgid "Categories"
-msgstr "Domaine"
+msgstr "Catégories"
 
 #: ../faceted_conf/task:
 msgid "Created"

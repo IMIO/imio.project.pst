@@ -213,19 +213,19 @@ class DocumentGenerationSOHelper(DXDocumentGenerationHelperView, DocumentGenerat
         """
             get the first part of a category value
         """
-        try:
-            return self.display_voc('categories').split(' - ')[0]
-        except IndexError:  # pragma: no cover
-            return ''
+        for cat in self.display_voc('categories', separator='|').split('|'):
+            if ' - ' in cat:
+                return cat.split(' - ')[0]
+        return ''
 
     def getDomain(self):
         """
             get the second part of a category value
         """
-        try:
-            return self.display_voc('categories').split(' - ')[1]
-        except IndexError:  # pragma: no cover
-            return ''
+        for cat in self.display_voc('categories', separator='|').split('|'):
+            if ' - ' in cat:
+                return cat.split(' - ')[1]
+        return ''
 
 
 class DocumentGenerationOOHelper(DXDocumentGenerationHelperView, DocumentGenerationBaseHelper, BudgetHelper):

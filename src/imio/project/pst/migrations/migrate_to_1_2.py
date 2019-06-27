@@ -59,6 +59,14 @@ class Migrate_To_1_2(Migrator):
                 nl.insert(col.customViewFields.index(u'pretty_link') + 1, u'parents')
                 col.customViewFields = tuple(nl)
 
+    def update_items(self):
+        for brain in self.pc(portal_type=('strategicobjective', 'operationalobjective')):
+            obj = brain.getObject()
+            if obj.categories is None or isinstance(obj, (list, tuple)):
+                continue
+            obj.categories = [obj.categories]
+            obj.reindexObject()
+
     def run(self):
 
         # check if oo port must be changed
@@ -68,6 +76,7 @@ class Migrate_To_1_2(Migrator):
 
         self.various_update()
         self.adapt_dashboards()
+        self.update_items()
 
         self.upgradeAll()
 

@@ -16,5 +16,5 @@ msgstr ""
 "X-is-fallback-for: fr-fr fr-be fr-ca\n"
 
 #: ./content/project.py:51
-msgid "Category"
-msgstr "Domaine"
+msgid "Categories"
+msgstr "Catégories"

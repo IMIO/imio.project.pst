@@ -40,7 +40,7 @@ msgid "header_assigned_user"
 msgstr "Utilisateur assigné"
 
 msgid "header_categories"
-msgstr "Catégorie"
+msgstr "Catégories"
 
 msgid "header_due_date"
 msgstr "Échéance"
