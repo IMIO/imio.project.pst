@@ -8,7 +8,9 @@ from collective.eeafaceted.z3ctable.columns import MemberIdColumn
 from collective.eeafaceted.z3ctable.columns import PrettyLinkColumn
 from collective.eeafaceted.z3ctable.columns import VocabularyColumn
 from collective.task.interfaces import ITaskMethods
+from imio.project.core.utils import getProjectSpace
 from imio.project.pst.adapters import UNSET_DATE_VALUE
+from zope.component import getMultiAdapter
 
 import cgi
 
@@ -97,24 +99,36 @@ class ParentsColumn(BaseColumn):
 
     sort_index = 'path'
 
+    def __init__(self, context, request, table):
+        super(ParentsColumn, self).__init__(context, request, table)
+        self.ploneview = getMultiAdapter((context, request), name='plone')
+
     def renderCell(self, item):
         ret = []
         obj = self._getObject(item)
         if item.portal_type == 'pstaction':
             parent = obj.aq_inner.aq_parent
+            if getattr(getProjectSpace(self), 'use_ref_number', True):
+                title = u'OO.{}'.format(parent.reference_number)
+            else:
+                title = u'OO: {}'.format(self.ploneview.cropText(parent.title, 35))
             ret.append(u'<a href="{}" target="_blank" title="{}">'
-                       u'<span class="pretty_link_content">OO.{}</span></a>'.format(parent.absolute_url(),
-                                                                                    cgi.escape(parent.title,
-                                                                                               quote=True),
-                                                                                    parent.reference_number))
+                       u'<span class="pretty_link_content">{}</span></a>'.format(parent.absolute_url(),
+                                                                                 cgi.escape(parent.title,
+                                                                                            quote=True),
+                                                                                 title))
             obj = parent
         if item.portal_type in ('operationalobjective', 'pstaction'):
             parent = obj.aq_inner.aq_parent
+            if getattr(getProjectSpace(self), 'use_ref_number', True):
+                title = u'OS.{}'.format(parent.reference_number)
+            else:
+                title = u'OS: {}'.format(self.ploneview.cropText(parent.title, 35))
             ret.insert(0, u'<a href="{}" target="_blank" title="{}">'
-                       u'<span class="pretty_link_content">OS.{}</span></a>'.format(parent.absolute_url(),
-                                                                                    cgi.escape(parent.title,
-                                                                                               quote=True),
-                                                                                    parent.reference_number))
+                       u'<span class="pretty_link_content">{}</span></a>'.format(parent.absolute_url(),
+                                                                                 cgi.escape(parent.title,
+                                                                                            quote=True),
+                                                                                 title))
         if ret:
             return '<ul class="parents_col"><li>%s</li></ul>' % ('</li>\n<li>'.join(ret))
         else:

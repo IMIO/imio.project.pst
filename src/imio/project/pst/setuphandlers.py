@@ -158,6 +158,7 @@ def _addTemplatesDirectory(context):
         behaviour.setLocallyAllowedTypes(['ConfigurablePODTemplate', 'StyleTemplate', 'DashboardPODTemplate'])
         behaviour.setImmediatelyAddableTypes(['ConfigurablePODTemplate', 'StyleTemplate', 'DashboardPODTemplate'])
         folder.exclude_from_nav = True
+        folder.layout = 'dg-templates-listing'
     folder = site.templates
     do_transitions(folder, transitions=['publish_internally'], logger=logger)
 

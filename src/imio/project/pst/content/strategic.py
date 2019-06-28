@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*-
 
-from zope.interface import implements
-
-from plone.autoform import directives as form
-from plone.dexterity.schema import DexteritySchemaPolicy
-
 from imio.project.core.content.project import IProject
 from imio.project.core.content.project import Project
+from imio.project.core.utils import getProjectSpace
+from plone.autoform import directives as form
+from plone.dexterity.schema import DexteritySchemaPolicy
+from zope.interface import implements
 
 
 class IStrategicObjective(IProject):
@@ -33,7 +32,10 @@ class StrategicObjective(Project):
     implements(IStrategicObjective)
 
     def Title(self):
-        return '%s (OS.%s)' % (self.title.encode('utf8'), self.reference_number)
+        if getattr(getProjectSpace(self), 'use_ref_number', True):
+            return '%s (OS.%s)' % (self.title.encode('utf8'), self.reference_number)
+        else:
+            return self.title.encode('utf8')
 
 
 class StrategicObjectiveSchemaPolicy(DexteritySchemaPolicy):
