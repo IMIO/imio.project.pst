@@ -78,6 +78,10 @@ class Migrate_To_1_2(Migrator):
         self.adapt_dashboards()
         self.update_items()
 
+        # templates
+        self.runProfileSteps('imio.project.pst', steps=['imioprojectpst-update-templates'], profile='update')
+        self.runProfileSteps('imio.project.pst', steps=['imioprojectpst-templates'], profile='default')
+
         self.upgradeAll()
 
         # update portal_catalog
