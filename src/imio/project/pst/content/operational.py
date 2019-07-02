@@ -4,6 +4,7 @@ from dexterity.localrolesfield.field import LocalRolesField
 from imio.project.core import _ as _c
 from imio.project.core.content.project import IProject
 from imio.project.core.content.project import Project
+from imio.project.core.utils import getProjectSpace
 from imio.project.core.utils import getVocabularyTermsForOrganization
 from imio.project.pst import _
 from plone.autoform import directives as form
@@ -75,7 +76,10 @@ class OperationalObjective(Project):
     implements(IOperationalObjective)
 
     def Title(self):
-        return '%s (OO.%s)' % (self.title.encode('utf8'), self.reference_number)
+        if getattr(getProjectSpace(self), 'use_ref_number', True):
+            return '%s (OO.%s)' % (self.title.encode('utf8'), self.reference_number)
+        else:
+            return self.title.encode('utf8')
 
 
 class RepresentativeResponsibleVocabulary(object):
