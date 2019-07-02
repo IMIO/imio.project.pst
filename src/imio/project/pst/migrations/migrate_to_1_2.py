@@ -82,7 +82,7 @@ class Migrate_To_1_2(Migrator):
         self.runProfileSteps('imio.project.pst', steps=['imioprojectpst-update-templates'], profile='update')
         self.runProfileSteps('imio.project.pst', steps=['imioprojectpst-templates'], profile='default')
 
-        self.upgradeAll()
+        self.upgradeAll(omit=['imio.project.pst:default'])
 
         # update portal_catalog
         # self.refreshDatabase()
