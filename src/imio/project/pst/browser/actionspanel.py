@@ -26,7 +26,8 @@ def actionspanelview_cachekey(method,
     user = self.request['AUTHENTICATED_USER']
     return (useIcons, showOwnDelete, showActions, showAddContent, showArrows,
             self.context, user.getId(), self.context.modified(), api.content.get_state(self.context, default=None),
-            sorted(user.getGroups()), self.parent.cb_dataValid())
+            sorted(user.getGroups()), self.parent.cb_dataValid(),
+            showArrows and self.parent.getObjectPosition(self.context.id) or 0)
 
 
 class ProjectSpaceActionsPanelView(ActionsPanelView):
@@ -57,6 +58,10 @@ class ProjectSpaceActionsPanelView(ActionsPanelView):
         del lst[:]
         for item in new_lst:
             lst.append(item)
+
+    def _returnTo(self, ):
+        """ What URL should I return to after moving the element and page is refreshed. """
+        return self.request.get('URL1')
 
     @ram.cache(actionspanelview_cachekey)
     def __call__(self,  # default values will be used in dashboards !
@@ -107,6 +112,10 @@ class SortTransitionsActionsPanelView(ActionsPanelView):
         """ Sort transitions following transitions list order """
         tr_order = dict([(val, i) for (i, val) in enumerate(self.transitions)])
         lst.sort(lambda x, y: cmp(tr_order[x['id']], tr_order[y['id']]))
+
+    def _returnTo(self, ):
+        """ What URL should I return to after moving the element and page is refreshed. """
+        return self.request.get('URL1')
 
     @ram.cache(actionspanelview_cachekey)
     def __call__(self,  # default values will be used in dashboards !
