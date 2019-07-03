@@ -173,18 +173,27 @@ def _extract_templates_infos(lst):
     return ret
 
 
-def update_dg_templates(context):
-    """ Update documentgenerator templates"""
+def common_dg_templates(context, force):
     if context.readDataFile("imioprojectpst_update_marker.txt") is None:
         return
     site = context.getSite()
     templates = _extract_templates_infos(get_styles_templates())
     templates += _extract_templates_infos(get_templates({1: site.templates['style']}))
     logger.info('Updating templates')
-    templates = update_templates(templates)
+    templates = update_templates(templates, force=force)
     log = ["Template '%s' (%s): %s" % (tup[0], tup[1][len(PRODUCT_DIR)+1:], tup[2]) for tup in templates]
     [logger.info(msg) for msg in log]
     return '\n'.join(log)
+
+
+def update_dg_templates(context):
+    """ Update documentgenerator templates"""
+    return common_dg_templates(context, False)
+
+
+def override_dg_templates(context):
+    """ Update documentgenerator templates"""
+    return common_dg_templates(context, True)
 
 
 def _addPSTprojectspace(context):
