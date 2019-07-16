@@ -8,6 +8,12 @@
     display: none;
 }
 
+/* hide create contact link */
+a.addnewcontactfromorganization.link-overlay {
+    display: none;
+}
+
+/* couleur indicateur santé */
 .health_indicator_color_bon {
     color: white;
     background-color: green !important;

@@ -139,4 +139,13 @@
     name="parents"
     />
 
+    <!-- contacts -->
+    <adapter
+        name="Title"
+        for="collective.contact.widget.interfaces.IContactContent
+             zope.publisher.interfaces.browser.IBrowserRequest
+             collective.contact.plonegroup.browser.tables.SubOrganizationsTable"
+        provides="z3c.table.interfaces.IColumn"
+        factory=".columns.SubOrganizationTitle" />
+
 </configure>
