@@ -143,8 +143,7 @@ class SubOrganizationTitle(PrettyLinkColumn):
     def contentValue(self, item):
         """Display get_full_title instead title."""
         path = '/'.join(item.getPhysicalPath())
-        prefix = u''
+        title = item.get_full_title(first_index=1)
         if (path.endswith('/plonegroup-organization/echevins') or path.endswith('/plonegroup-organization/services')):
-            prefix = u'=> '
-        return u'{2}{0} <span class="discreet">({1})</span>'.format(
-            item.get_full_title(first_index=1), item.UID(), prefix)
+            title = u'<span class="pg_org_category">=> {0}</span>'.format(title)
+        return u'{0} <span class="discreet">({1})</span>'.format(title, item.UID())
