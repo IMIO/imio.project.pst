@@ -26,7 +26,7 @@ class TestViews(IntegrationTestCase):
             'strategicobjectives': False,
             'operationalobjectives': True,
             'pstactions': True,
-            'tasks': False,
+            'tasks': True,
         }
         for cat in categories:
             category = self.pst[cat]

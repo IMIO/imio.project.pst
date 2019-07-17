@@ -45,19 +45,52 @@ class TestColumns(IntegrationTestCase):
         brain = self.portal.portal_catalog(UID=self.os1.UID())[0]
         rendered = column.renderCell(brain)
         self.assertEqual(rendered, u'-')
-        # oo context
+        # oo1 displayed
         category = self.pst['operationalobjectives']
         column = ParentsColumn(category, category.REQUEST, category.unrestrictedTraverse('@@faceted-table-view'))
         brain = self.portal.portal_catalog(UID=self.oo1.UID())[0]
         rendered = column.renderCell(brain)
-        self.assertEqual(rendered, u'<ul class="parents_col"><li><a href="http://nohost/plone/pst/etre-une-commune-qui-'
-                                   u'offre-un-service-public-moderne-efficace-et-efficient" target="_blank" title="Etre'
-                                   u' une commune qui offre un service public moderne, efficace et efficient"><span '
-                                   u'class="pretty_link_content">OS.1</span></a></li></ul>')
-        # ac1 context
+        self.assertEqual(rendered, u'<ul class="parents_col"><li><a href="http://nohost/plone/pst/etre-une-commune'
+                                   u'-qui-offre-un-service-public-moderne-efficace-et-efficient" target="_blank" '
+                                   u'title="Etre une commune qui offre un service public moderne, efficace et '
+                                   u'efficient" class="contenttype-strategicobjective"><span '
+                                   u'class="pretty_link_content"> Etre une commune qui offre un ...</span></a>'
+                                   u'</li></ul>')
+        # ac1
         category = self.pst['pstactions']
         column = ParentsColumn(category, category.REQUEST, category.unrestrictedTraverse('@@faceted-table-view'))
         brain = self.portal.portal_catalog(UID=self.ac1.UID())[0]
         rendered = column.renderCell(brain)
-        self.assertIn(u'<span class="pretty_link_content">OS.1</span>', rendered)
-        self.assertIn(u'<span class="pretty_link_content">OO.2</span>', rendered)
+        self.assertIn(u'<span class="pretty_link_content"> Etre une commune qui offre un ...</span>', rendered)
+        self.assertIn(u'<span class="pretty_link_content"> Diminuer le temps d\'attente de ...</span>', rendered)
+
+        # tk1 on global search
+        category = self.pst['tasks']
+        column = ParentsColumn(category, category.REQUEST, category.unrestrictedTraverse('@@faceted-table-view'))
+        brain = self.portal.portal_catalog(UID=self.tk1.UID())[0]
+        rendered = column.renderCell(brain)
+        self.assertIn(u'<span class="pretty_link_content"> Etre une commune qui offre un ...</span>', rendered)
+        self.assertIn(u'<span class="pretty_link_content"> Diminuer le temps d\'attente de ...</span>', rendered)
+        self.assertIn(u'<span class="pretty_link_content"> Engager 2 agents pour le Service ...</span>', rendered)
+
+        # tk1 on ac1 context
+        column2 = ParentsColumn(self.ac1, category.REQUEST, category.unrestrictedTraverse('@@faceted-table-view'))
+        rendered2 = column2.renderCell(brain)
+        self.assertEqual(rendered2, '-')
+
+        # Adding sub task
+        tk2 = api.content.create(self.tk1, 'task', title=u'Tâche de second niveau')
+        tk3 = api.content.create(tk2, 'task', title=u'Tâche de 3ème niveau')
+        brain = self.portal.portal_catalog(UID=tk3.UID())[0]
+        rendered = column.renderCell(brain)
+        self.assertIn(u'<span class="pretty_link_content"> Etre une commune qui offre un ...</span>', rendered)
+        self.assertIn(u'<span class="pretty_link_content"> Diminuer le temps d\'attente de ...</span>', rendered)
+        self.assertIn(u'<span class="pretty_link_content"> Engager 2 agents pour le Service ...</span>', rendered)
+        self.assertIn(u'<span class="pretty_link_content"> Ajouter une annonce sur le site ...</span>', rendered)
+        self.assertIn(u'<span class="pretty_link_content"> Tâche de second niveau</span>', rendered)
+        rendered2 = column2.renderCell(brain)
+        self.assertNotIn(u'<span class="pretty_link_content"> Etre une commune qui offre un ...</span>', rendered2)
+        self.assertNotIn(u'<span class="pretty_link_content"> Diminuer le temps d\'attente de ...</span>', rendered2)
+        self.assertNotIn(u'<span class="pretty_link_content"> Engager 2 agents pour le Service ...</span>', rendered2)
+        self.assertIn(u'<span class="pretty_link_content"> Ajouter une annonce sur le site ...</span>', rendered2)
+        self.assertIn(u'<span class="pretty_link_content"> Tâche de second niveau</span>', rendered2)
