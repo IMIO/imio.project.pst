@@ -8,6 +8,38 @@
     display: none;
 }
 
+/* hide create contact link */
+a.addnewcontactfromorganization.link-overlay {
+    display: none;
+}
+
+/* Hides */
+#formfield-form-widgets-IVersionable-changeNote, #download_vcard,
+.template-edit .documentEditable div#formfield-form-widgets-reference_number,
+.template-strategicobjective div#formfield-form-widgets-reference_number,
+.template-operationalobjective div#formfield-form-widgets-reference_number,
+.template-pstaction div#formfield-form-widgets-reference_number
+{
+    display: none;
+}
+
+#contentActionMenus #faceted_settings, #contentActionMenus #plone-contentmenu-display,
+#contentActionMenus #plone-contentmenu-actions a[id^="plone-contentmenu-actions-faceted."] {
+    display: None !important;
+}
+
+#content ul.parents_col {
+    list-style-type: none;
+    margin-left: 0;
+}
+
+/* plone group 1st level */
+.pg_org_category {
+    font-weight: bold;
+    text-decoration: underline
+}
+
+/* couleur indicateur santé */
 .health_indicator_color_bon {
     color: white;
     background-color: green !important;
@@ -40,26 +72,6 @@ body.template-view.portaltype-strategicobjective td.table_widget_label {
 /* align right the plonegroup-organization link */
 #pg-orga-link {
     float: right;
-}
-
-/* Hides */
-#formfield-form-widgets-IVersionable-changeNote, #download_vcard,
-.template-edit .documentEditable div#formfield-form-widgets-reference_number,
-.template-strategicobjective div#formfield-form-widgets-reference_number,
-.template-operationalobjective div#formfield-form-widgets-reference_number,
-.template-pstaction div#formfield-form-widgets-reference_number
-{
-    display: none;
-}
-
-#contentActionMenus #faceted_settings, #contentActionMenus #plone-contentmenu-display,
-#contentActionMenus #plone-contentmenu-actions a[id^="plone-contentmenu-actions-faceted."] {
-    display: None !important;
-}
-
-#content ul.parents_col {
-    list-style-type: none;
-    margin-left: 0;
 }
 
 /* icons on types */

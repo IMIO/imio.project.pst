@@ -133,3 +133,17 @@ class ParentsColumn(BaseColumn):
             return '<ul class="parents_col"><li>%s</li></ul>' % ('</li>\n<li>'.join(ret))
         else:
             return '-'
+
+
+class SubOrganizationTitle(PrettyLinkColumn):
+    """
+        Do not use OrgaPrettyLinkWithAdditionalInfosColumn
+    """
+
+    def contentValue(self, item):
+        """Display get_full_title instead title."""
+        path = '/'.join(item.getPhysicalPath())
+        title = item.get_full_title(first_index=1)
+        if (path.endswith('/plonegroup-organization/echevins') or path.endswith('/plonegroup-organization/services')):
+            title = u'<span class="pg_org_category">=> {0}</span>'.format(title)
+        return u'{0} <span class="discreet">({1})</span>'.format(title, item.UID())
