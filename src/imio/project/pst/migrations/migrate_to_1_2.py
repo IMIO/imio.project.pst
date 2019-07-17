@@ -58,6 +58,11 @@ class Migrate_To_1_2(Migrator):
                 nl = list(col.customViewFields)
                 nl.insert(col.customViewFields.index(u'pretty_link') + 1, u'parents')
                 col.customViewFields = tuple(nl)
+            if (os.path.basename(os.path.dirname(brain.getPath())) == 'tasks'
+                    and 'parents' not in col.customViewFields):
+                nl = list(col.customViewFields)
+                nl[nl.index(u'task_parent')] = u'parents'
+                col.customViewFields = tuple(nl)
 
     def update_items(self):
         for brain in self.pc(portal_type=('strategicobjective', 'operationalobjective')):
