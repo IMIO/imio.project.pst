@@ -87,7 +87,7 @@ class Migrate_To_1_2(Migrator):
         # check if oo port must be changed
         update_oo_config()
 
-        self.runProfileSteps('imio.project.pst', steps=['jsregistry', 'plone.app.registry', 'typeinfo'])
+        self.runProfileSteps('imio.project.pst', steps=['actions', 'jsregistry', 'plone.app.registry', 'typeinfo'])
 
         self.various_update()
         self.adapt_dashboards()
