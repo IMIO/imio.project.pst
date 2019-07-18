@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
+from collective.contact.plonegroup.utils import get_own_organization
 from collective.documentgenerator.utils import update_oo_config
 from imio.helpers.content import richtextval
 from imio.helpers.content import transitions
 from imio.migrator.migrator import Migrator
 from imio.project.pst.setuphandlers import _ as _translate
 from imio.project.pst.setuphandlers import reimport_faceted_config
+from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
 from Products.CPUtils.Extensions.utils import mark_last_version
 
 import logging
@@ -30,6 +32,14 @@ class Migrate_To_1_2(Migrator):
         transitions(frontpage, ('retract', 'publish_internally'))
         frontpage.reindexObject()
         self.portal.templates.layout = 'dg-templates-listing'
+        # plonegroup-organization
+        pgo = get_own_organization()
+        behaviour = ISelectableConstrainTypes(pgo)
+        behaviour.setConstrainTypesMode(1)
+        behaviour.setLocallyAllowedTypes([])
+        behaviour.setImmediatelyAddableTypes([])
+        ISelectableConstrainTypes(pgo['echevins']).setConstrainTypesMode(0)
+        ISelectableConstrainTypes(pgo['services']).setConstrainTypesMode(0)
 
     def adapt_dashboards(self):
         # reindex representative_responsible
