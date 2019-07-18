@@ -519,6 +519,13 @@ def addDemoOrganization(context):
                 group_ids.append(obj.UID())
     if group_ids:
         registry[ORGANIZATIONS_REGISTRY] = registry[ORGANIZATIONS_REGISTRY] + group_ids
+    # locally allowed types
+    behaviour = ISelectableConstrainTypes(own_orga)
+    behaviour.setConstrainTypesMode(1)
+    behaviour.setLocallyAllowedTypes([])
+    behaviour.setImmediatelyAddableTypes([])
+    ISelectableConstrainTypes(own_orga['echevins']).setConstrainTypesMode(0)
+    ISelectableConstrainTypes(own_orga['services']).setConstrainTypesMode(0)
 
 
 def _edit_fields(obj, fields):

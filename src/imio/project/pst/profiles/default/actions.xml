@@ -22,6 +22,7 @@
   <object name="undo" meta_type="CMF Action" i18n:domain="plone">
    <property name="visible">True</property>
   </object>
+
   <object name="documentation" meta_type="CMF Action" i18n:domain="plone" insert-before="*">
    <property name="title" i18n:translate="">Documentation iA.PST</property>
    <property name="url_expr">string:https://www.imio.be/support/documentation/topic/cp_app_project</property>
@@ -31,6 +32,10 @@
     <element value="List portal members"/>
    </property>
    <property name="visible">True</property>
+  </object>
+
+  <object name="audit-log" meta_type="CMF Action">
+   <property name="visible">False</property>
   </object>
  </object>
 
