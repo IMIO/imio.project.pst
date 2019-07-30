@@ -2,6 +2,7 @@
 
 from collective.eeafaceted.collectionwidget.utils import _updateDefaultCollectionFor
 from collective.eeafaceted.dashboard.browser.overrides import DashboardFacetedTableView as DFTV
+from imio.helpers.content import transitions
 from plone import api
 from plone.app.versioningbehavior.browser import VersionView as OVV
 from Products.Five.browser import BrowserView
@@ -38,6 +39,7 @@ class ArchiveView(BrowserView):
             default_col = obj['all'].UID()  # could be dynamic... base on relative path to old uid
             _updateDefaultCollectionFor(obj, default_col)
         new_pst.budget_years = [2019, 2020, 2021, 2022, 2023, 2024]
+        transitions(new_pst, ['publish_internally'])
         return self.request.RESPONSE.redirect(new_pst.absolute_url())
 
 
