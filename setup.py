@@ -55,6 +55,7 @@ setup(
         'collective.externaleditor',
         'collective.messagesviewlet',
         'collective.task',
+        'collective.symlink',
         'dexterity.localrolesfield',
         'imio.dashboard',
         'imio.helpers',

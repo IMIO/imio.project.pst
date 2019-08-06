@@ -13,5 +13,6 @@
     <dependency>profile-plonetheme.imioapps:pstskin</dependency>
     <dependency>profile-imio.dashboard:default</dependency>
     <dependency>profile-collective.task:default</dependency>
+    <dependency>profile-collective.symlink:default</dependency>
   </dependencies>
 </metadata>
