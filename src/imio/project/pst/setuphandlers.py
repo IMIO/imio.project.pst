@@ -680,7 +680,7 @@ def add_db_col_folder(folder, id, title, content_type, position, displayed=''):
     createStateCollections(col_folder, content_type)
     # configure faceted
     configure_faceted_folder(
-        col_folder, xml='{}.xml'.format(content_type),
+        col_folder, xml='{}.xml'.format(content_type[0]),
         default_UID=col_folder['all'].UID())
     return col_folder
 
@@ -689,10 +689,10 @@ def configureDashboard(pst):
     """Configure dashboard (add folders and collections)."""
     collection_folders = [
         # (folder id, folder title, content type for the collections)
-        ('strategicobjectives', _("Strategic objectives"), 'strategicobjective', IOSDashboardBatchActions),
-        ('operationalobjectives', _("Operational objectives"), 'operationalobjective', IOODashboardBatchActions),
-        ('pstactions', _("Actions"), 'pstaction', IActionDashboardBatchActions),
-        ('tasks', _("Tasks"), 'task', ITaskDashboardBatchActions),
+        ('strategicobjectives', _("Strategic objectives"), ['strategicobjective'], IOSDashboardBatchActions),
+        ('operationalobjectives', _("Operational objectives"), ['operationalobjective'], IOODashboardBatchActions),
+        ('pstactions', _("Actions") , ['pstaction', 'action_link'], IActionDashboardBatchActions),
+        ('tasks', _("Tasks"), ['task'], ITaskDashboardBatchActions),
     ]
     for i, (name, title, content_type, inf) in enumerate(collection_folders):
         if name not in pst:
@@ -736,7 +736,7 @@ def createStateCollections(folder, content_type):
         'to_assign': _("State: to assign"),
     }
 
-    for state in list_wf_states(folder, content_type):
+    for state in list_wf_states(folder, content_type[0]):
         col_id = "searchfor_%s" % state
         ps_path = '/'.join(getProjectSpace(folder).getPhysicalPath())
         if not base_hasattr(folder, col_id):
@@ -745,14 +745,14 @@ def createStateCollections(folder, content_type):
                 id=col_id,
                 title=state_title_mapping[state],
                 query=[
-                    {'i': 'portal_type', 'o': 'plone.app.querystring.operation.selection.is', 'v': [content_type]},
+                    {'i': 'portal_type', 'o': 'plone.app.querystring.operation.selection.is', 'v': content_type},
                     {'i': 'review_state', 'o': 'plone.app.querystring.operation.selection.is', 'v': [state]},
                     {'i': 'path', 'o': 'plone.app.querystring.operation.string.path', 'v': ps_path}
                 ],
-                customViewFields=COLUMNS_FOR_CONTENT_TYPES[content_type],
-                tal_condition=conditions[content_type].get(state),
+                customViewFields=COLUMNS_FOR_CONTENT_TYPES[content_type[0]],
+                tal_condition=conditions[content_type[0]].get(state),
                 showNumberOfItems=(
-                    state in showNumberOfItems.get(content_type, [])),
+                    state in showNumberOfItems.get(content_type[0], [])),
                 roles_bypassing_talcondition=['Manager', 'Site Administrator'],
                 sort_on=u'sortable_title',
                 sort_reversed=True,
@@ -799,12 +799,12 @@ def createBaseCollections(folder, content_type):
             'tit': _('All'),
             'subj': (u'search', ),
             'query': [
-                {'i': 'portal_type', 'o': 'plone.app.querystring.operation.selection.is', 'v': [content_type]},
+                {'i': 'portal_type', 'o': 'plone.app.querystring.operation.selection.is', 'v': content_type},
                 {'i': 'path', 'o': 'plone.app.querystring.operation.string.path', 'v': ps_path}
             ],
             'cond': u"",
             'bypass': [],
-            'flds': COLUMNS_FOR_CONTENT_TYPES[content_type],
+            'flds': COLUMNS_FOR_CONTENT_TYPES[content_type[0]],
             'sort': u'sortable_title',
             'rev': False,
             'count': False
@@ -821,14 +821,14 @@ def createBaseCollections(folder, content_type):
                 'tit': _("Which I am administrative responsible"),
                 'subj': ('search',),
                 'query': [
-                    {'i': 'portal_type', 'o': 'plone.app.querystring.operation.selection.is', 'v': [content_type]},
+                    {'i': 'portal_type', 'o': 'plone.app.querystring.operation.selection.is', 'v': content_type},
                     {'i': 'CompoundCriterion', 'o': 'plone.app.querystring.operation.compound.is',
                      'v': 'user-is-administrative-responsible'},
                     {'i': 'path', 'o': 'plone.app.querystring.operation.string.path', 'v': ps_path}
                 ],
                 'cond': u"",
                 'bypass': [],
-                'flds': COLUMNS_FOR_CONTENT_TYPES[content_type],
+                'flds': COLUMNS_FOR_CONTENT_TYPES[content_type[0]],
                 'sort': u'sortable_title',
                 'rev': False,
                 'count': False
@@ -838,14 +838,14 @@ def createBaseCollections(folder, content_type):
                 'tit': _("Which I am manager"),
                 'subj': ('search',),
                 'query': [
-                    {'i': 'portal_type', 'o': 'plone.app.querystring.operation.selection.is', 'v': [content_type]},
+                    {'i': 'portal_type', 'o': 'plone.app.querystring.operation.selection.is', 'v': content_type},
                     {'i': 'CompoundCriterion', 'o': 'plone.app.querystring.operation.compound.is',
                      'v': 'user-is-actioneditor'},
                     {'i': 'path', 'o': 'plone.app.querystring.operation.string.path', 'v': ps_path}
                 ],
                 'cond': u"",
                 'bypass': [],
-                'flds': COLUMNS_FOR_CONTENT_TYPES[content_type],
+                'flds': COLUMNS_FOR_CONTENT_TYPES[content_type[0]],
                 'sort': u'sortable_title',
                 'rev': False,
                 'count': False
@@ -855,14 +855,14 @@ def createBaseCollections(folder, content_type):
                 'tit': _("Which an action deadline has passed"),
                 'subj': ('search',),
                 'query': [
-                    {'i': 'portal_type', 'o': 'plone.app.querystring.operation.selection.is', 'v': [content_type]},
+                    {'i': 'portal_type', 'o': 'plone.app.querystring.operation.selection.is', 'v': content_type},
                     {'i': 'CompoundCriterion', 'o': 'plone.app.querystring.operation.compound.is',
                      'v': 'has-child-action-deadline-has-passed'},
                     {'i': 'path', 'o': 'plone.app.querystring.operation.string.path', 'v': ps_path}
                 ],
                 'cond': u"",
                 'bypass': [],
-                'flds': COLUMNS_FOR_CONTENT_TYPES[content_type],
+                'flds': COLUMNS_FOR_CONTENT_TYPES[content_type[0]],
                 'sort': u'sortable_title',
                 'rev': False,
                 'count': False
@@ -875,14 +875,14 @@ def createBaseCollections(folder, content_type):
                 'tit': _("Which I am manager"),
                 'subj': ('search',),
                 'query': [
-                    {'i': 'portal_type', 'o': 'plone.app.querystring.operation.selection.is', 'v': [content_type]},
+                    {'i': 'portal_type', 'o': 'plone.app.querystring.operation.selection.is', 'v': content_type},
                     {'i': 'CompoundCriterion', 'o': 'plone.app.querystring.operation.compound.is',
                      'v': 'user-is-actioneditor'},
                     {'i': 'path', 'o': 'plone.app.querystring.operation.string.path', 'v': ps_path}
                 ],
                 'cond': u"",
                 'bypass': [],
-                'flds': COLUMNS_FOR_CONTENT_TYPES[content_type],
+                'flds': COLUMNS_FOR_CONTENT_TYPES[content_type[0]],
                 'sort': u'sortable_title',
                 'rev': False,
                 'count': False
@@ -892,13 +892,13 @@ def createBaseCollections(folder, content_type):
                 'tit': _("Which deadline has passed"),
                 'subj': ('search',),
                 'query': [
-                    {'i': 'portal_type', 'o': 'plone.app.querystring.operation.selection.is', 'v': [content_type]},
+                    {'i': 'portal_type', 'o': 'plone.app.querystring.operation.selection.is', 'v': content_type},
                     {'i': 'planned_end_date', 'o': 'plone.app.querystring.operation.date.beforeToday'},
                     {'i': 'path', 'o': 'plone.app.querystring.operation.string.path', 'v': ps_path}
                 ],
                 'cond': u"",
                 'bypass': [],
-                'flds': COLUMNS_FOR_CONTENT_TYPES[content_type],
+                'flds': COLUMNS_FOR_CONTENT_TYPES[content_type[0]],
                 'sort': u'sortable_title',
                 'rev': False,
                 'count': False
@@ -908,14 +908,14 @@ def createBaseCollections(folder, content_type):
                 'tit': _("Which beginning is late"),
                 'subj': ('search',),
                 'query': [
-                    {'i': 'portal_type', 'o': 'plone.app.querystring.operation.selection.is', 'v': [content_type]},
+                    {'i': 'portal_type', 'o': 'plone.app.querystring.operation.selection.is', 'v': content_type},
                     {'i': 'planned_begin_date', 'o': 'plone.app.querystring.operation.date.beforeToday'},
                     {'i': 'effective_begin_date', 'o': 'plone.app.querystring.operation.date.afterToday'},
                     {'i': 'path', 'o': 'plone.app.querystring.operation.string.path', 'v': ps_path}
                 ],
                 'cond': u"",
                 'bypass': [],
-                'flds': COLUMNS_FOR_CONTENT_TYPES[content_type],
+                'flds': COLUMNS_FOR_CONTENT_TYPES[content_type[0]],
                 'sort': u'sortable_title',
                 'rev': False,
                 'count': False
@@ -935,7 +935,7 @@ def createBaseCollections(folder, content_type):
                 ],
                 'cond': u"python:object.restrictedTraverse('pst-utils').user_has_review_level()",
                 'bypass': ['Manager', 'Site Administrator'],
-                'flds': COLUMNS_FOR_CONTENT_TYPES[content_type],
+                'flds': COLUMNS_FOR_CONTENT_TYPES[content_type[0]],
                 'sort': u'sortable_title',
                 'rev': False,
                 'count': True
@@ -952,7 +952,7 @@ def createBaseCollections(folder, content_type):
                 ],
                 'cond': u"",
                 'bypass': [],
-                'flds': COLUMNS_FOR_CONTENT_TYPES[content_type],
+                'flds': COLUMNS_FOR_CONTENT_TYPES[content_type[0]],
                 'sort': u'sortable_title',
                 'rev': False,
                 'count': True
@@ -969,7 +969,7 @@ def createBaseCollections(folder, content_type):
                 ],
                 'cond': u"",
                 'bypass': [],
-                'flds': COLUMNS_FOR_CONTENT_TYPES[content_type],
+                'flds': COLUMNS_FOR_CONTENT_TYPES[content_type[0]],
                 'sort': u'sortable_title',
                 'rev': False,
                 'count': True
@@ -987,7 +987,7 @@ def createBaseCollections(folder, content_type):
                 ],
                 'cond': u"",
                 'bypass': [],
-                'flds': COLUMNS_FOR_CONTENT_TYPES[content_type],
+                'flds': COLUMNS_FOR_CONTENT_TYPES[content_type[0]],
                 'sort': u'sortable_title',
                 'rev': False,
                 'count': False
@@ -1004,7 +1004,7 @@ def createBaseCollections(folder, content_type):
                 ],
                 'cond': u"",
                 'bypass': [],
-                'flds': COLUMNS_FOR_CONTENT_TYPES[content_type],
+                'flds': COLUMNS_FOR_CONTENT_TYPES[content_type[0]],
                 'sort': u'sortable_title',
                 'rev': False,
                 'count': False
@@ -1021,7 +1021,7 @@ def createBaseCollections(folder, content_type):
                 ],
                 'cond': u"python:object.restrictedTraverse('pst-utils').user_has_review_level()",
                 'bypass': ['Manager', 'Site Administrator'],
-                'flds': COLUMNS_FOR_CONTENT_TYPES[content_type],
+                'flds': COLUMNS_FOR_CONTENT_TYPES[content_type[0]],
                 'sort': u'sortable_title',
                 'rev': False,
                 'count': True
@@ -1037,7 +1037,7 @@ def createBaseCollections(folder, content_type):
                 ],
                 'cond': u"",
                 'bypass': [],
-                'flds': COLUMNS_FOR_CONTENT_TYPES[content_type],
+                'flds': COLUMNS_FOR_CONTENT_TYPES[content_type[0]],
                 'sort': u'sortable_title',
                 'rev': False,
                 'count': False
@@ -1046,7 +1046,7 @@ def createBaseCollections(folder, content_type):
 
     }
 
-    collections.extend(additional_collections_by_types[content_type])
+    collections.extend(additional_collections_by_types[content_type[0]])
     createDashboardCollections(folder, collections)
 
 

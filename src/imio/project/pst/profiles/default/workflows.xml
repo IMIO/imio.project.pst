@@ -15,5 +15,8 @@
         <type type_id="pstaction">
             <bound-workflow workflow_id="pst_action_workflow" />
         </type>
+        <type type_id="action_link">
+            <bound-workflow workflow_id="pst_action_workflow" />
+        </type>
     </bindings>
 </object>
