@@ -18,6 +18,12 @@ from zope.schema.interfaces import IVocabularyFactory
 from zope.schema.vocabulary import SimpleTerm
 from zope.schema.vocabulary import SimpleVocabulary
 
+from Acquisition import aq_inner
+from zope.component import getUtility
+from zope.intid.interfaces import IIntIds
+from zope.security import checkPermission
+from zc.relation.interfaces import ICatalog
+
 
 class IPSTAction(IProject):
     """
@@ -126,6 +132,22 @@ class PSTAction(Project):
             return '%s (A.%s)' % (self.title.encode('utf8'), self.reference_number)
         else:
             return self.title.encode('utf8')
+
+    def back_references(self):
+        """
+        Return back references from source object on specified attribute_name
+        """
+        catalog = getUtility(ICatalog)
+        intids = getUtility(IIntIds)
+        result = []
+        for rel in catalog.findRelations(
+                dict(to_id=intids.getId(aq_inner(self.context)),
+                     from_attribute='symbolic_link')
+        ):
+            obj = intids.queryObject(rel.from_id)
+            if obj is not None and checkPermission('zope2.View', obj):
+                result.append(obj)
+        return result
 
 
 class PSTActionSchemaPolicy(DexteritySchemaPolicy):
