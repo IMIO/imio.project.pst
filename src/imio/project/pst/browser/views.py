@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from collective.eeafaceted.collectionwidget.utils import _updateDefaultCollectionFor
 from collective.eeafaceted.dashboard.browser.overrides import DashboardFacetedTableView as DFTV
 from imio.helpers.content import transitions
 from plone import api

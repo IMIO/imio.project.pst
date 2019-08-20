@@ -240,6 +240,13 @@
         allowed_attributes='archive'
         />
 
+    <browser:page
+        for="imio.project.pst.interfaces.IImioPSTProject"
+        name="clean_budget"
+        class="imio.project.pst.corrections.CleanBudget"
+        permission="cmf.ManagePortal"
+        />
+
     <!-- Specific view for versioning -->
     <configure package="plone.dexterity">
         <browser:page
