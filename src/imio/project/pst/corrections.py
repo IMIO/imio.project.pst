@@ -8,7 +8,10 @@ from zope.annotation import IAnnotations
 
 
 class CleanBudget(BrowserView):
-    """ Clean budget field of project types and clean parents budgets infos """
+    """
+        Clean budget field of project types and clean parents budgets infos.
+        Used in archive action too.
+    """
 
     def __call__(self):
         ret = []
@@ -35,5 +38,5 @@ class CleanBudget(BrowserView):
                     del obj_annotations[CHILDREN_BUDGET_INFOS_ANNOTATION_KEY]
         api.portal.show_message('Budget cleaned on {} fields and {} parents annotations'.format(b_c, p_c),
                                 self.request)
-        return '\n'.join(ret)
+        return '<br />\n'.join(ret)
         return self.request.RESPONSE.redirect(self.context.absolute_url())
