@@ -26,6 +26,7 @@ class ArchiveView(BrowserView):
         new_pst.reindexObject()
         new_pst.reindexObjectSecurity()
         new_pst.budget_years = [2019, 2020, 2021, 2022, 2023, 2024]
+        new_pst.restrictedTraverse('clean_budget')()
         transitions(new_pst, ['publish_internally'])
         return self.request.RESPONSE.redirect(new_pst.absolute_url())
 
