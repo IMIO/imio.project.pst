@@ -84,6 +84,8 @@ class CleanBudget(BrowserView):
                 obj_annotations = IAnnotations(obj)
                 keys = obj_annotations.get(CHILDREN_BUDGET_INFOS_ANNOTATION_KEY, {}).keys()
                 for uid in keys:
+                    if not obj_annotations[CHILDREN_BUDGET_INFOS_ANNOTATION_KEY][uid]:
+                        del obj_annotations[CHILDREN_BUDGET_INFOS_ANNOTATION_KEY][uid]
                     brains = api.content.find(UID=uid, path=path)
                     if not brains:
                         del obj_annotations[CHILDREN_BUDGET_INFOS_ANNOTATION_KEY][uid]
