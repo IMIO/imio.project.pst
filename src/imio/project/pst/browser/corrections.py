@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from imio.helpers.xhtml import object_link
+from Products.CPUtils.Extensions.utils import object_link
 from imio.project.core.config import CHILDREN_BUDGET_INFOS_ANNOTATION_KEY
 from plone import api
 from Products.Five.browser import BrowserView
