@@ -261,6 +261,8 @@ def _addPSTprojectspace(context):
     params['categories'] = categories
     # datagridfield priority
     priority = [
+        {'label': u"0",
+         'key': ""},
         {'label': u"1",
          'key': "1"},
         {'label': u"2",
@@ -494,7 +496,7 @@ def addDemoOrganization(context):
     # Departments and services creation
     sublevels = [
         (u'echevinat', u'Echevins',
-         [u'1er échevin', u'2ème échevin', u'3ème échevin',
+         [u'bourgmestre', u'1er échevin', u'2ème échevin', u'3ème échevin',
           u'4ème échevin', u'5ème échevin', u'6ème échevin',
           u'7ème échevin', u'8ème échevin', u'9ème échevin', ]),
         (u'service', u'Services',

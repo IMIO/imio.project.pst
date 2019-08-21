@@ -243,8 +243,13 @@
     <browser:page
         for="imio.project.pst.interfaces.IImioPSTProject"
         name="clean_budget"
-        class="imio.project.pst.corrections.CleanBudget"
+        class="imio.project.pst.browser.corrections.CleanBudget"
         permission="cmf.ManagePortal"
+        allowed_attributes="
+            delete
+            clean
+            display
+        "
         />
 
     <!-- Specific view for versioning -->
