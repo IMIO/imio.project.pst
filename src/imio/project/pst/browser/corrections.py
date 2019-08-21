@@ -82,13 +82,18 @@ class CleanBudget(BrowserView):
                                                             obj.budget, new_budget))
                         obj.budget = new_budget
                 obj_annotations = IAnnotations(obj)
-                keys = obj_annotations.get(CHILDREN_BUDGET_INFOS_ANNOTATION_KEY, {}).keys()
-                for uid in keys:
+                if CHILDREN_BUDGET_INFOS_ANNOTATION_KEY not in obj_annotations:
+                    continue
+                new_annot = {}
+                for uid in obj_annotations[CHILDREN_BUDGET_INFOS_ANNOTATION_KEY]:
                     if not obj_annotations[CHILDREN_BUDGET_INFOS_ANNOTATION_KEY][uid]:
-                        del obj_annotations[CHILDREN_BUDGET_INFOS_ANNOTATION_KEY][uid]
+                        continue
                     brains = api.content.find(UID=uid, path=path)
                     if not brains:
-                        del obj_annotations[CHILDREN_BUDGET_INFOS_ANNOTATION_KEY][uid]
                         ret.append("C, {}: {}".format(object_link(obj, content=brain.getPath()[lpath:]).encode('utf8'),
                                                       uid))
+                        continue
+                    new_annot[uid] = obj_annotations[CHILDREN_BUDGET_INFOS_ANNOTATION_KEY][uid]
+                if len(new_annot) != len(obj_annotations[CHILDREN_BUDGET_INFOS_ANNOTATION_KEY]):
+                    obj_annotations[CHILDREN_BUDGET_INFOS_ANNOTATION_KEY] = new_annot
         return '<br />\n'.join(ret)
