@@ -10,7 +10,7 @@ from zope.annotation import IAnnotations
 class CleanBudget(BrowserView):
     """ IImioPSTProject view to manage budget related """
 
-    def delete(self):
+    def delete(self, empty_budget=True):
         """
             Deletes project types budget fields and deletes parents budgets infos.
             Used in archive action too.
@@ -23,7 +23,7 @@ class CleanBudget(BrowserView):
             for brain in self.context.portal_catalog(portal_type=pt, path=path, sort_on='path'):
                 obj = brain.getObject()
                 # ret.append("{}: {} = {}".format(pt, brain.getPath(), obj.budget))
-                if obj.budget:
+                if obj.budget and empty_budget:
                     b_c += 1
                     prt = False
                     for dic in obj.budget:
@@ -60,7 +60,7 @@ class CleanBudget(BrowserView):
             obj_annotations = IAnnotations(obj)
             if CBIAK in obj_annotations and obj_annotations[CBIAK]:
                 a_c += 1
-                u_c += len(obj_annotations[CBIAK])
+                u_c += len([uid for uid in obj_annotations[CBIAK] if obj_annotations[CBIAK][uid]])
                 cret.append("{}: {}".format(object_link(obj, content=brain.getPath()[lpath:]).encode('utf-8'),
                                             obj_annotations[CBIAK]))
         sep = '<br />\n'
