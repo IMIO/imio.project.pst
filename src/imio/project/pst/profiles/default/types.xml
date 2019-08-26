@@ -5,4 +5,5 @@
  <object name="strategicobjective" meta_type="Dexterity FTI"/>
  <object name="operationalobjective" meta_type="Dexterity FTI"/>
  <object name="pstaction" meta_type="Dexterity FTI"/>
+ <object name="pstsubaction" meta_type="Dexterity FTI"/>
 </object>

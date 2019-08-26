@@ -167,3 +167,20 @@ class HealthIndicatorVocabulary(object):
         terms.append(SimpleTerm(u'risque', u'risque', u'Risque'))
         terms.append(SimpleTerm(u'blocage', u'blocage', u'Blocage'))
         return SimpleVocabulary(terms)
+
+
+class IPSTSubAction(IPSTAction):
+    pass
+
+
+class PSTSubAction(Project):
+    """ """
+    implements(IPSTSubAction)
+    # we block local roles acquisition
+    __ac_local_roles_block__ = True
+
+    def Title(self):
+        if getattr(getProjectSpace(self), 'use_ref_number', True):
+            return '%s (SA.%s)' % (self.title.encode('utf8'), self.reference_number)
+        else:
+            return self.title.encode('utf8')

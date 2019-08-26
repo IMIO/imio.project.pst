@@ -113,6 +113,10 @@ msgstr ""
 msgid "PSTAction"
 msgstr ""
 
+#: ../profiles/default/types/pstsubaction.xml
+msgid "PSTSubAction"
+msgstr ""
+
 #: ../profiles/default/registry.xml
 msgid "Planned begin date"
 msgstr ""

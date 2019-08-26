@@ -24,6 +24,11 @@
       <implements interface="eea.facetednavigation.settings.interfaces.IDisableSmartFacets" />
     </class>
 
+    <class class="imio.project.pst.content.action.PSTSubAction">
+      <implements interface=".interfaces.IMyFacetedNavigable" />
+      <implements interface="eea.facetednavigation.settings.interfaces.IDisableSmartFacets" />
+    </class>
+
     <adapter
         for=".interfaces.IMyFacetedNavigable"
         provides="eea.facetednavigation.interfaces.ICriteria"

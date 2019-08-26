@@ -1,17 +1,16 @@
 <?xml version="1.0"?>
-<object name="pstaction" meta_type="Dexterity FTI" i18n:domain="imio.project.pst"
+<object name="pstsubaction" meta_type="Dexterity FTI" i18n:domain="imio.project.pst"
    xmlns:i18n="http://xml.zope.org/namespaces/i18n">
- <property name="title" i18n:translate="">PSTAction</property>
+ <property name="title" i18n:translate="">PSTSubAction</property>
  <property name="description" i18n:translate=""></property>
  <property name="icon_expr"></property>
- <property name="factory">pstaction</property>
- <property name="add_view_expr">string:${folder_url}/++add++pstaction</property>
+ <property name="factory">pstsubaction</property>
+ <property name="add_view_expr">string:${folder_url}/++add++pstsubaction</property>
  <property name="link_target"></property>
  <property name="immediate_view">view</property>
  <property name="global_allow">True</property>
  <property name="filter_content_types">True</property>
  <property name="allowed_content_types">
-  <element value="pstsubaction"/>
   <element value="File"/>
   <element value="task"/>
  </property>
@@ -23,7 +22,7 @@
  <property name="default_view_fallback">False</property>
  <property name="add_permission">cmf.AddPortalContent</property>
  <property name="schema_policy">schema_policy_pstaction</property>
- <property name="klass">imio.project.pst.content.action.PSTAction</property>
+ <property name="klass">imio.project.pst.content.action.PSTSubAction</property>
  <property name="behaviors">
   <element value="plone.app.dexterity.behaviors.metadata.IDublinCore"/>
   <element value="plone.app.content.interfaces.INameFromTitle" />

@@ -27,6 +27,8 @@ def get_criteria_holder(context):
         return pst.pstactions
     elif context.portal_type == 'pstaction':
         return pst.tasks
+    elif context.portal_type == 'pstsubaction':
+        return pst.tasks
     elif not IFacetedNavigable.providedBy(context):
         return pst
 

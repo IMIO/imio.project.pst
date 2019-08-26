@@ -126,6 +126,10 @@ def representative_responsible_index(obj):
         oo = obj.aq_inner.aq_parent
         if oo.representative_responsible:
             return oo.representative_responsible
+    if obj.portal_type == 'pstsubaction':
+        oo = obj.aq_inner.aq_parent.aq_parent
+        if oo.representative_responsible:
+            return oo.representative_responsible
 
     return common_marker
 
