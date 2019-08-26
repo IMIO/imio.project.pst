@@ -141,7 +141,7 @@ class PSTAction(Project):
         intids = getUtility(IIntIds)
         result = []
         for rel in catalog.findRelations(
-                dict(to_id=intids.getId(aq_inner(self.context)),
+                dict(to_id=intids.getId(aq_inner(self)),
                      from_attribute='symbolic_link')
         ):
             obj = intids.queryObject(rel.from_id)

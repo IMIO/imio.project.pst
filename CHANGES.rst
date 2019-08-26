@@ -4,7 +4,8 @@ Changelog
 1.3 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Add viewlet for show action_link on action
+  [vpiret]
 
 
 1.2 (2019-06-23)

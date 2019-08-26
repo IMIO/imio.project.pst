@@ -2,6 +2,8 @@
 """Custom viewlets."""
 
 from collective.task.browser.viewlets import TasksListViewlet as OriginalTasksListViewlet
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from plone.app.layout.viewlets import ViewletBase
 
 
 class TasksListViewlet(OriginalTasksListViewlet):
@@ -17,3 +19,13 @@ class TasksListViewlet(OriginalTasksListViewlet):
             return super(TasksListViewlet, self).render()
         else:
             return ""
+
+
+class ActionLinkForActionViewlet(ViewletBase):
+
+    index = ViewPageTemplateFile('actionlinkforaction.pt')
+
+    def action_link(self):
+        return self.context.back_references()
+
+    # TODO: Show OO for action_link
