@@ -4,6 +4,12 @@ Changelog
 1.3 (unreleased)
 ----------------
 
+- Hides the viewlet from collective.symlink
+  [vpiret]
+
+- Add viewlet for symlink content
+  [vpiret]
+
 - Modifies the viewlet display for symlink and adapts it for all content
   [vpiret]
 
