@@ -7,14 +7,17 @@ from imio.project.core.content.project import Project
 from imio.project.core.utils import getProjectSpace
 from imio.project.core.utils import getVocabularyTermsForOrganization
 from imio.project.pst import _
+from plone import api
 from plone.autoform import directives as form
 from plone.dexterity.schema import DexteritySchemaPolicy
 from plone.dexterity.browser.view import DefaultView
+from z3c.form.datamanager import AttributeField
+from z3c.form.interfaces import IDataManager
 from zope import schema
 from zope.interface import implements
+from zope.interface import implementer
 from zope.schema.interfaces import IVocabularyFactory
 from zope.schema.vocabulary import SimpleVocabulary
-
 
 class IOperationalObjective(IProject):
     """
@@ -79,7 +82,32 @@ class OperationalObjective(Project):
         if getattr(getProjectSpace(self), 'use_ref_number', True):
             return '%s (OO.%s)' % (self.title.encode('utf8'), self.reference_number)
         else:
-            return self.title.encode('utf8')
+            return self.title.encode("utf8")
+
+
+@implementer(IDataManager)
+class OperationalObjectiveDataManager(AttributeField):
+    def get(self):
+        if self.field.__name__ == "planned_end_date":
+            if self.context.planned_end_date:
+                return self.context.planned_end_date
+
+            try:
+                uid = self.context.UID()
+            except AttributeError:
+                uid = None
+            if uid is None:
+                return
+            path = api.content.find(UID=self.context.UID())[0].getPath()
+            act_planned_end_date = [
+                act.planned_end_date
+                for act in api.content.find(
+                    path=path,
+                    portal_type=["pstaction", "action_link", "pstsubaction"],
+                )
+            ]
+            if act_planned_end_date:
+                return max(act_planned_end_date)
 
 
 class RepresentativeResponsibleVocabulary(object):
