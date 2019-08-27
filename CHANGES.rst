@@ -4,6 +4,9 @@ Changelog
 1.3 (unreleased)
 ----------------
 
+- Modifies the viewlet display for symlink and adapts it for all content
+  [vpiret]
+
 - Add viewlet for show action_link on action
   [vpiret]
 
