@@ -1,9 +1,14 @@
 # -*- coding: utf-8 -*-
+
 from AccessControl import getSecurityManager
+from Products.CMFCore.interfaces import ISiteRoot
 from collective.contact.plonegroup.utils import organizations_with_suffixes
 from datetime import date
 from DateTime import DateTime
+from collective.task.behaviors import ITask
 from imio.project.core.content.projectspace import IProjectSpace
+from imio.project.pst.content.action import IPSTAction
+from imio.project.pst.content.action import IPSTSubAction
 from plone import api
 from plone.app.contentmenu.menu import ActionsSubMenuItem as OrigActionsSubMenuItem
 from plone.app.contentmenu.menu import FactoriesSubMenuItem as OrigFactoriesSubMenuItem
@@ -180,6 +185,25 @@ def effective_begin_date_index(obj):
         return obj.effective_begin_date
 
     return UNSET_DATE_VALUE
+
+
+@indexer(ITask)
+def directly_in_pstaction_index(obj):
+    inner = obj.aq_inner
+    iter = inner
+
+    while iter is not None:
+        if IPSTSubAction.providedBy(iter):
+            return False
+        if IPSTAction.providedBy(iter):
+            return True
+        if ISiteRoot.providedBy(iter):
+            return False
+
+        if not hasattr(iter, "aq_parent"):
+            raise RuntimeError("Parent traversing interrupted by object: " + str(iter))
+
+        iter = iter.aq_parent
 
 
 ################

@@ -38,6 +38,9 @@
   <extra name="index_type" value="Okapi BM25 Rank"/>
   <extra name="lexicon_id" value="plone_lexicon"/>
  </index>
+ <index name="directly_in_pstaction" meta_type="BooleanIndex">
+  <indexed_attr value="directly_in_pstaction"/>
+ </index>
   <column value="categories" />
   <column value="planned_begin_date" />
   <column value="planned_end_date" />
