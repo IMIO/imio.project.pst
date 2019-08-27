@@ -1,9 +1,14 @@
 # -*- coding: utf-8 -*-
 """Custom viewlets."""
 
+from Acquisition import aq_parent, aq_inner
 from collective.task.browser.viewlets import TasksListViewlet as OriginalTasksListViewlet
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.app.layout.viewlets import ViewletBase
+from zope.component import getUtility
+from zope.intid.interfaces import IIntIds
+from zc.relation.interfaces import ICatalog
+from zope.security import checkPermission
 
 
 class TasksListViewlet(OriginalTasksListViewlet):
@@ -21,9 +26,29 @@ class TasksListViewlet(OriginalTasksListViewlet):
             return ""
 
 
-class ActionLinkForActionViewlet(ViewletBase):
+class ContentLinkViewlet(ViewletBase):
 
-    index = ViewPageTemplateFile('actionlinkforaction.pt')
+    index = ViewPageTemplateFile('contentlink.pt')
 
-    def action_link(self):
-        return [action.aq_parent for action in self.context.back_references()]
+    def content_link(self):
+        if self.back_references(self.context):
+            return [obj.aq_parent for obj in self.context.back_references()]
+        if hasattr(self.context, "_link_portal_type"):
+            ref = [obj for obj in self.context.symbolic_link.to_object.back_references()]
+            ref.append(self.context.symbolic_link.to_object)
+            return [obj.aq_parent for obj in ref if obj.absolute_url() != self.context.absolute_url()]
+
+    def back_references(self, context):
+        """
+        Return back references from source object on specified attribute_name
+        """
+        catalog = getUtility(ICatalog)
+        intids = getUtility(IIntIds)
+        result = []
+        for rel in catalog.findRelations(
+            dict(to_id=intids.getId(aq_inner(context)), from_attribute="symbolic_link")
+        ):
+            obj = intids.queryObject(rel.from_id)
+            if obj is not None and checkPermission("zope2.View", obj):
+                result.append(obj)
+        return result

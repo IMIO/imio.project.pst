@@ -263,11 +263,11 @@
             />
     </configure>
 
-     <browser:viewlet
-      for="..content.action.IPSTAction"
-      name="viewlet.PSTAction"
+    <browser:viewlet
+      for="*"
+      name="viewlet.ContentLink"
       manager="plone.app.layout.viewlets.interfaces.IAboveContentTitle"
-      class=".viewlets.ActionLinkForActionViewlet"
+      class=".viewlets.ContentLinkViewlet"
       permission="zope.Public"
       layer="..interfaces.IImioProjectPSTLayer"
       />

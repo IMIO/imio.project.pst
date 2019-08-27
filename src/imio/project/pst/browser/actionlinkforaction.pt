@@ -1,8 +1,0 @@
-<div tal:condition="view/action_link" i18n:domain="imio.project.pst">
-  <h3 i18n:translate="">This content has symbolic links</h3>
-  <ul>
-  <li tal:repeat="link view/action_link">
-    <a href="" tal:attributes="href link/absolute_url" tal:content="link/absolute_url" />
-  </li>
-  </ul>
-</div>
