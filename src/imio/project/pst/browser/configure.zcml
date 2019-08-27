@@ -272,4 +272,14 @@
       layer="..interfaces.IImioProjectPSTLayer"
       />
 
+    <browser:viewlet
+        for="*"
+        layer="collective.messagesviewlet.interfaces.ICollectiveMessagesviewletLayer"
+        name="information-message-viewlet"
+        manager="plone.app.layout.viewlets.interfaces.IAboveContentTitle"
+        class="imio.project.pst.browser.viewlets.ContextInformationViewlet"
+        permission="zope2.View"
+        />
+
+
 </configure>

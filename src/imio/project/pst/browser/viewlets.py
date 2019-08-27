@@ -3,11 +3,16 @@
 
 from Acquisition import aq_parent, aq_inner
 from collective.task.browser.viewlets import TasksListViewlet as OriginalTasksListViewlet
+from collective.messagesviewlet.message import generate_uid
+from collective.messagesviewlet.browser.messagesviewlet import MessagesViewlet
+from collective.messagesviewlet.message import PseudoMessage
+from imio.helpers.content import richtextval
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.app.layout.viewlets import ViewletBase
 from zope.component import getUtility
 from zope.intid.interfaces import IIntIds
 from zc.relation.interfaces import ICatalog
+from zope.i18n import translate
 from zope.security import checkPermission
 
 
@@ -52,3 +57,21 @@ class ContentLinkViewlet(ViewletBase):
             if obj is not None and checkPermission("zope2.View", obj):
                 result.append(obj)
         return result
+
+
+class ContextInformationViewlet(MessagesViewlet):
+    """
+        Viewlet displaying context information
+    """
+
+    def getAllMessages(self):
+        if hasattr(self.context, "_link_portal_type"):
+
+            ret = []
+            msg = translate(u"This content is a copy, to modify the original content click on this button ${edit}",
+                            domain='imio.project.pst', context=self.request,
+                            mapping={'edit': '<a href="{0}/edit">Edit</a>'.format(self.context.symbolic_link.to_object.absolute_url())})
+            ret.append(PseudoMessage(msg_type='significant', text=richtextval(msg),
+                       hidden_uid=generate_uid(), can_hide=False))
+            return ret
+
