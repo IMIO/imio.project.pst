@@ -26,6 +26,4 @@ class ActionLinkForActionViewlet(ViewletBase):
     index = ViewPageTemplateFile('actionlinkforaction.pt')
 
     def action_link(self):
-        return self.context.back_references()
-
-    # TODO: Show OO for action_link
+        return [action.aq_parent for action in self.context.back_references()]
