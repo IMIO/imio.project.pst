@@ -94,7 +94,7 @@ class OperationalObjectiveDataManager(AttributeField):
 
             try:
                 uid = self.context.UID()
-            except AttributeError:
+            except:
                 uid = None
             if uid is None:
                 return
@@ -108,6 +108,8 @@ class OperationalObjectiveDataManager(AttributeField):
             ]
             if act_planned_end_date:
                 return max(act_planned_end_date)
+
+        return super(OperationalObjectiveDataManager, self).get()
 
 
 class RepresentativeResponsibleVocabulary(object):

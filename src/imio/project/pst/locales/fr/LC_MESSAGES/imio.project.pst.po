@@ -198,7 +198,7 @@ msgstr "The 'workflow' menu - allows the user to execute workflow transitions"
 
 #: ../browser/contentlink.pt:2
 msgid "This content is also present :"
-msgstr "Ce contenu est aussi présent :"
+msgstr "Ce contenu est aussi présent dans :"
 
 #: ../profiles.zcml:31
 msgid "Update profile to run individually some update steps"
