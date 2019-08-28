@@ -71,7 +71,6 @@ class IPSTAction(IProject):
     # hide some fields
     form.omitted('visible_for')
     form.omitted('priority')
-    form.omitted('result_indicator')
 
 
 # We add a default value for the pstaction. This works but changes on other field params don't work.
