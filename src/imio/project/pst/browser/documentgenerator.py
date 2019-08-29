@@ -98,6 +98,13 @@ class DocumentGenerationPSTHelper(DXDocumentGenerationHelperView, DocumentGenera
         acts = self.getDGHV(oo).getActions(skip_states=skip_states)
         return acts
 
+    def getSubActions(self, action=None, skip_states=['created']):
+        """
+            return a list of contained pstsubactions
+        """
+        subs = self.getDGHV(action).getSubActions(skip_states=skip_states)
+        return subs
+
     def getTasks(self, action=None, depth=99, skip_states=['created']):
         """
             Get tasks ordered by path
@@ -227,6 +234,13 @@ class DocumentGenerationSOHelper(DXDocumentGenerationHelperView, DocumentGenerat
         acts = self.getDGHV(oo).getActions(skip_states=skip_states)
         return acts
 
+    def getSubActions(self, action=None, skip_states=['created']):
+        """
+            return a list of contained pstsubactions
+        """
+        subs = self.getDGHV(action).getSubActions(skip_states=skip_states)
+        return subs
+
     def getTasks(self, action=None, depth=99, skip_states=['created']):
         """
             Get tasks ordered by path
@@ -302,6 +316,13 @@ class DocumentGenerationOOHelper(DXDocumentGenerationHelperView, DocumentGenerat
                           sort_on='getObjPositionInParent')
             return [brain.getObject() for brain in brains]
 
+    def getSubActions(self, action=None, skip_states=['created']):
+        """
+            return a list of contained pstsubactions
+        """
+        subs = self.getDGHV(action).getSubActions(skip_states=skip_states)
+        return subs
+
     def getTasks(self, action=None, depth=99, skip_states=['created']):
         """
             Get tasks ordered by path
@@ -374,12 +395,112 @@ class DocumentGenerationPSTActionsHelper(DXDocumentGenerationHelperView, Documen
         else:
             return [self.real_context]
 
+    def getSubActions(self, action=None, skip_states=['created']):
+        """
+            return a list of contained pstsubactions
+        """
+        if self.is_dashboard() and self.sel_type == 'pstsubaction':
+            return [act for act in self.objs if act.__parent__ == action]
+        else:
+            context = action is None and self.real_context or action
+            pcat = self.real_context.portal_catalog
+            brains = pcat(portal_type='pstsubaction',
+                          path={'query': '/'.join(context.getPhysicalPath()), 'depth': 1},
+                          review_state=filter_states(self.portal, 'pstsubaction', skip_states),
+                          sort_on='getObjPositionInParent')
+            return [brain.getObject() for brain in brains]
+
+
+
     def formatHealthIndicator(self):
         """
             Return the health indicator details with a specific html class following the health indicator field
         """
         return '<p class="Santé-%s">%s</p>' % (self.real_context.health_indicator.encode('utf8'),
                                                 self.display_text_as_html('health_indicator_details'))
+
+    def getTasks(self, action=None, depth=99, skip_states=['created']):
+        """
+            Get tasks ordered by path
+        """
+        if self.is_dashboard() and self.sel_type == 'task':
+            return [tsk for tsk in self.objs if tsk.__parent__ == action]
+        else:
+            context = action is None and self.real_context or action
+            pcat = self.real_context.portal_catalog
+            brains = pcat(portal_type='task',
+                          path={'query': '/'.join(context.getPhysicalPath()), 'depth': depth},
+                          review_state=filter_states(self.portal, 'task', skip_states),
+                          sort_on='path')
+            return [brain.getObject() for brain in brains]
+
+
+class DocumentGenerationPSTSubActionsHelper(DXDocumentGenerationHelperView, DocumentGenerationBaseHelper, BudgetHelper):
+    """
+        Methods used in document generation view, for PSTSubAction
+    """
+
+    def getStrategicObjectives(self, skip_states=['created']):
+        """
+            get a list of the parent strategic objective of the current operationalobjective
+        """
+        if self.is_dashboard() and self.sel_type == 'task':
+            ret = []
+            for obj in self.objs:
+                os = obj.__parent__.__parent__.__parent__.__parent__
+                if os not in ret:
+                    ret.append(os)
+            return ret
+        else:
+            return [self.real_context.aq_inner.aq_parent.aq_inner.aq_parent.aq_inner.aq_parent]
+
+    def getOperationalObjectives(self, so=None, skip_states=['created']):
+        """
+            get a list of an unique contained operational objective
+        """
+        if self.is_dashboard() and self.sel_type == 'task':
+            ret = []
+            for obj in self.objs:
+                oo = obj.__parent__.__parent__.__parent__
+                if oo.__parent__ != so:
+                    continue
+                if oo not in ret:
+                    ret.append(oo)
+            return ret
+        else:
+            return [self.real_context.aq_inner.aq_parent.aq_inner.aq_parent]
+
+    def getActions(self, oo=None, skip_states=['created']):
+        """
+            return a list of contained pstactions
+        """
+        if self.is_dashboard() and self.sel_type == 'task':
+            ret = []
+            for obj in self.objs:
+                act = obj.__parent__.__parent__
+                if act.__parent__ != oo:
+                    continue
+                if act not in ret:
+                    ret.append(act)
+            return ret
+        else:
+            return [self.real_context.aq_inner.aq_parent]
+
+    def getSubActions(self, action=None, skip_states=['created']):
+        """
+            return a list of contained pstsubactions
+        """
+        if self.is_dashboard() and self.sel_type == 'task':
+            ret = []
+            for obj in self.objs:
+                sub = obj.__parent__
+                if sub.__parent__ != action:
+                    continue
+                if sub not in ret:
+                    ret.append(sub)
+            return ret
+        else:
+            return [self.real_context]
 
     def getTasks(self, action=None, depth=99, skip_states=['created']):
         """
