@@ -106,7 +106,8 @@ class TestDocumentGenerator(IntegrationTestCase):
         self.assertTrue(view.hasChildrenBudget(self.os1))
         self.assertIn('<tfoot><tr><td>Totals</td><td>32767.5</td><td>27860.0</td><td>4907.5</td><td>-</td><td>-</td>'
                       '<td>-</td><td>-</td></tr></tfoot>', view.getChildrenBudget())
-        self.assertEqual(view.getGlobalBudgetByYear(),{'2024': 0, '2020': 4907.5, '2021': 0, '2022': 0, '2023': 0, '2019': 28860.0})
+        self.assertEqual(view.getGlobalBudgetByYear(),
+                         {2024: 0, 2020: 4907.5, 2021: 0, 2022: 0, 2023: 0, 2019: 28860.0})
         # on dashboard
         view.request.form['facetedQuery'] = ''
         self.assertTrue(view.is_dashboard())

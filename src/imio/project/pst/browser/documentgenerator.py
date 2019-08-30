@@ -3,7 +3,7 @@
 from collective.documentgenerator.helper.archetypes import ATDocumentGenerationHelperView
 from collective.documentgenerator.helper.dexterity import DXDocumentGenerationHelperView
 from collective.eeafaceted.dashboard.browser.overrides import DashboardDocumentGenerationView
-from imio.project.core.config import CHILDREN_BUDGET_INFOS_ANNOTATION_KEY
+from imio.project.core.config import CHILDREN_BUDGET_INFOS_ANNOTATION_KEY as CBIAK
 from imio.project.core.utils import getProjectSpace
 from imio.project.pst.utils import filter_states
 from imio.pyutils.bs import remove_attributes
@@ -163,33 +163,32 @@ class BudgetHelper():
             has children budget ?
         """
         obj_annotations = IAnnotations(obj)
-        if CHILDREN_BUDGET_INFOS_ANNOTATION_KEY in obj_annotations:
-            for uid in obj_annotations[CHILDREN_BUDGET_INFOS_ANNOTATION_KEY]:
-                if obj_annotations[CHILDREN_BUDGET_INFOS_ANNOTATION_KEY][uid]:
+        if CBIAK in obj_annotations:
+            for uid in obj_annotations[CBIAK]:
+                if obj_annotations[CBIAK][uid]:
                     return True
         return False
 
     def getGlobalBudgetByYear(self):
         """
             Return a dictionary containing globalized budgets per year
-        """ 
+        """
         # initialize the dictionary in the year range defined by the project space
-        fixed_years = [str(y) for y in getProjectSpace(self.real_context).budget_years or []]
-        budget_by_year = {str(year) : 0 for year in fixed_years}
+        fixed_years = [y for y in getProjectSpace(self.real_context).budget_years or []]
+        budget_by_year = {year: 0 for year in fixed_years}
         # get the persistent dict
         annotations = IAnnotations(self.real_context)
         # get the children budget amounts
-        if CHILDREN_BUDGET_INFOS_ANNOTATION_KEY in annotations:
-            globalised_budget = annotations[CHILDREN_BUDGET_INFOS_ANNOTATION_KEY]
-            for children in globalised_budget:
-                for budget in globalised_budget[children]:
-                    if str(budget['year']) in fixed_years:
-                        budget_by_year[str(budget['year'])] += budget['amount']
+        if CBIAK in annotations:
+            globalised_budget = annotations[CBIAK]
+            for child in globalised_budget:
+                for budget in globalised_budget[child]:
+                    if budget['year'] in fixed_years:
+                        budget_by_year[budget['year']] += budget['amount']
         # get the current element budget amounts
-        own_budget = self.real_context.budget
-        for budget in own_budget:
-            if str(budget['year']) in fixed_years:
-                budget_by_year[str(budget['year'])] += budget['amount']
+        for budget in self.real_context.budget:
+            if budget['year'] in fixed_years:
+                budget_by_year[budget['year']] += budget['amount']
         return budget_by_year
 
 
