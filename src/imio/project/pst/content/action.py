@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from plone.dexterity.content import Container
 
 from collective.contact.plonegroup.utils import organizations_with_suffixes
 from dexterity.localrolesfield.field import LocalRolesField
@@ -147,6 +148,14 @@ class PSTAction(Project):
             if obj is not None and checkPermission('zope2.View', obj):
                 result.append(obj)
         return result
+
+    def allowedContentTypes(self):
+        allowed = super(Container, self).allowedContentTypes()
+        for item in self.listFolderContents():
+            if IPSTSubAction.providedBy(item):
+                allowed = [fti for fti in allowed if fti.id != 'task']
+                break
+        return allowed
 
 
 class PSTActionSchemaPolicy(DexteritySchemaPolicy):

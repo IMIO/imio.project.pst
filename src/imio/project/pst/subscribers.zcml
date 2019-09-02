@@ -33,4 +33,10 @@
         handler=".subscribers.pstaction_created"
         />
 
+    <subscriber
+        for="imio.project.pst.content.action.IPSTSubAction
+             zope.container.interfaces.IObjectAddedEvent"
+        handler=".subscribers.pstsubaction_created"
+        />
+
 </configure>

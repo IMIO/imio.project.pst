@@ -75,3 +75,13 @@ def operational_created(obj, event):
 def pstaction_created(obj, event):
     """  """
     alsoProvides(obj, ITaskDashboardBatchActions)
+
+
+def pstsubaction_created(obj, event):
+    """  """
+
+    # move into the created subaction any existing task found in its parent action
+    action = obj.__parent__
+    tasks = action.listFolderContents({'portal_type': 'task'})
+    for task in tasks:
+        api.content.move(task, obj)
