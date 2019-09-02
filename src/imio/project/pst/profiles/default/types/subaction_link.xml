@@ -1,21 +1,17 @@
 <?xml version="1.0"?>
-<object name="pstaction" meta_type="Dexterity FTI" i18n:domain="imio.project.pst"
+<object name="subaction_link" meta_type="Dexterity FTI" i18n:domain="imio.project.pst"
    xmlns:i18n="http://xml.zope.org/namespaces/i18n">
- <property name="title" i18n:translate="">PSTAction</property>
- <property name="description" i18n:translate=""></property>
- <property name="icon_expr"></property>
- <property name="factory">pstaction</property>
- <property name="add_view_expr">string:${folder_url}/++add++pstaction</property>
- <property name="link_target"></property>
+ <property name="title" i18n:translate="">SubAction link</property>
+ <property name="description" i18n:translate=""/>
+ <property name="icon_expr">string:${portal_url}/++resource++imio.project.pst/subaction_link_icon.png</property>
+ <property name="factory">subaction_link</property>
+ <property
+    name="add_view_expr">string:${folder_url}/++add++subaction_link</property>
+ <property name="link_target"/>
  <property name="immediate_view">view</property>
  <property name="global_allow">True</property>
  <property name="filter_content_types">True</property>
- <property name="allowed_content_types">
-  <element value="pstsubaction"/>
-  <element value="subaction_link" />
-  <element value="File"/>
-  <element value="task"/>
- </property>
+ <property name="allowed_content_types"/>
  <property name="allow_discussion">False</property>
  <property name="default_view">view</property>
  <property name="view_methods">
@@ -23,20 +19,16 @@
  </property>
  <property name="default_view_fallback">False</property>
  <property name="add_permission">cmf.AddPortalContent</property>
- <property name="schema_policy">schema_policy_pstaction</property>
- <property name="klass">imio.project.pst.content.action.PSTAction</property>
- <property name="behaviors">
-  <element value="plone.app.dexterity.behaviors.metadata.IDublinCore"/>
-  <element value="plone.app.content.interfaces.INameFromTitle" />
-  <element value="collective.task.behaviors.ITaskContainer" />
-  <element value="plone.app.versioningbehavior.behaviors.IVersionable" />
- </property>
-
+ <property name="klass">imio.project.pst.content.subaction_link.SubActionLink</property>
+ <property name="behaviors"/>
+ <property name="schema">imio.project.pst.content.subaction_link.ISubActionLink</property>
+ <property name="model_source"/>
+ <property name="model_file"/>
+ <property name="schema_policy">dexterity</property>
  <alias from="(Default)" to="(dynamic view)"/>
  <alias from="edit" to="@@edit"/>
  <alias from="sharing" to="@@sharing"/>
  <alias from="view" to="(selected layout)"/>
-
  <action title="View" action_id="view" category="object" condition_expr=""
     description="" icon_expr="" link_target="" url_expr="string:${object_url}"
     visible="True">

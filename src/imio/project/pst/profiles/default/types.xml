@@ -6,4 +6,6 @@
  <object name="operationalobjective" meta_type="Dexterity FTI"/>
  <object name="pstaction" meta_type="Dexterity FTI"/>
  <object name="pstsubaction" meta_type="Dexterity FTI"/>
+ <object name="action_link" meta_type="Dexterity FTI"/>
+ <object name="subaction_link" meta_type="Dexterity FTI"/>
 </object>
