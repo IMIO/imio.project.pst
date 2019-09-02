@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2019-08-27 09:08+0000\n"
+"POT-Creation-Date: 2019-09-02 13:15+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 
 #: ../profiles/default/types/action_link.xml
 msgid "Action link"
-msgstr ""
+msgstr "Lien action"
 
 #: ../setuphandlers.py:696
 msgid "Actions"
@@ -184,7 +184,12 @@ msgstr "Objectifs stratégiques"
 msgid "StrategicObjective"
 msgstr "Objectif stratégique"
 
+#: ../profiles/default/types/subaction_link.xml
+msgid "SubAction link"
+msgstr "Lien sous-action"
+
 #: ../content/action_link.py:12
+#: ../content/subaction_link.py:12
 msgid "Symbolic link"
 msgstr "Lien symbolique"
 
@@ -228,7 +233,7 @@ msgstr "En retard pdv échéance"
 msgid "Work plan: ${action_title}"
 msgstr "Plan de travail: ${action_title}"
 
-#: ../content/action.py:118
+#: ../content/action.py:117
 msgid "You must choose at least one group of which you are a member"
 msgstr "Vous devez choisir au moins un des groupes dont vous êtes membre"
 
