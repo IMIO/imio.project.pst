@@ -21,5 +21,8 @@
         <type type_id="pstsubaction">
             <bound-workflow workflow_id="pst_action_workflow" />
         </type>
+        <type type_id="subaction_link">
+            <bound-workflow workflow_id="pst_action_workflow" />
+        </type>
     </bindings>
 </object>

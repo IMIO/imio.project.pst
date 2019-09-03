@@ -38,10 +38,10 @@ class ContentLinkViewlet(ViewletBase):
 
     def content_link(self):
         if self.back_references(self.context):
-            return [obj.aq_parent for obj in self.context.back_references()]
+            return [obj.aq_parent for obj in self.back_references(self.context)]
         if hasattr(self.context, "_link_portal_type"):
             ref = [
-                obj for obj in self.context.symbolic_link.to_object.back_references()
+                obj for obj in self.back_references(self.context.symbolic_link.to_object)
             ]
             ref.append(self.context.symbolic_link.to_object)
             return [

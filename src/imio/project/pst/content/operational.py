@@ -103,7 +103,7 @@ class OperationalObjectiveDataManager(AttributeField):
                 act.planned_end_date
                 for act in api.content.find(
                     path=path,
-                    portal_type=["pstaction", "action_link", "pstsubaction"],
+                    portal_type=["pstaction", "action_link", "pstsubaction", "subaction_link"],
                 )
             ]
             if act_planned_end_date:

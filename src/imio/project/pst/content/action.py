@@ -2,6 +2,7 @@
 from plone.dexterity.content import Container
 
 from collective.contact.plonegroup.utils import organizations_with_suffixes
+from collective.task.interfaces import ITaskContent
 from dexterity.localrolesfield.field import LocalRolesField
 from imio.project.core.content.project import IProject
 from imio.project.core.content.project import Project
@@ -154,6 +155,9 @@ class PSTAction(Project):
         for item in self.listFolderContents():
             if IPSTSubAction.providedBy(item):
                 allowed = [fti for fti in allowed if fti.id != 'task']
+                break
+            if ITaskContent.providedBy(item):
+                allowed = [fti for fti in allowed if fti.id != 'subaction_link']
                 break
         return allowed
 
