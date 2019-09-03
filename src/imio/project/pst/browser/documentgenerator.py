@@ -62,7 +62,7 @@ class DocumentGenerationBaseHelper():
         return ret
 
     def skip_states(self):
-        return self.context_var('skip_states', 'created').split(',')
+        return self.context_var('skip_states').split(',')
 
 
 class DocumentGenerationPSTHelper(DXDocumentGenerationHelperView, DocumentGenerationBaseHelper):
@@ -352,7 +352,7 @@ class DocumentGenerationPSTActionsHelper(DXDocumentGenerationHelperView, Documen
         """
             get a list of the parent strategic objective of the current operationalobjective
         """
-        if self.is_dashboard() and self.sel_type == 'task':
+        if self.is_dashboard() and self.sel_type in ('task', 'pstsubaction'):
             ret = []
             for obj in self.objs:
                 os = obj.__parent__.__parent__.__parent__
@@ -366,7 +366,7 @@ class DocumentGenerationPSTActionsHelper(DXDocumentGenerationHelperView, Documen
         """
             get a list of an unique contained operational objective
         """
-        if self.is_dashboard() and self.sel_type == 'task':
+        if self.is_dashboard() and self.sel_type in ('task', 'pstsubaction'):
             ret = []
             for obj in self.objs:
                 oo = obj.__parent__.__parent__
@@ -382,7 +382,7 @@ class DocumentGenerationPSTActionsHelper(DXDocumentGenerationHelperView, Documen
         """
             return a list of contained pstactions
         """
-        if self.is_dashboard() and self.sel_type == 'task':
+        if self.is_dashboard() and self.sel_type in ('task', 'pstsubaction'):
             ret = []
             for obj in self.objs:
                 act = obj.__parent__
@@ -400,6 +400,8 @@ class DocumentGenerationPSTActionsHelper(DXDocumentGenerationHelperView, Documen
         """
         if self.is_dashboard() and self.sel_type == 'pstsubaction':
             return [act for act in self.objs if act.__parent__ == action]
+        elif self.is_dashboard() and self.sel_type == 'task':
+            return []
         else:
             context = action is None and self.real_context or action
             pcat = self.real_context.portal_catalog
@@ -436,6 +438,8 @@ class DocumentGenerationPSTActionsHelper(DXDocumentGenerationHelperView, Documen
         """
         if self.is_dashboard() and self.sel_type == 'task':
             return [tsk for tsk in self.objs if tsk.__parent__ == action]
+        if self.is_dashboard() and self.sel_type == 'pstsubaction':
+            return []
         else:
             context = action is None and self.real_context or action
             pcat = self.real_context.portal_catalog

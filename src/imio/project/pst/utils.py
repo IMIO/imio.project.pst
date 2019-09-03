@@ -24,16 +24,18 @@ def list_wf_states(context, portal_type):
         'ongoing',
         'achieved',
     ]
+    pst_action_wf_order = [
+        'created',
+        'to_be_scheduled',
+        'ongoing',
+        'terminated',
+        'stopped',
+    ]
     ordered_states = {
         'strategicobjective': pst_objective_wf_order,
         'operationalobjective': pst_objective_wf_order,
-        'pstaction': [
-            'created',
-            'to_be_scheduled',
-            'ongoing',
-            'terminated',
-            'stopped',
-        ],
+        'pstaction': pst_action_wf_order,
+        'pstsubaction': pst_action_wf_order,
         'task': [
             'created',
             'to_assign',
