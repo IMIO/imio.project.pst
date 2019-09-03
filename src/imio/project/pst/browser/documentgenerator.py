@@ -409,14 +409,26 @@ class DocumentGenerationPSTActionsHelper(DXDocumentGenerationHelperView, Documen
                           sort_on='getObjPositionInParent')
             return [brain.getObject() for brain in brains]
 
-
-
     def formatHealthIndicator(self):
         """
             Return the health indicator details with a specific html class following the health indicator field
         """
         return '<p class="Santé-%s">%s</p>' % (self.real_context.health_indicator.encode('utf8'),
                                                 self.display_text_as_html('health_indicator_details'))
+
+    def formatResultIndicator(self, reached=True, expected=True, sep=' | '):
+        """
+            Return the result indicator as a string
+        """
+        rows = []
+        for row in self.real_context.result_indicator:
+            if reached and expected:
+                rows.append("%s = %d / %d" % (row['label'].encode('utf8'), row['reached_value'], row['value']))
+            elif reached:
+                rows.append("%s = %d" % (row['label'].encode('utf8'), row['reached_value']))
+            elif expected:
+                rows.append("%s = %d" % (row['label'].encode('utf8'), row['value']))
+        return sep.join(rows)
 
     def getTasks(self, action=None, depth=99, skip_states=['created']):
         """
