@@ -16,6 +16,9 @@ class FacetedContainerFolderListingView(ContainerFolderListingView, FacetedConta
         ContainerFolderListingView.__init__(self, context, request)
         FacetedContainerView.__init__(self, context, request)
 
+    def has_subactions(self):
+        return self.context.listFolderContents({'portal_type': 'pstsubaction'})
+
 
 def get_criteria_holder(context):
     pst = getProjectSpace(context)
@@ -26,7 +29,10 @@ def get_criteria_holder(context):
     elif context.portal_type == 'operationalobjective':
         return pst.pstactions
     elif context.portal_type == 'pstaction':
-        return pst.tasks
+        if context.listFolderContents({'portal_type': 'pstsubaction'}):
+            return pst.pstactions
+        else:
+            return pst.tasks
     elif context.portal_type == 'pstsubaction':
         return pst.tasks
     elif not IFacetedNavigable.providedBy(context):
@@ -74,6 +80,19 @@ class Criteria(eeaCriteria):
             'title': u'path',
             'widget': u'path'})
         self.criteria.append(criterion)
+
+        if context.portal_type == 'pstaction' and self.context.id == 'pstactions':
+            criterion = Criterion(**{
+                '_cid_': u'portaltype',
+                'hidden': u'True',
+                'default': u'pstsubaction',
+                'index': u'portal_type',
+                'position': u'left',
+                'section': u'default',
+                'title': u'Portal type',
+                'count': u'False',
+                'widget': u'checkbox'})
+            self.criteria.append(criterion)
 
 
 class Listing(BrowserView):
