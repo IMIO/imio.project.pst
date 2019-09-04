@@ -1,0 +1,8 @@
+<td class="noPadding" i18n:domain="imio.project.pst">
+  <a tal:attributes="href string:${context/absolute_url}/export_as_xml"
+     target="_parent"
+     class="overlay overlay-ajax overlay-template-selection">
+     <input type="button" value="Export as XML" class="apButton apButtonAction" i18n:attributes="value" />
+  </a>
+</td>
+<td class="noPadding">

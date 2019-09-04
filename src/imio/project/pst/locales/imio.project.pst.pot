@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2019-09-02 13:15+0000\n"
+"POT-Creation-Date: 2019-09-04 12:29+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,6 +21,7 @@ msgstr ""
 msgid "Action link"
 msgstr ""
 
+#: ../browser/pstaction_folder_listing.pt:9
 #: ../setuphandlers.py:696
 msgid "Actions"
 msgstr ""
@@ -37,7 +38,7 @@ msgstr ""
 msgid "Archive PST"
 msgstr ""
 
-#: ../content/action.py:45
+#: ../content/action.py:47
 msgid "Choose a health level."
 msgstr ""
 
@@ -49,11 +50,11 @@ msgstr ""
 msgid "Choose principals that will be representative responsible for this project."
 msgstr ""
 
-#: ../content/action.py:35
+#: ../content/action.py:37
 msgid "Choose principals that will be representative responsible for this project. If nothing choosed, the oo value is used for searches."
 msgstr ""
 
-#: ../content/action.py:51
+#: ../content/action.py:53
 msgid "Details concerning the action health."
 msgstr ""
 
@@ -65,11 +66,15 @@ msgstr ""
 msgid "Effective end date"
 msgstr ""
 
-#: ../content/action.py:44
+#: ../browser/actions_panel_export_as_xml.pt:5
+msgid "Export as XML"
+msgstr ""
+
+#: ../content/action.py:46
 msgid "Health indicator"
 msgstr ""
 
-#: ../content/action.py:50
+#: ../content/action.py:52
 msgid "Health indicator_details"
 msgstr ""
 
@@ -125,7 +130,7 @@ msgstr ""
 msgid "Planned end date"
 msgstr ""
 
-#: ../content/action.py:34
+#: ../content/action.py:36
 #: ../content/operational.py:27
 msgid "Representative responsible"
 msgstr ""
@@ -195,6 +200,7 @@ msgstr ""
 msgid "Symbolic link"
 msgstr ""
 
+#: ../browser/pstaction_folder_listing.pt:10
 #: ../setuphandlers.py:697
 msgid "Tasks"
 msgstr ""
@@ -235,13 +241,8 @@ msgstr ""
 msgid "Work plan: ${action_title}"
 msgstr ""
 
-#: ../content/action.py:117
+#: ../content/action.py:119
 msgid "You must choose at least one group of which you are a member"
-msgstr ""
-
-#. Default: "Tasks"
-#: ../browser/pstaction_folder_listing.pt:9
-msgid "actions_legend_tasks"
 msgstr ""
 
 #: ../setuphandlers.py:400

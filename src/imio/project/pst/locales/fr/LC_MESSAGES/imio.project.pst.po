@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2019-09-02 13:15+0000\n"
+"POT-Creation-Date: 2019-09-04 12:29+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,6 +19,7 @@ msgstr ""
 msgid "Action link"
 msgstr "Lien action"
 
+#: ../browser/pstaction_folder_listing.pt:9
 #: ../setuphandlers.py:696
 msgid "Actions"
 msgstr "Actions"
@@ -35,7 +36,7 @@ msgstr "Tous"
 msgid "Archive PST"
 msgstr "Archiver le PST"
 
-#: ../content/action.py:45
+#: ../content/action.py:47
 msgid "Choose a health level."
 msgstr "Choisir un indice de santé."
 
@@ -47,11 +48,11 @@ msgstr "Sélectionner les utilisateurs qui seront responsable administratif de l
 msgid "Choose principals that will be representative responsible for this project."
 msgstr "Sélectionner les utilisateurs qui seront responsable mandataire de l'objectif."
 
-#: ../content/action.py:35
+#: ../content/action.py:37
 msgid "Choose principals that will be representative responsible for this project. If nothing choosed, the oo value is used for searches."
 msgstr "Sélectionner les utilisateurs qui seront responsable mandataire de l'objectif. Si personne n'est sélectionné, la valeur indiquée sur l'oo est utilisée pour les recherches."
 
-#: ../content/action.py:51
+#: ../content/action.py:53
 msgid "Details concerning the action health."
 msgstr "Décrire les détails concernant l'indice de santé."
 
@@ -63,11 +64,15 @@ msgstr "Date de début effective"
 msgid "Effective end date"
 msgstr "Date de fin effective"
 
-#: ../content/action.py:44
+#: ../browser/actions_panel_export_as_xml.pt:5
+msgid "Export as XML"
+msgstr "Exporter en XML"
+
+#: ../content/action.py:46
 msgid "Health indicator"
 msgstr "Indice de santé"
 
-#: ../content/action.py:50
+#: ../content/action.py:52
 msgid "Health indicator_details"
 msgstr "Détails de l'indice de santé"
 
@@ -123,7 +128,7 @@ msgstr "Date de début prévue"
 msgid "Planned end date"
 msgstr "Échéance"
 
-#: ../content/action.py:34
+#: ../content/action.py:36
 #: ../content/operational.py:27
 msgid "Representative responsible"
 msgstr "Responsable mandataire"
@@ -193,6 +198,7 @@ msgstr "Lien sous-action"
 msgid "Symbolic link"
 msgstr "Lien symbolique"
 
+#: ../browser/pstaction_folder_listing.pt:10
 #: ../setuphandlers.py:697
 msgid "Tasks"
 msgstr "Tâches"
@@ -233,14 +239,9 @@ msgstr "En retard pdv échéance"
 msgid "Work plan: ${action_title}"
 msgstr "Plan de travail: ${action_title}"
 
-#: ../content/action.py:117
+#: ../content/action.py:119
 msgid "You must choose at least one group of which you are a member"
 msgstr "Vous devez choisir au moins un des groupes dont vous êtes membre"
-
-#. Default: "Tasks"
-#: ../browser/pstaction_folder_listing.pt:9
-msgid "actions_legend_tasks"
-msgstr "Tâches"
 
 #: ../setuphandlers.py:400
 msgid "front_page_descr"

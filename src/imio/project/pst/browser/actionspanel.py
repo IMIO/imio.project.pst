@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from imio.actionspanel.browser.viewlets import ActionsPanelViewlet
 from imio.actionspanel.browser.views import ActionsPanelView
 from plone import api
@@ -44,7 +45,23 @@ class ProjectSpaceActionsPanelView(ActionsPanelView):
         super(ProjectSpaceActionsPanelView, self).__init__(context, request)
         self.context = context
         self.request = request
+        self.SECTIONS_TO_RENDER += (
+            'renderExportAsXML',
+        )
         self.ACCEPTABLE_ACTIONS = ('paste', 'delete', 'archive', )
+
+    def showExportAsXML(self):
+        return self.context.restrictedTraverse('pst-utils').is_in_user_groups(
+            user=self.member, groups=['pst_editors']
+        )
+
+    def renderExportAsXML(self):
+        """
+          Render export to XML button.
+        """
+        if self.showExportAsXML():
+            return ViewPageTemplateFile("actions_panel_export_as_xml.pt")(self)
+        return ''
 
     def sortTransitions(self, lst):
         """ Sort transitions following transitions list order """
