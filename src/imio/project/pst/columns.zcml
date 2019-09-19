@@ -5,6 +5,14 @@
     i18n_domain="collective.eeafaceted.z3ctable">
 
   <adapter
+     for="imio.project.pst.interfaces.IPSTDashboard
+          zope.publisher.interfaces.browser.IBrowserRequest
+          collective.eeafaceted.z3ctable.interfaces.IFacetedTable"
+     factory=".columns.IconTitleColumn"
+     provides="collective.eeafaceted.z3ctable.interfaces.IFacetedColumn"
+     name="pretty_link" />
+
+  <adapter
     for="zope.interface.Interface
          zope.publisher.interfaces.browser.IBrowserRequest
          collective.eeafaceted.z3ctable.interfaces.IFacetedTable"

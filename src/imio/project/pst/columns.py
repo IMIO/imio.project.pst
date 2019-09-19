@@ -15,6 +15,11 @@ from zope.component import getMultiAdapter
 import cgi
 
 
+class IconTitleColumn(PrettyLinkColumn):
+
+    params = {'showContentIcon': True, 'display_tag_title': False}
+
+
 class HistoryActionsColumn(ActionsColumn):
 
     params = {'showHistory': True, 'showActions': True}
