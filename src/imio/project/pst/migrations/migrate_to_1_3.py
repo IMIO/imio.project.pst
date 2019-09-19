@@ -43,7 +43,7 @@ class Migrate_To_1_3(Migrator):
         self.finish()
 
     def adapt_collections(self):
-        """Include subactions in existing action dashboard collections"""
+        """ Include subactions in existing action dashboard collections """
         pstactions = self.pc.searchResults(
             portal_type="Folder",
             object_provides="imio.project.pst.interfaces.IActionDashboardBatchActions"
@@ -58,6 +58,12 @@ class Migrate_To_1_3(Migrator):
                     if parameter['i'] == 'portal_type':
                         parameter['v'] = [u'pstaction', u'pstsubaction']
                 col.query = list(col.query)  # need this to persist change
+        # deactivate states collections to lighten menu
+        for brain in self.pc(portal_type='DashboardCollection'):
+            if brain.id.startswith('searchfor_'):
+                obj = brain.getObject()
+                obj.enabled = False
+                obj.reindexObject(idxs=['enabled'])
 
 
 def migrate(context):

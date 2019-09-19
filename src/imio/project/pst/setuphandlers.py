@@ -760,7 +760,7 @@ def createStateCollections(folder, content_type):
                 sort_reversed=True,
                 b_size=30,
                 limit=0,
-                enabled=True)
+                enabled=False)
             col = folder[col_id]
             col.setSubject((u'search', ))
             col.reindexObject(['Subject'])
