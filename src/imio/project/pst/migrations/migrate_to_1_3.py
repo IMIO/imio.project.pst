@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
+
+from collective.documentgenerator.utils import update_oo_config
 from imio.migrator.migrator import Migrator
+from Products.CPUtils.Extensions.utils import mark_last_version
 
 import logging
 
@@ -16,7 +19,25 @@ class Migrate_To_1_3(Migrator):
 
     def run(self):
 
+        # check if oo port must be changed
+        update_oo_config()
+
+        self.runProfileSteps('imio.project.pst', steps=['catalog', 'typeinfo', 'viewlets', 'workflow'])
+        self.runProfileSteps('imio.project.pst', steps=['repositorytool'], profile='demo')
+
         self.adapt_collections()
+
+        # templates
+        self.runProfileSteps('imio.project.pst', steps=['imioprojectpst-update-templates'], profile='update')
+        self.runProfileSteps('imio.project.pst', steps=['imioprojectpst-templates'], profile='default')
+
+        self.upgradeAll(omit=['imio.project.pst:default'])
+
+        for prod in ['plonetheme.imioapps']:
+            mark_last_version(self.portal, product=prod)
+
+        # Reorder css and js
+        self.runProfileSteps('imio.project.pst', steps=['cssregistry', 'jsregistry'])
 
         # Display duration
         self.finish()
@@ -26,15 +47,17 @@ class Migrate_To_1_3(Migrator):
         pstactions = self.pc.searchResults(
             portal_type="Folder",
             object_provides="imio.project.pst.interfaces.IActionDashboardBatchActions"
-        )[0]
-        for brain in self.pc.searchResults(
-                {'path': {'query': pstactions.getPath()},
-                 'portal_type': 'DashboardCollection'}
-        ):
-            col = brain.getObject()
-            for parameter in col.query:
-                if parameter['i'] == 'portal_type':
-                    parameter['v'] = [u'pstaction', u'pstsubaction']
+        )
+        for pstaction in pstactions:
+            for brain in self.pc.searchResults(
+                    {'path': {'query': pstaction.getPath()},
+                     'portal_type': 'DashboardCollection'}
+            ):
+                col = brain.getObject()
+                for parameter in col.query:
+                    if parameter['i'] == 'portal_type':
+                        parameter['v'] = [u'pstaction', u'pstsubaction']
+                col.query = list(col.query)  # need this to persist change
 
 
 def migrate(context):
