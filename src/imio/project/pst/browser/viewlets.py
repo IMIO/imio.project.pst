@@ -102,6 +102,7 @@ class ContextInformationViewlet(MessagesViewlet):
                         context=self.context,
                         portal_type=["pstaction", "action_link", "pstsubaction", "subaction_link"],
                     )
+                    if act.planned_end_date
                 ]
                 if act_planned_end_date:
                     if max(act_planned_end_date) > self.context.planned_end_date:
