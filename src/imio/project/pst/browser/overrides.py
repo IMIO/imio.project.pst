@@ -17,6 +17,6 @@ class DocumentBylineViewlet(IHDocumentBylineViewlet):
 
     def show(self):
         currentLayout = self.context.getLayout()
-        if currentLayout in ['facetednavigation_view', ]:
+        if currentLayout in ['facetednavigation_view', ] or self.context.portal_type in ('projectspace', ):
             return False
         return True

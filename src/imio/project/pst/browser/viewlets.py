@@ -1,20 +1,36 @@
 # -*- coding: utf-8 -*-
 """Custom viewlets."""
 
-from Acquisition import aq_parent, aq_inner
-from collective.task.browser.viewlets import TasksListViewlet as OriginalTasksListViewlet
-from collective.messagesviewlet.message import generate_uid
+from Acquisition import aq_inner
 from collective.messagesviewlet.browser.messagesviewlet import MessagesViewlet
+from collective.messagesviewlet.message import generate_uid
 from collective.messagesviewlet.message import PseudoMessage
+from collective.task.browser.viewlets import TasksListViewlet as OriginalTasksListViewlet
 from imio.helpers.content import richtextval
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from imio.prettylink.interfaces import IPrettyLink
 from plone import api
 from plone.app.layout.viewlets import ViewletBase
-from zope.component import getUtility
-from zope.intid.interfaces import IIntIds
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from zc.relation.interfaces import ICatalog
+from zope.component import getUtility
 from zope.i18n import translate
+from zope.intid.interfaces import IIntIds
 from zope.security import checkPermission
+
+
+class PrettyLinkTitleViewlet(ViewletBase):
+    """
+        Viewlet displaying a pretty link title
+    """
+
+    def adapted(self, showColors=False, display_tag_title=False, isViewable=False):
+        plo = IPrettyLink(self.context)
+        plo.showContentIcon = True
+        plo.showColors = showColors
+        plo.display_tag_title = display_tag_title
+        plo.isViewable = isViewable
+        plo.notViewableHelpMessage = ''
+        return plo
 
 
 class TasksListViewlet(OriginalTasksListViewlet):

@@ -28,6 +28,33 @@ a.addnewcontactfromorganization.link-overlay {
     display: None !important;
 }
 
+/* Hide original title */
+body.template-view.portaltype-strategicobjective h1.documentFirstHeading:not(.keep-it),
+body.template-view.portaltype-operationalobjective h1.documentFirstHeading:not(.keep-it),
+body.template-view.portaltype-pstaction h1.documentFirstHeading:not(.keep-it),
+body.template-view.portaltype-pstsubaction h1.documentFirstHeading:not(.keep-it),
+body.template-view.portaltype-action_link h1.documentFirstHeading:not(.keep-it),
+body.template-view.portaltype-subaction_link h1.documentFirstHeading:not(.keep-it),
+body.template-item_view.portaltype-task h1.documentFirstHeading:not(.keep-it) {
+    display: none;
+}
+
+/* Center icons in h1 viewlet */
+.icons-on h1#parent-fieldname-title .contenttype-strategicobjective {
+    background-position-y: -824px;
+}
+.icons-on h1#parent-fieldname-title .contenttype-operationalobjective {
+    background-position-y: 8px;
+}
+.icons-on h1#parent-fieldname-title .contenttype-pstaction,
+.icons-on h1#parent-fieldname-title .contenttype-pstsubaction {
+    background-position-y: -408px;
+}
+body.template-view h1 .pretty_link_icons img,
+body.template-item_view h1 .pretty_link_icons img{
+    vertical-align: baseline;
+}
+
 #content ul.parents_col {
     list-style-type: none;
     margin-left: 0;
@@ -87,7 +114,7 @@ body.template-view.portaltype-strategicobjective td.table_widget_label {
     background: url("++resource++imio.project.pst/pst_icons_sprite.png") no-repeat scroll 0 0 transparent;
 }
 .icons-on .contenttype-strategicobjective {
-    background: url("++resource++imio.project.pst/pst_icons_sprite.png") no-repeat scroll 0 -831px transparent;
+    background: url("++resource++imio.project.pst/pst_icons_sprite.png") no-repeat scroll 0 -832px transparent;
 }
 .icons-on .contenttype-pstaction {
     background: url("++resource++imio.project.pst/pst_icons_sprite.png") no-repeat scroll 0 -416px transparent;

@@ -1,6 +1,14 @@
 <?xml version="1.0"?>
 <object>
+    <order manager="plone.belowcontenttitle" skinname="*">
+        <viewlet name="pretty-link-title" insertbefore="*"/>
+        <viewlet name="imio.history.documentbyline" insertafter="pretty-link-title"/>
+    </order>
     <hidden manager="plone.abovecontenttitle" skinname="pstskin">
         <viewlet name="viewlet.symlink" />
+    </hidden>
+    <!-- force hidden because plone.app.layout reshow it -->
+    <hidden manager="plone.belowcontenttitle" skinname="*">
+        <viewlet name="plone.belowcontenttitle.documentbyline" />
     </hidden>
 </object>
