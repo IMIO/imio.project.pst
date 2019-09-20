@@ -1,0 +1,29 @@
+<html xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="imio.project.pst">
+<body>
+
+<div metal:fill-slot="main">
+
+    <div class="sitemap_toolbar">
+        <button id="deploy_sitemap" class="context">Deploy all</button>
+        <button id="collapse_sitemap" class="context">Collapse all</button>
+    </div>
+
+    <ul class="sitemap_jstree"
+         tal:define="tree view/navigation_tree_rec;
+                     element nocall:tree/element;
+                     children tree/children">
+
+        <li tal:content="element/title"
+            tal:attributes="href element/absolute_url"
+        />
+
+        <ul tal:content="structure python:view.recurse(children=children)"/>
+    </ul>
+
+
+</div>
+</body>
+</html>

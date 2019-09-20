@@ -58,6 +58,14 @@
       permission="zope2.View"
       />
 
+    <browser:page
+        for="imio.project.core.content.projectspace.IProjectSpace"
+        name="sitemap"
+        class=".sitemap.SitemapView"
+        template="projectspace_sitemap.pt"
+        permission="zope2.View"
+        />
+
     <browser:view
       for="imio.project.pst.content.operational.IOperationalObjective"
       name="faceted-table-view"
@@ -287,6 +295,15 @@
       name="viewlet.ContentLink"
       manager="plone.app.layout.viewlets.interfaces.IAboveContentTitle"
       class=".viewlets.ContentLinkViewlet"
+      permission="zope.Public"
+      layer="..interfaces.IImioProjectPSTLayer"
+      />
+
+    <browser:viewlet
+      for="*"
+      name="viewlet.SitemapLink"
+      manager="plone.app.layout.viewlets.interfaces.IAboveContentTitle"
+      class=".viewlets.SitemapLinkViewlet"
       permission="zope.Public"
       layer="..interfaces.IImioProjectPSTLayer"
       />

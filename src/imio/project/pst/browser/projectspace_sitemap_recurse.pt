@@ -1,0 +1,14 @@
+<tal:recursion i18n:domain="imio.project.pst"
+               tal:define="children options/children | nothing">
+    <li tal:repeat="child children">
+
+        <a tal:define="element nocall:child/element"
+           tal:content="element/Title"
+           tal:attributes="href element/absolute_url;
+                           class python:'icons-on contenttype-'+element.portal_type;
+                           id element/UID"
+        />
+
+        <ul tal:content="structure python:view.recurse(children=child.get('children', []))"/>
+    </li>
+</tal:recursion>

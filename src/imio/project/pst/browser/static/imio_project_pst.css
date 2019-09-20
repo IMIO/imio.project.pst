@@ -202,3 +202,22 @@ body.template-view.portaltype-strategicobjective td.table_widget_label {
     color: white !important;
     border: 2px solid dimgrey;
 }
+
+/* sitemap */
+
+#sitemap-link {
+    float: right;
+    clear: right;
+}
+
+.sitemap_toolbar {
+    padding: 15px 0px;
+}
+
+.sitemap_jstree ul {
+    list-style-type: none !important;
+
+    background-position:6px 1px;
+    background-repeat:repeat-y;
+    background-image:url(data:image/gif;base64,R0lGODlhAgACAIAAAB4dGf///yH5BAEAAAEALAAAAAACAAIAAAICRF4AOw==);
+}

@@ -8,6 +8,8 @@ from collective.messagesviewlet.message import PseudoMessage
 from collective.task.browser.viewlets import TasksListViewlet as OriginalTasksListViewlet
 from imio.helpers.content import richtextval
 from imio.prettylink.interfaces import IPrettyLink
+from imio.project.core.content.project import IProject
+from imio.project.core.utils import getProjectSpace
 from plone import api
 from plone.app.layout.viewlets import ViewletBase
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
@@ -137,3 +139,20 @@ class ContextInformationViewlet(MessagesViewlet):
                         )
 
         return ret
+
+
+class SitemapLinkViewlet(ViewletBase):
+
+    index = ViewPageTemplateFile('sitemap_link.pt')
+
+    def href(self):
+        pst = getProjectSpace(self.context)
+        if IProject.providedBy(self.context):  # TODO: test if context is descendant of pst ?
+            return "{0}/sitemap?came_from={1}".format(
+                pst.absolute_url(),
+                self.context.UID(),
+            )
+        else:
+            return "{0}/sitemap".format(
+                pst.absolute_url(),
+            )
