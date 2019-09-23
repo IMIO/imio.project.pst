@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2019-09-04 12:29+0000\n"
+"POT-Creation-Date: 2019-09-23 13:01+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -51,6 +51,14 @@ msgstr "Sélectionner les utilisateurs qui seront responsable mandataire de l'ob
 #: ../content/action.py:37
 msgid "Choose principals that will be representative responsible for this project. If nothing choosed, the oo value is used for searches."
 msgstr "Sélectionner les utilisateurs qui seront responsable mandataire de l'objectif. Si personne n'est sélectionné, la valeur indiquée sur l'oo est utilisée pour les recherches."
+
+#: ../browser/projectspace_sitemap.pt:11
+msgid "Collapse all"
+msgstr "Fermer tout"
+
+#: ../browser/projectspace_sitemap.pt:10
+msgid "Deploy all"
+msgstr "Ouvrir tout"
 
 #: ../content/action.py:53
 msgid "Details concerning the action health."
@@ -132,6 +140,10 @@ msgstr "Échéance"
 #: ../content/operational.py:27
 msgid "Representative responsible"
 msgstr "Responsable mandataire"
+
+#: ../browser/sitemap_link.pt:6
+msgid "Sitemap"
+msgstr "Plan du PST"
 
 #: ../setuphandlers.py:725
 msgid "State: achieved"

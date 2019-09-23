@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2019-09-04 12:29+0000\n"
+"POT-Creation-Date: 2019-09-23 13:01+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -52,6 +52,14 @@ msgstr ""
 
 #: ../content/action.py:37
 msgid "Choose principals that will be representative responsible for this project. If nothing choosed, the oo value is used for searches."
+msgstr ""
+
+#: ../browser/projectspace_sitemap.pt:11
+msgid "Collapse all"
+msgstr ""
+
+#: ../browser/projectspace_sitemap.pt:10
+msgid "Deploy all"
 msgstr ""
 
 #: ../content/action.py:53
@@ -133,6 +141,10 @@ msgstr ""
 #: ../content/action.py:36
 #: ../content/operational.py:27
 msgid "Representative responsible"
+msgstr ""
+
+#: ../browser/sitemap_link.pt:6
+msgid "Sitemap"
 msgstr ""
 
 #: ../setuphandlers.py:725

@@ -3,6 +3,6 @@
      id="sitemap-link"
      target="_parent"
      class="overlay overlay-ajax overlay-template-selection">
-     <input type="button" value="Sitemap" class="apButton apButtonAction" i18n:attributes="value" />
+     <input type="button" value="Sitemap" class="apButton" i18n:attributes="value" />
   </a>
 </tal:link>

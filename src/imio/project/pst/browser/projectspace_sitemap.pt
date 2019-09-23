@@ -7,8 +7,8 @@
 <div metal:fill-slot="main">
 
     <div class="sitemap_toolbar">
-        <button id="deploy_sitemap" class="context">Deploy all</button>
-        <button id="collapse_sitemap" class="context">Collapse all</button>
+        <button id="deploy_sitemap" class="context" i18n:translate="">Deploy all</button>
+        <button id="collapse_sitemap" class="context" i18n:translate="">Collapse all</button>
     </div>
 
     <ul class="sitemap_jstree"
