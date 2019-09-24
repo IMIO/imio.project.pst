@@ -211,13 +211,21 @@ body.template-view.portaltype-strategicobjective td.table_widget_label {
 }
 
 .sitemap_toolbar {
-    padding: 15px 0px;
+    padding: 15px 0;
 }
 
 .sitemap_jstree ul {
     list-style-type: none !important;
+}
 
-    background-position:6px 1px;
-    background-repeat:repeat-y;
-    background-image:url(data:image/gif;base64,R0lGODlhAgACAIAAAB4dGf///yH5BAEAAAEALAAAAAACAAIAAAICRF4AOw==);
+.sitemap_jstree li a {
+    text-decoration: underline !important;
+}
+
+.sitemap_jstree li.open:not(.last-level) {
+    background:url("jstree_icons.png") -32px -48px no-repeat;
+}
+
+.sitemap_jstree li.closed:not(.last-level) {
+    background:url("jstree_icons.png") -48px -32px no-repeat;
 }

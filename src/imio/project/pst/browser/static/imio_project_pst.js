@@ -10,9 +10,11 @@ $(document).ready(function(){
                 creatable: false
             }
         },
+
         ui : {
-            dots: true
+            dots: false
         },
+
         callback: {
             onload: function(tree) {
                 var searchParams = new URLSearchParams(window.location.search);
@@ -38,13 +40,17 @@ $(document).ready(function(){
 
                 $("#deploy_sitemap").on("click", function() {
                     tree.open_all();
-                })
+                });
 
 
                 $("#collapse_sitemap").on("click", function() {
                     tree.close_all();
-                })
+                });
 
+            },
+
+            onselect: function (node, tree) {
+                window.open(node.firstElementChild.href, "_blank");
             }
         }
     });

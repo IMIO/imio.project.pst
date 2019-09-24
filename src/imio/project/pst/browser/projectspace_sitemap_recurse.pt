@@ -1,6 +1,8 @@
 <tal:recursion i18n:domain="imio.project.pst"
                tal:define="children options/children | nothing">
-    <li tal:repeat="child children">
+    <tal:loop tal:repeat="child children">
+    <li tal:define="last_level python: 'last-level' if not child.get('children', []) else ''"
+        tal:attributes="class last_level">
 
         <a tal:define="element nocall:child/element"
            tal:content="element/Title"
@@ -11,4 +13,5 @@
 
         <ul tal:content="structure python:view.recurse(children=child.get('children', []))"/>
     </li>
+    </tal:loop>
 </tal:recursion>
