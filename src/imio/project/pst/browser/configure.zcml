@@ -300,7 +300,7 @@
       />
 
     <browser:viewlet
-      for="*"
+      for=".interfaces.IMyFacetedNavigable"
       name="viewlet.SitemapLink"
       manager="plone.app.layout.viewlets.interfaces.IAboveContentTitle"
       class=".viewlets.SitemapLinkViewlet"
