@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2019-09-23 13:01+0000\n"
+"POT-Creation-Date: 2019-09-25 10:48+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,7 +26,7 @@ msgstr ""
 msgid "Actions"
 msgstr ""
 
-#: ../content/operational.py:37
+#: ../content/operational.py:38
 msgid "Administrative responsible"
 msgstr ""
 
@@ -42,11 +42,11 @@ msgstr ""
 msgid "Choose a health level."
 msgstr ""
 
-#: ../content/operational.py:38
+#: ../content/operational.py:39
 msgid "Choose principals that will be administrative responsible for this project."
 msgstr ""
 
-#: ../content/operational.py:28
+#: ../content/operational.py:29
 msgid "Choose principals that will be representative responsible for this project."
 msgstr ""
 
@@ -94,6 +94,10 @@ msgstr ""
 msgid "Installs the imio.project.pst add-on."
 msgstr ""
 
+#: ../content/operational.py:61
+msgid "Lasting objectives"
+msgstr ""
+
 #. Default: "Actions"
 #: ../browser/portlet_mainimioprojectpst.pt:72
 msgid "Main_menu_action_section"
@@ -139,8 +143,12 @@ msgid "Planned end date"
 msgstr ""
 
 #: ../content/action.py:36
-#: ../content/operational.py:27
+#: ../content/operational.py:28
 msgid "Representative responsible"
+msgstr ""
+
+#: ../content/operational.py:62
+msgid "Select lasting objectives."
 msgstr ""
 
 #: ../browser/sitemap_link.pt:6
