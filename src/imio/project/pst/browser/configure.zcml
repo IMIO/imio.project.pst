@@ -308,15 +308,6 @@
         />
 
     <browser:viewlet
-      for="*"
-      name="viewlet.ContentLink"
-      manager="plone.app.layout.viewlets.interfaces.IAboveContentTitle"
-      class=".viewlets.ContentLinkViewlet"
-      permission="zope.Public"
-      layer="..interfaces.IImioProjectPSTLayer"
-      />
-
-    <browser:viewlet
       for=".interfaces.IMyFacetedNavigable"
       name="viewlet.SitemapLink"
       manager="plone.app.layout.viewlets.interfaces.IAboveContentTitle"
@@ -334,5 +325,32 @@
         permission="zope2.View"
         />
 
+    <!-- Content link viewlet -->
+    <browser:viewlet
+      for="imio.project.pst.content.action.IPSTAction"
+      name="viewlet.ContentLink"
+      manager="plone.app.layout.viewlets.interfaces.IAboveContentTitle"
+      class=".viewlets.ContentLinkViewlet"
+      permission="zope.Public"
+      layer="..interfaces.IImioProjectPSTLayer"
+      />
+
+    <browser:viewlet
+      for="imio.project.pst.content.action_link.IActionLink"
+      name="viewlet.ContentLink"
+      manager="plone.app.layout.viewlets.interfaces.IAboveContentTitle"
+      class=".viewlets.ContentLinkViewlet"
+      permission="zope.Public"
+      layer="..interfaces.IImioProjectPSTLayer"
+      />
+
+    <browser:viewlet
+      for="imio.project.pst.content.subaction_link.ISubActionLink"
+      name="viewlet.ContentLink"
+      manager="plone.app.layout.viewlets.interfaces.IAboveContentTitle"
+      class=".viewlets.ContentLinkViewlet"
+      permission="zope.Public"
+      layer="..interfaces.IImioProjectPSTLayer"
+      />
 
 </configure>
