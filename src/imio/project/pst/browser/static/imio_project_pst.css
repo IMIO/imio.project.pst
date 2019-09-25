@@ -104,7 +104,8 @@ body.template-view.portaltype-strategicobjective td.table_widget_label {
 /* icons on types */
 .icons-on .contenttype-strategicobjective, .icons-on .contenttype-operationalobjective,
 .icons-on .contenttype-pstaction, .icons-on .contenttype-pstsubaction,
-.icons-on #faceted-results .contenttype-task {
+.icons-on #faceted-results .contenttype-task,
+.icons-on #portal-breadcrumbs .contenttype-task {
     display: inline-block;
     line-height: 1.2em;
     padding-left: 20px;
@@ -123,7 +124,8 @@ body.template-view.portaltype-strategicobjective td.table_widget_label {
     background: url("++resource++imio.project.pst/pst_icons_sprite.png") no-repeat scroll 0 -416px transparent;
 }
 
-.icons-on #faceted-results .contenttype-task {
+.icons-on #faceted-results .contenttype-task,
+.icons-on #portal-breadcrumbs .contenttype-task {
     background: url("++resource++collective.task/task_icon.png") no-repeat scroll 0 0 transparent;
 }
 

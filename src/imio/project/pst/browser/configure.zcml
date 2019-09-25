@@ -260,6 +260,23 @@
         "
         />
 
+    <!-- breadcrumb override -->
+    <browser:page
+        for="imio.project.core.content.project.IProject"
+        name="breadcrumbs_view"
+        class="imio.project.pst.browser.overrides.PhysicalNavigationBreadcrumbs"
+        permission="zope.Public"
+        allowed_attributes="breadcrumbs"
+        />
+
+    <browser:page
+        for="collective.task.interfaces.ITaskContent"
+        name="breadcrumbs_view"
+        class="imio.project.pst.browser.overrides.PhysicalNavigationBreadcrumbs"
+        permission="zope.Public"
+        allowed_attributes="breadcrumbs"
+        />
+
     <!-- Specific view for versioning -->
     <configure package="plone.dexterity">
         <browser:page
