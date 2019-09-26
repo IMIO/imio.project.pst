@@ -14,7 +14,3 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: imio.project.core\n"
 "X-is-fallback-for: fr-fr fr-be fr-ca\n"
-
-#: ./content/project.py:51
-msgid "Categories"
-msgstr "Catégories"

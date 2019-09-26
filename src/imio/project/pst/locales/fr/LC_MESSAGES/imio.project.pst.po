@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2019-09-25 10:48+0000\n"
+"POT-Creation-Date: 2019-09-26 12:22+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,322 +15,322 @@ msgstr ""
 "Domain: imio.project.pst\n"
 "X-is-fallback-for: fr-fr fr-be fr-ca\n"
 
-#: ../profiles/default/types/action_link.xml
+#: ./profiles/default/types/action_link.xml
 msgid "Action link"
 msgstr "Lien action"
 
-#: ../browser/pstaction_folder_listing.pt:9
-#: ../setuphandlers.py:696
+#: ./browser/pstaction_folder_listing.pt:9
+#: ./setuphandlers.py:696
 msgid "Actions"
 msgstr "Actions"
 
-#: ../content/operational.py:38
+#: ./content/operational.py:39
 msgid "Administrative responsible"
 msgstr "Responsable administratif"
 
-#: ../setuphandlers.py:801
+#: ./setuphandlers.py:801
 msgid "All"
 msgstr "Tous"
 
-#: ../profiles/default/actions.xml
+#: ./profiles/default/actions.xml
 msgid "Archive PST"
 msgstr "Archiver le PST"
 
-#: ../content/action.py:47
+#: ./content/action.py:47
 msgid "Choose a health level."
 msgstr "Choisir un indice de santé."
 
-#: ../content/operational.py:39
+#: ./content/operational.py:40
 msgid "Choose principals that will be administrative responsible for this project."
 msgstr "Sélectionner les utilisateurs qui seront responsable administratif de l'objectif."
 
-#: ../content/operational.py:29
+#: ./content/operational.py:30
 msgid "Choose principals that will be representative responsible for this project."
 msgstr "Sélectionner les utilisateurs qui seront responsable mandataire de l'objectif."
 
-#: ../content/action.py:37
+#: ./content/action.py:37
 msgid "Choose principals that will be representative responsible for this project. If nothing choosed, the oo value is used for searches."
 msgstr "Sélectionner les utilisateurs qui seront responsable mandataire de l'objectif. Si personne n'est sélectionné, la valeur indiquée sur l'oo est utilisée pour les recherches."
 
-#: ../browser/projectspace_sitemap.pt:11
+#: ./browser/projectspace_sitemap.pt:11
 msgid "Collapse all"
 msgstr "Fermer tout"
 
-#: ../browser/projectspace_sitemap.pt:10
+#: ./browser/projectspace_sitemap.pt:10
 msgid "Deploy all"
 msgstr "Ouvrir tout"
 
-#: ../content/action.py:53
+#: ./content/action.py:53
 msgid "Details concerning the action health."
 msgstr "Décrire les détails concernant l'indice de santé."
 
-#: ../profiles/default/registry.xml
+#: ./profiles/default/registry.xml
 msgid "Effective begin date"
 msgstr "Date de début effective"
 
-#: ../profiles/default/registry.xml
+#: ./profiles/default/registry.xml
 msgid "Effective end date"
 msgstr "Date de fin effective"
 
-#: ../browser/actions_panel_export_as_xml.pt:5
+#: ./browser/actions_panel_export_as_xml.pt:5
 msgid "Export as XML"
 msgstr "Exporter en XML"
 
-#: ../content/action.py:46
+#: ./content/action.py:46
 msgid "Health indicator"
 msgstr "Indice de santé"
 
-#: ../content/action.py:52
+#: ./content/action.py:52
 msgid "Health indicator_details"
 msgstr "Détails de l'indice de santé"
 
-#: ../profiles.zcml:22
+#: ./profiles.zcml:22
 msgid "Import some demo data for the imio.project.pst add-on."
 msgstr "Import some demo data for the imio.project.pst"
 
-#: ../profiles.zcml:14
+#: ./profiles.zcml:14
 msgid "Installs the imio.project.pst add-on."
 msgstr "Installs the imio.project.pst"
 
-#: ../content/operational.py:61
+#: ./content/operational.py:62
 msgid "Lasting objectives"
 msgstr "Objectifs durables"
 
 #. Default: "Actions"
-#: ../browser/portlet_mainimioprojectpst.pt:72
+#: ./browser/portlet_mainimioprojectpst.pt:72
 msgid "Main_menu_action_section"
 msgstr "Actions"
 
 #. Default: "Operational Objectives"
-#: ../browser/portlet_mainimioprojectpst.pt:39
+#: ./browser/portlet_mainimioprojectpst.pt:39
 msgid "Main_menu_oo_section"
 msgstr "Objectifs opérationnels"
 
 #. Default: "Strategic Objectives"
-#: ../browser/portlet_mainimioprojectpst.pt:20
+#: ./browser/portlet_mainimioprojectpst.pt:20
 msgid "Main_menu_os_section"
 msgstr "Objectifs stratégiques"
 
 #. Default: "Main menu"
-#: ../browser/portlet_mainimioprojectpst.pt:15
+#: ./browser/portlet_mainimioprojectpst.pt:15
 msgid "Main_menu_title"
 msgstr "Menu PST"
 
-#: ../setuphandlers.py:695
+#: ./setuphandlers.py:695
 msgid "Operational objectives"
 msgstr "Objectifs opérationnels"
 
-#: ../profiles/default/types/operationalobjective.xml
+#: ./profiles/default/types/operationalobjective.xml
 msgid "OperationalObjective"
 msgstr "Objectif opérationnel"
 
-#: ../profiles/default/types/pstaction.xml
+#: ./profiles/default/types/pstaction.xml
 msgid "PSTAction"
 msgstr "Action"
 
-#: ../profiles/default/types/pstsubaction.xml
+#: ./profiles/default/types/pstsubaction.xml
 msgid "PSTSubAction"
 msgstr "Sous-action"
 
-#: ../profiles/default/registry.xml
+#: ./profiles/default/registry.xml
 msgid "Planned begin date"
 msgstr "Date de début prévue"
 
-#: ../profiles/default/registry.xml
+#: ./profiles/default/registry.xml
 msgid "Planned end date"
 msgstr "Échéance"
 
-#: ../content/action.py:36
-#: ../content/operational.py:28
+#: ./content/action.py:36
+#: ./content/operational.py:29
 msgid "Representative responsible"
 msgstr "Responsable mandataire"
 
-#: ../content/operational.py:62
+#: ./content/operational.py:63
 msgid "Select lasting objectives."
 msgstr "Sélectionner des objectifs durables"
 
-#: ../browser/sitemap_link.pt:6
+#: ./browser/sitemap_link.pt:6
 msgid "Sitemap"
 msgstr "Plan du PST"
 
-#: ../setuphandlers.py:725
+#: ./setuphandlers.py:725
 msgid "State: achieved"
 msgstr "État: clôturé"
 
-#: ../setuphandlers.py:733
+#: ./setuphandlers.py:733
 msgid "State: closed"
 msgstr "État: clôturé"
 
-#: ../setuphandlers.py:723
+#: ./setuphandlers.py:723
 msgid "State: created"
 msgstr "État: en création"
 
-#: ../setuphandlers.py:735
+#: ./setuphandlers.py:735
 msgid "State: in progress"
 msgstr "État: en cours"
 
-#: ../setuphandlers.py:724
+#: ./setuphandlers.py:724
 msgid "State: ongoing"
 msgstr "État: en cours"
 
-#: ../setuphandlers.py:736
+#: ./setuphandlers.py:736
 msgid "State: realized"
 msgstr "État: réalisé"
 
-#: ../setuphandlers.py:731
+#: ./setuphandlers.py:731
 msgid "State: stopped"
 msgstr "État: annulé"
 
-#: ../setuphandlers.py:730
+#: ./setuphandlers.py:730
 msgid "State: terminated"
 msgstr "État: finalisé"
 
-#: ../setuphandlers.py:738
+#: ./setuphandlers.py:738
 msgid "State: to assign"
 msgstr "État: à assigner"
 
-#: ../setuphandlers.py:728
+#: ./setuphandlers.py:728
 msgid "State: to be scheduled"
 msgstr "État: à agender"
 
-#: ../setuphandlers.py:737
+#: ./setuphandlers.py:737
 msgid "State: to do"
 msgstr "État: à faire"
 
-#: ../testing.zcml:17
+#: ./testing.zcml:17
 msgid "Steps to ease tests of imio.project.pst"
 msgstr "Steps to ease tests of imio.project.pst"
 
-#: ../setuphandlers.py:694
+#: ./setuphandlers.py:694
 msgid "Strategic objectives"
 msgstr "Objectifs stratégiques"
 
-#: ../profiles/default/types/strategicobjective.xml
+#: ./profiles/default/types/strategicobjective.xml
 msgid "StrategicObjective"
 msgstr "Objectif stratégique"
 
-#: ../profiles/default/types/subaction_link.xml
+#: ./profiles/default/types/subaction_link.xml
 msgid "SubAction link"
 msgstr "Lien sous-action"
 
-#: ../content/action_link.py:12
-#: ../content/subaction_link.py:12
+#: ./content/action_link.py:12
+#: ./content/subaction_link.py:12
 msgid "Symbolic link"
 msgstr "Lien symbolique"
 
-#: ../browser/pstaction_folder_listing.pt:10
-#: ../setuphandlers.py:697
+#: ./browser/pstaction_folder_listing.pt:10
+#: ./setuphandlers.py:697
 msgid "Tasks"
 msgstr "Tâches"
 
-#: ../overrides.zcml:25
+#: ./overrides.zcml:25
 msgid "The 'workflow' menu - allows the user to execute workflow transitions"
 msgstr "The 'workflow' menu - allows the user to execute workflow transitions"
 
-#: ../browser/contentlink.pt:2
+#: ./browser/contentlink.pt:2
 msgid "This content is also present :"
 msgstr "Ce contenu est aussi présent dans :"
 
-#: ../profiles.zcml:31
+#: ./profiles.zcml:31
 msgid "Update profile to run individually some update steps"
 msgstr "Update profile to run individually some update steps"
 
-#: ../setuphandlers.py:823
+#: ./setuphandlers.py:823
 msgid "Which I am administrative responsible"
 msgstr "Dont je suis responsable administratif"
 
-#: ../setuphandlers.py:840
+#: ./setuphandlers.py:840
 msgid "Which I am manager"
 msgstr "Dont je suis gestionnaire"
 
-#: ../setuphandlers.py:857
+#: ./setuphandlers.py:857
 msgid "Which an action deadline has passed"
 msgstr "En retard pdv échéance actions"
 
-#: ../setuphandlers.py:910
+#: ./setuphandlers.py:910
 msgid "Which beginning is late"
 msgstr "En retard pdv date début effective"
 
-#: ../setuphandlers.py:894
+#: ./setuphandlers.py:894
 msgid "Which deadline has passed"
 msgstr "En retard pdv échéance"
 
-#: ../migrations/migrate_to_1_0.py:35
+#: ./migrations/migrate_to_1_0.py:35
 msgid "Work plan: ${action_title}"
 msgstr "Plan de travail: ${action_title}"
 
-#: ../content/action.py:119
+#: ./content/action.py:119
 msgid "You must choose at least one group of which you are a member"
 msgstr "Vous devez choisir au moins un des groupes dont vous êtes membre"
 
-#: ../setuphandlers.py:400
+#: ./setuphandlers.py:400
 msgid "front_page_descr"
 msgstr "Bienvenue sur votre outil de gestion du PST"
 
-#: ../setuphandlers.py:401
+#: ./setuphandlers.py:401
 msgid "front_page_text"
 msgstr "<p>&nbsp;</p><p>L'application de gestion du PST contient actuellement les <strong>fonctionnalités suivantes</strong>:</p><ul><li>encodage des objectifs stratégiques, des objectifs opérationnels et des actions</li><li>encodage de tâches</li><li>visualisation des éléments via des tableaux de bord filtrables</li><li>génération de document au format bureautique</li><li>exportation des données au format excel</li><li>gestion des contacts (services traitants, échevins)</li><li>gestion des droits par service</li><li>workflow de traitement sur tous les types d'éléments</li><li>référence unique par élément, facilitant la recherche</li><li>...</li></ul><p>&nbsp;</p><p>Deux <strong>documents</strong> sont actuellement <strong>générés</strong>:</p><ul><li>\"Détaillé\"<ul><li>Il présente les éléments de manière structurée (arborescente).</li><li>Il contient toutes les informations enregistrées sur les OS, OO, actions. Une variante rajoute les tâches.</li><li>Son contenu varie en fonction du contexte où il est généré ou de la sélection effectuée dans un tableau de bord</li></ul></li><li>\"Suivi\"<ul><li>Il présente les éléments de manière structurée (arborescente).</li><li>Il contient les informations importantes de suivi sur les OS, OO, actions. Une variante rajoute les tâches.</li><li>Son contenu varie en fonction du contexte où il est généré ou de la sélection effectuée dans un tableau de bord</li></ul></li></ul><p>&nbsp;<p>Les <strong>fonctionnalités à venir</strong>:</p></p><ul><li>lien avec la gestion du collège / conseil</li><li>gestion de dossiers</li><li>remontée de données budgétaires</li><li>etc.</li></ul>"
 
-#: ../setuphandlers.py:399
+#: ./setuphandlers.py:399
 msgid "front_page_title"
 msgstr "Programme Stratégique Transversal 1.2"
 
-#: ../profiles.zcml:14
-#: ../setuphandlers.py:58
+#: ./profiles.zcml:14
+#: ./setuphandlers.py:58
 msgid "imio.project.pst"
 msgstr "imio.project.pst"
 
-#: ../profiles.zcml:22
+#: ./profiles.zcml:22
 msgid "imio.project.pst demo profile"
 msgstr "imio.project.pst demo profile"
 
-#: ../testing.zcml:17
+#: ./testing.zcml:17
 msgid "imio.project.pst tests"
 msgstr "imio.project.pst tests"
 
-#: ../profiles.zcml:31
+#: ./profiles.zcml:31
 msgid "imio.project.pst update profile to run individually some update steps"
 msgstr "imio.project.pst update profile to run individually some update steps"
 
 #. Default: "Actions"
-#: ../browser/operationalobjective_folder_listing.pt:9
+#: ./browser/operationalobjective_folder_listing.pt:9
 msgid "operational_legend_actions"
 msgstr "Actions à mener"
 
 #. Default: "Strategic objectives"
-#: ../browser/projectspace_folder_listing.pt:9
+#: ./browser/projectspace_folder_listing.pt:9
 msgid "projectspace_legend_strategic_objectives"
 msgstr "Objectifs stratégiques"
 
 #. Default: "Operational objectives"
-#: ../browser/strategicobjective_folder_listing.pt:9
+#: ./browser/strategicobjective_folder_listing.pt:9
 msgid "strategic_legend_operational_objectives"
 msgstr "Objectifs opérationnels"
 
-#: ../setuphandlers.py:981
+#: ./setuphandlers.py:981
 msgid "task_have_treated"
 msgstr "Que j'ai traité"
 
-#: ../setuphandlers.py:964
+#: ./setuphandlers.py:964
 msgid "task_im_treating"
 msgstr "Que je traite"
 
-#: ../setuphandlers.py:947
+#: ./setuphandlers.py:947
 msgid "task_to_treat"
 msgstr "Qui m'est assigné"
 
-#: ../setuphandlers.py:999
+#: ./setuphandlers.py:999
 msgid "tasks_in_my_group"
 msgstr "Dans mon service"
 
-#: ../setuphandlers.py:930
+#: ./setuphandlers.py:930
 msgid "tasks_to_assign"
 msgstr "À assigner"
 
-#: ../setuphandlers.py:1016
+#: ./setuphandlers.py:1016
 msgid "tasks_to_close"
 msgstr "À clôturer"
 
-#: ../setuphandlers.py:1033
+#: ./setuphandlers.py:1033
 msgid "tasks_with_due_date_passed"
 msgstr "En retard pdv échéance"

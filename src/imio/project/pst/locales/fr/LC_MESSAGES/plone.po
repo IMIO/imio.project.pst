@@ -80,6 +80,12 @@ msgstr "Dans groupe assigné pour tâches"
 msgid "terminated"
 msgstr "Finalisé"
 
+#. Default: "Search everywhere"
+#: plone.app.layout/plone/app/layout/viewlets/searchbox.pt:16
+#: plone.app.portlets/plone/app/portlets/portlets/search.pt:28
+msgid "title_search_site"
+msgstr "Rechercher partout"
+
 #: profiles/default/workflows/pst_action_workflow/definition.xml
 msgid "to_be_scheduled"
 msgstr "A agender"

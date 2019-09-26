@@ -62,6 +62,12 @@ msgstr ""
 msgid "ongoing"
 msgstr ""
 
+#. Default: "Search everywhere"
+#: plone.app.layout/plone/app/layout/viewlets/searchbox.pt:16
+#: plone.app.portlets/plone/app/portlets/portlets/search.pt:28
+msgid "title_search_site"
+msgstr ""
+
 #: profiles/default/workflows/pst_action_workflow/definition.xml
 msgid "set_to_be_scheduled"
 msgstr ""
