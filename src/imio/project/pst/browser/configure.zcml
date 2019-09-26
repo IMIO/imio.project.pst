@@ -359,6 +359,49 @@
         permission="zope2.View"
         />
 
+    <!-- workflowstate viewlet -->
+    <browser:viewlet
+        name="plone.belowcontenttitle.workflowstate"
+        for="imio.project.core.content.projectspace.IProjectSpace"
+        manager="plone.app.layout.viewlets.interfaces.IBelowContentTitle"
+        class="plonetheme.imioapps.browser.viewlets.WorkflowState"
+        permission="zope2.View" />
+
+    <browser:viewlet
+        name="plone.belowcontenttitle.workflowstate"
+        for="imio.project.core.content.project.IProject"
+        manager="plone.app.layout.viewlets.interfaces.IBelowContentTitle"
+        class="plonetheme.imioapps.browser.viewlets.WorkflowState"
+        permission="zope2.View" />
+
+    <browser:viewlet
+        name="plone.belowcontenttitle.workflowstate"
+        for="plone.app.contenttypes.interfaces.IFolder"
+        manager="plone.app.layout.viewlets.interfaces.IBelowContentTitle"
+        class="plonetheme.imioapps.browser.viewlets.WorkflowState"
+        permission="zope2.View" />
+
+    <browser:viewlet
+        name="plone.belowcontenttitle.workflowstate"
+        for="plone.app.contenttypes.interfaces.IDocument"
+        manager="plone.app.layout.viewlets.interfaces.IBelowContentTitle"
+        class="plonetheme.imioapps.browser.viewlets.WorkflowState"
+        permission="zope2.View" />
+
+    <browser:viewlet
+        name="plone.belowcontenttitle.workflowstate"
+        for="collective.task.behaviors.ITask"
+        manager="plone.app.layout.viewlets.interfaces.IBelowContentTitle"
+        class="plonetheme.imioapps.browser.viewlets.WorkflowState"
+        permission="zope2.View" />
+
+    <browser:viewlet
+        name="plone.belowcontenttitle.workflowstate"
+        for="collective.contact.widget.interfaces.IContactContent"
+        manager="plone.app.layout.viewlets.interfaces.IBelowContentTitle"
+        class="plonetheme.imioapps.browser.viewlets.WorkflowState"
+        permission="zope2.View" />
+
     <!-- Content link viewlet -->
     <browser:viewlet
       for="imio.project.pst.content.action.IPSTAction"

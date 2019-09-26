@@ -39,6 +39,10 @@ body.template-item_view.portaltype-task h1.documentFirstHeading:not(.keep-it) {
     display: none;
 }
 
+.template-facetednavigation_view .viewlet_workflowstate{
+    display: none;
+}
+
 /* Center icons in h1 viewlet */
 .icons-on h1#parent-fieldname-title .contenttype-strategicobjective {
     background-position-y: -824px;
@@ -135,7 +139,7 @@ body.template-view.portaltype-strategicobjective td.table_widget_label {
     color: Red !important;
 }
 
-#plone-contentmenu-workflow .state-created {
+#plone-contentmenu-workflow .state-created, .viewlet_workflowstate .state-created{
     border-radius: 0.5em 0.5em 0.5em 0.5em;
     background-color: red;
     padding: 0 0.5em;
@@ -147,7 +151,7 @@ body.template-view.portaltype-strategicobjective td.table_widget_label {
     color: blue !important;
 }
 
-#plone-contentmenu-workflow .state-to_be_scheduled {
+#plone-contentmenu-workflow .state-to_be_scheduled, .viewlet_workflowstate .state-to_be_scheduled {
     border-radius: 0.5em 0.5em 0.5em 0.5em;
     background-color: blue;
     padding: 0 0.5em;
@@ -159,7 +163,7 @@ body.template-view.portaltype-strategicobjective td.table_widget_label {
     color: green !important;
 }
 
-#plone-contentmenu-workflow .state-ongoing {
+#plone-contentmenu-workflow .state-ongoing, .viewlet_workflowstate .state-ongoing {
     border-radius: 0.5em 0.5em 0.5em 0.5em;
     background-color: green;
     padding: 0 0.5em;
@@ -171,7 +175,7 @@ body.template-view.portaltype-strategicobjective td.table_widget_label {
     color: DarkOrange !important;
 }
 
-#plone-contentmenu-workflow .state-stopped {
+#plone-contentmenu-workflow .state-stopped, .viewlet_workflowstate .state-stopped {
     border-radius: 0.5em 0.5em 0.5em 0.5em;
     background-color: DarkOrange;
     padding: 0 0.5em;
@@ -183,7 +187,7 @@ body.template-view.portaltype-strategicobjective td.table_widget_label {
     color: dimgrey !important;
 }
 
-#plone-contentmenu-workflow .state-terminated {
+#plone-contentmenu-workflow .state-terminated, .viewlet_workflowstate .state-terminated {
     border-radius: 0.5em 0.5em 0.5em 0.5em;
     background-color: dimgrey;
     padding: 0 0.5em;
@@ -197,7 +201,7 @@ body.template-view.portaltype-strategicobjective td.table_widget_label {
     color: dimgrey !important;
 }
 
-#plone-contentmenu-workflow .state-achieved {
+#plone-contentmenu-workflow .state-achieved, .viewlet_workflowstate .state-achieved {
     border-radius: 0.5em 0.5em 0.5em 0.5em;
     background-color: dimgrey;
     padding: 0 0.5em;

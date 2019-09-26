@@ -3,6 +3,8 @@
     <order manager="plone.belowcontenttitle" skinname="*">
         <viewlet name="pretty-link-title" insertbefore="*"/>
         <viewlet name="imio.history.documentbyline" insertafter="pretty-link-title"/>
+        <viewlet name="plone.belowcontenttitle.workflowstate" insertafter="imio.history.documentbyline"/>
+        <viewlet name="document-generation-link" insertafter="plone.belowcontenttitle.workflowstate"/>
     </order>
     <hidden manager="plone.abovecontenttitle" skinname="pstskin">
         <viewlet name="viewlet.symlink" />
