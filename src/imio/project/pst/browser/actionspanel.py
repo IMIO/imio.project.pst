@@ -213,6 +213,13 @@ class ContactActionsPanelView(ActionsPanelView):
         self.ACCEPTABLE_ACTIONS = ('cut', 'copy', 'paste', 'delete', )
 
 
+class FolderActionsPanelView(ActionsPanelView):
+
+    def __init__(self, context, request):
+        super(FolderActionsPanelView, self).__init__(context, request)
+        self.ACCEPTABLE_ACTIONS = ('paste', )
+
+
 # VIEWLETS #
 
 class PstActionsPanelViewlet(ActionsPanelViewlet):

@@ -50,4 +50,32 @@
         permission="zope2.View"
         />
 
+    <!-- Hide edit bar in some cases -->
+    <browser:page
+        for="*"
+        name="plone"
+        class=".browser.overrides.Plone"
+        permission="zope.Public"
+        allowed_interface="Products.CMFPlone.browser.interfaces.IPlone"
+        />
+
+    <browser:viewlet
+        name="plone.contentactions"
+        for="*"
+        view="plone.app.layout.globals.interfaces.IViewView"
+        manager="plone.app.layout.viewlets.interfaces.IContentViews"
+        class=".browser.overrides.ContentActionsViewlet"
+        permission="zope2.View"
+        />
+
+    <browser:viewlet
+        name="plone.contentactions"
+        for="*"
+        view="plone.app.content.browser.interfaces.IFolderContentsView"
+        manager="plone.app.layout.viewlets.interfaces.IContentViews"
+        class=".browser.overrides.ContentActionsViewlet"
+        permission="zope2.View"
+        />
+
+
 </configure>
