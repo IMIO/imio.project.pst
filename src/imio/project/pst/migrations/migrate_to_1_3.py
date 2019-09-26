@@ -22,7 +22,7 @@ class Migrate_To_1_3(Migrator):
         # check if oo port must be changed
         update_oo_config()
 
-        self.runProfileSteps('imio.project.pst', steps=['catalog', 'typeinfo', 'viewlets', 'workflow'])
+        self.runProfileSteps('imio.project.pst', steps=['actions', 'catalog', 'typeinfo', 'viewlets', 'workflow'])
         self.runProfileSteps('imio.project.pst', steps=['repositorytool'], profile='demo')
 
         self.adapt_collections()

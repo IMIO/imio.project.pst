@@ -37,6 +37,10 @@
   <object name="audit-log" meta_type="CMF Action">
    <property name="visible">False</property>
   </object>
+
+  <object name="dashboard" meta_type="CMF Action">
+   <property name="visible">False</property>
+  </object>
  </object>
 
  <object name="object_buttons" meta_type="CMF Action Category">
