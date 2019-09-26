@@ -27,7 +27,7 @@ class IOperationalObjective(IProject):
     """
     representative_responsible = LocalRolesField(
         title=_(u"Representative responsible"),
-        description=_(u"Choose principals that will be representative responsible for this project."),
+        # description=_(u"Choose principals that will be representative responsible for this project."),
         value_type=schema.Choice(
             vocabulary=u'imio.project.pst.content.operational.representative_responsible_vocabulary',
         ),
@@ -37,7 +37,7 @@ class IOperationalObjective(IProject):
 
     administrative_responsible = LocalRolesField(
         title=_(u"Administrative responsible"),
-        description=_(u"Choose principals that will be administrative responsible for this project."),
+        # description=_(u"Choose principals that will be administrative responsible for this project."),
         value_type=schema.Choice(
             vocabulary=u'imio.project.core.content.project.manager_vocabulary',
         ),
@@ -47,7 +47,7 @@ class IOperationalObjective(IProject):
 
     manager = LocalRolesField(
         title=_c(u"Manager"),
-        description=_c(u"Choose principals that will manage this project."),
+        # description=_c(u"Choose principals that will manage this project."),
         value_type=schema.Choice(
             vocabulary='imio.project.core.content.project.manager_vocabulary'
         ),
@@ -60,7 +60,7 @@ class IOperationalObjective(IProject):
                 links_record='imio.project.core.lasting_objectives')
     lasting_objectives = schema.List(
         title=_(u"Lasting objectives"),
-        description=_(u"Select lasting objectives."),
+        # description=_(u"Select lasting objectives."),
         value_type=schema.Choice(
             vocabulary=u"imio.project.core.LastingObjectiveVocabulary",
             required=True,

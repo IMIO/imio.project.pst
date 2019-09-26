@@ -44,13 +44,13 @@ class IPSTAction(IProject):
 
     health_indicator = schema.Choice(
         title=_(u'Health indicator'),
-        description=_(u"Choose a health level."),
+        # description=_(u"Choose a health level."),
         vocabulary=u'imio.project.pst.content.action.health_indicator_vocabulary',
     )
 
     health_indicator_details = schema.Text(
         title=_(u'Health indicator_details'),
-        description=_(u"Details concerning the action health."),
+        # description=_(u"Details concerning the action health."),
         required=False,
     )
 
