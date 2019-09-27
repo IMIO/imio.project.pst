@@ -89,7 +89,9 @@ class Migrate_To_1_3(Migrator):
             u'strategicobjective',
             u'operationalobjective',
             u'pstaction',
+            u'action_link',
             u'pstsubaction',
+            u'subaction_link'
         ]
 
         for type_name in types:
