@@ -12,7 +12,8 @@ $(document).ready(function(){
         },
 
         ui : {
-            dots: false
+            dots: false,
+            selected_parent_close: false
         },
 
         callback: {
