@@ -1,11 +1,14 @@
 # -*- coding: utf-8 -*-
 
-from collective.documentgenerator.utils import update_oo_config
-from imio.migrator.migrator import Migrator
-from Products.CPUtils.Extensions.utils import mark_last_version
-
 import logging
 
+from Products.CPUtils.Extensions.utils import mark_last_version
+from collective.documentgenerator.utils import update_oo_config
+from imio.migrator.migrator import Migrator
+from imio.project.pst.setuphandlers import configure_lasting_objectives
+from imio.project.pst.setuphandlers import _ as _translate
+from plone.dexterity.interfaces import IDexterityFTI
+from zope.component import queryUtility
 
 logger = logging.getLogger('imio.project.pst')
 
@@ -19,6 +22,8 @@ class Migrate_To_1_3(Migrator):
 
     def run(self):
 
+        self.various_updates()
+
         # check if oo port must be changed
         update_oo_config()
 
@@ -31,6 +36,12 @@ class Migrate_To_1_3(Migrator):
         self.runProfileSteps('imio.project.pst', steps=['imioprojectpst-update-templates'], profile='update')
         self.runProfileSteps('imio.project.pst', steps=['imioprojectpst-templates'], profile='default')
 
+        self.runProfileSteps('imio.project.core', steps=['plone.app.registry'], profile='default')
+
+        configure_lasting_objectives(self.context)
+
+        self.install_analytic_budget_behavior()
+
         self.upgradeAll(omit=['imio.project.pst:default'])
 
         for prod in ['plonetheme.imioapps']:
@@ -41,6 +52,12 @@ class Migrate_To_1_3(Migrator):
 
         # Display duration
         self.finish()
+
+    def various_updates(self):
+        # replace front-page
+        frontpage = getattr(self.portal, 'front-page')
+        frontpage.title = _translate("front_page_title")
+        frontpage.reindexObject()
 
     def adapt_collections(self):
         """ Include subactions in existing action dashboard collections """
@@ -64,6 +81,29 @@ class Migrate_To_1_3(Migrator):
                 obj = brain.getObject()
                 obj.enabled = False
                 obj.reindexObject(idxs=['enabled'])
+
+    def install_analytic_budget_behavior(self):
+
+        behavior = "imio.project.core.browser.behaviors.IAnalyticBudget"
+        types = [
+            u'strategicobjective',
+            u'operationalobjective',
+            u'pstaction',
+            u'pstsubaction',
+        ]
+
+        for type_name in types:
+            fti = queryUtility(
+                IDexterityFTI,
+                name=type_name
+            )
+            if not fti:
+                continue
+            if behavior in fti.behaviors:
+                continue
+            behaviors = list(fti.behaviors)
+            behaviors.append(behavior)
+            fti._updateProperty('behaviors', tuple(behaviors))
 
 
 def migrate(context):
