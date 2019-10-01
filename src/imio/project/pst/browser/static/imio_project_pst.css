@@ -45,14 +45,14 @@ body.template-item_view.portaltype-task h1.documentFirstHeading:not(.keep-it) {
 
 /* Center icons in h1 viewlet */
 .icons-on h1#parent-fieldname-title .contenttype-strategicobjective {
-    background-position-y: -824px;
+    background-position-y: 8px;
 }
 .icons-on h1#parent-fieldname-title .contenttype-operationalobjective {
     background-position-y: 8px;
 }
 .icons-on h1#parent-fieldname-title .contenttype-pstaction,
 .icons-on h1#parent-fieldname-title .contenttype-pstsubaction {
-    background-position-y: -408px;
+    background-position-y: 8px;
 }
 body.template-view h1 .pretty_link_icons img,
 body.template-item_view h1 .pretty_link_icons img{
@@ -116,16 +116,28 @@ body.template-view.portaltype-strategicobjective td.table_widget_label {
 }
 
 .icons-on .contenttype-operationalobjective {
-    background: url("++resource++imio.project.pst/pst_icons_sprite.png") no-repeat scroll 0 0 transparent;
+    background: url("++resource++imio.project.pst/icon_operationalobjective.svg") no-repeat;
+    background-size: 18px 16px;
 }
 .icons-on .contenttype-strategicobjective {
-    background: url("++resource++imio.project.pst/pst_icons_sprite.png") no-repeat scroll 0 -832px transparent;
+    background: url("++resource++imio.project.pst/icon_strategicobjective.svg") no-repeat;
+    background-size: 18px 16px;
 }
 .icons-on .contenttype-pstaction {
-    background: url("++resource++imio.project.pst/pst_icons_sprite.png") no-repeat scroll 0 -416px transparent;
+    background: url("++resource++imio.project.pst/icon_pstaction.svg") no-repeat;
+    background-size: 18px 16px;
 }
 .icons-on .contenttype-pstsubaction {
-    background: url("++resource++imio.project.pst/pst_icons_sprite.png") no-repeat scroll 0 -416px transparent;
+    background: url("++resource++imio.project.pst/icon_pstsubaction.svg") no-repeat;
+    background-size: 18px 16px;
+}
+.icons-on .contenttype-action_link {
+    background: url("++resource++imio.project.pst/icon_action_link.svg") no-repeat;
+    background-size: 18px 16px;
+}
+.icons-on .contenttype-subaction_link {
+    background: url("++resource++imio.project.pst/icon_subaction_link.svg") no-repeat;
+    background-size: 18px 16px;
 }
 
 .icons-on #faceted-results .contenttype-task,
