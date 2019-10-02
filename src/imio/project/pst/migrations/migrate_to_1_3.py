@@ -5,6 +5,8 @@ import logging
 from Products.CPUtils.Extensions.utils import mark_last_version
 from collective.documentgenerator.utils import update_oo_config
 from imio.migrator.migrator import Migrator
+from imio.helpers.content import richtextval
+from imio.helpers.content import transitions
 from imio.project.pst.setuphandlers import configure_lasting_objectives
 from imio.project.pst.setuphandlers import _ as _translate
 from plone.dexterity.interfaces import IDexterityFTI
@@ -22,7 +24,7 @@ class Migrate_To_1_3(Migrator):
 
     def run(self):
 
-        self.various_updates()
+        self.various_update()
 
         # check if oo port must be changed
         update_oo_config()
@@ -53,10 +55,13 @@ class Migrate_To_1_3(Migrator):
         # Display duration
         self.finish()
 
-    def various_updates(self):
+    def various_update(self):
         # replace front-page
         frontpage = getattr(self.portal, 'front-page')
         frontpage.title = _translate("front_page_title")
+        frontpage.description = _translate("front_page_descr")
+        frontpage.text = richtextval(_translate("front_page_text"))
+        transitions(frontpage, ('retract', 'publish_internally'))
         frontpage.reindexObject()
 
     def adapt_collections(self):
@@ -95,10 +100,7 @@ class Migrate_To_1_3(Migrator):
         ]
 
         for type_name in types:
-            fti = queryUtility(
-                IDexterityFTI,
-                name=type_name
-            )
+            fti = queryUtility(IDexterityFTI, name=type_name)
             if not fti:
                 continue
             if behavior in fti.behaviors:
