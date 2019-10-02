@@ -30,8 +30,10 @@ def get_criteria_holder(context):
         return pst.pstactions
     elif context.portal_type == 'pstaction':
         if context.listFolderContents({'portal_type': 'pstsubaction'}):
+            context.REQUEST.set('has_subaction', True)
             return pst.pstactions
         else:
+            context.REQUEST.set('has_subaction', False)
             return pst.tasks
     elif context.portal_type == 'pstsubaction':
         return pst.tasks

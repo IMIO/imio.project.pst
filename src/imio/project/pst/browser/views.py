@@ -48,6 +48,16 @@ class OSOOFacetedTableView(DFTV):
     """ """
 
     def _getViewFields(self):
-        """Returns fields we want to show in the table."""
-        # selectedViewFields is a list of tuples (id, title)
+        """ We don't show parents column """
         return [elt[0] for elt in self.collection.selectedViewFields() if elt[0] != 'parents']
+
+
+class ActionFacetedTableView(DFTV):
+    """ """
+
+    def _getViewFields(self):
+        """ We don"t show parents column on an action with tasks """
+        if self.context.portal_type == 'pstsubaction' or not self.request.get('has_subaction'):
+            return [elt[0] for elt in self.collection.selectedViewFields()]
+        else:
+            return [elt[0] for elt in self.collection.selectedViewFields() if elt[0] != 'parents']
