@@ -101,6 +101,10 @@ class DueDateColumn(DateColumn):
 
 
 class ParentsColumn(BaseColumn):
+    """
+        * always rendered on searches
+        * only rendered on context when displaying tasks
+    """
 
     sort_index = 'path'
 
@@ -108,54 +112,40 @@ class ParentsColumn(BaseColumn):
         super(ParentsColumn, self).__init__(context, request, table)
         self.ploneview = getMultiAdapter((context, request), name='plone')
 
+    def get_parents(self, ret, obj):
+        parent = obj.aq_inner.aq_parent
+        while parent.portal_type != 'projectspace':
+            title = u' {}'.format(self.ploneview.cropText(parent.title, 35))
+            ret.append(u'<a href="{}" target="_blank" title="{}" class="contenttype-{}">'
+                       u'<span class="pretty_link_content">{}</span></a>'.format(parent.absolute_url(),
+                                                                                 cgi.escape(parent.title,
+                                                                                            quote=True),
+                                                                                 parent.portal_type,
+                                                                                 title))
+            parent = parent.aq_inner.aq_parent
+
     def renderCell(self, item):
         ret = []
         obj = self._getObject(item)
+        # task dashboard
         if item.portal_type == 'task':
             parent = obj.aq_inner.aq_parent
-            while not parent.portal_type == 'pstaction':
+            # walking on tasks
+            while parent.portal_type not in ('pstaction',  'pstsubaction'):
                 title = u' {}'.format(self.ploneview.cropText(parent.title, 35))
                 ret.append(u'<a href="{}" target="_blank" title="{}" class="contenttype-task">'
                            u'<span class="pretty_link_content">{}</span></a>'.format(parent.absolute_url(),
                                                                                      cgi.escape(parent.title,
                                                                                                 quote=True),
                                                                                      title))
+                obj = parent
                 parent = parent.aq_inner.aq_parent
-            if self.context.portal_type != 'pstaction':
-                # if getattr(getProjectSpace(self), 'use_ref_number', True):
-                #     title = u'.{}'.format(parent.reference_number)
-                # else:
-                title = u' {}'.format(self.ploneview.cropText(parent.title, 35))
-                ret.append(u'<a href="{}" target="_blank" title="{}" class="contenttype-pstaction">'
-                           u'<span class="pretty_link_content">{}</span></a>'.format(parent.absolute_url(),
-                                                                                     cgi.escape(parent.title,
-                                                                                                quote=True),
-                                                                                     title))
-            obj = parent
-        if item.portal_type == 'pstaction' or (item.portal_type == 'task' and self.context.portal_type != 'pstaction'):
-            parent = obj.aq_inner.aq_parent
-            # if getattr(getProjectSpace(self), 'use_ref_number', True):
-            #     title = u'.{}'.format(parent.reference_number)
-            # else:
-            title = u' {}'.format(self.ploneview.cropText(parent.title, 35))
-            ret.append(u'<a href="{}" target="_blank" title="{}" class="contenttype-operationalobjective">'
-                       u'<span class="pretty_link_content">{}</span></a>'.format(parent.absolute_url(),
-                                                                                 cgi.escape(parent.title,
-                                                                                            quote=True),
-                                                                                 title))
-            obj = parent
-        if (item.portal_type in ('operationalobjective', 'pstaction') or
-                (item.portal_type == 'task' and self.context.portal_type != 'pstaction')):
-            parent = obj.aq_inner.aq_parent
-            # if getattr(getProjectSpace(self), 'use_ref_number', True):
-            #     title = u'.{}'.format(parent.reference_number)
-            # else:
-            title = u' {}'.format(self.ploneview.cropText(parent.title, 35))
-            ret.append(u'<a href="{}" target="_blank" title="{}" class="contenttype-strategicobjective">'
-                       u'<span class="pretty_link_content">{}</span></a>'.format(parent.absolute_url(),
-                                                                                 cgi.escape(parent.title,
-                                                                                            quote=True),
-                                                                                 title))
+            # on a search : adding action level
+            if self.context.portal_type not in ('pstaction', 'pstsubaction'):
+                self.get_parents(ret, obj)
+        else:
+            self.get_parents(ret, obj)
+
         if ret:
             return '<ul class="parents_col"><li>%s</li></ul>' % ('</li>\n<li>'.join(reversed(ret)))
         else:
