@@ -1273,6 +1273,7 @@ def configure_wsclient(context):
                                          'expression': u'context/@@ProjectWSClient/description'},
                                         {'field_name': u'detailedDescription',
                                          'expression': u'context/@@ProjectWSClient/detailed_description'}])
+        # u'string: ${context/@@ProjectWSClient/description}<br />${context/@@ProjectWSClient/detailed_description}'
         pm_item_data_vocabulary.__call__ = orig_call
         #api.portal.set_registry_record('{}.user_mappings'.format(prefix),
         #                               [{'local_userid': u'admin', 'pm_userid': u'dgen'}])
@@ -1286,7 +1287,8 @@ def configure_wsclient(context):
         gsm.unregisterHandler(notify_configuration_changed, (IRecordModifiedEvent, ))
         api.portal.set_registry_record('{}.generated_actions'.format(prefix),
                                        [{'pm_meeting_config_id': u'meeting-config-college',
-                                         'condition': u"python: context.getPortalTypeName() in ('pstaction', 'task')",
+                                         'condition': u"python: context.getPortalTypeName() in ('pstaction', 'task',"
+                                                      u"'pstsubaction')",
                                          'permissions': 'Modify view template'}])
         pm_meeting_config_id_vocabulary.__call__ = orig_call
         gsm.registerHandler(notify_configuration_changed, (IRecordModifiedEvent, ))
