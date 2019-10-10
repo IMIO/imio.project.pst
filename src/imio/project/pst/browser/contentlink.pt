@@ -1,5 +1,5 @@
 <div tal:condition="view/content_link" i18n:domain="imio.project.pst">
-  <h3 i18n:translate="">This content is also present :</h3>
+  <div i18n:translate="" id="content-link-title">This content is also present :</div>
   <ul>
   <li tal:repeat="link view/content_link">
     <a href="" tal:attributes="href link/absolute_url" tal:content="link/Title" />

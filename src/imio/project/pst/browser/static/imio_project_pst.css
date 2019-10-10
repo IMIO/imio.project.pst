@@ -105,6 +105,10 @@ body.template-view.portaltype-strategicobjective td.table_widget_label {
     float: right;
 }
 
+#content-link-title {
+    font-style: italic;
+}
+
 /* icons on types */
 .icons-on .contenttype-strategicobjective, .icons-on .contenttype-operationalobjective,
 .icons-on .contenttype-pstaction, .icons-on .contenttype-pstsubaction,
