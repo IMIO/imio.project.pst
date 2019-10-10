@@ -2,9 +2,12 @@
 """Init and utils."""
 
 from AccessControl.Permissions import delete_objects
+from plone import api
 from plone.dexterity.content import Container
 from Products.Archetypes.BaseFolder import BaseFolder
 from Products.CMFPlone.PloneFolder import BasePloneFolder
+from zope.component import queryUtility
+from zope.i18n.interfaces import ITranslationDomain
 from zope.i18nmessageid import MessageFactory
 
 import os
@@ -41,3 +44,10 @@ for klass in (BaseFolder, BasePloneFolder, Container):
         new.append(perm)
     klass.__ac_permissions__ = tuple(new)
     klass.manage_delObjects__roles__ = ('Authenticated', 'Member')
+
+
+def _tr(msgid, domain='imio.project.pst', mapping={}):
+    translation_domain = queryUtility(ITranslationDomain, domain)
+    sp = api.portal.get().portal_properties.site_properties
+    return translation_domain.translate(msgid, target_language=sp.getProperty('default_language', 'fr'),
+                                        mapping=mapping)

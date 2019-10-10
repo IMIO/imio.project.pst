@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2019-09-26 12:22+0000\n"
+"POT-Creation-Date: 2019-10-10 09:20+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,7 +22,7 @@ msgid "Action link"
 msgstr ""
 
 #: ./browser/pstaction_folder_listing.pt:9
-#: ./setuphandlers.py:696
+#: ./setuphandlers.py:689
 msgid "Actions"
 msgstr ""
 
@@ -30,24 +30,12 @@ msgstr ""
 msgid "Administrative responsible"
 msgstr ""
 
-#: ./setuphandlers.py:801
+#: ./setuphandlers.py:794
 msgid "All"
 msgstr ""
 
 #: ./profiles/default/actions.xml
 msgid "Archive PST"
-msgstr ""
-
-#: ./content/action.py:47
-msgid "Choose a health level."
-msgstr ""
-
-#: ./content/operational.py:40
-msgid "Choose principals that will be administrative responsible for this project."
-msgstr ""
-
-#: ./content/operational.py:30
-msgid "Choose principals that will be representative responsible for this project."
 msgstr ""
 
 #: ./content/action.py:37
@@ -60,10 +48,6 @@ msgstr ""
 
 #: ./browser/projectspace_sitemap.pt:10
 msgid "Deploy all"
-msgstr ""
-
-#: ./content/action.py:53
-msgid "Details concerning the action health."
 msgstr ""
 
 #: ./profiles/default/registry.xml
@@ -118,7 +102,7 @@ msgstr ""
 msgid "Main_menu_title"
 msgstr ""
 
-#: ./setuphandlers.py:695
+#: ./setuphandlers.py:688
 msgid "Operational objectives"
 msgstr ""
 
@@ -147,55 +131,51 @@ msgstr ""
 msgid "Representative responsible"
 msgstr ""
 
-#: ./content/operational.py:63
-msgid "Select lasting objectives."
-msgstr ""
-
 #: ./browser/sitemap_link.pt:6
 msgid "Sitemap"
 msgstr ""
 
-#: ./setuphandlers.py:725
+#: ./setuphandlers.py:718
 msgid "State: achieved"
 msgstr ""
 
-#: ./setuphandlers.py:733
+#: ./setuphandlers.py:726
 msgid "State: closed"
 msgstr ""
 
-#: ./setuphandlers.py:723
+#: ./setuphandlers.py:716
 msgid "State: created"
 msgstr ""
 
-#: ./setuphandlers.py:735
+#: ./setuphandlers.py:728
 msgid "State: in progress"
 msgstr ""
 
-#: ./setuphandlers.py:724
+#: ./setuphandlers.py:717
 msgid "State: ongoing"
 msgstr ""
 
-#: ./setuphandlers.py:736
+#: ./setuphandlers.py:729
 msgid "State: realized"
 msgstr ""
 
-#: ./setuphandlers.py:731
+#: ./setuphandlers.py:724
 msgid "State: stopped"
 msgstr ""
 
-#: ./setuphandlers.py:730
+#: ./setuphandlers.py:723
 msgid "State: terminated"
 msgstr ""
 
-#: ./setuphandlers.py:738
+#: ./setuphandlers.py:731
 msgid "State: to assign"
 msgstr ""
 
-#: ./setuphandlers.py:728
+#: ./setuphandlers.py:721
 msgid "State: to be scheduled"
 msgstr ""
 
-#: ./setuphandlers.py:737
+#: ./setuphandlers.py:730
 msgid "State: to do"
 msgstr ""
 
@@ -203,7 +183,7 @@ msgstr ""
 msgid "Steps to ease tests of imio.project.pst"
 msgstr ""
 
-#: ./setuphandlers.py:694
+#: ./setuphandlers.py:687
 msgid "Strategic objectives"
 msgstr ""
 
@@ -221,12 +201,20 @@ msgid "Symbolic link"
 msgstr ""
 
 #: ./browser/pstaction_folder_listing.pt:10
-#: ./setuphandlers.py:697
+#: ./setuphandlers.py:690
 msgid "Tasks"
 msgstr ""
 
 #: ./overrides.zcml:25
 msgid "The 'workflow' menu - allows the user to execute workflow transitions"
+msgstr ""
+
+#: ./browser/viewlets.py:120
+msgid "The planned end date of any one of the actions is greater than the planned end date of the operational objective"
+msgstr ""
+
+#: ./browser/viewlets.py:96
+msgid "This content is a copy, to modify the original content click on this button ${edit}"
 msgstr ""
 
 #: ./browser/contentlink.pt:2
@@ -237,23 +225,23 @@ msgstr ""
 msgid "Update profile to run individually some update steps"
 msgstr ""
 
-#: ./setuphandlers.py:823
+#: ./setuphandlers.py:816
 msgid "Which I am administrative responsible"
 msgstr ""
 
-#: ./setuphandlers.py:840
+#: ./setuphandlers.py:833
 msgid "Which I am manager"
 msgstr ""
 
-#: ./setuphandlers.py:857
+#: ./setuphandlers.py:850
 msgid "Which an action deadline has passed"
 msgstr ""
 
-#: ./setuphandlers.py:910
+#: ./setuphandlers.py:903
 msgid "Which beginning is late"
 msgstr ""
 
-#: ./setuphandlers.py:894
+#: ./setuphandlers.py:887
 msgid "Which deadline has passed"
 msgstr ""
 
@@ -265,20 +253,19 @@ msgstr ""
 msgid "You must choose at least one group of which you are a member"
 msgstr ""
 
-#: ./setuphandlers.py:400
+#: ./setuphandlers.py:393
 msgid "front_page_descr"
 msgstr ""
 
-#: ./setuphandlers.py:401
+#: ./setuphandlers.py:394
 msgid "front_page_text"
 msgstr ""
 
-#: ./setuphandlers.py:399
+#: ./setuphandlers.py:392
 msgid "front_page_title"
 msgstr ""
 
 #: ./profiles.zcml:14
-#: ./setuphandlers.py:58
 msgid "imio.project.pst"
 msgstr ""
 
@@ -309,30 +296,30 @@ msgstr ""
 msgid "strategic_legend_operational_objectives"
 msgstr ""
 
-#: ./setuphandlers.py:981
+#: ./setuphandlers.py:974
 msgid "task_have_treated"
 msgstr ""
 
-#: ./setuphandlers.py:964
+#: ./setuphandlers.py:957
 msgid "task_im_treating"
 msgstr ""
 
-#: ./setuphandlers.py:947
+#: ./setuphandlers.py:940
 msgid "task_to_treat"
 msgstr ""
 
-#: ./setuphandlers.py:999
+#: ./setuphandlers.py:992
 msgid "tasks_in_my_group"
 msgstr ""
 
-#: ./setuphandlers.py:930
+#: ./setuphandlers.py:923
 msgid "tasks_to_assign"
 msgstr ""
 
-#: ./setuphandlers.py:1016
+#: ./setuphandlers.py:1009
 msgid "tasks_to_close"
 msgstr ""
 
-#: ./setuphandlers.py:1033
+#: ./setuphandlers.py:1026
 msgid "tasks_with_due_date_passed"
 msgstr ""

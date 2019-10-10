@@ -7,8 +7,8 @@ from collective.documentgenerator.utils import update_oo_config
 from imio.migrator.migrator import Migrator
 from imio.helpers.content import richtextval
 from imio.helpers.content import transitions
+from imio.project.pst import _tr
 from imio.project.pst.setuphandlers import configure_lasting_objectives
-from imio.project.pst.setuphandlers import _ as _translate
 from plone.dexterity.interfaces import IDexterityFTI
 from zope.component import queryUtility
 
@@ -58,9 +58,9 @@ class Migrate_To_1_3(Migrator):
     def various_update(self):
         # replace front-page
         frontpage = getattr(self.portal, 'front-page')
-        frontpage.title = _translate("front_page_title")
-        frontpage.description = _translate("front_page_descr")
-        frontpage.text = richtextval(_translate("front_page_text"))
+        frontpage.title = _tr("front_page_title")
+        frontpage.description = _tr("front_page_descr")
+        frontpage.text = richtextval(_tr("front_page_text"))
         transitions(frontpage, ('retract', 'publish_internally'))
         frontpage.reindexObject()
 

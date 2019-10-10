@@ -19,6 +19,7 @@ from imio.helpers.content import transitions
 from imio.helpers.security import generate_password
 from imio.helpers.security import get_environment
 from imio.project.core.utils import getProjectSpace
+from imio.project.pst import _tr as _
 from imio.project.pst import add_path
 from imio.project.pst import PRODUCT_DIR
 from imio.project.pst.interfaces import IActionDashboardBatchActions
@@ -39,10 +40,7 @@ from utils import list_wf_states
 from zope.component import getGlobalSiteManager
 from zope.component import getMultiAdapter
 from zope.component import getUtility
-from zope.component import queryUtility
 from zope.event import notify
-from zope.globalrequest import getRequest
-from zope.i18n.interfaces import ITranslationDomain
 from zope.interface import alsoProvides
 from zope.lifecycleevent import ObjectCreatedEvent
 from zope.schema.vocabulary import SimpleTerm
@@ -53,11 +51,6 @@ import os
 
 
 logger = logging.getLogger('imio.project.pst: setuphandlers')
-
-
-def _(msgid, context=None, domain='imio.project.pst'):
-    translation_domain = queryUtility(ITranslationDomain, domain)
-    return translation_domain.translate(msgid, context=getRequest(), target_language='fr')
 
 
 def reimport_faceted_config(folder, xml, default_UID=None):

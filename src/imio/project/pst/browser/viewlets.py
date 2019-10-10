@@ -10,12 +10,12 @@ from imio.helpers.content import richtextval
 from imio.prettylink.interfaces import IPrettyLink
 from imio.project.core.content.project import IProject
 from imio.project.core.utils import getProjectSpace
+from imio.project.pst import _tr as _
 from plone import api
 from plone.app.layout.viewlets import ViewletBase
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from zc.relation.interfaces import ICatalog
 from zope.component import getUtility
-from zope.i18n import translate
 from zope.intid.interfaces import IIntIds
 from zope.security import checkPermission
 
@@ -93,16 +93,9 @@ class ContextInformationViewlet(MessagesViewlet):
         ret = []
         if hasattr(self.context, "_link_portal_type"):
 
-            msg = translate(
-                u"This content is a copy, to modify the original content click on this button ${edit}",
-                domain="imio.project.pst",
-                context=self.request,
-                mapping={
-                    "edit": '<a href="{0}/edit">Edit</a>'.format(
-                        self.context.symbolic_link.to_object.absolute_url()
-                    )
-                },
-            )
+            msg = _(u"This content is a copy, to modify the original content click on this button ${edit}",
+                    mapping={"edit": '<a href="{0}/edit">Edit</a>'.format(
+                             self.context.symbolic_link.to_object.absolute_url())})
             ret.append(
                 PseudoMessage(
                     msg_type="significant",
@@ -124,11 +117,8 @@ class ContextInformationViewlet(MessagesViewlet):
                 ]
                 if act_planned_end_date:
                     if max(act_planned_end_date) > self.context.planned_end_date:
-                        msg = translate(
-                            u"The planned end date of any one of the actions is greater than the planned end date of the operational objective",
-                            domain="imio.project.pst",
-                            context=self.request,
-                        )
+                        msg = _(u"The planned end date of any one of the actions is greater than the planned end date "
+                                u"of the operational objective")
                         ret.append(
                             PseudoMessage(
                                 msg_type="significant",
