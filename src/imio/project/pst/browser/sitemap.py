@@ -23,7 +23,8 @@ class SitemapView(BrowserView):
             'projectspace': {"portal_type": 'strategicobjective'},
             'strategicobjective': {"portal_type": 'operationalobjective'},
             'operationalobjective': {"portal_type": 'pstaction'},
-            'pstaction': {"portal_type": 'pstsubaction'},
+            'pstaction': {"portal_type": ['pstsubaction', 'task']},
+            'pstsubaction': {"portal_type": 'task'},
         }
 
         return context.listFolderContents(
