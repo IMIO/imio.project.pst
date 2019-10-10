@@ -10,7 +10,7 @@ from imio.helpers.content import richtextval
 from imio.prettylink.interfaces import IPrettyLink
 from imio.project.core.content.project import IProject
 from imio.project.core.utils import getProjectSpace
-from imio.project.pst import _tr as _
+from imio.project.pst import _tr
 from plone import api
 from plone.app.layout.viewlets import ViewletBase
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
@@ -18,6 +18,8 @@ from zc.relation.interfaces import ICatalog
 from zope.component import getUtility
 from zope.intid.interfaces import IIntIds
 from zope.security import checkPermission
+
+_ = _tr
 
 
 class PrettyLinkTitleViewlet(ViewletBase):
@@ -94,8 +96,9 @@ class ContextInformationViewlet(MessagesViewlet):
         if hasattr(self.context, "_link_portal_type"):
 
             msg = _(u"This content is a copy, to modify the original content click on this button ${edit}",
-                    mapping={"edit": '<a href="{0}/edit">Edit</a>'.format(
-                             self.context.symbolic_link.to_object.absolute_url())})
+                    mapping={"edit": '<a href="{0}/edit">{1}</a>'.format(
+                             self.context.symbolic_link.to_object.absolute_url(),
+                             _tr('Edit', domain='plone'))})
             ret.append(
                 PseudoMessage(
                     msg_type="significant",
