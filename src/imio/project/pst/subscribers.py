@@ -79,9 +79,20 @@ def pstaction_created(obj, event):
 
 def pstsubaction_created(obj, event):
     """  """
-
     # move into the created subaction any existing task found in its parent action
     action = obj.__parent__
     tasks = action.listFolderContents({'portal_type': 'task'})
+    for task in tasks:
+        api.content.move(task, obj)
+
+
+def pstsubaction_moved(obj, event):
+    """  """
+    if IObjectRemovedEvent.providedBy(event):
+        return
+    if event.newParent == event.oldParent and event.newName != event.oldName:  # it's not a move but a rename
+        return
+    # move into the moved subaction any existing task found in its new parent action
+    tasks = event.newParent.listFolderContents({'portal_type': 'task'})
     for task in tasks:
         api.content.move(task, obj)
