@@ -58,7 +58,7 @@ msgstr "Date de fin effective"
 
 #: ./browser/actions_panel_export_as_xml.pt:5
 msgid "Export as XML"
-msgstr "Exporter en XML"
+msgstr "Export eComptes"
 
 #: ./content/action.py:46
 msgid "Health indicator"
