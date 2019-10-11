@@ -12,6 +12,7 @@ from plone import api
 from plone.app.uuid.utils import uuidToPhysicalPath
 from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
 from zope.interface import alsoProvides
+from zope.interface import Invalid
 from zope.lifecycleevent.interfaces import IObjectRemovedEvent
 
 import os
@@ -82,6 +83,8 @@ def pstsubaction_created(obj, event):
     # move into the created subaction any existing task found in its parent action
     action = obj.__parent__
     tasks = action.listFolderContents({'portal_type': 'task'})
+    if getattr(obj, '_link_portal_type', '') == 'subaction_link' and tasks:
+        raise Invalid("You cannot create a subaction link when there are tasks in action !")
     for task in tasks:
         api.content.move(task, obj)
 
@@ -92,6 +95,8 @@ def pstsubaction_moved(obj, event):
         return
     if event.newParent == event.oldParent and event.newName != event.oldName:  # it's not a move but a rename
         return
+    if getattr(obj, '_link_portal_type', '') == 'subaction_link':
+        raise Invalid("You cannot move a subaction link. Create a new one !")
     # move into the moved subaction any existing task found in its new parent action
     tasks = event.newParent.listFolderContents({'portal_type': 'task'})
     for task in tasks:
