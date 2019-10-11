@@ -7,7 +7,7 @@
         <a tal:define="element nocall:child/element"
            tal:content="element/Title"
            tal:attributes="href element/absolute_url;
-                           class python:'icons-on contenttype-'+element.portal_type;
+                           class python:'icons-on contenttype-'+getattr(element, '_link_portal_type', element.portal_type);
                            id element/UID"
         />
 

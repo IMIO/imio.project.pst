@@ -51,7 +51,9 @@ body.template-item_view.portaltype-task h1.documentFirstHeading:not(.keep-it) {
     background-position-y: 8px;
 }
 .icons-on h1#parent-fieldname-title .contenttype-pstaction,
-.icons-on h1#parent-fieldname-title .contenttype-pstsubaction {
+.icons-on h1#parent-fieldname-title .contenttype-pstsubaction,
+.icons-on h1#parent-fieldname-title .contenttype-action_link,
+.icons-on h1#parent-fieldname-title .contenttype-subaction_link {
     background-position-y: 8px;
 }
 body.template-view h1 .pretty_link_icons img,
@@ -111,7 +113,8 @@ body.template-view.portaltype-strategicobjective td.table_widget_label {
 
 /* icons on types */
 .icons-on .contenttype-strategicobjective, .icons-on .contenttype-operationalobjective,
-.icons-on .contenttype-pstaction, .icons-on .contenttype-pstsubaction {
+.icons-on .contenttype-pstaction, .icons-on .contenttype-pstsubaction, .icons-on .contenttype-action_link,
+.icons-on .contenttype-subaction_link {
     display: inline-block;
     line-height: 1.2em;
     padding-left: 20px;

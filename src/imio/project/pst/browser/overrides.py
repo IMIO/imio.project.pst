@@ -25,6 +25,7 @@ from Products.CMFPlone.browser.navigation import get_view_url
 from Products.CMFPlone.browser.ploneview import Plone as PV
 from Products.CMFPlone.interfaces import IHideFromBreadcrumbs
 from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
+from Products.CMFPlone.utils import base_hasattr
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from zope.component import getMultiAdapter
@@ -76,9 +77,12 @@ class PhysicalNavigationBreadcrumbs(BrowserView):
         # root
         if not utils.isDefaultPage(context, request) \
                 and not rootPath.startswith(itemPath):
+            portal_type = context.portal_type
+            if base_hasattr(context, '_link_portal_type'):
+                portal_type = context._link_portal_type
             base += ({'absolute_url': item_url,
                       'Title': utils.pretty_title_or_id(context, context),
-                      'ct_class': 'contenttype-{}'.format(context.portal_type)},
+                      'ct_class': 'contenttype-{}'.format(portal_type)},
                      )
 
         return base

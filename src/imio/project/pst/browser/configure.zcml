@@ -340,6 +340,24 @@
         />
 
     <browser:viewlet
+        for="imio.project.pst.content.action.IPSTAction"
+        name="pretty-link-title"
+        manager="plone.app.layout.viewlets.interfaces.IBelowContentTitle"
+        class="imio.project.pst.browser.viewlets.ActionPrettyLinkTitleViewlet"
+        template="templates/title_viewlet.pt"
+        permission="zope2.View"
+        />
+
+    <browser:viewlet
+        for="imio.project.pst.content.action.IPSTSubAction"
+        name="pretty-link-title"
+        manager="plone.app.layout.viewlets.interfaces.IBelowContentTitle"
+        class="imio.project.pst.browser.viewlets.ActionPrettyLinkTitleViewlet"
+        template="templates/title_viewlet.pt"
+        permission="zope2.View"
+        />
+
+    <browser:viewlet
         for="collective.task.interfaces.ITaskContent"
         name="pretty-link-title"
         manager="plone.app.layout.viewlets.interfaces.IBelowContentTitle"

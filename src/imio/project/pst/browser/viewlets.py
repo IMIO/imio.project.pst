@@ -14,6 +14,7 @@ from imio.project.pst import _tr
 from plone import api
 from plone.app.layout.viewlets import ViewletBase
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from Products.CMFPlone.utils import base_hasattr
 from zc.relation.interfaces import ICatalog
 from zope.component import getUtility
 from zope.intid.interfaces import IIntIds
@@ -34,6 +35,19 @@ class PrettyLinkTitleViewlet(ViewletBase):
         plo.display_tag_title = display_tag_title
         plo.isViewable = isViewable
         plo.notViewableHelpMessage = ''
+        return plo
+
+
+class ActionPrettyLinkTitleViewlet(PrettyLinkTitleViewlet):
+    """
+        Viewlet displaying a pretty link title
+    """
+
+    def adapted(self, showColors=False, display_tag_title=False, isViewable=False):
+        plo = super(ActionPrettyLinkTitleViewlet, self).adapted()
+        if base_hasattr(plo.context, '_link_portal_type'):
+            plo.showContentIcon = False
+            plo.additionalCSSClasses = ['contenttype-{}'.format(plo.context._link_portal_type)]
         return plo
 
 

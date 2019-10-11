@@ -8,8 +8,10 @@ from collective.eeafaceted.z3ctable.columns import MemberIdColumn
 from collective.eeafaceted.z3ctable.columns import PrettyLinkColumn
 from collective.eeafaceted.z3ctable.columns import VocabularyColumn
 from collective.task.interfaces import ITaskMethods
+from imio.prettylink.interfaces import IPrettyLink
 from imio.project.core.utils import getProjectSpace
 from imio.project.pst.adapters import UNSET_DATE_VALUE
+from Products.CMFPlone.utils import base_hasattr
 from zope.component import getMultiAdapter
 
 import cgi
@@ -18,6 +20,19 @@ import cgi
 class IconTitleColumn(PrettyLinkColumn):
 
     params = {'showContentIcon': True, 'display_tag_title': False}
+
+
+class ActionIconTitleColumn(PrettyLinkColumn):
+
+    def getPrettyLink(self, item):
+        pl = IPrettyLink(item)
+        pl.display_tag_title = False
+        if base_hasattr(pl.context, '_link_portal_type'):
+            pl.additionalCSSClasses = ['contenttype-{}'.format(pl.context._link_portal_type)]
+        else:
+            pl.additionalCSSClasses = ['contenttype-{}'.format(pl.context.portal_type)]
+        pl.contentValue = self.contentValue(item)
+        return pl.getLink()
 
 
 class HistoryActionsColumn(ActionsColumn):
