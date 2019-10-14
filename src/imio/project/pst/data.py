@@ -195,7 +195,7 @@ def get_os_oo_ac_data(groups, currentYear):
                         {'value': 20, 'label': u'Diminution du temps d\'attente (en %)', 'reached_value': 0},
                     ],
                     'priority': u'1',
-                    'planned_end_date': datetime.date(datetime(2013, 12, 31)),
+                    'planned_end_date': datetime.date(datetime(2020, 12, 31)),
                     'representative_responsible': ['1er-echevin'],
                     'administrative_responsible': [groups['secretariat-communal']],
                     'manager': [groups['service-population'], groups['service-etat-civil']],
@@ -205,7 +205,7 @@ def get_os_oo_ac_data(groups, currentYear):
                     'actions': [
                         {'title': u'Engager 2 agents pour le Service Population',
                          'manager': [groups['service-population'], ],
-                         'planned_end_date': datetime.date(datetime(2013, 06, 30)),
+                         'planned_end_date': datetime.date(datetime(2020, 06, 30)),
                          'extra_concerned_people': u'',
                          'budget': [{'amount': 500.0, 'budget_type': 'wallonie', 'year': currentYear},
                                     {'amount': 200.0, 'budget_type': 'europe', 'year': currentYear},
@@ -229,7 +229,7 @@ def get_os_oo_ac_data(groups, currentYear):
                          },
                         {'title': u'Créer un guichet supplémentaire dans les 3 mois',
                          'manager': [groups['service-population'], ],
-                         'planned_end_date': datetime.date(datetime(2013, 06, 30)),
+                         'planned_end_date': datetime.date(datetime(2020, 06, 30)),
                          'extra_concerned_people': u'',
                          'budget': [{'amount': 500.0, 'budget_type': 'wallonie', 'year': currentYear},
                                     {'amount': 200.0, 'budget_type': 'europe', 'year': currentYear},
@@ -248,7 +248,7 @@ def get_os_oo_ac_data(groups, currentYear):
                         {'title': u'Mettre en ligne sur le site internet différents documents "population" à '
                                   u'télécharger de chez soi',
                          'manager': [groups['service-population'], ],
-                         'planned_end_date': datetime.date(datetime(2013, 9, 30)),
+                         'planned_end_date': datetime.date(datetime(2020, 9, 30)),
                          'extra_concerned_people': u'',
                          'budget': [{'amount': 1500.0, 'budget_type': 'wallonie', 'year': currentYear},
                                     {'amount': 18500.0, 'budget_type': 'europe', 'year': currentYear},
@@ -276,7 +276,7 @@ def get_os_oo_ac_data(groups, currentYear):
                          'reached_value': 0},
                     ],
                     'priority': u'1',
-                    'planned_end_date': datetime.date(datetime(2013, 12, 31)),
+                    'planned_end_date': datetime.date(datetime(2020, 12, 31)),
                     'representative_responsible': ['1er-echevin'],
                     'administrative_responsible': [groups['secretariat-communal']],
                     'manager': [groups['service-population'], groups['service-etat-civil']],
@@ -286,7 +286,7 @@ def get_os_oo_ac_data(groups, currentYear):
                     'actions': [
                         {'title': u'Placer des pictogrammes de guidance',
                          'manager': [groups['service-population'], ],
-                         'planned_end_date': datetime.date(datetime(2013, 06, 30)),
+                         'planned_end_date': datetime.date(datetime(2020, 06, 30)),
                          'extra_concerned_people': u'',
                          'budget': [{'amount': 50.0, 'budget_type': 'wallonie', 'year': currentYear},
                                     {'amount': 250.0, 'budget_type': 'europe', 'year': currentYear},
@@ -308,7 +308,7 @@ def get_os_oo_ac_data(groups, currentYear):
                          },
                         {'title': u'Installer une rampe d\'accès pour PMR',
                          'manager': [groups['service-population'], groups['service-travaux']],
-                         'planned_end_date': datetime.date(datetime(2013, 06, 30)),
+                         'planned_end_date': datetime.date(datetime(2020, 06, 30)),
                          'extra_concerned_people': u'',
                          'budget': [{'amount': 600.0, 'budget_type': 'wallonie', 'year': currentYear+1},
                                     {'amount': 841.0, 'budget_type': 'europe', 'year': currentYear+1},
@@ -322,7 +322,7 @@ def get_os_oo_ac_data(groups, currentYear):
                          },
                         {'title': u'Mettre en place des permanences sur rendez-vous',
                          'manager': [groups['service-population'], ],
-                         'planned_end_date': datetime.date(datetime(2013, 9, 30)),
+                         'planned_end_date': datetime.date(datetime(2020, 9, 30)),
                          'extra_concerned_people': u'',
                          'budget': [],
                          'health_indicator': u'risque',
@@ -345,15 +345,15 @@ def get_os_oo_ac_data(groups, currentYear):
             'budget_comments': richtextval(u''),
             'operationalobjectives': [
                 {
-                    'title': u'Doter la commune de compétences en matière énergétique pour fin 2014 compte tenu du '
+                    'title': u'Doter la commune de compétences en matière énergétique pour fin 2021 compte tenu du '
                              u'budget',
                     u'result_indicator':
                     [
-                        {'value': 2, 'label': u'Nombre de personnes engagées fin 2014', 'reached_value': 0},
-                        {'value': 8, 'label': u'Nombre de personnes formées fin 2014', 'reached_value': 0},
+                        {'value': 2, 'label': u'Nombre de personnes engagées fin 2021', 'reached_value': 0},
+                        {'value': 8, 'label': u'Nombre de personnes formées fin 2021', 'reached_value': 0},
                     ],
                     'priority': u'1',
-                    'planned_end_date': datetime.date(datetime(2014, 12, 31)),
+                    'planned_end_date': datetime.date(datetime(2021, 12, 31)),
                     'representative_responsible': ['4eme-echevin'],
                     'administrative_responsible': [groups['secretariat-communal']],
                     'manager': [groups['service-de-lurbanisme']],
@@ -363,7 +363,7 @@ def get_os_oo_ac_data(groups, currentYear):
                     'actions': [
                         {'title': u'Procéder à l\'engagement d\'un conseiller en énergie',
                          'manager': [groups['service-de-lurbanisme'], ],
-                         'planned_end_date': datetime.date(datetime(2013, 06, 30)),
+                         'planned_end_date': datetime.date(datetime(2020, 06, 30)),
                          'extra_concerned_people': u'',
                          'budget': [],
                          'health_indicator': u'bon',
@@ -378,7 +378,7 @@ def get_os_oo_ac_data(groups, currentYear):
                          },
                         {'title': u'Répondre à l\'appel à projet "écopasseur" de la Wallonie',
                          'manager': [groups['service-de-lurbanisme'], ],
-                         'planned_end_date': datetime.date(datetime(2013, 06, 30)),
+                         'planned_end_date': datetime.date(datetime(2020, 06, 30)),
                          'extra_concerned_people': u'',
                          'budget': [{'amount': 0.0, 'budget_type': 'wallonie', 'year': currentYear},
                                     {'amount': 50.0, 'budget_type': 'europe', 'year': currentYear},
@@ -393,7 +393,7 @@ def get_os_oo_ac_data(groups, currentYear):
                         {'title': u'Inscrire systématiquement les agents du service travaux aux formations '
                                   u'énergétiques',
                          'manager': [groups['service-population'], ],
-                         'planned_end_date': datetime.date(datetime(2013, 9, 30)),
+                         'planned_end_date': datetime.date(datetime(2020, 9, 30)),
                          'extra_concerned_people': u'',
                          'budget': [{'amount': 550.0, 'budget_type': 'wallonie', 'year': currentYear},
                                     {'amount': 5250.0, 'budget_type': 'europe', 'year': currentYear},
@@ -408,14 +408,14 @@ def get_os_oo_ac_data(groups, currentYear):
                     ]
                 },
                 {
-                    'title': u'Réduire la consommation énergétique de la maison commune de 15% sur l\'année 2013',
+                    'title': u'Réduire la consommation énergétique de la maison commune de 15% sur l\'année 2020',
                     u'result_indicator':
                     [
-                        {'value': 2000, 'label': u'Diminution du nombre de litres de mazout au 31 12 2013',
+                        {'value': 2000, 'label': u'Diminution du nombre de litres de mazout au 31 12 2020',
                          'reached_value': 0},
                     ],
                     'priority': u'1',
-                    'planned_end_date': datetime.date(datetime(2013, 12, 31)),
+                    'planned_end_date': datetime.date(datetime(2020, 12, 31)),
                     'representative_responsible': ['1er-echevin'],
                     'administrative_responsible': [groups['secretariat-communal']],
                     'manager': [groups['service-de-lurbanisme']],
@@ -425,7 +425,7 @@ def get_os_oo_ac_data(groups, currentYear):
                     'actions': [
                         {'title': u'Réaliser un audit énergétique de l\'administration communale',
                          'manager': [groups['service-de-lurbanisme'], ],
-                         'planned_end_date': datetime.date(datetime(2013, 06, 30)),
+                         'planned_end_date': datetime.date(datetime(2020, 06, 30)),
                          'extra_concerned_people': u'',
                          'budget': [{'amount': 500.0, 'budget_type': 'wallonie', 'year': currentYear},
                                     {'amount': 500.0, 'budget_type': 'wallonie', 'year': currentYear+1},
@@ -444,7 +444,7 @@ def get_os_oo_ac_data(groups, currentYear):
                          },
                         {'title': u'En fonction des résultats, procéder à l\'isolation du bâtiment',
                          'manager': [groups['service-travaux']],
-                         'planned_end_date': datetime.date(datetime(2013, 10, 31)),
+                         'planned_end_date': datetime.date(datetime(2020, 10, 31)),
                          'extra_concerned_people': u'',
                          'budget': [{'amount': 1000.0, 'budget_type': 'wallonie', 'year': currentYear},
                                     {'amount': 1000.0, 'budget_type': 'wallonie', 'year': currentYear+1},
@@ -457,7 +457,7 @@ def get_os_oo_ac_data(groups, currentYear):
                          },
                         {'title': u'En fonction des résultats, installer une pompe à chaleur',
                          'manager': [groups['service-population'], ],
-                         'planned_end_date': datetime.date(datetime(2013, 10, 31)),
+                         'planned_end_date': datetime.date(datetime(2020, 10, 31)),
                          'extra_concerned_people': u'',
                          'budget': [{'amount': 500.0, 'budget_type': 'europe', 'year': currentYear+2},
                                     {'amount': 500.0, 'budget_type': 'federal', 'year': currentYear+2},
@@ -481,12 +481,12 @@ def get_os_oo_ac_data(groups, currentYear):
             'operationalobjectives': [
                 {
                     'title': u'Assurer la propreté dans l\'ensemble des parcs de la commune de manière à '
-                             u'réduire la présence de déchets de 90% au 31 12 2015',
+                             u'réduire la présence de déchets de 90% au 31 12 2022',
                     u'result_indicator': [{'value': 50, 'label': u'Nombre de sacs poubelles récoltés '
-                                          u'chaque année et à l\'échéance (31 12 2015)',
+                                          u'chaque année et à l\'échéance (31 12 2022)',
                                           'reached_value': 0}],
                     'priority': u'1',
-                    'planned_end_date': datetime.date(datetime(2015, 12, 31)),
+                    'planned_end_date': datetime.date(datetime(2022, 12, 31)),
                     'representative_responsible': ['2eme-echevin', '3eme-echevin'],
                     'administrative_responsible': [groups['secretariat-communal']],
                     'manager': [groups['service-proprete'], groups['service-travaux']],
@@ -500,7 +500,7 @@ def get_os_oo_ac_data(groups, currentYear):
                         {'title': u'Installer des distributeurs de sacs "ramasse crottes", dans les parcs '
                                   u'(entrée et sortie)',
                          'manager': [groups['service-proprete'], ],
-                         'planned_end_date': datetime.date(datetime(2014, 06, 30)),
+                         'planned_end_date': datetime.date(datetime(2021, 06, 30)),
                          'extra_concerned_people': u'La firme adjudicatrice au terme du marché public',
                          'budget': [{'amount': 12500.0, 'budget_type': 'wallonie', 'year': currentYear},
                                     {'amount': 2500.0, 'budget_type': 'europe', 'year': currentYear},
@@ -514,7 +514,7 @@ def get_os_oo_ac_data(groups, currentYear):
                          'health_indicator_details': u'Agent traitant malade pour minimum 3 mois -> risque de retard '
                                                      u'dans le planning',
                          'comments': richtextval(u'Attendre le placement des nouvelles poubelles (avant le '
-                                                 u'01/12/2013)'),
+                                                 u'01/12/2020)'),
                          'tasks': [
                              {'title': u'Commander des distributeurs de sacs',
                               'assigned_group': groups['service-travaux']},
