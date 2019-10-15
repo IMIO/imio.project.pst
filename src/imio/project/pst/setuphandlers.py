@@ -62,7 +62,7 @@ def reimport_faceted_config(folder, xml, default_UID=None):
 
 
 def configure_faceted_folder(folder, xml=None, default_UID=None):
-    """Configure faceted navigation for incoming-mail folder."""
+    """Configure faceted navigation for pst folder."""
     enableFacetedDashboardFor(folder, xml and add_path('faceted_conf/%s' % xml) or None)
     if default_UID:
         _updateDefaultCollectionFor(folder, default_UID)
