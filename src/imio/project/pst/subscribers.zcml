@@ -16,6 +16,12 @@
         />
 
     <subscriber
+        for="imio.project.core.content.projectspace.IProjectSpace
+             zope.lifecycleevent.interfaces.IObjectCopiedEvent"
+        handler=".subscribers.projectspace_moved"
+        />
+
+    <subscriber
         for="imio.project.pst.content.strategic.IStrategicObjective
              zope.container.interfaces.IObjectAddedEvent"
         handler=".subscribers.strategic_created"
