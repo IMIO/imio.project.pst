@@ -1048,12 +1048,12 @@ def createBaseCollections(folder, content_type):
 def configure_rolefields(portal):
     """Configure the rolefields on types."""
     config = {
-        'projectspace': {
+        ('projectspace', ): {
             'static_config': {
                 'internally_published': {'pst_readers': {'roles': ['Reader']}}
             }
         },
-        'operationalobjective': {
+        ('operationalobjective',): {
             'manager': {
                 'achieved': {'actioneditor': {'roles': ['Contributor']}},
                 'created': {'actioneditor': {'roles': ['Contributor']}},
@@ -1066,7 +1066,7 @@ def configure_rolefields(portal):
             }
             # TODO: representative_responsible
         },
-        'pstaction': {
+        ('pstaction', 'pstsubaction'): {
             'static_config': {
                 'created': {'pst_editors': {'roles': ['Reader', 'Editor', 'Reviewer', 'Contributor']}},
                 'to_be_scheduled': {'pst_editors': {'roles': ['Reader', 'Editor', 'Reviewer', 'Contributor']},
@@ -1087,9 +1087,10 @@ def configure_rolefields(portal):
             }
         },
     }
-    for portal_type, roles_config in config.iteritems():
-        for keyname in roles_config:
-            add_fti_configuration(portal_type, roles_config[keyname], keyname=keyname, force=False)
+    for portal_types, roles_config in config.iteritems():
+        for portal_type in portal_types:
+            for keyname in roles_config:
+                add_fti_configuration(portal_type, roles_config[keyname], keyname=keyname, force=False)
 
 
 def configure_task_config(context):

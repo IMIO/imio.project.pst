@@ -4,6 +4,7 @@ import logging
 
 from Products.CPUtils.Extensions.utils import mark_last_version
 from collective.documentgenerator.utils import update_oo_config
+from dexterity.localroles.utils import add_fti_configuration
 from imio.migrator.migrator import Migrator
 from imio.helpers.content import richtextval
 from imio.helpers.content import transitions
@@ -108,6 +109,30 @@ class Migrate_To_1_3(Migrator):
             behaviors = list(fti.behaviors)
             behaviors.append(behavior)
             fti._updateProperty('behaviors', tuple(behaviors))
+
+    def dx_local_roles(self):
+        conf = {
+            'static_config': {
+                'created': {'pst_editors': {'roles': ['Reader', 'Editor', 'Reviewer', 'Contributor']}},
+                'to_be_scheduled': {'pst_editors': {'roles': ['Reader', 'Editor', 'Reviewer', 'Contributor']},
+                                    'pst_readers': {'roles': ['Reader']}},
+                'ongoing': {'pst_editors': {'roles': ['Reader', 'Editor', 'Reviewer', 'Contributor']},
+                            'pst_readers': {'roles': ['Reader']}},
+                'stopped': {'pst_editors': {'roles': ['Reader', 'Editor', 'Reviewer', 'Contributor']},
+                            'pst_readers': {'roles': ['Reader']}},
+                'terminated': {'pst_editors': {'roles': ['Reader', 'Editor', 'Reviewer', 'Contributor']},
+                               'pst_readers': {'roles': ['Reader']}},
+            },
+            'manager': {
+                'created': {'actioneditor': {'roles': ['Editor', 'Reviewer', 'Contributor']}},
+                'to_be_scheduled': {'actioneditor': {'roles': ['Editor', 'Reviewer', 'Contributor']}},
+                'ongoing': {'actioneditor': {'roles': ['Editor', 'Reviewer', 'Contributor']}},
+                'terminated': {'actioneditor': {'roles': ['Editor', 'Reviewer']}},
+                'stopped': {'actioneditor': {'roles': ['Editor', 'Reviewer']}},
+            }
+        }
+        for keyname in conf:
+            add_fti_configuration('pstsubaction', conf[keyname], keyname=keyname, force=False)
 
 
 def migrate(context):
