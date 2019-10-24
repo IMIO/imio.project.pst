@@ -95,6 +95,9 @@ def post_install(context):
     if isNotCurrentProfile(context):
         return
     portal = context.getSite()
+    if getattr(portal, '_TESTING_SITE_', False):
+        portal.portal_properties.site_properties.manage_changeProperties(default_language='fr')
+
     if hasattr(portal, 'front-page'):
         do_transitions(getattr(portal, 'front-page'),
                        transitions=['publish_internally', 'publish_externally'],
