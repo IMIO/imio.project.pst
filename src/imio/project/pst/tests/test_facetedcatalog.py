@@ -44,7 +44,7 @@ class TestFacetedCatalog(IntegrationTestCase):
         # update another action to search 2 oos
         os2 = self.pst['etre-une-commune-qui-sinscrit-dans-la-lignee-des-accords-de-reductions-des-gaz-a-effet-de-'
                        'serre-afin-dassurer-le-developpement-durable']
-        oo2 = os2['doter-la-commune-de-competences-en-matiere-energetique-pour-fin-2014-compte-tenu-du-budget']
+        oo2 = os2['doter-la-commune-de-competences-en-matiere-energetique-pour-fin-2021-compte-tenu-du-budget']
         api.content.transition(oo2['proceder-a-lengagement-dun-conseiller-en-energie'], 'begin')
         brains = fc.__call__(context, **query)
         self.assertEqual(len(brains), 2)

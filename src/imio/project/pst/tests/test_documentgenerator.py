@@ -61,8 +61,8 @@ class TestDocumentGenerator(IntegrationTestCase):
             ('efficient', 'communale', 'guidance'), ('efficient', 'communale', 'pmr'),
             ('efficient', 'communale', 'vous'),
             ('durable', 'budget', 'energie'), ('durable', 'budget', 'wallonie'), ('durable', 'budget', 'energetiques'),
-            ('durable', '2013', 'communale'), ('durable', '2013', 'batiment'), ('durable', '2013', 'chaleur'),
-            ('securite', '2015', 'sortie')
+            ('durable', '2020', 'communale'), ('durable', '2020', 'batiment'), ('durable', '2020', 'chaleur'),
+            ('securite', '2022', 'sortie')
         ]
         # not dashboard
         del view.request.form['facetedQuery']
