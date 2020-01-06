@@ -6,6 +6,8 @@
             title="Post install for imio.project.pst"
             version="2013-06-10T11:00:00.00000">
         Post install for imio.project.pst
+    <dependency step="componentregistry" />
+    <dependency step="portlets" />
     <dependency step="typeinfo" />
     <dependency step="workflow" />
     </import-step>

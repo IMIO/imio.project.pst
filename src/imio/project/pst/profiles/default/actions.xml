@@ -10,10 +10,6 @@
 
   <object name="card" meta_type="CMF Action" i18n:domain="imio.project.pst" purge="true" />
 
-  <object name="pst_report" meta_type="CMF Action" i18n:domain="imio.project.pst" purge="true" />
-
-  <object name="status_report" meta_type="CMF Action" i18n:domain="imio.project.pst" purge="true" />
-
   <object name="excelexport" meta_type="CMF Action" i18n:domain="imio.project.pst" purge="true" />
 
  </object>
@@ -43,8 +39,7 @@
   </object>
  </object>
 
- <object name="object_buttons" meta_type="CMF Action Category">
-
+ <object name="portlet" meta_type="CMF Action Category">
   <object name="archive" meta_type="CMF Action" i18n:domain="imio.project.pst">
    <property name="title" i18n:translate="">Archive PST</property>
    <property name="url_expr">string:$object_url/@@archive/archive</property>
@@ -54,6 +49,11 @@
     <element value="Manage portal"/>
    </property>
   </object>
+ </object>
+
+ <object name="object_buttons" meta_type="CMF Action Category">
+
+  <object name="archive" meta_type="CMF Action" i18n:domain="imio.project.pst" purge="true" />
 
   <object name="faceted.sync" meta_type="CMF Action" i18n:domain="eea">
    <property name="visible">False</property>

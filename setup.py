@@ -54,6 +54,7 @@ setup(
         'collective.excelexport',
         'collective.externaleditor',
         'collective.messagesviewlet',
+        'collective.portlet.actions',
         'collective.task',
         'collective.symlink',
         'dexterity.localrolesfield',

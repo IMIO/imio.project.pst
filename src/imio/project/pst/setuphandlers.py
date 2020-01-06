@@ -37,6 +37,7 @@ from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
 from Products.CMFPlone.utils import base_hasattr
 from Products.CMFPlone.utils import getToolByName
 from utils import list_wf_states
+from zope.annotation.interfaces import IAnnotations
 from zope.component import getGlobalSiteManager
 from zope.component import getMultiAdapter
 from zope.component import getUtility
@@ -103,6 +104,7 @@ def post_install(context):
                        transitions=['publish_internally', 'publish_externally'],
                        logger=logger)
     adaptDefaultPortal(portal)
+    set_portlet(portal)
     addOrUpdateIndexes(portal, {'reference_number': ('FieldIndex', {})})
     # addOrUpdateIndexes(portal, {'administrative_responsible': ('KeywordIndex', {})})
     # addOrUpdateIndexes(portal, {'manager': ('KeywordIndex', {})})
@@ -1306,3 +1308,13 @@ def configure_lasting_objectives(context):
     registry = getUtility(IRegistry)
     logger.info("Configure registry (lasting objectives)")
     registry['imio.project.core.lasting_objectives'] = LASTING_OBJECTIVES_CONFIG
+
+
+def set_portlet(portal):
+    ann = IAnnotations(portal)
+    portlet = ann['plone.portlets.contextassignments']['plone.leftcolumn']['portlet_actions']
+    portlet.ptitle = u'Liens divers'
+    portlet.category = u'portlet'
+    portlet.show_icons = False
+    portlet.default_icon = None
+    portlet._p_changed = True

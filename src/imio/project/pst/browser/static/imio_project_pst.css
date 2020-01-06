@@ -261,3 +261,14 @@ body.template-view.portaltype-strategicobjective td.table_widget_label {
 .sitemap_jstree li.closed:not(.last-level) {
     background:url("++resource++imio.project.pst/jstree_icons.png") -48px -32px no-repeat;
 }
+
+/* various */
+dl.portlet.portletActionsPortlet dd.portletItem.first {
+    padding-top: 0.3em;
+}
+dl.portletActionsPortlet dd.portletItem span {
+    padding-left: 0;
+    margin-left: 0.5em;
+    margin-bottom: 0.3em;
+    line-height: 1em;
+}

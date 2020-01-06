@@ -21,5 +21,11 @@
       name="collective.task.AssignedGroups"
     />
 
+    <utility
+      interface="zope.schema.interfaces.IVocabularyFactory"
+      factory="imio.project.pst.vocabularies.ActionCategoriesVocabularyFactory"
+      name="plone.app.vocabularies.Actions"
+    />
+
   </utilities>
 </componentregistry>

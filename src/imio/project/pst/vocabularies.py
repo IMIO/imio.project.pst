@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 """PST vocabularies."""
+from collective.contact.plonegroup.browser.settings import getSelectedOrganizations
+from imio.project.pst.utils import list_wf_states
+from plone import api
 from zope.i18n import translate
 from zope.interface import implements
 from zope.schema.interfaces import IVocabularyFactory
-from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
-
-from collective.contact.plonegroup.browser.settings import getSelectedOrganizations
-from imio.project.pst.utils import list_wf_states
+from zope.schema.vocabulary import SimpleTerm
+from zope.schema.vocabulary import SimpleVocabulary
 
 
 class BaseReviewStatesVocabulary(object):
@@ -50,3 +51,17 @@ class ManagerVocabulary(object):
 
     def __call__(self, context):
         return SimpleVocabulary([SimpleTerm(t[0], title=t[1]) for t in getSelectedOrganizations(first_index=2)])
+
+
+class ActionCategoriesVocabularyFactory(object):
+    """Provides an actions categories vocabulary"""
+    implements(IVocabularyFactory)
+
+    def __call__(self, context):
+        portal_actions = api.portal.get_tool('portal_actions')
+
+        categories = portal_actions.objectIds()
+        categories.sort()
+        return SimpleVocabulary(
+            [SimpleTerm(cat, title=cat) for cat in categories]
+        )

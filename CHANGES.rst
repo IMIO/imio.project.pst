@@ -16,6 +16,8 @@ Changelog
 - Add viewlet for show action_link on action
   [vpiret]
 
+- Used collective.portlet.actions to display some actions
+  [sgeulette]
 
 1.2 (2019-06-23)
 ----------------

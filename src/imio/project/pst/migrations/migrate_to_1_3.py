@@ -1,17 +1,19 @@
 # -*- coding: utf-8 -*-
 
-import logging
-
-from Products.CPUtils.Extensions.utils import mark_last_version
 from collective.documentgenerator.utils import update_oo_config
 from dexterity.localroles.utils import add_fti_configuration
-from imio.migrator.migrator import Migrator
 from imio.helpers.content import richtextval
 from imio.helpers.content import transitions
+from imio.migrator.migrator import Migrator
 from imio.project.pst import _tr
 from imio.project.pst.setuphandlers import configure_lasting_objectives
+from imio.project.pst.setuphandlers import set_portlet
 from plone.dexterity.interfaces import IDexterityFTI
+from Products.CPUtils.Extensions.utils import mark_last_version
 from zope.component import queryUtility
+
+import logging
+
 
 logger = logging.getLogger('imio.project.pst')
 
@@ -30,9 +32,14 @@ class Migrate_To_1_3(Migrator):
         # check if oo port must be changed
         update_oo_config()
 
-        self.runProfileSteps('imio.project.pst', steps=['actions', 'catalog', 'typeinfo', 'viewlets', 'workflow'],
+        self.install(['collective.portlet.actions'])
+
+        self.runProfileSteps('imio.project.pst', steps=['actions', 'catalog', 'componentregistry', 'portlets',
+                                                        'typeinfo', 'viewlets', 'workflow'],
                              run_dependencies=False)
         self.runProfileSteps('imio.project.pst', steps=['repositorytool'], profile='demo', run_dependencies=False)
+
+        set_portlet(self.portal)
 
         self.adapt_collections()
 

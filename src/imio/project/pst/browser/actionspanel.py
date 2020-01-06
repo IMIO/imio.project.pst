@@ -48,7 +48,7 @@ class ProjectSpaceActionsPanelView(ActionsPanelView):
         self.SECTIONS_TO_RENDER += (
             'renderExportAsXML',
         )
-        self.ACCEPTABLE_ACTIONS = ('paste', 'delete', 'archive', )
+        self.ACCEPTABLE_ACTIONS = ('paste', 'delete', )
 
     def showExportAsXML(self):
         return self.context.restrictedTraverse('pst-utils').is_in_user_groups(
