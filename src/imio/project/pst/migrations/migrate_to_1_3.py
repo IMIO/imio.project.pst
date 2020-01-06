@@ -30,20 +30,26 @@ class Migrate_To_1_3(Migrator):
         # check if oo port must be changed
         update_oo_config()
 
-        self.runProfileSteps('imio.project.pst', steps=['actions', 'catalog', 'typeinfo', 'viewlets', 'workflow'])
-        self.runProfileSteps('imio.project.pst', steps=['repositorytool'], profile='demo')
+        self.runProfileSteps('imio.project.pst', steps=['actions', 'catalog', 'typeinfo', 'viewlets', 'workflow'],
+                             run_dependencies=False)
+        self.runProfileSteps('imio.project.pst', steps=['repositorytool'], profile='demo', run_dependencies=False)
 
         self.adapt_collections()
 
         # templates
-        self.runProfileSteps('imio.project.pst', steps=['imioprojectpst-update-templates'], profile='update')
-        self.runProfileSteps('imio.project.pst', steps=['imioprojectpst-templates'], profile='default')
+        self.runProfileSteps('imio.project.pst', steps=['imioprojectpst-update-templates'], profile='update',
+                             run_dependencies=False)
+        self.runProfileSteps('imio.project.pst', steps=['imioprojectpst-templates'], profile='default',
+                             run_dependencies=False)
 
-        self.runProfileSteps('imio.project.core', steps=['plone.app.registry'], profile='default')
+        self.runProfileSteps('imio.project.core', steps=['plone.app.registry'], profile='default',
+                             run_dependencies=False)
 
         configure_lasting_objectives(self.context)
 
         self.install_analytic_budget_behavior()
+
+        self.dx_local_roles()
 
         self.upgradeAll(omit=['imio.project.pst:default'])
 
@@ -51,7 +57,7 @@ class Migrate_To_1_3(Migrator):
             mark_last_version(self.portal, product=prod)
 
         # Reorder css and js
-        self.runProfileSteps('imio.project.pst', steps=['cssregistry', 'jsregistry'])
+        self.runProfileSteps('imio.project.pst', steps=['cssregistry', 'jsregistry'], run_dependencies=False)
 
         # Display duration
         self.finish()
