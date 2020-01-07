@@ -24,11 +24,36 @@
                 manager="plone.rightcolumn"
                 type="portlets.Events" />
 
+    <assignment name="portlet_dashboard"
+                category="context"
+                key="/"
+                manager="plone.leftcolumn"
+                type="FacetedCollectionPortlet" />
+
     <assignment name="portlet_actions"
                 category="context"
                 key="/"
                 manager="plone.leftcolumn"
                 type="portlets.Actions"
-                insert-before="navigation" />
+                insert-after="portlet_dashboard">
+        <property name="ptitle">Liens divers</property>
+        <!--property name="category">portlet</property-->
+        <property name="show_icons">False</property>
+        <property name="default_icon"></property>
+    </assignment>
+
+    <assignment name="navigation"
+                category="context"
+                key="/"
+                manager="plone.leftcolumn"
+                type="portlets.Navigation"
+                insert-after="portlet_actions">
+        <property name="name">Navigation</property>
+        <property name="root"></property>
+        <property name="includeTop">False</property>
+        <property name="currentFolderOnly">False</property>
+        <property name="topLevel">1</property>
+        <property name="bottomLevel">0</property>
+    </assignment>
 
 </portlets>

@@ -1310,11 +1310,8 @@ def configure_lasting_objectives(context):
     registry['imio.project.core.lasting_objectives'] = LASTING_OBJECTIVES_CONFIG
 
 
-def set_portlet(portal):
-    ann = IAnnotations(portal)
+def set_portlet(obj):
+    ann = IAnnotations(obj)
     portlet = ann['plone.portlets.contextassignments']['plone.leftcolumn']['portlet_actions']
-    portlet.ptitle = u'Liens divers'
     portlet.category = u'portlet'
-    portlet.show_icons = False
-    portlet.default_icon = None
     portlet._p_changed = True

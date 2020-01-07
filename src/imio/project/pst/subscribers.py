@@ -10,12 +10,7 @@ from imio.project.pst.interfaces import IOSDashboardBatchActions
 from imio.project.pst.interfaces import ITaskDashboardBatchActions
 from plone import api
 from plone.app.uuid.utils import uuidToPhysicalPath
-from plone.portlets.interfaces import IPortletAssignmentMapping
-from plone.portlets.interfaces import IPortletManager
 from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
-from Products.CMFPlone.utils import safe_unicode
-from zope.component import getMultiAdapter
-from zope.component import getUtility
 from zope.interface import alsoProvides
 from zope.interface import Invalid
 from zope.lifecycleevent.interfaces import IObjectRemovedEvent
@@ -67,14 +62,6 @@ def projectspace_moved(obj, event):
             logger.info('Replaced default col {} by {} on {}'.format(old_uid, default_col, ob.absolute_url()))
         else:
             raise ValueError("Cannot update default col on {}".format(ob.absolute_url()))
-    # Correct navigation portlet
-    left_column = getUtility(IPortletManager, name=u"plone.leftcolumn")
-    left_mappings = getMultiAdapter((obj, left_column), IPortletAssignmentMapping)
-    if 'navigation' in left_mappings:
-        portlet = left_mappings['navigation']
-        portal_path = '/'.join(portal.getPhysicalPath())
-        portlet.root = safe_unicode(path[len(portal_path):])
-        portlet._p_changed = True
 
 
 def strategic_created(obj, event):

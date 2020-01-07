@@ -40,6 +40,17 @@
  </object>
 
  <object name="portlet" meta_type="CMF Action Category">
+
+  <object name="export_to_ec" meta_type="CMF Action" i18n:domain="imio.project.pst">
+   <property name="title" i18n:translate="">Export as XML</property>
+   <property name="url_expr">string:$object_url/@@export_as_xml</property>
+   <property name="available_expr">object/@@pst-utils/is_pst_project</property>
+   <property name="visible">True</property>
+   <property name="permissions">
+    <element value="Add portal content"/>
+   </property>
+  </object>
+
   <object name="archive" meta_type="CMF Action" i18n:domain="imio.project.pst">
    <property name="title" i18n:translate="">Archive PST</property>
    <property name="url_expr">string:$object_url/@@archive/archive</property>
@@ -49,6 +60,7 @@
     <element value="Manage portal"/>
    </property>
   </object>
+
  </object>
 
  <object name="object_buttons" meta_type="CMF Action Category">

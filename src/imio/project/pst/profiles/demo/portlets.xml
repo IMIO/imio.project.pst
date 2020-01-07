@@ -3,13 +3,13 @@
     xmlns:i18n="http://xml.zope.org/namespaces/i18n"
     i18n:domain="imio.project.pst">
 
-    <assignment name="portlet_dashboard"
+    <assignment name="portlet_dashboard" remove="True"
                 category="context"
                 key="/pst"
                 manager="plone.leftcolumn"
                 type="FacetedCollectionPortlet" />
 
-    <assignment name="navigation"
+    <assignment name="navigation" remove="True"
                 category="context"
                 key="/pst"
                 manager="plone.leftcolumn"
