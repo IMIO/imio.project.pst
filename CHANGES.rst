@@ -4,19 +4,13 @@ Changelog
 1.3 (unreleased)
 ----------------
 
-- Hides the viewlet from collective.symlink
-  [vpiret]
-
-- Add viewlet for symlink content
-  [vpiret]
-
-- Modifies the viewlet display for symlink and adapts it for all content
-  [vpiret]
-
-- Add viewlet for show action_link on action
+- Added action_link content
   [vpiret]
 
 - Used collective.portlet.actions to display some actions
+  [sgeulette]
+
+- Simplified user and group overview listings
   [sgeulette]
 
 1.2 (2019-06-23)

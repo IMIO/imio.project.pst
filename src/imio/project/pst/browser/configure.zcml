@@ -318,6 +318,28 @@
         allowed_attributes="breadcrumbs"
         />
 
+    <!-- Override @@usergroup-userprefs -->
+    <configure package="plone.app.controlpanel">
+        <browser:page
+            name="usergroup-userprefs"
+            for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+            class="imio.project.pst.browser.overrides.PSTUsersOverviewControlPanel"
+            permission="plone.app.controlpanel.UsersAndGroups"
+            template="usergroups_usersoverview.pt"
+            layer="imio.project.pst.interfaces.IImioProjectPSTLayer" />
+    </configure>
+
+    <!-- Override @@usergroup-groupprefs -->
+    <configure package="plone.app.controlpanel">
+        <browser:page
+            name="usergroup-groupprefs"
+            for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+            class="imio.project.pst.browser.overrides.PSTGroupsOverviewControlPanel"
+            permission="plone.app.controlpanel.UsersAndGroups"
+            template="usergroups_groupsoverview.pt"
+            layer="imio.project.pst.interfaces.IImioProjectPSTLayer" />
+    </configure>
+
     <!-- Specific view for versioning -->
     <configure package="plone.dexterity">
         <browser:page

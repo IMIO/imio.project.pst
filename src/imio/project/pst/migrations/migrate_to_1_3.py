@@ -24,13 +24,13 @@ class Migrate_To_1_3(Migrator):
 
     def __init__(self, context):
         Migrator.__init__(self, context)
-        self.pc = self.portal.portal_catalog
-        self.ps = self.portal.portal_setup
 
     def run(self):
 
         # check if oo port must be changed
         update_oo_config()
+
+        self.check_roles()
 
         self.install(['collective.portlet.actions'])
         self.upgradeProfile('collective.contact.core:default')
@@ -99,12 +99,12 @@ class Migrate_To_1_3(Migrator):
 
     def adapt_collections(self):
         """ Include subactions in existing action dashboard collections """
-        pstactions = self.pc.searchResults(
+        pstactions = self.catalog.searchResults(
             portal_type="Folder",
             object_provides="imio.project.pst.interfaces.IActionDashboardBatchActions"
         )
         for pstaction in pstactions:
-            for brain in self.pc.searchResults(
+            for brain in self.catalog.searchResults(
                     {'path': {'query': pstaction.getPath()},
                      'portal_type': 'DashboardCollection'}
             ):
@@ -114,7 +114,7 @@ class Migrate_To_1_3(Migrator):
                         parameter['v'] = [u'pstaction', u'pstsubaction']
                 col.query = list(col.query)  # need this to persist change
         # deactivate states collections to lighten menu
-        for brain in self.pc(portal_type='DashboardCollection'):
+        for brain in self.catalog(portal_type='DashboardCollection'):
             if brain.id.startswith('searchfor_'):
                 obj = brain.getObject()
                 obj.enabled = False
@@ -165,6 +165,32 @@ class Migrate_To_1_3(Migrator):
         }
         for keyname in conf:
             add_fti_configuration('pstsubaction', conf[keyname], keyname=keyname, force=False)
+
+    def check_roles(self):
+        # check user roles
+        for user in api.user.get_users():
+            roles = api.user.get_roles(user=user)
+            for role in roles:
+                if role in ['Member', 'Authenticated']:
+                    continue
+                elif role == 'Manager':
+                    self.portal.acl_users.source_groups.addPrincipalToGroup(user.id, 'Administrators')
+                    api.user.revoke_roles(user=user, roles=['Manager'])
+                elif role == 'Site Administrator':
+                    self.portal.acl_users.source_groups.addPrincipalToGroup(user.id, 'Site Administrators')
+                    api.user.revoke_roles(user=user, roles=['Site Administrator'])
+                else:
+                    logger.warn("User '{}' has role: {}".format(user.id, role))
+        # check group roles
+        for group in api.group.get_groups():
+            roles = api.group.get_roles(group=group)
+            for role in roles:
+                if (role == 'Authenticated' or (role == 'Manager' and group.id == 'Administrators') or
+                        (role == 'Site Administrator' and group.id == 'Site Administrators') or
+                        (role == 'Reviewer' and group.id == 'Reviewers')):
+                    continue
+                else:
+                    logger.warn("Group '{}' has role: {}".format(group.id, role))
 
 
 def migrate(context):

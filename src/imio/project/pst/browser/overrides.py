@@ -16,6 +16,9 @@ from imio.project.core.content.project import IProject
 from plone.app.contenttypes.interfaces import IDocument
 from plone.app.contenttypes.interfaces import IFile
 from plone.app.contenttypes.interfaces import IFolder
+from plone.app.controlpanel.usergroups import GroupsOverviewControlPanel
+from plone.app.controlpanel.usergroups import UsersGroupsControlPanelView
+from plone.app.controlpanel.usergroups import UsersOverviewControlPanel
 from plone.app.layout.navigation.root import getNavigationRoot
 from plone.app.layout.viewlets.common import ContentActionsViewlet as CAV
 from plone.app.layout.viewlets.common import PathBarViewlet as PBV
@@ -26,6 +29,7 @@ from Products.CMFPlone.browser.ploneview import Plone as PV
 from Products.CMFPlone.interfaces import IHideFromBreadcrumbs
 from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
 from Products.CMFPlone.utils import base_hasattr
+from Products.CPUtils.Extensions.utils import check_zope_admin
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from zope.component import getMultiAdapter
@@ -110,3 +114,35 @@ class ContentActionsViewlet(CAV):
             if interface.providedBy(context):
                 return ''
         return self.index()
+
+
+class BaseOverviewControlPanel(UsersGroupsControlPanelView):
+    """Override to filter result and remove every selectable roles."""
+
+    @property
+    def portal_roles(self):
+        return ['Manager', 'Member', 'Site Administrator']
+
+    def doSearch(self, searchString):
+        results = super(BaseOverviewControlPanel, self).doSearch(searchString)
+        if check_zope_admin:
+            return results
+        adapted_results = []
+        for item in results:
+            adapted_item = item.copy()
+            for role in self.portal_roles:
+                adapted_item['roles'][role]['canAssign'] = False
+            adapted_results.append(adapted_item)
+        return adapted_results
+
+
+class PSTUsersOverviewControlPanel(BaseOverviewControlPanel, UsersOverviewControlPanel):
+    """See PMBaseOverviewControlPanel docstring."""
+
+
+class PSTGroupsOverviewControlPanel(BaseOverviewControlPanel, GroupsOverviewControlPanel):
+    """See PMBaseOverviewControlPanel docstring."""
+
+    @property
+    def portal_roles(self):
+        return ['Manager', 'Site Administrator']
