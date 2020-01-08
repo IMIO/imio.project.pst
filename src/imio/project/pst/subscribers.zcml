@@ -3,6 +3,28 @@
     xmlns:zcml="http://namespaces.zope.org/zcml"
     i18n_domain="imio.project.pst">
 
+    <include package="z3c.unconfigure" file="meta.zcml" />
+
+    <unconfigure>
+        <subscriber
+            for="plone.app.controlpanel.interfaces.IConfigurationChangedEvent"
+            handler="imio.pm.wsclient.browser.settings.notify_configuration_changed"
+            />
+        <subscriber
+            for="plone.registry.interfaces.IRecordModifiedEvent"
+            handler="imio.pm.wsclient.browser.settings.notify_configuration_changed"
+            />
+    </unconfigure>
+
+    <subscriber
+        for="plone.app.controlpanel.interfaces.IConfigurationChangedEvent"
+        handler=".subscribers.wsclient_configuration_changed"
+        />
+    <subscriber
+        for="plone.registry.interfaces.IRecordModifiedEvent"
+        handler=".subscribers.wsclient_configuration_changed"
+        />
+
     <subscriber
         for="imio.project.core.content.projectspace.IProjectSpace
              zope.container.interfaces.IObjectAddedEvent"

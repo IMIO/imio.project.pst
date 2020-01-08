@@ -3,6 +3,7 @@ from collective.eeafaceted.collectionwidget.interfaces import ICollectionCategor
 from collective.eeafaceted.collectionwidget.utils import _updateDefaultCollectionFor
 from collective.eeafaceted.collectionwidget.utils import getCollectionLinkCriterion
 from eea.facetednavigation.criteria.interfaces import ICriteria
+from imio.pm.wsclient.browser.settings import notify_configuration_changed
 from imio.project.pst.interfaces import IActionDashboardBatchActions
 from imio.project.pst.interfaces import IImioPSTProject
 from imio.project.pst.interfaces import IOODashboardBatchActions
@@ -10,6 +11,7 @@ from imio.project.pst.interfaces import IOSDashboardBatchActions
 from imio.project.pst.interfaces import ITaskDashboardBatchActions
 from plone import api
 from plone.app.uuid.utils import uuidToPhysicalPath
+from plone.registry.interfaces import IRecordModifiedEvent
 from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
 from zope.interface import alsoProvides
 from zope.interface import Invalid
@@ -20,6 +22,27 @@ import os
 
 
 logger = logging.getLogger('imio.project.pst: subscribers')
+
+
+def wsclient_configuration_changed(event):
+    """ call original subscriber and do more stuff """
+    if IRecordModifiedEvent.providedBy(event):
+        # generated_actions changed, we need to update generated actions in portal_actions
+        if event.record.fieldName == 'generated_actions':
+            notify_configuration_changed(event)
+            portal = api.portal.get()
+            ids = []
+            object_buttons = portal.portal_actions.object_buttons
+            portlet_actions = portal.portal_actions.portlet
+            for object_button in object_buttons.objectValues():
+                if object_button.id.startswith('plonemeeting_wsclient_action_'):
+                    ids.append(object_button.id)
+                    if object_button.id in portlet_actions:
+                        api.content.delete(portlet_actions[object_button.id])
+                    api.content.copy(object_button, portlet_actions)
+            arch_pos = portlet_actions.getObjectPosition('archive')
+            for i, aid in enumerate(ids):
+                portlet_actions.moveObjectToPosition(aid, arch_pos + i)
 
 
 def projectspace_created(obj, event):

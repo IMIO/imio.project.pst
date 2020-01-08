@@ -1280,17 +1280,17 @@ def configure_wsclient(context):
         orig_call = pm_meeting_config_id_vocabulary.__call__
         pm_meeting_config_id_vocabulary.__call__ = lambda self, context: SimpleVocabulary(
             [SimpleTerm(u'meeting-config-college')])
-        from imio.pm.wsclient.browser.settings import notify_configuration_changed
+        from imio.project.pst.subscribers import wsclient_configuration_changed
         from plone.registry.interfaces import IRecordModifiedEvent
         gsm = getGlobalSiteManager()
-        gsm.unregisterHandler(notify_configuration_changed, (IRecordModifiedEvent, ))
+        gsm.unregisterHandler(wsclient_configuration_changed, (IRecordModifiedEvent, ))
         api.portal.set_registry_record('{}.generated_actions'.format(prefix),
                                        [{'pm_meeting_config_id': u'meeting-config-college',
                                          'condition': u"python: context.getPortalTypeName() in ('pstaction', 'task',"
                                                       u"'pstsubaction')",
                                          'permissions': 'Modify view template'}])
         pm_meeting_config_id_vocabulary.__call__ = orig_call
-        gsm.registerHandler(notify_configuration_changed, (IRecordModifiedEvent, ))
+        gsm.registerHandler(wsclient_configuration_changed, (IRecordModifiedEvent, ))
     [logger.info(msg) for msg in log]
     return '\n'.join(log)
 
