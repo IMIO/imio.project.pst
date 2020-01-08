@@ -8,6 +8,7 @@ from imio.migrator.migrator import Migrator
 from imio.project.pst import _tr
 from imio.project.pst.setuphandlers import configure_lasting_objectives
 from imio.project.pst.setuphandlers import set_portlet
+from plone import api
 from plone.dexterity.interfaces import IDexterityFTI
 from Products.CPUtils.Extensions.utils import mark_last_version
 from zope.annotation.interfaces import IAnnotations
@@ -28,18 +29,19 @@ class Migrate_To_1_3(Migrator):
 
     def run(self):
 
-        self.various_update()
-
         # check if oo port must be changed
         update_oo_config()
 
         self.install(['collective.portlet.actions'])
+        self.upgradeProfile('collective.contact.core:default')
 
         self.runProfileSteps('imio.project.pst', steps=['actions', 'catalog', 'componentregistry', 'portlets',
                                                         'typeinfo', 'viewlets', 'workflow'],
                              run_dependencies=False)
         self.runProfileSteps('imio.project.pst', steps=['portlets', 'repositorytool'], profile='demo',
                              run_dependencies=False)
+
+        self.various_update()
 
         set_portlet(self.portal)
 
@@ -91,6 +93,9 @@ class Migrate_To_1_3(Migrator):
                         del ann['plone.portlets.contextassignments']['plone.leftcolumn']
                 if not len(ann['plone.portlets.contextassignments']):
                     del ann['plone.portlets.contextassignments']
+        # registry
+        api.portal.set_registry_record('collective.contact.core.interfaces.IContactCoreParameters.'
+                                       'display_below_content_title_on_views', True)
 
     def adapt_collections(self):
         """ Include subactions in existing action dashboard collections """

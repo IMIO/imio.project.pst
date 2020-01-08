@@ -460,6 +460,9 @@ def adaptDefaultPortal(site):
         if act in paob:
             paob[act].visible = False
 
+    api.portal.set_registry_record('collective.contact.core.interfaces.IContactCoreParameters.'
+                                   'display_below_content_title_on_views', True)
+
 
 def addDemoOrganization(context):
     """

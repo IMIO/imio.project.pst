@@ -165,60 +165,45 @@ body.template-view.portaltype-strategicobjective td.table_widget_label {
     color: Red !important;
 }
 
-#plone-contentmenu-workflow .state-created, .viewlet_workflowstate .state-created{
-    border-radius: 0.5em 0.5em 0.5em 0.5em;
+.viewlet_workflowstate span.state-created{
     background-color: red;
-    padding: 0 0.5em;
-    color: white !important;
-    border: 2px solid red;
+    border-color: red;
 }
 
 .state-to_be_scheduled {
     color: blue !important;
 }
 
-#plone-contentmenu-workflow .state-to_be_scheduled, .viewlet_workflowstate .state-to_be_scheduled {
-    border-radius: 0.5em 0.5em 0.5em 0.5em;
+.viewlet_workflowstate span.state-to_be_scheduled {
     background-color: blue;
-    padding: 0 0.5em;
-    color: white !important;
-    border: 2px solid blue;
+    border-color: blue;
 }
 
 .state-ongoing {
     color: green !important;
 }
 
-#plone-contentmenu-workflow .state-ongoing, .viewlet_workflowstate .state-ongoing {
-    border-radius: 0.5em 0.5em 0.5em 0.5em;
+.viewlet_workflowstate span.state-ongoing {
     background-color: green;
-    padding: 0 0.5em;
-    color: white !important;
-    border: 2px solid green;
+    border-color: green;
 }
 
 .state-stopped {
     color: DarkOrange !important;
 }
 
-#plone-contentmenu-workflow .state-stopped, .viewlet_workflowstate .state-stopped {
-    border-radius: 0.5em 0.5em 0.5em 0.5em;
+.viewlet_workflowstate span.state-stopped {
     background-color: DarkOrange;
-    padding: 0 0.5em;
-    color: white !important;
-    border: 2px solid DarkOrange;
+    border-color: DarkOrange;
 }
 
 .state-terminated {
     color: dimgrey !important;
 }
 
-#plone-contentmenu-workflow .state-terminated, .viewlet_workflowstate .state-terminated {
-    border-radius: 0.5em 0.5em 0.5em 0.5em;
+.viewlet_workflowstate span.state-terminated {
     background-color: dimgrey;
-    padding: 0 0.5em;
-    color: white !important;
-    border: 2px solid dimgrey;
+    border-color: dimgrey;
 }
 
 /* colorization for objective workflow */
@@ -227,12 +212,27 @@ body.template-view.portaltype-strategicobjective td.table_widget_label {
     color: dimgrey !important;
 }
 
-#plone-contentmenu-workflow .state-achieved, .viewlet_workflowstate .state-achieved {
-    border-radius: 0.5em 0.5em 0.5em 0.5em;
+.viewlet_workflowstate span.state-achieved {
     background-color: dimgrey;
-    padding: 0 0.5em;
-    color: white !important;
-    border: 2px solid dimgrey;
+    border-color: dimgrey;
+}
+
+/* colorization for active_inactive_workflow, collective_contact_core_workflow */
+
+.state-deactivated {
+ color: red !important;
+}
+.viewlet_workflowstate span.state-deactivated {
+    background-color: red;
+    border-color: red;
+}
+
+.state-active {
+ color: #436976 !important;
+}
+.viewlet_workflowstate span.state-active {
+    background-color: #436976;
+    border-color: #436976;
 }
 
 /* sitemap */
