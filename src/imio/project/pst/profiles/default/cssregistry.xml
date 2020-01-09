@@ -52,9 +52,7 @@
 
  <stylesheet id="++resource++collective.messagesviewlet/messagesviewlet.css" insert-after="++resource++plone.formwidget.datetime/styles.css" />
 
- <stylesheet id="simplify.css" insert-after="++resource++collective.messagesviewlet/messagesviewlet.css" />
-
- <stylesheet id="++resource++plone.formwidget.autocomplete/jquery.autocomplete.css" insert-after="simplify.css" />
+ <stylesheet id="++resource++plone.formwidget.autocomplete/jquery.autocomplete.css" insert-after="++resource++collective.messagesviewlet/messagesviewlet.css" />
 
  <stylesheet id="++resource++plone.formwidget.contenttree/contenttree.css" insert-after="++resource++plone.formwidget.autocomplete/jquery.autocomplete.css" />
 
@@ -178,12 +176,14 @@
 
  <stylesheet id="imioapps_ckeditor_moonolisa.css" insert-after="imioapps.css" />
 
-<stylesheet id="pstskin.css" insert-after="imioapps_ckeditor_moonolisa.css" />
+ <stylesheet id="pstskin.css" insert-after="imioapps_ckeditor_moonolisa.css" />
 
  <stylesheet id="++resource++imio.project.core/imio_project_core.css" insert-after="pstskin.css" />
 
  <stylesheet id="++resource++imio.project.pst/imio_project_pst.css" insert-after="++resource++imio.project.core/imio_project_core.css" />
 
  <stylesheet id="ploneCustom.css" insert-after="++resource++imio.project.pst/imio_project_pst.css" />
+
+ <stylesheet id="simplify.css" remove="True" />
 
 </object>

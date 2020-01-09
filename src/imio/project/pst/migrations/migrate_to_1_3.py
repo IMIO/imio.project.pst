@@ -31,6 +31,7 @@ class Migrate_To_1_3(Migrator):
         update_oo_config()
 
         self.check_roles()
+        self.remove_simplify_layout()
 
         self.install(['collective.portlet.actions'])
         self.upgradeProfile('collective.contact.core:default')
@@ -191,6 +192,20 @@ class Migrate_To_1_3(Migrator):
                     continue
                 else:
                     logger.warn("Group '{}' has role: {}".format(group.id, role))
+
+    def remove_simplify_layout(self):
+        # useless communesplone.layout setup
+        group_id = "full-layout"
+        if group_id in [g.id for g in api.group.get_groups()]:
+            api.group.delete(groupname=group_id)
+        self.portal.manage_permission('Review portal content', ('Manager', 'Site Administrator', 'Reviewer'), acquire=1)
+        self.portal.manage_permission('Modify constrain types', (), acquire=1)
+        self.portal.manage_permission('CMFPlacefulWorkflow: Manage workflow policies', (), acquire=1)
+        # css is removed in cssregistry of default profile
+        # skins is removed via update profile
+        self.runProfileSteps('imio.project.pst', steps=['skins'], profile='update', run_dependencies=False)
+        if 'communesplone_layout_simplify' in self.portal.portal_skins:
+            api.content.delete(self.portal.portal_skins['communesplone_layout_simplify'])
 
 
 def migrate(context):
