@@ -192,7 +192,8 @@ def get_os_oo_ac_data(groups, currentYear):
                              u"à venir",
                     u'result_indicator':
                     [
-                        {'value': 20, 'label': u'Diminution du temps d\'attente (en %)', 'reached_value': 0},
+                        {'value': 20, 'label': u'Diminution du temps d\'attente (en %)', 'reached_value': 0,
+                         'year': 2020},
                     ],
                     'priority': u'1',
                     'planned_end_date': datetime.date(datetime(2020, 12, 31)),
@@ -271,9 +272,9 @@ def get_os_oo_ac_data(groups, currentYear):
                     u'result_indicator':
                     [
                         {'value': 50, 'label': u'Pourcentage minimum de visiteurs satisfaits (document de satisfaction '
-                                               u'à remplir) sur un an', 'reached_value': 0},
+                                               u'à remplir) sur un an', 'reached_value': 0, 'year': 2020},
                         {'value': 5, 'label': u'Pourcentage maximum de plaintes (document de plainte à disposition)',
-                         'reached_value': 0},
+                         'reached_value': 0, 'year': 2020},
                     ],
                     'priority': u'1',
                     'planned_end_date': datetime.date(datetime(2020, 12, 31)),
@@ -349,8 +350,10 @@ def get_os_oo_ac_data(groups, currentYear):
                              u'budget',
                     u'result_indicator':
                     [
-                        {'value': 2, 'label': u'Nombre de personnes engagées fin 2021', 'reached_value': 0},
-                        {'value': 8, 'label': u'Nombre de personnes formées fin 2021', 'reached_value': 0},
+                        {'value': 2, 'label': u'Nombre de personnes engagées fin 2021', 'reached_value': 0,
+                         'year': 2020},
+                        {'value': 8, 'label': u'Nombre de personnes formées fin 2021', 'reached_value': 0,
+                         'year': 2020},
                     ],
                     'priority': u'1',
                     'planned_end_date': datetime.date(datetime(2021, 12, 31)),
@@ -412,7 +415,7 @@ def get_os_oo_ac_data(groups, currentYear):
                     u'result_indicator':
                     [
                         {'value': 2000, 'label': u'Diminution du nombre de litres de mazout au 31 12 2020',
-                         'reached_value': 0},
+                         'reached_value': 0, 'year': 2020},
                     ],
                     'priority': u'1',
                     'planned_end_date': datetime.date(datetime(2020, 12, 31)),
@@ -484,7 +487,7 @@ def get_os_oo_ac_data(groups, currentYear):
                              u'réduire la présence de déchets de 90% au 31 12 2022',
                     u'result_indicator': [{'value': 50, 'label': u'Nombre de sacs poubelles récoltés '
                                           u'chaque année et à l\'échéance (31 12 2022)',
-                                          'reached_value': 0}],
+                                          'reached_value': 0, 'year': 2020}],
                     'priority': u'1',
                     'planned_end_date': datetime.date(datetime(2022, 12, 31)),
                     'representative_responsible': ['2eme-echevin', '3eme-echevin'],

@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-from plone.dexterity.content import Container
-
+from Acquisition import aq_inner
 from collective.contact.plonegroup.utils import organizations_with_suffixes
 from collective.task.interfaces import ITaskContent
+from collective.z3cform.datagridfield import DataGridFieldFactory
 from dexterity.localrolesfield.field import LocalRolesField
 from imio.project.core.content.project import IProject
 from imio.project.core.content.project import Project
@@ -10,21 +10,20 @@ from imio.project.core.utils import getProjectSpace
 from imio.project.pst import _
 from plone import api
 from plone.autoform import directives as form
+from plone.dexterity.content import Container
 from plone.dexterity.schema import DexteritySchemaPolicy
 from plone.directives.form import default_value
 from z3c.form import validator
+from zc.relation.interfaces import ICatalog
 from zope import schema
+from zope.component import getUtility
 from zope.interface import implements
 from zope.interface import Invalid
+from zope.intid.interfaces import IIntIds
 from zope.schema.interfaces import IVocabularyFactory
 from zope.schema.vocabulary import SimpleTerm
 from zope.schema.vocabulary import SimpleVocabulary
-
-from Acquisition import aq_inner
-from zope.component import getUtility
-from zope.intid.interfaces import IIntIds
 from zope.security import checkPermission
-from zc.relation.interfaces import ICatalog
 
 
 class IPSTAction(IProject):
@@ -54,7 +53,11 @@ class IPSTAction(IProject):
         required=False,
     )
 
+    # change label
+    form.widget('result_indicator', DataGridFieldFactory, display_table_css_class='listing nosort', label=_(u'Realisation indicator'))
+
     # reorder fields
+    form.order_before(result_indicator='comments')
     form.order_before(planned_end_date='comments')
     form.order_before(planned_begin_date='comments')
     form.order_before(effective_begin_date='comments')
