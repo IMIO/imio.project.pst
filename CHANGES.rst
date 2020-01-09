@@ -4,13 +4,25 @@ Changelog
 1.3 (unreleased)
 ----------------
 
+- Updated budget fields
+  [sgeulette]
+- Improved result indicator
+  [vpiret,sgeulette,bleybaert]
+- Added map view to display as tree
+  [daggelpop]
+- Xml generation to export to ecomptes
+  [daggelpop,mpeeters]
+- Added subaction content
+  [daggelpop,sgeulette]
 - Added action_link content
   [vpiret]
-
+- administrative_responsible has editor role on oo
+  [sgeulette]
 - Used collective.portlet.actions to display some actions
   [sgeulette]
-
 - Simplified user and group overview listings
+  [sgeulette]
+- Removed actions green bar. Improved general interface
   [sgeulette]
 
 1.2 (2019-06-23)

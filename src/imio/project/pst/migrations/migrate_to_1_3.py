@@ -12,6 +12,7 @@ from plone import api
 from plone.dexterity.interfaces import IDexterityFTI
 from Products.CPUtils.Extensions.utils import mark_last_version
 from zope.annotation.interfaces import IAnnotations
+from zope.component import getUtility
 from zope.component import queryUtility
 
 import logging
@@ -144,6 +145,7 @@ class Migrate_To_1_3(Migrator):
             fti._updateProperty('behaviors', tuple(behaviors))
 
     def dx_local_roles(self):
+        # add pstsubaction local roles
         conf = {
             'static_config': {
                 'created': {'pst_editors': {'roles': ['Reader', 'Editor', 'Reviewer', 'Contributor']}},
@@ -166,6 +168,18 @@ class Migrate_To_1_3(Migrator):
         }
         for keyname in conf:
             add_fti_configuration('pstsubaction', conf[keyname], keyname=keyname, force=False)
+        # add administrative_responsible
+        fti = getUtility(IDexterityFTI, name='operationalobjective')
+        lr = getattr(fti, 'localroles')
+        lrar = lr['administrative_responsible']
+        for state in ('ongoing',):
+            if state in lrar and 'admin_resp' in lrar[state]:
+                dic = lrar[state]['admin_resp']
+                roles = dic.setdefault('roles', {'roles': ['Reader']})
+                for role in ('Editor', 'Contributor'):
+                    if role not in roles:
+                        roles.append(role)
+        lr._p_changed = True
 
     def check_roles(self):
         # check user roles
