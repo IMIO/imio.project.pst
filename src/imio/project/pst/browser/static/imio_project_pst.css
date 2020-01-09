@@ -241,11 +241,12 @@ body.template-view.portaltype-strategicobjective td.table_widget_label {
     float: right;
     clear: right;
 }
-
 .sitemap_toolbar {
     padding: 15px 0;
 }
-
+#sitemap-link .apButton {
+    background-color: lightsteelblue;
+}
 .sitemap_jstree ul {
     list-style-type: none !important;
 }
