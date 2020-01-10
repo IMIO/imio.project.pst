@@ -95,5 +95,16 @@
    <property name="sortreversed">False</property>
   </criterion>
 
+  <criterion name="modified" i18n:attributes="title">
+   <property name="widget">daterange</property>
+   <property name="title">Modified</property>
+   <property name="position">top</property>
+   <property name="section">advanced</property>
+   <property name="hidden">False</property>
+   <property name="index">Date</property>
+   <property name="default"></property>
+   <property name="calYearRange">2013:+0</property>
+  </criterion>
+
  </criteria>
 </object>

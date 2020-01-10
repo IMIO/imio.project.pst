@@ -9,7 +9,7 @@ Changelog
 - Improved result indicator
   [vpiret,sgeulette,bleybaert]
 - Added map view to display as tree
-  [daggelpop]
+  [daggelpop,sgeulette]
 - Xml generation to export to ecomptes
   [daggelpop,mpeeters]
 - Added subaction content

@@ -7,6 +7,7 @@ from imio.helpers.content import transitions
 from imio.migrator.migrator import Migrator
 from imio.project.pst import _tr
 from imio.project.pst.setuphandlers import configure_lasting_objectives
+from imio.project.pst.setuphandlers import reimport_faceted_config
 from imio.project.pst.setuphandlers import set_portlet
 from plone import api
 from plone.dexterity.interfaces import IDexterityFTI
@@ -98,6 +99,19 @@ class Migrate_To_1_3(Migrator):
         # registry
         api.portal.set_registry_record('collective.contact.core.interfaces.IContactCoreParameters.'
                                        'display_below_content_title_on_views', True)
+        # update dashboard criterias
+        for brain in self.catalog(object_provides='imio.project.pst.interfaces.IImioPSTProject'):
+            pst = brain.getObject()
+            mapping = {
+                'strategicobjectives': 'strategicobjective',
+                'operationalobjectives': 'operationalobjective',
+                'pstactions': 'pstaction',
+                'tasks': 'task'
+            }
+            for col_folder_id, content_type in mapping.iteritems():
+                col_folder = pst[col_folder_id]
+                reimport_faceted_config(col_folder, xml='{}.xml'.format(content_type),
+                                        default_UID=col_folder['all'].UID())
 
     def adapt_collections(self):
         """ Include subactions in existing action dashboard collections """
@@ -116,11 +130,16 @@ class Migrate_To_1_3(Migrator):
                         parameter['v'] = [u'pstaction', u'pstsubaction']
                 col.query = list(col.query)  # need this to persist change
         # deactivate states collections to lighten menu
+        # add ModificationDate column
         for brain in self.catalog(portal_type='DashboardCollection'):
-            if brain.id.startswith('searchfor_'):
-                obj = brain.getObject()
-                obj.enabled = False
-                obj.reindexObject(idxs=['enabled'])
+            col = brain.getObject()
+            if brain.id.startswith('searchfor_') and col.enabled:
+                col.enabled = False
+                col.reindexObject(idxs=['enabled'])
+            if u'ModificationDate' not in col.customViewFields:
+                nl = list(col.customViewFields)
+                nl.insert(col.customViewFields.index(u'history_actions'), u'ModificationDate')
+                col.customViewFields = tuple(nl)
 
     def install_analytic_budget_behavior(self):
 

@@ -650,14 +650,15 @@ def _addPSTUsers(context):
 
 
 COLUMNS_FOR_CONTENT_TYPES = {
-    'strategicobjective': (u'select_row', u'pretty_link', u'review_state', u'categories', u'history_actions'),
+    'strategicobjective': (u'select_row', u'pretty_link', u'review_state', u'categories', u'ModificationDate',
+                           u'history_actions'),
     'operationalobjective': (u'select_row', u'pretty_link', u'parents', u'review_state', u'manager',
-                             u'planned_end_date', u'priority', u'categories', u'history_actions'),
+                             u'planned_end_date', u'priority', u'categories', u'ModificationDate', u'history_actions'),
     'pstaction': (u'select_row', u'pretty_link', u'parents', u'review_state', u'manager', u'planned_begin_date',
                   u'planned_end_date', u'effective_begin_date', u'effective_end_date', u'progress',
-                  u'health_indicator', u'history_actions'),
+                  u'health_indicator', u'ModificationDate', u'history_actions'),
     'task': (u'select_row', u'pretty_link', u'parents', u'review_state', u'assigned_group',
-             u'assigned_user', u'due_date', u'CreationDate', u'history_actions'),
+             u'assigned_user', u'due_date', u'CreationDate', u'ModificationDate', u'history_actions'),
 }
 
 
