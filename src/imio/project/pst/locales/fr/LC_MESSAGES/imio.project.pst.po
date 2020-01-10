@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2020-01-09 10:33+0000\n"
+"POT-Creation-Date: 2020-01-10 11:47+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -43,6 +43,10 @@ msgstr "Sélectionner les utilisateurs qui seront responsable mandataire de l'ob
 #: ./browser/projectspace_sitemap.pt:11
 msgid "Collapse all"
 msgstr "Fermer tout"
+
+#: ./browser/projectspace_sitemap.pt:12
+msgid "Colorize"
+msgstr "Coloriser"
 
 #: ./browser/projectspace_sitemap.pt:10
 msgid "Deploy all"
