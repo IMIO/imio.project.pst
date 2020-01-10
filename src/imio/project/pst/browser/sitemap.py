@@ -14,8 +14,8 @@ class SitemapView(BrowserView):
             context = self.context
         return {
             'element': context,
-            'children': [self.navigation_tree_rec(child)
-                         for child in self.children(context)],
+            'state': api.content.get_state(context, 'no'),
+            'children': [self.navigation_tree_rec(child) for child in self.children(context)],
         }
 
     def children(self, context):
@@ -27,6 +27,4 @@ class SitemapView(BrowserView):
             'pstsubaction': {"portal_type": 'task'},
         }
 
-        return context.listFolderContents(
-            filters.get(context.portal_type, {})
-        )
+        return context.listFolderContents(filters.get(context.portal_type, {}))

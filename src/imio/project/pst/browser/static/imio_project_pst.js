@@ -48,6 +48,12 @@ $(document).ready(function(){
                     tree.close_all();
                 });
 
+                $("#colorize").on("click", function() {
+                    $("ul.sitemap_jstree li a").each(function(){
+                        $(this).toggleClass($(this).attr('data-state'));
+                    });
+                });
+
             },
 
             onselect: function (node, tree) {

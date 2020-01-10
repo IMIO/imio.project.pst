@@ -7,8 +7,9 @@
         <a tal:define="element nocall:child/element"
            tal:content="element/Title"
            tal:attributes="href element/absolute_url;
+                           data-state python:'state-{}'.format(child.get('state'));
                            class python:'icons-on contenttype-'+getattr(element, '_link_portal_type', element.portal_type);
-                           id element/UID"
+                           id element/UID;"
         />
 
         <ul tal:content="structure python:view.recurse(children=child.get('children', []))"/>
