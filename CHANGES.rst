@@ -16,7 +16,9 @@ Changelog
   [daggelpop,sgeulette]
 - Added action_link content
   [vpiret]
-- administrative_responsible has editor role on oo
+- Gotten OO due date from actions due dates
+  [vpiret,mpeeters]
+- administrative_responsible has editor role on OO
   [sgeulette]
 - Used collective.portlet.actions to display some actions
   [sgeulette]

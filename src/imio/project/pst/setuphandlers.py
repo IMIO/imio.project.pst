@@ -1070,7 +1070,7 @@ def configure_rolefields(portal):
             'administrative_responsible': {
                 'achieved': {'admin_resp': {'roles': ['Reader']}},
                 'created': {'admin_resp': {'roles': ['Reader']}},
-                'ongoing': {'admin_resp': {'roles': ['Reader']}}
+                'ongoing': {'admin_resp': {'roles': ['Reader', 'Editor', 'Contributor']}}
             }
             # TODO: representative_responsible
         },
