@@ -20,7 +20,7 @@
         for="imio.project.core.content.projectspace.IProjectSpace"
         name="imio-folder-listing"
         class=".facetediframe.FacetedContainerFolderListingView"
-        template="projectspace_folder_listing.pt"
+        template="templates/projectspace_folder_listing.pt"
         permission="zope2.View"
         />
     <!-- Customize the folder_listing for IStrategicObjective -->
@@ -28,7 +28,7 @@
         for="imio.project.pst.content.strategic.IStrategicObjective"
         name="imio-folder-listing"
         class=".facetediframe.FacetedContainerFolderListingView"
-        template="strategicobjective_folder_listing.pt"
+        template="templates/strategicobjective_folder_listing.pt"
         permission="zope2.View"
         />
 
@@ -37,7 +37,7 @@
         for="imio.project.pst.content.operational.IOperationalObjective"
         name="imio-folder-listing"
         class=".facetediframe.FacetedContainerFolderListingView"
-        template="operationalobjective_folder_listing.pt"
+        template="templates/operationalobjective_folder_listing.pt"
         permission="zope2.View"
         />
 
@@ -46,7 +46,7 @@
         for="imio.project.pst.content.action.IPSTAction"
         name="imio-folder-listing"
         class=".facetediframe.FacetedContainerFolderListingView"
-        template="pstaction_folder_listing.pt"
+        template="templates/pstaction_folder_listing.pt"
         permission="zope2.View"
         />
 
