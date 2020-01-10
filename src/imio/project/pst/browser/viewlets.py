@@ -68,7 +68,7 @@ class TasksListViewlet(OriginalTasksListViewlet):
 
 class ContentLinkViewlet(ViewletBase):
 
-    index = ViewPageTemplateFile("contentlink.pt")
+    index = ViewPageTemplateFile("templates/contentlink.pt")
 
     def content_link(self):
         if self.back_references(self.context):
@@ -150,7 +150,7 @@ class ContextInformationViewlet(MessagesViewlet):
 
 class SitemapLinkViewlet(ViewletBase):
 
-    index = ViewPageTemplateFile('sitemap_link.pt')
+    index = ViewPageTemplateFile('templates/sitemap_link.pt')
 
     def href(self):
         pst = getProjectSpace(self.context)

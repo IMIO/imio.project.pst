@@ -62,7 +62,7 @@
         for="imio.project.core.content.projectspace.IProjectSpace"
         name="sitemap"
         class=".sitemap.SitemapView"
-        template="projectspace_sitemap.pt"
+        template="templates/projectspace_sitemap.pt"
         permission="zope2.View"
         />
 

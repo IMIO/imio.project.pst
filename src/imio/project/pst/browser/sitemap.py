@@ -7,7 +7,7 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 class SitemapView(BrowserView):
 
-    recurse = ViewPageTemplateFile('projectspace_sitemap_recurse.pt')
+    recurse = ViewPageTemplateFile('templates/projectspace_sitemap_recurse.pt')
 
     def navigation_tree_rec(self, context=None):
         if not context:
