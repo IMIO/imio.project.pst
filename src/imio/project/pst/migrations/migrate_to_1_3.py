@@ -11,7 +11,10 @@ from imio.project.pst.setuphandlers import reimport_faceted_config
 from imio.project.pst.setuphandlers import set_portlet
 from plone import api
 from plone.dexterity.interfaces import IDexterityFTI
+from plone.registry.events import RecordModifiedEvent
+from plone.registry.interfaces import IRegistry
 from Products.CPUtils.Extensions.utils import mark_last_version
+from zope import event
 from zope.annotation.interfaces import IAnnotations
 from zope.component import getUtility
 from zope.component import queryUtility
@@ -99,6 +102,12 @@ class Migrate_To_1_3(Migrator):
         # registry
         api.portal.set_registry_record('collective.contact.core.interfaces.IContactCoreParameters.'
                                        'display_below_content_title_on_views', True)
+        registry = getUtility(IRegistry)
+        record = registry.records.get('imio.pm.wsclient.browser.settings.IWS4PMClientSettings.generated_actions')
+        if record is not None:
+            val = api.portal.get_registry_record('imio.pm.wsclient.browser.settings.IWS4PMClientSettings.'
+                                                 'generated_actions')
+            event.notify(RecordModifiedEvent(record, val, val))
         # update dashboard criterias
         for brain in self.catalog(object_provides='imio.project.pst.interfaces.IImioPSTProject'):
             pst = brain.getObject()
