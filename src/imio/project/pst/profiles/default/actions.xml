@@ -41,6 +41,16 @@
 
  <object name="portlet" meta_type="CMF Action Category">
 
+  <object name="import_from_ec" meta_type="CMF Action" i18n:domain="imio.project.pst">
+   <property name="title" i18n:translate="">Import from eComptes</property>
+   <property name="url_expr">string:$object_url/@@import_from_ecomptes</property>
+   <property name="available_expr">object/@@pst-utils/is_pst_project</property>
+   <property name="visible">True</property>
+   <property name="permissions">
+    <element value="Add portal content"/>
+   </property>
+  </object>
+
   <object name="export_to_ec" meta_type="CMF Action" i18n:domain="imio.project.pst">
    <property name="title" i18n:translate="">Export as XML</property>
    <property name="url_expr">string:$object_url/@@export_as_xml</property>
