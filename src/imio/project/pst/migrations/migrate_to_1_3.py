@@ -25,6 +25,29 @@ import logging
 logger = logging.getLogger('imio.project.pst')
 
 
+def install_analytic_budget_behavior():
+
+    behavior = "imio.project.core.browser.behaviors.IAnalyticBudget"
+    types = [
+        u'strategicobjective',
+        u'operationalobjective',
+        u'pstaction',
+        u'action_link',
+        u'pstsubaction',
+        u'subaction_link'
+    ]
+
+    for type_name in types:
+        fti = queryUtility(IDexterityFTI, name=type_name)
+        if not fti:
+            continue
+        if behavior in fti.behaviors:
+            continue
+        behaviors = list(fti.behaviors)
+        behaviors.append(behavior)
+        fti._updateProperty('behaviors', tuple(behaviors))
+
+
 class Migrate_To_1_3(Migrator):
 
     def __init__(self, context):
@@ -64,7 +87,7 @@ class Migrate_To_1_3(Migrator):
 
         configure_lasting_objectives(self.context)
 
-        self.install_analytic_budget_behavior()
+        install_analytic_budget_behavior()
 
         self.dx_local_roles()
 
@@ -149,28 +172,6 @@ class Migrate_To_1_3(Migrator):
                 nl = list(col.customViewFields)
                 nl.insert(col.customViewFields.index(u'history_actions'), u'ModificationDate')
                 col.customViewFields = tuple(nl)
-
-    def install_analytic_budget_behavior(self):
-
-        behavior = "imio.project.core.browser.behaviors.IAnalyticBudget"
-        types = [
-            u'strategicobjective',
-            u'operationalobjective',
-            u'pstaction',
-            u'action_link',
-            u'pstsubaction',
-            u'subaction_link'
-        ]
-
-        for type_name in types:
-            fti = queryUtility(IDexterityFTI, name=type_name)
-            if not fti:
-                continue
-            if behavior in fti.behaviors:
-                continue
-            behaviors = list(fti.behaviors)
-            behaviors.append(behavior)
-            fti._updateProperty('behaviors', tuple(behaviors))
 
     def dx_local_roles(self):
         # add pstsubaction local roles
