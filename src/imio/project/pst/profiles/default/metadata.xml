@@ -4,6 +4,7 @@
   <dependencies>
     <dependency>profile-plone.app.contenttypes:plone-content</dependency>
     <dependency>profile-Products.PasswordStrength:default</dependency>
+    <dependency>profile-collective.behavior.sdg:default</dependency>
     <dependency>profile-collective.documentgenerator:default</dependency>
     <dependency>profile-collective.externaleditor:default</dependency>
     <dependency>profile-collective.messagesviewlet:messages</dependency>

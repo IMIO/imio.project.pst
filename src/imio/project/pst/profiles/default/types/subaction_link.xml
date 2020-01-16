@@ -20,7 +20,9 @@
  <property name="default_view_fallback">False</property>
  <property name="add_permission">cmf.AddPortalContent</property>
  <property name="klass">imio.project.pst.content.subaction_link.SubActionLink</property>
- <property name="behaviors"/>
+ <property name="behaviors">
+  <element value="plone.app.lockingbehavior.behaviors.ILocking" />
+ </property>
  <property name="schema">imio.project.pst.content.subaction_link.ISubActionLink</property>
  <property name="model_source"/>
  <property name="model_file"/>

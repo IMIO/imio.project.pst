@@ -24,9 +24,11 @@
  <property name="schema_policy">schema_policy_pstaction</property>
  <property name="klass">imio.project.pst.content.action.PSTSubAction</property>
  <property name="behaviors">
+  <element value="collective.behavior.sdg.sustainable_development_goals" />
+  <element value="collective.task.behaviors.ITaskContainer" />
   <element value="plone.app.dexterity.behaviors.metadata.IDublinCore"/>
   <element value="plone.app.content.interfaces.INameFromTitle" />
-  <element value="collective.task.behaviors.ITaskContainer" />
+  <element value="plone.app.lockingbehavior.behaviors.ILocking" />
   <element value="plone.app.versioningbehavior.behaviors.IVersionable" />
  </property>
 

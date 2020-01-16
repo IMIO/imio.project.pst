@@ -4,6 +4,8 @@ Changelog
 1.3 (unreleased)
 ----------------
 
+- Added sustainable development goal field
+  [sgeulette]
 - Updated budget fields
   [sgeulette]
 - Improved result indicator

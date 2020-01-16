@@ -64,6 +64,7 @@ class Migrate_To_1_3(Migrator):
         self.install(['collective.portlet.actions'])
         self.upgradeProfile('collective.contact.core:default')
 
+        self.runProfileSteps('imio.project.core', steps=['typeinfo'], run_dependencies=False)
         self.runProfileSteps('imio.project.pst', steps=['actions', 'catalog', 'componentregistry', 'portlets',
                                                         'typeinfo', 'viewlets', 'workflow'],
                              run_dependencies=False)
