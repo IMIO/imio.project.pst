@@ -1299,21 +1299,6 @@ def configure_wsclient(context):
     return '\n'.join(log)
 
 
-def configure_lasting_objectives(context):
-    """
-        Configure lasting objectives
-    """
-
-    LASTING_OBJECTIVES_CONFIG = {
-        # u'obj01': {u'title': u'', u'url': u''},
-        # u'obj02': {u'title': u'', u'url': u''},
-        # u'obj03': {u'title': u'', u'url': u''},
-    }
-    registry = getUtility(IRegistry)
-    logger.info("Configure registry (lasting objectives)")
-    registry['imio.project.core.lasting_objectives'] = LASTING_OBJECTIVES_CONFIG
-
-
 def set_portlet(obj):
     ann = IAnnotations(obj)
     portlet = ann['plone.portlets.contextassignments']['plone.leftcolumn']['portlet_actions']

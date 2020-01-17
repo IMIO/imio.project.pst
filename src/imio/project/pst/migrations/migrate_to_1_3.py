@@ -6,7 +6,6 @@ from imio.helpers.content import richtextval
 from imio.helpers.content import transitions
 from imio.migrator.migrator import Migrator
 from imio.project.pst import _tr
-from imio.project.pst.setuphandlers import configure_lasting_objectives
 from imio.project.pst.setuphandlers import reimport_faceted_config
 from imio.project.pst.setuphandlers import set_portlet
 from plone import api
@@ -62,6 +61,7 @@ class Migrate_To_1_3(Migrator):
         self.remove_simplify_layout()
 
         self.install(['collective.portlet.actions'])
+        self.install(['collective.behavior.sdg'])
         self.upgradeProfile('collective.contact.core:default')
 
         self.runProfileSteps('imio.project.core', steps=['typeinfo'], run_dependencies=False)
@@ -85,8 +85,6 @@ class Migrate_To_1_3(Migrator):
 
         self.runProfileSteps('imio.project.core', steps=['plone.app.registry'], profile='default',
                              run_dependencies=False)
-
-        configure_lasting_objectives(self.context)
 
         install_analytic_budget_behavior()
 

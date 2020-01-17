@@ -6,7 +6,6 @@ from imio.project.core.content.project import IProject
 from imio.project.core.content.project import Project
 from imio.project.core.utils import getProjectSpace
 from imio.project.core.utils import getVocabularyTermsForOrganization
-from imio.project.core.widgets.linked_checkbox import linked_checkbox_field_widget
 from imio.project.pst import _
 from plone import api
 from plone.autoform import directives as form
@@ -53,19 +52,6 @@ class IOperationalObjective(IProject):
         ),
         required=True,
         min_length=1,
-    )
-
-    form.widget('lasting_objectives',
-                linked_checkbox_field_widget,
-                links_record='imio.project.core.lasting_objectives')
-    lasting_objectives = schema.List(
-        title=_(u"Lasting objectives"),
-        # description=_(u"Select lasting objectives."),
-        value_type=schema.Choice(
-            vocabulary=u"imio.project.core.LastingObjectiveVocabulary",
-            required=True,
-        ),
-        required=False,
     )
 
     # reorder new added fields

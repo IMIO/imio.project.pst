@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2020-01-10 11:47+0000\n"
+"POT-Creation-Date: 2020-01-17 09:42+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,16 +19,16 @@ msgstr ""
 msgid "Action link"
 msgstr "Lien action"
 
-#: ./browser/pstaction_folder_listing.pt:9
-#: ./setuphandlers.py:697
+#: ./browser/templates/pstaction_folder_listing.pt:9
+#: ./setuphandlers.py:698
 msgid "Actions"
 msgstr "Actions"
 
-#: ./content/operational.py:39
+#: ./content/operational.py:38
 msgid "Administrative responsible"
 msgstr "Responsable administratif"
 
-#: ./setuphandlers.py:802
+#: ./setuphandlers.py:803
 msgid "All"
 msgstr "Tous"
 
@@ -40,15 +40,15 @@ msgstr "Archiver le PST"
 msgid "Choose principals that will be representative responsible for this project. If nothing choosed, the oo value is used for searches."
 msgstr "Sélectionner les utilisateurs qui seront responsable mandataire de l'objectif. Si personne n'est sélectionné, la valeur indiquée sur l'oo est utilisée pour les recherches."
 
-#: ./browser/projectspace_sitemap.pt:11
+#: ./browser/templates/projectspace_sitemap.pt:11
 msgid "Collapse all"
 msgstr "Fermer tout"
 
-#: ./browser/projectspace_sitemap.pt:12
+#: ./browser/templates/projectspace_sitemap.pt:12
 msgid "Colorize"
 msgstr "Coloriser"
 
-#: ./browser/projectspace_sitemap.pt:10
+#: ./browser/templates/projectspace_sitemap.pt:10
 msgid "Deploy all"
 msgstr "Ouvrir tout"
 
@@ -62,7 +62,7 @@ msgstr "Date de fin effective"
 
 #: ./profiles/default/actions.xml
 msgid "Export as XML"
-msgstr "Export eComptes"
+msgstr "Export vers eComptes"
 
 #: ./content/action.py:45
 msgid "Health indicator"
@@ -72,6 +72,10 @@ msgstr "Indice de santé"
 msgid "Health indicator_details"
 msgstr "Détails de l'indice de santé"
 
+#: ./profiles/default/actions.xml
+msgid "Import from eComptes"
+msgstr "Import depuis eComptes"
+
 #: ./profiles.zcml:22
 msgid "Import some demo data for the imio.project.pst add-on."
 msgstr "Import some demo data for the imio.project.pst"
@@ -80,31 +84,7 @@ msgstr "Import some demo data for the imio.project.pst"
 msgid "Installs the imio.project.pst add-on."
 msgstr "Installs the imio.project.pst"
 
-#: ./content/operational.py:62
-msgid "Lasting objectives"
-msgstr "Objectifs durables"
-
-#. Default: "Actions"
-#: ./browser/portlet_mainimioprojectpst.pt:72
-msgid "Main_menu_action_section"
-msgstr "Actions"
-
-#. Default: "Operational Objectives"
-#: ./browser/portlet_mainimioprojectpst.pt:39
-msgid "Main_menu_oo_section"
-msgstr "Objectifs opérationnels"
-
-#. Default: "Strategic Objectives"
-#: ./browser/portlet_mainimioprojectpst.pt:20
-msgid "Main_menu_os_section"
-msgstr "Objectifs stratégiques"
-
-#. Default: "Main menu"
-#: ./browser/portlet_mainimioprojectpst.pt:15
-msgid "Main_menu_title"
-msgstr "Menu PST"
-
-#: ./setuphandlers.py:696
+#: ./setuphandlers.py:697
 msgid "Operational objectives"
 msgstr "Objectifs opérationnels"
 
@@ -133,55 +113,55 @@ msgid "Realisation indicator"
 msgstr "Indicateur de réalisation"
 
 #: ./content/action.py:35
-#: ./content/operational.py:29
+#: ./content/operational.py:28
 msgid "Representative responsible"
 msgstr "Responsable mandataire"
 
-#: ./browser/sitemap_link.pt:6
+#: ./browser/templates/sitemap_link.pt:6
 msgid "Sitemap"
 msgstr "Plan du PST"
 
-#: ./setuphandlers.py:726
+#: ./setuphandlers.py:727
 msgid "State: achieved"
 msgstr "État: clôturé"
 
-#: ./setuphandlers.py:734
+#: ./setuphandlers.py:735
 msgid "State: closed"
 msgstr "État: clôturé"
 
-#: ./setuphandlers.py:724
+#: ./setuphandlers.py:725
 msgid "State: created"
 msgstr "État: en création"
 
-#: ./setuphandlers.py:736
+#: ./setuphandlers.py:737
 msgid "State: in progress"
 msgstr "État: en cours"
 
-#: ./setuphandlers.py:725
+#: ./setuphandlers.py:726
 msgid "State: ongoing"
 msgstr "État: en cours"
 
-#: ./setuphandlers.py:737
+#: ./setuphandlers.py:738
 msgid "State: realized"
 msgstr "État: réalisé"
 
-#: ./setuphandlers.py:732
+#: ./setuphandlers.py:733
 msgid "State: stopped"
 msgstr "État: annulé"
 
-#: ./setuphandlers.py:731
+#: ./setuphandlers.py:732
 msgid "State: terminated"
 msgstr "État: finalisé"
 
-#: ./setuphandlers.py:739
+#: ./setuphandlers.py:740
 msgid "State: to assign"
 msgstr "État: à assigner"
 
-#: ./setuphandlers.py:729
+#: ./setuphandlers.py:730
 msgid "State: to be scheduled"
 msgstr "État: à agender"
 
-#: ./setuphandlers.py:738
+#: ./setuphandlers.py:739
 msgid "State: to do"
 msgstr "État: à faire"
 
@@ -189,7 +169,7 @@ msgstr "État: à faire"
 msgid "Steps to ease tests of imio.project.pst"
 msgstr "Steps to ease tests of imio.project.pst"
 
-#: ./setuphandlers.py:695
+#: ./setuphandlers.py:696
 msgid "Strategic objectives"
 msgstr "Objectifs stratégiques"
 
@@ -206,8 +186,8 @@ msgstr "Lien sous-action"
 msgid "Symbolic link"
 msgstr "Lien symbolique"
 
-#: ./browser/pstaction_folder_listing.pt:10
-#: ./setuphandlers.py:698
+#: ./browser/templates/pstaction_folder_listing.pt:10
+#: ./setuphandlers.py:699
 msgid "Tasks"
 msgstr "Tâches"
 
@@ -223,7 +203,7 @@ msgstr "L'échéance d'au moins une action est supérieure à l'échéance de l'
 msgid "This content is a copy, to modify the original content click on this button ${edit}"
 msgstr "Ce contenu est une copie miroir ! Cliquer sur ce lien ${edit} pour modifier l'original"
 
-#: ./browser/contentlink.pt:2
+#: ./browser/templates/contentlink.pt:2
 msgid "This content is also present :"
 msgstr "Ce contenu est aussi présent dans :"
 
@@ -231,23 +211,23 @@ msgstr "Ce contenu est aussi présent dans :"
 msgid "Update profile to run individually some update steps"
 msgstr "Update profile to run individually some update steps"
 
-#: ./setuphandlers.py:824
+#: ./setuphandlers.py:825
 msgid "Which I am administrative responsible"
 msgstr "Dont je suis responsable administratif"
 
-#: ./setuphandlers.py:841
+#: ./setuphandlers.py:842
 msgid "Which I am manager"
 msgstr "Dont je suis gestionnaire"
 
-#: ./setuphandlers.py:858
+#: ./setuphandlers.py:859
 msgid "Which an action deadline has passed"
 msgstr "En retard pdv échéance actions"
 
-#: ./setuphandlers.py:911
+#: ./setuphandlers.py:912
 msgid "Which beginning is late"
 msgstr "En retard pdv date début effective"
 
-#: ./setuphandlers.py:895
+#: ./setuphandlers.py:896
 msgid "Which deadline has passed"
 msgstr "En retard pdv échéance"
 
@@ -288,44 +268,44 @@ msgid "imio.project.pst update profile to run individually some update steps"
 msgstr "imio.project.pst update profile to run individually some update steps"
 
 #. Default: "Actions"
-#: ./browser/operationalobjective_folder_listing.pt:9
+#: ./browser/templates/operationalobjective_folder_listing.pt:9
 msgid "operational_legend_actions"
 msgstr "Actions à mener"
 
 #. Default: "Strategic objectives"
-#: ./browser/projectspace_folder_listing.pt:9
+#: ./browser/templates/projectspace_folder_listing.pt:9
 msgid "projectspace_legend_strategic_objectives"
 msgstr "Objectifs stratégiques"
 
 #. Default: "Operational objectives"
-#: ./browser/strategicobjective_folder_listing.pt:9
+#: ./browser/templates/strategicobjective_folder_listing.pt:9
 msgid "strategic_legend_operational_objectives"
 msgstr "Objectifs opérationnels"
 
-#: ./setuphandlers.py:982
+#: ./setuphandlers.py:983
 msgid "task_have_treated"
 msgstr "Que j'ai traité"
 
-#: ./setuphandlers.py:965
+#: ./setuphandlers.py:966
 msgid "task_im_treating"
 msgstr "Que je traite"
 
-#: ./setuphandlers.py:948
+#: ./setuphandlers.py:949
 msgid "task_to_treat"
 msgstr "Qui m'est assigné"
 
-#: ./setuphandlers.py:1000
+#: ./setuphandlers.py:1001
 msgid "tasks_in_my_group"
 msgstr "Dans mon service"
 
-#: ./setuphandlers.py:931
+#: ./setuphandlers.py:932
 msgid "tasks_to_assign"
 msgstr "À assigner"
 
-#: ./setuphandlers.py:1017
+#: ./setuphandlers.py:1018
 msgid "tasks_to_close"
 msgstr "À clôturer"
 
-#: ./setuphandlers.py:1034
+#: ./setuphandlers.py:1035
 msgid "tasks_with_due_date_passed"
 msgstr "En retard pdv échéance"
