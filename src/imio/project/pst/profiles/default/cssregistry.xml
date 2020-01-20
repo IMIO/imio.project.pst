@@ -178,7 +178,9 @@
 
  <stylesheet id="pstskin.css" insert-after="imioapps_ckeditor_moonolisa.css" />
 
- <stylesheet id="++resource++imio.project.core/imio_project_core.css" insert-after="pstskin.css" />
+ <stylesheet id="++resource++collective.behavior.sdg/sdg.css" insert-after="pstskin.css" />
+
+ <stylesheet id="++resource++imio.project.core/imio_project_core.css" insert-after="++resource++collective.behavior.sdg/sdg.css" />
 
  <stylesheet id="++resource++imio.project.pst/imio_project_pst.css" insert-after="++resource++imio.project.core/imio_project_core.css" />
 
