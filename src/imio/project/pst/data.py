@@ -260,6 +260,7 @@ def get_os_oo_ac_data(groups, currentYear):
                          'health_indicator': u'bon',
                          'health_indicator_details': u'',
                          'comments': richtextval(u''),
+                         'sdgs': ['13'],
                          'tasks': [
                              {'title': u'Expliquer au service comment éditer sur le site internet',
                               'assigned_group': groups['service-informatique']},
@@ -298,6 +299,7 @@ def get_os_oo_ac_data(groups, currentYear):
                          'health_indicator': u'bon',
                          'health_indicator_details': u'',
                          'comments': richtextval(u''),
+                         'sdgs': ['10'],
                          'tasks': [
                              {'title': u'Acheter/fournir des pictogrammes de guidance',
                               'assigned_group': groups['service-travaux']},
@@ -320,6 +322,7 @@ def get_os_oo_ac_data(groups, currentYear):
                          'health_indicator': u'risque',
                          'health_indicator_details': u'Problème, retard dû à l\'exécution du marché',
                          'comments': richtextval(u''),
+                         'sdgs': ['10'],
                          },
                         {'title': u'Mettre en place des permanences sur rendez-vous',
                          'manager': [groups['service-population'], ],
@@ -363,6 +366,7 @@ def get_os_oo_ac_data(groups, currentYear):
                     'extra_concerned_people': u'',
                     'budget': [],
                     'comments': richtextval(u''),
+                    'sdgs': ['13'],
                     'actions': [
                         {'title': u'Procéder à l\'engagement d\'un conseiller en énergie',
                          'manager': [groups['service-de-lurbanisme'], ],
@@ -372,6 +376,7 @@ def get_os_oo_ac_data(groups, currentYear):
                          'health_indicator': u'bon',
                          'health_indicator_details': u'',
                          'comments': richtextval(u''),
+                         'sdgs': ['13'],
                          'tasks': [
                              {'title': u'Rédiger le profil de fonction de conseiller en énergie',
                               'assigned_group': groups['service-population']},
@@ -391,7 +396,8 @@ def get_os_oo_ac_data(groups, currentYear):
                                     ],
                          'health_indicator': u'bon',
                          'health_indicator_details': u'',
-                         'comments': richtextval(u'')
+                         'comments': richtextval(u''),
+                         'sdgs': ['13'],
                          },
                         {'title': u'Inscrire systématiquement les agents du service travaux aux formations '
                                   u'énergétiques',
@@ -406,7 +412,8 @@ def get_os_oo_ac_data(groups, currentYear):
                                     ],
                          'health_indicator': u'bon',
                          'health_indicator_details': u'',
-                         'comments': richtextval(u'')
+                         'comments': richtextval(u''),
+                         'sdgs': ['13'],
                          },
                     ]
                 },
@@ -425,6 +432,7 @@ def get_os_oo_ac_data(groups, currentYear):
                     'extra_concerned_people': u'',
                     'budget': [],
                     'comments': richtextval(u''),
+                    'sdgs': ['13'],
                     'actions': [
                         {'title': u'Réaliser un audit énergétique de l\'administration communale',
                          'manager': [groups['service-de-lurbanisme'], ],
@@ -438,6 +446,7 @@ def get_os_oo_ac_data(groups, currentYear):
                          'health_indicator': u'bon',
                          'health_indicator_details': u'',
                          'comments': richtextval(u''),
+                         'sdgs': ['13'],
                          'tasks': [
                              {'title': u'Écrire le cahier des charges',
                               'assigned_group': groups['cellule-marches-publics']},
@@ -456,7 +465,8 @@ def get_os_oo_ac_data(groups, currentYear):
                                     ],
                          'health_indicator': u'bon',
                          'health_indicator_details': u'',
-                         'comments': richtextval(u'')
+                         'comments': richtextval(u''),
+                         'sdgs': ['13'],
                          },
                         {'title': u'En fonction des résultats, installer une pompe à chaleur',
                          'manager': [groups['service-population'], ],
@@ -469,7 +479,8 @@ def get_os_oo_ac_data(groups, currentYear):
                                     ],
                          'health_indicator': u'bon',
                          'health_indicator_details': u'Devenu sans objet compte tenu des résultats de l\'audit',
-                         'comments': richtextval(u'')
+                         'comments': richtextval(u''),
+                         'sdgs': ['13'],
                          },
                     ]
                 },
@@ -499,6 +510,7 @@ def get_os_oo_ac_data(groups, currentYear):
                     'budget_comments': richtextval(u'Fonds propres (en cours de chiffrage) et subventions (dossier '
                                                    u'introduit pour l\'engagement de deux stewards urbains)'),
                     'comments': richtextval(u''),
+                    'sdgs': ['03', '11'],
                     'actions': [
                         {'title': u'Installer des distributeurs de sacs "ramasse crottes", dans les parcs '
                                   u'(entrée et sortie)',
@@ -518,6 +530,7 @@ def get_os_oo_ac_data(groups, currentYear):
                                                      u'dans le planning',
                          'comments': richtextval(u'Attendre le placement des nouvelles poubelles (avant le '
                                                  u'01/12/2020)'),
+                         'sdgs': ['11'],
                          'tasks': [
                              {'title': u'Commander des distributeurs de sacs',
                               'assigned_group': groups['service-travaux']},
@@ -530,3 +543,22 @@ def get_os_oo_ac_data(groups, currentYear):
             ],
         },
     ]
+
+# SDGS
+# 01 Pas de pauvreté
+# 02 Faim \"zéro\"
+# 03 Bonne santé et bien-être
+# 04 Éducation de qualité
+# 05 Égalité entre les sexes
+# 06 Eau propre et assainissement
+# 07 Énergie propre et d'un coût abordable
+# 08 Travail décent et croissance économique
+# 09 Industrie, innovation et infrastructure
+# 10 Inégalités réduites
+# 11 Villes et communautés durables
+# 12 Consommation et production responsables
+# 13 Mesures relatives à la lutte contre les changements climatiques
+# 14 Vie aquatique
+# 15 Vie terrestre
+# 16 Paix, justice et institutions efficaces
+# 17 Partenariats pour la réalisation des objectifs
