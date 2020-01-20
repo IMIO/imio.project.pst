@@ -75,6 +75,9 @@ msgstr "Priorité"
 msgid "header_progress"
 msgstr "Progression"
 
+msgid "header_sdgs"
+msgstr "O.D.D."
+
 msgid "header_task_parent"
 msgstr "Élément associé"
 
@@ -101,6 +104,9 @@ msgstr "Priorité"
 
 msgid "progress"
 msgstr "Progression"
+
+msgid "sdgs"
+msgstr "O.D.D."
 
 msgid "task_parent"
 msgstr "Élément associé à la tâche"

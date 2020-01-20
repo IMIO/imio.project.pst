@@ -66,6 +66,12 @@ body.template-item_view h1 .pretty_link_icons img{
     margin-left: 0;
 }
 
+/* sdgs dashboard column images */
+.td_cell_sdgs img {
+    width: 20px;
+    height: 20px;
+}
+
 /* plone group 1st level */
 .pg_org_category {
     font-weight: bold;

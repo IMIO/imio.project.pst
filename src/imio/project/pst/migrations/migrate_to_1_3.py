@@ -146,15 +146,11 @@ class Migrate_To_1_3(Migrator):
 
     def adapt_collections(self):
         """ Include subactions in existing action dashboard collections """
-        pstactions = self.catalog.searchResults(
-            portal_type="Folder",
-            object_provides="imio.project.pst.interfaces.IActionDashboardBatchActions"
-        )
+        pstactions = self.catalog(portal_type="Folder",
+                                  object_provides="imio.project.pst.interfaces.IActionDashboardBatchActions")
         for pstaction in pstactions:
-            for brain in self.catalog.searchResults(
-                    {'path': {'query': pstaction.getPath()},
-                     'portal_type': 'DashboardCollection'}
-            ):
+            for brain in self.catalog.searchResults({'path': {'query': pstaction.getPath()},
+                                                     'portal_type': 'DashboardCollection'}):
                 col = brain.getObject()
                 for parameter in col.query:
                     if parameter['i'] == 'portal_type':
@@ -171,6 +167,17 @@ class Migrate_To_1_3(Migrator):
                 nl = list(col.customViewFields)
                 nl.insert(col.customViewFields.index(u'history_actions'), u'ModificationDate')
                 col.customViewFields = tuple(nl)
+        # add sdgs column on oo and act dashboardes
+        dbs = self.catalog(portal_type="Folder",
+                           object_provides="imio.project.pst.interfaces.IOODashboardBatchActions") + pstactions
+        for db in dbs:
+            for brain in self.catalog.searchResults({'path': {'query': db.getPath()},
+                                                     'portal_type': 'DashboardCollection'}):
+                col = brain.getObject()
+                if u'sdgs' not in col.customViewFields:
+                    nl = list(col.customViewFields)
+                    nl.insert(col.customViewFields.index(u'ModificationDate'), u'sdgs')
+                    col.customViewFields = tuple(nl)
 
     def dx_local_roles(self):
         # add pstsubaction local roles

@@ -107,3 +107,8 @@ msgstr ""
 msgid "parents"
 msgstr ""
 
+msgid "header_sdgs"
+msgstr ""
+
+msgid "sdgs"
+msgstr ""

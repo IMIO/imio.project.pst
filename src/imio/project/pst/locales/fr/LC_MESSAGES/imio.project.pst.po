@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2020-01-17 09:42+0000\n"
+"POT-Creation-Date: 2020-01-20 14:24+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,7 +20,7 @@ msgid "Action link"
 msgstr "Lien action"
 
 #: ./browser/templates/pstaction_folder_listing.pt:9
-#: ./setuphandlers.py:698
+#: ./setuphandlers.py:699
 msgid "Actions"
 msgstr "Actions"
 
@@ -28,7 +28,7 @@ msgstr "Actions"
 msgid "Administrative responsible"
 msgstr "Responsable administratif"
 
-#: ./setuphandlers.py:803
+#: ./setuphandlers.py:804
 msgid "All"
 msgstr "Tous"
 
@@ -84,7 +84,7 @@ msgstr "Import some demo data for the imio.project.pst"
 msgid "Installs the imio.project.pst add-on."
 msgstr "Installs the imio.project.pst"
 
-#: ./setuphandlers.py:697
+#: ./setuphandlers.py:698
 msgid "Operational objectives"
 msgstr "Objectifs opérationnels"
 
@@ -121,47 +121,47 @@ msgstr "Responsable mandataire"
 msgid "Sitemap"
 msgstr "Plan du PST"
 
-#: ./setuphandlers.py:727
+#: ./setuphandlers.py:728
 msgid "State: achieved"
 msgstr "État: clôturé"
 
-#: ./setuphandlers.py:735
+#: ./setuphandlers.py:736
 msgid "State: closed"
 msgstr "État: clôturé"
 
-#: ./setuphandlers.py:725
+#: ./setuphandlers.py:726
 msgid "State: created"
 msgstr "État: en création"
 
-#: ./setuphandlers.py:737
+#: ./setuphandlers.py:738
 msgid "State: in progress"
 msgstr "État: en cours"
 
-#: ./setuphandlers.py:726
+#: ./setuphandlers.py:727
 msgid "State: ongoing"
 msgstr "État: en cours"
 
-#: ./setuphandlers.py:738
+#: ./setuphandlers.py:739
 msgid "State: realized"
 msgstr "État: réalisé"
 
-#: ./setuphandlers.py:733
+#: ./setuphandlers.py:734
 msgid "State: stopped"
 msgstr "État: annulé"
 
-#: ./setuphandlers.py:732
+#: ./setuphandlers.py:733
 msgid "State: terminated"
 msgstr "État: finalisé"
 
-#: ./setuphandlers.py:740
+#: ./setuphandlers.py:741
 msgid "State: to assign"
 msgstr "État: à assigner"
 
-#: ./setuphandlers.py:730
+#: ./setuphandlers.py:731
 msgid "State: to be scheduled"
 msgstr "État: à agender"
 
-#: ./setuphandlers.py:739
+#: ./setuphandlers.py:740
 msgid "State: to do"
 msgstr "État: à faire"
 
@@ -169,7 +169,7 @@ msgstr "État: à faire"
 msgid "Steps to ease tests of imio.project.pst"
 msgstr "Steps to ease tests of imio.project.pst"
 
-#: ./setuphandlers.py:696
+#: ./setuphandlers.py:697
 msgid "Strategic objectives"
 msgstr "Objectifs stratégiques"
 
@@ -187,7 +187,7 @@ msgid "Symbolic link"
 msgstr "Lien symbolique"
 
 #: ./browser/templates/pstaction_folder_listing.pt:10
-#: ./setuphandlers.py:699
+#: ./setuphandlers.py:700
 msgid "Tasks"
 msgstr "Tâches"
 
@@ -211,23 +211,23 @@ msgstr "Ce contenu est aussi présent dans :"
 msgid "Update profile to run individually some update steps"
 msgstr "Update profile to run individually some update steps"
 
-#: ./setuphandlers.py:825
+#: ./setuphandlers.py:826
 msgid "Which I am administrative responsible"
 msgstr "Dont je suis responsable administratif"
 
-#: ./setuphandlers.py:842
+#: ./setuphandlers.py:843
 msgid "Which I am manager"
 msgstr "Dont je suis gestionnaire"
 
-#: ./setuphandlers.py:859
+#: ./setuphandlers.py:860
 msgid "Which an action deadline has passed"
 msgstr "En retard pdv échéance actions"
 
-#: ./setuphandlers.py:912
+#: ./setuphandlers.py:913
 msgid "Which beginning is late"
 msgstr "En retard pdv date début effective"
 
-#: ./setuphandlers.py:896
+#: ./setuphandlers.py:897
 msgid "Which deadline has passed"
 msgstr "En retard pdv échéance"
 
@@ -282,30 +282,30 @@ msgstr "Objectifs stratégiques"
 msgid "strategic_legend_operational_objectives"
 msgstr "Objectifs opérationnels"
 
-#: ./setuphandlers.py:983
+#: ./setuphandlers.py:984
 msgid "task_have_treated"
 msgstr "Que j'ai traité"
 
-#: ./setuphandlers.py:966
+#: ./setuphandlers.py:967
 msgid "task_im_treating"
 msgstr "Que je traite"
 
-#: ./setuphandlers.py:949
+#: ./setuphandlers.py:950
 msgid "task_to_treat"
 msgstr "Qui m'est assigné"
 
-#: ./setuphandlers.py:1001
+#: ./setuphandlers.py:1002
 msgid "tasks_in_my_group"
 msgstr "Dans mon service"
 
-#: ./setuphandlers.py:932
+#: ./setuphandlers.py:933
 msgid "tasks_to_assign"
 msgstr "À assigner"
 
-#: ./setuphandlers.py:1018
+#: ./setuphandlers.py:1019
 msgid "tasks_to_close"
 msgstr "À clôturer"
 
-#: ./setuphandlers.py:1035
+#: ./setuphandlers.py:1036
 msgid "tasks_with_due_date_passed"
 msgstr "En retard pdv échéance"

@@ -4,7 +4,7 @@ Changelog
 1.3 (unreleased)
 ----------------
 
-- Added sustainable development goal field
+- Added sustainable development goal field, column
   [sgeulette]
 - Updated budget fields
   [sgeulette]

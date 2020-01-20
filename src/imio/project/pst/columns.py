@@ -4,6 +4,7 @@ from collective.eeafaceted.z3ctable import _ as _cez
 from collective.eeafaceted.z3ctable.columns import ActionsColumn
 from collective.eeafaceted.z3ctable.columns import BaseColumn
 from collective.eeafaceted.z3ctable.columns import DateColumn
+from collective.eeafaceted.z3ctable.columns import IconsColumn
 from collective.eeafaceted.z3ctable.columns import MemberIdColumn
 from collective.eeafaceted.z3ctable.columns import PrettyLinkColumn
 from collective.eeafaceted.z3ctable.columns import VocabularyColumn
@@ -12,6 +13,7 @@ from imio.prettylink.interfaces import IPrettyLink
 from imio.project.core.utils import getProjectSpace
 from imio.project.pst.adapters import UNSET_DATE_VALUE
 from Products.CMFPlone.utils import base_hasattr
+from zope.i18n import translate
 from zope.component import getMultiAdapter
 
 import cgi
@@ -179,3 +181,14 @@ class SubOrganizationTitle(PrettyLinkColumn):
         if (path.endswith('/plonegroup-organization/echevins') or path.endswith('/plonegroup-organization/services')):
             title = u'<span class="pg_org_category">=> {0}</span>'.format(title)
         return u'{0} <span class="discreet">({1})</span>'.format(title, item.UID())
+
+
+class SDGsColumn(IconsColumn):
+
+    attrName = u'sdgs'
+
+    def titleValue(self, item, val):
+        return translate(u'{}_title'.format(val), domain='collective.behavior.sdg', context=self.request)
+
+    def srcValue(self, item, val):
+        return '{}/++resource++collective.behavior.sdg/sdg-{}-nb.svg'.format(self.table.portal_url, val)
