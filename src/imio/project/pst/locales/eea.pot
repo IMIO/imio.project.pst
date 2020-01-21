@@ -89,3 +89,8 @@ msgstr ""
 #: ../faceted_conf/pstaction:
 msgid "Progress"
 msgstr ""
+
+#: ../faceted_conf/operationalobjective:
+#: ../faceted_conf/pstaction:
+msgid "SDGS"
+msgstr ""

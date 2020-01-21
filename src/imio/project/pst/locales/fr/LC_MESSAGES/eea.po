@@ -89,3 +89,8 @@ msgstr "Progression"
 #: ../faceted_conf/operationalobjective:
 msgid "Representative responsible"
 msgstr "Responsable mandataire"
+
+#: ../faceted_conf/operationalobjective:
+#: ../faceted_conf/pstaction:
+msgid "SDGS"
+msgstr "O.D.D."
