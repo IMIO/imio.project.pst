@@ -28,7 +28,7 @@ class PrettyLinkTitleViewlet(ViewletBase):
         Viewlet displaying a pretty link title
     """
 
-    def adapted(self, showColors=False, display_tag_title=False, isViewable=False):
+    def adapted(self, showColors=False, display_tag_title=False, isViewable=True):
         plo = IPrettyLink(self.context)
         plo.showContentIcon = True
         plo.showColors = showColors
@@ -43,7 +43,7 @@ class ActionPrettyLinkTitleViewlet(PrettyLinkTitleViewlet):
         Viewlet displaying a pretty link title
     """
 
-    def adapted(self, showColors=False, display_tag_title=False, isViewable=False):
+    def adapted(self, showColors=False, display_tag_title=False, isViewable=True):
         plo = super(ActionPrettyLinkTitleViewlet, self).adapted()
         if base_hasattr(plo.context, '_link_portal_type'):
             plo.showContentIcon = False
