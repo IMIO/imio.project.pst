@@ -111,7 +111,19 @@
 
     <javascript id="++resource++plone.formwidget.contenttree/contenttree.js" insert-after="++resource++plone.formwidget.autocomplete/formwidget-autocomplete.js" />
 
-    <javascript id="++resource++collective.contact.core/forms.js" insert-after="++resource++plone.formwidget.contenttree/contenttree.js" />
+    <javascript id="++resource++collective.js.chosen/chosen.jquery.js" insert-after="++resource++plone.formwidget.contenttree/contenttree.js" />
+
+    <javascript id="++resource++collective.js.chosen/ajax-chosen.js" insert-after="++resource++collective.js.chosen/chosen.jquery.js" />
+
+    <javascript id="++resource++collective.js.chosen/chosen.proto.js" insert-after="++resource++collective.js.chosen/ajax-chosen.js" />
+
+    <javascript id="++resource++collective.js.chosen/chosen.proto.min.js" insert-after="++resource++collective.js.chosen/chosen.proto.js" />
+
+    <javascript id="++resource++collective.js.chosen/chosen.jquery.min.js" insert-after="++resource++collective.js.chosen/chosen.proto.min.js" />
+
+    <javascript id="++resource++collective.js.chosen/ajax-chosen.min.js" insert-after="++resource++collective.js.chosen/chosen.jquery.min.js" />
+
+    <javascript id="++resource++collective.contact.core/forms.js" insert-after="++resource++collective.js.chosen/ajax-chosen.min.js" />
 
     <javascript id="++resource++collective.contact.plonegroup/plonegroup.js" insert-after="++resource++collective.contact.core/forms.js" />
 

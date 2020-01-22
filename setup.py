@@ -58,6 +58,7 @@ setup(
         'collective.portlet.actions',
         'collective.task',
         'collective.symlink',
+        'collective.z3cform.chosen',
         'dexterity.localrolesfield',
         'imio.dashboard',
         'imio.helpers',

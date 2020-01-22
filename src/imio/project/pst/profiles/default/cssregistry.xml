@@ -160,7 +160,9 @@
 
  <stylesheet id="++resource++eea.faceted-navigation.css" insert-after="++resource++collective.eeafaceted.batchactions/batch_actions.css" />
 
- <stylesheet id="++resource++imio.history/imiohistory.css" insert-after="++resource++eea.faceted-navigation.css" />
+ <stylesheet id="++resource++collective.js.chosen/chosen.css" insert-after="++resource++eea.faceted-navigation.css" />
+
+ <stylesheet id="++resource++imio.history/imiohistory.css" insert-after="++resource++collective.js.chosen/chosen.css" />
 
  <stylesheet id="++resource++imio.actionspanel/actionspanel.css" insert-after="++resource++imio.history/imiohistory.css" />
 

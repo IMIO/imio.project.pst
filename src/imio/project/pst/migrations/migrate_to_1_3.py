@@ -62,6 +62,7 @@ class Migrate_To_1_3(Migrator):
 
         self.install(['collective.portlet.actions'])
         self.install(['collective.behavior.sdg'])
+        self.install(['collective.z3cform.chosen'])
         self.upgradeProfile('collective.contact.core:default')
 
         self.runProfileSteps('imio.project.core', steps=['typeinfo'], run_dependencies=False)
