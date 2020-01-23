@@ -134,14 +134,6 @@ class OperationalObjectiveSchemaPolicy(DexteritySchemaPolicy):
         return (IOperationalObjective, )
 
 
-class ManagerVocabulary(object):
-    """ Temporary class needed to access the site before migration. Can be removed after 1.0 """
-    implements(IVocabularyFactory)
-
-    def __call__(self, context):
-        return SimpleVocabulary([])
-
-
 class OOView(DefaultView):
     """
         View form redefinition to customize fields.
