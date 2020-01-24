@@ -12,6 +12,7 @@ from plone import api
 from plone.dexterity.interfaces import IDexterityFTI
 from plone.registry.events import RecordModifiedEvent
 from plone.registry.interfaces import IRegistry
+from Products.CMFPlone.utils import safe_unicode
 from Products.CPUtils.Extensions.utils import mark_last_version
 from zope import event
 from zope.annotation.interfaces import IAnnotations
@@ -77,6 +78,8 @@ class Migrate_To_1_3(Migrator):
         set_portlet(self.portal)
 
         self.adapt_collections()
+
+        self.migrate_representative_responsible()
 
         # templates
         self.runProfileSteps('imio.project.pst', steps=['imioprojectpst-update-templates'], profile='update',
@@ -256,6 +259,39 @@ class Migrate_To_1_3(Migrator):
         self.runProfileSteps('imio.project.pst', steps=['skins'], profile='update', run_dependencies=False)
         if 'communesplone_layout_simplify' in self.portal.portal_skins:
             api.content.delete(self.portal.portal_skins['communesplone_layout_simplify'])
+
+    def migrate_representative_responsible(self):
+        # construct correspondence
+        terms = {}
+        sub = self.portal.contacts['plonegroup-organization'].echevins
+        sub_path = '/'.join(sub.getPhysicalPath())
+        sub_path_len = len(sub_path) + 1
+        crit = {'path': {"query": sub_path, 'depth': 10}, 'portal_type': "organization",
+                'sort_on': 'getObjPositionInParent'}
+        brains = self.catalog(**crit)
+        levels = {}
+        for brain in brains:
+            path = brain.getPath()[sub_path_len:]
+            if not path:
+                continue  # organization_id itself
+            value = safe_unicode(brain.id)
+            level = len(path.split('/'))
+            levels[level] = {'id': value}
+            if level > 1:
+                value = u'{}-{}'.format(levels[level-1]['id'], value)
+            terms[value] = brain.UID
+        # find existing values and replace by new ones (id -> uid)
+        for oo in self.catalog(portal_type='operationalobjective'):
+            obj = oo.getObject()
+            new_val = []
+            for rr in (obj.representative_responsible or []):
+                if rr in terms:
+                    new_val.append(terms[rr])
+                else:
+                    logger.error("'{}' not found in dic {}. Used in {}".format(rr, terms, oo.getURL()))
+                    raise Exception("'{}' not found in dic {}. Used in {}".format(rr, terms, oo.getURL()))
+            obj.representative_responsible = new_val
+            obj.reindexObject()
 
 
 def migrate(context):
