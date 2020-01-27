@@ -698,8 +698,8 @@ def configureDashboard(pst):
         # (folder id, folder title, content type for the collections)
         ('strategicobjectives', _("Strategic objectives"), ['strategicobjective'], IOSDashboardBatchActions),
         ('operationalobjectives', _("Operational objectives"), ['operationalobjective'], IOODashboardBatchActions),
-        ('pstactions', _("Actions"), ['pstaction', 'pstsubaction'], IActionDashboardBatchActions),
-        ('tasks', _("Tasks"), ['task'], ITaskDashboardBatchActions),
+        ('pstactions', _("Actions under"), ['pstaction', 'pstsubaction'], IActionDashboardBatchActions),
+        ('tasks', _("Tasks under"), ['task'], ITaskDashboardBatchActions),
     ]
     for i, (name, title, content_type, inf) in enumerate(collection_folders):
         if name not in pst:

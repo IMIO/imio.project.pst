@@ -83,6 +83,8 @@ class Migrate_To_1_3(Migrator):
 
         self.migrate_representative_responsible()
 
+        self.update_collections_folder_name()
+
         # templates
         self.runProfileSteps('imio.project.pst', steps=['imioprojectpst-update-templates'], profile='update',
                              run_dependencies=False)
@@ -149,6 +151,20 @@ class Migrate_To_1_3(Migrator):
                 col_folder = pst[col_folder_id]
                 reimport_faceted_config(col_folder, xml='{}.xml'.format(content_type),
                                         default_UID=col_folder['all'].UID())
+
+    def update_collections_folder_name(self):
+        """ Update Actions and Tasks folder name """
+        elts = [
+                ("imio.project.pst.interfaces.IActionDashboardBatchActions", "Actions under"),
+                ("imio.project.pst.interfaces.ITaskDashboardBatchActions", "Tasks under")
+        ]
+
+        for elt in elts:
+            brains = self.catalog(portal_type="Folder", object_provides=elt[0])
+            for brain in brains:
+                obj = brain.getObject()
+                obj.title = _tr(elt[1])
+                obj.reindexObject()
 
     def adapt_collections(self):
         """ Include subactions in existing action dashboard collections """
