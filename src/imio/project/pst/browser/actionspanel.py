@@ -13,6 +13,8 @@ def actionspanelview_cachekey(method,
                               showActions=True,
                               showAddContent=False,
                               showArrows=True,
+                              showFolderContents=False,
+                              markingInterface=None,
                               **kwargs):
     """ cachekey method using only modified params. Must be adapted if changes !!
         We will add the following informations:
@@ -26,7 +28,7 @@ def actionspanelview_cachekey(method,
     user = self.request['AUTHENTICATED_USER']
     return (useIcons, showOwnDelete, showActions, showAddContent, showArrows,
             self.context, user.getId(), self.context.modified(), api.content.get_state(self.context, default=None),
-            sorted(user.getGroups()), self.parent.cb_dataValid(), self.showFolderContents, self.markingInterface,
+            sorted(user.getGroups()), self.parent.cb_dataValid(), showFolderContents, markingInterface,
             showArrows and self.parent.getObjectPosition(self.context.id) or 0)
 
 
