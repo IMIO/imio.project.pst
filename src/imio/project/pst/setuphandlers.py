@@ -12,6 +12,7 @@ from data import get_styles_templates
 from data import get_templates
 from data import TMPL_DIR
 from dexterity.localroles.utils import add_fti_configuration
+from imio.actionspanel.interfaces import IFolderContentsShowableMarker
 from imio.helpers.catalog import addOrUpdateIndexes
 from imio.helpers.content import create
 from imio.helpers.content import richtextval
@@ -520,6 +521,7 @@ def addDemoOrganization(context):
                                            **{'title': service, 'organization_type': u'service'})
             if service in act_srv and obj.UID() not in registry[ORGANIZATIONS_REGISTRY]:
                 group_ids.append(obj.UID())
+    alsoProvides(own_orga['echevins'], IFolderContentsShowableMarker)
     if group_ids:
         registry[ORGANIZATIONS_REGISTRY] = registry[ORGANIZATIONS_REGISTRY] + group_ids
     # locally allowed types

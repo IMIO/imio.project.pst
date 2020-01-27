@@ -2,6 +2,7 @@
 
 from collective.documentgenerator.utils import update_oo_config
 from dexterity.localroles.utils import add_fti_configuration
+from imio.actionspanel.interfaces import IFolderContentsShowableMarker
 from imio.helpers.content import richtextval
 from imio.helpers.content import transitions
 from imio.migrator.migrator import Migrator
@@ -18,6 +19,7 @@ from zope import event
 from zope.annotation.interfaces import IAnnotations
 from zope.component import getUtility
 from zope.component import queryUtility
+from zope.interface import alsoProvides
 
 import logging
 
@@ -264,6 +266,9 @@ class Migrate_To_1_3(Migrator):
         # construct correspondence
         terms = {}
         sub = self.portal.contacts['plonegroup-organization'].echevins
+        if IFolderContentsShowableMarker.providedBy(sub):
+            return
+        alsoProvides(sub, IFolderContentsShowableMarker)
         sub_path = '/'.join(sub.getPhysicalPath())
         sub_path_len = len(sub_path) + 1
         crit = {'path': {"query": sub_path, 'depth': 10}, 'portal_type': "organization",
@@ -290,8 +295,9 @@ class Migrate_To_1_3(Migrator):
                 else:
                     logger.error("'{}' not found in dic {}. Used in {}".format(rr, terms, oo.getURL()))
                     raise Exception("'{}' not found in dic {}. Used in {}".format(rr, terms, oo.getURL()))
-            obj.representative_responsible = new_val
-            obj.reindexObject()
+            if new_val:
+                obj.representative_responsible = new_val
+                obj.reindexObject()
 
 
 def migrate(context):

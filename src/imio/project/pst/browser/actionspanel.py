@@ -26,7 +26,7 @@ def actionspanelview_cachekey(method,
     user = self.request['AUTHENTICATED_USER']
     return (useIcons, showOwnDelete, showActions, showAddContent, showArrows,
             self.context, user.getId(), self.context.modified(), api.content.get_state(self.context, default=None),
-            sorted(user.getGroups()), self.parent.cb_dataValid(),
+            sorted(user.getGroups()), self.parent.cb_dataValid(), self.showFolderContents, self.markingInterface,
             showArrows and self.parent.getObjectPosition(self.context.id) or 0)
 
 
@@ -196,3 +196,14 @@ class PstActionsPanelViewlet(ActionsPanelViewlet):
             view = getMultiAdapter((self.context, self.request), name='actions_panel')
             return view(useIcons=False, showTransitions=True, showOwnDelete=False, showAddContent=True,
                         showActions=True, showArrows=False, arrowsPortalTypeAware=False)
+
+
+class PstFolderishActionsPanelViewlet(ActionsPanelViewlet):
+    """ actions panel viewlet """
+
+    def renderViewlet(self):
+        if self.show():
+            view = getMultiAdapter((self.context, self.request), name='actions_panel')
+            return view(useIcons=False, showTransitions=True, showOwnDelete=False, showAddContent=True,
+                        showActions=True, showArrows=False, arrowsPortalTypeAware=False, showFolderContents=True,
+                        markingInterface='imio.actionspanel.interfaces.IFolderContentsShowableMarker')

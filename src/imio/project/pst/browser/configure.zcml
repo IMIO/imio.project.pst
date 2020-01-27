@@ -165,6 +165,15 @@
 
         <browser:viewlet
             name="imio.actionspanel"
+            for="collective.contact.core.content.organization.IOrganization"
+            manager="plone.app.layout.viewlets.interfaces.IAboveContentTitle"
+            layer="imio.actionspanel.interfaces.IActionsPanelLayer"
+            class="imio.project.pst.browser.actionspanel.PstFolderishActionsPanelViewlet"
+            template="browser/actions_panel_viewlet.pt"
+            permission="zope2.View" />
+
+        <browser:viewlet
+            name="imio.actionspanel"
             for="plone.app.contenttypes.interfaces.IFile"
             manager="plone.app.layout.viewlets.interfaces.IAboveContentTitle"
             layer="imio.actionspanel.interfaces.IActionsPanelLayer"
