@@ -27,29 +27,6 @@ import logging
 logger = logging.getLogger('imio.project.pst')
 
 
-def install_analytic_budget_behavior():
-
-    behavior = "imio.project.core.browser.behaviors.IAnalyticBudget"
-    types = [
-        u'strategicobjective',
-        u'operationalobjective',
-        u'pstaction',
-        u'action_link',
-        u'pstsubaction',
-        u'subaction_link'
-    ]
-
-    for type_name in types:
-        fti = queryUtility(IDexterityFTI, name=type_name)
-        if not fti:
-            continue
-        if behavior in fti.behaviors:
-            continue
-        behaviors = list(fti.behaviors)
-        behaviors.append(behavior)
-        fti._updateProperty('behaviors', tuple(behaviors))
-
-
 class Migrate_To_1_3(Migrator):
 
     def __init__(self, context):
@@ -93,8 +70,6 @@ class Migrate_To_1_3(Migrator):
 
         self.runProfileSteps('imio.project.core', steps=['plone.app.registry'], profile='default',
                              run_dependencies=False)
-
-        install_analytic_budget_behavior()
 
         self.dx_local_roles()
 

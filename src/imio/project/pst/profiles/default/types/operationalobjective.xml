@@ -26,6 +26,7 @@
  <property name="klass">imio.project.pst.content.operational.OperationalObjective</property>
  <property name="behaviors">
   <element value="collective.behavior.sdg.sustainable_development_goals" />
+  <element value="imio.project.core.browser.behaviors.IAnalyticBudget" />
   <element value="plone.app.dexterity.behaviors.metadata.IDublinCore" />
   <element value="plone.app.content.interfaces.INameFromTitle" />
   <element value="plone.app.lockingbehavior.behaviors.ILocking" />

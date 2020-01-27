@@ -10,7 +10,6 @@ from collective.eeafaceted.z3ctable.columns import PrettyLinkColumn
 from collective.eeafaceted.z3ctable.columns import VocabularyColumn
 from collective.task.interfaces import ITaskMethods
 from imio.prettylink.interfaces import IPrettyLink
-from imio.project.core.utils import getProjectSpace
 from imio.project.pst.adapters import UNSET_DATE_VALUE
 from Products.CMFPlone.utils import base_hasattr
 from zope.i18n import translate

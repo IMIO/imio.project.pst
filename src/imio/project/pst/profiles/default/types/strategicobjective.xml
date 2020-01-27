@@ -24,6 +24,7 @@
  <property name="schema_policy">schema_policy_strategicobjective</property>
  <property name="klass">imio.project.pst.content.strategic.StrategicObjective</property>
  <property name="behaviors">
+  <element value="imio.project.core.browser.behaviors.IAnalyticBudget" />
   <element value="plone.app.dexterity.behaviors.metadata.IDublinCore"/>
   <element value="plone.app.content.interfaces.INameFromTitle" />
   <element value="plone.app.lockingbehavior.behaviors.ILocking" />
