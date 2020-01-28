@@ -261,7 +261,7 @@ def _addPSTprojectspace(context):
     # datagridfield priority
     priority = [
         {'label': u"0",
-         'key': ""},
+         'key': "0"},
         {'label': u"1",
          'key': "1"},
         {'label': u"2",

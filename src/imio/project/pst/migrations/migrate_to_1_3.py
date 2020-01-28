@@ -62,6 +62,8 @@ class Migrate_To_1_3(Migrator):
 
         self.update_collections_folder_name()
 
+        self.set_priority()
+
         # templates
         self.runProfileSteps('imio.project.pst', steps=['imioprojectpst-update-templates'], profile='update',
                              run_dependencies=False)
@@ -139,6 +141,23 @@ class Migrate_To_1_3(Migrator):
             for brain in brains:
                 obj = brain.getObject()
                 obj.title = _tr(elt[1])
+                obj.reindexObject()
+
+    def set_priority(self):
+        """  """
+        import ipdb; ipdb.set_trace()
+        brains = self.catalog(object_provides="imio.project.pst.interfaces.IImioPSTProject")
+        for brain in brains:
+            obj = brain.getObject()
+            if obj.priority[0]['key'] == '':
+                obj.priority[0]['key'] = u'0'
+                obj.reindexObject()
+
+        brains = self.catalog(object_provides="imio.project.pst.content.operational.IOperationalObjective")
+        for brain in brains:
+            if brain.priority == []:
+                obj = brain.getObject()
+                obj.priority = u'0'
                 obj.reindexObject()
 
     def adapt_collections(self):
