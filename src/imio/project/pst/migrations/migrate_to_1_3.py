@@ -145,7 +145,6 @@ class Migrate_To_1_3(Migrator):
 
     def set_priority(self):
         """  """
-        import ipdb; ipdb.set_trace()
         brains = self.catalog(object_provides="imio.project.pst.interfaces.IImioPSTProject")
         for brain in brains:
             obj = brain.getObject()
