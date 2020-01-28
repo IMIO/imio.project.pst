@@ -568,10 +568,11 @@ def addDemoData(context):
         service = uuidToObject(uid)
         groups[service.id] = uid
 
-    # data has 4 levels :
+    # data has 4-5 levels :
     # - strategicobjective
     # - operationalobjective
     # - pstaction
+    # - pstsubaction
     # - task
     data = get_os_oo_ac_data(groups, getPSTStartYear(site))
 
@@ -605,6 +606,12 @@ def addDemoData(context):
                 do_transitions(action_obj, transitions=['set_to_be_scheduled'], logger=logger)
 #                if managers:
 #                    _edit_fields(action_obj, {'manager': managers})
+                for sact_dict in act_dict.get('subactions', []):
+                    saction_obj = createContentInContainer(action_obj, "pstsubaction", **sact_dict)
+                    do_transitions(saction_obj, transitions=['set_to_be_scheduled'], logger=logger)
+                    for task_dict in sact_dict.get('tasks', []):
+                        task_obj = createContentInContainer(saction_obj, "task", **task_dict)
+                        do_transitions(task_obj, transitions=['do_to_assign'], logger=logger)
                 for task_dict in act_dict.get('tasks', []):
                     task_obj = createContentInContainer(action_obj, "task", **task_dict)
                     do_transitions(task_obj, transitions=['do_to_assign'], logger=logger)
