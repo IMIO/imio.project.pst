@@ -5,6 +5,11 @@ from imio.project.pst.browser.facetediframe import get_criteria_holder
 
 
 class Renderer(BaseRenderer):
+
+    @property
+    def available(self):
+        return self._criteriaHolder.portal_type != 'Plone Site'
+
     @property
     def _criteriaHolder(self):
         return get_criteria_holder(self.context)
