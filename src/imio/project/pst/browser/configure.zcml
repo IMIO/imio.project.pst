@@ -110,6 +110,20 @@
         />
 
     <browser:page
+        for="imio.project.pst.content.action_link.IActionLink"
+        name="document_generation_helper_view"
+        class="imio.project.pst.browser.documentgenerator.DocumentGenerationPSTActionsHelper"
+        permission="zope2.View"
+        />
+
+    <browser:page
+        for="imio.project.pst.content.subaction_link.ISubActionLink"
+        name="document_generation_helper_view"
+        class="imio.project.pst.browser.documentgenerator.DocumentGenerationPSTActionsHelper"
+        permission="zope2.View"
+        />
+
+    <browser:page
         for="collective.eeafaceted.collectionwidget.interfaces.ICollectionCategories"
         name="document_generation_helper_view"
         class="imio.project.pst.browser.documentgenerator.DocumentGenerationPSTCategoriesHelper"
@@ -372,15 +386,6 @@
 
     <browser:viewlet
         for="imio.project.pst.content.action.IPSTAction"
-        name="pretty-link-title"
-        manager="plone.app.layout.viewlets.interfaces.IBelowContentTitle"
-        class="imio.project.pst.browser.viewlets.ActionPrettyLinkTitleViewlet"
-        template="templates/title_viewlet.pt"
-        permission="zope2.View"
-        />
-
-    <browser:viewlet
-        for="imio.project.pst.content.action.IPSTSubAction"
         name="pretty-link-title"
         manager="plone.app.layout.viewlets.interfaces.IBelowContentTitle"
         class="imio.project.pst.browser.viewlets.ActionPrettyLinkTitleViewlet"
