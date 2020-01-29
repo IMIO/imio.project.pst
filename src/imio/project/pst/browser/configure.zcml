@@ -110,6 +110,13 @@
         />
 
     <browser:page
+        for="imio.project.pst.content.action.IPSTSubAction"
+        name="document_generation_helper_view"
+        class="imio.project.pst.browser.documentgenerator.DocumentGenerationPSTSubActionsHelper"
+        permission="zope2.View"
+        />
+
+    <browser:page
         for="imio.project.pst.content.action_link.IActionLink"
         name="document_generation_helper_view"
         class="imio.project.pst.browser.documentgenerator.DocumentGenerationPSTActionsHelper"
