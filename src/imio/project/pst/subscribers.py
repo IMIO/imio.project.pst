@@ -120,6 +120,8 @@ def pstsubaction_moved(obj, event):
     if event.newParent == event.oldParent and event.newName != event.oldName:  # it's not a move but a rename
         return
     if getattr(obj, '_link_portal_type', '') == 'subaction_link':
+        if event.oldParent is None:  # at creation
+            return
         raise Invalid("You cannot move a subaction link. Create a new one !")
     # move into the moved subaction any existing task found in its new parent action
     tasks = event.newParent.listFolderContents({'portal_type': 'task'})

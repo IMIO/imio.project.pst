@@ -38,12 +38,14 @@ from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
 from Products.CMFPlone.utils import base_hasattr
 from Products.CMFPlone.utils import getToolByName
 from utils import list_wf_states
+from z3c.relationfield.relation import RelationValue
 from zope.annotation.interfaces import IAnnotations
 from zope.component import getGlobalSiteManager
 from zope.component import getMultiAdapter
 from zope.component import getUtility
 from zope.event import notify
 from zope.interface import alsoProvides
+from zope.intid.interfaces import IIntIds
 from zope.lifecycleevent import ObjectCreatedEvent
 from zope.schema.vocabulary import SimpleTerm
 from zope.schema.vocabulary import SimpleVocabulary
@@ -615,6 +617,25 @@ def addDemoData(context):
                 for task_dict in act_dict.get('tasks', []):
                     task_obj = createContentInContainer(action_obj, "task", **task_dict)
                     do_transitions(task_obj, transitions=['do_to_assign'], logger=logger)
+
+    # add action_link
+    intids = getUtility(IIntIds)
+    so = pst['etre-une-commune-qui-offre-un-service-public-moderne-efficace-et-efficient']
+    oo = so['diminuer-le-temps-dattente-de-lusager-au-guichet-population-de-20-dans-les-12-mois-a-venir']
+    act = oo['creer-un-guichet-supplementaire-dans-les-3-mois']
+    createContentInContainer(so['optimiser-laccueil-au-sein-de-ladministration-communale'],
+                             'action_link', symbolic_link=RelationValue(intids.getId(act)))
+
+    # subaction_link
+    so = pst['etre-une-commune-qui-sinscrit-dans-la-lignee-des-accords-de-reductions-des-gaz-a-effet-de-serre-'
+             'afin-dassurer-le-developpement-durable']
+    oo = so['reduire-la-consommation-energetique-des-batiments-communaux-de-20-dici-2024']
+    act = oo['reduire-la-consommation-energetique-de-ladministration-communale']
+    for id in ('realiser-un-audit-energetique-du-batiment',
+               'en-fonction-des-resultats-proceder-a-lisolation-du-batiment',
+               'en-fonction-des-resultats-remplacer-le-systeme-de-chauffage'):
+        createContentInContainer(oo['reduire-la-consommation-energetique-du-hangar-communal'],
+                                 'subaction_link', symbolic_link=RelationValue(intids.getId(act[id])))
 
     # add some test users
     _addPSTUsers(context)
