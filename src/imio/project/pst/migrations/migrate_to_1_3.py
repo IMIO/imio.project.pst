@@ -295,15 +295,15 @@ class Migrate_To_1_3(Migrator):
                 value = u'{}-{}'.format(levels[level-1]['id'], value)
             terms[value] = brain.UID
         # find existing values and replace by new ones (id -> uid)
-        for oo in self.catalog(portal_type='operationalobjective'):
-            obj = oo.getObject()
+        for brain in self.catalog(portal_type=['operationalobjective', 'pstaction']):
+            obj = brain.getObject()
             new_val = []
             for rr in (obj.representative_responsible or []):
                 if rr in terms:
                     new_val.append(terms[rr])
                 else:
-                    logger.error("'{}' not found in dic {}. Used in {}".format(rr, terms, oo.getURL()))
-                    raise Exception("'{}' not found in dic {}. Used in {}".format(rr, terms, oo.getURL()))
+                    logger.error("'{}' not found in dic {}. Used in {}".format(rr, terms, brain.getURL()))
+                    raise Exception("'{}' not found in dic {}. Used in {}".format(rr, terms, brain.getURL()))
             if new_val:
                 obj.representative_responsible = new_val
                 obj.reindexObject()
