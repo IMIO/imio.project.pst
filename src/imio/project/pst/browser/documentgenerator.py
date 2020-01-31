@@ -3,6 +3,7 @@
 from collective.documentgenerator.helper.archetypes import ATDocumentGenerationHelperView
 from collective.documentgenerator.helper.dexterity import DXDocumentGenerationHelperView
 from collective.eeafaceted.dashboard.browser.overrides import DashboardDocumentGenerationView
+from collective.symlink.utils import is_linked_object
 from imio.project.core.config import CHILDREN_BUDGET_INFOS_ANNOTATION_KEY as CBIAK
 from imio.project.core.utils import getProjectSpace
 from imio.project.pst.utils import filter_states
@@ -348,6 +349,9 @@ class DocumentGenerationPSTActionsHelper(DXDocumentGenerationHelperView, Documen
         Methods used in document generation view, for PSTAction
     """
 
+    def is_linked(self):
+        return is_linked_object(self.real_context)
+
     def getStrategicObjectives(self, skip_states=['created']):
         """
             get a list of the parent strategic objective of the current operationalobjective
@@ -454,6 +458,9 @@ class DocumentGenerationPSTSubActionsHelper(DXDocumentGenerationHelperView, Docu
     """
         Methods used in document generation view, for PSTSubAction
     """
+
+    def is_linked(self):
+        return is_linked_object(self.real_context)
 
     def getStrategicObjectives(self, skip_states=['created']):
         """
