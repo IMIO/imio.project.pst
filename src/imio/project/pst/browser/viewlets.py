@@ -74,15 +74,10 @@ class ContentLinkViewlet(ViewletBase):
         if self.back_references(self.context):
             return [obj.aq_parent for obj in self.back_references(self.context)]
         if hasattr(self.context, "_link_portal_type"):
-            ref = [
-                obj for obj in self.back_references(self.context.symbolic_link.to_object)
-            ]
+            ref = [obj for obj in self.back_references(self.context.symbolic_link.to_object)]
             ref.append(self.context.symbolic_link.to_object)
-            return [
-                obj.aq_parent
-                for obj in ref
-                if obj.absolute_url() != self.context.absolute_url()
-            ]
+            return [obj.aq_parent for obj in ref
+                    if obj.absolute_url() != self.context.absolute_url()]
 
     def back_references(self, context):
         """
@@ -91,9 +86,7 @@ class ContentLinkViewlet(ViewletBase):
         catalog = getUtility(ICatalog)
         intids = getUtility(IIntIds)
         result = []
-        for rel in catalog.findRelations(
-            dict(to_id=intids.getId(aq_inner(context)), from_attribute="symbolic_link")
-        ):
+        for rel in catalog.findRelations(dict(to_id=intids.getId(aq_inner(context)), from_attribute="symbolic_link")):
             obj = intids.queryObject(rel.from_id)
             if obj is not None and checkPermission("zope2.View", obj):
                 result.append(obj)
