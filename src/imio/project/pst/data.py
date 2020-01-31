@@ -22,7 +22,7 @@ def get_templates(cids):
         {'cid': 10, 'cont': 'templates', 'id': 'detail', 'title': u'Détaillé', 'type': 'ConfigurablePODTemplate',
          'trans': ['publish_internally'],
          'attrs': {'style_template': [cids[1].UID()], 'pod_formats': ['odt'], 'pod_portal_types': ['projectspace',
-                   'strategicobjective', 'operationalobjective', 'pstaction'],
+                   'strategicobjective', 'operationalobjective', 'pstaction', 'pstsubaction'],
                    'context_variables': [{'name': u'with_tasks', 'value': u''}],
                    'odt_file': NamedBlobFile(data=open('%s/detail.odt' % TMPL_DIR, 'r').read(),
                                              filename=u'detail.odt', contentType='applications/odt')}},
@@ -30,7 +30,7 @@ def get_templates(cids):
         {'cid': 15, 'cont': 'templates', 'id': 'detail-tasks', 'title': u'Détaillé avec tâches',
          'type': 'ConfigurablePODTemplate', 'trans': ['publish_internally'],
          'attrs': {'style_template': [cids[1].UID()], 'pod_formats': ['odt'], 'pod_portal_types': ['projectspace',
-                   'strategicobjective', 'operationalobjective', 'pstaction'],
+                   'strategicobjective', 'operationalobjective', 'pstaction', 'pstsubaction'],
                    'context_variables': [{'name': u'with_tasks', 'value': u'1'}],
                    'odt_file': NamedBlobFile(data=open('%s/detail.odt' % TMPL_DIR, 'r').read(),
                                              filename=u'detail.odt', contentType='applications/odt')}},
@@ -54,7 +54,7 @@ def get_templates(cids):
         {'cid': 30, 'cont': 'templates', 'id': 'follow', 'title': u'Suivi', 'type': 'ConfigurablePODTemplate',
          'trans': ['publish_internally'],
          'attrs': {'style_template': [cids[1].UID()], 'pod_formats': ['odt'], 'pod_portal_types': ['projectspace',
-                   'strategicobjective', 'operationalobjective', 'pstaction'],
+                   'strategicobjective', 'operationalobjective', 'pstaction', 'pstsubaction'],
                    'context_variables': [{'name': u'with_tasks', 'value': u''}],
                    'odt_file': NamedBlobFile(data=open('%s/suivi.odt' % TMPL_DIR, 'r').read(),
                                              filename=u'suivi.odt', contentType='applications/odt')}},
@@ -62,7 +62,7 @@ def get_templates(cids):
         {'cid': 35, 'cont': 'templates', 'id': 'follow-tasks', 'title': u'Suivi avec tâches',
          'type': 'ConfigurablePODTemplate', 'trans': ['publish_internally'],
          'attrs': {'style_template': [cids[1].UID()], 'pod_formats': ['odt'], 'pod_portal_types': ['projectspace',
-                   'strategicobjective', 'operationalobjective', 'pstaction'],
+                   'strategicobjective', 'operationalobjective', 'pstaction', 'pstsubaction'],
                    'context_variables': [{'name': u'with_tasks', 'value': u'1'}],
                    'odt_file': NamedBlobFile(data=open('%s/suivi.odt' % TMPL_DIR, 'r').read(),
                                              filename=u'suivi.odt', contentType='applications/odt')}},
@@ -86,7 +86,7 @@ def get_templates(cids):
         {'cid': 80, 'cont': 'templates', 'id': 'export', 'title': u'Export', 'type': 'ConfigurablePODTemplate',
          'trans': ['publish_internally'],
          'attrs': {'pod_formats': ['ods'], 'pod_portal_types': ['projectspace', 'strategicobjective',
-                   'operationalobjective', 'pstaction'], 'tal_condition': "python:"
+                   'operationalobjective', 'pstaction', 'pstsubaction'], 'tal_condition': "python:"
                    "context.restrictedTraverse('pst-utils').is_in_user_groups(user=member, groups=['pst_editors'])",
                    'odt_file': NamedBlobFile(data=open('%s/export.ods' % TMPL_DIR, 'r').read(),
                                              filename=u'export.ods', contentType='applications/ods')}},
@@ -103,7 +103,7 @@ def get_templates(cids):
         {'cid': 100, 'cont': 'templates', 'id': 'detail-all', 'title': u'Détaillé (Tout)',
          'type': 'ConfigurablePODTemplate', 'trans': ['publish_internally'],
          'attrs': {'style_template': [cids[1].UID()], 'pod_formats': ['odt'], 'pod_portal_types': ['projectspace',
-                   'strategicobjective', 'operationalobjective', 'pstaction'], 'tal_condition': "python:"
+                   'strategicobjective', 'operationalobjective', 'pstaction', 'pstsubaction'], 'tal_condition': "python:"
                    "context.restrictedTraverse('pst-utils').is_in_user_groups(user=member, groups=['pst_editors'])",
                    'context_variables': [{'name': u'with_tasks', 'value': u''}, {'name': u'skip_states', 'value': u''}],
                    'odt_file': NamedBlobFile(data=open('%s/detail.odt' % TMPL_DIR, 'r').read(),
@@ -112,7 +112,7 @@ def get_templates(cids):
         {'cid': 105, 'cont': 'templates', 'id': 'detail-tasks-all', 'title': u'Détaillé avec tâches (tout)',
          'type': 'ConfigurablePODTemplate', 'trans': ['publish_internally'],
          'attrs': {'style_template': [cids[1].UID()], 'pod_formats': ['odt'], 'pod_portal_types': ['projectspace',
-                   'strategicobjective', 'operationalobjective', 'pstaction'], 'tal_condition': "python:"
+                   'strategicobjective', 'operationalobjective', 'pstaction', 'pstsubaction'], 'tal_condition': "python:"
                    "context.restrictedTraverse('pst-utils').is_in_user_groups(user=member, groups=['pst_editors'])",
                    'context_variables': [{'name': u'with_tasks', 'value': u'1'},
                                          {'name': u'skip_states', 'value': u''}],
@@ -141,7 +141,7 @@ def get_templates(cids):
         {'cid': 120, 'cont': 'templates', 'id': 'follow-all', 'title': u'Suivi (Tout)',
          'type': 'ConfigurablePODTemplate', 'trans': ['publish_internally'],
          'attrs': {'style_template': [cids[1].UID()], 'pod_formats': ['odt'], 'pod_portal_types': ['projectspace',
-                   'strategicobjective', 'operationalobjective', 'pstaction'], 'tal_condition': "python:"
+                   'strategicobjective', 'operationalobjective', 'pstaction', 'pstsubaction'], 'tal_condition': "python:"
                    "context.restrictedTraverse('pst-utils').is_in_user_groups(user=member, groups=['pst_editors'])",
                    'context_variables': [{'name': u'with_tasks', 'value': u''}, {'name': u'skip_states', 'value': u''}],
                    'odt_file': NamedBlobFile(data=open('%s/suivi.odt' % TMPL_DIR, 'r').read(),
@@ -150,7 +150,7 @@ def get_templates(cids):
         {'cid': 125, 'cont': 'templates', 'id': 'follow-tasks-all', 'title': u'Suivi avec tâches (Tout)',
          'type': 'ConfigurablePODTemplate', 'trans': ['publish_internally'],
          'attrs': {'style_template': [cids[1].UID()], 'pod_formats': ['odt'], 'pod_portal_types': ['projectspace',
-                   'strategicobjective', 'operationalobjective', 'pstaction'], 'tal_condition': "python:"
+                   'strategicobjective', 'operationalobjective', 'pstaction', 'pstsubaction'], 'tal_condition': "python:"
                    "context.restrictedTraverse('pst-utils').is_in_user_groups(user=member, groups=['pst_editors'])",
                    'context_variables': [{'name': u'with_tasks', 'value': u'1'},
                                          {'name': u'skip_states', 'value': u''}],

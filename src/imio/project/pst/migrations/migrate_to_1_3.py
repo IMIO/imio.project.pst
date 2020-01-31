@@ -64,6 +64,8 @@ class Migrate_To_1_3(Migrator):
 
         self.set_priority()
 
+        self.adapt_templates()
+
         # templates
         self.runProfileSteps('imio.project.pst', steps=['imioprojectpst-update-templates'], profile='update',
                              run_dependencies=False)
@@ -158,6 +160,25 @@ class Migrate_To_1_3(Migrator):
                 obj = brain.getObject()
                 obj.priority = u'0'
                 obj.reindexObject()
+
+    def adapt_templates(self):
+        """ Include pstsubactions in templates denifition """
+        templates = api.portal.getSite().templates
+        templates.detail.pod_portal_types.append('pstsubaction')
+        detail_tasks = getattr(templates, 'detail-tasks')
+        detail_tasks.pod_portal_types.append('pstsubaction')
+        templates.follow.pod_portal_types.append('pstsubaction')
+        follow_tasks = getattr(templates, 'follow-tasks')
+        follow_tasks.pod_portal_types.append('pstsubaction')
+        templates.export.pod_portal_types.append('pstsubaction')
+        detail_all = getattr(templates, 'detail-all')
+        detail_all.pod_portal_types.append('pstsubaction')
+        detail_tasks_all = getattr(templates, 'detail-tasks-all')
+        detail_tasks_all.pod_portal_types.append('pstsubaction')
+        follow_all = getattr(templates, 'follow-all')
+        follow_all.pod_portal_types.append('pstsubaction')
+        follow_tasks_all = getattr(templates, 'follow-tasks-all')
+        follow_tasks_all.pod_portal_types.append('pstsubaction')
 
     def adapt_collections(self):
         """ Include subactions in existing action dashboard collections """
