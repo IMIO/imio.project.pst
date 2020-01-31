@@ -133,11 +133,8 @@ class Migrate_To_1_3(Migrator):
 
     def update_collections_folder_name(self):
         """ Update Actions and Tasks folder name """
-        elts = [
-                ("imio.project.pst.interfaces.IActionDashboardBatchActions", "Actions under"),
-                ("imio.project.pst.interfaces.ITaskDashboardBatchActions", "Tasks under")
-        ]
-
+        elts = [("imio.project.pst.interfaces.IActionDashboardBatchActions", "Actions under"),
+                ("imio.project.pst.interfaces.ITaskDashboardBatchActions", "Tasks under")]
         for elt in elts:
             brains = self.catalog(portal_type="Folder", object_provides=elt[0])
             for brain in brains:
@@ -163,22 +160,10 @@ class Migrate_To_1_3(Migrator):
 
     def adapt_templates(self):
         """ Include pstsubactions in templates denifition """
-        templates = api.portal.getSite().templates
-        templates.detail.pod_portal_types.append('pstsubaction')
-        detail_tasks = getattr(templates, 'detail-tasks')
-        detail_tasks.pod_portal_types.append('pstsubaction')
-        templates.follow.pod_portal_types.append('pstsubaction')
-        follow_tasks = getattr(templates, 'follow-tasks')
-        follow_tasks.pod_portal_types.append('pstsubaction')
-        templates.export.pod_portal_types.append('pstsubaction')
-        detail_all = getattr(templates, 'detail-all')
-        detail_all.pod_portal_types.append('pstsubaction')
-        detail_tasks_all = getattr(templates, 'detail-tasks-all')
-        detail_tasks_all.pod_portal_types.append('pstsubaction')
-        follow_all = getattr(templates, 'follow-all')
-        follow_all.pod_portal_types.append('pstsubaction')
-        follow_tasks_all = getattr(templates, 'follow-tasks-all')
-        follow_tasks_all.pod_portal_types.append('pstsubaction')
+        templates = self.portal.templates
+        for id in ('detail', 'detail-tasks', 'follow', 'follow-tasks', 'export', 'detail-all', 'detail-tasks-all',
+                   'follow-all', 'follow-tasks-all'):
+            templates[id].pod_portal_types.append('pstsubaction')
 
     def adapt_collections(self):
         """ Include subactions in existing action dashboard collections """
