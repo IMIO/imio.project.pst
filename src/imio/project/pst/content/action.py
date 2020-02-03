@@ -5,13 +5,13 @@ from collective.task.interfaces import ITaskContent
 from collective.z3cform.chosen.widget import AjaxChosenMultiFieldWidget
 from collective.z3cform.datagridfield import DataGridFieldFactory
 from dexterity.localrolesfield.field import LocalRolesField
+from imio.helpers.content import get_from_annotation
 from imio.project.core.content.project import IProject
 from imio.project.core.content.project import Project
 from imio.project.core.utils import getProjectSpace
 from imio.project.pst import _
 from plone import api
 from plone.autoform import directives as form
-from plone.dexterity.content import Container
 from plone.dexterity.schema import DexteritySchemaPolicy
 from plone.directives.form import default_value
 from z3c.form import validator
@@ -156,7 +156,7 @@ class PSTAction(Project):
         return result
 
     def allowedContentTypes(self):
-        allowed = super(Container, self).allowedContentTypes()
+        allowed = super(PSTAction, self).allowedContentTypes()
         for item in self.listFolderContents():
             if IPSTSubAction.providedBy(item):
                 allowed = [fti for fti in allowed if fti.id != 'task']
@@ -165,6 +165,9 @@ class PSTAction(Project):
                 allowed = [fti for fti in allowed if fti.id != 'subaction_link']
                 break
         return allowed
+
+    def has_subactions(self):
+        return get_from_annotation('imio.project.pst.has_subactions', obj=self, default=False)
 
 
 class PSTActionSchemaPolicy(DexteritySchemaPolicy):

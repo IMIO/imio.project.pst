@@ -18,7 +18,6 @@ from Products.CPUtils.Extensions.utils import mark_last_version
 from zope import event
 from zope.annotation.interfaces import IAnnotations
 from zope.component import getUtility
-from zope.component import queryUtility
 from zope.interface import alsoProvides
 
 import logging
@@ -164,6 +163,25 @@ class Migrate_To_1_3(Migrator):
         for id in ('detail', 'detail-tasks', 'follow', 'follow-tasks', 'export', 'detail-all', 'detail-tasks-all',
                    'follow-all', 'follow-tasks-all'):
             templates[id].pod_portal_types.append('pstsubaction')
+
+        for id in ('ddetail', 'dfollow'):
+            templates[id].tal_condition = "python:" \
+                "not((context.getPortalTypeName() == 'Folder' and context.getId() == 'tasks') or " \
+                "(context.getPortalTypeName() == 'pstaction' and not context.has_subactions()) or " \
+                "context.getPortalTypeName() == 'pstsubaction')"
+
+        for id in ('ddetail-all', 'dfollow-all'):
+            templates[id].tal_condition = "python:" \
+                "context.restrictedTraverse('pst-utils').is_in_user_groups(user=member, groups=['pst_editors']) and " \
+                "not((context.getPortalTypeName() == 'Folder' and context.getId() == 'tasks') or " \
+                "(context.getPortalTypeName() == 'pstaction' and not context.has_subactions()) or " \
+                "context.getPortalTypeName() == 'pstsubaction')"
+
+        templates['dexport'].tal_condition = "python:" \
+            "not((context.getPortalTypeName() == 'Folder' and context.getId() == 'tasks') or " \
+            "(context.getPortalTypeName() == 'pstaction' and not context.has_subactions()) or " \
+            "context.getPortalTypeName() == 'pstsubaction') and" \
+            "context.restrictedTraverse('pst-utils')"
 
     def adapt_collections(self):
         """ Include subactions in existing action dashboard collections """

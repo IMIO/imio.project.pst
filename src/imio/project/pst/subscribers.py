@@ -3,7 +3,9 @@ from collective.eeafaceted.collectionwidget.interfaces import ICollectionCategor
 from collective.eeafaceted.collectionwidget.utils import _updateDefaultCollectionFor
 from collective.eeafaceted.collectionwidget.utils import getCollectionLinkCriterion
 from eea.facetednavigation.criteria.interfaces import ICriteria
+from imio.helpers.content import set_to_annotation
 from imio.pm.wsclient.browser.settings import notify_configuration_changed
+from imio.project.pst.content.action import IPSTSubAction
 from imio.project.pst.interfaces import IActionDashboardBatchActions
 from imio.project.pst.interfaces import IImioPSTProject
 from imio.project.pst.interfaces import IOODashboardBatchActions
@@ -15,6 +17,7 @@ from plone.registry.interfaces import IRecordModifiedEvent
 from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
 from zope.interface import alsoProvides
 from zope.interface import Invalid
+from zope.lifecycleevent.interfaces import IObjectAddedEvent
 from zope.lifecycleevent.interfaces import IObjectRemovedEvent
 
 import logging
@@ -103,7 +106,7 @@ def pstaction_created(obj, event):
 
 
 def pstsubaction_created(obj, event):
-    """  """
+    """ pstsubaction and link too """
     # move into the created subaction any existing task found in its parent action
     action = obj.__parent__
     tasks = action.listFolderContents({'portal_type': 'task'})
@@ -111,19 +114,29 @@ def pstsubaction_created(obj, event):
         raise Invalid("You cannot create a subaction link when there are tasks in action !")
     for task in tasks:
         api.content.move(task, obj)
+    # we set a flag on the pstaction to indicate a subaction presence
+    set_to_annotation('imio.project.pst.has_subactions', True, obj=action)
 
 
 def pstsubaction_moved(obj, event):
     """  """
-    if IObjectRemovedEvent.providedBy(event):
+    if IObjectAddedEvent.providedBy(event):  # Already managed in above subscriber
         return
     if event.newParent == event.oldParent and event.newName != event.oldName:  # it's not a move but a rename
         return
-    if getattr(obj, '_link_portal_type', '') == 'subaction_link':
-        if event.oldParent is None:  # at creation
-            return
-        raise Invalid("You cannot move a subaction link. Create a new one !")
+    # When deleting an action with a subaction, we pass here but the event context is the action !!!!
+    if IObjectRemovedEvent.providedBy(event) and obj != event.object:
+        return
+    # Move of delete
+    # we manage the flag on the old pstaction to indicate a subaction presence
+    if not event.oldParent.listFolderContents({'object_provides': IPSTSubAction.__identifier__}):
+        set_to_annotation('imio.project.pst.has_subactions', False, obj=event.oldParent)
     # move into the moved subaction any existing task found in its new parent action
-    tasks = event.newParent.listFolderContents({'portal_type': 'task'})
-    for task in tasks:
-        api.content.move(task, obj)
+    if event.newParent:
+        if getattr(obj, '_link_portal_type', '') == 'subaction_link':
+            raise Invalid("You cannot move a subaction link. Create a new one !")
+        tasks = event.newParent.listFolderContents({'portal_type': 'task'})
+        for task in tasks:
+            api.content.move(task, obj)
+        # we set a flag on the pstaction to indicate a subaction presence
+        set_to_annotation('imio.project.pst.has_subactions', True, obj=event.newParent)
