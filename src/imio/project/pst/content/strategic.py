@@ -3,7 +3,6 @@
 from imio.project.core.content.project import IProject
 from imio.project.core.content.project import Project
 from imio.project.core.utils import getProjectSpace
-from plone.autoform import directives as form
 from plone.dexterity.schema import DexteritySchemaPolicy
 from zope.interface import implements
 
@@ -12,19 +11,6 @@ class IStrategicObjective(IProject):
     """
         StrategicObjective schema, field ordering
     """
-    # omit some fields
-    form.omitted('priority')
-    #form.omitted('budget')
-    #form.omitted('budget_comments')
-    form.omitted('manager')
-    form.omitted('visible_for')
-    form.omitted('extra_concerned_people')
-    form.omitted('result_indicator')
-    form.omitted('planned_begin_date')
-    form.omitted('effective_begin_date')
-    form.omitted('planned_end_date')
-    form.omitted('effective_end_date')
-    form.omitted('progress')
 
 
 class StrategicObjective(Project):

@@ -107,6 +107,7 @@ def post_install(context):
                        transitions=['publish_internally', 'publish_externally'],
                        logger=logger)
     adaptDefaultPortal(portal)
+    configure_pst(portal)
     set_portlet(portal)
     addOrUpdateIndexes(portal, {'reference_number': ('FieldIndex', {})})
     # addOrUpdateIndexes(portal, {'administrative_responsible': ('KeywordIndex', {})})
@@ -465,6 +466,16 @@ def adaptDefaultPortal(site):
 
     api.portal.set_registry_record('collective.contact.core.interfaces.IContactCoreParameters.'
                                    'display_below_content_title_on_views', True)
+
+
+def configure_pst(portal):
+    registry = getUtility(IRegistry)
+
+    if not registry.get('imio.project.settings.strategicobjective_fields'):
+        registry['imio.project.settings.strategicobjective_fields'] = [
+            'IDublinCore.title', 'IDublinCore.description', 'reference_number', 'categories',
+            'IAnalyticBudget.projection', 'IAnalyticBudget.analytic_budget', 'budget', 'budget_comments',
+            'observation', 'comments']
 
 
 def addDemoOrganization(context):

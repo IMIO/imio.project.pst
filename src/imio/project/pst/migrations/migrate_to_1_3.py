@@ -7,6 +7,7 @@ from imio.helpers.content import richtextval
 from imio.helpers.content import transitions
 from imio.migrator.migrator import Migrator
 from imio.project.pst import _tr
+from imio.project.pst.setuphandlers import configure_pst
 from imio.project.pst.setuphandlers import reimport_faceted_config
 from imio.project.pst.setuphandlers import set_portlet
 from plone import api
@@ -44,9 +45,11 @@ class Migrate_To_1_3(Migrator):
         self.install(['collective.z3cform.chosen'])
         self.upgradeProfile('collective.contact.core:default')
 
-        self.runProfileSteps('imio.project.core', steps=['typeinfo'], run_dependencies=False)
-        self.runProfileSteps('imio.project.pst', steps=['actions', 'catalog', 'componentregistry', 'portlets',
-                                                        'typeinfo', 'viewlets', 'workflow'],
+        self.runProfileSteps('imio.project.core', steps=['controlpanel', 'plone.app.registry', 'typeinfo'],
+                             run_dependencies=False)
+        self.runProfileSteps('imio.project.pst', steps=['actions', 'catalog', 'componentregistry', 'controlpanel',
+                                                        'plone.app.registry', 'portlets', 'typeinfo', 'viewlets',
+                                                        'workflow'],
                              run_dependencies=False)
         self.runProfileSteps('imio.project.pst', steps=['portlets', 'repositorytool'], profile='demo',
                              run_dependencies=False)
@@ -54,6 +57,8 @@ class Migrate_To_1_3(Migrator):
         self.various_update()
 
         set_portlet(self.portal)
+
+        configure_pst(self.portal)
 
         self.adapt_collections()
 
@@ -180,7 +185,7 @@ class Migrate_To_1_3(Migrator):
         templates['dexport'].tal_condition = "python:" \
             "not((context.getPortalTypeName() == 'Folder' and context.getId() == 'tasks') or " \
             "(context.getPortalTypeName() == 'pstaction' and not context.has_subactions()) or " \
-            "context.getPortalTypeName() == 'pstsubaction') and" \
+            "context.getPortalTypeName() == 'pstsubaction') and " \
             "context.restrictedTraverse('pst-utils')"
 
     def adapt_collections(self):

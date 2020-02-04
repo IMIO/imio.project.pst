@@ -24,4 +24,10 @@
         factory="imio.project.pst.vocabularies.PSTTaskReviewStatesVocabulary"
         />
 
+    <utility
+        name="imio.project.pst.SOFieldsVocabulary"
+        factory="imio.project.pst.browser.controlpanel.SOFieldsVocabulary"
+        />
+
+
 </configure>

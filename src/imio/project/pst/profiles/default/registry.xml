@@ -1,6 +1,8 @@
 <registry xmlns:i18n="http://xml.zope.org/namespaces/i18n"
           i18n:domain="imio.project.pst">
 
+    <records interface="imio.project.pst.browser.controlpanel.IImioPSTSettings" prefix="imio.project.settings" />
+
     <records interface="plone.app.querystring.interfaces.IQueryField"
              prefix="plone.app.querystring.field.planned_begin_date">
        <value key="title" i18n:translate="">Planned begin date</value>
