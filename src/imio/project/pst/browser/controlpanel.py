@@ -3,6 +3,7 @@
 from imio.project.core import _ as _c
 from imio.project.core.browser.controlpanel import get_pt_fields_voc
 from imio.project.core.browser.controlpanel import mandatory_check
+from imio.project.core.browser.controlpanel import position_check
 from imio.project.pst import _
 from plone.app.registry.browser.controlpanel import ControlPanelFormWrapper
 from plone.app.registry.browser.controlpanel import RegistryEditForm
@@ -16,11 +17,13 @@ from zope.interface import Invalid
 from zope.schema.interfaces import IVocabularyFactory
 
 
-mandatory_fields = {'strategicobjective': ['IDublinCore.title', 'IDublinCore.description', 'reference_number'],
-                    'operationalobjective': ['IDublinCore.title', 'IDublinCore.description', 'reference_number'],
-#                    'pstaction': [],
-#                    'pstsubaction': [],
-                    }
+field_constraints = {
+    'titles': {},
+    'mandatory': {'strategicobjective': ['IDublinCore.title', 'IDublinCore.description', 'reference_number'],
+                  'operationalobjective': ['IDublinCore.title', 'IDublinCore.description', 'reference_number']},
+    'indexes': {'strategicobjective': [('IDublinCore.title', 1), ('IDublinCore.description', 2)],
+                'operationalobjective': [('IDublinCore.title', 1), ('IDublinCore.description', 2)]},
+}
 
 
 class SOFieldsVocabulary(object):
@@ -34,7 +37,7 @@ class SOFieldsVocabulary(object):
                                   'effective_begin_date', 'effective_end_date', 'extra_concerned_people', 'manager',
                                   'notes', 'planned_begin_date', 'planned_end_date', 'priority', 'progress',
                                   'result_indicator', 'visible_for'],
-                                 mandatory_fields)
+                                 field_constraints)
 
 
 class OOFieldsVocabulary(object):
@@ -47,7 +50,7 @@ class OOFieldsVocabulary(object):
                                   'IDublinCore.subjects', 'INameFromTitle.title', 'IVersionable.changeNote',
                                   'effective_begin_date', 'effective_end_date', 'notes', 'planned_begin_date',
                                   'progress', 'visible_for'],
-                                 mandatory_fields)
+                                 field_constraints)
 
 
 class IImioPSTSettings(Interface):
@@ -68,7 +71,8 @@ class IImioPSTSettings(Interface):
 
     @invariant
     def validateSettings(data):
-        mandatory_check(data, mandatory_fields)
+        mandatory_check(data, field_constraints)
+        position_check(data, field_constraints)
 
 
 class SettingsEditForm(RegistryEditForm):

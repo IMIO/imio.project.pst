@@ -9,6 +9,7 @@
     <dependency step="componentregistry" />
     <dependency step="portlets" />
     <dependency step="typeinfo" />
+    <dependency step="plone.app.registry" />
     <dependency step="workflow" />
     </import-step>
     <import-step
