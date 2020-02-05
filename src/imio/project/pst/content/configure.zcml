@@ -15,15 +15,20 @@
       name="imio.project.pst.content.operational.representative_responsible_vocabulary"
     />
 
-    <!--configure package="plone.dexterity">
-        <browser:page
-            for="imio.project.pst.content.operational.IOperationalObjective"
-            name="view"
-            class="imio.project.pst.content.operational.OOView"
-            template="browser/item.pt"
-            permission="zope2.View"
+    <adapter
+        for="Products.CMFCore.interfaces.IFolderish
+             zope.publisher.interfaces.browser.IDefaultBrowserLayer
+             plone.dexterity.interfaces.IDexterityFTI"
+        provides="zope.publisher.interfaces.browser.IBrowserPage"
+        factory="imio.project.pst.content.strategic.SOAdd"
+        name="strategicobjective"
         />
-    </configure-->
+    <class class="imio.project.pst.content.strategic.SOAdd">
+        <require
+            permission="cmf.AddPortalContent"
+            interface="zope.publisher.interfaces.browser.IBrowserPage"
+            />
+    </class>
 
     <adapter
       for="imio.project.pst.content.operational.IOperationalObjective
