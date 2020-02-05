@@ -29,5 +29,9 @@
         factory="imio.project.pst.browser.controlpanel.SOFieldsVocabulary"
         />
 
+    <utility
+        name="imio.project.pst.OOFieldsVocabulary"
+        factory="imio.project.pst.browser.controlpanel.OOFieldsVocabulary"
+        />
 
 </configure>

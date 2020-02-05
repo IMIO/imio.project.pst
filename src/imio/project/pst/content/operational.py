@@ -2,6 +2,7 @@
 
 from dexterity.localrolesfield.field import LocalRolesField
 from imio.project.core import _ as _c
+from imio.project.core.browser.views import ProjectAddForm
 from imio.project.core.content.project import IProject
 from imio.project.core.content.project import Project
 from imio.project.core.utils import getProjectSpace
@@ -10,7 +11,7 @@ from imio.project.pst import _
 from plone import api
 from plone.autoform import directives as form
 from plone.dexterity.schema import DexteritySchemaPolicy
-from plone.dexterity.browser.view import DefaultView
+from plone.dexterity.browser.add import DefaultAddView
 from collective.z3cform.chosen.widget import AjaxChosenMultiFieldWidget
 from z3c.form.datamanager import AttributeField
 from z3c.form.interfaces import IDataManager
@@ -18,7 +19,6 @@ from zope import schema
 from zope.interface import implements
 from zope.interface import implementer
 from zope.schema.interfaces import IVocabularyFactory
-from zope.schema.vocabulary import SimpleVocabulary
 
 
 class IOperationalObjective(IProject):
@@ -57,26 +57,6 @@ class IOperationalObjective(IProject):
         min_length=1,
     )
     form.widget('manager', AjaxChosenMultiFieldWidget, populate_select=True)
-
-    # reorder new added fields
-    form.order_before(result_indicator='comments')
-    form.order_before(priority='comments')
-    form.order_before(planned_end_date='comments')
-    form.order_before(representative_responsible='comments')
-    form.order_before(administrative_responsible='comments')
-    form.order_before(manager='comments')
-    form.order_before(visible_for='comments')
-    form.order_before(extra_concerned_people='comments')
-    form.order_before(budget='comments')
-    form.order_before(budget_comments='comments')
-    form.order_before(observation='comments')
-
-    # hide some fields
-    form.omitted('visible_for')
-    form.omitted('planned_begin_date')
-    form.omitted('effective_begin_date')
-    form.omitted('effective_end_date')
-    form.omitted('progress')
 
 
 class OperationalObjective(Project):
@@ -134,12 +114,11 @@ class OperationalObjectiveSchemaPolicy(DexteritySchemaPolicy):
         return (IOperationalObjective, )
 
 
-class OOView(DefaultView):
-    """
-        View form redefinition to customize fields.
-    """
+class OOAddForm(ProjectAddForm):
 
-    def updateWidgets(self, prefix=None):
-        super(OOView, self).updateWidgets()
-        # import ipdb; ipdb.set_trace()
-        pass  # Not used, only for tests
+    portal_type = 'operationalobjective'
+
+
+class OOAdd(DefaultAddView):
+
+    form = OOAddForm

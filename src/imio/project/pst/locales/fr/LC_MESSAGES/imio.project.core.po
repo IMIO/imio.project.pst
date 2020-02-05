@@ -16,5 +16,17 @@ msgstr ""
 "X-is-fallback-for: fr-fr fr-be fr-ca\n"
 
 #: ./browser/controlpanel.py:55
+msgid "operationalobjective"
+msgstr "Objectif opérationnel"
+
+#: ./browser/controlpanel.py:55
+msgid "pstaction"
+msgstr "Action"
+
+#: ./browser/controlpanel.py:55
+msgid "pstsubaction"
+msgstr "Sous-action"
+
+#: ./browser/controlpanel.py:55
 msgid "strategicobjective"
 msgstr "Objectif stratégique"

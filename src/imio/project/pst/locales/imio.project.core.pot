@@ -18,6 +18,17 @@ msgstr ""
 "Domain: imio.project.core\n"
 
 #: ./browser/controlpanel.py:55
-msgid "strategicobjective"
+msgid "operationalobjective"
 msgstr ""
 
+#: ./browser/controlpanel.py:55
+msgid "pstaction"
+msgstr ""
+
+#: ./browser/controlpanel.py:55
+msgid "pstsubaction"
+msgstr ""
+
+#: ./browser/controlpanel.py:55
+msgid "strategicobjective"
+msgstr ""

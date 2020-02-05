@@ -23,7 +23,10 @@ a.addnewcontactfromorganization.link-overlay {
     display: none;
 }
 
-.template-edit #fieldsetlegend-categorization, .template-edit #fieldsetlegend-dates, .template-edit #fieldsetlegend-ownership {
+.template-edit #fieldsetlegend-categorization, .template-edit #fieldsetlegend-dates, .template-edit #fieldsetlegend-ownership,
+.template-strategicobjective #fieldsetlegend-categorization, .template-strategicobjective #fieldsetlegend-dates, .template-strategicobjective #fieldsetlegend-ownership,
+.template-operationalobjective #fieldsetlegend-categorization, .template-operationalobjective #fieldsetlegend-dates, .template-operationalobjective #fieldsetlegend-ownership
+{
     display: none !important;
 }
 

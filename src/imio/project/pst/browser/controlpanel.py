@@ -17,7 +17,7 @@ from zope.schema.interfaces import IVocabularyFactory
 
 
 mandatory_fields = {'strategicobjective': ['IDublinCore.title', 'IDublinCore.description', 'reference_number'],
-#                    'operationalobjective': ['IDublinCore.title', 'IDublinCore.description'],
+                    'operationalobjective': ['IDublinCore.title', 'IDublinCore.description', 'reference_number'],
 #                    'pstaction': [],
 #                    'pstsubaction': [],
                     }
@@ -37,6 +37,19 @@ class SOFieldsVocabulary(object):
                                  mandatory_fields)
 
 
+class OOFieldsVocabulary(object):
+    implements(IVocabularyFactory)
+
+    def __call__(self, context):
+        return get_pt_fields_voc('operationalobjective',
+                                 ['IDublinCore.contributors', 'IDublinCore.creators', 'IDublinCore.effective',
+                                  'IDublinCore.expires', 'IDublinCore.language', 'IDublinCore.rights',
+                                  'IDublinCore.subjects', 'INameFromTitle.title', 'IVersionable.changeNote',
+                                  'effective_begin_date', 'effective_end_date', 'notes', 'planned_begin_date',
+                                  'progress', 'visible_for'],
+                                 mandatory_fields)
+
+
 class IImioPSTSettings(Interface):
     """"""
 
@@ -45,6 +58,12 @@ class IImioPSTSettings(Interface):
         description=_c(u'Put fields on the right to display it. Fields with asterisk are mandatory !'),
         value_type=schema.Choice(vocabulary=u'imio.project.pst.SOFieldsVocabulary'),
 #        value_type=schema.Choice(source=IMFields),  # a source is not managed by registry !!
+    )
+
+    operationalobjective_fields = schema.List(
+        title=_c(u"${type} fields display", mapping={'type': _('OperationalObjective')}),
+        description=_c(u'Put fields on the right to display it. Fields with asterisk are mandatory !'),
+        value_type=schema.Choice(vocabulary=u'imio.project.pst.OOFieldsVocabulary'),
     )
 
     @invariant
