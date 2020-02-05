@@ -17,4 +17,7 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: imio.project.core\n"
 
+#: ./browser/controlpanel.py:55
+msgid "strategicobjective"
+msgstr ""
 
