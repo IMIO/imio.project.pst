@@ -15,12 +15,16 @@ a.addnewcontactfromorganization.link-overlay {
 
 /* Hides */
 #formfield-form-widgets-IVersionable-changeNote, #download_vcard,
-.template-edit .documentEditable div#formfield-form-widgets-reference_number,
+.template-edit div#formfield-form-widgets-reference_number,
 .template-strategicobjective div#formfield-form-widgets-reference_number,
 .template-operationalobjective div#formfield-form-widgets-reference_number,
 .template-pstaction div#formfield-form-widgets-reference_number
 {
     display: none;
+}
+
+.template-edit #fieldsetlegend-categorization, .template-edit #fieldsetlegend-dates, .template-edit #fieldsetlegend-ownership {
+    display: none !important;
 }
 
 #contentActionMenus #faceted_settings, #contentActionMenus #plone-contentmenu-display,

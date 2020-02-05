@@ -16,7 +16,7 @@ from zope.interface import Invalid
 from zope.schema.interfaces import IVocabularyFactory
 
 
-mandatory_fields = {'strategicobjective': ['IDublinCore.title', 'IDublinCore.description'],
+mandatory_fields = {'strategicobjective': ['IDublinCore.title', 'IDublinCore.description', 'reference_number'],
 #                    'operationalobjective': ['IDublinCore.title', 'IDublinCore.description'],
 #                    'pstaction': [],
 #                    'pstsubaction': [],
