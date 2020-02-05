@@ -427,7 +427,7 @@ class DocumentGenerationPSTActionsHelper(DXDocumentGenerationHelperView, Documen
             Return the result indicator as a string
         """
         rows = []
-        for row in self.real_context.result_indicator:
+        for row in (self.real_context.result_indicator or []):
             if reached and expected:
                 rows.append("%s = %d / %d" % (row['label'].encode('utf8'), row['reached_value'], row['value']))
             elif reached:
