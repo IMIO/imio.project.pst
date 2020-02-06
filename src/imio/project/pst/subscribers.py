@@ -170,6 +170,8 @@ def registry_changed(event):
             if event.record.fieldName == 'pstaction_fields':
                 api.portal.set_registry_record('imio.project.settings.pstsubaction_fields', event.newValue)
             # we check if we have to remove/add a column from/to a dashboard
+            if event.oldValue is None:
+                return  # site creation: nothing to do
             pt = event.record.fieldName[:-7]
             ovs, nvs = set(event.oldValue), set(event.newValue)
             removed = ovs - nvs
