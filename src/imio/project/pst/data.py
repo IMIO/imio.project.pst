@@ -98,7 +98,7 @@ def get_templates(cids):
          'attrs': {'pod_formats': ['ods'], 'tal_condition': "python:"
                    "not((context.getPortalTypeName() == 'Folder' and context.getId() == 'tasks') or "
                    "(context.getPortalTypeName() == 'pstaction' and not context.has_subactions()) or "
-                   "context.getPortalTypeName() == 'pstsubaction') and"
+                   "context.getPortalTypeName() == 'pstsubaction') and "
                    "context.restrictedTraverse('pst-utils')"
                    ".is_in_user_groups(user=member, groups=['pst_editors'])",
                    'odt_file': NamedBlobFile(data=open('%s/export.ods' % TMPL_DIR, 'r').read(),
