@@ -73,4 +73,9 @@
         handler=".subscribers.pstsubaction_moved"
         />
 
+    <subscriber
+        for="plone.registry.interfaces.IRecordModifiedEvent"
+        handler=".subscribers.registry_changed"
+        />
+
 </configure>

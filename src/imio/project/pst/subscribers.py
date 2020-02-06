@@ -140,3 +140,10 @@ def pstsubaction_moved(obj, event):
             api.content.move(task, obj)
         # we set a flag on the pstaction to indicate a subaction presence
         set_to_annotation('imio.project.pst.has_subactions', True, obj=event.newParent)
+
+
+def registry_changed(event):
+    """  """
+    if IRecordModifiedEvent.providedBy(event):
+        if event.record.fieldName == 'pstaction_fields':
+            api.portal.set_registry_record('imio.project.settings.pstsubaction_fields', event.newValue)

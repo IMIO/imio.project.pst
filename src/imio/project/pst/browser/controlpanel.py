@@ -5,9 +5,11 @@ from imio.project.core.browser.controlpanel import get_pt_fields_voc
 from imio.project.core.browser.controlpanel import mandatory_check
 from imio.project.core.browser.controlpanel import position_check
 from imio.project.pst import _
+from imio.project.pst.setuphandlers import COLUMNS_FOR_CONTENT_TYPES
 from plone.app.registry.browser.controlpanel import ControlPanelFormWrapper
 from plone.app.registry.browser.controlpanel import RegistryEditForm
 from plone.z3cform import layout
+from plone.z3cform.fieldsets.utils import remove
 from z3c.form import form
 from zope import schema
 from zope.interface import implements
@@ -22,11 +24,13 @@ field_constraints = {
     'mandatory': {'strategicobjective': ['IDublinCore.title', 'IDublinCore.description', 'reference_number'],
                   'operationalobjective': ['IDublinCore.title', 'IDublinCore.description', 'reference_number'],
                   'pstaction': ['IDublinCore.title', 'IDublinCore.description', 'reference_number'],
-                  'pstsubaction': ['IDublinCore.title', 'IDublinCore.description', 'reference_number']},
+#                  'pstsubaction': ['IDublinCore.title', 'IDublinCore.description', 'reference_number'],
+                  },
     'indexes': {'strategicobjective': [('IDublinCore.title', 1), ('IDublinCore.description', 2)],
                 'operationalobjective': [('IDublinCore.title', 1), ('IDublinCore.description', 2)],
                 'pstaction': [('IDublinCore.title', 1), ('IDublinCore.description', 2)],
-                'pstsubaction': [('IDublinCore.title', 1), ('IDublinCore.description', 2)]},
+#                'pstsubaction': [('IDublinCore.title', 1), ('IDublinCore.description', 2)],
+                },
 }
 
 
@@ -70,6 +74,7 @@ class ActionFieldsVocabulary(object):
 
 
 class SubActionFieldsVocabulary(object):
+    """ Not used """
     implements(IVocabularyFactory)
 
     def __call__(self, context):
@@ -103,10 +108,11 @@ class IImioPSTSettings(Interface):
         value_type=schema.Choice(vocabulary=u'imio.project.pst.ActionFieldsVocabulary'),
     )
 
+    # this field will be hidden
     pstsubaction_fields = schema.List(
         title=_c(u"${type} fields display", mapping={'type': _('PSTSubAction')}),
         description=_c(u'Put fields on the right to display it. Fields with asterisk are mandatory !'),
-        value_type=schema.Choice(vocabulary=u'imio.project.pst.SubActionFieldsVocabulary'),
+        value_type=schema.Choice(vocabulary=u'imio.project.pst.ActionFieldsVocabulary'),
     )
 
     @invariant
@@ -122,6 +128,10 @@ class SettingsEditForm(RegistryEditForm):
     schema = IImioPSTSettings
     schema_prefix = 'imio.project.settings'
     label = _(u"PST settings")
+
+    def updateFields(self):
+        super(SettingsEditForm, self).updateFields()
+        remove(self, 'pstsubaction_fields')
 
 
 SettingsView = layout.wrap_form(SettingsEditForm, ControlPanelFormWrapper)
