@@ -11,6 +11,7 @@ from imio.project.pst.interfaces import IImioPSTProject
 from imio.project.pst.interfaces import IOODashboardBatchActions
 from imio.project.pst.interfaces import IOSDashboardBatchActions
 from imio.project.pst.interfaces import ITaskDashboardBatchActions
+from imio.project.pst.setuphandlers import COLUMNS_FOR_CONTENT_TYPES
 from plone import api
 from plone.app.uuid.utils import uuidToPhysicalPath
 from plone.registry.interfaces import IRecordModifiedEvent
@@ -142,8 +143,68 @@ def pstsubaction_moved(obj, event):
         set_to_annotation('imio.project.pst.has_subactions', True, obj=event.newParent)
 
 
+FIELDS_COLUMNS = {
+    'strategicobjective': {
+        'intf': IOSDashboardBatchActions,
+        'fields': {u'categories': u'categories'}},
+    'operationalobjective': {
+        'intf': IOODashboardBatchActions,
+        'fields': {u'manager': u'manager', u'planned_end_date': u'planned_end_date', u'priority': u'priority',
+                   u'categories': u'categories', 'ISustainableDevelopmentGoals.sdgs': u'sdgs'}},
+    'pstaction': {
+        'intf': IActionDashboardBatchActions,
+        'fields': {u'manager': u'manager', u'planned_begin_date': u'planned_begin_date',
+                   u'planned_end_date': u'planned_end_date', u'effective_begin_date': u'effective_begin_date',
+                   u'effective_end_date': u'effective_end_date', u'progress': u'progress',
+                   u'health_indicator': u'health_indicator', 'ISustainableDevelopmentGoals.sdgs': u'sdgs'}},
+}
+
+
 def registry_changed(event):
     """  """
     if IRecordModifiedEvent.providedBy(event):
-        if event.record.fieldName == 'pstaction_fields':
-            api.portal.set_registry_record('imio.project.settings.pstsubaction_fields', event.newValue)
+        if event.record.interfaceName == 'imio.project.pst.browser.controlpanel.IImioPSTSettings':
+            if event.record.fieldName == 'pstsubaction_fields':
+                return
+            # we copy new pstaction_fields value in pstsubaction_fields
+            if event.record.fieldName == 'pstaction_fields':
+                api.portal.set_registry_record('imio.project.settings.pstsubaction_fields', event.newValue)
+            # we check if we have to remove/add a column from/to a dashboard
+            pt = event.record.fieldName[:-7]
+            ovs, nvs = set(event.oldValue), set(event.newValue)
+            removed = ovs - nvs
+            added = nvs - ovs
+
+            def find_collections(intf):
+                ret = []
+                for fld_b in api.content.find(object_provides=intf.__identifier__, portal_type='Folder'):
+                    for col_b in api.content.find(**{'path': {'query': fld_b.getPath()},
+                                                     'portal_type': 'DashboardCollection'}):
+                        ret.append(col_b.getObject())
+                return ret
+
+            def add_rm_col(aset, action):
+                for fld in aset:
+                    if fld not in FIELDS_COLUMNS[pt]['fields']:
+                        continue
+                    col_name = FIELDS_COLUMNS[pt]['fields'][fld]
+                    for collection in find_collections(FIELDS_COLUMNS[pt]['intf']):
+                        nl = list(collection.customViewFields)
+                        if action == 'rm' and col_name in nl:
+                            nl.remove(col_name)
+                            collection.customViewFields = tuple(nl)
+                        elif action == 'add' and col_name not in nl:
+                            i = 0
+                            for column in COLUMNS_FOR_CONTENT_TYPES[pt]:
+                                if column != col_name:
+                                    try:
+                                        i = nl.index(column)  # find the previous column...
+                                    except ValueError:
+                                        continue
+                                else:
+                                    nl.insert(i+1, col_name)  # insert column following previous found column
+                                    collection.customViewFields = tuple(nl)
+                                    break
+
+            add_rm_col(removed, 'rm')
+            add_rm_col(added, 'add')

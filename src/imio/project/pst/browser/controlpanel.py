@@ -5,7 +5,6 @@ from imio.project.core.browser.controlpanel import get_pt_fields_voc
 from imio.project.core.browser.controlpanel import mandatory_check
 from imio.project.core.browser.controlpanel import position_check
 from imio.project.pst import _
-from imio.project.pst.setuphandlers import COLUMNS_FOR_CONTENT_TYPES
 from plone.app.registry.browser.controlpanel import ControlPanelFormWrapper
 from plone.app.registry.browser.controlpanel import RegistryEditForm
 from plone.z3cform import layout

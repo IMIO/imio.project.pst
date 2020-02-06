@@ -4,6 +4,8 @@ Changelog
 1.3 (unreleased)
 ----------------
 
+- Added content type settings to remove and/or reorder fields
+  [sgeulette]
 - Added sustainable development goal field, column
   [sgeulette]
 - Updated budget fields
@@ -13,11 +15,11 @@ Changelog
 - Added map view to display as tree
   [daggelpop,sgeulette]
 - Xml generation to export to ecomptes
-  [daggelpop,mpeeters]
+  [daggelpop,mpeeters,sgeulette]
 - Added subaction content
   [daggelpop,sgeulette]
 - Added action_link content
-  [vpiret]
+  [vpiret,sgeulette]
 - Gotten OO due date from actions due dates
   [vpiret,mpeeters]
 - administrative_responsible has editor role on OO
