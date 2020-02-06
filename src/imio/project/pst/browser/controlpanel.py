@@ -20,9 +20,11 @@ from zope.schema.interfaces import IVocabularyFactory
 field_constraints = {
     'titles': {},
     'mandatory': {'strategicobjective': ['IDublinCore.title', 'IDublinCore.description', 'reference_number'],
-                  'operationalobjective': ['IDublinCore.title', 'IDublinCore.description', 'reference_number']},
+                  'operationalobjective': ['IDublinCore.title', 'IDublinCore.description', 'reference_number'],
+                  'pstaction': ['IDublinCore.title', 'IDublinCore.description', 'reference_number']},
     'indexes': {'strategicobjective': [('IDublinCore.title', 1), ('IDublinCore.description', 2)],
-                'operationalobjective': [('IDublinCore.title', 1), ('IDublinCore.description', 2)]},
+                'operationalobjective': [('IDublinCore.title', 1), ('IDublinCore.description', 2)],
+                'pstaction': [('IDublinCore.title', 1), ('IDublinCore.description', 2)]},
 }
 
 
@@ -53,6 +55,18 @@ class OOFieldsVocabulary(object):
                                  field_constraints)
 
 
+class ActionFieldsVocabulary(object):
+    implements(IVocabularyFactory)
+
+    def __call__(self, context):
+        return get_pt_fields_voc('pstaction',
+                                 ['IDublinCore.contributors', 'IDublinCore.creators', 'IDublinCore.effective',
+                                  'IDublinCore.expires', 'IDublinCore.language', 'IDublinCore.rights',
+                                  'IDublinCore.subjects', 'INameFromTitle.title', 'IVersionable.changeNote',
+                                  'notes', 'priority', 'visible_for'],
+                                 field_constraints)
+
+
 class IImioPSTSettings(Interface):
     """"""
 
@@ -67,6 +81,12 @@ class IImioPSTSettings(Interface):
         title=_c(u"${type} fields display", mapping={'type': _('OperationalObjective')}),
         description=_c(u'Put fields on the right to display it. Fields with asterisk are mandatory !'),
         value_type=schema.Choice(vocabulary=u'imio.project.pst.OOFieldsVocabulary'),
+    )
+
+    pstaction_fields = schema.List(
+        title=_c(u"${type} fields display", mapping={'type': _('PSTAction')}),
+        description=_c(u'Put fields on the right to display it. Fields with asterisk are mandatory !'),
+        value_type=schema.Choice(vocabulary=u'imio.project.pst.ActionFieldsVocabulary'),
     )
 
     @invariant

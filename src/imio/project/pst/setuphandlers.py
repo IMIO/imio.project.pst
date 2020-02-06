@@ -483,6 +483,14 @@ def configure_pst(portal):
             'administrative_responsible', 'manager', 'extra_concerned_people', 'IAnalyticBudget.projection',
             'IAnalyticBudget.analytic_budget', 'budget', 'budget_comments', 'ISustainableDevelopmentGoals.sdgs',
             'observation', 'comments']
+    if not registry.get('imio.project.settings.pstaction_fields'):
+        registry['imio.project.settings.pstaction_fields'] = [
+            'IDublinCore.title', 'IDublinCore.description', 'reference_number', 'categories',
+            'result_indicator', 'planned_end_date', 'planned_begin_date', 'effective_begin_date',
+            'effective_end_date', 'progress', 'health_indicator', 'health_indicator_details',
+            'representative_responsible', 'manager', 'extra_concerned_people', 'IAnalyticBudget.projection',
+            'IAnalyticBudget.analytic_budget', 'budget', 'budget_comments', 'ISustainableDevelopmentGoals.sdgs',
+            'observation', 'comments']
 
 
 def addDemoOrganization(context):

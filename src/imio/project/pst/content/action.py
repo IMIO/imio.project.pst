@@ -6,12 +6,14 @@ from collective.z3cform.chosen.widget import AjaxChosenMultiFieldWidget
 from collective.z3cform.datagridfield import DataGridFieldFactory
 from dexterity.localrolesfield.field import LocalRolesField
 from imio.helpers.content import get_from_annotation
+from imio.project.core.browser.views import ProjectAddForm
 from imio.project.core.content.project import IProject
 from imio.project.core.content.project import Project
 from imio.project.core.utils import getProjectSpace
 from imio.project.pst import _
 from plone import api
 from plone.autoform import directives as form
+from plone.dexterity.browser.add import DefaultAddView
 from plone.dexterity.schema import DexteritySchemaPolicy
 from plone.directives.form import default_value
 from z3c.form import validator
@@ -56,28 +58,8 @@ class IPSTAction(IProject):
     )
 
     # change label
-    form.widget('result_indicator', DataGridFieldFactory, display_table_css_class='listing nosort', label=_(u'Realisation indicator'))
-
-    # reorder fields
-    form.order_before(result_indicator='comments')
-    form.order_before(planned_end_date='comments')
-    form.order_before(planned_begin_date='comments')
-    form.order_before(effective_begin_date='comments')
-    form.order_before(effective_end_date='comments')
-    form.order_before(progress='comments')
-    form.order_before(health_indicator='comments')
-    form.order_before(health_indicator_details='comments')
-    form.order_before(representative_responsible='comments')
-    form.order_before(manager='comments')
-    form.order_before(visible_for='comments')
-    form.order_before(extra_concerned_people='comments')
-    form.order_before(budget='comments')
-    form.order_before(budget_comments='comments')
-    form.order_before(observation='comments')
-
-    # hide some fields
-    form.omitted('visible_for')
-    form.omitted('priority')
+    form.widget('result_indicator', DataGridFieldFactory, display_table_css_class='listing nosort',
+                label=_(u'Realisation indicator'))
 
 
 # We add a default value for the pstaction. This works but changes on other field params don't work.
@@ -187,6 +169,16 @@ class HealthIndicatorVocabulary(object):
         terms.append(SimpleTerm(u'risque', u'risque', u'Risque'))
         terms.append(SimpleTerm(u'blocage', u'blocage', u'Blocage'))
         return SimpleVocabulary(terms)
+
+
+class ActionAddForm(ProjectAddForm):
+
+    portal_type = 'pstaction'
+
+
+class ActionAdd(DefaultAddView):
+
+    form = ActionAddForm
 
 
 class IPSTSubAction(IPSTAction):

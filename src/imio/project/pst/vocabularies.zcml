@@ -34,4 +34,9 @@
         factory="imio.project.pst.browser.controlpanel.OOFieldsVocabulary"
         />
 
+    <utility
+        name="imio.project.pst.ActionFieldsVocabulary"
+        factory="imio.project.pst.browser.controlpanel.ActionFieldsVocabulary"
+        />
+
 </configure>
