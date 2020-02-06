@@ -20,15 +20,13 @@ from zope.schema.interfaces import IVocabularyFactory
 
 field_constraints = {
     'titles': {},
-    'mandatory': {'strategicobjective': ['IDublinCore.title', 'IDublinCore.description', 'reference_number'],
-                  'operationalobjective': ['IDublinCore.title', 'IDublinCore.description', 'reference_number'],
-                  'pstaction': ['IDublinCore.title', 'IDublinCore.description', 'reference_number'],
-#                  'pstsubaction': ['IDublinCore.title', 'IDublinCore.description', 'reference_number'],
+    'mandatory': {'strategicobjective': ['IDublinCore.title', 'reference_number'],
+                  'operationalobjective': ['IDublinCore.title', 'reference_number'],
+                  'pstaction': ['IDublinCore.title', 'reference_number'],
                   },
-    'indexes': {'strategicobjective': [('IDublinCore.title', 1), ('IDublinCore.description', 2)],
-                'operationalobjective': [('IDublinCore.title', 1), ('IDublinCore.description', 2)],
-                'pstaction': [('IDublinCore.title', 1), ('IDublinCore.description', 2)],
-#                'pstsubaction': [('IDublinCore.title', 1), ('IDublinCore.description', 2)],
+    'indexes': {'strategicobjective': [('IDublinCore.title', 1)],
+                'operationalobjective': [('IDublinCore.title', 1)],
+                'pstaction': [('IDublinCore.title', 1)],
                 },
 }
 
