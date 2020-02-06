@@ -196,3 +196,13 @@ class PSTSubAction(Project):
             return '%s (SA.%s)' % (self.title.encode('utf8'), self.reference_number)
         else:
             return self.title.encode('utf8')
+
+
+class SubActionAddForm(ProjectAddForm):
+
+    portal_type = 'pstsubaction'
+
+
+class SubActionAdd(DefaultAddView):
+
+    form = SubActionAddForm
