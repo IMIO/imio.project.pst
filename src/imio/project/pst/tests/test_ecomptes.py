@@ -2,7 +2,6 @@
 """Setup/installation tests for this package."""
 from lxml.etree import XMLSyntaxError
 
-from imio.project.pst.migrations.migrate_to_1_3 import install_analytic_budget_behavior
 from imio.project.pst.testing import IntegrationTestCase
 from plone.z3cform.tests import TestRequest
 from zope.component import getMultiAdapter
@@ -114,7 +113,6 @@ class TestEcomptes(IntegrationTestCase):
         """Custom shared utility setup for tests."""
         self.portal = self.layer['portal']
         self.os = self.portal.pst['etre-une-commune-qui-offre-un-service-public-moderne-efficace-et-efficient']
-        install_analytic_budget_behavior()
         self.os.analytic_budget = [
             {'comment': u'', 'article': u'123/45678.2020 - Sera supprimé', 'amount': 1000, 'year': 2020},
         ]

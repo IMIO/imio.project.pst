@@ -59,11 +59,11 @@ class TestDocumentGenerator(IntegrationTestCase):
         short_flattened_struct = [
             ('efficient', 'venir', 'population'), ('efficient', 'venir', 'mois'), ('efficient', 'venir', 'soi'),
             ('efficient', 'communale', 'guidance'), ('efficient', 'communale', 'pmr'),
-            ('efficient', 'communale', 'vous'),
-            ('durable', 'budget', 'energie'), ('durable', 'budget', 'wallonie'), ('durable', 'budget', 'energetiques'),
-            ('durable', '2020', 'communale'), ('durable', '2020', 'batiment'), ('durable', '2020', 'chaleur'),
-            ('securite', '2022', 'sortie')
+            ('efficient', 'communale', 'vous'), ('efficient', 'communale', 'mois'), ('durable', 'budget', 'energie'),
+            ('durable', 'budget', 'wallonie'), ('durable', 'budget', 'energetiques'),
+            ('durable', '2024', 'communale'), ('durable', '2024', 'communal'), ('securite', '2022', 'sortie')
         ]
+
         # not dashboard
         del view.request.form['facetedQuery']
         struct = [(short_id(os), short_id(oo), short_id(ac)) for (os, oo, ac) in view.flatten_structure()]
@@ -81,7 +81,17 @@ class TestDocumentGenerator(IntegrationTestCase):
         brains = self.pc(id='etre-une-commune-qui-offre-un-service-public-moderne-efficace-et-efficient')
         view.context_var = lambda x, default='', brains=brains: brains
         struct = [(short_id(os), short_id(oo), short_id(ac)) for (os, oo, ac) in view.flatten_structure()]
-        self.assertListEqual(struct, short_flattened_struct[:6])
+        self.assertListEqual(struct, short_flattened_struct[:7])
+
+        # check activated fields
+        view.init_hv()
+        dic = view.activated_fields
+        self.assertEqual(len(dic['so']), 10)
+        self.assertEqual(len(dic['oo']), 18)
+        self.assertEqual(len(dic['ac']), 22)
+        self.assertEqual(len(dic['sb']), 22)
+        self.assertTrue(view.keep_field('so', 'categories'))
+        self.assertFalse(view.keep_field('so', 'mygod'))
 
     def test_DocumentGenerationSOHelper(self):
         view = self.os1.unrestrictedTraverse('@@document_generation_helper_view')
@@ -104,10 +114,10 @@ class TestDocumentGenerator(IntegrationTestCase):
                          '</tbody></table>')
         self.assertEqual(view.getOwnBudgetAsText(), '2019 pour Wallonie: 1000€')
         self.assertTrue(view.hasChildrenBudget(self.os1))
-        self.assertIn('<tfoot><tr><td>Totals</td><td>32767.5</td><td>27860.0</td><td>4907.5</td><td>-</td><td>-</td>'
+        self.assertIn('<tfoot><tr><td>Totals</td><td>33897.5</td><td>28990.0</td><td>4907.5</td><td>-</td><td>-</td>'
                       '<td>-</td><td>-</td></tr></tfoot>', view.getChildrenBudget())
         self.assertEqual(view.getGlobalBudgetByYear(),
-                         {2024: 0, 2020: 4907.5, 2021: 0, 2022: 0, 2023: 0, 2019: 28860.0})
+                         {2024: 0, 2020: 4907.5, 2021: 0, 2022: 0, 2023: 0, 2019: 29990.0})
         # on dashboard
         view.request.form['facetedQuery'] = ''
         self.assertTrue(view.is_dashboard())
