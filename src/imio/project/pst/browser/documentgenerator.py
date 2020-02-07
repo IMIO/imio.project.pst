@@ -68,11 +68,16 @@ class DocumentGenerationBaseHelper():
         return self.context_var('skip_states').split(',')
 
     def init_hv(self):
+        """ init method to be called in document """
+        def _get_fields(pt):
+            return [fld.split('.')[-1] for fld in
+                    api.portal.get_registry_record('imio.project.settings.{}_fields'.format(pt), default=[])]
+
         self.activated_fields = {
-            'so': api.portal.get_registry_record('imio.project.settings.strategicobjective_fields', default=[]),
-            'oo': api.portal.get_registry_record('imio.project.settings.operationalobjective_fields', default=[]),
-            'ac': api.portal.get_registry_record('imio.project.settings.pstaction_fields', default=[]),
-            'sb': api.portal.get_registry_record('imio.project.settings.pstsubaction_fields', default=[]),
+            'so': _get_fields('strategicobjective'),
+            'oo': _get_fields('operationalobjective'),
+            'ac': _get_fields('pstaction'),
+            'sb': _get_fields('pstsubaction'),
         }
 
     def keep_field(self, key, field):
