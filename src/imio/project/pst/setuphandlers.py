@@ -7,6 +7,7 @@ from collective.documentgenerator.utils import update_templates
 from collective.eeafaceted.collectionwidget.interfaces import ICollectionCategories
 from collective.eeafaceted.collectionwidget.utils import _updateDefaultCollectionFor
 from collective.eeafaceted.dashboard.utils import enableFacetedDashboardFor
+from data import get_main_templates
 from data import get_os_oo_ac_data
 from data import get_styles_templates
 from data import get_templates
@@ -164,8 +165,15 @@ def _addTemplatesDirectory(context):
     folder = site.templates
     do_transitions(folder, transitions=['publish_internally'], logger=logger)
 
-    cids = create(get_styles_templates(), pos=True)
-    cids.update(create(get_templates(cids), pos=True))
+    cids = create(get_styles_templates())
+    cids.update(create(get_main_templates(cids)))
+    cids.update(create(get_templates(cids)))
+    # Reorder
+    for id in reversed(['style', 'detail', 'detail-tasks', 'follow', 'follow-tasks', 'export', 'detail-all',
+                        'detail-tasks-all', 'ddetail', 'ddetail-tasks', 'dfollow', 'dfollow-tasks', 'dexport',
+                        'ddetail-all', 'ddetail-tasks-all', 'follow-all', 'follow-tasks-all', 'dfollow-all',
+                        'dfollow-tasks-all']):
+        folder.moveObjectToPosition(id, 0)
 
 
 def _extract_templates_infos(lst):
@@ -180,7 +188,7 @@ def common_dg_templates(context, force):
         return
     site = context.getSite()
     templates = _extract_templates_infos(get_styles_templates())
-    templates += _extract_templates_infos(get_templates({1: site.templates['style']}))
+    templates += _extract_templates_infos(get_main_templates({1: site.templates['style']}))
     logger.info('Updating templates')
     templates = update_templates(templates, force=force)
     log = ["Template '%s' (%s): %s" % (tup[0], tup[1][len(PRODUCT_DIR)+1:], tup[2]) for tup in templates]

@@ -163,8 +163,30 @@ class Migrate_To_1_3(Migrator):
                 obj.reindexObject()
 
     def adapt_templates(self):
-        """ Include pstsubactions in templates denifition """
+        """ Include pstsubactions in templates definition """
         templates = self.portal.templates
+
+        # Use reusable functionality
+        for id in ('detail', 'follow', 'export'):
+            templates[id].is_reusable = True
+        for id in ('ddetail', 'ddetail-all', 'ddetail-tasks', 'ddetail-tasks-all', 'detail-all', 'detail-tasks',
+                   'detail-tasks-all'):
+            templates[id].pod_template_to_use = templates['detail'].UID()
+            templates[id].odt_file = None
+        for id in ('follow-all', 'follow-tasks', 'follow-tasks-all'):
+            templates[id].pod_template_to_use = templates['follow'].UID()
+            templates[id].odt_file = None
+        templates['dexport'].pod_template_to_use = templates['export'].UID()
+        templates['dexport'].odt_file = None
+
+        # Reorder
+        for id in reversed(['style', 'detail', 'detail-tasks', 'follow', 'follow-tasks', 'export', 'detail-all',
+                            'detail-tasks-all', 'ddetail', 'ddetail-tasks', 'dfollow', 'dfollow-tasks', 'dexport',
+                            'ddetail-all', 'ddetail-tasks-all', 'follow-all', 'follow-tasks-all', 'dfollow-all',
+                            'dfollow-tasks-all']):
+            templates.moveObjectToPosition(id, 0)
+
+        # Adapt portal types and conditions for pstsubaction
         for id in ('detail', 'detail-tasks', 'follow', 'follow-tasks', 'export', 'detail-all', 'detail-tasks-all',
                    'follow-all', 'follow-tasks-all'):
             templates[id].pod_portal_types.append('pstsubaction')
