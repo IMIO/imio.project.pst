@@ -10,6 +10,7 @@ from imio.project.pst.utils import filter_states
 from imio.pyutils.bs import remove_attributes
 from imio.pyutils.bs import replace_entire_strings
 from imio.pyutils.bs import unwrap_tags
+from plone import api
 from zope.annotation import IAnnotations
 from zope.component import getUtility
 from zope.schema.interfaces import IVocabularyFactory
@@ -22,6 +23,7 @@ class DocumentGenerationBaseHelper():
 
     objs = []
     sel_type = ''
+    activated_fields = {}
 
     def is_dashboard(self):
         """ Test if template is rendered from a dashboard """
@@ -64,6 +66,17 @@ class DocumentGenerationBaseHelper():
 
     def skip_states(self):
         return self.context_var('skip_states').split(',')
+
+    def init_hv(self):
+        self.activated_fields = {
+            'so': api.portal.get_registry_record('imio.project.settings.strategicobjective_fields', default=[]),
+            'oo': api.portal.get_registry_record('imio.project.settings.operationalobjective_fields', default=[]),
+            'ac': api.portal.get_registry_record('imio.project.settings.pstaction_fields', default=[]),
+            'sb': api.portal.get_registry_record('imio.project.settings.pstsubaction_fields', default=[]),
+        }
+
+    def keep_field(self, key, field):
+        return field in self.activated_fields[key]
 
 
 class DocumentGenerationPSTHelper(DXDocumentGenerationHelperView, DocumentGenerationBaseHelper):
