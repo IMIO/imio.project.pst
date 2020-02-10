@@ -17,6 +17,7 @@ _ = MessageFactory('imio.project.pst')
 
 PRODUCT_DIR = os.path.dirname(__file__)
 ASSIGNED_USER_FUNCTIONS = ['editeur', 'validateur']
+EMPTY_STRING = '__empty_string__'
 
 
 def initialize(context):

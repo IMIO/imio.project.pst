@@ -2,8 +2,10 @@
 from Acquisition import aq_inner
 from collective.contact.plonegroup.utils import organizations_with_suffixes
 from collective.task.interfaces import ITaskContent
+from collective.z3cform.chosen.widget import AjaxChosenFieldWidget
 from collective.z3cform.chosen.widget import AjaxChosenMultiFieldWidget
 from collective.z3cform.datagridfield import DataGridFieldFactory
+#from dexterity.localrolesfield.field import LocalRoleField
 from dexterity.localrolesfield.field import LocalRolesField
 from imio.helpers.content import get_from_annotation
 from imio.project.core.browser.views import ProjectAddForm
@@ -44,6 +46,13 @@ class IPSTAction(IProject):
         required=False,
     )
     form.widget('representative_responsible', AjaxChosenMultiFieldWidget, populate_select=True)
+
+    responsible = schema.Choice(
+        title=_(u'Responsible'),
+        vocabulary=u'imio.project.pst.ActionEditorsVocabulary',
+        required=False,
+    )
+    form.widget('responsible', AjaxChosenFieldWidget, populate_select=True)
 
     health_indicator = schema.Choice(
         title=_(u'Health indicator'),

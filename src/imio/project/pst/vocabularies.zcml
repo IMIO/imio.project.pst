@@ -25,6 +25,16 @@
         />
 
     <utility
+        name="imio.project.pst.ActionEditorsVocabulary"
+        factory="imio.project.pst.vocabularies.ActionEditorsVocabulary"
+        />
+
+    <utility
+        name="imio.project.pst.EmptyActionEditorsVocabulary"
+        factory="imio.project.pst.vocabularies.EmptyActionEditorsVocabulary"
+        />
+
+    <utility
         name="imio.project.pst.SOFieldsVocabulary"
         factory="imio.project.pst.browser.controlpanel.SOFieldsVocabulary"
         />
