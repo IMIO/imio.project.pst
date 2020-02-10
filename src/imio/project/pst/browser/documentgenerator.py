@@ -11,6 +11,7 @@ from imio.pyutils.bs import remove_attributes
 from imio.pyutils.bs import replace_entire_strings
 from imio.pyutils.bs import unwrap_tags
 from plone import api
+from Products.CMFPlone.utils import base_hasattr
 from zope.annotation import IAnnotations
 from zope.component import getUtility
 from zope.schema.interfaces import IVocabularyFactory
@@ -541,6 +542,27 @@ class DocumentGenerationPSTSubActionsHelper(DXDocumentGenerationHelperView, Docu
             return ret
         else:
             return [self.real_context]
+
+    def formatHealthIndicator(self):
+        """
+            Return the health indicator details with a specific html class following the health indicator field
+        """
+        return '<p class="Santé-%s">%s</p>' % (self.real_context.health_indicator.encode('utf8'),
+                                                self.display_text_as_html('health_indicator_details'))
+
+    def formatResultIndicator(self, reached=True, expected=True, sep=' | '):
+        """
+            Return the result indicator as a string
+        """
+        rows = []
+        for row in (self.real_context.result_indicator or []):
+            if reached and expected:
+                rows.append("%s = %d / %d" % (row['label'].encode('utf8'), row['reached_value'], row['value']))
+            elif reached:
+                rows.append("%s = %d" % (row['label'].encode('utf8'), row['reached_value']))
+            elif expected:
+                rows.append("%s = %d" % (row['label'].encode('utf8'), row['value']))
+        return sep.join(rows)
 
     def getTasks(self, action=None, depth=99, skip_states=['created']):
         """
