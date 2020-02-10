@@ -33,6 +33,9 @@
  <index name="manager" meta_type="KeywordIndex">
   <indexed_attr value="manager"/>
  </index>
+ <index name="responsible" meta_type="FieldIndex">
+  <indexed_attr value="responsible"/>
+ </index>
  <index name="extra_concerned_people" meta_type="ZCTextIndex">
   <indexed_attr value="extra_concerned_people"/>
   <extra name="index_type" value="Okapi BM25 Rank"/>
@@ -50,4 +53,5 @@
   <column value="health_indicator" />
   <column value="progress" />
   <column value="manager" />
+  <column value="responsible" />
 </object>

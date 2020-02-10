@@ -70,6 +70,8 @@ class Migrate_To_1_3(Migrator):
 
         self.adapt_templates()
 
+        self.migrate_pstactions()
+
         # templates
         self.runProfileSteps('imio.project.pst', steps=['imioprojectpst-update-templates'], profile='update',
                              run_dependencies=False)
@@ -222,6 +224,11 @@ class Migrate_To_1_3(Migrator):
                     if parameter['i'] == 'portal_type':
                         parameter['v'] = [u'pstaction', u'pstsubaction']
                 col.query = list(col.query)  # need this to persist change
+                if u'responsible' not in col.customViewFields:
+                    nl = list(col.customViewFields)
+                    nl.insert(col.customViewFields.index(u'manager') + 1, u'responsible')
+                    col.customViewFields = tuple(nl)
+
         # deactivate states collections to lighten menu
         # add ModificationDate column
         for brain in self.catalog(portal_type='DashboardCollection'):
@@ -345,6 +352,7 @@ class Migrate_To_1_3(Migrator):
             if level > 1:
                 value = u'{}-{}'.format(levels[level-1]['id'], value)
             terms[value] = brain.UID
+        uids = {v: k for k, v in terms.items()}
         # find existing values and replace by new ones (id -> uid)
         for brain in self.catalog(portal_type=['operationalobjective', 'pstaction']):
             obj = brain.getObject()
@@ -352,12 +360,17 @@ class Migrate_To_1_3(Migrator):
             for rr in (obj.representative_responsible or []):
                 if rr in terms:
                     new_val.append(terms[rr])
-                else:
+                elif rr not in uids:  # if migration already done
                     logger.error("'{}' not found in dic {}. Used in {}".format(rr, terms, brain.getURL()))
                     raise Exception("'{}' not found in dic {}. Used in {}".format(rr, terms, brain.getURL()))
             if new_val:
                 obj.representative_responsible = new_val
                 obj.reindexObject()
+
+    def migrate_pstactions(self):
+        for brain in self.catalog(portal_type=['pstaction', 'pstsubaction']):
+            obj = brain.getObject()
+            obj.reindexObject()
 
 
 def migrate(context):

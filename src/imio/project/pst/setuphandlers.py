@@ -496,9 +496,9 @@ def configure_pst(portal):
             'IDublinCore.title', 'IDublinCore.description', 'reference_number', 'categories',
             'result_indicator', 'planned_end_date', 'planned_begin_date', 'effective_begin_date',
             'effective_end_date', 'progress', 'health_indicator', 'health_indicator_details',
-            'representative_responsible', 'manager', 'extra_concerned_people', 'IAnalyticBudget.projection',
-            'IAnalyticBudget.analytic_budget', 'budget', 'budget_comments', 'ISustainableDevelopmentGoals.sdgs',
-            'observation', 'comments']
+            'representative_responsible', 'manager', 'responsible', 'extra_concerned_people',
+            'IAnalyticBudget.projection', 'IAnalyticBudget.analytic_budget', 'budget', 'budget_comments',
+            'ISustainableDevelopmentGoals.sdgs', 'observation', 'comments']
     if not registry.get('imio.project.settings.pstsubaction_fields'):
         registry['imio.project.settings.pstsubaction_fields'] = registry['imio.project.settings.pstaction_fields']
 
@@ -721,9 +721,9 @@ COLUMNS_FOR_CONTENT_TYPES = {
     'operationalobjective': (u'select_row', u'pretty_link', u'parents', u'review_state', u'manager',
                              u'planned_end_date', u'priority', u'categories', u'sdgs', u'ModificationDate',
                              u'history_actions'),
-    'pstaction': (u'select_row', u'pretty_link', u'parents', u'review_state', u'manager', u'planned_begin_date',
-                  u'planned_end_date', u'effective_begin_date', u'effective_end_date', u'progress',
-                  u'health_indicator', u'sdgs', u'ModificationDate', u'history_actions'),
+    'pstaction': (u'select_row', u'pretty_link', u'parents', u'review_state', u'manager', u'responsible',
+                  u'planned_begin_date', u'planned_end_date', u'effective_begin_date', u'effective_end_date',
+                  u'progress', u'health_indicator', u'sdgs', u'ModificationDate', u'history_actions'),
     'task': (u'select_row', u'pretty_link', u'parents', u'review_state', u'assigned_group',
              u'assigned_user', u'due_date', u'CreationDate', u'ModificationDate', u'history_actions'),
 }

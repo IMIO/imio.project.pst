@@ -90,6 +90,11 @@ class ManagerColumn(VocabularyColumn):
     vocabulary = u'imio.project.core.content.project.manager_vocabulary'
 
 
+class ResponsibleColumn(VocabularyColumn):
+
+    vocabulary = u'imio.project.pst.ActionEditorsVocabulary'
+
+
 class TaskParentColumn(PrettyLinkColumn):
 
     params = {'showContentIcon': True, 'target': '_blank'}

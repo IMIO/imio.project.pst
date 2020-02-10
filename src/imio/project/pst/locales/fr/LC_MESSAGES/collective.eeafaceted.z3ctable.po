@@ -75,6 +75,9 @@ msgstr "Priorité"
 msgid "header_progress"
 msgstr "Progression"
 
+msgid "header_responsible"
+msgstr "Porteur"
+
 msgid "header_sdgs"
 msgstr "O.D.D."
 
@@ -104,6 +107,9 @@ msgstr "Priorité"
 
 msgid "progress"
 msgstr "Progression"
+
+msgid "responsible"
+msgstr "Porteur de l'action"
 
 msgid "sdgs"
 msgstr "O.D.D."

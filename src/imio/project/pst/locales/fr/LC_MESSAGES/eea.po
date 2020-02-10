@@ -90,6 +90,10 @@ msgstr "Progression"
 msgid "Representative responsible"
 msgstr "Responsable mandataire"
 
+#: ../faceted_conf/pstaction:
+msgid "Responsible"
+msgstr "Porteur de l'action"
+
 #: ../faceted_conf/operationalobjective:
 #: ../faceted_conf/pstaction:
 msgid "SDGS"

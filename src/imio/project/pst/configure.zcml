@@ -89,6 +89,7 @@
     <adapter name="representative_responsible" factory=".adapters.representative_responsible_index" />
     <adapter name="administrative_responsible" factory=".adapters.administrative_responsible_index" />
     <adapter name="manager" factory=".adapters.manager_index" />
+    <adapter name="responsible" factory=".adapters.responsible_index" />
     <adapter name="health_indicator" factory=".adapters.health_indicator_index" />
     <adapter name="progress" factory=".adapters.progress_index" />
     <adapter name="extra_concerned_people" factory=".adapters.extra_concerned_people_index" />

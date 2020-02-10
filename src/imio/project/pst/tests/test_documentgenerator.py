@@ -88,8 +88,8 @@ class TestDocumentGenerator(IntegrationTestCase):
         dic = view.activated_fields
         self.assertEqual(len(dic['so']), 10)
         self.assertEqual(len(dic['oo']), 18)
-        self.assertEqual(len(dic['ac']), 22)
-        self.assertEqual(len(dic['sb']), 22)
+        self.assertEqual(len(dic['ac']), 23)
+        self.assertEqual(len(dic['sb']), 23)
         self.assertTrue(view.keep_field('so', 'categories'))
         self.assertFalse(view.keep_field('so', 'mygod'))
 

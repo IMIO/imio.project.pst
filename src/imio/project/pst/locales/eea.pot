@@ -87,6 +87,10 @@ msgid "Representative responsible"
 msgstr ""
 
 #: ../faceted_conf/pstaction:
+msgid "Responsible"
+msgstr ""
+
+#: ../faceted_conf/pstaction:
 msgid "Progress"
 msgstr ""
 

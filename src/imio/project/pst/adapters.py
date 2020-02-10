@@ -7,6 +7,7 @@ from datetime import date
 from DateTime import DateTime
 from collective.task.behaviors import ITask
 from imio.project.core.content.projectspace import IProjectSpace
+from imio.project.pst import EMPTY_STRING
 from imio.project.pst.content.action import IPSTAction
 from imio.project.pst.content.action import IPSTSubAction
 from plone import api
@@ -153,6 +154,14 @@ def manager_index(obj):
         return obj.manager
 
     return common_marker
+
+
+@indexer(IPSTAction)
+def responsible_index(obj):
+    if base_hasattr(obj, 'responsible') and obj.responsible:
+        return obj.responsible
+
+    return EMPTY_STRING
 
 
 @indexer(IContentish)
