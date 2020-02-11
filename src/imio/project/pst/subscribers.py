@@ -39,7 +39,7 @@ def wsclient_configuration_changed(event):
             portal = api.portal.get()
             ids = []
             object_buttons = portal.portal_actions.object_buttons
-            portlet_actions = portal.portal_actions.portlet
+            portlet_actions = portal.portal_actions.object_portlet
             for object_button in object_buttons.objectValues():
                 if object_button.id.startswith('plonemeeting_wsclient_action_'):
                     ids.append(object_button.id)

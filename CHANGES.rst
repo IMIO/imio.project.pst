@@ -8,6 +8,8 @@ Changelog
   [sgeulette]
 - Added sustainable development goal field, column
   [sgeulette]
+- Added responsible field on action
+  [sgeulette]
 - Updated budget fields
   [sgeulette]
 - Improved result indicator

@@ -1369,5 +1369,5 @@ def configure_wsclient(context):
 def set_portlet(obj):
     ann = IAnnotations(obj)
     portlet = ann['plone.portlets.contextassignments']['plone.leftcolumn']['portlet_actions']
-    portlet.category = u'portlet'
+    portlet.category = u'object_portlet'
     portlet._p_changed = True
