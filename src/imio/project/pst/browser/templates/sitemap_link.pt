@@ -1,8 +1,8 @@
 <tal:link i18n:domain="imio.project.pst">
   <a tal:attributes="href view/href"
      id="sitemap-link"
-     target="_parent"
-     class="overlay overlay-ajax overlay-template-selection">
-     <input type="button" value="Sitemap" class="apButton" i18n:attributes="value" />
+     class="overlay overlay-ajax overlay-template-selection"
+     i18n:translate="">
+     Sitemap
   </a>
 </tal:link>

@@ -252,16 +252,19 @@ body.template-view.portaltype-strategicobjective td.table_widget_label {
 
 /* sitemap */
 
-#sitemap-link {
+#content a#sitemap-link {
     float: right;
     clear: right;
+    background-color: lightsteelblue;
+    padding: 0.3em 0.5em;
+    text-decoration: none;
+    border-radius: 0.3em;
+    border: 1px solid black;
 }
 .sitemap_toolbar {
     padding: 15px 0;
 }
-#sitemap-link .apButton {
-    background-color: lightsteelblue;
-}
+
 .sitemap_jstree ul {
     list-style-type: none !important;
 }
