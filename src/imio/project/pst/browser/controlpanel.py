@@ -28,6 +28,10 @@ field_constraints = {
                 'operationalobjective': [('IDublinCore.title', 1)],
                 'pstaction': [('IDublinCore.title', 1)],
                 },
+    'empty': {'strategicobjective': ['IDublinCore.description'],
+              'operationalobjective': ['IDublinCore.description'],
+              'pstaction': ['IDublinCore.description'],
+              },
 }
 
 
@@ -88,27 +92,27 @@ class IImioPSTSettings(Interface):
 
     strategicobjective_fields = schema.List(
         title=_c(u"${type} fields display", mapping={'type': _('StrategicObjective')}),
-        description=_c(u'Put fields on the right to display it. Fields with asterisk are mandatory !'),
+        description=_c(u"Put fields on the right to display it. Flags are : ..."),
         value_type=schema.Choice(vocabulary=u'imio.project.pst.SOFieldsVocabulary'),
 #        value_type=schema.Choice(source=IMFields),  # a source is not managed by registry !!
     )
 
     operationalobjective_fields = schema.List(
         title=_c(u"${type} fields display", mapping={'type': _('OperationalObjective')}),
-        description=_c(u'Put fields on the right to display it. Fields with asterisk are mandatory !'),
+#        description=_c(u'Put fields on the right to display it. Flags are : ...'),
         value_type=schema.Choice(vocabulary=u'imio.project.pst.OOFieldsVocabulary'),
     )
 
     pstaction_fields = schema.List(
         title=_c(u"${type} fields display", mapping={'type': _('PSTAction')}),
-        description=_c(u'Put fields on the right to display it. Fields with asterisk are mandatory !'),
+#        description=_c(u'Put fields on the right to display it. Flags are : ...'),
         value_type=schema.Choice(vocabulary=u'imio.project.pst.ActionFieldsVocabulary'),
     )
 
     # this field will be hidden
     pstsubaction_fields = schema.List(
         title=_c(u"${type} fields display", mapping={'type': _('PSTSubAction')}),
-        description=_c(u'Put fields on the right to display it. Fields with asterisk are mandatory !'),
+#        description=_c(u'Put fields on the right to display it. Flags are : ...'),
         value_type=schema.Choice(vocabulary=u'imio.project.pst.ActionFieldsVocabulary'),
     )
 

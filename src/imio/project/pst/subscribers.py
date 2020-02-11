@@ -5,6 +5,8 @@ from collective.eeafaceted.collectionwidget.utils import getCollectionLinkCriter
 from eea.facetednavigation.criteria.interfaces import ICriteria
 from imio.helpers.content import set_to_annotation
 from imio.pm.wsclient.browser.settings import notify_configuration_changed
+from imio.project.core.events import empty_fields
+from imio.project.pst.browser.controlpanel import field_constraints
 from imio.project.pst.content.action import IPSTSubAction
 from imio.project.pst.interfaces import IActionDashboardBatchActions
 from imio.project.pst.interfaces import IImioPSTProject
@@ -164,49 +166,53 @@ def registry_changed(event):
     """  """
     if IRecordModifiedEvent.providedBy(event):
         if event.record.interfaceName == 'imio.project.pst.browser.controlpanel.IImioPSTSettings':
-            if event.record.fieldName == 'pstsubaction_fields':
-                return
             # we copy new pstaction_fields value in pstsubaction_fields
             if event.record.fieldName == 'pstaction_fields':
                 api.portal.set_registry_record('imio.project.settings.pstsubaction_fields', event.newValue)
             # we check if we have to remove/add a column from/to a dashboard
-            if event.oldValue is None:
-                return  # site creation: nothing to do
-            pt = event.record.fieldName[:-7]
-            ovs, nvs = set(event.oldValue), set(event.newValue)
-            removed = ovs - nvs
-            added = nvs - ovs
+            if event.record.fieldName in ('strategicobjective_fields', 'operationalobjective_fields',
+                                          'pstaction_fields'):
+                if event.oldValue is None:
+                    return  # site creation: nothing to do
+                pt = event.record.fieldName[:-7]
+                ovs, nvs = set(event.oldValue), set(event.newValue)
+                removed = ovs - nvs
+                added = nvs - ovs
 
-            def find_collections(intf):
-                ret = []
-                for fld_b in api.content.find(object_provides=intf.__identifier__, portal_type='Folder'):
-                    for col_b in api.content.find(**{'path': {'query': fld_b.getPath()},
-                                                     'portal_type': 'DashboardCollection'}):
-                        ret.append(col_b.getObject())
-                return ret
+                def find_collections(intf):
+                    ret = []
+                    for fld_b in api.content.find(object_provides=intf.__identifier__, portal_type='Folder'):
+                        for col_b in api.content.find(**{'path': {'query': fld_b.getPath()},
+                                                         'portal_type': 'DashboardCollection'}):
+                            ret.append(col_b.getObject())
+                    return ret
 
-            def add_rm_col(aset, action):
-                for fld in aset:
-                    if fld not in FIELDS_COLUMNS[pt]['fields']:
-                        continue
-                    col_name = FIELDS_COLUMNS[pt]['fields'][fld]
-                    for collection in find_collections(FIELDS_COLUMNS[pt]['intf']):
-                        nl = list(collection.customViewFields)
-                        if action == 'rm' and col_name in nl:
-                            nl.remove(col_name)
-                            collection.customViewFields = tuple(nl)
-                        elif action == 'add' and col_name not in nl:
-                            i = 0
-                            for column in COLUMNS_FOR_CONTENT_TYPES[pt]:
-                                if column != col_name:
-                                    try:
-                                        i = nl.index(column)  # find the previous column...
-                                    except ValueError:
-                                        continue
-                                else:
-                                    nl.insert(i+1, col_name)  # insert column following previous found column
-                                    collection.customViewFields = tuple(nl)
-                                    break
+                def add_rm_col(aset, action):
+                    for fld in aset:
+                        if fld not in FIELDS_COLUMNS[pt]['fields']:
+                            continue
+                        col_name = FIELDS_COLUMNS[pt]['fields'][fld]
+                        for collection in find_collections(FIELDS_COLUMNS[pt]['intf']):
+                            nl = list(collection.customViewFields)
+                            if action == 'rm' and col_name in nl:
+                                nl.remove(col_name)
+                                collection.customViewFields = tuple(nl)
+                            elif action == 'add' and col_name not in nl:
+                                i = 0
+                                for column in COLUMNS_FOR_CONTENT_TYPES[pt]:
+                                    if column != col_name:
+                                        try:
+                                            i = nl.index(column)  # find the previous column...
+                                        except ValueError:
+                                            continue
+                                    else:
+                                        nl.insert(i+1, col_name)  # insert column following previous found column
+                                        collection.customViewFields = tuple(nl)
+                                        break
 
-            add_rm_col(removed, 'rm')
-            add_rm_col(added, 'add')
+                add_rm_col(removed, 'rm')
+                add_rm_col(added, 'add')
+
+            # We check if there are fields to empty
+            empty = field_constraints.get('empty', {})
+            empty_fields(event, empty)
