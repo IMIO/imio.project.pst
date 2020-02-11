@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from collective.eeafaceted.collectionwidget.interfaces import ICollectionCategories
 from imio.actionspanel.browser.viewlets import ActionsPanelViewlet
 from imio.actionspanel.browser.views import ActionsPanelView
 from plone import api
@@ -201,10 +202,10 @@ class PstActionsPanelViewlet(ActionsPanelViewlet):
 
 
 class PstFolderishActionsPanelViewlet(ActionsPanelViewlet):
-    """ actions panel viewlet """
+    """ actions panel viewlet for folderish """
 
     def renderViewlet(self):
-        if self.show():
+        if self.show() and not ICollectionCategories.providedBy(self.context):
             view = getMultiAdapter((self.context, self.request), name='actions_panel')
             return view(useIcons=False, showTransitions=True, showOwnDelete=False, showAddContent=True,
                         showActions=True, showArrows=False, arrowsPortalTypeAware=False, showFolderContents=True,
