@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<layers>
+  <layer
+    name="imio.project.pst"
+    interface="imio.project.pst.interfaces.IImioProjectPSTLayer"
+  />
+</layers>
