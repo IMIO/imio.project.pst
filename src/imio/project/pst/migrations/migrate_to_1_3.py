@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from collective.documentgenerator.utils import update_oo_config
+from collective.messagesviewlet.utils import add_message
 from dexterity.localroles.utils import add_fti_configuration
 from imio.actionspanel.interfaces import IFolderContentsShowableMarker
 from imio.helpers.content import richtextval
@@ -54,6 +55,9 @@ class Migrate_To_1_3(Migrator):
         self.runProfileSteps('imio.project.pst', steps=['portlets', 'repositorytool'], profile='demo',
                              run_dependencies=False)
 
+        # to hide messages-viewlet
+        self.runProfileSteps('plonetheme.imioapps', steps=['viewlets'], run_dependencies=False)
+
         self.various_update()
 
         set_portlet(self.portal)
@@ -95,6 +99,12 @@ class Migrate_To_1_3(Migrator):
         self.finish()
 
     def various_update(self):
+        # doc message
+        if 'doc' not in self.portal['messages-config']:
+            add_message('doc', 'Documentation', u'<p>Vous pouvez consulter la '
+                        u'<a href="https://docs.imio.be/imio-doc/ia.pst" target="_blank">documentation en ligne de la '
+                        u'dernière version</a>, ainsi que d\'autres documentations liées.</p>', msg_type='significant',
+                        can_hide=True, req_roles=['Authenticated'], activate=True)
         # replace front-page
         frontpage = getattr(self.portal, 'front-page')
         frontpage.title = _tr("front_page_title")
