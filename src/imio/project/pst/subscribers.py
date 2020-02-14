@@ -148,17 +148,29 @@ def pstsubaction_moved(obj, event):
 FIELDS_COLUMNS = {
     'strategicobjective': {
         'intf': IOSDashboardBatchActions,
-        'fields': {u'categories': u'categories'}},
+        'fields': {u'categories': u'categories'},
+        'critrs': {u'categories': u'categories'}},
     'operationalobjective': {
         'intf': IOODashboardBatchActions,
         'fields': {u'manager': u'manager', u'planned_end_date': u'planned_end_date', u'priority': u'priority',
-                   u'categories': u'categories', 'ISustainableDevelopmentGoals.sdgs': u'sdgs'}},
+                   u'categories': u'categories', 'ISustainableDevelopmentGoals.sdgs': u'sdgs'},
+        'critrs': {u'categories': u'categories', u'priority': u'priority',
+                   u'representative_responsible': 'representativeresponsible',
+                   u'administrative_responsible': 'administrativeresponsible', u'manager': u'manager',
+                   u'planned_end_date': u'plannedenddate', u'extra_concerned_people': 'extraconcernedpeople',
+                   u'ISustainableDevelopmentGoals.sdgs': u'sdgs'}},
     'pstaction': {
         'intf': IActionDashboardBatchActions,
-        'fields': {u'manager': u'manager', u'planned_begin_date': u'planned_begin_date',
+        'fields': {u'manager': u'manager', u'responsible': 'responsible', u'planned_begin_date': u'planned_begin_date',
                    u'planned_end_date': u'planned_end_date', u'effective_begin_date': u'effective_begin_date',
                    u'effective_end_date': u'effective_end_date', u'progress': u'progress',
-                   u'health_indicator': u'health_indicator', 'ISustainableDevelopmentGoals.sdgs': u'sdgs'}},
+                   u'health_indicator': u'health_indicator', 'ISustainableDevelopmentGoals.sdgs': u'sdgs'},
+        'critrs': {u'categories': u'categories', u'manager': u'manager', u'responsible': 'responsible',
+                   u'health_indicator': u'healthindicator', u'progress': u'progress',
+                   u'planned_begin_date': u'planned_begin_date', u'effective_begin_date': u'effectivebegindate',
+                   u'planned_end_date': u'plannedenddate', u'effective_end_date': u'effectiveenddate',
+                   u'representative_responsible': 'representativeresponsible',
+                   u'extra_concerned_people': 'extraconcernedpeople', u'ISustainableDevelopmentGoals.sdgs': u'sdgs'}},
 }
 
 
