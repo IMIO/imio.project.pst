@@ -43,6 +43,9 @@ def get_criteria_holder(context):
     return context
 
 
+restrict_pt_to = {'operationalobjective': u'pstaction', 'pstaction': u'pstsubaction'}
+
+
 class Criteria(eeaCriteria):
     """ Handle criteria
     """
@@ -62,7 +65,7 @@ class Criteria(eeaCriteria):
                     'title': u'Sort on',
                     'position': u'top',
                     'section': u'default',
-                    'hidden': u'False',
+                    'hidden': u'True',
                     'default': u'getObjPositionInParent',
                     'widget': u'sorting'})
                 self.criteria.append(criterion)
@@ -83,17 +86,17 @@ class Criteria(eeaCriteria):
             'widget': u'path'})
         self.criteria.append(criterion)
 
-        if context.portal_type == 'pstaction' and self.context.id == 'pstactions':
+        if self.context.id == 'pstactions' and context.portal_type in ('operationalobjective', 'pstaction'):
             criterion = Criterion(**{
                 '_cid_': u'portaltype',
                 'hidden': u'True',
-                'default': u'pstsubaction',
+                'default': restrict_pt_to[context.portal_type],
                 'index': u'portal_type',
                 'position': u'left',
                 'section': u'default',
                 'title': u'Portal type',
                 'count': u'False',
-                'widget': u'checkbox'})
+                'widget': u'text'})
             self.criteria.append(criterion)
 
 
