@@ -89,7 +89,12 @@ class Migrate_To_1_3(Migrator):
 
         self.upgradeAll(omit=['imio.project.pst:default'])
 
-        for prod in ['plonetheme.imioapps']:
+        for prod in ['collective.compoundcriterion', 'collective.contact.plonegroup', 'collective.contact.widget',
+                     'collective.eeafaceted.batchactions', 'collective.eeafaceted.collectionwidget',
+                     'collective.eeafaceted.dashboard', 'collective.eeafaceted.z3ctable', 'communesplone.layout',
+                     'dexterity.localroles', 'dexterity.localrolesfield', 'imio.actionspanel', 'imio.dashboard',
+                     'imio.pm.wsclient', 'imio.project.core', 'imio.project.pst', 'plone.formwidget.datetime',
+                     'plonetheme.classic', 'plonetheme.imioapps']:
             mark_last_version(self.portal, product=prod)
 
         # Reorder css and js
