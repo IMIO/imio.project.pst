@@ -19,6 +19,7 @@ from zope import schema
 from zope.interface import implements
 from zope.interface import implementer
 from zope.schema.interfaces import IVocabularyFactory
+from zope.schema.vocabulary import SimpleVocabulary
 
 
 class IOperationalObjective(IProject):
@@ -112,6 +113,17 @@ class OperationalObjectiveSchemaPolicy(DexteritySchemaPolicy):
 
     def bases(self, schemaName, tree):
         return (IOperationalObjective, )
+
+
+class ManagerVocabulary(object):
+    """
+        Temporary class needed to access the site before migration.
+        Can be removed after 1.3 migration
+    """
+    implements(IVocabularyFactory)
+
+    def __call__(self, context):
+        return SimpleVocabulary([])
 
 
 class OOAddForm(ProjectAddForm):

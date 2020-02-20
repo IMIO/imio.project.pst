@@ -22,6 +22,7 @@ from zope import event
 from zope.annotation.interfaces import IAnnotations
 from zope.component import getUtility
 from zope.interface import alsoProvides
+from zope.schema.interfaces import IVocabularyFactory
 
 import logging
 
@@ -58,6 +59,8 @@ class Migrate_To_1_3(Migrator):
 
         # to hide messages-viewlet
         self.runProfileSteps('plonetheme.imioapps', steps=['viewlets'], run_dependencies=False)
+
+        self.correct_component_registry()
 
         self.various_update()
 
@@ -106,6 +109,12 @@ class Migrate_To_1_3(Migrator):
 
     def various_update(self):
         # doc message
+        for id in ('doc1-0', 'doc'):
+            if id in self.portal['messages-config']:
+                api.content.delete(self.portal['messages-config'][id])
+        if ('indispo' in self.portal['messages-config'] and
+                api.content.get_state(self.portal['messages-config']['indispo']) == 'activated'):
+            api.content.transition(self.portal['messages-config']['indispo'], 'deactivate')
         if 'doc' not in self.portal['messages-config']:
             add_message('doc', 'Documentation', u'<p>Vous pouvez consulter la '
                         u'<a href="https://docs.imio.be/imio-doc/ia.pst" target="_blank">documentation en ligne de la '
@@ -229,7 +238,32 @@ class Migrate_To_1_3(Migrator):
             "context.restrictedTraverse('pst-utils')"
 
     def adapt_collections(self):
-        """ Include subactions in existing action dashboard collections """
+        """ various collections modifications """
+
+        # deactivate states collections to lighten menu
+        # add ModificationDate column
+        # correct query containing list of instance object in old sites : must be list of dict
+        for brain in self.catalog(portal_type='DashboardCollection'):
+            col = brain.getObject()
+            new_query = []
+            for parameter in col.query:
+                if isinstance(parameter, dict):
+                    new_query.append(parameter)
+                else:
+                    dic = {'i': parameter['i'], 'o': parameter['o']}
+                    if parameter.get('v'):
+                        dic['v'] = parameter['v']
+                    new_query.append(dic)
+            col.query = new_query
+            if brain.id.startswith('searchfor_') and col.enabled:
+                col.enabled = False
+                col.reindexObject(idxs=['enabled'])
+            if u'ModificationDate' not in col.customViewFields:
+                nl = list(col.customViewFields)
+                nl.insert(col.customViewFields.index(u'history_actions'), u'ModificationDate')
+                col.customViewFields = tuple(nl)
+
+        # Add subactions in actions collections
         pstactions = self.catalog(portal_type="Folder",
                                   object_provides="imio.project.pst.interfaces.IActionDashboardBatchActions")
         for pstaction in pstactions:
@@ -244,19 +278,9 @@ class Migrate_To_1_3(Migrator):
                     nl = list(col.customViewFields)
                     nl.insert(col.customViewFields.index(u'manager') + 1, u'responsible')
                     col.customViewFields = tuple(nl)
+            # add new collection
             createBaseCollections(pstaction.getObject(), ['pstaction', 'pstsubaction'])
 
-        # deactivate states collections to lighten menu
-        # add ModificationDate column
-        for brain in self.catalog(portal_type='DashboardCollection'):
-            col = brain.getObject()
-            if brain.id.startswith('searchfor_') and col.enabled:
-                col.enabled = False
-                col.reindexObject(idxs=['enabled'])
-            if u'ModificationDate' not in col.customViewFields:
-                nl = list(col.customViewFields)
-                nl.insert(col.customViewFields.index(u'history_actions'), u'ModificationDate')
-                col.customViewFields = tuple(nl)
         # add sdgs column on oo and act dashboardes
         dbs = self.catalog(portal_type="Folder",
                            object_provides="imio.project.pst.interfaces.IOODashboardBatchActions") + pstactions
@@ -268,6 +292,12 @@ class Migrate_To_1_3(Migrator):
                     nl = list(col.customViewFields)
                     nl.insert(col.customViewFields.index(u'ModificationDate'), u'sdgs')
                     col.customViewFields = tuple(nl)
+
+        # add tasks collections removed on gembloux
+        tasks_f = self.catalog(portal_type="Folder",
+                               object_provides="imio.project.pst.interfaces.ITaskDashboardBatchActions")
+        for task_f in tasks_f:
+            createBaseCollections(task_f.getObject(), ['task'])
 
     def dx_local_roles(self):
         # add pstsubaction local roles
@@ -388,6 +418,17 @@ class Migrate_To_1_3(Migrator):
         for brain in self.catalog(portal_type=['pstaction', 'pstsubaction']):
             obj = brain.getObject()
             obj.reindexObject()
+
+    def correct_component_registry(self):
+        """ There is still a trace of imio.project.pst.content.operational.ManagerVocabulary. """
+        sm = self.portal.getSiteManager()
+        subscribers = sm.utilities._subscribers
+        utilities = subscribers[0][IVocabularyFactory]
+        from imio.project.pst.content.operational import ManagerVocabulary
+        new_tup = tuple([obj for obj in utilities[u''] if not isinstance(obj, ManagerVocabulary)])
+        if utilities[u''] != new_tup:
+            subscribers[0][IVocabularyFactory][u''] = new_tup
+            setattr(sm.utilities, '_subscribers', subscribers)
 
 
 def migrate(context):
