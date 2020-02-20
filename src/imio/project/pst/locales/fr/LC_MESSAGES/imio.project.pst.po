@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2020-02-10 11:08+0000\n"
+"POT-Creation-Date: 2020-02-20 09:01+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,7 +27,7 @@ msgstr "Actions"
 msgid "Actions under"
 msgstr "Actions (sous-)"
 
-#: ./content/operational.py:40
+#: ./content/operational.py:41
 msgid "Administrative responsible"
 msgstr "Responsable administratif"
 
@@ -95,22 +95,22 @@ msgstr "Installs the imio.project.pst"
 msgid "Operational objectives"
 msgstr "Objectifs opérationnels"
 
-#: ./browser/controlpanel.py:97
+#: ./browser/controlpanel.py:101
 #: ./profiles/default/types/operationalobjective.xml
 msgid "OperationalObjective"
 msgstr "Objectif opérationnel"
 
-#: ./browser/controlpanel.py:127
+#: ./browser/controlpanel.py:131
 #: ./profiles/default/controlpanel.xml
 msgid "PST settings"
 msgstr "Gestion du PST"
 
-#: ./browser/controlpanel.py:103
+#: ./browser/controlpanel.py:107
 #: ./profiles/default/types/pstaction.xml
 msgid "PSTAction"
 msgstr "Action"
 
-#: ./browser/controlpanel.py:110
+#: ./browser/controlpanel.py:114
 #: ./profiles/default/types/pstsubaction.xml
 msgid "PSTSubAction"
 msgstr "Sous-action"
@@ -128,7 +128,7 @@ msgid "Realisation indicator"
 msgstr "Indicateur de réalisation"
 
 #: ./content/action.py:40
-#: ./content/operational.py:29
+#: ./content/operational.py:30
 msgid "Representative responsible"
 msgstr "Responsable mandataire"
 
@@ -136,7 +136,7 @@ msgstr "Responsable mandataire"
 msgid "Responsible"
 msgstr "Porteur de l'action"
 
-#: ./browser/templates/sitemap_link.pt:6
+#: ./browser/templates/sitemap_link.pt:2
 msgid "Sitemap"
 msgstr "Plan du PST"
 
@@ -192,7 +192,7 @@ msgstr "Steps to ease tests of imio.project.pst"
 msgid "Strategic objectives"
 msgstr "Objectifs stratégiques"
 
-#: ./browser/controlpanel.py:90
+#: ./browser/controlpanel.py:94
 #: ./profiles/default/types/strategicobjective.xml
 msgid "StrategicObjective"
 msgstr "Objectif stratégique"
@@ -242,15 +242,19 @@ msgstr "Dont je suis responsable administratif"
 msgid "Which I am manager"
 msgstr "Dont je suis gestionnaire"
 
+#: ./setuphandlers.py:963
+msgid "Which I am responsible"
+msgstr "Dont je suis le porteur"
+
 #: ./setuphandlers.py:926
 msgid "Which an action deadline has passed"
 msgstr "En retard pdv échéance actions"
 
-#: ./setuphandlers.py:979
+#: ./setuphandlers.py:995
 msgid "Which beginning is late"
 msgstr "En retard pdv date début effective"
 
-#: ./setuphandlers.py:963
+#: ./setuphandlers.py:979
 msgid "Which deadline has passed"
 msgstr "En retard pdv échéance"
 
@@ -305,30 +309,30 @@ msgstr "Objectifs stratégiques"
 msgid "strategic_legend_operational_objectives"
 msgstr "Objectifs opérationnels"
 
-#: ./setuphandlers.py:1050
+#: ./setuphandlers.py:1066
 msgid "task_have_treated"
 msgstr "Que j'ai traité"
 
-#: ./setuphandlers.py:1033
+#: ./setuphandlers.py:1049
 msgid "task_im_treating"
 msgstr "Que je traite"
 
-#: ./setuphandlers.py:1016
+#: ./setuphandlers.py:1032
 msgid "task_to_treat"
 msgstr "Qui m'est assigné"
 
-#: ./setuphandlers.py:1068
+#: ./setuphandlers.py:1084
 msgid "tasks_in_my_group"
 msgstr "Dans mon service"
 
-#: ./setuphandlers.py:999
+#: ./setuphandlers.py:1015
 msgid "tasks_to_assign"
 msgstr "À assigner"
 
-#: ./setuphandlers.py:1085
+#: ./setuphandlers.py:1101
 msgid "tasks_to_close"
 msgstr "À clôturer"
 
-#: ./setuphandlers.py:1102
+#: ./setuphandlers.py:1118
 msgid "tasks_with_due_date_passed"
 msgstr "En retard pdv échéance"

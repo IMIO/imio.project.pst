@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2020-02-10 11:08+0000\n"
+"POT-Creation-Date: 2020-02-20 09:01+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,7 +29,7 @@ msgstr ""
 msgid "Actions under"
 msgstr ""
 
-#: ./content/operational.py:40
+#: ./content/operational.py:41
 msgid "Administrative responsible"
 msgstr ""
 
@@ -97,22 +97,22 @@ msgstr ""
 msgid "Operational objectives"
 msgstr ""
 
-#: ./browser/controlpanel.py:97
+#: ./browser/controlpanel.py:101
 #: ./profiles/default/types/operationalobjective.xml
 msgid "OperationalObjective"
 msgstr ""
 
-#: ./browser/controlpanel.py:127
+#: ./browser/controlpanel.py:131
 #: ./profiles/default/controlpanel.xml
 msgid "PST settings"
 msgstr ""
 
-#: ./browser/controlpanel.py:103
+#: ./browser/controlpanel.py:107
 #: ./profiles/default/types/pstaction.xml
 msgid "PSTAction"
 msgstr ""
 
-#: ./browser/controlpanel.py:110
+#: ./browser/controlpanel.py:114
 #: ./profiles/default/types/pstsubaction.xml
 msgid "PSTSubAction"
 msgstr ""
@@ -130,7 +130,7 @@ msgid "Realisation indicator"
 msgstr ""
 
 #: ./content/action.py:40
-#: ./content/operational.py:29
+#: ./content/operational.py:30
 msgid "Representative responsible"
 msgstr ""
 
@@ -138,7 +138,7 @@ msgstr ""
 msgid "Responsible"
 msgstr ""
 
-#: ./browser/templates/sitemap_link.pt:6
+#: ./browser/templates/sitemap_link.pt:2
 msgid "Sitemap"
 msgstr ""
 
@@ -194,7 +194,7 @@ msgstr ""
 msgid "Strategic objectives"
 msgstr ""
 
-#: ./browser/controlpanel.py:90
+#: ./browser/controlpanel.py:94
 #: ./profiles/default/types/strategicobjective.xml
 msgid "StrategicObjective"
 msgstr ""
@@ -244,15 +244,19 @@ msgstr ""
 msgid "Which I am manager"
 msgstr ""
 
+#: ./setuphandlers.py:963
+msgid "Which I am responsible"
+msgstr ""
+
 #: ./setuphandlers.py:926
 msgid "Which an action deadline has passed"
 msgstr ""
 
-#: ./setuphandlers.py:979
+#: ./setuphandlers.py:995
 msgid "Which beginning is late"
 msgstr ""
 
-#: ./setuphandlers.py:963
+#: ./setuphandlers.py:979
 msgid "Which deadline has passed"
 msgstr ""
 
@@ -307,30 +311,30 @@ msgstr ""
 msgid "strategic_legend_operational_objectives"
 msgstr ""
 
-#: ./setuphandlers.py:1050
+#: ./setuphandlers.py:1066
 msgid "task_have_treated"
 msgstr ""
 
-#: ./setuphandlers.py:1033
+#: ./setuphandlers.py:1049
 msgid "task_im_treating"
 msgstr ""
 
-#: ./setuphandlers.py:1016
+#: ./setuphandlers.py:1032
 msgid "task_to_treat"
 msgstr ""
 
-#: ./setuphandlers.py:1068
+#: ./setuphandlers.py:1084
 msgid "tasks_in_my_group"
 msgstr ""
 
-#: ./setuphandlers.py:999
+#: ./setuphandlers.py:1015
 msgid "tasks_to_assign"
 msgstr ""
 
-#: ./setuphandlers.py:1085
+#: ./setuphandlers.py:1101
 msgid "tasks_to_close"
 msgstr ""
 
-#: ./setuphandlers.py:1102
+#: ./setuphandlers.py:1118
 msgid "tasks_with_due_date_passed"
 msgstr ""

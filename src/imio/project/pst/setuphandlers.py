@@ -959,6 +959,22 @@ def createBaseCollections(folder, content_type):
                 'count': False
             },
             {
+                'id': 'i-am-responsible',
+                'tit': _("Which I am responsible"),
+                'subj': ('search',),
+                'query': [
+                    {'i': 'portal_type', 'o': 'plone.app.querystring.operation.selection.is', 'v': content_type},
+                    {'i': 'responsible', 'o': 'plone.app.querystring.operation.string.currentUser'},
+                    {'i': 'path', 'o': 'plone.app.querystring.operation.string.path', 'v': ps_path}
+                ],
+                'cond': u"",
+                'bypass': [],
+                'flds': COLUMNS_FOR_CONTENT_TYPES[content_type[0]],
+                'sort': u'sortable_title',
+                'rev': False,
+                'count': False
+            },
+            {
                 'id': 'deadline-has-passed',
                 'tit': _("Which deadline has passed"),
                 'subj': ('search',),

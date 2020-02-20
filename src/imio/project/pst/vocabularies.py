@@ -97,7 +97,7 @@ class ActionEditorsVocabulary(object):
                     users[title].append(member)
         for tit in sorted(titles):
             for mb in users[tit]:
-                terms.append(SimpleTerm(mb.getUserName(), mb.getId(), tit))
+                terms.append(SimpleTerm(mb.getMemberId(), mb.getMemberId(), tit))
 #        terms.insert(0, SimpleTerm(EMPTY_STRING, EMPTY_STRING, _('Empty value')))
         return SimpleVocabulary(terms)
 

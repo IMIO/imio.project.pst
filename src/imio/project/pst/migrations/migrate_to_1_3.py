@@ -9,6 +9,7 @@ from imio.helpers.content import transitions
 from imio.migrator.migrator import Migrator
 from imio.project.pst import _tr
 from imio.project.pst.setuphandlers import configure_pst
+from imio.project.pst.setuphandlers import createBaseCollections
 from imio.project.pst.setuphandlers import reimport_faceted_config
 from imio.project.pst.setuphandlers import set_portlet
 from plone import api
@@ -243,6 +244,7 @@ class Migrate_To_1_3(Migrator):
                     nl = list(col.customViewFields)
                     nl.insert(col.customViewFields.index(u'manager') + 1, u'responsible')
                     col.customViewFields = tuple(nl)
+            createBaseCollections(pstaction.getObject(), ['pstaction', 'pstsubaction'])
 
         # deactivate states collections to lighten menu
         # add ModificationDate column
