@@ -216,7 +216,7 @@ def _addPSTprojectspace(context):
         logger.warn('Nothing done: projectspace \'pst\' already exists!')
         return
 
-    params = {'title': u"PST"}
+    params = {'title': u"PST 2019-2024"}
     # datagridfield categories
     categories = [
         {'label': u"Volet interne : Administration générale - Accessibilité de l'Administration",
@@ -302,7 +302,7 @@ def _addPSTprojectspace(context):
     else:
         params['budget_years'] = [2019, 2020, 2021, 2022, 2023, 2024]
 
-    createContentInContainer(site, 'projectspace', **params)
+    createContentInContainer(site, 'projectspace', id='pst', **params)
     projectspace = site.pst
     alsoProvides(projectspace, IImioPSTProject)
     # local roles
@@ -612,7 +612,7 @@ def addDemoData(context):
     # - pstaction
     # - pstsubaction
     # - task
-    data = get_os_oo_ac_data(groups, getPSTStartYear(site))
+    data = get_os_oo_ac_data(site, groups, getPSTStartYear(site))
 
     # needed to avoid ComponentLookupError in edit_view.update()
     from zope.event import notify
