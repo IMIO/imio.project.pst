@@ -22,6 +22,7 @@ from zope import event
 from zope.annotation.interfaces import IAnnotations
 from zope.component import getUtility
 from zope.interface import alsoProvides
+from zope.lifecycleevent import modified
 from zope.schema.interfaces import IVocabularyFactory
 
 import logging
@@ -161,6 +162,20 @@ class Migrate_To_1_3(Migrator):
                 col_folder = pst[col_folder_id]
                 reimport_faceted_config(col_folder, xml='{}.xml'.format(content_type),
                                         default_UID=col_folder['all'].UID())
+        # rename pst
+        titles = {u'PST (2012-2018)': u'PST 2013-2018', u'PST (2018-2024)': u'PST 2019-2024',
+                  u'PST (2019-2024)': u'PST 2019-2024'}
+        values = titles.values()
+        for brain in self.catalog(object_provides='imio.project.pst.interfaces.IImioPSTProject'):
+            pst = brain.getObject()
+            for tit in titles:
+                if pst.title == tit:
+                    pst.title = titles[tit]
+                    modified(pst)
+                    break
+            else:
+                if pst.title not in values:
+                    logger.warning("PST rename: not replaced '{}'".format(pst.title))
 
     def update_collections_folder_name(self):
         """ Update Actions and Tasks folder name """
@@ -380,8 +395,8 @@ class Migrate_To_1_3(Migrator):
         # construct correspondence
         terms = {}
         sub = self.portal.contacts['plonegroup-organization'].echevins
-        if IFolderContentsShowableMarker.providedBy(sub):
-            return
+        #if IFolderContentsShowableMarker.providedBy(sub):
+        #    return
         alsoProvides(sub, IFolderContentsShowableMarker)
         sub_path = '/'.join(sub.getPhysicalPath())
         sub_path_len = len(sub_path) + 1
