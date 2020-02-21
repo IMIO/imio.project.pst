@@ -18,10 +18,10 @@ class ArchiveView(BrowserView):
         portal = api.portal.get()
         new_pst = api.content.copy(self.context, portal, 'pst-tmp', False)
         self.context = api.content.rename(self.context, 'pst-2012-2018')
-        self.context.title = u'PST (2012-2018)'
+        self.context.title = u'PST 2013-2018'
         self.context.reindexObject()
         new_pst = api.content.rename(new_pst, 'pst')
-        new_pst.title = u'PST (2018-2024)'
+        new_pst.title = u'PST 2019-2024'
         new_pst.manage_addLocalRoles("pst_editors", ('Reader', 'Editor', 'Reviewer', 'Contributor', ))
         new_pst.reindexObject()
         new_pst.reindexObjectSecurity()

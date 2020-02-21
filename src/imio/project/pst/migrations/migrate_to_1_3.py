@@ -164,7 +164,7 @@ class Migrate_To_1_3(Migrator):
                                         default_UID=col_folder['all'].UID())
         # rename pst
         titles = {u'PST (2012-2018)': u'PST 2013-2018', u'PST (2018-2024)': u'PST 2019-2024',
-                  u'PST (2019-2024)': u'PST 2019-2024'}
+                  u'PST (2019-2024)': u'PST 2019-2024', u'PST': u'PST 2019-2024'}
         values = titles.values()
         for brain in self.catalog(object_provides='imio.project.pst.interfaces.IImioPSTProject'):
             pst = brain.getObject()
