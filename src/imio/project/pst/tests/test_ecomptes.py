@@ -151,8 +151,22 @@ class TestEcomptes(IntegrationTestCase):
         import_from_ecomptes_from.update_pst(parsed_xml)
         self.assertEquals(
             [
-                {'comment': u'', 'article': u'123/45678.2020 - Indemnités XYZ', 'amount': 1793.5, 'year': 2020},
-                {'comment': u'', 'article': u'012/12145.2020 - Indemnités OMC', 'amount': 2020.0, 'year': 2020},
+                {
+                    'service': 'O',
+                    'title': u'Indemnit\xe9s XYZ',
+                    'year': 2020,
+                    'amount': 1793.5,
+                    'btype': 'D',
+                    'article': '123/45678.2020'
+                },
+                {
+                    'service': 'O',
+                    'title': u'Indemnit\xe9s OMC',
+                    'year': 2020,
+                    'amount': 2020.0,
+                    'btype': 'D',
+                    'article': '012/12145.2020'
+                }
             ],
             self.os.analytic_budget,
         )
