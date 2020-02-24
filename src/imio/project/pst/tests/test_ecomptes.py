@@ -95,7 +95,60 @@ import_from_comptes = '''<?xml version="1.0" encoding="UTF-8"?>
                     <Montant>2020</Montant>
                 </Article>
             </Articles>
-            <Projections/>
+            <Projections>
+                <Projection>
+                    <Service>O</Service>
+                    <Type>R</Type>
+                    <GroupeEco>61</GroupeEco>
+                    <Libelle>61 Transferts</Libelle>
+                    <Exercices>
+                        <Exercice Valeur="2024">
+                            <Montant>0</Montant>
+                        </Exercice>
+                        <Exercice Valeur="2023">
+                            <Montant>0</Montant>
+                        </Exercice>
+                        <Exercice Valeur="2022">
+                            <Montant>100</Montant>
+                        </Exercice>
+                        <Exercice Valeur="2021">
+                            <Montant>100</Montant>
+                        </Exercice>
+                        <Exercice Valeur="2020">
+                            <Montant>100</Montant>
+                        </Exercice>
+                        <Exercice Valeur="2019">
+                            <Montant>0</Montant>
+                        </Exercice>
+                    </Exercices>
+                </Projection>
+                <Projection>
+                    <Service>O</Service>
+                    <Type>R</Type>
+                    <GroupeEco>60</GroupeEco>
+                    <Libelle>60 Prestations</Libelle>
+                    <Exercices>
+                        <Exercice Valeur="2024">
+                            <Montant>190</Montant>
+                        </Exercice>
+                        <Exercice Valeur="2023">
+                            <Montant>180</Montant>
+                        </Exercice>
+                        <Exercice Valeur="2022">
+                            <Montant>170</Montant>
+                        </Exercice>
+                        <Exercice Valeur="2021">
+                            <Montant>160</Montant>
+                        </Exercice>
+                        <Exercice Valeur="2020">
+                            <Montant>150</Montant>
+                        </Exercice>
+                        <Exercice Valeur="2019">
+                            <Montant>0</Montant>
+                        </Exercice>
+                    </Exercices>
+                </Projection>
+            </Projections>
             <ObjectifsOperationnels/>
           </ObjectifStrategique>
         </ObjectifStrategiques>
@@ -131,7 +184,7 @@ class TestEcomptes(IntegrationTestCase):
         self.assertEqual(len(errors), 0)
 
         with self.assertRaises(XMLSyntaxError):
-            parsed_xml = import_from_ecomptes_from.parse_xml(data)
+            import_from_ecomptes_from.parse_xml(data)
 
     def test_import_form_updates(self):
         """Import a valid XML export from eComptes & update an OS analytic budget"""
@@ -170,3 +223,17 @@ class TestEcomptes(IntegrationTestCase):
             ],
             self.os.analytic_budget,
         )
+        self.assertEquals([
+            {'group': u'61', 'service': u'O', 'title': u'61 Transferts', 'btype': u'R', 'amount': 0.0, 'year': 2024},
+            {'group': u'61', 'service': u'O', 'title': u'61 Transferts', 'btype': u'R', 'amount': 0.0, 'year': 2023},
+            {'group': u'61', 'service': u'O', 'title': u'61 Transferts', 'btype': u'R', 'amount': 100.0, 'year': 2022},
+            {'group': u'61', 'service': u'O', 'title': u'61 Transferts', 'btype': u'R', 'amount': 100.0, 'year': 2021},
+            {'group': u'61', 'service': u'O', 'title': u'61 Transferts', 'btype': u'R', 'amount': 100.0, 'year': 2020},
+            {'group': u'61', 'service': u'O', 'title': u'61 Transferts', 'btype': u'R', 'amount': 0.0, 'year': 2019},
+            {'group': u'60', 'service': u'O', 'title': u'60 Prestations', 'btype': u'R', 'amount': 190.0, 'year': 2024},
+            {'group': u'60', 'service': u'O', 'title': u'60 Prestations', 'btype': u'R', 'amount': 180.0, 'year': 2023},
+            {'group': u'60', 'service': u'O', 'title': u'60 Prestations', 'btype': u'R', 'amount': 170.0, 'year': 2022},
+            {'group': u'60', 'service': u'O', 'title': u'60 Prestations', 'btype': u'R', 'amount': 160.0, 'year': 2021},
+            {'group': u'60', 'service': u'O', 'title': u'60 Prestations', 'btype': u'R', 'amount': 150.0, 'year': 2020},
+            {'group': u'60', 'service': u'O', 'title': u'60 Prestations', 'btype': u'R', 'amount': 0.0, 'year': 2019}
+        ], self.os.projection)
