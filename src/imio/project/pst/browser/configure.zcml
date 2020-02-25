@@ -50,6 +50,24 @@
         permission="zope2.View"
         />
 
+    <!-- Customize the folder_listing for IActionLink -->
+    <browser:page
+        for="imio.project.pst.content.action_link.IActionLink"
+        name="imio-folder-listing"
+        class=".facetediframe.FacetedContainerFolderListingView"
+        template="templates/pstaction_folder_listing.pt"
+        permission="zope2.View"
+        />
+
+    <!-- Customize the folder_listing for ISubActionLink -->
+    <browser:page
+        for="imio.project.pst.content.subaction_link.ISubActionLink"
+        name="imio-folder-listing"
+        class=".facetediframe.FacetedContainerFolderListingView"
+        template="templates/pstaction_folder_listing.pt"
+        permission="zope2.View"
+        />
+
     <!-- Customize the faceted table view -->
     <browser:view
       for="imio.project.pst.content.strategic.IStrategicObjective"
