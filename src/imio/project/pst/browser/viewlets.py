@@ -5,6 +5,7 @@ from Acquisition import aq_inner
 from collective.messagesviewlet.browser.messagesviewlet import MessagesViewlet
 from collective.messagesviewlet.message import generate_uid
 from collective.messagesviewlet.message import PseudoMessage
+from collective.symlink.utils import is_linked_object
 from collective.task.browser.viewlets import TasksListViewlet as OriginalTasksListViewlet
 from imio.helpers.content import richtextval
 from imio.prettylink.interfaces import IPrettyLink
@@ -100,11 +101,16 @@ class ContextInformationViewlet(MessagesViewlet):
 
     def getAllMessages(self):
         ret = []
-        if hasattr(self.context, "_link_portal_type"):
 
+        link_type, symlink_obj, original_obj, subpath = is_linked_object(self.context)
+        if link_type:
+            if subpath:
+                linked_context = original_obj.restrictedTraverse(subpath)
+            else:
+                linked_context = original_obj
             msg = _(u"This content is a copy, to modify the original content click on this button ${edit}",
                     mapping={"edit": '<a href="{0}/edit">{1}</a>'.format(
-                             self.context.symbolic_link.to_object.absolute_url(),
+                    linked_context.absolute_url(),
                              _tr('Edit', domain='plone'))})
             ret.append(
                 PseudoMessage(
