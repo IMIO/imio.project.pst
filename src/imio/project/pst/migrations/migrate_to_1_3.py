@@ -120,7 +120,7 @@ class Migrate_To_1_3(Migrator):
             api.content.transition(self.portal['messages-config']['indispo'], 'deactivate')
         if 'doc' not in self.portal['messages-config']:
             add_message('doc', 'Documentation', u'<p>Vous pouvez consulter la '
-                        u'<a href="https://docs.imio.be/imio-doc/ia.pst" target="_blank">documentation en ligne de la '
+                        u'<a href="https://docs.imio.be/imio-doc/ia.pst/" target="_blank">documentation en ligne de la '
                         u'dernière version</a>, ainsi que d\'autres documentations liées.</p>', msg_type='significant',
                         can_hide=True, req_roles=['Authenticated'], activate=True)
         # replace front-page
