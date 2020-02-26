@@ -183,7 +183,9 @@
 
     <javascript id="++resource++eea.facetednavigation.widgets.alphabets.view.js" insert-after="++resource++eea.facetednavigation.widgets.autocomplete.view.js" />
 
-    <javascript id="++resource++eea.faceted-navigation-independent.js" insert-after="++resource++eea.facetednavigation.widgets.alphabets.view.js" />
+    <javascript id="++resource++eea.facetednavigation.widgets.multiselect.view.js" insert-after="++resource++eea.facetednavigation.widgets.alphabets.view.js" />
+
+    <javascript id="++resource++eea.faceted-navigation-independent.js" insert-after="++resource++eea.facetednavigation.widgets.multiselect.view.js" />
 
     <javascript id="++resource++eea.faceted-navigation-expand.js" insert-after="++resource++eea.faceted-navigation-independent.js" />
 
@@ -227,7 +229,9 @@
 
     <javascript id="++resource++eea.facetednavigation.widgets.alphabets.edit.js" insert-after="++resource++eea.facetednavigation.widgets.autocomplete.edit.js" />
 
-    <javascript id="collective_eeafaceted_z3ctable_js_variables.js" insert-after="++resource++eea.facetednavigation.widgets.alphabets.edit.js" />
+    <javascript id="++resource++eea.facetednavigation.widgets.multiselect.edit.js" insert-after="++resource++eea.facetednavigation.widgets.alphabets.edit.js" />
+
+    <javascript id="collective_eeafaceted_z3ctable_js_variables.js" insert-after="++resource++eea.facetednavigation.widgets.multiselect.edit.js" />
 
     <javascript id="++resource++collective.eeafaceted.batchactions/batch_actions.js" insert-after="collective_eeafaceted_z3ctable_js_variables.js" />
 

@@ -104,7 +104,9 @@
 
  <stylesheet id="++resource++eea.facetednavigation.widgets.alphabets.view.css" insert-after="++resource++eea.facetednavigation.widgets.autocomplete.view.css" />
 
- <stylesheet id="++resource++eea.faceted-navigation-edit.css" insert-after="++resource++eea.facetednavigation.widgets.alphabets.view.css" />
+ <stylesheet id="++resource++eea.facetednavigation.widgets.multiselect.view.css" insert-after="++resource++eea.facetednavigation.widgets.alphabets.view.css" />
+
+ <stylesheet id="++resource++eea.faceted-navigation-edit.css" insert-after="++resource++eea.facetednavigation.widgets.multiselect.view.css" />
 
  <stylesheet id="++resource++eea.facetednavigation.widgets.text.edit.css" insert-after="++resource++eea.faceted-navigation-edit.css" />
 
@@ -144,7 +146,9 @@
 
  <stylesheet id="++resource++eea.facetednavigation.widgets.alphabets.edit.css" insert-after="++resource++eea.facetednavigation.widgets.autocomplete.edit.css" />
 
- <stylesheet id="++resource++plone.formwidget.querystring.querywidget.css" insert-after="++resource++eea.facetednavigation.widgets.alphabets.edit.css" />
+ <stylesheet id="++resource++eea.facetednavigation.widgets.multiselect.edit.css" insert-after="++resource++eea.facetednavigation.widgets.alphabets.edit.css" />
+
+ <stylesheet id="++resource++plone.formwidget.querystring.querywidget.css" insert-after="++resource++eea.facetednavigation.widgets.multiselect.edit.css" />
 
  <stylesheet id="++resource++collective.eeafaceted.collectionwidget/collective.eeafaceted.collectionwidget.css" insert-after="++resource++plone.formwidget.querystring.querywidget.css" />
 
@@ -172,7 +176,21 @@
 
  <stylesheet id="++resource++quickupload_static/fileuploader.css" insert-after="++resource++quickupload_static/uploadify.css" />
 
- <stylesheet id="imioapps_IEFixes.css" insert-after="++resource++quickupload_static/fileuploader.css" />
+ <stylesheet id="++resource++collection.css" insert-after="++resource++quickupload_static/fileuploader.css" />
+
+ <stylesheet id="++resource++plone.formwidget.recurrence/jquery.recurrenceinput.css" insert-after="++resource++collection.css" />
+
+ <stylesheet id="++resource++plone.formwidget.recurrence/integration.css" insert-after="++resource++plone.formwidget.recurrence/jquery.recurrenceinput.css" />
+
+ <stylesheet id="++resource++plone.app.event/event.css" insert-after="++resource++plone.formwidget.recurrence/integration.css" />
+
+ <stylesheet id="++resource++collection.css" insert-after="++resource++plone.app.event/event.css" />
+
+ <stylesheet id="++resource++actionsportlet.css" insert-after="++resource++collection.css" />
+
+ <stylesheet id="++resource++collective.behavior.sdg/sdg.css" insert-after="++resource++actionsportlet.css" />
+
+ <stylesheet id="imioapps_IEFixes.css" insert-after="++resource++collective.behavior.sdg/sdg.css" />
 
  <stylesheet id="imioapps.css" insert-after="imioapps_IEFixes.css" />
 
@@ -180,9 +198,7 @@
 
  <stylesheet id="pstskin.css" insert-after="imioapps_ckeditor_moonolisa.css" />
 
- <stylesheet id="++resource++collective.behavior.sdg/sdg.css" insert-after="pstskin.css" />
-
- <stylesheet id="++resource++imio.project.core/imio_project_core.css" insert-after="++resource++collective.behavior.sdg/sdg.css" />
+ <stylesheet id="++resource++imio.project.core/imio_project_core.css" insert-after="pstskin.css" />
 
  <stylesheet id="++resource++imio.project.pst/imio_project_pst.css" insert-after="++resource++imio.project.core/imio_project_core.css" />
 
