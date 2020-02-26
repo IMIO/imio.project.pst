@@ -94,11 +94,13 @@ class Migrate_To_1_3(Migrator):
 
         self.upgradeAll(omit=['imio.project.pst:default'])
 
-        for prod in ['collective.compoundcriterion', 'collective.contact.plonegroup', 'collective.contact.widget',
-                     'collective.eeafaceted.batchactions', 'collective.eeafaceted.collectionwidget',
-                     'collective.eeafaceted.dashboard', 'collective.eeafaceted.z3ctable', 'communesplone.layout',
-                     'dexterity.localroles', 'dexterity.localrolesfield', 'imio.actionspanel', 'imio.dashboard',
-                     'imio.pm.wsclient', 'imio.project.core', 'imio.project.pst', 'plone.formwidget.datetime',
+        for prod in ['collective.behavior.talcondition', 'collective.ckeditor', 'collective.compoundcriterion',
+                     'collective.contact.plonegroup', 'collective.contact.widget', 'collective.eeafaceted.batchactions',
+                     'collective.eeafaceted.collectionwidget', 'collective.eeafaceted.dashboard',
+                     'collective.eeafaceted.z3ctable', 'collective.fingerpointing', 'collective.messagesviewlet',
+                     'communesplone.layout', 'dexterity.localroles', 'dexterity.localrolesfield', 'eea.jquery',
+                     'imio.actionspanel', 'imio.dashboard', 'imio.history', 'imio.pm.wsclient', 'imio.project.core',
+                     'imio.project.pst', 'plone.formwidget.datetime', 'plone.formwidget.masterselect',
                      'plonetheme.classic', 'plonetheme.imioapps']:
             mark_last_version(self.portal, product=prod)
 
