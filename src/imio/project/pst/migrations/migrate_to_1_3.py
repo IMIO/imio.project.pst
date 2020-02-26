@@ -121,8 +121,10 @@ class Migrate_To_1_3(Migrator):
         if 'doc' not in self.portal['messages-config']:
             add_message('doc', 'Documentation', u'<p>Vous pouvez consulter la '
                         u'<a href="https://docs.imio.be/imio-doc/ia.pst/" target="_blank">documentation en ligne de la '
-                        u'dernière version</a>, ainsi que d\'autres documentations liées.</p>', msg_type='significant',
+                        u'dernière version</a>, ainsi que <a href="https://www.imio.be/nos-applications/ia-pst/'
+                        u'les-actus-de-pst/ia-pst-1-3" target="_blank">les nouveautés</a>.</p>', msg_type='significant',
                         can_hide=True, req_roles=['Authenticated'], activate=True)
+
         # replace front-page
         frontpage = getattr(self.portal, 'front-page')
         frontpage.title = _tr("front_page_title")
