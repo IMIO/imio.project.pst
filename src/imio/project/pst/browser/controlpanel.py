@@ -20,9 +20,9 @@ from zope.schema.interfaces import IVocabularyFactory
 
 field_constraints = {
     'titles': {},
-    'mandatory': {'strategicobjective': ['IDublinCore.title', 'reference_number'],
-                  'operationalobjective': ['IDublinCore.title', 'reference_number'],
-                  'pstaction': ['IDublinCore.title', 'reference_number'],
+    'mandatory': {'strategicobjective': ['IDublinCore.title'],
+                  'operationalobjective': ['IDublinCore.title'],
+                  'pstaction': ['IDublinCore.title'],
                   },
     'indexes': {'strategicobjective': [('IDublinCore.title', 1)],
                 'operationalobjective': [('IDublinCore.title', 1)],
