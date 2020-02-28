@@ -425,14 +425,6 @@ def adaptDefaultPortal(site):
     except ImportError:
         pass
 
-    logger.info("Configuring externaleditor")
-    registry = getUtility(IRegistry)
-    registry['externaleditor.ext_editor'] = True
-    if 'Image' in registry['externaleditor.externaleditor_enabled_types']:
-        registry['externaleditor.externaleditor_enabled_types'] = ['PODTemplate', 'ConfigurablePODTemplate',
-                                                                   'DashboardPODTemplate', 'SubTemplate',
-                                                                   'StyleTemplate']
-
     # Set markup allowed types: for RichText field, don't display anymore types listbox
     adapter = MarkupControlPanelAdapter(site)
     adapter.set_allowed_types(['text/html'])
@@ -453,6 +445,7 @@ def adaptDefaultPortal(site):
         registry['externaleditor.externaleditor_enabled_types'] = ['PODTemplate', 'ConfigurablePODTemplate',
                                                                    'DashboardPODTemplate', 'SubTemplate',
                                                                    'StyleTemplate']
+    site.portal_memberdata.manage_changeProperties(ext_editor=True)  # par défaut pour les nouveaux utilisateurs
 
     #permissions
     #Removing owner to 'hide' sharing tab
