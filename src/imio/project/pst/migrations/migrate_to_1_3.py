@@ -17,6 +17,7 @@ from plone.dexterity.interfaces import IDexterityFTI
 from plone.registry.events import RecordModifiedEvent
 from plone.registry.interfaces import IRegistry
 from Products.CMFPlone.utils import safe_unicode
+from Products.CPUtils.Extensions.utils import change_user_properties
 from Products.CPUtils.Extensions.utils import mark_last_version
 from zope import event
 from zope.annotation.interfaces import IAnnotations
@@ -124,7 +125,8 @@ class Migrate_To_1_3(Migrator):
                         u'dernière version</a>, ainsi que <a href="https://www.imio.be/nos-applications/ia-pst/'
                         u'les-actus-de-pst/ia-pst-1-3" target="_blank">les nouveautés</a>.</p>', msg_type='significant',
                         can_hide=True, req_roles=['Authenticated'], activate=True)
-
+        # activate user external edit pref
+        change_user_properties(self.portal, kw='ext_editor:True', dochange='1')
         # replace front-page
         frontpage = getattr(self.portal, 'front-page')
         frontpage.title = _tr("front_page_title")
