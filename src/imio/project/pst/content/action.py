@@ -206,6 +206,9 @@ class PSTSubAction(Project):
         else:
             return self.title.encode('utf8')
 
+    def has_subactions(self):
+        return False
+
 
 class SubActionAddForm(ProjectAddForm):
 
