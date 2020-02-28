@@ -462,8 +462,10 @@ class DocumentGenerationPSTActionsHelper(DXDocumentGenerationHelperView, Documen
             return [tsk for tsk in self.objs if tsk.__parent__ == action]
         if self.is_dashboard() and self.sel_type == 'pstsubaction':
             return []
+        context = action is None and self.real_context or action
+        if context.has_subactions():
+            return []
         else:
-            context = action is None and self.real_context or action
             pcat = self.real_context.portal_catalog
             brains = pcat(portal_type='task',
                           path={'query': '/'.join(context.getPhysicalPath()), 'depth': depth},
