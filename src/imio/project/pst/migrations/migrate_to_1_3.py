@@ -49,6 +49,7 @@ class Migrate_To_1_3(Migrator):
         self.install(['collective.behavior.sdg'])
         self.install(['collective.z3cform.chosen'])
         self.upgradeProfile('collective.contact.core:default')
+        self.upgradeProfile('collective.documentgenerator:default')
 
         self.runProfileSteps('imio.project.core', steps=['controlpanel', 'plone.app.registry', 'typeinfo'],
                              run_dependencies=False)
