@@ -154,7 +154,8 @@ class Migrate_To_1_3(Migrator):
         if record is not None:
             val = api.portal.get_registry_record('imio.pm.wsclient.browser.settings.IWS4PMClientSettings.'
                                                  'generated_actions')
-            event.notify(RecordModifiedEvent(record, val, val))
+            if val is not None:
+                event.notify(RecordModifiedEvent(record, val, val))
         # update dashboard criterias
         for brain in self.catalog(object_provides='imio.project.pst.interfaces.IImioPSTProject'):
             pst = brain.getObject()
