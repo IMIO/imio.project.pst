@@ -83,7 +83,7 @@ class Migrate_To_1_3(Migrator):
         self.migrate_pstactions()
 
         # templates
-        self.runProfileSteps('imio.project.pst', steps=['imioprojectpst-update-templates'], profile='update',
+        self.runProfileSteps('imio.project.pst', steps=['imioprojectpst-override-templates'], profile='update',
                              run_dependencies=False)
         self.runProfileSteps('imio.project.pst', steps=['imioprojectpst-templates'], profile='default',
                              run_dependencies=False)
@@ -222,11 +222,14 @@ class Migrate_To_1_3(Migrator):
                    'detail-tasks-all'):
             templates[id].pod_template_to_use = templates['detail'].UID()
             templates[id].odt_file = None
+            templates[id].style_modification_md5 = templates[id].initial_md5 = u''
         for id in ('follow-all', 'follow-tasks', 'follow-tasks-all'):
             templates[id].pod_template_to_use = templates['follow'].UID()
             templates[id].odt_file = None
+            templates[id].style_modification_md5 = templates[id].initial_md5 = u''
         templates['dexport'].pod_template_to_use = templates['export'].UID()
         templates['dexport'].odt_file = None
+        templates['dexport'].style_modification_md5 = templates['dexport'].initial_md5 = u''
 
         # Reorder
         for id in reversed(['style', 'detail', 'detail-tasks', 'follow', 'follow-tasks', 'export', 'detail-all',
