@@ -27,6 +27,7 @@
  <property name="klass">imio.project.pst.content.action.PSTAction</property>
  <property name="behaviors">
   <element value="collective.behavior.sdg.sustainable_development_goals" />
+  <element value="collective.dexteritytextindexer.behavior.IDexterityTextIndexer" />
   <element value="collective.task.behaviors.ITaskContainer" />
   <element value="imio.project.core.browser.behaviors.IAnalyticBudget" />
   <element value="plone.app.dexterity.behaviors.metadata.IDublinCore"/>

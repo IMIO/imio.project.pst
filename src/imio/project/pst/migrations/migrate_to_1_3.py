@@ -71,6 +71,8 @@ class Migrate_To_1_3(Migrator):
 
         configure_pst(self.portal)
 
+        self.migrate_description()
+
         self.adapt_collections()
 
         self.migrate_representative_responsible()
@@ -184,6 +186,20 @@ class Migrate_To_1_3(Migrator):
             else:
                 if pst.title not in values:
                     logger.warning("PST rename: not replaced '{}'".format(pst.title))
+
+    def migrate_description(self):
+        """ Migrate description field to description_rich """
+        for brain in self.catalog(object_provides='imio.project.core.content.project.IProject'):
+            obj = brain.getObject()
+            # old description contains something like : u'ligne1\r\nligne2\r\nligne3'
+            if obj.description:
+                new_val = []
+                for line in obj.description.split('\r\n'):
+                    new_val.append(line)
+                obj.description_rich = richtextval(u'<p>{}</p>'.format(u'</p><p>'.join(new_val),
+                                                   outputMimeType='text/x-html-safe'))
+                obj.description = u''
+                obj.reindexObject()
 
     def update_collections_folder_name(self):
         """ Update Actions and Tasks folder name """
