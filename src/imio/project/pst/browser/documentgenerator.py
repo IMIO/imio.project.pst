@@ -83,6 +83,17 @@ class DocumentGenerationBaseHelper():
     def keep_field(self, key, field):
         return field in self.activated_fields[key]
 
+    def render_xhtml(self, field_name):
+        """ Overrided from base.py """
+        if not self.appy_renderer:
+            return ''
+        html_text = self.get_value(field_name)
+        display = self.appy_renderer.renderXhtml(html_text,
+                                                 stylesMapping={'h1': 'plone1', 'h2': 'plone2', 'h3': 'plone3',
+                                                                'h4': 'plone4', 'h5': 'plone5', 'h6': 'plone6', })
+#        display = self.appy_renderer.renderXhtml(html_text, stylesMapping={'h*': 6})
+        return display
+
 
 class DocumentGenerationPSTHelper(DXDocumentGenerationHelperView, DocumentGenerationBaseHelper):
     """
