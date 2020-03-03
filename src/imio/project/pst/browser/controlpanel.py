@@ -28,9 +28,9 @@ field_constraints = {
                 'operationalobjective': [('IDublinCore.title', 1)],
                 'pstaction': [('IDublinCore.title', 1)],
                 },
-    'empty': {'strategicobjective': ['IDublinCore.description'],
-              'operationalobjective': ['IDublinCore.description'],
-              'pstaction': ['IDublinCore.description'],
+    'empty': {'strategicobjective': [],
+              'operationalobjective': [],
+              'pstaction': [],
               },
 }
 
@@ -40,12 +40,12 @@ class SOFieldsVocabulary(object):
 
     def __call__(self, context):
         return get_pt_fields_voc('strategicobjective',
-                                 ['IDublinCore.contributors', 'IDublinCore.creators', 'IDublinCore.effective',
-                                  'IDublinCore.expires', 'IDublinCore.language', 'IDublinCore.rights',
-                                  'IDublinCore.subjects', 'INameFromTitle.title', 'IVersionable.changeNote',
-                                  'effective_begin_date', 'effective_end_date', 'extra_concerned_people', 'manager',
-                                  'notes', 'planned_begin_date', 'planned_end_date', 'priority', 'progress',
-                                  'result_indicator', 'visible_for'],
+                                 ['IDublinCore.description', 'IDublinCore.contributors', 'IDublinCore.creators',
+                                  'IDublinCore.effective', 'IDublinCore.expires', 'IDublinCore.language',
+                                  'IDublinCore.rights', 'IDublinCore.subjects', 'INameFromTitle.title',
+                                  'IVersionable.changeNote', 'effective_begin_date', 'effective_end_date',
+                                  'extra_concerned_people', 'manager', 'notes', 'planned_begin_date',
+                                  'planned_end_date', 'priority', 'progress', 'result_indicator', 'visible_for'],
                                  field_constraints)
 
 
@@ -54,11 +54,11 @@ class OOFieldsVocabulary(object):
 
     def __call__(self, context):
         return get_pt_fields_voc('operationalobjective',
-                                 ['IDublinCore.contributors', 'IDublinCore.creators', 'IDublinCore.effective',
-                                  'IDublinCore.expires', 'IDublinCore.language', 'IDublinCore.rights',
-                                  'IDublinCore.subjects', 'INameFromTitle.title', 'IVersionable.changeNote',
-                                  'effective_begin_date', 'effective_end_date', 'notes', 'planned_begin_date',
-                                  'progress', 'visible_for'],
+                                 ['IDublinCore.description', 'IDublinCore.contributors', 'IDublinCore.creators',
+                                  'IDublinCore.effective', 'IDublinCore.expires', 'IDublinCore.language',
+                                  'IDublinCore.rights', 'IDublinCore.subjects', 'INameFromTitle.title',
+                                  'IVersionable.changeNote', 'effective_begin_date', 'effective_end_date', 'notes',
+                                  'planned_begin_date', 'progress', 'visible_for'],
                                  field_constraints)
 
 
@@ -67,10 +67,10 @@ class ActionFieldsVocabulary(object):
 
     def __call__(self, context):
         return get_pt_fields_voc('pstaction',
-                                 ['IDublinCore.contributors', 'IDublinCore.creators', 'IDublinCore.effective',
-                                  'IDublinCore.expires', 'IDublinCore.language', 'IDublinCore.rights',
-                                  'IDublinCore.subjects', 'INameFromTitle.title', 'IVersionable.changeNote',
-                                  'notes', 'priority', 'visible_for'],
+                                 ['IDublinCore.description', 'IDublinCore.contributors', 'IDublinCore.creators',
+                                  'IDublinCore.effective', 'IDublinCore.expires', 'IDublinCore.language',
+                                  'IDublinCore.rights', 'IDublinCore.subjects', 'INameFromTitle.title',
+                                  'IVersionable.changeNote', 'notes', 'priority', 'visible_for'],
                                  field_constraints)
 
 
@@ -80,10 +80,10 @@ class SubActionFieldsVocabulary(object):
 
     def __call__(self, context):
         return get_pt_fields_voc('pstsubaction',
-                                 ['IDublinCore.contributors', 'IDublinCore.creators', 'IDublinCore.effective',
-                                  'IDublinCore.expires', 'IDublinCore.language', 'IDublinCore.rights',
-                                  'IDublinCore.subjects', 'INameFromTitle.title', 'IVersionable.changeNote',
-                                  'notes', 'priority', 'visible_for'],
+                                 ['IDublinCore.description', 'IDublinCore.contributors', 'IDublinCore.creators',
+                                  'IDublinCore.effective', 'IDublinCore.expires', 'IDublinCore.language',
+                                  'IDublinCore.rights', 'IDublinCore.subjects', 'INameFromTitle.title',
+                                  'IVersionable.changeNote', 'notes', 'priority', 'visible_for'],
                                  field_constraints)
 
 
