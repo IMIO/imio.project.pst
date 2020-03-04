@@ -83,19 +83,19 @@ class DocumentGenerationBaseHelper():
     def keep_field(self, key, field):
         return field in self.activated_fields[key]
 
-    def render_xhtml(self, field_name):
-        """ Overrided from base.py """
-        if not self.appy_renderer:
-            return ''
-        html_text = self.get_value(field_name)
-        display = self.appy_renderer.renderXhtml(html_text,
-                                                 stylesMapping={'h1': 'plone1', 'h2': 'plone2', 'h3': 'plone3',
-                                                                'h4': 'plone4', 'h5': 'plone5', 'h6': 'plone6', })
-#        display = self.appy_renderer.renderXhtml(html_text, stylesMapping={'h*': 6})
-        return display
+#     def render_xhtml(self, field_name):
+#         """ Overrided from base.py """
+#         if not self.appy_renderer:
+#             return ''
+#         html_text = self.get_value(field_name)
+#         display = self.appy_renderer.renderXhtml(html_text,
+#                                                  stylesMapping={'h1': 'plone1', 'h2': 'plone2', 'h3': 'plone3',
+#                                                                 'h4': 'plone4', 'h5': 'plone5', 'h6': 'plone6'})
+# #        display = self.appy_renderer.renderXhtml(html_text, stylesMapping={'h*': 6})
+#         return display
 
 
-class DocumentGenerationPSTHelper(DXDocumentGenerationHelperView, DocumentGenerationBaseHelper):
+class DocumentGenerationPSTHelper(DocumentGenerationBaseHelper, DXDocumentGenerationHelperView):
     """
         Methods used in document generation view, for pst
     """
@@ -222,7 +222,7 @@ class BudgetHelper():
         return budget_by_year
 
 
-class DocumentGenerationSOHelper(DXDocumentGenerationHelperView, DocumentGenerationBaseHelper, BudgetHelper):
+class DocumentGenerationSOHelper(DocumentGenerationBaseHelper, DXDocumentGenerationHelperView, BudgetHelper):
     """
         Methods used in document generation view, for strategicobjective
     """
@@ -295,7 +295,7 @@ class DocumentGenerationSOHelper(DXDocumentGenerationHelperView, DocumentGenerat
         return ''
 
 
-class DocumentGenerationOOHelper(DXDocumentGenerationHelperView, DocumentGenerationBaseHelper, BudgetHelper):
+class DocumentGenerationOOHelper(DocumentGenerationBaseHelper, DXDocumentGenerationHelperView, BudgetHelper):
     """
         Methods used in document generation view, for operationalobjective
     """
@@ -373,7 +373,7 @@ class DocumentGenerationOOHelper(DXDocumentGenerationHelperView, DocumentGenerat
         return sep.join(rows)
 
 
-class DocumentGenerationPSTActionsHelper(DXDocumentGenerationHelperView, DocumentGenerationBaseHelper, BudgetHelper):
+class DocumentGenerationPSTActionsHelper(DocumentGenerationBaseHelper, DXDocumentGenerationHelperView, BudgetHelper):
     """
         Methods used in document generation view, for PSTAction
     """
@@ -568,7 +568,7 @@ class DocumentGenerationPSTSubActionsHelper(DocumentGenerationPSTActionsHelper):
             return [brain.getObject() for brain in brains]
 
 
-class DocumentGenerationPSTCategoriesHelper(ATDocumentGenerationHelperView, DocumentGenerationBaseHelper):
+class DocumentGenerationPSTCategoriesHelper(DocumentGenerationBaseHelper, ATDocumentGenerationHelperView):
     """
         Helper for categories folder
     """

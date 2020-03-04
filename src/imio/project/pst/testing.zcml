@@ -3,9 +3,10 @@
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
     i18n_domain="imio.project.pst">
 
+  <!--include package="imio.project.core" file="testing.zcml" TO BE TESTED /-->
+  <includeDependencies package="." />
   <include file="configure.zcml" />
   <includeOverrides file="overrides.zcml" />
-  <includeDependencies package="." />
   <includeDependenciesOverrides package="." />
 
   <genericsetup:registerProfile
