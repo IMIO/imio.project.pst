@@ -51,6 +51,7 @@ setup(
         'communesplone.layout',
         'collective.behavior.sdg',
         'collective.ckeditor',
+        'collective.dexteritytextindexer',
         'collective.documentgenerator',
         'collective.excelexport',
         'collective.externaleditor',
