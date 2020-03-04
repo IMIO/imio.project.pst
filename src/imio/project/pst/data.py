@@ -196,6 +196,7 @@ def get_os_oo_ac_data(site, groups, currentYear):
                 {
                     'title': u"Diminuer le temps d'attente de l'usager au guichet population de 20% dans les 12 mois "
                              u"à venir",
+                    'categories': [],
                     u'result_indicator':
                     [
                         {'value': 20, 'label': u'Diminution du temps d\'attente (en %)', 'reached_value': 0,
@@ -211,6 +212,7 @@ def get_os_oo_ac_data(site, groups, currentYear):
                     'comments': richtextval(u''),
                     'actions': [
                         {'title': u'Engager 2 agents pour le Service Population',
+                         'categories': [],
                          'manager': [groups['service-population'], ],
                          'planned_end_date': datetime.date(datetime(2020, 06, 30)),
                          'extra_concerned_people': u'',
@@ -235,6 +237,7 @@ def get_os_oo_ac_data(site, groups, currentYear):
                          ]
                          },
                         {'title': u'Créer un guichet supplémentaire dans les 3 mois',
+                         'categories': [],
                          'manager': [groups['service-population'], ],
                          'planned_end_date': datetime.date(datetime(2020, 06, 30)),
                          'extra_concerned_people': u'',
@@ -254,6 +257,7 @@ def get_os_oo_ac_data(site, groups, currentYear):
                          },
                         {'title': u'Mettre en ligne sur le site internet différents documents "population" à '
                                   u'télécharger de chez soi',
+                         'categories': [],
                          'manager': [groups['service-population'], ],
                          'planned_end_date': datetime.date(datetime(2020, 9, 30)),
                          'extra_concerned_people': u'',
@@ -276,6 +280,7 @@ def get_os_oo_ac_data(site, groups, currentYear):
                 },
                 {
                     'title': u'Optimiser l\'accueil au sein de l\'administration communale',
+                    'categories': [],
                     u'result_indicator':
                     [
                         {'value': 50, 'label': u'Pourcentage minimum de visiteurs satisfaits (document de satisfaction '
@@ -293,6 +298,7 @@ def get_os_oo_ac_data(site, groups, currentYear):
                     'comments': richtextval(u''),
                     'actions': [
                         {'title': u'Placer des pictogrammes de guidance',
+                         'categories': [],
                          'manager': [groups['service-population'], ],
                          'planned_end_date': datetime.date(datetime(2020, 06, 30)),
                          'extra_concerned_people': u'',
@@ -316,6 +322,7 @@ def get_os_oo_ac_data(site, groups, currentYear):
                          ]
                          },
                         {'title': u'Installer une rampe d\'accès pour PMR',
+                         'categories': [],
                          'manager': [groups['service-population'], groups['service-travaux']],
                          'planned_end_date': datetime.date(datetime(2020, 06, 30)),
                          'extra_concerned_people': u'',
@@ -331,6 +338,7 @@ def get_os_oo_ac_data(site, groups, currentYear):
                          'sdgs': ['10'],
                          },
                         {'title': u'Mettre en place des permanences sur rendez-vous',
+                         'categories': [],
                          'manager': [groups['service-population'], ],
                          'planned_end_date': datetime.date(datetime(2020, 9, 30)),
                          'extra_concerned_people': u'',
@@ -357,6 +365,7 @@ def get_os_oo_ac_data(site, groups, currentYear):
                 {
                     'title': u'Doter la commune de compétences en matière énergétique pour fin 2021 compte tenu du '
                              u'budget',
+                    'categories': [],
                     u'result_indicator':
                     [
                         {'value': 2, 'label': u'Nombre de personnes engagées fin 2021', 'reached_value': 0,
@@ -375,6 +384,7 @@ def get_os_oo_ac_data(site, groups, currentYear):
                     'sdgs': ['13'],
                     'actions': [
                         {'title': u'Procéder à l\'engagement d\'un conseiller en énergie',
+                         'categories': [],
                          'manager': [groups['service-de-lurbanisme'], ],
                          'planned_end_date': datetime.date(datetime(2020, 06, 30)),
                          'extra_concerned_people': u'',
@@ -391,6 +401,7 @@ def get_os_oo_ac_data(site, groups, currentYear):
                          ]
                          },
                         {'title': u'Répondre à l\'appel à projet "écopasseur" de la Wallonie',
+                         'categories': [],
                          'manager': [groups['service-de-lurbanisme'], ],
                          'planned_end_date': datetime.date(datetime(2020, 06, 30)),
                          'extra_concerned_people': u'',
@@ -407,6 +418,7 @@ def get_os_oo_ac_data(site, groups, currentYear):
                          },
                         {'title': u'Inscrire systématiquement les agents du service travaux aux formations '
                                   u'énergétiques',
+                         'categories': [],
                          'manager': [groups['service-population'], ],
                          'planned_end_date': datetime.date(datetime(2020, 9, 30)),
                          'extra_concerned_people': u'',
@@ -425,6 +437,7 @@ def get_os_oo_ac_data(site, groups, currentYear):
                 },
                 {
                     'title': u'Réduire la consommation énergétique des bâtiments communaux de 20% d\'ici 2024',
+                    'categories': [],
                     u'result_indicator':
                     [
                         {'value': 20000, 'label': u'Diminution du nombre de litres de mazout au 31 12 2020',
@@ -442,6 +455,7 @@ def get_os_oo_ac_data(site, groups, currentYear):
                     'actions': [
                         {
                             'title': u'Réduire la consommation énergétique de l\'administration communale',
+                            'categories': [],
                             'manager': [groups['service-de-lurbanisme'], ],
                             'planned_end_date': datetime.date(datetime(2024, 06, 30)),
                             'extra_concerned_people': u'',
@@ -451,6 +465,7 @@ def get_os_oo_ac_data(site, groups, currentYear):
                             'sdgs': ['13'],
                             'subactions': [{
                                 'title': u'Réaliser un audit énergétique du bâtiment',
+                                'categories': [],
                                 'manager': [groups['service-de-lurbanisme'], ],
                                 'planned_end_date': datetime.date(datetime(2020, 06, 30)),
                                 'extra_concerned_people': u'',
@@ -470,6 +485,7 @@ def get_os_oo_ac_data(site, groups, currentYear):
                                      'assigned_group': groups['service-de-lurbanisme']},
                                 ]},
                                 {'title': u'En fonction des résultats, procéder à l\'isolation du bâtiment',
+                                 'categories': [],
                                  'manager': [groups['service-travaux']],
                                  'planned_end_date': datetime.date(datetime(2020, 10, 31)),
                                  'extra_concerned_people': u'',
@@ -484,6 +500,7 @@ def get_os_oo_ac_data(site, groups, currentYear):
                                  'sdgs': ['13'],
                                  },
                                 {'title': u'En fonction des résultats, remplacer le système de chauffage',
+                                 'categories': [],
                                  'manager': [groups['service-population'], ],
                                  'planned_end_date': datetime.date(datetime(2020, 10, 31)),
                                  'extra_concerned_people': u'',
@@ -501,6 +518,7 @@ def get_os_oo_ac_data(site, groups, currentYear):
                         },
                         {
                             'title': u'Réduire la consommation énergétique du hangar communal',
+                            'categories': [],
                             'manager': [groups['service-de-lurbanisme'], ],
                             'planned_end_date': datetime.date(datetime(2024, 06, 30)),
                             'extra_concerned_people': u'',
@@ -525,6 +543,7 @@ def get_os_oo_ac_data(site, groups, currentYear):
                 {
                     'title': u'Assurer la propreté dans l\'ensemble des parcs de la commune de manière à '
                              u'réduire la présence de déchets de 90% au 31 12 2022',
+                    'categories': [],
                     u'result_indicator': [{'value': 50, 'label': u'Nombre de sacs poubelles récoltés '
                                           u'chaque année et à l\'échéance (31 12 2022)',
                                           'reached_value': 0, 'year': 2020}],
@@ -543,6 +562,7 @@ def get_os_oo_ac_data(site, groups, currentYear):
                     'actions': [
                         {'title': u'Installer des distributeurs de sacs "ramasse crottes", dans les parcs '
                                   u'(entrée et sortie)',
+                         'categories': [],
                          'manager': [groups['service-proprete'], ],
                          'planned_end_date': datetime.date(datetime(2021, 06, 30)),
                          'extra_concerned_people': u'La firme adjudicatrice au terme du marché public',
