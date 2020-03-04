@@ -196,7 +196,7 @@ class Migrate_To_1_3(Migrator):
                 new_val = []
                 for line in obj.description.split('\r\n'):
                     new_val.append(line)
-                obj.description_rich = richtextval(u'<p>{}</p>'.format(u'</p><p>'.join(new_val),
+                obj.description_rich = richtextval(u'<p>{}</p>'.format(u'<br />'.join(new_val),
                                                    outputMimeType='text/x-html-safe'))
                 obj.description = u''
                 obj.reindexObject()
