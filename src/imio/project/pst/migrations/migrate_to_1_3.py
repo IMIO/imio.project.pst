@@ -16,6 +16,7 @@ from plone import api
 from plone.dexterity.interfaces import IDexterityFTI
 from plone.registry.events import RecordModifiedEvent
 from plone.registry.interfaces import IRegistry
+from Products.CMFPlone.utils import base_hasattr
 from Products.CMFPlone.utils import safe_unicode
 from Products.CPUtils.Extensions.utils import change_user_properties
 from Products.CPUtils.Extensions.utils import mark_last_version
@@ -84,6 +85,8 @@ class Migrate_To_1_3(Migrator):
         self.adapt_templates()
 
         self.migrate_pstactions()
+
+        self.add_missing_attributes()
 
         # templates
         self.runProfileSteps('imio.project.pst', steps=['imioprojectpst-override-templates'], profile='update',
@@ -460,6 +463,20 @@ class Migrate_To_1_3(Migrator):
         for brain in self.catalog(portal_type=['pstaction', 'pstsubaction']):
             obj = brain.getObject()
             obj.reindexObject()
+
+    def add_missing_attributes(self):
+        config = {
+            'operationalobjective': [('categories', [])],
+            'pstaction': [('categories', [])],
+            'pstsubaction': [('categories', [])],
+        }
+        for typ in config:
+            for brain in self.catalog(portal_type=typ):
+                obj = brain.getObject()
+                for attr, value in config[typ]:
+                    if not base_hasattr(obj, attr):
+                        setattr(obj, attr, type(value)(value))  # make new object of same type to avoid storing same obj
+                obj.reindexObject()
 
     def correct_component_registry(self):
         """ There is still a trace of imio.project.pst.content.operational.ManagerVocabulary. """
