@@ -1,7 +1,12 @@
 Changelog
 =========
 
-1.3 (unreleased)
+1.4 (unreleased)
+----------------
+
+- To be continued ...
+
+1.3 (2020-03-05)
 ----------------
 
 - Added content type settings to remove and/or reorder fields
