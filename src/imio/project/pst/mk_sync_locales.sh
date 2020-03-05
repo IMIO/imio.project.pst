@@ -21,7 +21,7 @@ fi
 
 # Rebuild .pot
 echo "Rebuilding locales/$CATALOGNAME.pot"
-i18ndude rebuild-pot --pot locales/$CATALOGNAME.pot --create $CATALOGNAME .
+i18ndude rebuild-pot --pot locales/$CATALOGNAME.pot --create $CATALOGNAME --exclude "work model" .
 
 #merging new messages
 i18ndude merge --pot locales/$CATALOGNAME.pot --merge locales/manual.pot 2>/dev/null

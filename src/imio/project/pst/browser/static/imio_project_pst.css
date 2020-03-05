@@ -126,6 +126,18 @@ body.template-view.portaltype-strategicobjective td.table_widget_label {
     font-style: italic;
 }
 
+/* CKeditor styles */
+.highlight-orange {background-color: orange;}
+.highlight-red {color: red;}
+.highlight-blue {color: blue;}
+.highlight-green {color: green;}
+.highlight-yellow {background-color: yellow;}
+p.indent-firstline {text-indent: 40px;}
+.xSmallText {font-size: 70%;}
+.smallText {font-size: 85%;}
+.largeText {font-size: 115%;}
+.xLargeText {font-size: 130%;}
+
 /* icons on types */
 .icons-on .contenttype-strategicobjective, .icons-on .contenttype-operationalobjective,
 .icons-on .contenttype-pstaction, .icons-on .contenttype-pstsubaction, .icons-on .contenttype-action_link,

@@ -8,6 +8,7 @@ from imio.helpers.content import richtextval
 from imio.helpers.content import transitions
 from imio.migrator.migrator import Migrator
 from imio.project.pst import _tr
+from imio.project.pst import CKEDITOR_MENUSTYLES_CUSTOMIZED_MSG
 from imio.project.pst.setuphandlers import configure_pst
 from imio.project.pst.setuphandlers import createBaseCollections
 from imio.project.pst.setuphandlers import reimport_faceted_config
@@ -189,6 +190,43 @@ class Migrate_To_1_3(Migrator):
             else:
                 if pst.title not in values:
                     logger.warning("PST rename: not replaced '{}'".format(pst.title))
+        # update ckeditor to remove format and avoid html <h> tags
+        cke_props = self.portal.portal_properties.ckeditor_properties
+        custom = (u"[\n['AjaxSave'],\n['Cut','Copy','Paste','PasteText','PasteFromWord','-',"
+                  u"'Scayt'],\n['Undo','Redo','-','RemoveFormat'],\n['Bold','Italic','Underline','Strike'],\n"
+                  u"['NumberedList','BulletedList','-','Outdent','Indent','Blockquote'],\n['JustifyLeft',"
+                  u"'JustifyCenter', 'JustifyRight','JustifyBlock'],\n['Table','SpecialChar','Link','Unlink'],\n'/',"
+                  u"\n['Styles'],\n['Maximize', 'ShowBlocks', 'Source']\n]")
+        cke_props.toolbar_Custom = custom
+        if cke_props.menuStyles.find(CKEDITOR_MENUSTYLES_CUSTOMIZED_MSG) == -1:
+            enc = self.portal.portal_properties.site_properties.getProperty('default_charset')
+            msg_highlight_red = _tr('ckeditor_style_highlight_in_red').encode('utf-8')
+            msg_highlight_blue = _tr('ckeditor_style_highlight_in_blue').encode('utf-8')
+            msg_highlight_green = _tr('ckeditor_style_highlight_in_green').encode('utf-8')
+            msg_highlight_yellow = _tr('ckeditor_style_highlight_in_yellow').encode('utf-8')
+            msg_x_small = _tr('ckeditor_style_x_small').encode('utf-8')
+            msg_small = _tr('ckeditor_style_small').encode('utf-8')
+            msg_large = _tr('ckeditor_style_large').encode('utf-8')
+            msg_x_large = _tr('ckeditor_style_x_large').encode('utf-8')
+            msg_indent = _tr('ckeditor_style_indent_first_line').encode('utf-8')
+            msg_table_no_optimization = _tr('ckeditor_style_table_no_optimization').encode('utf-8')
+
+            menuStyles = unicode(
+                "[\n{0}\n{{ name : '{1}'\t\t, element : 'span', attributes : {{ 'class' : 'highlight-red' }} }},\n"
+                "{{ name : '{2}'\t\t, element : 'span', attributes : {{ 'class' : 'highlight-blue' }} }},\n"
+                "{{ name : '{3}'\t\t, element : 'span', attributes : {{ 'class' : 'highlight-green' }} }},\n"
+                "{{ name : '{4}'\t\t, element : 'span', attributes : {{ 'class' : 'highlight-yellow' }} }},\n"
+                "{{ name : '{5}'\t\t, element : 'p', attributes : {{ 'class' : 'xSmallText' }} }},\n"
+                "{{ name : '{6}'\t\t, element : 'p', attributes : {{ 'class' : 'smallText' }} }},\n"
+                "{{ name : '{7}'\t\t, element : 'p', attributes : {{ 'class' : 'largeText' }} }},\n"
+                "{{ name : '{8}'\t\t, element : 'p', attributes : {{ 'class' : 'xLargeText' }} }},\n"
+                "{{ name : '{9}'\t\t, element : 'table', styles : {{ 'table-layout' : 'fixed' }} }},\n"
+                "{{ name : '{10}'\t\t, element : 'p', attributes : {{ 'style' : 'text-indent: 40px;' }} }},\n]\n".
+                format(CKEDITOR_MENUSTYLES_CUSTOMIZED_MSG,
+                       msg_highlight_red, msg_highlight_blue, msg_highlight_green, msg_highlight_yellow,
+                       msg_x_small, msg_small, msg_large, msg_x_large,
+                       msg_table_no_optimization, msg_indent), enc)
+            cke_props.menuStyles = menuStyles
 
     def migrate_description(self):
         """ Migrate description field to description_rich """
