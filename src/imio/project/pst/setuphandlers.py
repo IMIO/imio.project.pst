@@ -169,9 +169,9 @@ def _addTemplatesDirectory(context):
     cids.update(create(get_main_templates(cids)))
     cids.update(create(get_templates(cids)))
     # Reorder
-    for id in reversed(['style', 'detail', 'detail-tasks', 'follow', 'follow-tasks', 'export', 'detail-all',
-                        'detail-tasks-all', 'ddetail', 'ddetail-tasks', 'dfollow', 'dfollow-tasks', 'dexport',
-                        'ddetail-all', 'ddetail-tasks-all', 'follow-all', 'follow-tasks-all', 'dfollow-all',
+    for id in reversed(['style', 'style_wo_nb', 'detail', 'detail-tasks', 'follow', 'follow-tasks', 'export',
+                        'detail-all', 'detail-tasks-all', 'ddetail', 'ddetail-tasks', 'dfollow', 'dfollow-tasks',
+                        'dexport', 'ddetail-all', 'ddetail-tasks-all', 'follow-all', 'follow-tasks-all', 'dfollow-all',
                         'dfollow-tasks-all']):
         folder.moveObjectToPosition(id, 0)
 
