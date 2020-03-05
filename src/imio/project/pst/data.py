@@ -13,6 +13,11 @@ def get_styles_templates():
         {'cid': 1, 'cont': 'templates', 'id': 'style', 'title': u'Style général', 'type': 'StyleTemplate',
          'attrs': {'odt_file': NamedBlobFile(data=open('%s/style.odt' % TMPL_DIR, 'r').read(),
                                              filename=u'style.odt', contentType='applications/odt')},
+         'trans': ['publish_internally']},
+        {'cid': 2, 'cont': 'templates', 'id': 'style_wo_nb', 'title': u'Style sans numérotation',
+         'type': 'StyleTemplate',
+         'attrs': {'odt_file': NamedBlobFile(data=open('%s/style.odt' % TMPL_DIR, 'r').read(),
+                                             filename=u'style.odt', contentType='applications/odt')},
          'trans': ['publish_internally']}
     ]
 
