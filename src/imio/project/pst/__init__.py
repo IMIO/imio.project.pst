@@ -18,6 +18,8 @@ _ = MessageFactory('imio.project.pst')
 PRODUCT_DIR = os.path.dirname(__file__)
 ASSIGNED_USER_FUNCTIONS = ['editeur', 'validateur']
 EMPTY_STRING = '__empty_string__'
+# Value added in the CKeditor menuStyles to specify that it has been customized
+CKEDITOR_MENUSTYLES_CUSTOMIZED_MSG = '/* Styles have been customized, do not remove this line! */'
 
 
 def initialize(context):

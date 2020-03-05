@@ -23,6 +23,7 @@ from imio.helpers.security import get_environment
 from imio.project.core.utils import getProjectSpace
 from imio.project.pst import _tr as _
 from imio.project.pst import add_path
+from imio.project.pst import CKEDITOR_MENUSTYLES_CUSTOMIZED_MSG
 from imio.project.pst import PRODUCT_DIR
 from imio.project.pst.interfaces import IActionDashboardBatchActions
 from imio.project.pst.interfaces import IImioPSTProject
@@ -421,7 +422,38 @@ def adaptDefaultPortal(site):
         from Products.CPUtils.Extensions.utils import configure_ckeditor
         if (not hasattr(site.portal_properties, 'ckeditor_properties')
            or site.portal_properties.site_properties.default_editor != 'CKeditor'):
-            configure_ckeditor(site, custom='urban')
+            configure_ckeditor(site, custom='pst')
+        cke_props = site.portal_properties.ckeditor_properties
+        if cke_props.menuStyles.find(CKEDITOR_MENUSTYLES_CUSTOMIZED_MSG) == -1:
+            enc = site.portal_properties.site_properties.getProperty('default_charset')
+            msg_highlight_red = _('ckeditor_style_highlight_in_red').encode('utf-8')
+            msg_highlight_blue = _('ckeditor_style_highlight_in_blue').encode('utf-8')
+            msg_highlight_green = _('ckeditor_style_highlight_in_green').encode('utf-8')
+            msg_highlight_yellow = _('ckeditor_style_highlight_in_yellow').encode('utf-8')
+            msg_x_small = _('ckeditor_style_x_small').encode('utf-8')
+            msg_small = _('ckeditor_style_small').encode('utf-8')
+            msg_large = _('ckeditor_style_large').encode('utf-8')
+            msg_x_large = _('ckeditor_style_x_large').encode('utf-8')
+            msg_indent = _('ckeditor_style_indent_first_line').encode('utf-8')
+            msg_table_no_optimization = _('ckeditor_style_table_no_optimization').encode('utf-8')
+
+            menuStyles = unicode(
+                "[\n{0}\n{{ name : '{1}'\t\t, element : 'span', attributes : {{ 'class' : 'highlight-red' }} }},\n"
+                "{{ name : '{2}'\t\t, element : 'span', attributes : {{ 'class' : 'highlight-blue' }} }},\n"
+                "{{ name : '{3}'\t\t, element : 'span', attributes : {{ 'class' : 'highlight-green' }} }},\n"
+                "{{ name : '{4}'\t\t, element : 'span', attributes : {{ 'class' : 'highlight-yellow' }} }},\n"
+                "{{ name : '{5}'\t\t, element : 'p', attributes : {{ 'class' : 'xSmallText' }} }},\n"
+                "{{ name : '{6}'\t\t, element : 'p', attributes : {{ 'class' : 'smallText' }} }},\n"
+                "{{ name : '{7}'\t\t, element : 'p', attributes : {{ 'class' : 'largeText' }} }},\n"
+                "{{ name : '{8}'\t\t, element : 'p', attributes : {{ 'class' : 'xLargeText' }} }},\n"
+                "{{ name : '{9}'\t\t, element : 'table', styles : {{ 'table-layout' : 'fixed' }} }},\n"
+                "{{ name : '{10}'\t\t, element : 'p', attributes : {{ 'style' : 'text-indent: 40px;' }} }},\n]\n".
+                format(CKEDITOR_MENUSTYLES_CUSTOMIZED_MSG,
+                       msg_highlight_red, msg_highlight_blue, msg_highlight_green, msg_highlight_yellow,
+                       msg_x_small, msg_small, msg_large, msg_x_large,
+                       msg_table_no_optimization, msg_indent), enc)
+            cke_props.menuStyles = menuStyles
+
     except ImportError:
         pass
 
