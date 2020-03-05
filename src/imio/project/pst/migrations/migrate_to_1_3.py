@@ -189,7 +189,7 @@ class Migrate_To_1_3(Migrator):
                     break
             else:
                 if pst.title not in values:
-                    logger.warning("PST rename: not replaced '{}'".format(pst.title))
+                    logger.warning("PST rename: not replaced '{}'".format(pst.title.encode('utf8')))
         # update ckeditor to remove format and avoid html <h> tags
         cke_props = self.portal.portal_properties.ckeditor_properties
         custom = (u"[\n['AjaxSave'],\n['Cut','Copy','Paste','PasteText','PasteFromWord','-',"
