@@ -90,7 +90,7 @@ class OperationalObjectiveDataManager(AttributeField):
                 for act in api.content.find(
                     path=path,
                     portal_type=["pstaction", "action_link", "pstsubaction", "subaction_link"],
-                )
+                ) if act.planned_end_date
             ]
             if act_planned_end_date:
                 return max(act_planned_end_date)
