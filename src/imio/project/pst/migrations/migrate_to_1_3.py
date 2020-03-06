@@ -61,6 +61,7 @@ class Migrate_To_1_3(Migrator):
                              run_dependencies=False)
         self.runProfileSteps('imio.project.pst', steps=['portlets', 'repositorytool'], profile='demo',
                              run_dependencies=False)
+        self.runProfileSteps('imio.pm.wsclient', steps=['plone.app.registry'], run_dependencies=False)
 
         # to hide messages-viewlet
         self.runProfileSteps('plonetheme.imioapps', steps=['viewlets'], run_dependencies=False)
