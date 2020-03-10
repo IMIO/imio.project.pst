@@ -6,7 +6,7 @@ from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
 
 from imio.migrator.migrator import Migrator
 from imio.project.core.config import CHILDREN_BUDGET_INFOS_ANNOTATION_KEY
-from imio.project.core.events import _updateParentsBudgetInfos
+from imio.project.core.events import _updateSummarizedFields
 
 import logging
 logger = logging.getLogger('imio.project.pst')
@@ -104,7 +104,7 @@ class Migrate_To_0_2(Migrator):
             obj = brain.getObject()
             workflows = pw.getWorkflowsFor(obj)
             if not workflows or workflows[0].initial_state != pw.getInfoFor(obj, 'review_state'):
-                _updateParentsBudgetInfos(obj)
+                _updateSummarizedFields(obj, [('budget', CHILDREN_BUDGET_INFOS_ANNOTATION_KEY)])
             else:
                 _cleanParentsBudgetInfos(obj)
         logger.info('Done.')
