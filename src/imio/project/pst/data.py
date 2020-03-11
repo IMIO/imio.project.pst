@@ -16,8 +16,8 @@ def get_styles_templates():
          'trans': ['publish_internally']},
         {'cid': 2, 'cont': 'templates', 'id': 'style_wo_nb', 'title': u'Style sans numérotation',
          'type': 'StyleTemplate',
-         'attrs': {'odt_file': NamedBlobFile(data=open('%s/style.odt' % TMPL_DIR, 'r').read(),
-                                             filename=u'style.odt', contentType='applications/odt')},
+         'attrs': {'odt_file': NamedBlobFile(data=open('%s/style_wo_nb.odt' % TMPL_DIR, 'r').read(),
+                                             filename=u'style_wo_nb.odt', contentType='applications/odt')},
          'trans': ['publish_internally']}
     ]
 
