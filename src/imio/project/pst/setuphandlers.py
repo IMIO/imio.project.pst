@@ -526,6 +526,10 @@ def configure_pst(portal):
             'ISustainableDevelopmentGoals.sdgs', 'observation', 'comments']
     if not registry.get('imio.project.settings.pstsubaction_fields'):
         registry['imio.project.settings.pstsubaction_fields'] = registry['imio.project.settings.pstaction_fields']
+    if not registry.get('imio.project.settings.budget_globalization_states'):
+        registry['imio.project.settings.budget_globalization_states'] = [
+            'created', 'ongoing', 'terminated', 'to_be_scheduled', 'achieved'
+        ]
 
 
 def addDemoOrganization(context):
