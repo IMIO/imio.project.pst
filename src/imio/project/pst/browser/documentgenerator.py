@@ -51,17 +51,23 @@ class DocumentGenerationBaseHelper():
             so_v = self.getDGHV(so)
             oos = self.getOperationalObjectives(so=so, skip_states=[])
             if not oos:
-                ret.append((so_v, None, None))
+                ret.append((so_v, None, None, None))
                 continue
             for oo in oos:
                 oo_v = self.getDGHV(oo)
                 acts = self.getActions(oo=oo, skip_states=[])
                 if not acts:
-                    ret.append((so_v, oo_v, None))
+                    ret.append((so_v, oo_v, None, None))
                     continue
                 for act in acts:
                     act_v = self.getDGHV(act)
-                    ret.append((so_v, oo_v, act_v))
+                    subacts = self.getSubActions(action=act, skip_states=[])
+                    if not subacts:
+                        ret.append((so_v, oo_v, act_v, None))
+                        continue
+                    for subact in subacts:
+                        subact_v = self.getDGHV(subact)
+                        ret.append((so_v, oo_v, act_v, subact_v))
         return ret
 
     def skip_states(self):
