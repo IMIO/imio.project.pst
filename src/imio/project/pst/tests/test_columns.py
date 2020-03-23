@@ -97,7 +97,6 @@ class TestColumns(IntegrationTestCase):
         self.assertIn(u'<span class="pretty_link_content"> Tâche de second niveau</span>', rendered2)
 
         # adding sub action
-        setRoles(self.portal, 'psteditor', ['Manager'])  # give manager role to move tasks to subaction
         self.sac1 = api.content.create(self.ac1, 'pstsubaction', title=u'Sous-action')
 
         # ac search, rendering action and subaction
