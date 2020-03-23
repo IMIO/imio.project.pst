@@ -115,8 +115,9 @@ def pstsubaction_created(obj, event):
     tasks = action.listFolderContents({'portal_type': 'task'})
     if getattr(obj, '_link_portal_type', '') == 'subaction_link' and tasks:
         raise Invalid("You cannot create a subaction link when there are tasks in action !")
-    for task in tasks:
-        api.content.move(task, obj)
+    with api.env.adopt_roles(['Manager']):
+        for task in tasks:
+            api.content.move(task, obj)
     # we set a flag on the pstaction to indicate a subaction presence
     set_to_annotation('imio.project.pst.has_subactions', True, obj=action)
 
