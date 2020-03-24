@@ -219,7 +219,7 @@ def _addPSTprojectspace(context):
 
     params = {'title': u"PST 2019-2024"}
     # datagridfield categories
-    categories = [
+    categories_values = [
         {'label': u"Volet interne : Administration générale - Accessibilité de l'Administration",
          'key': "volet-interne-adm-generale-accessibilite-administration"},
         {'label': u"Volet interne : Administration générale - Amélioration de l'Administration",
@@ -269,9 +269,9 @@ def _addPSTprojectspace(context):
         {'label': u"Volet externe : Développement des politiques - Tourisme",
          'key': "volet-externe-dvp-politiques-tourisme"},
     ]
-    params['categories'] = categories
+    params['categories_values'] = categories_values
     # datagridfield priority
-    priority = [
+    priority_values = [
         {'label': u"0",
          'key': "0"},
         {'label': u"1",
@@ -279,7 +279,7 @@ def _addPSTprojectspace(context):
         {'label': u"2",
          'key': "2"},
     ]
-    params['priority'] = priority
+    params['priority_values'] = priority_values
     # datagridfield budget_types
     budget_types = [
         {'label': u"Europe",
