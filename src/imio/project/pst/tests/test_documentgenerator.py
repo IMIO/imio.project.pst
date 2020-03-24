@@ -57,30 +57,33 @@ class TestDocumentGenerator(IntegrationTestCase):
 
         # flattened structure
         short_flattened_struct = [
-            ('efficient', 'venir', 'population'), ('efficient', 'venir', 'mois'), ('efficient', 'venir', 'soi'),
-            ('efficient', 'communale', 'guidance'), ('efficient', 'communale', 'pmr'),
-            ('efficient', 'communale', 'vous'), ('efficient', 'communale', 'mois'), ('durable', 'budget', 'energie'),
-            ('durable', 'budget', 'wallonie'), ('durable', 'budget', 'energetiques'),
-            ('durable', '2024', 'communale'), ('durable', '2024', 'communal'), ('securite', '2022', 'sortie')
+            ('efficient', 'venir', 'population', 'None'), ('efficient', 'venir', 'mois', 'None'),
+            ('efficient', 'venir', 'soi', 'None'), ('efficient', 'communale', 'guidance', 'None'),
+            ('efficient', 'communale', 'pmr', 'None'), ('efficient', 'communale', 'vous', 'None'),
+            ('efficient', 'communale', 'mois', 'None'), ('durable', 'budget', 'energie', 'None'),
+            ('durable', 'budget', 'wallonie', 'None'), ('durable', 'budget', 'energetiques', 'None'),
+            ('durable', '2024', 'communale', 'batiment'), ('durable', '2024', 'communale', 'batiment'),
+            ('durable', '2024', 'communale', 'chauffage'), ('durable', '2024', 'communal', 'batiment'),
+            ('durable', '2024', 'communal', 'batiment'), ('durable', '2024', 'communal', 'chauffage'),
+            ('securite', '2022', 'sortie', 'None')
         ]
 
         # not dashboard
         del view.request.form['facetedQuery']
-        struct = [(short_id(os), short_id(oo), short_id(ac)) for (os, oo, ac) in view.flatten_structure()]
-        self.assertEqual(len(struct), len(self.pc(portal_type='pstaction')))
+        struct = [(short_id(os), short_id(oo), short_id(ac), short_id(sb)) for (os, oo, ac, sb) in view.flatten_structure()]
         self.assertListEqual(struct, short_flattened_struct)
         # empty values
         new_os = api.content.create(self.pst, 'strategicobjective', 'new_os', 'New OS')
-        struct = [(short_id(os), short_id(oo), short_id(ac)) for (os, oo, ac) in view.flatten_structure()]
-        self.assertListEqual(struct, short_flattened_struct + [('new_os', 'None', 'None')])
+        struct = [(short_id(os), short_id(oo), short_id(ac), short_id(sb)) for (os, oo, ac, sb) in view.flatten_structure()]
+        self.assertListEqual(struct, short_flattened_struct + [('new_os', 'None', 'None', 'None')])
         api.content.create(new_os, 'operationalobjective', 'new_oo', 'New OO')
-        struct = [(short_id(os), short_id(oo), short_id(ac)) for (os, oo, ac) in view.flatten_structure()]
-        self.assertListEqual(struct, short_flattened_struct + [('new_os', 'new_oo', 'None')])
+        struct = [(short_id(os), short_id(oo), short_id(ac), short_id(sb)) for (os, oo, ac, sb) in view.flatten_structure()]
+        self.assertListEqual(struct, short_flattened_struct + [('new_os', 'new_oo', 'None', 'None')])
         # dashboard
         view.request.form['facetedQuery'] = ''
         brains = self.pc(id='etre-une-commune-qui-offre-un-service-public-moderne-efficace-et-efficient')
         view.context_var = lambda x, default='', brains=brains: brains
-        struct = [(short_id(os), short_id(oo), short_id(ac)) for (os, oo, ac) in view.flatten_structure()]
+        struct = [(short_id(os), short_id(oo), short_id(ac), short_id(sb)) for (os, oo, ac, sb) in view.flatten_structure()]
         self.assertListEqual(struct, short_flattened_struct[:7])
 
         # check activated fields
