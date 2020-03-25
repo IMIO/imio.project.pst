@@ -1401,6 +1401,7 @@ def configure_wsclient(context):
                                          'condition': u"python: context.getPortalTypeName() in ('pstaction', 'task',"
                                                       u"'pstsubaction')",
                                          'permissions': 'Modify view template'}])
+        api.portal.set_registry_record('{}.viewlet_display_condition'.format(prefix), u'isLinked')
         pm_meeting_config_id_vocabulary.__call__ = orig_call
         gsm.registerHandler(wsclient_configuration_changed, (IRecordModifiedEvent, ))
     [logger.info(msg) for msg in log]
