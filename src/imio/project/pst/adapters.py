@@ -108,8 +108,7 @@ class ChildrenActionDeadlineHasPassedCriterion(object):
 
 @indexer(IContentish)
 def categories_index(obj):
-    # don't index project spaces (config value)
-    if not IProjectSpace.providedBy(obj) and base_hasattr(obj, 'categories') and obj.categories:
+    if base_hasattr(obj, 'categories') and obj.categories:
         return obj.categories
 
     return common_marker
@@ -117,8 +116,7 @@ def categories_index(obj):
 
 @indexer(IContentish)
 def priority_index(obj):
-    # don't index project spaces (config value)
-    if not IProjectSpace.providedBy(obj) and base_hasattr(obj, 'priority') and obj.priority:
+    if base_hasattr(obj, 'priority') and obj.priority:
         return obj.priority
 
     return common_marker

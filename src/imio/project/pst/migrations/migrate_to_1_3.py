@@ -53,8 +53,11 @@ class Migrate_To_1_3(Migrator):
         self.upgradeProfile('collective.contact.core:default')
         self.upgradeProfile('collective.documentgenerator:default')
 
+        self.upgradeProfile('imio.project.core:default')
+
         self.runProfileSteps('imio.project.core', steps=['controlpanel', 'plone.app.registry', 'typeinfo'],
                              run_dependencies=False)
+
         self.runProfileSteps('imio.project.pst', steps=['actions', 'catalog', 'componentregistry', 'controlpanel',
                                                         'plone.app.registry', 'portlets', 'typeinfo', 'viewlets',
                                                         'workflow'],
