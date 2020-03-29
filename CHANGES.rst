@@ -4,7 +4,8 @@ Changelog
 1.4 (unreleased)
 ----------------
 
-- To be continued ...
+- model the data in uml using modelio
+  [fngaha]
 
 1.3 (2020-03-05)
 ----------------
