@@ -4,6 +4,7 @@ Changelog
 1.4 (unreleased)
 ----------------
 
+- updated doc templates with "plan" field (detail.odt, export.ods)
 - model the data in uml using modelio
   [fngaha]
 
