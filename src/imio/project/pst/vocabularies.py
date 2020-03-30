@@ -9,6 +9,7 @@ from imio.project.pst import EMPTY_STRING
 from imio.project.pst.utils import list_wf_states
 from plone import api
 from plone.memoize import ram
+from zope.globalrequest import getRequest
 from zope.i18n import translate
 from zope.interface import implements
 from zope.schema.interfaces import IVocabularyFactory
@@ -22,7 +23,7 @@ def voc_cache_key(method, self, context):
 
 class BaseReviewStatesVocabulary(object):
 
-    """ Incoming mail states vocabulary """
+    """ Portal type states vocabulary """
 
     implements(IVocabularyFactory)
 
@@ -30,8 +31,9 @@ class BaseReviewStatesVocabulary(object):
 
     def __call__(self, context):
         terms = []
+        request = getRequest()
         for state in list_wf_states(context, self.portal_type):
-            terms.append(SimpleTerm(state, title=translate(state, domain='plone', context=context.REQUEST)))
+            terms.append(SimpleTerm(state, title=translate(state, domain='plone', context=request)))
         return SimpleVocabulary(terms)
 
 

@@ -54,9 +54,4 @@
         factory="imio.project.pst.browser.controlpanel.SubActionFieldsVocabulary"
         />
 
-    <utility
-        name="imio.project.pst.BudgetGlobalizationStatesVocabulary"
-        factory="imio.project.pst.browser.controlpanel.BudgetGlobalizationStatesVocabulary"
-        />
-
 </configure>
