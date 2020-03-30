@@ -525,14 +525,14 @@ def configure_pst(portal):
         registry['imio.project.settings.strategicobjective_fields'] = [
             'IDublinCore.title', 'description_rich', 'reference_number', 'categories',
             'IAnalyticBudget.projection', 'IAnalyticBudget.analytic_budget', 'budget', 'budget_comments',
-            'observation', 'comments']
+            'observation', 'comments', 'plan']
     if not registry.get('imio.project.settings.operationalobjective_fields'):
         registry['imio.project.settings.operationalobjective_fields'] = [
             'IDublinCore.title', 'description_rich', 'reference_number', 'categories',
             'result_indicator', 'priority', 'planned_end_date', 'representative_responsible',
             'administrative_responsible', 'manager', 'extra_concerned_people', 'IAnalyticBudget.projection',
             'IAnalyticBudget.analytic_budget', 'budget', 'budget_comments', 'ISustainableDevelopmentGoals.sdgs',
-            'observation', 'comments']
+            'observation', 'comments', 'plan']
     if not registry.get('imio.project.settings.pstaction_fields'):
         registry['imio.project.settings.pstaction_fields'] = [
             'IDublinCore.title', 'description_rich', 'reference_number', 'categories',
@@ -540,7 +540,7 @@ def configure_pst(portal):
             'effective_end_date', 'progress', 'health_indicator', 'health_indicator_details',
             'representative_responsible', 'manager', 'responsible', 'extra_concerned_people',
             'IAnalyticBudget.projection', 'IAnalyticBudget.analytic_budget', 'budget', 'budget_comments',
-            'ISustainableDevelopmentGoals.sdgs', 'observation', 'comments']
+            'ISustainableDevelopmentGoals.sdgs', 'observation', 'comments', 'plan']
     if not registry.get('imio.project.settings.pstsubaction_fields'):
         registry['imio.project.settings.pstsubaction_fields'] = registry['imio.project.settings.pstaction_fields']
 
