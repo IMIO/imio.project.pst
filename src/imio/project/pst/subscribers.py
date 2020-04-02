@@ -182,6 +182,8 @@ def registry_changed(event):
             # we copy new pstaction_fields value in pstsubaction_fields
             if event.record.fieldName == 'pstaction_fields':
                 api.portal.set_registry_record('imio.project.settings.pstsubaction_fields', event.newValue)
+            if event.record.fieldName == 'pstaction_budget_states':
+                api.portal.set_registry_record('imio.project.settings.pstsubaction_budget_states', event.newValue)
             # we check if we have to remove/add a column from/to a dashboard
             if event.record.fieldName in ('strategicobjective_fields', 'operationalobjective_fields',
                                           'pstaction_fields'):

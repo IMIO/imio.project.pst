@@ -2,7 +2,6 @@
 from imio.project.pst.interfaces import IImioPSTProject
 from plone import api
 from plone.memoize import ram
-from Products.CMFPlone.utils import getToolByName
 from Products.Five import BrowserView
 
 from collective.contact.plonegroup.utils import organizations_with_suffixes
@@ -48,7 +47,7 @@ def list_wf_states(context, portal_type):
 
     if portal_type not in ordered_states:
         return []
-    pw = getToolByName(context, 'portal_workflow')
+    pw = api.portal.get_tool('portal_workflow')
     ret = []
     # wf states
     for workflow in pw.getWorkflowsFor(portal_type):

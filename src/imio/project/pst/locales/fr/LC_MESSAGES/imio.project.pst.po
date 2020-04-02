@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2020-03-05 10:11+0000\n"
+"POT-Creation-Date: 2020-03-11 13:38+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,6 +38,10 @@ msgstr "Tous"
 #: ./profiles/default/actions.xml
 msgid "Archive PST"
 msgstr "Archiver le PST"
+
+#: ./browser/controlpanel.py:150
+msgid "Budget globalization states"
+msgstr "Etats repris dans les budgets globaux"
 
 #: ./content/action.py:41
 msgid "Choose principals that will be representative responsible for this project. If nothing choosed, the oo value is used for searches."
@@ -100,7 +104,11 @@ msgstr "Objectifs opérationnels"
 msgid "OperationalObjective"
 msgstr "Objectif opérationnel"
 
-#: ./browser/controlpanel.py:131
+#: ./browser/controlpanel.py:151
+msgid "PST content in these states will be taken into account for budget globalization"
+msgstr "Les éléments du PST dans un de ces états seront repris dans les budgets globaux"
+
+#: ./browser/controlpanel.py:167
 #: ./profiles/default/controlpanel.xml
 msgid "PST settings"
 msgstr "Gestion du PST"

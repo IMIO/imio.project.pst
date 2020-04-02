@@ -41,7 +41,11 @@ msgstr ""
 msgid "Archive PST"
 msgstr ""
 
-#: ./content/action.py:41
+#: ../browser/controlpanel.py:150
+msgid "Budget globalization states"
+msgstr ""
+
+#: ../content/action.py:41
 msgid "Choose principals that will be representative responsible for this project. If nothing choosed, the oo value is used for searches."
 msgstr ""
 
@@ -102,8 +106,12 @@ msgstr ""
 msgid "OperationalObjective"
 msgstr ""
 
-#: ./browser/controlpanel.py:131
-#: ./profiles/default/controlpanel.xml
+#: ../browser/controlpanel.py:151
+msgid "PST content in these states will be taken into account for budget globalization"
+msgstr ""
+
+#: ../browser/controlpanel.py:167
+#: ../profiles/default/controlpanel.xml
 msgid "PST settings"
 msgstr ""
 

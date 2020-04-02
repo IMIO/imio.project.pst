@@ -12,4 +12,5 @@ develop-eggs/
 parts/
 src/*
 !src/imio
+src/imio/project/pst/work
 var/

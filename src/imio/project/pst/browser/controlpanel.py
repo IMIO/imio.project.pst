@@ -14,7 +14,7 @@ from zope import schema
 from zope.interface import implements
 from zope.interface import Interface
 from zope.interface import invariant
-from zope.interface import Invalid
+#from zope.interface import Invalid
 from zope.schema.interfaces import IVocabularyFactory
 
 
@@ -116,6 +116,35 @@ class IImioPSTSettings(Interface):
         value_type=schema.Choice(vocabulary=u'imio.project.pst.ActionFieldsVocabulary'),
     )
 
+    strategicobjective_budget_states = schema.List(
+        title=_c(u"${type} budget globalization states", mapping={'type': _('StrategicObjective')}),
+        description=_(u'Put states on the right for which you want to globalize budget fields.'),
+        required=False,
+        value_type=schema.Choice(vocabulary=u'imio.project.pst.SOReviewStatesVocabulary'),
+    )
+
+    operationalobjective_budget_states = schema.List(
+        title=_c(u"${type} budget globalization states", mapping={'type': _('OperationalObjective')}),
+#        description=_(u'Put states on the right for which you want to globalize budget fields.'),
+        required=False,
+        value_type=schema.Choice(vocabulary=u'imio.project.pst.OOReviewStatesVocabulary'),
+    )
+
+    pstaction_budget_states = schema.List(
+        title=_c(u"${type} budget globalization states", mapping={'type': _('PSTAction')}),
+#        description=_(u'Put states on the right for which you want to globalize budget fields.'),
+        required=False,
+        value_type=schema.Choice(vocabulary=u'imio.project.pst.PSTActionReviewStatesVocabulary'),
+    )
+
+    # this field will be hidden
+    pstsubaction_budget_states = schema.List(
+        title=_c(u"${type} budget globalization states", mapping={'type': _('PSTSubAction')}),
+#        description=_(u'Put states on the right for which you want to globalize budget fields.'),
+        required=False,
+        value_type=schema.Choice(vocabulary=u'imio.project.pst.PSTActionReviewStatesVocabulary'),
+    )
+
     @invariant
     def validateSettings(data):
         mandatory_check(data, field_constraints)
@@ -133,6 +162,7 @@ class SettingsEditForm(RegistryEditForm):
     def updateFields(self):
         super(SettingsEditForm, self).updateFields()
         remove(self, 'pstsubaction_fields')
+        remove(self, 'pstsubaction_budget_states')
 
 
 SettingsView = layout.wrap_form(SettingsEditForm, ControlPanelFormWrapper)
