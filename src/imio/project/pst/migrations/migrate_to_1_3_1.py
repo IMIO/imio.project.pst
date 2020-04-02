@@ -100,7 +100,6 @@ class Migrate_To_1_3_1(Migrator):
             {'label': u"Schémas de développement commercial",
                 'key': "schemas-de-developpement-commercial"},
         ]
-        import ipdb; ipdb.set_trace()
         brains=self.catalog(object_provides='imio.project.pst.interfaces.IImioPSTProject')
         for brain in brains:
             project = brain.getObject()
