@@ -18,58 +18,28 @@ class Migrate_To_1_3_1(Migrator):
 
     def add_plan_to_registry_record(self, record_name):
         registry = getUtility(IRegistry)
-        if 'plan' not in registry[record_name]:
-            if 'categories' in registry[record_name]:
-                registry[record_name].insert(
-                        registry[record_name].index('categories') + 1, 'plan')
+        registry_record_name = registry.get(record_name)
+        if 'plan' not in registry_record_name:
+            if 'categories' in registry_record_name:
+                registry_record_name.insert(
+                        registry_record_name.index('categories') + 1, 'plan')
             else:
-                registry[record_name].append('plan')
+                registry_record_name.append('plan')
+            api.portal.set_registry_record(record_name, registry_record_name)
 
     def run(self):
 
         # update registry imio project settings with plan field
         registry = getUtility(IRegistry)
 
-        so_rn = 'imio.project.settings.strategicobjective_fields'
-        if not registry.get(so_rn):
-            registry[so_rn] = [
-                'IDublinCore.title', 'description_rich', 'reference_number',
-                'categories', 'plan', 'IAnalyticBudget.projection',
-                'IAnalyticBudget.analytic_budget', 'budget', 'budget_comments',
-                'observation', 'comments']
-        else:
-            self.add_plan_to_registry_record(so_rn)
-        oo_rn = 'imio.project.settings.operationalobjective_fields'
-        if not registry.get(oo_rn):
-            registry[oo_rn] = [
-                'IDublinCore.title', 'description_rich', 'reference_number',
-                'categories', 'plan', 'result_indicator', 'priority',
-                'planned_end_date', 'representative_responsible',
-                'administrative_responsible', 'manager',
-                'extra_concerned_people', 'IAnalyticBudget.projection',
-                'IAnalyticBudget.analytic_budget', 'budget', 'budget_comments',
-                'ISustainableDevelopmentGoals.sdgs', 'observation', 'comments']
-        else:
-            self.add_plan_to_registry_record(oo_rn)
-        act_rn = 'imio.project.settings.pstaction_fields'
-        if not registry.get(act_rn):
-            registry[act_rn] = [
-                'IDublinCore.title', 'description_rich', 'reference_number',
-                'categories', 'plan', 'result_indicator', 'planned_end_date',
-                'planned_begin_date', 'effective_begin_date',
-                'effective_end_date', 'progress', 'health_indicator',
-                'health_indicator_details', 'representative_responsible',
-                'manager', 'responsible', 'extra_concerned_people',
-                'IAnalyticBudget.projection',
-                'IAnalyticBudget.analytic_budget', 'budget', 'budget_comments',
-                'ISustainableDevelopmentGoals.sdgs', 'observation', 'comments']
-        else:
-            self.add_plan_to_registry_record(act_rn)
-        sact_rn = 'imio.project.settings.pstsubaction_fields'
-        if not registry.get(sact_rn):
-            registry[sact_rn] = registry[act_rn]
-        else:
-            self.add_plan_to_registry_record(sact_rn)
+        so_record_name = 'imio.project.settings.strategicobjective_fields'
+        self.add_plan_to_registry_record(so_record_name)
+
+        oo_record_name = 'imio.project.settings.operationalobjective_fields'
+        self.add_plan_to_registry_record(oo_record_name)
+
+        act_record_name = 'imio.project.settings.pstaction_fields'
+        self.add_plan_to_registry_record(act_record_name)
 
         # add plan values to project space
         plan_values = [
