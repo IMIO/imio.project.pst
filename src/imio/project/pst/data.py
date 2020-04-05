@@ -197,6 +197,7 @@ def get_os_oo_ac_data(site, groups, currentYear):
                            u'volet-interne-adm-generale-accessibilite-administration'],
             'budget': [{'amount': 1000.0, 'budget_type': 'wallonie', 'year': currentYear}],
             'budget_comments': richtextval(u''),
+            'plan': [u'plan-de-formation-du-personnel', u'plan-de-gestion'],
             'operationalobjectives': [
                 {
                     'title': u"Diminuer le temps d'attente de l'usager au guichet population de 20% dans les 12 mois "
@@ -215,6 +216,7 @@ def get_os_oo_ac_data(site, groups, currentYear):
                     'extra_concerned_people': u'',
                     'budget': [{'amount': 500.0, 'budget_type': 'wallonie', 'year': currentYear}],
                     'comments': richtextval(u''),
+                    'plan': [u'plan-de-formation-du-personnel', u'plan-de-gestion'],
                     'actions': [
                         {'title': u'Engager 2 agents pour le Service Population',
                          'categories': [],
@@ -234,6 +236,7 @@ def get_os_oo_ac_data(site, groups, currentYear):
                          'health_indicator': u'bon',
                          'health_indicator_details': u'',
                          'comments': richtextval(u''),
+                         'plan': [u'plan-de-formation-du-personnel', u'plan-de-gestion'],
                          'tasks': [
                              {'title': u'Rédiger le profil de fonction',
                               'assigned_group': groups['service-population'], 'assigned_user': 'agent'},
@@ -255,6 +258,7 @@ def get_os_oo_ac_data(site, groups, currentYear):
                          'health_indicator': u'bon',
                          'health_indicator_details': u'',
                          'comments': richtextval(u''),
+                         'plan': [u'plan-de-formation-du-personnel', u'plan-de-gestion'],
                          'tasks': [
                              {'title': u'Réparer le guichet',
                               'assigned_group': groups['service-travaux']},
@@ -276,6 +280,7 @@ def get_os_oo_ac_data(site, groups, currentYear):
                          'health_indicator_details': u'',
                          'comments': richtextval(u''),
                          'sdgs': ['13'],
+                         'plan': [u'plan-de-formation-du-personnel', u'plan-de-gestion'],
                          'tasks': [
                              {'title': u'Expliquer au service comment éditer sur le site internet',
                               'assigned_group': groups['service-informatique']},
@@ -301,6 +306,7 @@ def get_os_oo_ac_data(site, groups, currentYear):
                     'extra_concerned_people': u'',
                     'budget': [],
                     'comments': richtextval(u''),
+                    'plan': [u'plan-de-formation-du-personnel', u'plan-de-gestion'],
                     'actions': [
                         {'title': u'Placer des pictogrammes de guidance',
                          'categories': [],
@@ -317,6 +323,7 @@ def get_os_oo_ac_data(site, groups, currentYear):
                          'health_indicator_details': u'',
                          'comments': richtextval(u''),
                          'sdgs': ['10'],
+                         'plan': [u'plan-de-formation-du-personnel', u'plan-de-gestion'],
                          'tasks': [
                              {'title': u'Acheter/fournir des pictogrammes de guidance',
                               'assigned_group': groups['service-travaux']},
@@ -341,6 +348,7 @@ def get_os_oo_ac_data(site, groups, currentYear):
                          'health_indicator_details': u'Problème, retard dû à l\'exécution du marché',
                          'comments': richtextval(u''),
                          'sdgs': ['10'],
+                         'plan': [u'plan-de-formation-du-personnel', u'plan-de-gestion'],
                          },
                         {'title': u'Mettre en place des permanences sur rendez-vous',
                          'categories': [],
@@ -351,6 +359,7 @@ def get_os_oo_ac_data(site, groups, currentYear):
                          'health_indicator': u'risque',
                          'health_indicator_details': u'',
                          'comments': richtextval(u''),
+                         'plan': [u'plan-de-formation-du-personnel', u'plan-de-gestion'],
                          'tasks': [
                              {'title': u'Établir le mode de fonctionnement pour les permanences',
                               'assigned_group': groups['secretariat-communal']},

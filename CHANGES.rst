@@ -4,7 +4,8 @@ Changelog
 1.4 (unreleased)
 ----------------
 
-- To be continued ...
+- Added plan and plan_values fields
+  [fngaha]
 
 1.3 (2020-03-05)
 ----------------

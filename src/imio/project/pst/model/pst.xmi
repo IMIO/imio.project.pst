@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<uml:Model xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:uml="http://www.eclipse.org/uml2/3.0.0/UML" xmi:id="_-9AfIG9XEeqCN9yv8RHnbg" name="pst">
-  <eAnnotations xmi:id="_-9AfIW9XEeqCN9yv8RHnbg" source="Objing">
-    <contents xmi:type="uml:Property" xmi:id="_-9AfIm9XEeqCN9yv8RHnbg" name="exporterVersion">
-      <defaultValue xmi:type="uml:LiteralString" xmi:id="_-9AfI29XEeqCN9yv8RHnbg" value="3.0.0"/>
+<uml:Model xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:uml="http://www.eclipse.org/uml2/3.0.0/UML" xmi:id="_Lm3cMHAUEeq5A-M-bgu0Iw" name="pst">
+  <eAnnotations xmi:id="_Lm3cMXAUEeq5A-M-bgu0Iw" source="Objing">
+    <contents xmi:type="uml:Property" xmi:id="_Lm3cMnAUEeq5A-M-bgu0Iw" name="exporterVersion">
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_Lm3cM3AUEeq5A-M-bgu0Iw" value="3.0.0"/>
     </contents>
   </eAnnotations>
-  <packagedElement xmi:type="uml:Package" xmi:id="_-9AfJG9XEeqCN9yv8RHnbg" name="imio.project.pst">
-    <packagedElement xmi:type="uml:Class" xmi:id="_-9AfJW9XEeqCN9yv8RHnbg" name="StrategicObjective" clientDependency="_-9AfKm9XEeqCN9yv8RHnbg">
-      <ownedComment xmi:id="_-9AfJm9XEeqCN9yv8RHnbg">
+  <packagedElement xmi:type="uml:Package" xmi:id="_Lm3cNHAUEeq5A-M-bgu0Iw" name="imio.project.pst">
+    <packagedElement xmi:type="uml:Class" xmi:id="_Lm3cNXAUEeq5A-M-bgu0Iw" name="StrategicObjective" clientDependency="_Lm3cOnAUEeq5A-M-bgu0Iw">
+      <ownedComment xmi:id="_Lm3cNnAUEeq5A-M-bgu0Iw">
         <body>excluded fields :
 
 - priority
@@ -21,23 +21,23 @@
 - effective_end_date
 - progress</body>
       </ownedComment>
-      <generalization xmi:id="_-9AfJ29XEeqCN9yv8RHnbg" general="_-9BGZ29XEeqCN9yv8RHnbg"/>
-      <ownedAttribute xmi:id="_-9AfKG9XEeqCN9yv8RHnbg" name="iAnalyticBudget" visibility="public" type="_-9BGX29XEeqCN9yv8RHnbg" aggregation="shared" association="_-9AfLG9XEeqCN9yv8RHnbg">
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_-9AfKW9XEeqCN9yv8RHnbg"/>
+      <generalization xmi:id="_Lm3cN3AUEeq5A-M-bgu0Iw" general="_Lm3cb3AUEeq5A-M-bgu0Iw"/>
+      <ownedAttribute xmi:id="_Lm3cOHAUEeq5A-M-bgu0Iw" name="iAnalyticBudget" visibility="public" type="_Lm3cZ3AUEeq5A-M-bgu0Iw" aggregation="shared" association="_Lm3cPHAUEeq5A-M-bgu0Iw">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Lm3cOXAUEeq5A-M-bgu0Iw"/>
       </ownedAttribute>
-      <interfaceRealization xmi:id="_-9AfKm9XEeqCN9yv8RHnbg" name="InterfaceRealization" supplier="_-9BGMW9XEeqCN9yv8RHnbg" client="_-9AfJW9XEeqCN9yv8RHnbg" contract="_-9BGMW9XEeqCN9yv8RHnbg"/>
-      <ownedOperation xmi:id="_-9AfK29XEeqCN9yv8RHnbg" name="Title" visibility="public"/>
+      <interfaceRealization xmi:id="_Lm3cOnAUEeq5A-M-bgu0Iw" name="InterfaceRealization" supplier="_Lm3cP3AUEeq5A-M-bgu0Iw" client="_Lm3cNXAUEeq5A-M-bgu0Iw" contract="_Lm3cP3AUEeq5A-M-bgu0Iw"/>
+      <ownedOperation xmi:id="_Lm3cO3AUEeq5A-M-bgu0Iw" name="Title" visibility="public"/>
     </packagedElement>
-    <packagedElement xmi:type="uml:Association" xmi:id="_-9AfLG9XEeqCN9yv8RHnbg" memberEnd="_-9AfKG9XEeqCN9yv8RHnbg _-9AfLW9XEeqCN9yv8RHnbg">
-      <ownedEnd xmi:id="_-9AfLW9XEeqCN9yv8RHnbg" visibility="public" type="_-9AfJW9XEeqCN9yv8RHnbg" association="_-9AfLG9XEeqCN9yv8RHnbg">
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_-9BGMG9XEeqCN9yv8RHnbg"/>
+    <packagedElement xmi:type="uml:Association" xmi:id="_Lm3cPHAUEeq5A-M-bgu0Iw" memberEnd="_Lm3cOHAUEeq5A-M-bgu0Iw _Lm3cPXAUEeq5A-M-bgu0Iw">
+      <ownedEnd xmi:id="_Lm3cPXAUEeq5A-M-bgu0Iw" visibility="public" type="_Lm3cNXAUEeq5A-M-bgu0Iw" association="_Lm3cPHAUEeq5A-M-bgu0Iw">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Lm3cPnAUEeq5A-M-bgu0Iw"/>
       </ownedEnd>
     </packagedElement>
-    <packagedElement xmi:type="uml:Interface" xmi:id="_-9BGMW9XEeqCN9yv8RHnbg" name="IStrategicObjective" isAbstract="true">
-      <generalization xmi:id="_-9BGMm9XEeqCN9yv8RHnbg" general="_-9BGam9XEeqCN9yv8RHnbg"/>
+    <packagedElement xmi:type="uml:Interface" xmi:id="_Lm3cP3AUEeq5A-M-bgu0Iw" name="IStrategicObjective" isAbstract="true">
+      <generalization xmi:id="_Lm3cQHAUEeq5A-M-bgu0Iw" general="_Lm3ccnAUEeq5A-M-bgu0Iw"/>
     </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="_-9BGM29XEeqCN9yv8RHnbg" name="OperationalObjective" clientDependency="_-9BGOm9XEeqCN9yv8RHnbg">
-      <ownedComment xmi:id="_-9BGNG9XEeqCN9yv8RHnbg">
+    <packagedElement xmi:type="uml:Class" xmi:id="_Lm3cQXAUEeq5A-M-bgu0Iw" name="OperationalObjective" clientDependency="_Lm3cSHAUEeq5A-M-bgu0Iw">
+      <ownedComment xmi:id="_Lm3cQnAUEeq5A-M-bgu0Iw">
         <body>excluded fields :
 
 - visible_for
@@ -46,241 +46,247 @@
 - effective_end_date
 - progress</body>
       </ownedComment>
-      <generalization xmi:id="_-9BGNW9XEeqCN9yv8RHnbg" general="_-9BGZ29XEeqCN9yv8RHnbg"/>
-      <ownedAttribute xmi:id="_-9BGNm9XEeqCN9yv8RHnbg" name="iAnalyticBudget" visibility="public" type="_-9BGX29XEeqCN9yv8RHnbg" aggregation="shared" association="_-9BGPG9XEeqCN9yv8RHnbg">
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_-9BGN29XEeqCN9yv8RHnbg"/>
+      <generalization xmi:id="_Lm3cQ3AUEeq5A-M-bgu0Iw" general="_Lm3cb3AUEeq5A-M-bgu0Iw"/>
+      <ownedAttribute xmi:id="_Lm3cRHAUEeq5A-M-bgu0Iw" name="iAnalyticBudget" visibility="public" type="_Lm3cZ3AUEeq5A-M-bgu0Iw" aggregation="shared" association="_Lm3cSnAUEeq5A-M-bgu0Iw">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Lm3cRXAUEeq5A-M-bgu0Iw"/>
       </ownedAttribute>
-      <ownedAttribute xmi:id="_-9BGOG9XEeqCN9yv8RHnbg" name="iSustainableDevelopmentGoals" visibility="public" type="_-9BGiW9XEeqCN9yv8RHnbg" aggregation="shared" association="_-9BGP29XEeqCN9yv8RHnbg">
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_-9BGOW9XEeqCN9yv8RHnbg"/>
+      <ownedAttribute xmi:id="_Lm3cRnAUEeq5A-M-bgu0Iw" name="iSustainableDevelopmentGoals" visibility="public" type="_Lm3cmXAUEeq5A-M-bgu0Iw" aggregation="shared" association="_Lm3ck3AUEeq5A-M-bgu0Iw">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Lm3cR3AUEeq5A-M-bgu0Iw"/>
       </ownedAttribute>
-      <interfaceRealization xmi:id="_-9BGOm9XEeqCN9yv8RHnbg" name="InterfaceRealization" supplier="_-9BGQm9XEeqCN9yv8RHnbg" client="_-9BGM29XEeqCN9yv8RHnbg" contract="_-9BGQm9XEeqCN9yv8RHnbg"/>
-      <ownedOperation xmi:id="_-9BGO29XEeqCN9yv8RHnbg" name="Title" visibility="public"/>
+      <interfaceRealization xmi:id="_Lm3cSHAUEeq5A-M-bgu0Iw" name="InterfaceRealization" supplier="_Lm3cTXAUEeq5A-M-bgu0Iw" client="_Lm3cQXAUEeq5A-M-bgu0Iw" contract="_Lm3cTXAUEeq5A-M-bgu0Iw"/>
+      <ownedOperation xmi:id="_Lm3cSXAUEeq5A-M-bgu0Iw" name="Title" visibility="public"/>
     </packagedElement>
-    <packagedElement xmi:type="uml:Association" xmi:id="_-9BGPG9XEeqCN9yv8RHnbg" memberEnd="_-9BGNm9XEeqCN9yv8RHnbg _-9BGPW9XEeqCN9yv8RHnbg">
-      <ownedEnd xmi:id="_-9BGPW9XEeqCN9yv8RHnbg" visibility="public" type="_-9BGM29XEeqCN9yv8RHnbg" association="_-9BGPG9XEeqCN9yv8RHnbg">
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_-9BGPm9XEeqCN9yv8RHnbg"/>
+    <packagedElement xmi:type="uml:Association" xmi:id="_Lm3cSnAUEeq5A-M-bgu0Iw" memberEnd="_Lm3cRHAUEeq5A-M-bgu0Iw _Lm3cS3AUEeq5A-M-bgu0Iw">
+      <ownedEnd xmi:id="_Lm3cS3AUEeq5A-M-bgu0Iw" visibility="public" type="_Lm3cQXAUEeq5A-M-bgu0Iw" association="_Lm3cSnAUEeq5A-M-bgu0Iw">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Lm3cTHAUEeq5A-M-bgu0Iw"/>
       </ownedEnd>
     </packagedElement>
-    <packagedElement xmi:type="uml:Association" xmi:id="_-9BGP29XEeqCN9yv8RHnbg" memberEnd="_-9BGOG9XEeqCN9yv8RHnbg _-9BGQG9XEeqCN9yv8RHnbg">
-      <ownedEnd xmi:id="_-9BGQG9XEeqCN9yv8RHnbg" visibility="public" type="_-9BGM29XEeqCN9yv8RHnbg" association="_-9BGP29XEeqCN9yv8RHnbg">
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_-9BGQW9XEeqCN9yv8RHnbg"/>
-      </ownedEnd>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Interface" xmi:id="_-9BGQm9XEeqCN9yv8RHnbg" name="IOperationalObjective" isAbstract="true">
-      <generalization xmi:id="_-9BGQ29XEeqCN9yv8RHnbg" general="_-9BGam9XEeqCN9yv8RHnbg"/>
-      <ownedAttribute xmi:id="_-9BGRG9XEeqCN9yv8RHnbg" name="representative_responsible" visibility="public" isUnique="false">
+    <packagedElement xmi:type="uml:Interface" xmi:id="_Lm3cTXAUEeq5A-M-bgu0Iw" name="IOperationalObjective" isAbstract="true">
+      <generalization xmi:id="_Lm3cTnAUEeq5A-M-bgu0Iw" general="_Lm3ccnAUEeq5A-M-bgu0Iw"/>
+      <ownedAttribute xmi:id="_Lm3cT3AUEeq5A-M-bgu0Iw" name="representative_responsible" visibility="public" isUnique="false">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       </ownedAttribute>
-      <ownedAttribute xmi:id="_-9BGRW9XEeqCN9yv8RHnbg" name="administrative_responsible" visibility="public" isUnique="false">
+      <ownedAttribute xmi:id="_Lm3cUHAUEeq5A-M-bgu0Iw" name="administrative_responsible" visibility="public" isUnique="false">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       </ownedAttribute>
-      <ownedAttribute xmi:id="_-9BGRm9XEeqCN9yv8RHnbg" name="manager" visibility="public" isUnique="false">
+      <ownedAttribute xmi:id="_Lm3cUXAUEeq5A-M-bgu0Iw" name="manager" visibility="public" isUnique="false">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       </ownedAttribute>
     </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="_-9BGR29XEeqCN9yv8RHnbg" name="PSTAction / PSTSubAction" clientDependency="_-9BGTm9XEeqCN9yv8RHnbg">
-      <ownedComment xmi:id="_-9BGSG9XEeqCN9yv8RHnbg">
+    <packagedElement xmi:type="uml:Class" xmi:id="_Lm3cUnAUEeq5A-M-bgu0Iw" name="PSTAction / PSTSubAction" clientDependency="_Lm3cWXAUEeq5A-M-bgu0Iw">
+      <ownedComment xmi:id="_Lm3cU3AUEeq5A-M-bgu0Iw">
         <body>excluded fields :
 
 - priority
 - visible_for</body>
       </ownedComment>
-      <generalization xmi:id="_-9BGSW9XEeqCN9yv8RHnbg" general="_-9BGZ29XEeqCN9yv8RHnbg"/>
-      <ownedAttribute xmi:id="_-9BGSm9XEeqCN9yv8RHnbg" name="iAnalyticBudget" visibility="public" type="_-9BGX29XEeqCN9yv8RHnbg" aggregation="shared" association="_-9BGU29XEeqCN9yv8RHnbg">
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_-9BGS29XEeqCN9yv8RHnbg"/>
+      <generalization xmi:id="_Lm3cVHAUEeq5A-M-bgu0Iw" general="_Lm3cb3AUEeq5A-M-bgu0Iw"/>
+      <ownedAttribute xmi:id="_Lm3cVXAUEeq5A-M-bgu0Iw" name="iAnalyticBudget" visibility="public" type="_Lm3cZ3AUEeq5A-M-bgu0Iw" aggregation="shared" association="_Lm3cXnAUEeq5A-M-bgu0Iw">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Lm3cVnAUEeq5A-M-bgu0Iw"/>
       </ownedAttribute>
-      <ownedAttribute xmi:id="_-9BGTG9XEeqCN9yv8RHnbg" name="iSustainableDevelopmentGoals" visibility="public" type="_-9BGiW9XEeqCN9yv8RHnbg" aggregation="shared" association="_-9BGVm9XEeqCN9yv8RHnbg">
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_-9BGTW9XEeqCN9yv8RHnbg"/>
+      <ownedAttribute xmi:id="_Lm3cV3AUEeq5A-M-bgu0Iw" name="iSustainableDevelopmentGoals" visibility="public" type="_Lm3cmXAUEeq5A-M-bgu0Iw" aggregation="shared" association="_Lm3clnAUEeq5A-M-bgu0Iw">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Lm3cWHAUEeq5A-M-bgu0Iw"/>
       </ownedAttribute>
-      <interfaceRealization xmi:id="_-9BGTm9XEeqCN9yv8RHnbg" name="InterfaceRealization" supplier="_-9BGWW9XEeqCN9yv8RHnbg" client="_-9BGR29XEeqCN9yv8RHnbg" contract="_-9BGWW9XEeqCN9yv8RHnbg"/>
-      <ownedOperation xmi:id="_-9BGT29XEeqCN9yv8RHnbg" name="Title" visibility="public"/>
-      <ownedOperation xmi:id="_-9BGUG9XEeqCN9yv8RHnbg" name="back_references" visibility="public"/>
-      <ownedOperation xmi:id="_-9BGUW9XEeqCN9yv8RHnbg" name="allowedContentTypes" visibility="public"/>
-      <ownedOperation xmi:id="_-9BGUm9XEeqCN9yv8RHnbg" name="has_subactions" visibility="public"/>
+      <interfaceRealization xmi:id="_Lm3cWXAUEeq5A-M-bgu0Iw" name="InterfaceRealization" supplier="_Lm3cYXAUEeq5A-M-bgu0Iw" client="_Lm3cUnAUEeq5A-M-bgu0Iw" contract="_Lm3cYXAUEeq5A-M-bgu0Iw"/>
+      <ownedOperation xmi:id="_Lm3cWnAUEeq5A-M-bgu0Iw" name="Title" visibility="public"/>
+      <ownedOperation xmi:id="_Lm3cW3AUEeq5A-M-bgu0Iw" name="back_references" visibility="public"/>
+      <ownedOperation xmi:id="_Lm3cXHAUEeq5A-M-bgu0Iw" name="allowedContentTypes" visibility="public"/>
+      <ownedOperation xmi:id="_Lm3cXXAUEeq5A-M-bgu0Iw" name="has_subactions" visibility="public"/>
     </packagedElement>
-    <packagedElement xmi:type="uml:Association" xmi:id="_-9BGU29XEeqCN9yv8RHnbg" memberEnd="_-9BGSm9XEeqCN9yv8RHnbg _-9BGVG9XEeqCN9yv8RHnbg">
-      <ownedEnd xmi:id="_-9BGVG9XEeqCN9yv8RHnbg" visibility="public" type="_-9BGR29XEeqCN9yv8RHnbg" association="_-9BGU29XEeqCN9yv8RHnbg">
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_-9BGVW9XEeqCN9yv8RHnbg"/>
+    <packagedElement xmi:type="uml:Association" xmi:id="_Lm3cXnAUEeq5A-M-bgu0Iw" memberEnd="_Lm3cVXAUEeq5A-M-bgu0Iw _Lm3cX3AUEeq5A-M-bgu0Iw">
+      <ownedEnd xmi:id="_Lm3cX3AUEeq5A-M-bgu0Iw" visibility="public" type="_Lm3cUnAUEeq5A-M-bgu0Iw" association="_Lm3cXnAUEeq5A-M-bgu0Iw">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Lm3cYHAUEeq5A-M-bgu0Iw"/>
       </ownedEnd>
     </packagedElement>
-    <packagedElement xmi:type="uml:Association" xmi:id="_-9BGVm9XEeqCN9yv8RHnbg" memberEnd="_-9BGTG9XEeqCN9yv8RHnbg _-9BGV29XEeqCN9yv8RHnbg">
-      <ownedEnd xmi:id="_-9BGV29XEeqCN9yv8RHnbg" visibility="public" type="_-9BGR29XEeqCN9yv8RHnbg" association="_-9BGVm9XEeqCN9yv8RHnbg">
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_-9BGWG9XEeqCN9yv8RHnbg"/>
-      </ownedEnd>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Interface" xmi:id="_-9BGWW9XEeqCN9yv8RHnbg" name="IPSTAction" isAbstract="true">
-      <generalization xmi:id="_-9BGWm9XEeqCN9yv8RHnbg" general="_-9BGam9XEeqCN9yv8RHnbg"/>
-      <ownedAttribute xmi:id="_-9BGW29XEeqCN9yv8RHnbg" name="representative_responsible" visibility="public" isUnique="false">
+    <packagedElement xmi:type="uml:Interface" xmi:id="_Lm3cYXAUEeq5A-M-bgu0Iw" name="IPSTAction / IPSTSubAction" isAbstract="true">
+      <generalization xmi:id="_Lm3cYnAUEeq5A-M-bgu0Iw" general="_Lm3ccnAUEeq5A-M-bgu0Iw"/>
+      <ownedAttribute xmi:id="_Lm3cY3AUEeq5A-M-bgu0Iw" name="representative_responsible" visibility="public" isUnique="false">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       </ownedAttribute>
-      <ownedAttribute xmi:id="_-9BGXG9XEeqCN9yv8RHnbg" name="responsible" visibility="public" isUnique="false">
+      <ownedAttribute xmi:id="_Lm3cZHAUEeq5A-M-bgu0Iw" name="responsible" visibility="public" isUnique="false">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       </ownedAttribute>
-      <ownedAttribute xmi:id="_-9BGXW9XEeqCN9yv8RHnbg" name="health_indicator" visibility="public" isUnique="false">
+      <ownedAttribute xmi:id="_Lm3cZXAUEeq5A-M-bgu0Iw" name="health_indicator" visibility="public" isUnique="false">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       </ownedAttribute>
-      <ownedAttribute xmi:id="_-9BGXm9XEeqCN9yv8RHnbg" name="health_indicator_details" visibility="public" isUnique="false">
+      <ownedAttribute xmi:id="_Lm3cZnAUEeq5A-M-bgu0Iw" name="health_indicator_details" visibility="public" isUnique="false">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       </ownedAttribute>
     </packagedElement>
-    <packagedElement xmi:type="uml:Interface" xmi:id="_-9BGX29XEeqCN9yv8RHnbg" name="IAnalyticBudget" isAbstract="true">
-      <ownedAttribute xmi:id="_-9BGYG9XEeqCN9yv8RHnbg" name="analytic_budget" visibility="public" isUnique="false">
+    <packagedElement xmi:type="uml:Interface" xmi:id="_Lm3cZ3AUEeq5A-M-bgu0Iw" name="IAnalyticBudget" isAbstract="true">
+      <ownedAttribute xmi:id="_Lm3caHAUEeq5A-M-bgu0Iw" name="analytic_budget" visibility="public" isUnique="false">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       </ownedAttribute>
-      <ownedAttribute xmi:id="_-9BGYW9XEeqCN9yv8RHnbg" name="projection" visibility="public" isUnique="false">
-        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-      </ownedAttribute>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Interface" xmi:id="_-9BGYm9XEeqCN9yv8RHnbg" name="IActionLink" isAbstract="true">
-      <ownedAttribute xmi:id="_-9BGY29XEeqCN9yv8RHnbg" name="symbolic_link" visibility="public" isUnique="false">
+      <ownedAttribute xmi:id="_Lm3caXAUEeq5A-M-bgu0Iw" name="projection" visibility="public" isUnique="false">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       </ownedAttribute>
     </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="_-9BGZG9XEeqCN9yv8RHnbg" name="ActionLink / SubActionLink" clientDependency="_-9BGZW9XEeqCN9yv8RHnbg">
-      <interfaceRealization xmi:id="_-9BGZW9XEeqCN9yv8RHnbg" name="InterfaceRealization" supplier="_-9BGYm9XEeqCN9yv8RHnbg" client="_-9BGZG9XEeqCN9yv8RHnbg" contract="_-9BGYm9XEeqCN9yv8RHnbg"/>
+    <packagedElement xmi:type="uml:Interface" xmi:id="_Lm3canAUEeq5A-M-bgu0Iw" name="IActionLink" isAbstract="true">
+      <ownedAttribute xmi:id="_Lm3ca3AUEeq5A-M-bgu0Iw" name="symbolic_link" visibility="public" isUnique="false">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_Lm3cbHAUEeq5A-M-bgu0Iw" name="ActionLink / SubActionLink" clientDependency="_Lm3cbXAUEeq5A-M-bgu0Iw">
+      <interfaceRealization xmi:id="_Lm3cbXAUEeq5A-M-bgu0Iw" name="InterfaceRealization" supplier="_Lm3canAUEeq5A-M-bgu0Iw" client="_Lm3cbHAUEeq5A-M-bgu0Iw" contract="_Lm3canAUEeq5A-M-bgu0Iw"/>
     </packagedElement>
   </packagedElement>
-  <packagedElement xmi:type="uml:Package" xmi:id="_-9BGZm9XEeqCN9yv8RHnbg" name="imio.project.core">
-    <packagedElement xmi:type="uml:Class" xmi:id="_-9BGZ29XEeqCN9yv8RHnbg" name="Project" clientDependency="_-9BGaG9XEeqCN9yv8RHnbg">
-      <interfaceRealization xmi:id="_-9BGaG9XEeqCN9yv8RHnbg" name="InterfaceRealization" supplier="_-9BGam9XEeqCN9yv8RHnbg" client="_-9BGZ29XEeqCN9yv8RHnbg" contract="_-9BGam9XEeqCN9yv8RHnbg"/>
-      <ownedOperation xmi:id="_-9BGaW9XEeqCN9yv8RHnbg" name="Title" visibility="public"/>
+  <packagedElement xmi:type="uml:Package" xmi:id="_Lm3cbnAUEeq5A-M-bgu0Iw" name="imio.project.core">
+    <packagedElement xmi:type="uml:Class" xmi:id="_Lm3cb3AUEeq5A-M-bgu0Iw" name="Project" clientDependency="_Lm3ccHAUEeq5A-M-bgu0Iw">
+      <interfaceRealization xmi:id="_Lm3ccHAUEeq5A-M-bgu0Iw" name="InterfaceRealization" supplier="_Lm3ccnAUEeq5A-M-bgu0Iw" client="_Lm3cb3AUEeq5A-M-bgu0Iw" contract="_Lm3ccnAUEeq5A-M-bgu0Iw"/>
+      <ownedOperation xmi:id="_Lm3ccXAUEeq5A-M-bgu0Iw" name="Title" visibility="public"/>
     </packagedElement>
-    <packagedElement xmi:type="uml:Interface" xmi:id="_-9BGam9XEeqCN9yv8RHnbg" name="IProject" isAbstract="true">
-      <ownedAttribute xmi:id="_-9BGa29XEeqCN9yv8RHnbg" name="description_rich" visibility="public" isUnique="false">
+    <packagedElement xmi:type="uml:Interface" xmi:id="_Lm3ccnAUEeq5A-M-bgu0Iw" name="IProject" isAbstract="true">
+      <ownedAttribute xmi:id="_Lm3cc3AUEeq5A-M-bgu0Iw" name="description_rich" visibility="public" isUnique="false">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       </ownedAttribute>
-      <ownedAttribute xmi:id="_-9BGbG9XEeqCN9yv8RHnbg" name="reference_number" visibility="public" isUnique="false">
+      <ownedAttribute xmi:id="_Lm3cdHAUEeq5A-M-bgu0Iw" name="reference_number" visibility="public" isUnique="false">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       </ownedAttribute>
-      <ownedAttribute xmi:id="_-9BGbW9XEeqCN9yv8RHnbg" name="categories" visibility="public" isUnique="false">
+      <ownedAttribute xmi:id="_Lm3cdXAUEeq5A-M-bgu0Iw" name="categories" visibility="public" isUnique="false">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       </ownedAttribute>
-      <ownedAttribute xmi:id="_-9BGbm9XEeqCN9yv8RHnbg" name="priority" visibility="public" isUnique="false">
+      <ownedAttribute xmi:id="_Lm3cdnAUEeq5A-M-bgu0Iw" name="priority" visibility="public" isUnique="false">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       </ownedAttribute>
-      <ownedAttribute xmi:id="_-9BGb29XEeqCN9yv8RHnbg" name="budget" visibility="public" isUnique="false">
+      <ownedAttribute xmi:id="_Lm3cd3AUEeq5A-M-bgu0Iw" name="budget" visibility="public" isUnique="false">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       </ownedAttribute>
-      <ownedAttribute xmi:id="_-9BGcG9XEeqCN9yv8RHnbg" name="budget_comments" visibility="public" isUnique="false">
+      <ownedAttribute xmi:id="_Lm3ceHAUEeq5A-M-bgu0Iw" name="budget_comments" visibility="public" isUnique="false">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       </ownedAttribute>
-      <ownedAttribute xmi:id="_-9BGcW9XEeqCN9yv8RHnbg" name="manager" visibility="public" isUnique="false">
+      <ownedAttribute xmi:id="_Lm3ceXAUEeq5A-M-bgu0Iw" name="manager" visibility="public" isUnique="false">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       </ownedAttribute>
-      <ownedAttribute xmi:id="_-9BGcm9XEeqCN9yv8RHnbg" name="visible_for" visibility="public" isUnique="false">
+      <ownedAttribute xmi:id="_Lm3cenAUEeq5A-M-bgu0Iw" name="visible_for" visibility="public" isUnique="false">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       </ownedAttribute>
-      <ownedAttribute xmi:id="_-9BGc29XEeqCN9yv8RHnbg" name="extra_concerned_people" visibility="public" isUnique="false">
+      <ownedAttribute xmi:id="_Lm3ce3AUEeq5A-M-bgu0Iw" name="extra_concerned_people" visibility="public" isUnique="false">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       </ownedAttribute>
-      <ownedAttribute xmi:id="_-9BGdG9XEeqCN9yv8RHnbg" name="result_indicator" visibility="public" isUnique="false">
+      <ownedAttribute xmi:id="_Lm3cfHAUEeq5A-M-bgu0Iw" name="result_indicator" visibility="public" isUnique="false">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       </ownedAttribute>
-      <ownedAttribute xmi:id="_-9BGdW9XEeqCN9yv8RHnbg" name="planned_begin_date" visibility="public" isUnique="false">
+      <ownedAttribute xmi:id="_Lm3cfXAUEeq5A-M-bgu0Iw" name="planned_begin_date" visibility="public" isUnique="false">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       </ownedAttribute>
-      <ownedAttribute xmi:id="_-9BGdm9XEeqCN9yv8RHnbg" name="effective_begin_date" visibility="public" isUnique="false">
+      <ownedAttribute xmi:id="_Lm3cfnAUEeq5A-M-bgu0Iw" name="effective_begin_date" visibility="public" isUnique="false">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       </ownedAttribute>
-      <ownedAttribute xmi:id="_-9BGd29XEeqCN9yv8RHnbg" name="planned_end_date" visibility="public" isUnique="false">
+      <ownedAttribute xmi:id="_Lm3cf3AUEeq5A-M-bgu0Iw" name="planned_end_date" visibility="public" isUnique="false">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       </ownedAttribute>
-      <ownedAttribute xmi:id="_-9BGeG9XEeqCN9yv8RHnbg" name="effective_end_date" visibility="public" isUnique="false">
+      <ownedAttribute xmi:id="_Lm3cgHAUEeq5A-M-bgu0Iw" name="effective_end_date" visibility="public" isUnique="false">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       </ownedAttribute>
-      <ownedAttribute xmi:id="_-9BGeW9XEeqCN9yv8RHnbg" name="progress" visibility="public" isUnique="false">
+      <ownedAttribute xmi:id="_Lm3cgXAUEeq5A-M-bgu0Iw" name="progress" visibility="public" isUnique="false">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       </ownedAttribute>
-      <ownedAttribute xmi:id="_-9BGem9XEeqCN9yv8RHnbg" name="observation" visibility="public" isUnique="false">
+      <ownedAttribute xmi:id="_Lm3cgnAUEeq5A-M-bgu0Iw" name="observation" visibility="public" isUnique="false">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       </ownedAttribute>
-      <ownedAttribute xmi:id="_-9BGe29XEeqCN9yv8RHnbg" name="comments" visibility="public" isUnique="false">
-        <ownedComment xmi:id="_-9BGfG9XEeqCN9yv8RHnbg">
+      <ownedAttribute xmi:id="_Lm3cg3AUEeq5A-M-bgu0Iw" name="comments" visibility="public" isUnique="false">
+        <ownedComment xmi:id="_Lm3chHAUEeq5A-M-bgu0Iw">
           <body>&lt;Enter note text here></body>
         </ownedComment>
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       </ownedAttribute>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="_-9BGfW9XEeqCN9yv8RHnbg" name="ProjectSpace" clientDependency="_-9BGfm9XEeqCN9yv8RHnbg">
-      <interfaceRealization xmi:id="_-9BGfm9XEeqCN9yv8RHnbg" name="InterfaceRealization" supplier="_-9BGf29XEeqCN9yv8RHnbg" client="_-9BGfW9XEeqCN9yv8RHnbg" contract="_-9BGf29XEeqCN9yv8RHnbg"/>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Interface" xmi:id="_-9BGf29XEeqCN9yv8RHnbg" name="IProjectSpace" isAbstract="true">
-      <ownedAttribute xmi:id="_-9BGgG9XEeqCN9yv8RHnbg" name="last_reference_number" visibility="public" isUnique="false">
-        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="_-9BGgW9XEeqCN9yv8RHnbg" name="categories_values" visibility="public" isUnique="false">
-        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="_-9BGgm9XEeqCN9yv8RHnbg" name="priority_values" visibility="public" isUnique="false">
-        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="_-9BGg29XEeqCN9yv8RHnbg" name="budget_types" visibility="public" isUnique="false">
-        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="_-9BGhG9XEeqCN9yv8RHnbg" name="budget_years" visibility="public" isUnique="false">
-        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="_-9BGhW9XEeqCN9yv8RHnbg" name="use_ref_number" visibility="public" isUnique="false">
-        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="_-9BGhm9XEeqCN9yv8RHnbg" name="INS_code" visibility="public" isUnique="false">
-        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="_-9BGh29XEeqCN9yv8RHnbg" name="current_fiscal_year" visibility="public" isUnique="false">
+      <ownedAttribute xmi:id="_Lm3chXAUEeq5A-M-bgu0Iw" name="plan" visibility="public" isUnique="false">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       </ownedAttribute>
     </packagedElement>
-  </packagedElement>
-  <packagedElement xmi:type="uml:Package" xmi:id="_-9BGiG9XEeqCN9yv8RHnbg" name="collective.behavior.sdg">
-    <packagedElement xmi:type="uml:Interface" xmi:id="_-9BGiW9XEeqCN9yv8RHnbg" name="ISustainableDevelopmentGoals" isAbstract="true">
-      <ownedAttribute xmi:id="_-9BGim9XEeqCN9yv8RHnbg" name="sdgs" visibility="public" isUnique="false">
-        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-      </ownedAttribute>
+    <packagedElement xmi:type="uml:Class" xmi:id="_Lm3chnAUEeq5A-M-bgu0Iw" name="ProjectSpace" clientDependency="_Lm3ch3AUEeq5A-M-bgu0Iw">
+      <interfaceRealization xmi:id="_Lm3ch3AUEeq5A-M-bgu0Iw" name="InterfaceRealization" supplier="_Lm3ciHAUEeq5A-M-bgu0Iw" client="_Lm3chnAUEeq5A-M-bgu0Iw" contract="_Lm3ciHAUEeq5A-M-bgu0Iw"/>
     </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="_-9BGi29XEeqCN9yv8RHnbg" name="SustainableDevelopmentGoals" clientDependency="_-9BGjG9XEeqCN9yv8RHnbg">
-      <interfaceRealization xmi:id="_-9BGjG9XEeqCN9yv8RHnbg" name="InterfaceRealization" supplier="_-9BGiW9XEeqCN9yv8RHnbg" client="_-9BGi29XEeqCN9yv8RHnbg" contract="_-9BGiW9XEeqCN9yv8RHnbg"/>
-      <ownedOperation xmi:id="_-9BGjW9XEeqCN9yv8RHnbg" name="sdgs" visibility="public"/>
-    </packagedElement>
-  </packagedElement>
-  <packagedElement xmi:type="uml:Package" xmi:id="_-9BGjm9XEeqCN9yv8RHnbg" name="collective.task">
-    <packagedElement xmi:type="uml:Interface" xmi:id="_-9BGj29XEeqCN9yv8RHnbg" name="ITaskContent" isAbstract="true">
-      <ownedAttribute xmi:id="_-9BGkG9XEeqCN9yv8RHnbg" name="iTask" visibility="public" type="_-9BGmG9XEeqCN9yv8RHnbg" aggregation="shared" association="_-9BGlW9XEeqCN9yv8RHnbg">
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_-9BGkW9XEeqCN9yv8RHnbg"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="_-9BGkm9XEeqCN9yv8RHnbg" name="title" visibility="public" isUnique="false">
+    <packagedElement xmi:type="uml:Interface" xmi:id="_Lm3ciHAUEeq5A-M-bgu0Iw" name="IProjectSpace" isAbstract="true">
+      <ownedAttribute xmi:id="_Lm3ciXAUEeq5A-M-bgu0Iw" name="last_reference_number" visibility="public" isUnique="false">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       </ownedAttribute>
-      <ownedAttribute xmi:id="_-9BGk29XEeqCN9yv8RHnbg" name="parents_assigned_groups" visibility="public" isUnique="false">
+      <ownedAttribute xmi:id="_Lm3cinAUEeq5A-M-bgu0Iw" name="categories_values" visibility="public" isUnique="false">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       </ownedAttribute>
-      <ownedAttribute xmi:id="_-9BGlG9XEeqCN9yv8RHnbg" name="parents_enquirers" visibility="public" isUnique="false">
+      <ownedAttribute xmi:id="_Lm3ci3AUEeq5A-M-bgu0Iw" name="priority_values" visibility="public" isUnique="false">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_Lm3cjHAUEeq5A-M-bgu0Iw" name="budget_types" visibility="public" isUnique="false">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_Lm3cjXAUEeq5A-M-bgu0Iw" name="budget_years" visibility="public" isUnique="false">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_Lm3cjnAUEeq5A-M-bgu0Iw" name="use_ref_number" visibility="public" isUnique="false">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_Lm3cj3AUEeq5A-M-bgu0Iw" name="INS_code" visibility="public" isUnique="false">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_Lm3ckHAUEeq5A-M-bgu0Iw" name="current_fiscal_year" visibility="public" isUnique="false">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_Lm3ckXAUEeq5A-M-bgu0Iw" name="plan_values" visibility="public" isUnique="false">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       </ownedAttribute>
     </packagedElement>
-    <packagedElement xmi:type="uml:Association" xmi:id="_-9BGlW9XEeqCN9yv8RHnbg" memberEnd="_-9BGkG9XEeqCN9yv8RHnbg _-9BGlm9XEeqCN9yv8RHnbg">
-      <ownedEnd xmi:id="_-9BGlm9XEeqCN9yv8RHnbg" visibility="public" type="_-9BGj29XEeqCN9yv8RHnbg" association="_-9BGlW9XEeqCN9yv8RHnbg">
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_-9BGl29XEeqCN9yv8RHnbg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Package" xmi:id="_Lm3cknAUEeq5A-M-bgu0Iw" name="collective.behavior.sdg">
+    <packagedElement xmi:type="uml:Association" xmi:id="_Lm3ck3AUEeq5A-M-bgu0Iw" memberEnd="_Lm3cRnAUEeq5A-M-bgu0Iw _Lm3clHAUEeq5A-M-bgu0Iw">
+      <ownedEnd xmi:id="_Lm3clHAUEeq5A-M-bgu0Iw" visibility="public" type="_Lm3cQXAUEeq5A-M-bgu0Iw" association="_Lm3ck3AUEeq5A-M-bgu0Iw">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Lm3clXAUEeq5A-M-bgu0Iw"/>
       </ownedEnd>
     </packagedElement>
-    <packagedElement xmi:type="uml:Interface" xmi:id="_-9BGmG9XEeqCN9yv8RHnbg" name="ITask" isAbstract="true">
-      <ownedAttribute xmi:id="_-9BGmW9XEeqCN9yv8RHnbg" name="task_description" visibility="public" isUnique="false">
-        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="_-9BGmm9XEeqCN9yv8RHnbg" name="assigned_group" visibility="public" isUnique="false">
-        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="_-9BGm29XEeqCN9yv8RHnbg" name="assigned_user" visibility="public" isUnique="false">
-        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="_-9BGnG9XEeqCN9yv8RHnbg" name="due_date" visibility="public" isUnique="false">
-        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="_-9BGnW9XEeqCN9yv8RHnbg" name="enquirer" visibility="public" isUnique="false">
+    <packagedElement xmi:type="uml:Association" xmi:id="_Lm3clnAUEeq5A-M-bgu0Iw" memberEnd="_Lm3cV3AUEeq5A-M-bgu0Iw _Lm3cl3AUEeq5A-M-bgu0Iw">
+      <ownedEnd xmi:id="_Lm3cl3AUEeq5A-M-bgu0Iw" visibility="public" type="_Lm3cUnAUEeq5A-M-bgu0Iw" association="_Lm3clnAUEeq5A-M-bgu0Iw">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Lm3cmHAUEeq5A-M-bgu0Iw"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Interface" xmi:id="_Lm3cmXAUEeq5A-M-bgu0Iw" name="ISustainableDevelopmentGoals" isAbstract="true">
+      <ownedAttribute xmi:id="_Lm3cmnAUEeq5A-M-bgu0Iw" name="sdgs" visibility="public" isUnique="false">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       </ownedAttribute>
     </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="_-9BGnm9XEeqCN9yv8RHnbg" name="Task" clientDependency="_-9BGn29XEeqCN9yv8RHnbg">
-      <interfaceRealization xmi:id="_-9BGn29XEeqCN9yv8RHnbg" name="InterfaceRealization" supplier="_-9BGj29XEeqCN9yv8RHnbg" client="_-9BGnm9XEeqCN9yv8RHnbg" contract="_-9BGj29XEeqCN9yv8RHnbg"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_Lm3cm3AUEeq5A-M-bgu0Iw" name="SustainableDevelopmentGoals" clientDependency="_Lm3cnHAUEeq5A-M-bgu0Iw">
+      <interfaceRealization xmi:id="_Lm3cnHAUEeq5A-M-bgu0Iw" name="InterfaceRealization" supplier="_Lm3cmXAUEeq5A-M-bgu0Iw" client="_Lm3cm3AUEeq5A-M-bgu0Iw" contract="_Lm3cmXAUEeq5A-M-bgu0Iw"/>
+      <ownedOperation xmi:id="_Lm3cnXAUEeq5A-M-bgu0Iw" name="sdgs" visibility="public"/>
+    </packagedElement>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Package" xmi:id="_Lm3cnnAUEeq5A-M-bgu0Iw" name="collective.task">
+    <packagedElement xmi:type="uml:Interface" xmi:id="_Lm3cn3AUEeq5A-M-bgu0Iw" name="ITaskContent" isAbstract="true">
+      <ownedAttribute xmi:id="_Lm3coHAUEeq5A-M-bgu0Iw" name="iTask" visibility="public" type="_Lm3cqHAUEeq5A-M-bgu0Iw" aggregation="shared" association="_Lm3cpXAUEeq5A-M-bgu0Iw">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Lm3coXAUEeq5A-M-bgu0Iw"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_Lm3conAUEeq5A-M-bgu0Iw" name="title" visibility="public" isUnique="false">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_Lm3co3AUEeq5A-M-bgu0Iw" name="parents_assigned_groups" visibility="public" isUnique="false">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_Lm3cpHAUEeq5A-M-bgu0Iw" name="parents_enquirers" visibility="public" isUnique="false">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_Lm3cpXAUEeq5A-M-bgu0Iw" memberEnd="_Lm3coHAUEeq5A-M-bgu0Iw _Lm3cpnAUEeq5A-M-bgu0Iw">
+      <ownedEnd xmi:id="_Lm3cpnAUEeq5A-M-bgu0Iw" visibility="public" type="_Lm3cn3AUEeq5A-M-bgu0Iw" association="_Lm3cpXAUEeq5A-M-bgu0Iw">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Lm3cp3AUEeq5A-M-bgu0Iw"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Interface" xmi:id="_Lm3cqHAUEeq5A-M-bgu0Iw" name="ITask" isAbstract="true">
+      <ownedAttribute xmi:id="_Lm3cqXAUEeq5A-M-bgu0Iw" name="task_description" visibility="public" isUnique="false">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_Lm3cqnAUEeq5A-M-bgu0Iw" name="assigned_group" visibility="public" isUnique="false">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_Lm3cq3AUEeq5A-M-bgu0Iw" name="assigned_user" visibility="public" isUnique="false">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_Lm3crHAUEeq5A-M-bgu0Iw" name="due_date" visibility="public" isUnique="false">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_Lm3crXAUEeq5A-M-bgu0Iw" name="enquirer" visibility="public" isUnique="false">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_Lm3crnAUEeq5A-M-bgu0Iw" name="Task" clientDependency="_Lm3cr3AUEeq5A-M-bgu0Iw">
+      <interfaceRealization xmi:id="_Lm3cr3AUEeq5A-M-bgu0Iw" name="InterfaceRealization" supplier="_Lm3cn3AUEeq5A-M-bgu0Iw" client="_Lm3crnAUEeq5A-M-bgu0Iw" contract="_Lm3cn3AUEeq5A-M-bgu0Iw"/>
     </packagedElement>
   </packagedElement>
 </uml:Model>
