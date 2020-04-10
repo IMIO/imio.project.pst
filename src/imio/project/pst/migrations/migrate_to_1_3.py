@@ -355,8 +355,10 @@ class Migrate_To_1_3(Migrator):
         # Add subactions in actions collections
         site = self.portal
         brains = api.content.find(context=site, depth=1, portal_type='projectspace')
+        folders = ['strategicobjectives', 'operationalobjectives', 'pstactions', 'tasks']
         for brain in brains:
-            brain.getObject()['pstactions'].reindexObject()
+            for folder in folders:
+                brain.getObject()['pstactions'].reindexObject()
         pstactions = self.catalog(portal_type="Folder",
                                   object_provides="imio.project.pst.interfaces.IActionDashboardBatchActions")
         for pstaction in pstactions:
