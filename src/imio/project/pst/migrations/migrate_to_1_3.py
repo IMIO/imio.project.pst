@@ -262,9 +262,15 @@ class Migrate_To_1_3(Migrator):
         brains = self.catalog(object_provides="imio.project.pst.interfaces.IImioPSTProject")
         for brain in brains:
             obj = brain.getObject()
-            if obj.priority[0]['key'] == '':
-                obj.priority[0]['key'] = u'0'
-                obj.reindexObject()
+            try:
+                if obj.priority[0]['key'] == '':
+                    obj.priority[0]['key'] = u'0'
+                    obj.reindexObject()
+            except AttributeError:
+                if obj.priority_values[0]['key'] == '':
+                    obj.priority_values[0]['key'] = u'0'
+                    obj.reindexObject()
+
 
         brains = self.catalog(object_provides="imio.project.pst.content.operational.IOperationalObjective")
         for brain in brains:
