@@ -36,22 +36,22 @@
 
     <utility
         name="imio.project.pst.SOFieldsVocabulary"
-        factory="imio.project.pst.browser.controlpanel.SOFieldsVocabulary"
+        factory="imio.project.pst.content.pstprojectspace.SOFieldsVocabulary"
         />
 
     <utility
         name="imio.project.pst.OOFieldsVocabulary"
-        factory="imio.project.pst.browser.controlpanel.OOFieldsVocabulary"
+        factory="imio.project.pst.content.pstprojectspace.OOFieldsVocabulary"
         />
 
     <utility
         name="imio.project.pst.ActionFieldsVocabulary"
-        factory="imio.project.pst.browser.controlpanel.ActionFieldsVocabulary"
+        factory="imio.project.pst.content.pstprojectspace.ActionFieldsVocabulary"
         />
 
     <utility
         name="imio.project.pst.SubActionFieldsVocabulary"
-        factory="imio.project.pst.browser.controlpanel.SubActionFieldsVocabulary"
+        factory="imio.project.pst.content.pstprojectspace.SubActionFieldsVocabulary"
         />
 
 </configure>

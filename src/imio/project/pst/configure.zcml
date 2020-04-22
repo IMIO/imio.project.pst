@@ -33,6 +33,11 @@
     <include file="vocabularies.zcml" />
 
     <utility
+        factory=".content.pstprojectspace.PSTProjectSpaceSchemaPolicy"
+        name="schema_policy_pstprojectspace"
+    />
+
+    <utility
         factory=".content.strategic.StrategicObjectiveSchemaPolicy"
         name="schema_policy_strategicobjective"
     />
