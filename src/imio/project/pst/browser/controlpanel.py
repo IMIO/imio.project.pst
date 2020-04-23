@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 
 from imio.project.core import _ as _c
-from imio.project.core.browser.controlpanel import mandatory_check
-from imio.project.core.browser.controlpanel import position_check
 from imio.project.pst import _
 from plone.app.registry.browser.controlpanel import ControlPanelFormWrapper
 from plone.app.registry.browser.controlpanel import RegistryEditForm
@@ -10,28 +8,7 @@ from plone.z3cform import layout
 from plone.z3cform.fieldsets.utils import remove
 from z3c.form import form
 from zope import schema
-from zope.interface import implements
 from zope.interface import Interface
-from zope.interface import invariant
-#from zope.interface import Invalid
-from zope.schema.interfaces import IVocabularyFactory
-
-
-field_constraints = {
-    'titles': {},
-    'mandatory': {'strategicobjective': ['IDublinCore.title'],
-                  'operationalobjective': ['IDublinCore.title'],
-                  'pstaction': ['IDublinCore.title'],
-                  },
-    'indexes': {'strategicobjective': [('IDublinCore.title', 1)],
-                'operationalobjective': [('IDublinCore.title', 1)],
-                'pstaction': [('IDublinCore.title', 1)],
-                },
-    'empty': {'strategicobjective': [],
-              'operationalobjective': [],
-              'pstaction': [],
-              },
-}
 
 
 class IImioPSTSettings(Interface):
@@ -64,11 +41,6 @@ class IImioPSTSettings(Interface):
         required=False,
         value_type=schema.Choice(vocabulary=u'imio.project.pst.PSTActionReviewStatesVocabulary'),
     )
-
-    @invariant
-    def validateSettings(data):
-        mandatory_check(data, field_constraints)
-        position_check(data, field_constraints)
 
 
 class SettingsEditForm(RegistryEditForm):

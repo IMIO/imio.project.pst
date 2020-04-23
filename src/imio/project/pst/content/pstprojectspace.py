@@ -1,6 +1,6 @@
-from imio.project.core.browser.controlpanel import get_pt_fields_voc
-from imio.project.core.browser.controlpanel import mandatory_check
-from imio.project.core.browser.controlpanel import position_check
+from imio.project.core.content.projectspace import get_pt_fields_voc
+from imio.project.core.content.projectspace import mandatory_check
+from imio.project.core.content.projectspace import position_check
 from imio.project.core.content.projectspace import IProjectSpace
 from imio.project.core.content.projectspace import ProjectSpace
 from imio.project.core.content.projectspace import ProjectSpaceSchemaPolicy
@@ -10,6 +10,23 @@ from zope import schema
 from zope.interface import implements
 from zope.interface import invariant
 from zope.schema.interfaces import IVocabularyFactory
+
+
+field_constraints = {
+    'titles': {},
+    'mandatory': {'strategicobjective': ['IDublinCore.title'],
+                  'operationalobjective': ['IDublinCore.title'],
+                  'pstaction': ['IDublinCore.title'],
+                  },
+    'indexes': {'strategicobjective': [('IDublinCore.title', 1)],
+                'operationalobjective': [('IDublinCore.title', 1)],
+                'pstaction': [('IDublinCore.title', 1)],
+                },
+    'empty': {'strategicobjective': [],
+              'operationalobjective': [],
+              'pstaction': [],
+              },
+}
 
 
 class IPSTProjectSpace(IProjectSpace):

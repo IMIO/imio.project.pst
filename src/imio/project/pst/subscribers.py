@@ -6,7 +6,7 @@ from eea.facetednavigation.criteria.interfaces import ICriteria
 from imio.helpers.content import set_to_annotation
 from imio.pm.wsclient.browser.settings import notify_configuration_changed
 from imio.project.core.events import empty_fields
-from imio.project.pst.browser.controlpanel import field_constraints
+from imio.project.pst.content.pstprojectspace import field_constraints
 from imio.project.pst.content.action import IPSTSubAction
 from imio.project.pst.interfaces import IActionDashboardBatchActions
 from imio.project.pst.interfaces import IImioPSTProject
