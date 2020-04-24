@@ -6,6 +6,7 @@ from collective.z3cform.chosen.widget import AjaxChosenFieldWidget
 from collective.z3cform.chosen.widget import AjaxChosenMultiFieldWidget
 from collective.z3cform.datagridfield import DataGridFieldFactory
 #from dexterity.localrolesfield.field import LocalRoleField
+from collective.z3cform.datagridfield import DictRow
 from dexterity.localrolesfield.field import LocalRolesField
 from imio.helpers.content import get_from_annotation
 from imio.project.core.browser.views import ProjectAddForm
@@ -15,6 +16,7 @@ from imio.project.core.utils import getProjectSpace
 from imio.project.pst import _
 from plone import api
 from plone.autoform import directives as form
+from plone.autoform.interfaces import IFormFieldProvider
 from plone.dexterity.browser.add import DefaultAddView
 from plone.dexterity.schema import DexteritySchemaPolicy
 from plone.directives.form import default_value
@@ -22,13 +24,38 @@ from z3c.form import validator
 from zc.relation.interfaces import ICatalog
 from zope import schema
 from zope.component import getUtility
+from zope.interface import Interface
 from zope.interface import implements
 from zope.interface import Invalid
+from zope.interface import invariant
+from zope.interface import provider
 from zope.intid.interfaces import IIntIds
 from zope.schema.interfaces import IVocabularyFactory
 from zope.schema.vocabulary import SimpleTerm
 from zope.schema.vocabulary import SimpleVocabulary
 from zope.security import checkPermission
+
+
+@provider(IFormFieldProvider)
+class IBudgetSplitSchema(Interface):
+    """"""
+
+    uid = schema.TextLine(
+        title=_(u"UID"),
+        required=True,
+    )
+
+    title = schema.TextLine(
+        title=_(u"Title"),
+        required=True,
+    )
+
+    percentage = schema.Float(
+        title=_(u"Percentage"),
+        required=True,
+        min=0.0,
+        max=100.0,
+    )
 
 
 class IPSTAction(IProject):
@@ -69,6 +96,20 @@ class IPSTAction(IProject):
     # change label
     form.widget('result_indicator', DataGridFieldFactory, display_table_css_class='listing nosort',
                 label=_(u'Realisation indicator'))
+
+    budget_split = schema.List(
+        title=_(u"Budget split"),
+        required=False,
+        value_type=DictRow(
+            title=_("Budget split"), schema=IBudgetSplitSchema, required=False
+        ),
+    )
+
+    @invariant
+    def budget_split_total_invariant(data):
+        budget_split = getattr(data, 'budget_split', [])
+        if budget_split and sum([line.get('percentage') for line in budget_split]) != 100.0:
+            raise Invalid(_(u'The sum of all percentages must amount to 100 %.'))
 
 
 # We add a default value for the pstaction. This works but changes on other field params don't work.
