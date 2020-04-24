@@ -1,11 +1,20 @@
 # -*- coding: utf-8 -*-
 
+from Products.CMFPlone.utils import base_hasattr
+from Products.statusmessages.interfaces import IStatusMessage
 from collective.eeafaceted.dashboard.browser.overrides import DashboardFacetedTableView as DFTV
+from collective.z3cform.datagridfield import DataGridFieldFactory
 from imio.helpers.content import transitions
 from imio.project.core.config import SUMMARIZED_FIELDS
+from imio.project.pst import _
+from imio.project.pst.content.action import IPSTAction
 from plone import api
 from plone.app.versioningbehavior.browser import VersionView as OVV
 from Products.Five.browser import BrowserView
+from z3c.form import button
+from z3c.form.field import Fields
+from z3c.form.form import EditForm
+from z3c.form.interfaces import HIDDEN_MODE
 from zope.component import getMultiAdapter
 
 
@@ -64,3 +73,40 @@ class ActionFacetedTableView(DFTV):
             return [elt[0] for elt in self.collection.selectedViewFields()]
         else:
             return [elt[0] for elt in self.collection.selectedViewFields() if elt[0] != 'parents']
+
+
+class BudgetSplitForm(EditForm):
+
+    label = _(u"Split action budget")
+    fields = Fields(IPSTAction).select('budget_split')
+    fields['budget_split'].widgetFactory = DataGridFieldFactory
+
+    def getContent(self):
+        if base_hasattr(self.context, 'symbolic_link'):
+            return self.context._link
+        else:
+            return self.context
+
+    @button.buttonAndHandler(_('Save'), name='save')
+    def handleAdd(self, action):
+
+        data, errors = self.extractData()
+        if errors:
+            self.status = self.formErrorsMessage
+            return
+
+        self.applyChanges(data)
+        IStatusMessage(self.request).addStatusMessage(
+            _(u"Budget split saved"),
+            "info",
+        )
+
+    def datagridUpdateWidgets(self, subform, widgets, widget):
+        widget.columns[0]['mode'] = HIDDEN_MODE
+        widgets['uid'].mode = HIDDEN_MODE
+    def updateWidgets(self):
+        super(EditForm, self).updateWidgets()
+        self.widgets['budget_split'].allow_reorder = False
+        self.widgets['budget_split'].allow_insert = False
+        self.widgets['budget_split'].allow_delete = False
+        self.widgets['budget_split'].auto_append = False

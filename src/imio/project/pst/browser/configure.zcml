@@ -98,6 +98,13 @@
       permission="zope2.View"
       />
 
+    <browser:view
+      for="imio.project.pst.content.action.IPSTAction"
+      name="budget_split"
+      class=".views.BudgetSplitForm"
+      permission="cmf.ModifyPortalContent"
+      />
+
     <browser:page
       name="pst-settings"
       for="Products.CMFPlone.interfaces.IPloneSiteRoot"
