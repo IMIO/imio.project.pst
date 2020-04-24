@@ -178,10 +178,15 @@ class PSTAction(Project):
         catalog = getUtility(ICatalog)
         intids = getUtility(IIntIds)
         result = []
+        to_id = intids.queryId(aq_inner(self))
+        if not to_id:
+            return result
         for rel in catalog.findRelations(
-                dict(to_id=intids.getId(aq_inner(self)),
+                dict(to_id=to_id,
                      from_attribute='symbolic_link')
         ):
+            if not rel.from_object:
+                continue
             obj = intids.queryObject(rel.from_id)
             if obj is not None and checkPermission('zope2.View', obj):
                 result.append(obj)
@@ -246,6 +251,27 @@ class PSTSubAction(Project):
             return '%s (SA.%s)' % (self.title.encode('utf8'), self.reference_number)
         else:
             return self.title.encode('utf8')
+
+    def back_references(self):
+        """
+        Return back references from source object on specified attribute_name
+        """
+        catalog = getUtility(ICatalog)
+        intids = getUtility(IIntIds)
+        result = []
+        to_id = intids.queryId(aq_inner(self))
+        if not to_id:
+            return result
+        for rel in catalog.findRelations(
+                dict(to_id=to_id,
+                     from_attribute='symbolic_link')
+        ):
+            if not rel.from_object:
+                continue
+            obj = intids.queryObject(rel.from_id)
+            if obj is not None and checkPermission('zope2.View', obj):
+                result.append(obj)
+        return result
 
     def has_subactions(self):
         return False
