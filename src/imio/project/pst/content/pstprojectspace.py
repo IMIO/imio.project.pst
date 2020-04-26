@@ -1,3 +1,4 @@
+from plone.autoform import directives
 from imio.project.core.content.projectspace import get_pt_fields_voc
 from imio.project.core.content.projectspace import mandatory_check
 from imio.project.core.content.projectspace import position_check
@@ -58,6 +59,8 @@ class IPSTProjectSpace(IProjectSpace):
 #        description=_c(u'Put fields on the right to display it. Flags are : ...'),
         value_type=schema.Choice(vocabulary=u'imio.project.pst.ActionFieldsVocabulary'),
     )
+
+    directives.omitted('project_fields')
 
     @invariant
     def validateSettings(data):
