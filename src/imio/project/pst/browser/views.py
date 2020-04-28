@@ -104,6 +104,7 @@ class BudgetSplitForm(EditForm):
     def datagridUpdateWidgets(self, subform, widgets, widget):
         widget.columns[0]['mode'] = HIDDEN_MODE
         widgets['uid'].mode = HIDDEN_MODE
+
     def updateWidgets(self):
         super(EditForm, self).updateWidgets()
         self.widgets['budget_split'].allow_reorder = False

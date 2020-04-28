@@ -70,7 +70,7 @@ class ActionFieldsVocabulary(object):
                                  ['IDublinCore.description', 'IDublinCore.contributors', 'IDublinCore.creators',
                                   'IDublinCore.effective', 'IDublinCore.expires', 'IDublinCore.language',
                                   'IDublinCore.rights', 'IDublinCore.subjects', 'INameFromTitle.title',
-                                  'IVersionable.changeNote', 'notes', 'priority', 'visible_for'],
+                                  'IVersionable.changeNote', 'budget_split', 'notes', 'priority', 'visible_for'],
                                  field_constraints)
 
 
