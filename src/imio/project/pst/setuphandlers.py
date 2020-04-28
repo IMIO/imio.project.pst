@@ -362,7 +362,6 @@ def _addPSTprojectspace(context):
 
     createContentInContainer(site, 'pstprojectspace', id='pst', **params)
     pstprojectspace = site.pst
-    alsoProvides(pstprojectspace, IPSTProjectSpace)
     # local roles
     pstprojectspace.manage_addLocalRoles("pst_editors", ('Reader', 'Editor', 'Reviewer', 'Contributor', ))
     # dashboard
