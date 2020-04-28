@@ -52,15 +52,8 @@ def wsclient_configuration_changed(event):
 
 
 def projectspace_created(obj, event):
-    """When a projectspace is created, if it is not the PST, we constrain types to ('project', )"""
-
+    """  """
     alsoProvides(obj, IOSDashboardBatchActions)
-
-    if not IProjectSpace.providedBy(obj):
-        behaviour = ISelectableConstrainTypes(obj)
-        behaviour.setConstrainTypesMode(1)
-        behaviour.setLocallyAllowedTypes(['project', ])
-        behaviour.setImmediatelyAddableTypes(['project', ])
 
 
 def projectspace_moved(obj, event):
