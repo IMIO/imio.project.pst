@@ -25,8 +25,8 @@ from imio.project.pst import _tr as _
 from imio.project.pst import add_path
 from imio.project.pst import CKEDITOR_MENUSTYLES_CUSTOMIZED_MSG
 from imio.project.pst import PRODUCT_DIR
+from imio.project.pst.content.pstprojectspace import IPSTProjectSpace
 from imio.project.pst.interfaces import IActionDashboardBatchActions
-from imio.project.pst.interfaces import IImioPSTProject
 from imio.project.pst.interfaces import IOODashboardBatchActions
 from imio.project.pst.interfaces import IOSDashboardBatchActions
 from imio.project.pst.interfaces import ITaskDashboardBatchActions
@@ -208,7 +208,7 @@ def override_dg_templates(context):
 
 
 def _addPSTprojectspace(context):
-    """Add a projectspace at the root of the site for PST"""
+    """Add a PST projectspace at the root of the site for PST"""
     if isNotCurrentProfile(context):
         return
     site = context.getSite()
@@ -333,21 +333,48 @@ def _addPSTprojectspace(context):
     else:
         params['budget_years'] = [2019, 2020, 2021, 2022, 2023, 2024]
 
-    createContentInContainer(site, 'projectspace', id='pst', **params)
-    projectspace = site.pst
-    alsoProvides(projectspace, IImioPSTProject)
+    strategicobjective_fields = [
+            'IDublinCore.title', 'description_rich', 'reference_number',
+            'categories', 'plan', 'IAnalyticBudget.projection',
+            'IAnalyticBudget.analytic_budget', 'budget', 'budget_comments',
+            'observation', 'comments']
+    operationalobjective_fields = [
+            'IDublinCore.title', 'description_rich', 'reference_number',
+            'categories', 'plan', 'result_indicator', 'priority',
+            'planned_end_date', 'representative_responsible',
+            'administrative_responsible', 'manager', 'extra_concerned_people',
+            'IAnalyticBudget.projection', 'IAnalyticBudget.analytic_budget',
+            'budget', 'budget_comments', 'ISustainableDevelopmentGoals.sdgs',
+            'observation', 'comments']
+    pstaction_fields = [
+            'IDublinCore.title', 'description_rich', 'reference_number',
+            'categories', 'plan', 'result_indicator', 'planned_end_date',
+            'planned_begin_date', 'effective_begin_date', 'effective_end_date',
+            'progress', 'health_indicator', 'health_indicator_details',
+            'representative_responsible', 'manager', 'responsible',
+            'extra_concerned_people', 'IAnalyticBudget.projection',
+            'IAnalyticBudget.analytic_budget', 'budget', 'budget_comments',
+            'ISustainableDevelopmentGoals.sdgs', 'observation', 'comments']
+    params['strategicobjective_fields'] = strategicobjective_fields
+    params['operationalobjective_fields'] = operationalobjective_fields
+    params['pstaction_fields'] = pstaction_fields
+    params['pstsubaction_fields'] = pstaction_fields
+
+    createContentInContainer(site, 'pstprojectspace', id='pst', **params)
+    pstprojectspace = site.pst
+    alsoProvides(pstprojectspace, IPSTProjectSpace)
     # local roles
-    projectspace.manage_addLocalRoles("pst_editors", ('Reader', 'Editor', 'Reviewer', 'Contributor', ))
+    pstprojectspace.manage_addLocalRoles("pst_editors", ('Reader', 'Editor', 'Reviewer', 'Contributor', ))
     # dashboard
-    configureDashboard(projectspace)
+    configureDashboard(pstprojectspace)
     # set default view to not be a faceted view
-    projectspace.setLayout('view')
+    pstprojectspace.setLayout('view')
     # set locally allowed types
-    behaviour = ISelectableConstrainTypes(projectspace)
+    behaviour = ISelectableConstrainTypes(pstprojectspace)
     behaviour.setConstrainTypesMode(1)
     behaviour.setLocallyAllowedTypes(['strategicobjective', 'File', ])
     behaviour.setImmediatelyAddableTypes(['strategicobjective', 'File', ])
-    transitions(projectspace, ['publish_internally'])
+    transitions(pstprojectspace, ['publish_internally'])
 
 
 def _addPSTGroups(context):
@@ -533,35 +560,6 @@ def adaptDefaultPortal(site):
 
 def configure_pst(portal):
     registry = getUtility(IRegistry)
-
-    if not registry.get('imio.project.settings.strategicobjective_fields'):
-        registry['imio.project.settings.strategicobjective_fields'] = [
-            'IDublinCore.title', 'description_rich', 'reference_number',
-            'categories', 'plan', 'IAnalyticBudget.projection',
-            'IAnalyticBudget.analytic_budget', 'budget', 'budget_comments',
-            'observation', 'comments']
-    if not registry.get('imio.project.settings.operationalobjective_fields'):
-        registry['imio.project.settings.operationalobjective_fields'] = [
-            'IDublinCore.title', 'description_rich', 'reference_number',
-            'categories', 'plan', 'result_indicator', 'priority',
-            'planned_end_date', 'representative_responsible',
-            'administrative_responsible', 'manager', 'extra_concerned_people',
-            'IAnalyticBudget.projection', 'IAnalyticBudget.analytic_budget',
-            'budget', 'budget_comments', 'ISustainableDevelopmentGoals.sdgs',
-            'observation', 'comments']
-    if not registry.get('imio.project.settings.pstaction_fields'):
-        registry['imio.project.settings.pstaction_fields'] = [
-            'IDublinCore.title', 'description_rich', 'reference_number',
-            'categories', 'plan', 'result_indicator', 'planned_end_date',
-            'planned_begin_date', 'effective_begin_date', 'effective_end_date',
-            'progress', 'health_indicator', 'health_indicator_details',
-            'representative_responsible', 'manager', 'responsible',
-            'extra_concerned_people', 'IAnalyticBudget.projection',
-            'IAnalyticBudget.analytic_budget', 'budget', 'budget_comments',
-            'ISustainableDevelopmentGoals.sdgs', 'observation', 'comments']
-    if not registry.get('imio.project.settings.pstsubaction_fields'):
-        registry['imio.project.settings.pstsubaction_fields'] = registry[
-                'imio.project.settings.pstaction_fields']
 
     if not registry.get('imio.project.settings.strategicobjective_budget_states'):
         registry['imio.project.settings.strategicobjective_budget_states'] = ['ongoing', 'achieved']
@@ -1210,7 +1208,7 @@ def createBaseCollections(folder, content_type):
 def configure_rolefields(portal):
     """Configure the rolefields on types."""
     config = {
-        ('projectspace', ): {
+        ('pstprojectspace', ): {
             'static_config': {
                 'internally_published': {'pst_readers': {'roles': ['Reader']}}
             }

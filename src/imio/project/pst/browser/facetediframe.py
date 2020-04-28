@@ -4,6 +4,7 @@ from eea.facetednavigation.interfaces import IFacetedNavigable
 from eea.facetednavigation.widgets.storage import Criterion
 from imio.helpers.browser.views import ContainerFolderListingView
 from imio.project.core.utils import getProjectSpace
+from imio.project.core.content.projectspace import IProjectSpace
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
@@ -22,7 +23,7 @@ class FacetedContainerFolderListingView(ContainerFolderListingView, FacetedConta
 
 def get_criteria_holder(context):
     pst = getProjectSpace(context)
-    if context.portal_type == 'projectspace':
+    if IProjectSpace.providedBy(context):
         return pst.strategicobjectives
     elif context.portal_type == 'strategicobjective':
         return pst.operationalobjectives

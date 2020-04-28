@@ -9,7 +9,7 @@ from imio.project.core.events import empty_fields
 from imio.project.pst.content.pstprojectspace import field_constraints
 from imio.project.pst.content.action import IPSTSubAction
 from imio.project.pst.interfaces import IActionDashboardBatchActions
-from imio.project.pst.interfaces import IPSTProjectSpace
+from imio.project.core.content.projectspace import IProjectSpace
 from imio.project.pst.interfaces import IOODashboardBatchActions
 from imio.project.pst.interfaces import IOSDashboardBatchActions
 from imio.project.pst.interfaces import ITaskDashboardBatchActions
@@ -56,7 +56,7 @@ def projectspace_created(obj, event):
 
     alsoProvides(obj, IOSDashboardBatchActions)
 
-    if not IPSTProjectSpace.providedBy(obj):
+    if not IProjectSpace.providedBy(obj):
         behaviour = ISelectableConstrainTypes(obj)
         behaviour.setConstrainTypesMode(1)
         behaviour.setLocallyAllowedTypes(['project', ])

@@ -20,7 +20,7 @@ class SitemapView(BrowserView):
 
     def children(self, context):
         filters = {
-            'projectspace': {"portal_type": 'strategicobjective'},
+            'pstprojectspace': {"portal_type": 'strategicobjective'},
             'strategicobjective': {"portal_type": 'operationalobjective'},
             'operationalobjective': {"portal_type": 'pstaction'},
             'pstaction': {"portal_type": ['pstsubaction', 'task']},
