@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from Products.CMFPlone.utils import base_hasattr
-from Products.statusmessages.interfaces import IStatusMessage
 from collective.eeafaceted.dashboard.browser.overrides import DashboardFacetedTableView as DFTV
 from collective.z3cform.datagridfield import DataGridFieldFactory
 from imio.helpers.content import transitions
@@ -10,7 +8,10 @@ from imio.project.pst import _
 from imio.project.pst.content.action import IPSTAction
 from plone import api
 from plone.app.versioningbehavior.browser import VersionView as OVV
+from Products.CMFPlone import PloneMessageFactory as PMF
+from Products.CMFPlone.utils import base_hasattr
 from Products.Five.browser import BrowserView
+from Products.statusmessages.interfaces import IStatusMessage
 from z3c.form import button
 from z3c.form.field import Fields
 from z3c.form.form import EditForm
@@ -87,7 +88,7 @@ class BudgetSplitForm(EditForm):
         else:
             return self.context
 
-    @button.buttonAndHandler(_('Save'), name='save')
+    @button.buttonAndHandler(PMF('Save'), name='save')
     def handleAdd(self, action):
 
         data, errors = self.extractData()
@@ -100,6 +101,10 @@ class BudgetSplitForm(EditForm):
             _(u"Budget split saved"),
             "info",
         )
+
+    @button.buttonAndHandler(PMF(u'return_to_view'), name='cancel')
+    def handleCancel(self, action):
+        self.request.response.redirect(self.request.get('URL1'))
 
     def datagridUpdateWidgets(self, subform, widgets, widget):
         widget.columns[0]['mode'] = HIDDEN_MODE
