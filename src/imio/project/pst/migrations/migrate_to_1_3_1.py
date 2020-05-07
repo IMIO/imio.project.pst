@@ -18,6 +18,14 @@ class Migrate_To_1_3_1(Migrator):
     def __init__(self, context):
         Migrator.__init__(self, context)
 
+    def add_plan_to_lists_fields(self, *lists_fields):
+        for list_fields in lists_fields:
+            if 'plan' not in list_fields:
+                if 'categories' in list_fields:
+                    list_fields.insert(list_fields.index('categories') + 1, 'plan')
+                else:
+                    list_fields.append('plan')
+
     def run(self):
 
         plan_values = [
@@ -53,25 +61,27 @@ class Migrate_To_1_3_1(Migrator):
         so_record = registry.get('imio.project.settings.strategicobjective_fields')
         oo_record = registry.get('imio.project.settings.operationalobjective_fields')
         act_record = registry.get('imio.project.settings.pstaction_fields')
-        projectspace_brains = self.catalog(object_provides=IProjectSpace.__identifier__)
+        self.add_plan_to_lists_fields(so_record, oo_record, act_record)
+        if so_record and oo_record and act_record:
+            projectspace_brains = self.catalog(object_provides=IProjectSpace.__identifier__)
+            if projectspace_brains[0].getObject().__class__.__name__ == 'ProjectSpace':
+                for projectspace_brain in projectspace_brains:
+                    projectspace_obj = projectspace_brain.getObject()
+                    migrate_base_class_to_new_class(
+                            projectspace_obj,
+                            new_class_name='imio.project.pst.content.pstprojectspace.PSTProjectSpace')
+                    #projectspace is now pstprojectspace
+                    projectspace_obj.portal_type = 'pstprojectspace'
+                    projectspace_obj.strategicobjective_fields = so_record
+                    projectspace_obj.operationalobjective_fields = oo_record
+                    projectspace_obj.pstaction_fields = act_record
+                    projectspace_obj.pstsubaction_fields = act_record
+                    if not hasattr(projectspace_obj, 'plan_values'):
+                        setattr(projectspace_obj, 'plan_values', plan_values)
 
-        for projectspace_brain in projectspace_brains:
-            projectspace_obj = projectspace_brain.getObject()
-            migrate_base_class_to_new_class(
-                    projectspace_obj,
-                    new_class_name='imio.project.pst.content.pstprojectspace.PSTProjectSpace')
-            #projectspace is now pstprojectspace
-            projectspace_obj.portal_type = 'pstprojectspace'
-            projectspace_obj.strategicobjective_fields = so_record
-            projectspace_obj.operationalobjective_fields = oo_record
-            projectspace_obj.pstaction_fields = act_record
-            projectspace_obj.pstsubaction_fields = act_record
-            if not hasattr(projectspace_obj, 'plan_values'):
-                setattr(projectspace_obj, 'plan_values', plan_values)
-
-        del registry.records['imio.project.settings.strategicobjective_fields']
-        del registry.records['imio.project.settings.operationalobjective_fields']
-        del registry.records['imio.project.settings.pstaction_fields']
+                del registry.records['imio.project.settings.strategicobjective_fields']
+                del registry.records['imio.project.settings.operationalobjective_fields']
+                del registry.records['imio.project.settings.pstaction_fields']
 
         # Display duration
         self.finish()
