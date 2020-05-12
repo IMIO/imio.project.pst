@@ -75,15 +75,13 @@ class DocumentGenerationBaseHelper():
 
     def init_hv(self):
         """ init method to be called in document """
-        def _get_fields(pt):
-            return [fld.split('.')[-1] for fld in
-                    api.portal.get_registry_record('imio.project.settings.{}_fields'.format(pt), default=[])]
 
+        projectspace = getProjectSpace(self.real_context)
         self.activated_fields = {
-            'so': _get_fields('strategicobjective'),
-            'oo': _get_fields('operationalobjective'),
-            'ac': _get_fields('pstaction'),
-            'sb': _get_fields('pstsubaction'),
+            'so': projectspace.strategicobjective_fields,
+            'oo': projectspace.operationalobjective_fields,
+            'ac': projectspace.pstaction_fields,
+            'sb': projectspace.pstsubaction_fields,
         }
 
     def keep_field(self, key, field):
