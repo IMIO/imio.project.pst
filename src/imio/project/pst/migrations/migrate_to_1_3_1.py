@@ -61,8 +61,10 @@ class Migrate_To_1_3_1(Migrator):
         so_record = registry.get('imio.project.settings.strategicobjective_fields')
         oo_record = registry.get('imio.project.settings.operationalobjective_fields')
         act_record = registry.get('imio.project.settings.pstaction_fields')
-        self.add_plan_to_lists_fields(so_record, oo_record, act_record)
         if so_record and oo_record and act_record:
+            self.add_plan_to_lists_fields(so_record, oo_record, act_record)
+            self.runProfileSteps('imio.project.pst', steps=['typeinfo'], profile='default',
+                    run_dependencies=False)
             projectspace_brains = self.catalog(object_provides=IProjectSpace.__identifier__)
             if projectspace_brains[0].getObject().__class__.__name__ == 'ProjectSpace':
                 for projectspace_brain in projectspace_brains:
