@@ -77,8 +77,8 @@ class Migrate_To_1_3_1(Migrator):
                 project.plan_values = plan_values
 
         #Assigning custom permission to role
-        self.portal.manage_permission('imio.project.pst: ecomptes import', ('Manager', 'Contributor'), acquire=0)
-        self.portal.manage_permission('imio.project.pst: ecomptes export', ('Manager', 'Contributor'), acquire=0)
+        self.portal.manage_permission('imio.project.pst: ecomptes import', ('Manager', 'Site Administrator', 'Contributor'), acquire=0)
+        self.portal.manage_permission('imio.project.pst: ecomptes export', ('Manager', 'Site Administrator', 'Contributor'), acquire=0)
 
         # Display duration
         self.finish()
