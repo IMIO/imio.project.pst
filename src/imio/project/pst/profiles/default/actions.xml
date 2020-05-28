@@ -47,7 +47,7 @@
    <property name="available_expr">object/@@pst-utils/is_pst_project</property>
    <property name="visible">True</property>
    <property name="permissions">
-    <element value="Add portal content"/>
+    <element value="imio.project.pst: ecomptes export"/>
    </property>
   </object>
 
@@ -57,7 +57,7 @@
    <property name="available_expr">object/@@pst-utils/is_pst_project</property>
    <property name="visible">True</property>
    <property name="permissions">
-    <element value="Add portal content"/>
+    <element value="imio.project.pst: ecomptes import"/>
    </property>
   </object>
 
