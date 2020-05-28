@@ -511,8 +511,10 @@ def adaptDefaultPortal(site):
 
     #permissions
     #Assigning custom permission to role
-    site.manage_permission('imio.project.pst: ecomptes import', ('Manager', 'Site Administrator', 'Contributor'), acquire=0)
-    site.manage_permission('imio.project.pst: ecomptes export', ('Manager', 'Site Administrator', 'Contributor'), acquire=0)
+    site.manage_permission('imio.project.pst: ecomptes import', ('Manager', 'Site Administrator', 'Contributor'),
+                           acquire=0)
+    site.manage_permission('imio.project.pst: ecomptes export', ('Manager', 'Site Administrator', 'Contributor'),
+                           acquire=0)
     #Removing owner to 'hide' sharing tab
     site.manage_permission('Sharing page: Delegate roles', ('Manager', 'Site Administrator'), acquire=0)
     #Hiding layout menu

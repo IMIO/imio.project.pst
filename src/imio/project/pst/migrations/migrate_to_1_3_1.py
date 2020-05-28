@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 
+from collective.documentgenerator.utils import update_oo_config
 from imio.migrator.migrator import Migrator
 from plone import api
 from plone.registry.interfaces import IRegistry
+from Products.CPUtils.Extensions.utils import mark_last_version
 from zope.component import getUtility
 
 import logging
@@ -28,6 +30,10 @@ class Migrate_To_1_3_1(Migrator):
             api.portal.set_registry_record(record_name, registry_record_name)
 
     def run(self):
+        # check if oo port must be changed
+        update_oo_config()
+
+        self.runProfileSteps('imio.project.pst', steps=['actions'], run_dependencies=False)
 
         # update registry imio project settings with plan field
         registry = getUtility(IRegistry)
@@ -77,8 +83,18 @@ class Migrate_To_1_3_1(Migrator):
                 project.plan_values = plan_values
 
         #Assigning custom permission to role
-        self.portal.manage_permission('imio.project.pst: ecomptes import', ('Manager', 'Site Administrator', 'Contributor'), acquire=0)
-        self.portal.manage_permission('imio.project.pst: ecomptes export', ('Manager', 'Site Administrator', 'Contributor'), acquire=0)
+        self.portal.manage_permission('imio.project.pst: ecomptes import',
+                                      ('Manager', 'Site Administrator', 'Contributor'), acquire=0)
+        self.portal.manage_permission('imio.project.pst: ecomptes export',
+                                      ('Manager', 'Site Administrator', 'Contributor'), acquire=0)
+
+        self.upgradeAll(omit=['imio.project.pst:default'])
+
+        for prod in []:
+            mark_last_version(self.portal, product=prod)
+
+        # Reorder css and js
+        self.runProfileSteps('imio.project.pst', steps=['cssregistry', 'jsregistry'], run_dependencies=False)
 
         # Display duration
         self.finish()
