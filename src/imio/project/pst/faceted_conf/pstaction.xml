@@ -167,7 +167,9 @@
    <property name="index">planned_begin_date</property>
    <property name="default"></property>
    <property name="calYearRange">c-10:c+10</property>
-   <property name="usePloneDateFormat">0</property>
+   <property name="usePloneDateFormat">True</property>
+   <property name="labelStart">Start date</property>
+   <property name="labelEnd">End date</property>
   </criterion>
 
   <criterion name="effectivebegindate" i18n:attributes="title">
@@ -179,7 +181,9 @@
    <property name="index">effective_begin_date</property>
    <property name="default"></property>
    <property name="calYearRange">c-10:c+10</property>
-   <property name="usePloneDateFormat">0</property>
+   <property name="usePloneDateFormat">True</property>
+   <property name="labelStart">Start date</property>
+   <property name="labelEnd">End date</property>
   </criterion>
 
   <criterion name="plannedenddate" i18n:attributes="title">
@@ -191,7 +195,9 @@
    <property name="index">planned_end_date</property>
    <property name="default"></property>
    <property name="calYearRange">c-10:c+10</property>
-   <property name="usePloneDateFormat">0</property>
+   <property name="usePloneDateFormat">True</property>
+   <property name="labelStart">Start date</property>
+   <property name="labelEnd">End date</property>
   </criterion>
 
   <criterion name="effectiveenddate" i18n:attributes="title">
@@ -203,7 +209,9 @@
    <property name="index">effective_end_date</property>
    <property name="default"></property>
    <property name="calYearRange">c-10:c+10</property>
-   <property name="usePloneDateFormat">0</property>
+   <property name="usePloneDateFormat">True</property>
+   <property name="labelStart">Start date</property>
+   <property name="labelEnd">End date</property>
   </criterion>
 
   <criterion name="representativeresponsible" i18n:attributes="title">
@@ -263,6 +271,9 @@
    <property name="index">Date</property>
    <property name="default"></property>
    <property name="calYearRange">2013:+0</property>
+   <property name="usePloneDateFormat">True</property>
+   <property name="labelStart">Start date</property>
+   <property name="labelEnd">End date</property>
   </criterion>
 
  </criteria>

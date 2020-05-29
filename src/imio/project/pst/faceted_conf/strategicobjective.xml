@@ -104,6 +104,9 @@
    <property name="index">Date</property>
    <property name="default"></property>
    <property name="calYearRange">2013:+0</property>
+   <property name="usePloneDateFormat">True</property>
+   <property name="labelStart">Start date</property>
+   <property name="labelEnd">End date</property>
   </criterion>
 
  </criteria>

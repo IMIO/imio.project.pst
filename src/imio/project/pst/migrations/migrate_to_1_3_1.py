@@ -29,6 +29,26 @@ class Migrate_To_1_3_1(Migrator):
                 registry_record_name.append('plan')
             api.portal.set_registry_record(record_name, registry_record_name)
 
+    def update_dashboards(self):
+        # update daterange criteria
+        brains = api.content.find(object_provides=IFacetedNavigable.__identifier__)
+        for brain in brains:
+            obj = brain.getObject()
+            criterion = ICriteria(obj)
+            for key, criteria in criterion.items():
+                if criteria.get("widget") != "daterange":
+                    continue
+                if criteria.get("usePloneDateFormat") is True:
+                    continue
+                logger.info("Upgrade daterange widget for faceted {0}".format(obj))
+                position = criterion.criteria.index(criteria)
+                values = criteria.__dict__
+                values["usePloneDateFormat"] = True
+                values["labelStart"] = u'Start date'
+                values["labelEnd"] = u'End date'
+                criterion.criteria[position] = Criterion(**values)
+                criterion.criteria._p_changed = 1
+
     def run(self):
         # check if oo port must be changed
         update_oo_config()
@@ -87,6 +107,9 @@ class Migrate_To_1_3_1(Migrator):
                                       ('Manager', 'Site Administrator', 'Contributor'), acquire=0)
         self.portal.manage_permission('imio.project.pst: ecomptes export',
                                       ('Manager', 'Site Administrator', 'Contributor'), acquire=0)
+
+        # update daterange criteria
+        self.update_dashboards()
 
         self.upgradeAll(omit=['imio.project.pst:default'])
 
