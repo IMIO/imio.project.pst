@@ -172,9 +172,6 @@ def registry_changed(event):
     """  """
     if IRecordModifiedEvent.providedBy(event):
         if event.record.interfaceName == 'imio.project.pst.browser.controlpanel.IImioPSTSettings':
-            # we copy new pstaction_fields value in pstsubaction_fields
-            if event.record.fieldName == 'pstaction_fields':
-                api.portal.set_registry_record('imio.project.settings.pstsubaction_fields', event.newValue)
             if event.record.fieldName == 'pstaction_budget_states':
                 api.portal.set_registry_record('imio.project.settings.pstsubaction_budget_states', event.newValue)
             # we check if we have to remove/add a column from/to a dashboard
