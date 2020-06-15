@@ -38,6 +38,7 @@ StrategicObjectivesColumnsVocabulary = SimpleVocabulary(
      SimpleTerm(value=u'pretty_link', title=_z(u'pretty_link')),
      SimpleTerm(value=u'review_state', title=_z(u'header_review_state')),
      SimpleTerm(value=u'categories', title=_c(u'Categories')),
+     SimpleTerm(value=u'CreationDate', title=_z(u'header_CreationDate')),
      SimpleTerm(value=u'ModificationDate', title=_z(u'header_ModificationDate')),
      SimpleTerm(value=u'history_actions', title=_z(u'history_actions'))]
 )
@@ -53,6 +54,7 @@ OperationalObjectivesColumnsVocabulary = SimpleVocabulary(
      SimpleTerm(value=u'priority', title=_z(u'header_priority')),
      SimpleTerm(value=u'categories', title=_c(u'Categories')),
      SimpleTerm(value=u'sdgs', title=_z(u'header_sdgs')),
+     SimpleTerm(value=u'CreationDate', title=_z(u'header_CreationDate')),
      SimpleTerm(value=u'ModificationDate', title=_z(u'header_ModificationDate')),
      SimpleTerm(value=u'history_actions', title=_z(u'history_actions'))]
 )
@@ -72,6 +74,7 @@ PstactionColumnsVocabulary = SimpleVocabulary(
      SimpleTerm(value=u'progress', title=_z(u'header_progress')),
      SimpleTerm(value=u'health_indicator', title=_z(u'header_health_indicator')),
      SimpleTerm(value=u'sdgs', title=_z(u'header_sdgs')),
+     SimpleTerm(value=u'CreationDate', title=_z(u'header_CreationDate')),
      SimpleTerm(value=u'ModificationDate', title=_z(u'header_ModificationDate')),
      SimpleTerm(value=u'history_actions', title=_z(u'history_actions'))]
 )
@@ -121,26 +124,20 @@ class IPSTProjectSpace(IProjectSpace):
         value_type=schema.Choice(vocabulary=u'imio.project.pst.ActionFieldsVocabulary'),
     )
 
-    strategicobjective_columns = schema.List(
+    strategicobjectives_columns = schema.List(
         title=_(u"StrategicObjective columns"),
 #        description=_c(u'Put fields on the right to display it. Flags are : ...'),
         value_type=schema.Choice(vocabulary=StrategicObjectivesColumnsVocabulary),
     )
 
-    operationalobjective_columns = schema.List(
+    operationalobjectives_columns = schema.List(
         title=_(u"OperationalObjective columns"),
 #        description=_c(u'Put fields on the right to display it. Flags are : ...'),
         value_type=schema.Choice(vocabulary=OperationalObjectivesColumnsVocabulary),
     )
 
-    pstaction_columns = schema.List(
+    pstactions_columns = schema.List(
         title=_(u"PSTAction columns"),
-#        description=_c(u'Put fields on the right to display it. Flags are : ...'),
-        value_type=schema.Choice(vocabulary=PstactionColumnsVocabulary),
-    )
-
-    pstsubaction_columns = schema.List(
-        title=_(u"PSTSubAction columns"),
 #        description=_c(u'Put fields on the right to display it. Flags are : ...'),
         value_type=schema.Choice(vocabulary=PstactionColumnsVocabulary),
     )

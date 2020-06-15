@@ -362,24 +362,25 @@ def _addPSTprojectspace(context):
 
     strategicobjective_columns = [
             u'select_row', u'pretty_link', u'review_state',
-            u'categories', u'ModificationDate', u'history_actions']
+            u'categories', u'CreationDate', u'ModificationDate',
+            u'history_actions']
     operationalobjective_columns = [
             u'select_row', u'pretty_link', u'parents', u'review_state',
             u'manager', u'planned_end_date', u'priority', u'categories',
-            u'sdgs', u'ModificationDate', u'history_actions']
+            u'sdgs', u'CreationDate', u'ModificationDate', u'history_actions']
     pstaction_columns = [
             u'select_row', u'pretty_link', u'parents', u'review_state',
             u'manager', u'responsible', u'planned_begin_date', u'planned_end_date',
             u'effective_begin_date', u'effective_end_date', u'progress',
-            u'health_indicator', u'sdgs', u'ModificationDate', u'history_actions']
+            u'health_indicator', u'sdgs', u'CreationDate', u'ModificationDate',
+            u'history_actions']
     tasks_columns = [
             u'select_row', u'pretty_link', u'parents', u'review_state',
             u'assigned_group', u'assigned_user', u'due_date', u'CreationDate',
             u'ModificationDate', u'history_actions']
-    params['strategicobjective_columns'] = strategicobjective_columns
-    params['operationalobjective_columns'] = operationalobjective_columns
-    params['pstaction_columns'] = pstaction_columns
-    params['pstsubaction_columns'] = pstaction_columns
+    params['strategicobjectives_columns'] = strategicobjective_columns
+    params['operationalobjectives_columns'] = operationalobjective_columns
+    params['pstactions_columns'] = pstaction_columns
     params['tasks_columns'] = tasks_columns
 
     createContentInContainer(site, 'pstprojectspace', id='pst', **params)
@@ -805,14 +806,16 @@ def _addPSTUsers(context):
 
 
 COLUMNS_FOR_CONTENT_TYPES = {
-    'strategicobjective': (u'select_row', u'pretty_link', u'review_state', u'categories', u'ModificationDate',
-                           u'history_actions'),
+    'strategicobjective': (u'select_row', u'pretty_link', u'review_state', u'categories', u'CreationDate',
+                           u'ModificationDate', u'history_actions'),
     'operationalobjective': (u'select_row', u'pretty_link', u'parents', u'review_state', u'manager',
-                             u'planned_end_date', u'priority', u'categories', u'sdgs', u'ModificationDate',
+                             u'planned_end_date', u'priority', u'categories', u'sdgs', u'CreationDate',
+                             u'ModificationDate',
                              u'history_actions'),
     'pstaction': (u'select_row', u'pretty_link', u'parents', u'review_state', u'manager', u'responsible',
                   u'planned_begin_date', u'planned_end_date', u'effective_begin_date', u'effective_end_date',
-                  u'progress', u'health_indicator', u'sdgs', u'ModificationDate', u'history_actions'),
+                  u'progress', u'health_indicator', u'sdgs', u'CreationDate', u'ModificationDate',
+                  u'history_actions'),
     'task': (u'select_row', u'pretty_link', u'parents', u'review_state', u'assigned_group',
              u'assigned_user', u'due_date', u'CreationDate', u'ModificationDate', u'history_actions'),
 }

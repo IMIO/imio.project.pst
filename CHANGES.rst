@@ -4,6 +4,8 @@ Changelog
 1.4 (unreleased)
 ----------------
 
+- Added fields to configure dashboards columns in pstprojectspace
+  [fngaha]
 - Added plan and plan_values fields
   [fngaha]
 

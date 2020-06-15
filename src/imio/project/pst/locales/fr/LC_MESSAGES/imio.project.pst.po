@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2020-06-14 21:05+0000\n"
+"POT-Creation-Date: 2020-06-15 08:23+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -130,10 +130,6 @@ msgstr "Colonnes à afficher sur les actions"
 msgid "PSTSubAction"
 msgstr "Sous-action"
 
-#: ./content/pstprojectspace.py:143
-msgid "PSTSubAction columns"
-msgstr "Colonnes à afficher sur les sous-actions"
-
 #: ./profiles/default/registry.xml
 msgid "Planned begin date"
 msgstr "Date de début prévue"
@@ -234,7 +230,7 @@ msgstr "Lien symbolique"
 msgid "Tasks"
 msgstr "Tâches"
 
-#: ./content/pstprojectspace.py:149
+#: ./content/pstprojectspace.py:143
 msgid "Tasks columns"
 msgstr "Colonnes à afficher sur les tâches"
 
