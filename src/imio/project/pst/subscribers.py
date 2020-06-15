@@ -86,6 +86,22 @@ def projectspace_moved(obj, event):
             raise ValueError("Cannot update default col on {}".format(ob.absolute_url()))
 
 
+def pstprojectspace_modified(obj, event):
+    """
+      Handler when a pstprojectspace is modified
+      Update customViewFields defined on DashboardCollection
+    """
+    if not event.descriptions:
+        return
+    for desc in event.descriptions:
+        for attr in desc.attributes:
+            if attr.endswith('columns'):
+                pc = api.portal.get_tool('portal_catalog')
+                ps_path = '/'.join(obj.getPhysicalPath()) + '/{}'.format(attr[:-8])
+                for brain in pc(path={'query': ps_path, 'depth': 1}):
+                    brain.getObject().customViewFields = getattr(obj, attr)
+
+
 def strategic_created(obj, event):
     """  """
     alsoProvides(obj, IOODashboardBatchActions)
