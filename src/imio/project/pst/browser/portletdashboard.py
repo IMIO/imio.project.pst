@@ -16,6 +16,8 @@ class Renderer(BaseRenderer):
 
     @property
     def widget_render(self):
+        if getattr(self, 'rendered_widgets', None):
+            return self.rendered_widgets
         # get the IFacetedNavigable element the criteria are define on
         criteriaHolder = self._criteriaHolder
         criteria = ICriteria(criteriaHolder)

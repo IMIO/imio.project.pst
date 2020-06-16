@@ -353,6 +353,9 @@ class Migrate_To_1_3(Migrator):
                 col.customViewFields = tuple(nl)
 
         # Add subactions in actions collections
+        brains = api.content.find(portal_type='Folder')
+        for brain in brains:
+                brain.getObject().reindexObject()
         pstactions = self.catalog(portal_type="Folder",
                                   object_provides="imio.project.pst.interfaces.IActionDashboardBatchActions")
         for pstaction in pstactions:

@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 
+from collective.documentgenerator.utils import update_oo_config
 from imio.migrator.migrator import Migrator
 from imio.project.core.content.projectspace import IProjectSpace
 from plone import api
 from plone.app.contenttypes.migration.dxmigration import migrate_base_class_to_new_class
 from plone.registry.interfaces import IRegistry
+from Products.CPUtils.Extensions.utils import mark_last_version
 from zope.component import getUtility
 
 import logging
@@ -26,7 +28,31 @@ class Migrate_To_1_3_1(Migrator):
                 else:
                     list_fields.append('plan')
 
+    def update_dashboards(self):
+        # update daterange criteria
+        brains = api.content.find(object_provides=IFacetedNavigable.__identifier__)
+        for brain in brains:
+            obj = brain.getObject()
+            criterion = ICriteria(obj)
+            for key, criteria in criterion.items():
+                if criteria.get("widget") != "daterange":
+                    continue
+                if criteria.get("usePloneDateFormat") is True:
+                    continue
+                logger.info("Upgrade daterange widget for faceted {0}".format(obj))
+                position = criterion.criteria.index(criteria)
+                values = criteria.__dict__
+                values["usePloneDateFormat"] = True
+                values["labelStart"] = u'Start date'
+                values["labelEnd"] = u'End date'
+                criterion.criteria[position] = Criterion(**values)
+                criterion.criteria._p_changed = 1
+
     def run(self):
+        # check if oo port must be changed
+        update_oo_config()
+
+        self.runProfileSteps('imio.project.pst', steps=['actions'], run_dependencies=False)
 
         plan_values = [
             {'label': u"Agenda 21 local",
@@ -84,6 +110,23 @@ class Migrate_To_1_3_1(Migrator):
                 del registry.records['imio.project.settings.strategicobjective_fields']
                 del registry.records['imio.project.settings.operationalobjective_fields']
                 del registry.records['imio.project.settings.pstaction_fields']
+
+        #Assigning custom permission to role
+        self.portal.manage_permission('imio.project.pst: ecomptes import',
+                                      ('Manager', 'Site Administrator', 'Contributor'), acquire=0)
+        self.portal.manage_permission('imio.project.pst: ecomptes export',
+                                      ('Manager', 'Site Administrator', 'Contributor'), acquire=0)
+
+        # update daterange criteria
+        self.update_dashboards()
+
+        self.upgradeAll(omit=['imio.project.pst:default'])
+
+        for prod in []:
+            mark_last_version(self.portal, product=prod)
+
+        # Reorder css and js
+        self.runProfileSteps('imio.project.pst', steps=['cssregistry', 'jsregistry'], run_dependencies=False)
 
         # Display duration
         self.finish()

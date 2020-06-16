@@ -203,25 +203,11 @@ class TestEcomptes(IntegrationTestCase):
         parsed_xml = import_from_ecomptes_from.parse_xml(data)
         import_from_ecomptes_from.update_pst(parsed_xml)
         self.assertEquals(
-            [
-                {
-                    'service': 'O',
-                    'title': u'Indemnit\xe9s XYZ',
-                    'year': 2020,
-                    'amount': 1793.5,
-                    'btype': 'D',
-                    'article': '123/45678.2020'
-                },
-                {
-                    'service': 'O',
-                    'title': u'Indemnit\xe9s OMC',
-                    'year': 2020,
-                    'amount': 2020.0,
-                    'btype': 'D',
-                    'article': '012/12145.2020'
-                }
-            ],
-            self.os.analytic_budget,
+                [{'service': u'O', 'title': u'Indemnit\xe9s OMC', 'year': 2020,
+                    'amount': 2020.0, 'btype': u'D', 'article': u'012/12145.2020'},
+                    {'service': u'O', 'title': u'Indemnit\xe9s XYZ', 'year': 2020,
+                        'amount': 1793.5, 'btype': u'D', 'article': u'123/45678.2020'}]
+                    , self.os.analytic_budget
         )
         self.assertEquals([
             {'group': u'61', 'service': u'O', 'title': u'61 Transferts', 'btype': u'R', 'amount': 0.0, 'year': 2024},
