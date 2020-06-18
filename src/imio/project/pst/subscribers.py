@@ -99,7 +99,7 @@ def pstprojectspace_modified(obj, event):
                 pc = api.portal.get_tool('portal_catalog')
                 ps_path = '/'.join(obj.getPhysicalPath()) + '/{}'.format(attr[:-8])
                 for brain in pc(path={'query': ps_path, 'depth': 1}):
-                    brain.getObject().customViewFields = getattr(obj, attr)
+                    brain.getObject().customViewFields = tuple(getattr(obj, attr))
 
 
 def strategic_created(obj, event):
