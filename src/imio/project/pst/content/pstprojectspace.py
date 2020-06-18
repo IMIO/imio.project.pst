@@ -117,7 +117,7 @@ class IPSTProjectSpace(IProjectSpace):
         value_type=schema.Choice(vocabulary=u'imio.project.pst.ActionFieldsVocabulary'),
     )
 
-    # this field will be hidden
+    # TODO: this field will be hidden
     pstsubaction_fields = schema.List(
         title=_c(u"${type} fields display", mapping={'type': _('PSTSubAction')}),
 #        description=_c(u'Put fields on the right to display it. Flags are : ...'),
