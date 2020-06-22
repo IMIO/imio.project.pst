@@ -13,7 +13,7 @@ Changelog
 ----------------
 
 - Added content type settings to remove and/or reorder fields
-  [sgeulette]
+  [sgeulette,fngaha]
 - Added sustainable development goal field, column
   [sgeulette]
 - Added responsible field on action
