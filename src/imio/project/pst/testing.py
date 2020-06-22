@@ -86,7 +86,7 @@ class IntegrationTestCase(unittest.TestCase):
             'IAnalyticBudget.projection', 'IAnalyticBudget.analytic_budget', 'budget', 'budget_comments',
             'ISustainableDevelopmentGoals.sdgs', 'observation', 'comments'
         ]
-        self.ac_fields = [
+        self.a_fields = [
             'IDublinCore.title', 'description_rich', 'reference_number', 'categories', 'plan',
             'result_indicator', 'planned_end_date', 'planned_begin_date', 'effective_begin_date',
             'effective_end_date', 'progress', 'health_indicator', 'health_indicator_details',
@@ -101,7 +101,7 @@ class IntegrationTestCase(unittest.TestCase):
             u'select_row', u'pretty_link', u'parents', u'review_state', u'manager', u'planned_end_date', u'priority',
             u'categories', u'sdgs', u'ModificationDate', u'history_actions'
         ]
-        self.ac_columns = [
+        self.a_columns = [
             u'select_row', u'pretty_link', u'parents', u'review_state', u'manager', u'responsible',
             u'planned_begin_date', u'planned_end_date', u'effective_begin_date', u'effective_end_date', u'progress',
             u'health_indicator', u'sdgs', u'ModificationDate', u'history_actions'

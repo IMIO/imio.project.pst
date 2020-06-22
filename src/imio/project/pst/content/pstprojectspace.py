@@ -15,7 +15,6 @@ from zope.schema.interfaces import IVocabularyFactory
 from zope.schema.vocabulary import SimpleTerm
 from zope.schema.vocabulary import SimpleVocabulary
 
-
 field_constraints = {
     'titles': {},
     'mandatory': {'strategicobjective': ['IDublinCore.title'],
@@ -32,7 +31,6 @@ field_constraints = {
               },
 }
 
-
 StrategicObjectivesColumnsVocabulary = SimpleVocabulary(
     [SimpleTerm(value=u'select_row', title=_z(u'select_row')),
      SimpleTerm(value=u'pretty_link', title=_z(u'pretty_link')),
@@ -42,7 +40,6 @@ StrategicObjectivesColumnsVocabulary = SimpleVocabulary(
      SimpleTerm(value=u'ModificationDate', title=_z(u'header_ModificationDate')),
      SimpleTerm(value=u'history_actions', title=_z(u'history_actions'))]
 )
-
 
 OperationalObjectivesColumnsVocabulary = SimpleVocabulary(
     [SimpleTerm(value=u'select_row', title=_z(u'select_row')),
@@ -58,7 +55,6 @@ OperationalObjectivesColumnsVocabulary = SimpleVocabulary(
      SimpleTerm(value=u'ModificationDate', title=_z(u'header_ModificationDate')),
      SimpleTerm(value=u'history_actions', title=_z(u'history_actions'))]
 )
-
 
 PstactionColumnsVocabulary = SimpleVocabulary(
     [SimpleTerm(value=u'select_row', title=_z(u'select_row')),
@@ -78,7 +74,6 @@ PstactionColumnsVocabulary = SimpleVocabulary(
      SimpleTerm(value=u'ModificationDate', title=_z(u'header_ModificationDate')),
      SimpleTerm(value=u'history_actions', title=_z(u'history_actions'))]
 )
-
 
 TasksColumnsVocabulary = SimpleVocabulary(
     [SimpleTerm(value=u'select_row', title=_z(u'select_row')),
@@ -102,53 +97,54 @@ class IPSTProjectSpace(IProjectSpace):
         title=_c(u"${type} fields display", mapping={'type': _('StrategicObjective')}),
         description=_c(u"Put fields on the right to display it. Flags are : ..."),
         value_type=schema.Choice(vocabulary=u'imio.project.pst.SOFieldsVocabulary'),
-#        value_type=schema.Choice(source=IMFields),  # a source is not managed by registry !!
+        # value_type=schema.Choice(source=IMFields),  # a source is not managed by registry !!
     )
 
     operationalobjective_fields = schema.List(
         title=_c(u"${type} fields display", mapping={'type': _('OperationalObjective')}),
-#        description=_c(u'Put fields on the right to display it. Flags are : ...'),
+        # description=_c(u'Put fields on the right to display it. Flags are : ...'),
         value_type=schema.Choice(vocabulary=u'imio.project.pst.OOFieldsVocabulary'),
     )
 
     pstaction_fields = schema.List(
         title=_c(u"${type} fields display", mapping={'type': _('PSTAction')}),
-#        description=_c(u'Put fields on the right to display it. Flags are : ...'),
+        # description=_c(u'Put fields on the right to display it. Flags are : ...'),
         value_type=schema.Choice(vocabulary=u'imio.project.pst.ActionFieldsVocabulary'),
     )
 
-    # TODO: this field will be hidden
     pstsubaction_fields = schema.List(
         title=_c(u"${type} fields display", mapping={'type': _('PSTSubAction')}),
-#        description=_c(u'Put fields on the right to display it. Flags are : ...'),
+        # description=_c(u'Put fields on the right to display it. Flags are : ...'),
         value_type=schema.Choice(vocabulary=u'imio.project.pst.ActionFieldsVocabulary'),
     )
 
     strategicobjectives_columns = schema.List(
         title=_(u"StrategicObjective columns"),
-#        description=_c(u'Put fields on the right to display it. Flags are : ...'),
+        # description=_c(u'Put fields on the right to display it. Flags are : ...'),
         value_type=schema.Choice(vocabulary=StrategicObjectivesColumnsVocabulary),
     )
 
     operationalobjectives_columns = schema.List(
         title=_(u"OperationalObjective columns"),
-#        description=_c(u'Put fields on the right to display it. Flags are : ...'),
+        # description=_c(u'Put fields on the right to display it. Flags are : ...'),
         value_type=schema.Choice(vocabulary=OperationalObjectivesColumnsVocabulary),
     )
 
     pstactions_columns = schema.List(
         title=_(u"PSTAction columns"),
-#        description=_c(u'Put fields on the right to display it. Flags are : ...'),
+        #  description=_c(u'Put fields on the right to display it. Flags are : ...'),
         value_type=schema.Choice(vocabulary=PstactionColumnsVocabulary),
     )
 
     tasks_columns = schema.List(
         title=_(u"Tasks columns"),
-#        description=_c(u'Put fields on the right to display it. Flags are : ...'),
+        # description=_c(u'Put fields on the right to display it. Flags are : ...'),
         value_type=schema.Choice(vocabulary=TasksColumnsVocabulary),
     )
 
     directives.omitted('project_fields')
+    # when pstaction_fields modified pstsubaction_fields is updated with his values
+    directives.omitted('pstsubaction_fields')
 
     @invariant
     def validateSettings(data):
@@ -165,7 +161,7 @@ class PSTProjectSpaceSchemaPolicy(ProjectSpaceSchemaPolicy):
     """ """
 
     def bases(self, schemaName, tree):
-        return (IPSTProjectSpace, )
+        return (IPSTProjectSpace,)
 
 
 class SOFieldsVocabulary(object):

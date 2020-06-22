@@ -88,8 +88,10 @@ def projectspace_moved(obj, event):
 
 def pstprojectspace_modified(obj, event):
     """
-      Handler when a pstprojectspace is modified
-      Update customViewFields defined on DashboardCollection
+      Handler when pstprojectspace modified
+      Update :
+      - customViewFields defined on DashboardCollection when projects columns modified
+      - pstsubaction_fields when pstaction_fields modified
     """
     if not event.descriptions:
         return
@@ -100,6 +102,8 @@ def pstprojectspace_modified(obj, event):
                 ps_path = '/'.join(obj.getPhysicalPath()) + '/{}'.format(attr[:-8])
                 for brain in pc(path={'query': ps_path, 'depth': 1}):
                     brain.getObject().customViewFields = tuple(getattr(obj, attr))
+            if attr == 'pstaction_fields':
+                obj.pstsubaction_fields = obj.pstaction_fields
 
 
 def strategic_created(obj, event):
