@@ -9,9 +9,9 @@ from zope.interface import Interface
 class IImioProjectPSTLayer(IDefaultPloneLayer):
     """Marker interface that defines a Zope 3 browser layer."""
 
-
+# TODO : Remove this interface after version 1.4 and replace its use in old migrations by IPSTProjectSpace
 class IImioPSTProject(Interface):
-    """ Marker interface for a PST project """
+    """Marker interface for a PST project"""
 
 
 class IPSTDashboard(Interface):
