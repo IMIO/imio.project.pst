@@ -201,16 +201,3 @@ class ActionFieldsVocabulary(object):
                                   'IDublinCore.rights', 'IDublinCore.subjects', 'INameFromTitle.title',
                                   'IVersionable.changeNote', 'notes', 'priority', 'visible_for'],
                                  field_constraints)
-
-
-class SubActionFieldsVocabulary(object):
-    """ Not used """
-    implements(IVocabularyFactory)
-
-    def __call__(self, context):
-        return get_pt_fields_voc('pstsubaction',
-                                 ['IDublinCore.description', 'IDublinCore.contributors', 'IDublinCore.creators',
-                                  'IDublinCore.effective', 'IDublinCore.expires', 'IDublinCore.language',
-                                  'IDublinCore.rights', 'IDublinCore.subjects', 'INameFromTitle.title',
-                                  'IVersionable.changeNote', 'notes', 'priority', 'visible_for'],
-                                 field_constraints)

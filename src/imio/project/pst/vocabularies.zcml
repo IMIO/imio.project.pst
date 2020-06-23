@@ -49,9 +49,4 @@
         factory="imio.project.pst.content.pstprojectspace.ActionFieldsVocabulary"
         />
 
-    <utility
-        name="imio.project.pst.SubActionFieldsVocabulary"
-        factory="imio.project.pst.content.pstprojectspace.SubActionFieldsVocabulary"
-        />
-
 </configure>
