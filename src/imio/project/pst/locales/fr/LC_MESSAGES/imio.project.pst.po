@@ -39,6 +39,9 @@ msgstr "Tous"
 msgid "Archive PST"
 msgstr "Archiver le PST"
 
+msgid "Budget globalization states"
+msgstr "Etats repris dans les budgets globaux"
+
 #: ./content/action.py:41
 msgid "Choose principals that will be representative responsible for this project. If nothing choosed, the oo value is used for searches."
 msgstr "Sélectionner les utilisateurs qui seront responsable mandataire de l'objectif. Si personne n'est sélectionné, la valeur indiquée sur l'oo est utilisée pour les recherches."
@@ -100,6 +103,9 @@ msgstr "Objectifs opérationnels"
 #: ./profiles/default/types/operationalobjective.xml
 msgid "OperationalObjective"
 msgstr "Objectif opérationnel"
+
+msgid "PST content in these states will be taken into account for budget globalization"
+msgstr "Les éléments du PST dans un de ces états seront repris dans les budgets globaux"
 
 #: ./content/pstprojectspace.py:131
 msgid "OperationalObjective columns"
