@@ -9,7 +9,7 @@ from zope.annotation import IAnnotations
 
 
 class CleanBudget(BrowserView):
-    """ IImioPSTProject view to manage budget related """
+    """ IPSTProjectSpace view to manage budget related """
 
     def delete(self, field, empty_budget='1'):
         """

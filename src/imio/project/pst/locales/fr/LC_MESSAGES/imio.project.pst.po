@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2020-03-11 13:38+0000\n"
+"POT-Creation-Date: 2020-06-15 08:23+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,7 +23,7 @@ msgstr "Lien action"
 msgid "Actions"
 msgstr "Actions"
 
-#: ./setuphandlers.py:790
+#: ./setuphandlers.py:854
 msgid "Actions under"
 msgstr "Actions (sous-)"
 
@@ -31,7 +31,7 @@ msgstr "Actions (sous-)"
 msgid "Administrative responsible"
 msgstr "Responsable administratif"
 
-#: ./setuphandlers.py:895
+#: ./setuphandlers.py:959
 msgid "All"
 msgstr "Tous"
 
@@ -39,7 +39,6 @@ msgstr "Tous"
 msgid "Archive PST"
 msgstr "Archiver le PST"
 
-#: ./browser/controlpanel.py:150
 msgid "Budget globalization states"
 msgstr "Etats repris dans les budgets globaux"
 
@@ -67,7 +66,7 @@ msgstr "Date de début effective"
 msgid "Effective end date"
 msgstr "Date de fin effective"
 
-#: ./vocabularies.py:112
+#: ./vocabularies.py:114
 msgid "Empty value"
 msgstr "Sans valeur"
 
@@ -95,30 +94,44 @@ msgstr "Import some demo data for the imio.project.pst"
 msgid "Installs the imio.project.pst add-on."
 msgstr "Installs the imio.project.pst"
 
-#: ./setuphandlers.py:789
+#: ./setuphandlers.py:853
 msgid "Operational objectives"
 msgstr "Objectifs opérationnels"
 
-#: ./browser/controlpanel.py:101
+#: ./browser/controlpanel.py:24
+#: ./content/pstprojectspace.py:106
 #: ./profiles/default/types/operationalobjective.xml
 msgid "OperationalObjective"
 msgstr "Objectif opérationnel"
 
-#: ./browser/controlpanel.py:151
 msgid "PST content in these states will be taken into account for budget globalization"
 msgstr "Les éléments du PST dans un de ces états seront repris dans les budgets globaux"
 
-#: ./browser/controlpanel.py:167
+#: ./content/pstprojectspace.py:131
+msgid "OperationalObjective columns"
+msgstr "Colonnes à afficher sur les objectifs opérationnels"
+
+#: ./profiles/default/types/pstprojectspace.xml
+msgid "PST Project space"
+msgstr "Espace de projets PST"
+
+#: ./browser/controlpanel.py:52
 #: ./profiles/default/controlpanel.xml
 msgid "PST settings"
 msgstr "Gestion du PST"
 
-#: ./browser/controlpanel.py:107
+#: ./browser/controlpanel.py:31
+#: ./content/pstprojectspace.py:112
 #: ./profiles/default/types/pstaction.xml
 msgid "PSTAction"
 msgstr "Action"
 
-#: ./browser/controlpanel.py:114
+#: ./content/pstprojectspace.py:137
+msgid "PSTAction columns"
+msgstr "Colonnes à afficher sur les actions"
+
+#: ./browser/controlpanel.py:39
+#: ./content/pstprojectspace.py:119
 #: ./profiles/default/types/pstsubaction.xml
 msgid "PSTSubAction"
 msgstr "Sous-action"
@@ -148,47 +161,47 @@ msgstr "Porteur de l'action"
 msgid "Sitemap"
 msgstr "Plan du PST"
 
-#: ./setuphandlers.py:819
+#: ./setuphandlers.py:883
 msgid "State: achieved"
 msgstr "État: clôturé"
 
-#: ./setuphandlers.py:827
+#: ./setuphandlers.py:891
 msgid "State: closed"
 msgstr "État: clôturé"
 
-#: ./setuphandlers.py:817
+#: ./setuphandlers.py:881
 msgid "State: created"
 msgstr "État: en création"
 
-#: ./setuphandlers.py:829
+#: ./setuphandlers.py:893
 msgid "State: in progress"
 msgstr "État: en cours"
 
-#: ./setuphandlers.py:818
+#: ./setuphandlers.py:882
 msgid "State: ongoing"
 msgstr "État: en cours"
 
-#: ./setuphandlers.py:830
+#: ./setuphandlers.py:894
 msgid "State: realized"
 msgstr "État: réalisé"
 
-#: ./setuphandlers.py:825
+#: ./setuphandlers.py:889
 msgid "State: stopped"
 msgstr "État: annulé"
 
-#: ./setuphandlers.py:824
+#: ./setuphandlers.py:888
 msgid "State: terminated"
 msgstr "État: finalisé"
 
-#: ./setuphandlers.py:832
+#: ./setuphandlers.py:896
 msgid "State: to assign"
 msgstr "État: à assigner"
 
-#: ./setuphandlers.py:822
+#: ./setuphandlers.py:886
 msgid "State: to be scheduled"
 msgstr "État: à agender"
 
-#: ./setuphandlers.py:831
+#: ./setuphandlers.py:895
 msgid "State: to do"
 msgstr "État: à faire"
 
@@ -196,14 +209,19 @@ msgstr "État: à faire"
 msgid "Steps to ease tests of imio.project.pst"
 msgstr "Steps to ease tests of imio.project.pst"
 
-#: ./setuphandlers.py:788
+#: ./setuphandlers.py:852
 msgid "Strategic objectives"
 msgstr "Objectifs stratégiques"
 
-#: ./browser/controlpanel.py:94
+#: ./browser/controlpanel.py:17
+#: ./content/pstprojectspace.py:99
 #: ./profiles/default/types/strategicobjective.xml
 msgid "StrategicObjective"
 msgstr "Objectif stratégique"
+
+#: ./content/pstprojectspace.py:125
+msgid "StrategicObjective columns"
+msgstr "Colonnes à afficher sur les objectifs stratégiques"
 
 #: ./profiles/default/types/subaction_link.xml
 msgid "SubAction link"
@@ -218,7 +236,11 @@ msgstr "Lien symbolique"
 msgid "Tasks"
 msgstr "Tâches"
 
-#: ./setuphandlers.py:791
+#: ./content/pstprojectspace.py:143
+msgid "Tasks columns"
+msgstr "Colonnes à afficher sur les tâches"
+
+#: ./setuphandlers.py:855
 msgid "Tasks under"
 msgstr "Tâches (sous-)"
 
@@ -242,29 +264,33 @@ msgstr "Ce contenu est aussi présent dans :"
 msgid "Update profile to run individually some update steps"
 msgstr "Update profile to run individually some update steps"
 
-#: ./setuphandlers.py:917
+#: ./setuphandlers.py:981
 msgid "Which I am administrative responsible"
 msgstr "Dont je suis responsable administratif"
 
-#: ./setuphandlers.py:934
+#: ./setuphandlers.py:998
 msgid "Which I am manager"
 msgstr "Dont je suis gestionnaire"
 
-#: ./setuphandlers.py:988
+#: ./setuphandlers.py:1052
 msgid "Which I am responsible"
 msgstr "Dont je suis le porteur"
 
-#: ./setuphandlers.py:951
+#: ./setuphandlers.py:1015
 msgid "Which an action deadline has passed"
 msgstr "En retard pdv échéance actions"
 
-#: ./setuphandlers.py:1020
+#: ./setuphandlers.py:1084
 msgid "Which beginning is late"
 msgstr "En retard pdv date début effective"
 
-#: ./setuphandlers.py:1004
+#: ./setuphandlers.py:1068
 msgid "Which deadline has passed"
 msgstr "En retard pdv échéance"
+
+#: ./profiles/default/types/pstprojectspace.xml
+msgid "Will contain projects sharing same configuration values"
+msgstr "Espace PST pour des projets partageant la même configuration"
 
 #: ./migrations/migrate_to_1_0.py:35
 msgid "Work plan: ${action_title}"
@@ -274,55 +300,55 @@ msgstr "Plan de travail: ${action_title}"
 msgid "You must choose at least one group of which you are a member"
 msgstr "Vous devez choisir au moins un des groupes dont vous êtes membre"
 
-#: ./setuphandlers.py:430
+#: ./setuphandlers.py:508
 msgid "ckeditor_style_highlight_in_blue"
 msgstr "Texte bleu"
 
-#: ./setuphandlers.py:431
+#: ./setuphandlers.py:509
 msgid "ckeditor_style_highlight_in_green"
 msgstr "Texte vert"
 
-#: ./setuphandlers.py:429
+#: ./setuphandlers.py:507
 msgid "ckeditor_style_highlight_in_red"
 msgstr "Texte rouge"
 
-#: ./setuphandlers.py:432
+#: ./setuphandlers.py:510
 msgid "ckeditor_style_highlight_in_yellow"
 msgstr "Surligner en jaune"
 
-#: ./setuphandlers.py:437
+#: ./setuphandlers.py:515
 msgid "ckeditor_style_indent_first_line"
 msgstr "Indenter première ligne"
 
-#: ./setuphandlers.py:435
+#: ./setuphandlers.py:513
 msgid "ckeditor_style_large"
 msgstr "Grand texte"
 
-#: ./setuphandlers.py:434
+#: ./setuphandlers.py:512
 msgid "ckeditor_style_small"
 msgstr "Petit texte"
 
-#: ./setuphandlers.py:438
+#: ./setuphandlers.py:516
 msgid "ckeditor_style_table_no_optimization"
 msgstr "Sans optimisation largeur colonnes"
 
-#: ./setuphandlers.py:436
+#: ./setuphandlers.py:514
 msgid "ckeditor_style_x_large"
 msgstr "Très grand texte"
 
-#: ./setuphandlers.py:433
+#: ./setuphandlers.py:511
 msgid "ckeditor_style_x_small"
 msgstr "Très petit texte"
 
-#: ./setuphandlers.py:411
+#: ./setuphandlers.py:489
 msgid "front_page_descr"
 msgstr "Bienvenue sur votre outil de gestion du PST"
 
-#: ./setuphandlers.py:412
+#: ./setuphandlers.py:490
 msgid "front_page_text"
 msgstr "<p>&nbsp;</p><p>L'application de gestion du PST contient actuellement les <strong>fonctionnalités suivantes</strong>:</p><ul><li>encodage des objectifs stratégiques, des objectifs opérationnels et des actions</li><li>possibilité de créer des sous-actions</li><li>possibilité de partager une action ou sous-action dans plusieurs objectifs</li><li>encodage de tâches</li><li>visualisation des éléments via des tableaux de bord filtrables</li><li>génération de document au format bureautique : rapports détaillé, de suivi, csv, etc.</li><li>possibilité de créer un point collège/conseil depuis une action, sous-action ou une tâche</li><li>Lien export / import avec e-comptes</li><li>Formulaires adaptables : suppression ou réorganisation des champs</li><li>Navigation via l'arborescence complète</li><li>exportation des données dans un tableur</li><li>gestion des contacts (services traitants, échevins)</li><li>gestion des droits par service</li><li>workflow de traitement sur tous les types d'éléments</li><li>...</li></ul>"
 
-#: ./setuphandlers.py:410
+#: ./setuphandlers.py:488
 msgid "front_page_title"
 msgstr "Programme Stratégique Transversal 1.3"
 
@@ -357,30 +383,30 @@ msgstr "Objectifs stratégiques"
 msgid "strategic_legend_operational_objectives"
 msgstr "Objectifs opérationnels"
 
-#: ./setuphandlers.py:1091
+#: ./setuphandlers.py:1155
 msgid "task_have_treated"
 msgstr "Que j'ai traité"
 
-#: ./setuphandlers.py:1074
+#: ./setuphandlers.py:1138
 msgid "task_im_treating"
 msgstr "Que je traite"
 
-#: ./setuphandlers.py:1057
+#: ./setuphandlers.py:1121
 msgid "task_to_treat"
 msgstr "Qui m'est assigné"
 
-#: ./setuphandlers.py:1109
+#: ./setuphandlers.py:1173
 msgid "tasks_in_my_group"
 msgstr "Dans mon service"
 
-#: ./setuphandlers.py:1040
+#: ./setuphandlers.py:1104
 msgid "tasks_to_assign"
 msgstr "À assigner"
 
-#: ./setuphandlers.py:1126
+#: ./setuphandlers.py:1190
 msgid "tasks_to_close"
 msgstr "À clôturer"
 
-#: ./setuphandlers.py:1143
+#: ./setuphandlers.py:1207
 msgid "tasks_with_due_date_passed"
 msgstr "En retard pdv échéance"

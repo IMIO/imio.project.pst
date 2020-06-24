@@ -43,7 +43,7 @@ class DocumentBylineViewlet(IHDocumentBylineViewlet):
 
     def show(self):
         currentLayout = self.context.getLayout()
-        if currentLayout in ['facetednavigation_view', ] or self.context.portal_type in ('projectspace', ):
+        if currentLayout in ['facetednavigation_view', ] or IProjectSpace.providedBy(self.context):
             return False
         return True
 

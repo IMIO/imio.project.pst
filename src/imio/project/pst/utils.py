@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from imio.project.pst.interfaces import IImioPSTProject
+from imio.project.pst.content.pstprojectspace import IPSTProjectSpace
 from plone import api
 from plone.memoize import ram
 from Products.Five import BrowserView
@@ -116,4 +116,4 @@ class UtilsMethods(BrowserView):
 
     def is_pst_project(self):
         """ """
-        return IImioPSTProject.providedBy(self.context)
+        return IPSTProjectSpace.providedBy(self.context)

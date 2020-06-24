@@ -339,7 +339,7 @@
 
     <!-- Products views -->
     <browser:page
-        for="imio.project.pst.interfaces.IImioPSTProject"
+        for="imio.project.pst.content.pstprojectspace.IPSTProjectSpace"
         name="archive"
         class="imio.project.pst.browser.views.ArchiveView"
         permission="cmf.ManagePortal"
@@ -347,7 +347,7 @@
         />
 
     <browser:page
-        for="imio.project.pst.interfaces.IImioPSTProject"
+        for="imio.project.pst.content.pstprojectspace.IPSTProjectSpace"
         name="clean_budget"
         class="imio.project.pst.browser.corrections.CleanBudget"
         permission="cmf.ManagePortal"

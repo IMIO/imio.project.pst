@@ -10,7 +10,6 @@ from imio.project.pst.utils import filter_states
 from imio.pyutils.bs import remove_attributes
 from imio.pyutils.bs import replace_entire_strings
 from imio.pyutils.bs import unwrap_tags
-from plone import api
 from zope.annotation import IAnnotations
 from zope.component import getUtility
 from zope.schema.interfaces import IVocabularyFactory
@@ -75,16 +74,19 @@ class DocumentGenerationBaseHelper():
 
     def init_hv(self):
         """ init method to be called in document """
-        def _get_fields(pt):
-            return [fld.split('.')[-1] for fld in
-                    api.portal.get_registry_record('imio.project.settings.{}_fields'.format(pt), default=[])]
 
+        def _cleanup_fields(fields):
+            """Handle some cases like IDublinCore.title to just keep title"""
+            return [fld.split('.')[-1] for fld in fields]
+
+        projectspace = getProjectSpace(self.real_context)
         self.activated_fields = {
-            'so': _get_fields('strategicobjective'),
-            'oo': _get_fields('operationalobjective'),
-            'ac': _get_fields('pstaction'),
-            'sb': _get_fields('pstsubaction'),
+            'so': _cleanup_fields(projectspace.strategicobjective_fields),
+            'oo': _cleanup_fields(projectspace.operationalobjective_fields),
+            'ac': _cleanup_fields(projectspace.pstaction_fields),
+            'sb': _cleanup_fields(projectspace.pstsubaction_fields),
         }
+
 
     def keep_field(self, key, field):
         return field in self.activated_fields[key]

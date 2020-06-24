@@ -2,7 +2,9 @@
 
 from collective.documentgenerator.utils import update_oo_config
 from imio.migrator.migrator import Migrator
+from imio.project.core.content.projectspace import IProjectSpace
 from plone import api
+from plone.app.contenttypes.migration.dxmigration import migrate_base_class_to_new_class
 from plone.registry.interfaces import IRegistry
 from Products.CPUtils.Extensions.utils import mark_last_version
 from zope.component import getUtility
@@ -18,16 +20,13 @@ class Migrate_To_1_3_1(Migrator):
     def __init__(self, context):
         Migrator.__init__(self, context)
 
-    def add_plan_to_registry_record(self, record_name):
-        registry = getUtility(IRegistry)
-        registry_record_name = registry.get(record_name)
-        if 'plan' not in registry_record_name:
-            if 'categories' in registry_record_name:
-                registry_record_name.insert(
-                        registry_record_name.index('categories') + 1, 'plan')
-            else:
-                registry_record_name.append('plan')
-            api.portal.set_registry_record(record_name, registry_record_name)
+    def add_plan_to_lists_fields(self, *lists_fields):
+        for list_fields in lists_fields:
+            if 'plan' not in list_fields:
+                if 'categories' in list_fields:
+                    list_fields.insert(list_fields.index('categories') + 1, 'plan')
+                else:
+                    list_fields.append('plan')
 
     def update_dashboards(self):
         # update daterange criteria
@@ -55,19 +54,6 @@ class Migrate_To_1_3_1(Migrator):
 
         self.runProfileSteps('imio.project.pst', steps=['actions'], run_dependencies=False)
 
-        # update registry imio project settings with plan field
-        registry = getUtility(IRegistry)
-
-        so_record_name = 'imio.project.settings.strategicobjective_fields'
-        self.add_plan_to_registry_record(so_record_name)
-
-        oo_record_name = 'imio.project.settings.operationalobjective_fields'
-        self.add_plan_to_registry_record(oo_record_name)
-
-        act_record_name = 'imio.project.settings.pstaction_fields'
-        self.add_plan_to_registry_record(act_record_name)
-
-        # add plan values to project space
         plan_values = [
             {'label': u"Agenda 21 local",
                 'key': "agenda-21-local"},
@@ -96,11 +82,34 @@ class Migrate_To_1_3_1(Migrator):
             {'label': u"Schémas de développement commercial",
                 'key': "schemas-de-developpement-commercial"},
         ]
-        brains=self.catalog(object_provides='imio.project.pst.interfaces.IImioPSTProject')
-        for brain in brains:
-            project = brain.getObject()
-            if not project.plan_values:
-                project.plan_values = plan_values
+
+        registry = getUtility(IRegistry)
+        so_record = registry.get('imio.project.settings.strategicobjective_fields')
+        oo_record = registry.get('imio.project.settings.operationalobjective_fields')
+        act_record = registry.get('imio.project.settings.pstaction_fields')
+        if so_record and oo_record and act_record:
+            self.add_plan_to_lists_fields(so_record, oo_record, act_record)
+            self.runProfileSteps('imio.project.pst', steps=['typeinfo'], profile='default',
+                    run_dependencies=False)
+            projectspace_brains = self.catalog(object_provides=IProjectSpace.__identifier__)
+            if projectspace_brains[0].getObject().__class__.__name__ == 'ProjectSpace':
+                for projectspace_brain in projectspace_brains:
+                    projectspace_obj = projectspace_brain.getObject()
+                    migrate_base_class_to_new_class(
+                            projectspace_obj,
+                            new_class_name='imio.project.pst.content.pstprojectspace.PSTProjectSpace')
+                    #projectspace is now pstprojectspace
+                    projectspace_obj.portal_type = 'pstprojectspace'
+                    projectspace_obj.strategicobjective_fields = so_record
+                    projectspace_obj.operationalobjective_fields = oo_record
+                    projectspace_obj.pstaction_fields = act_record
+                    projectspace_obj.pstsubaction_fields = act_record
+                    if not hasattr(projectspace_obj, 'plan_values'):
+                        setattr(projectspace_obj, 'plan_values', plan_values)
+
+                del registry.records['imio.project.settings.strategicobjective_fields']
+                del registry.records['imio.project.settings.operationalobjective_fields']
+                del registry.records['imio.project.settings.pstaction_fields']
 
         #Assigning custom permission to role
         self.portal.manage_permission('imio.project.pst: ecomptes import',

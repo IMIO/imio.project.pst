@@ -10,6 +10,7 @@ from collective.eeafaceted.z3ctable.columns import PrettyLinkColumn
 from collective.eeafaceted.z3ctable.columns import VocabularyColumn
 from collective.task.interfaces import ITaskMethods
 from imio.prettylink.interfaces import IPrettyLink
+from imio.project.core.content.projectspace import IProjectSpace
 from imio.project.pst.adapters import UNSET_DATE_VALUE
 from Products.CMFPlone.utils import base_hasattr
 from zope.i18n import translate
@@ -135,7 +136,7 @@ class ParentsColumn(BaseColumn):
 
     def get_parents(self, ret, obj):
         parent = obj.aq_inner.aq_parent
-        while parent.portal_type != 'projectspace':
+        while not IProjectSpace.providedBy(parent):
             title = u' {}'.format(self.ploneview.cropText(parent.title, 35))
             ret.append(u'<a href="{}" target="_blank" title="{}" class="contenttype-{}">'
                        u'<span class="pretty_link_content">{}</span></a>'.format(parent.absolute_url(),

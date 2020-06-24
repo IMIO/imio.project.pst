@@ -73,6 +73,41 @@ class IntegrationTestCase(unittest.TestCase):
 
     def setUp(self):
         super(IntegrationTestCase, self).setUp()
+        #default setup
+        self.os_fields = [
+            'IDublinCore.title', 'description_rich', 'reference_number', 'categories', 'plan',
+            'IAnalyticBudget.projection', 'IAnalyticBudget.analytic_budget', 'budget', 'budget_comments',
+            'observation', 'comments'
+        ]
+        self.oo_fields = [
+            'IDublinCore.title', 'description_rich', 'reference_number', 'categories', 'plan',
+            'result_indicator', 'priority', 'planned_end_date', 'representative_responsible',
+            'administrative_responsible', 'manager', 'extra_concerned_people',
+            'IAnalyticBudget.projection', 'IAnalyticBudget.analytic_budget', 'budget', 'budget_comments',
+            'ISustainableDevelopmentGoals.sdgs', 'observation', 'comments'
+        ]
+        self.a_fields = [
+            'IDublinCore.title', 'description_rich', 'reference_number', 'categories', 'plan',
+            'result_indicator', 'planned_end_date', 'planned_begin_date', 'effective_begin_date',
+            'effective_end_date', 'progress', 'health_indicator', 'health_indicator_details',
+            'representative_responsible', 'manager', 'responsible', 'extra_concerned_people',
+            'IAnalyticBudget.projection', 'IAnalyticBudget.analytic_budget', 'budget', 'budget_comments',
+            'ISustainableDevelopmentGoals.sdgs', 'observation', 'comments'
+        ]
+        self.os_columns = [
+            u'select_row', u'pretty_link', u'review_state', u'categories', u'ModificationDate', u'history_actions'
+        ]
+        self.oo_columns = [
+            u'select_row', u'pretty_link', u'parents', u'review_state', u'manager', u'planned_end_date', u'priority',
+            u'categories', u'sdgs', u'ModificationDate', u'history_actions'
+        ]
+        self.a_columns = [
+            u'select_row', u'pretty_link', u'parents', u'review_state', u'manager', u'responsible',
+            u'planned_begin_date', u'planned_end_date', u'effective_begin_date', u'effective_end_date', u'progress',
+            u'health_indicator', u'sdgs', u'ModificationDate', u'history_actions'
+        ]
+
+        #tests setup
         self.portal = self.layer['portal']
         self.pst = self.portal['pst']
         self.os1 = self.pst['etre-une-commune-qui-offre-un-service-public-moderne-efficace-et-efficient']
@@ -84,6 +119,7 @@ class IntegrationTestCase(unittest.TestCase):
                    u'service-proprete', u'service-population', u'service-travaux', u'service-de-lurbanisme']
         srv_obj = self.portal['contacts']['plonegroup-organization']['services']
         self.groups = dict([(srv, srv_obj[srv].UID().decode('utf8')) for srv in act_srv])
+
 
     def login(self, username):
         logout()

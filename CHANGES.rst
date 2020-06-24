@@ -4,6 +4,8 @@ Changelog
 1.4 (unreleased)
 ----------------
 
+- Added fields to configure dashboards columns in pstprojectspace
+  [fngaha]
 - Added plan and plan_values fields
   [fngaha]
 
@@ -11,7 +13,7 @@ Changelog
 ----------------
 
 - Added content type settings to remove and/or reorder fields
-  [sgeulette]
+  [sgeulette,fngaha]
 - Added sustainable development goal field, column
   [sgeulette]
 - Added responsible field on action
