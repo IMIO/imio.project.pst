@@ -6,7 +6,6 @@ from collective.contact.plonegroup.utils import organizations_with_suffixes
 from datetime import date
 from DateTime import DateTime
 from collective.task.behaviors import ITask
-from imio.project.core.content.projectspace import IProjectSpace
 from imio.project.pst import EMPTY_STRING
 from imio.project.pst.content.action import IPSTAction
 from imio.project.pst.content.action import IPSTSubAction

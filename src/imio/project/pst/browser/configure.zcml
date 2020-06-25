@@ -7,6 +7,7 @@
     <include package="plone.app.portlets"/>
     <include file="facetediframe.zcml" />
     <include file="portletdashboard.zcml" />
+    <include file="permissions.zcml" />
 
     <!-- Publish static files -->
     <browser:resourceDirectory
@@ -345,7 +346,7 @@
 
     <!-- Products views -->
     <browser:page
-        for="imio.project.pst.interfaces.IImioPSTProject"
+        for="imio.project.pst.content.pstprojectspace.IPSTProjectSpace"
         name="archive"
         class="imio.project.pst.browser.views.ArchiveView"
         permission="cmf.ManagePortal"
@@ -353,7 +354,7 @@
         />
 
     <browser:page
-        for="imio.project.pst.interfaces.IImioPSTProject"
+        for="imio.project.pst.content.pstprojectspace.IPSTProjectSpace"
         name="clean_budget"
         class="imio.project.pst.browser.corrections.CleanBudget"
         permission="cmf.ManagePortal"
@@ -363,6 +364,21 @@
             display
         "
         />
+
+    <browser:page
+        name="export_as_xml"
+        for="imio.project.core.content.projectspace.IProjectSpace"
+        class="imio.project.pst.browser.views.PSTExportAsXML"
+        template="export_as_xml.pt"
+        permission="imio.project.pst.ecomptes_export"
+    />
+
+    <browser:page
+        name="import_from_ecomptes"
+        for="imio.project.core.content.projectspace.IProjectSpace"
+        class="imio.project.pst.browser.views.PSTImportFromEcomptes"
+        permission="imio.project.pst.ecomptes_import"
+    />
 
     <!-- breadcrumb override -->
     <browser:page
