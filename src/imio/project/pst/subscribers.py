@@ -92,6 +92,7 @@ def pstprojectspace_modified(obj, event):
       Update :
       - customViewFields defined on DashboardCollection when projects columns modified
       - pstsubaction_fields when pstaction_fields modified
+      - pstsubaction_budget_states when pstaction_budget_states modified
     """
     if not event.descriptions:
         return
@@ -104,6 +105,8 @@ def pstprojectspace_modified(obj, event):
                     brain.getObject().customViewFields = tuple(getattr(obj, attr))
             if attr == 'pstaction_fields':
                 obj.pstsubaction_fields = obj.pstaction_fields
+            if attr == 'pstaction_budget_states':
+                obj.pstsubaction_budget_states = obj.pstaction_budget_states
 
 
 def strategic_created(obj, event):
@@ -186,11 +189,3 @@ FIELDS_COLUMNS = {
                    u'representative_responsible': 'representativeresponsible',
                    u'extra_concerned_people': 'extraconcernedpeople', u'ISustainableDevelopmentGoals.sdgs': u'sdgs'}},
 }
-
-
-def registry_changed(event):
-    """  """
-    if IRecordModifiedEvent.providedBy(event):
-        if event.record.interfaceName == 'imio.project.pst.browser.controlpanel.IImioPSTSettings':
-            if event.record.fieldName == 'pstaction_budget_states':
-                api.portal.set_registry_record('imio.project.settings.pstsubaction_budget_states', event.newValue)

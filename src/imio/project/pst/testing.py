@@ -106,6 +106,9 @@ class IntegrationTestCase(unittest.TestCase):
             u'planned_begin_date', u'planned_end_date', u'effective_begin_date', u'effective_end_date', u'progress',
             u'health_indicator', u'sdgs', u'ModificationDate', u'history_actions'
         ]
+        self.so_bdg_states = ['ongoing', 'achieved']
+        self.oo_bdg_states = ['ongoing', 'achieved']
+        self.a_bdg_states = ['ongoing', 'terminated', 'to_be_scheduled']
 
         #tests setup
         self.portal = self.layer['portal']

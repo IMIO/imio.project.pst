@@ -87,6 +87,10 @@ class Migrate_To_1_3_1(Migrator):
                 'key': "schemas-de-developpement-commercial"},
         ]
 
+        so_bdg_states = ['ongoing', 'achieved']
+        oo_bdg_states = ['ongoing', 'achieved']
+        a_bdg_states = ['ongoing', 'terminated', 'to_be_scheduled']
+
         registry = getUtility(IRegistry)
         prj_fld_record = registry.get('imio.project.settings.project_fields')
         so_record = registry.get('imio.project.settings.strategicobjective_fields')
@@ -113,6 +117,14 @@ class Migrate_To_1_3_1(Migrator):
                     projectspace_obj.pstsubaction_fields = sa_record
                     if not hasattr(projectspace_obj, 'plan_values'):
                         setattr(projectspace_obj, 'plan_values', plan_values)
+                    if not hasattr(projectspace_obj, 'strategicobjective_budget_states'):
+                        setattr(projectspace_obj, 'strategicobjective_budget_states', so_bdg_states)
+                    if not hasattr(projectspace_obj, 'operationalobjective_budget_states'):
+                        setattr(projectspace_obj, 'operationalobjective_budget_states', oo_bdg_states)
+                    if not hasattr(projectspace_obj, 'pstaction_budget_states'):
+                        setattr(projectspace_obj, 'pstaction_budget_states', a_bdg_states)
+                    if not hasattr(projectspace_obj, 'pstsubaction_budget_states'):
+                        setattr(projectspace_obj, 'pstsubaction_budget_states', a_bdg_states)
 
                 del registry.records['imio.project.settings.project_fields']
                 del registry.records['imio.project.settings.strategicobjective_fields']

@@ -116,6 +116,7 @@ class TestDocumentGenerator(IntegrationTestCase):
                          '</thead><tbody><tr><td>Wallonie</td><td>2019</td><td>1,000.0</td><td></td></tr>'
                          '</tbody></table>')
         self.assertEqual(view.getOwnBudgetAsText(), '2019 pour Wallonie: 1000€')
+        # TODO : Fix AssertionError
         self.assertTrue(view.hasChildrenBudget(self.os1))
         self.assertIn('<tfoot><tr><td>Totals</td><td>33897.5</td><td>28990.0</td><td>4907.5</td><td>-</td><td>-</td>'
                       '<td>-</td><td>-</td></tr></tfoot>', view.getChildrenBudget())

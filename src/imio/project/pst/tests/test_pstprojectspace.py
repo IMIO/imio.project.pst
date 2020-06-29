@@ -26,6 +26,10 @@ class TestPSTProjectSpace(IntegrationTestCase):
         self.assertEquals(self.pst.strategicobjectives_columns, self.os_columns)
         self.assertEquals(self.pst.operationalobjectives_columns, self.oo_columns)
         self.assertEquals(self.pst.pstactions_columns, self.a_columns)
+        self.assertEquals(self.pst.strategicobjective_budget_states, self.so_bdg_states)
+        self.assertEquals(self.pst.operationalobjective_budget_states, self.oo_bdg_states)
+        self.assertEquals(self.pst.pstaction_budget_states, self.a_bdg_states)
+        self.assertEquals(self.pst.pstsubaction_budget_states, self.a_bdg_states)
 
     def test_strategicobjectives_fields(self):
         """
@@ -97,3 +101,15 @@ class TestPSTProjectSpace(IntegrationTestCase):
             self.pst.strategicobjectives.all.customViewFields,
             (u'pretty_link', u'review_state', u'categories', u'ModificationDate', u'history_actions')
         )
+
+    def test_pstsubaction_budget_states(self):
+        """
+         Test value when pstaction_budget_states modified :
+         remove to_be_scheduled in pstaction_budget_states and assert that pstsubaction_budget_states take same values
+        """
+        self.assertEquals(self.pst.pstsubaction_budget_states, self.pst.pstaction_budget_states)
+        # remove 'to_be_scheduled' value
+        self.pst.pstaction_budget_states = ['ongoing', 'terminated']
+        self.assertNotEquals(self.pst.pstsubaction_budget_states, self.pst.pstaction_budget_states)
+        notify(ObjectModifiedEvent(self.pst, Attributes(Interface, 'pstaction_budget_states')))
+        self.assertEquals(self.pst.pstsubaction_budget_states, self.pst.pstaction_budget_states)

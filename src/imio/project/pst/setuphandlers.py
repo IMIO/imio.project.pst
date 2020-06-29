@@ -109,7 +109,6 @@ def post_install(context):
                        transitions=['publish_internally', 'publish_externally'],
                        logger=logger)
     adaptDefaultPortal(portal)
-    configure_pst(portal)
     set_portlet(portal)
     addOrUpdateIndexes(portal, {'reference_number': ('FieldIndex', {})})
     # addOrUpdateIndexes(portal, {'administrative_responsible': ('KeywordIndex', {})})
@@ -382,6 +381,14 @@ def _addPSTprojectspace(context):
     params['pstactions_columns'] = pstaction_columns
     params['tasks_columns'] = tasks_columns
 
+    strategicobjective_budget_states = ['ongoing', 'achieved']
+    operationalobjective_budget_states = ['ongoing', 'achieved']
+    pstaction_budget_states = ['ongoing', 'terminated', 'to_be_scheduled']
+    params['strategicobjective_budget_states'] = strategicobjective_budget_states
+    params['operationalobjective_budget_states'] = operationalobjective_budget_states
+    params['pstaction_budget_states'] = pstaction_budget_states
+    params['pstsubaction_budget_states'] = pstaction_budget_states
+
     createContentInContainer(site, 'pstprojectspace', id='pst', **params)
     pstprojectspace = site.pst
     # local roles
@@ -582,19 +589,6 @@ def adaptDefaultPortal(site):
 
     api.portal.set_registry_record('collective.contact.core.interfaces.IContactCoreParameters.'
                                    'display_below_content_title_on_views', True)
-
-
-def configure_pst(portal):
-    registry = getUtility(IRegistry)
-
-    if not registry.get('imio.project.settings.strategicobjective_budget_states'):
-        registry['imio.project.settings.strategicobjective_budget_states'] = ['ongoing', 'achieved']
-    if not registry.get('imio.project.settings.operationalobjective_budget_states'):
-        registry['imio.project.settings.operationalobjective_budget_states'] = ['ongoing', 'achieved']
-    if not registry.get('imio.project.settings.pstaction_budget_states'):
-        registry['imio.project.settings.pstaction_budget_states'] = ['ongoing', 'terminated', 'to_be_scheduled']
-    if not registry.get('imio.project.settings.pstsubaction_budget_states'):
-        registry['imio.project.settings.pstsubaction_budget_states'] = registry['imio.project.settings.pstaction_budget_states']
 
 
 def addDemoOrganization(context):
