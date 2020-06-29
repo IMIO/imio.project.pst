@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
 
 from collective.documentgenerator.utils import update_oo_config
+# from eea.facetednavigation.criteria.interfaces import ICriteria
+# from eea.facetednavigation.subtypes.interfaces import IFacetedNavigable
+# from eea.facetednavigation.widgets.storage import Criterion
 from imio.migrator.migrator import Migrator
 from imio.project.core.content.projectspace import IProjectSpace
-from plone import api
+# from plone import api
 from plone.app.contenttypes.migration.dxmigration import migrate_base_class_to_new_class
 from plone.registry.interfaces import IRegistry
 from Products.CPUtils.Extensions.utils import mark_last_version
@@ -28,25 +31,26 @@ class Migrate_To_1_3_1(Migrator):
                 else:
                     list_fields.append('plan')
 
-    def update_dashboards(self):
-        # update daterange criteria
-        brains = api.content.find(object_provides=IFacetedNavigable.__identifier__)
-        for brain in brains:
-            obj = brain.getObject()
-            criterion = ICriteria(obj)
-            for key, criteria in criterion.items():
-                if criteria.get("widget") != "daterange":
-                    continue
-                if criteria.get("usePloneDateFormat") is True:
-                    continue
-                logger.info("Upgrade daterange widget for faceted {0}".format(obj))
-                position = criterion.criteria.index(criteria)
-                values = criteria.__dict__
-                values["usePloneDateFormat"] = True
-                values["labelStart"] = u'Start date'
-                values["labelEnd"] = u'End date'
-                criterion.criteria[position] = Criterion(**values)
-                criterion.criteria._p_changed = 1
+    # TODO : Fix AttributeError: 'list' object has no attribute '_p_changed'
+    # def update_dashboards(self):
+    #     # update daterange criteria
+    #     brains = api.content.find(object_provides=IFacetedNavigable.__identifier__)
+    #     for brain in brains:
+    #         obj = brain.getObject()
+    #         criterion = ICriteria(obj)
+    #         for key, criteria in criterion.items():
+    #             if criteria.get("widget") != "daterange":
+    #                 continue
+    #             if criteria.get("usePloneDateFormat") is True:
+    #                 continue
+    #             logger.info("Upgrade daterange widget for faceted {0}".format(obj))
+    #             position = criterion.criteria.index(criteria)
+    #             values = criteria.__dict__
+    #             values["usePloneDateFormat"] = True
+    #             values["labelStart"] = u'Start date'
+    #             values["labelEnd"] = u'End date'
+    #             criterion.criteria[position] = Criterion(**values)
+    #             criterion.criteria._p_changed = 1
 
     def run(self):
         # check if oo port must be changed
@@ -84,13 +88,15 @@ class Migrate_To_1_3_1(Migrator):
         ]
 
         registry = getUtility(IRegistry)
+        prj_fld_record = registry.get('imio.project.settings.project_fields')
         so_record = registry.get('imio.project.settings.strategicobjective_fields')
         oo_record = registry.get('imio.project.settings.operationalobjective_fields')
-        act_record = registry.get('imio.project.settings.pstaction_fields')
-        if so_record and oo_record and act_record:
-            self.add_plan_to_lists_fields(so_record, oo_record, act_record)
+        a_record = registry.get('imio.project.settings.pstaction_fields')
+        sa_record = registry.get('imio.project.settings.pstsubaction_fields')
+        if prj_fld_record and so_record and oo_record and a_record and sa_record:
+            self.add_plan_to_lists_fields(so_record, oo_record, a_record)
             self.runProfileSteps('imio.project.pst', steps=['typeinfo'], profile='default',
-                    run_dependencies=False)
+                                 run_dependencies=False)
             projectspace_brains = self.catalog(object_provides=IProjectSpace.__identifier__)
             if projectspace_brains[0].getObject().__class__.__name__ == 'ProjectSpace':
                 for projectspace_brain in projectspace_brains:
@@ -98,27 +104,30 @@ class Migrate_To_1_3_1(Migrator):
                     migrate_base_class_to_new_class(
                             projectspace_obj,
                             new_class_name='imio.project.pst.content.pstprojectspace.PSTProjectSpace')
-                    #projectspace is now pstprojectspace
+                    # projectspace is now pstprojectspace
                     projectspace_obj.portal_type = 'pstprojectspace'
+                    projectspace_obj.project_fields = prj_fld_record
                     projectspace_obj.strategicobjective_fields = so_record
                     projectspace_obj.operationalobjective_fields = oo_record
-                    projectspace_obj.pstaction_fields = act_record
-                    projectspace_obj.pstsubaction_fields = act_record
+                    projectspace_obj.pstaction_fields = a_record
+                    projectspace_obj.pstsubaction_fields = sa_record
                     if not hasattr(projectspace_obj, 'plan_values'):
                         setattr(projectspace_obj, 'plan_values', plan_values)
 
+                del registry.records['imio.project.settings.project_fields']
                 del registry.records['imio.project.settings.strategicobjective_fields']
                 del registry.records['imio.project.settings.operationalobjective_fields']
                 del registry.records['imio.project.settings.pstaction_fields']
+                del registry.records['imio.project.settings.pstsubaction_fields']
 
-        #Assigning custom permission to role
+        # Assigning custom permission to role
         self.portal.manage_permission('imio.project.pst: ecomptes import',
                                       ('Manager', 'Site Administrator', 'Contributor'), acquire=0)
         self.portal.manage_permission('imio.project.pst: ecomptes export',
                                       ('Manager', 'Site Administrator', 'Contributor'), acquire=0)
 
         # update daterange criteria
-        self.update_dashboards()
+        #self.update_dashboards()
 
         self.upgradeAll(omit=['imio.project.pst:default'])
 
