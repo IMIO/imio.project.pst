@@ -143,6 +143,7 @@ class IPSTProjectSpace(IProjectSpace):
     )
 
     directives.omitted('project_fields')
+    directives.omitted('project_budget_states')
     # when pstaction_fields modified pstsubaction_fields is updated with his values
     directives.omitted('pstsubaction_fields')
 

@@ -7,7 +7,7 @@ from collective.eeafaceted.dashboard.browser.overrides import DashboardFacetedTa
 from collective.z3cform.datagridfield import DataGridFieldFactory
 from imio.helpers.content import get_vocab
 from imio.helpers.content import transitions
-from imio.project.core import _c
+from imio.project.core import _ as _c
 from imio.project.core.config import SUMMARIZED_FIELDS
 from imio.project.pst import _
 from imio.project.pst.content.action import IPSTAction
