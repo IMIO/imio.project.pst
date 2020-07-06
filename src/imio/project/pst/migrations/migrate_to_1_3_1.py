@@ -6,7 +6,7 @@ from collective.documentgenerator.utils import update_oo_config
 # from eea.facetednavigation.widgets.storage import Criterion
 from imio.migrator.migrator import Migrator
 from imio.project.core.content.projectspace import IProjectSpace
-# from plone import api
+from plone import api
 from plone.app.contenttypes.migration.dxmigration import migrate_base_class_to_new_class
 from plone.registry.interfaces import IRegistry
 from Products.CPUtils.Extensions.utils import mark_last_version
@@ -140,6 +140,11 @@ class Migrate_To_1_3_1(Migrator):
 
         # update daterange criteria
         #self.update_dashboards()
+
+        # remove configlets
+        config_tool = api.portal.get_tool('portal_controlpanel')
+        config_tool.unregisterConfiglet('imio.project.core.settings')
+        config_tool.unregisterConfiglet('imio.project.pst.settings')
 
         self.upgradeAll(omit=['imio.project.pst:default'])
 

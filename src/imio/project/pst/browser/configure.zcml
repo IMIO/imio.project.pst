@@ -106,14 +106,6 @@
       permission="cmf.ModifyPortalContent"
       />
 
-    <browser:page
-      name="pst-settings"
-      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
-      permission="cmf.ManagePortal"
-      class=".controlpanel.SettingsView"
-      layer="imio.project.pst.interfaces.IImioProjectPSTLayer"
-      />
-
     <!-- document_generation_helper_view views for different types -->
     <browser:page
         for="imio.project.core.content.projectspace.IProjectSpace"
