@@ -98,7 +98,6 @@ def pstprojectspace_modified(obj, event):
       - customViewFields defined on DashboardCollection when projects columns modified
       - pstsubaction_fields when pstaction_fields modified
       - pstsubaction_budget_states when pstaction_budget_states modified
-      - budget globalization when projects budget states modified
     """
     if not event.descriptions:
         return
@@ -111,31 +110,8 @@ def pstprojectspace_modified(obj, event):
                     brain.getObject().customViewFields = tuple(getattr(obj, attr))
             if attr == 'pstaction_fields':
                 obj.pstsubaction_fields = obj.pstaction_fields
-            if attr.endswith('budget_states'):
-                if attr == 'pstaction_budget_states':
-                    obj.pstsubaction_budget_states = obj.pstaction_budget_states
-                # we redo budget globalization if states change
-                pc = api.portal.get_tool('portal_catalog')
-                # first remove all
-                brains = pc.searchResults(object_provides=IProject.__identifier__, sort_on='path', sort_order='reverse')
-                for brain in brains:
-                    obj = brain.getObject()
-                    changed = False
-                    obj_annotations = IAnnotations(obj)
-                    for fld, AK in SUMMARIZED_FIELDS.items():
-                        if AK in obj_annotations:
-                            changed = True
-                            del obj_annotations[AK]
-                    if changed:
-                        print "%s changed" % obj
-                        obj.reindexObject()
-                # globalize again
-                brains = pc.searchResults(object_provides=IProject.__identifier__, sort_on='path', sort_order='reverse')
-                pw = api.portal.get_tool('portal_workflow')
-                for brain in brains:
-                    obj = brain.getObject()
-                    if pw.getInfoFor(obj, 'review_state') in get_budget_states(obj.portal_type):
-                        _updateSummarizedFields(obj)
+            if attr == 'pstaction_budget_states':
+                obj.pstsubaction_budget_states = obj.pstaction_budget_states
 
 
 def strategic_created(obj, event):
