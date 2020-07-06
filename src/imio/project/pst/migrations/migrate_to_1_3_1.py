@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 from collective.documentgenerator.utils import update_oo_config
-# from eea.facetednavigation.criteria.interfaces import ICriteria
-# from eea.facetednavigation.subtypes.interfaces import IFacetedNavigable
-# from eea.facetednavigation.widgets.storage import Criterion
+from eea.facetednavigation.criteria.interfaces import ICriteria
+from eea.facetednavigation.subtypes.interfaces import IFacetedNavigable
+from eea.facetednavigation.widgets.storage import Criterion
 from imio.migrator.migrator import Migrator
 from imio.project.core.content.projectspace import IProjectSpace
 from plone import api
@@ -31,26 +31,25 @@ class Migrate_To_1_3_1(Migrator):
                 else:
                     list_fields.append('plan')
 
-    # TODO : Fix AttributeError: 'list' object has no attribute '_p_changed'
-    # def update_dashboards(self):
-    #     # update daterange criteria
-    #     brains = api.content.find(object_provides=IFacetedNavigable.__identifier__)
-    #     for brain in brains:
-    #         obj = brain.getObject()
-    #         criterion = ICriteria(obj)
-    #         for key, criteria in criterion.items():
-    #             if criteria.get("widget") != "daterange":
-    #                 continue
-    #             if criteria.get("usePloneDateFormat") is True:
-    #                 continue
-    #             logger.info("Upgrade daterange widget for faceted {0}".format(obj))
-    #             position = criterion.criteria.index(criteria)
-    #             values = criteria.__dict__
-    #             values["usePloneDateFormat"] = True
-    #             values["labelStart"] = u'Start date'
-    #             values["labelEnd"] = u'End date'
-    #             criterion.criteria[position] = Criterion(**values)
-    #             criterion.criteria._p_changed = 1
+    def update_dashboards(self):
+        # update daterange criteria
+        brains = api.content.find(object_provides=IFacetedNavigable.__identifier__, portal_type='Folder')
+        for brain in brains:
+            obj = brain.getObject()
+            criterion = ICriteria(obj)
+            for key, criteria in criterion.items():
+                if criteria.get("widget") != "daterange":
+                    continue
+                if criteria.get("usePloneDateFormat") is True:
+                    continue
+                logger.info("Upgrade daterange widget for faceted {0}".format(obj))
+                position = criterion.criteria.index(criteria)
+                values = criteria.__dict__
+                values["usePloneDateFormat"] = True
+                values["labelStart"] = u'Start date'
+                values["labelEnd"] = u'End date'
+                criterion.criteria[position] = Criterion(**values)
+                criterion.criteria._p_changed = 1
 
     def run(self):
         # check if oo port must be changed
@@ -139,7 +138,7 @@ class Migrate_To_1_3_1(Migrator):
                                       ('Manager', 'Site Administrator', 'Contributor'), acquire=0)
 
         # update daterange criteria
-        #self.update_dashboards()
+        self.update_dashboards()
 
         # remove configlets
         config_tool = api.portal.get_tool('portal_controlpanel')
