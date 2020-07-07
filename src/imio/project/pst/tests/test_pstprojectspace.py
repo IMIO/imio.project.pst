@@ -105,10 +105,10 @@ class TestPSTProjectSpace(IntegrationTestCase):
     def test_pstsubaction_budget_states(self):
         """
          Test value when pstaction_budget_states modified :
-         remove to_be_scheduled in pstaction_budget_states and assert that pstsubaction_budget_states take same values
+         remove 'to_be_scheduled' in pstaction_budget_states and assert that pstsubaction_budget_states take same values
         """
         self.assertEquals(self.pst.pstsubaction_budget_states, self.pst.pstaction_budget_states)
-        # remove 'to_be_scheduled' value
+        # remove 'to_be_scheduled' value in pstaction_budget_states = ['ongoing', 'terminated', 'to_be_scheduled']
         self.pst.pstaction_budget_states = ['ongoing', 'terminated']
         self.assertNotEquals(self.pst.pstsubaction_budget_states, self.pst.pstaction_budget_states)
         notify(ObjectModifiedEvent(self.pst, Attributes(Interface, 'pstaction_budget_states')))
