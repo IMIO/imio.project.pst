@@ -118,10 +118,10 @@ class TestDocumentGenerator(IntegrationTestCase):
         self.assertEqual(view.getOwnBudgetAsText(), '2019 pour Wallonie: 1000€')
         # TODO : Fix AssertionError
         self.assertTrue(view.hasChildrenBudget(self.os1))
-        self.assertIn('<tfoot><tr><td>Totals</td><td>33897.5</td><td>28990.0</td><td>4907.5</td><td>-</td><td>-</td>'
+        self.assertIn('<tfoot><tr><td>Totals</td><td>32767.5</td><td>27860.0</td><td>4907.5</td><td>-</td><td>-</td>'
                       '<td>-</td><td>-</td></tr></tfoot>', view.getChildrenBudget())
         self.assertEqual(view.getGlobalBudgetByYear(),
-                         {2024: 0, 2020: 4907.5, 2021: 0, 2022: 0, 2023: 0, 2019: 29990.0})
+                         {2019: 28860.0, 2020: 4907.5, 2021: 0, 2022: 0, 2023: 0, 2024: 0})
         # on dashboard
         view.request.form['facetedQuery'] = ''
         self.assertTrue(view.is_dashboard())

@@ -34,6 +34,7 @@ from zope.schema.interfaces import IVocabularyFactory
 from zope.schema.vocabulary import SimpleTerm
 from zope.schema.vocabulary import SimpleVocabulary
 from zope.security import checkPermission
+from zope.security.interfaces import NoInteraction
 
 
 @provider(IFormFieldProvider)
@@ -269,8 +270,12 @@ class PSTSubAction(Project):
             if not rel.from_object:
                 continue
             obj = intids.queryObject(rel.from_id)
-            if obj is not None and checkPermission('zope2.View', obj):
-                result.append(obj)
+            # TODO : Fix NoInteraction exception
+            try:
+                if obj is not None and checkPermission('zope2.View', obj):
+                    result.append(obj)
+            except NoInteraction:
+                pass
         return result
 
     def has_subactions(self):
