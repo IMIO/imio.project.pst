@@ -97,7 +97,7 @@ class Migrate_To_1_3_1(Migrator):
         oo_record = registry.get('imio.project.settings.operationalobjective_fields')
         a_record = registry.get('imio.project.settings.pstaction_fields')
         sa_record = registry.get('imio.project.settings.pstsubaction_fields')
-        if prj_fld_record and so_record and oo_record and a_record and sa_record:
+        if so_record and oo_record and a_record and sa_record:
             self.add_plan_to_lists_fields(so_record, oo_record, a_record)
             self.runProfileSteps('imio.project.pst', steps=['typeinfo'], profile='default',
                                  run_dependencies=False)
