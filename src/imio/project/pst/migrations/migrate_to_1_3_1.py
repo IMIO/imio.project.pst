@@ -6,6 +6,7 @@ from eea.facetednavigation.subtypes.interfaces import IFacetedNavigable
 from eea.facetednavigation.widgets.storage import Criterion
 from imio.migrator.migrator import Migrator
 from imio.project.core.content.projectspace import IProjectSpace
+from imio.project.pst.content.action import IPSTAction
 from plone import api
 from plone.app.contenttypes.migration.dxmigration import migrate_base_class_to_new_class
 from plone.registry.interfaces import IRegistry
@@ -55,7 +56,7 @@ class Migrate_To_1_3_1(Migrator):
         # check if oo port must be changed
         update_oo_config()
 
-        self.runProfileSteps('imio.project.pst', steps=['actions'], run_dependencies=False)
+        self.runProfileSteps('imio.project.pst', steps=['actions', 'catalog'], run_dependencies=False)
 
         plan_values = [
             {'label': u"Agenda 21 local",
@@ -144,6 +145,11 @@ class Migrate_To_1_3_1(Migrator):
         config_tool = api.portal.get_tool('portal_controlpanel')
         config_tool.unregisterConfiglet('imio.project.core.settings')
         config_tool.unregisterConfiglet('imio.project.pst.settings')
+
+        # reindex all actions
+        actions_brains = self.catalog(object_provides=IPSTAction.__identifier__)
+        for action_brain in actions_brains:
+            action_brain.getObject().reindexObject()
 
         self.upgradeAll(omit=['imio.project.pst:default'])
 

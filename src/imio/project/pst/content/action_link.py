@@ -11,8 +11,7 @@ class IActionLink(ISymlink):
     symbolic_link = RelationChoice(
         title=_(u"Symbolic link"),
         source=ObjPathSourceBinder(
-            navigation_tree_query={"portal_type": ("pstaction",)},
-            portal_type=("pstaction",),
+            actions_link_status=("no_link", "linked")
         ),
         required=True,
     )

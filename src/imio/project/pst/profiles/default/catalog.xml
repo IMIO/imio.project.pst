@@ -44,6 +44,9 @@
  <index name="directly_in_pstaction" meta_type="BooleanIndex">
   <indexed_attr value="directly_in_pstaction"/>
  </index>
+ <index name="actions_link_status" meta_type="KeywordIndex">
+  <indexed_attr value="actions_link_status"/>
+ </index>
   <column value="categories" />
   <column value="planned_begin_date" />
   <column value="planned_end_date" />
