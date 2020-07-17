@@ -115,15 +115,15 @@ class Migrate_To_1_3_1(Migrator):
                     projectspace_obj.operationalobjective_fields = oo_record
                     projectspace_obj.pstaction_fields = a_record
                     projectspace_obj.pstsubaction_fields = sa_record
-                    if not hasattr(projectspace_obj, 'plan_values'):
+                    if not getattr(projectspace_obj, 'plan_values'):
                         setattr(projectspace_obj, 'plan_values', plan_values)
-                    if not hasattr(projectspace_obj, 'strategicobjective_budget_states'):
+                    if not getattr(projectspace_obj, 'strategicobjective_budget_states'):
                         setattr(projectspace_obj, 'strategicobjective_budget_states', so_bdg_states)
-                    if not hasattr(projectspace_obj, 'operationalobjective_budget_states'):
+                    if not getattr(projectspace_obj, 'operationalobjective_budget_states'):
                         setattr(projectspace_obj, 'operationalobjective_budget_states', oo_bdg_states)
-                    if not hasattr(projectspace_obj, 'pstaction_budget_states'):
+                    if not getattr(projectspace_obj, 'pstaction_budget_states'):
                         setattr(projectspace_obj, 'pstaction_budget_states', a_bdg_states)
-                    if not hasattr(projectspace_obj, 'pstsubaction_budget_states'):
+                    if not getattr(projectspace_obj, 'pstsubaction_budget_states'):
                         setattr(projectspace_obj, 'pstsubaction_budget_states', a_bdg_states)
 
                 del registry.records['imio.project.settings.project_fields']
