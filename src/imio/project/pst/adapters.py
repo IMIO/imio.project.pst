@@ -210,18 +210,6 @@ def directly_in_pstaction_index(obj):
         iter = iter.aq_parent
 
 
-@indexer(IPSTAction)
-def actions_link_status_index(obj):
-    status = ""
-    if hasattr(obj, "_link") and obj._link:
-        status = "sym_linked"
-    elif obj.back_references():
-        status = "linked"
-    else:
-        status = "no_link"
-    return status
-
-
 ################
 # GUI cleaning #
 ################

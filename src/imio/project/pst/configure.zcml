@@ -100,7 +100,6 @@
     <adapter name="extra_concerned_people" factory=".adapters.extra_concerned_people_index" />
     <adapter name="effective_begin_date" factory=".adapters.effective_begin_date_index" />
     <adapter name="directly_in_pstaction" factory=".adapters.directly_in_pstaction_index" />
-    <adapter name="actions_link_status" factory=".adapters.actions_link_status_index" />
 
     <!-- UTILS METHODS -->
     <browser:view
