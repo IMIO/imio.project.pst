@@ -126,6 +126,11 @@ body.template-view.portaltype-strategicobjective td.table_widget_label {
     font-style: italic;
 }
 
+#budget-split-link {
+    font-style: italic;
+    padding: 5px 0;
+}
+
 /* CKeditor styles */
 .highlight-orange {background-color: orange;}
 .highlight-red {color: red;}

@@ -4,10 +4,14 @@ from datetime import datetime
 from os.path import dirname
 
 from collective.eeafaceted.dashboard.browser.overrides import DashboardFacetedTableView as DFTV
+from collective.z3cform.datagridfield import DataGridFieldFactory
 from imio.helpers.content import get_vocab
 from imio.helpers.content import transitions
-from imio.project.core import _
+from imio.project.core import _ as _c
 from imio.project.core.config import SUMMARIZED_FIELDS
+from imio.project.pst import _
+from imio.project.pst.content.action import IPSTAction
+from Products.CMFPlone import PloneMessageFactory as PMF
 from lxml import etree
 from lxml.etree import XMLSyntaxError
 from plone import api
@@ -18,6 +22,8 @@ from Products.Five.browser import BrowserView
 from Products.statusmessages.interfaces import IStatusMessage
 from z3c.form import button
 from z3c.form.field import Fields
+from z3c.form.form import EditForm
+from z3c.form.interfaces import HIDDEN_MODE
 from z3c.form.form import Form
 from zope import schema
 from zope.component import getMultiAdapter
@@ -227,14 +233,14 @@ class PSTExportAsXML(BrowserView):
 class IPSTImportFromEcomptesSchema(model.Schema):
 
     ecomptes_xml = schema.Bytes(
-        title=_(u"XML document exported from eComptes"),
+        title=_c(u"XML document exported from eComptes"),
         description=u'',
         required=True,
     )
 
 
 class PSTImportFromEcomptes(Form):
-    label = _(u"Import data from eComptes")
+    label = _c(u"Import data from eComptes")
     fields = Fields(IPSTImportFromEcomptesSchema)
     ignoreContext = True
 
@@ -317,7 +323,7 @@ class PSTImportFromEcomptes(Form):
         for path in reversed(modifications.keys()):
             modified(modifications[path])
 
-    @button.buttonAndHandler(_(u'Import'), name='import')
+    @button.buttonAndHandler(_c(u'Import'), name='import')
     def handleApply(self, action):
         data, errors = self.extractData()
         if errors:
@@ -327,13 +333,13 @@ class PSTImportFromEcomptes(Form):
                 parsed_xml = self.parse_xml(data)
             except XMLSyntaxError:
                 IStatusMessage(self.request).addStatusMessage(
-                    _(u'The imported document is not recognized as a valid eComptes export.'),
+                    _c(u'The imported document is not recognized as a valid eComptes export.'),
                     'error',
                 )
             else:
                 self.update_pst(parsed_xml)
                 IStatusMessage(self.request).addStatusMessage(
-                    _(u'The XML document has been successfully imported.'),
+                    _c(u'The XML document has been successfully imported.'),
                     'info',
                 )
 
@@ -368,3 +374,45 @@ class ActionFacetedTableView(DFTV):
             return [elt[0] for elt in self.collection.selectedViewFields()]
         else:
             return [elt[0] for elt in self.collection.selectedViewFields() if elt[0] != 'parents']
+
+
+class BudgetSplitForm(EditForm):
+
+    label = _(u"Split action budget")
+    fields = Fields(IPSTAction).select('budget_split')
+    fields['budget_split'].widgetFactory = DataGridFieldFactory
+
+    def getContent(self):
+        if base_hasattr(self.context, 'symbolic_link'):
+            return self.context._link
+        else:
+            return self.context
+
+    @button.buttonAndHandler(PMF('Save'), name='save')
+    def handleAdd(self, action):
+
+        data, errors = self.extractData()
+        if errors:
+            self.status = self.formErrorsMessage
+            return
+
+        self.applyChanges(data)
+        IStatusMessage(self.request).addStatusMessage(
+            _(u"Budget split saved"),
+            "info",
+        )
+
+    @button.buttonAndHandler(PMF(u'return_to_view'), name='cancel')
+    def handleCancel(self, action):
+        self.request.response.redirect(self.request.get('URL1'))
+
+    def datagridUpdateWidgets(self, subform, widgets, widget):
+        widget.columns[0]['mode'] = HIDDEN_MODE
+        widgets['uid'].mode = HIDDEN_MODE
+
+    def updateWidgets(self):
+        super(EditForm, self).updateWidgets()
+        self.widgets['budget_split'].allow_reorder = False
+        self.widgets['budget_split'].allow_insert = False
+        self.widgets['budget_split'].allow_delete = False
+        self.widgets['budget_split'].auto_append = False

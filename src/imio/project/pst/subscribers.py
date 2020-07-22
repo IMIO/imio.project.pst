@@ -5,7 +5,11 @@ from collective.eeafaceted.collectionwidget.utils import getCollectionLinkCriter
 from eea.facetednavigation.criteria.interfaces import ICriteria
 from imio.helpers.content import set_to_annotation
 from imio.pm.wsclient.browser.settings import notify_configuration_changed
+from imio.project.core.config import SUMMARIZED_FIELDS
+from imio.project.core.content.project import IProject
+from imio.project.core.events import _updateSummarizedFields
 from imio.project.core.events import empty_fields
+from imio.project.core.utils import get_budget_states
 from imio.project.pst.content.pstprojectspace import field_constraints
 from imio.project.pst.content.action import IPSTSubAction
 from imio.project.pst.interfaces import IActionDashboardBatchActions
@@ -18,6 +22,7 @@ from plone import api
 from plone.app.uuid.utils import uuidToPhysicalPath
 from plone.registry.interfaces import IRecordModifiedEvent
 from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
+from zope.annotation import IAnnotations
 from zope.interface import alsoProvides
 from zope.interface import Invalid
 from zope.lifecycleevent.interfaces import IObjectAddedEvent
@@ -92,6 +97,7 @@ def pstprojectspace_modified(obj, event):
       Update :
       - customViewFields defined on DashboardCollection when projects columns modified
       - pstsubaction_fields when pstaction_fields modified
+      - pstsubaction_budget_states when pstaction_budget_states modified
     """
     if not event.descriptions:
         return
@@ -104,6 +110,8 @@ def pstprojectspace_modified(obj, event):
                     brain.getObject().customViewFields = tuple(getattr(obj, attr))
             if attr == 'pstaction_fields':
                 obj.pstsubaction_fields = obj.pstaction_fields
+            if attr == 'pstaction_budget_states':
+                obj.pstsubaction_budget_states = obj.pstaction_budget_states
 
 
 def strategic_created(obj, event):
@@ -186,11 +194,3 @@ FIELDS_COLUMNS = {
                    u'representative_responsible': 'representativeresponsible',
                    u'extra_concerned_people': 'extraconcernedpeople', u'ISustainableDevelopmentGoals.sdgs': u'sdgs'}},
 }
-
-
-def registry_changed(event):
-    """  """
-    if IRecordModifiedEvent.providedBy(event):
-        if event.record.interfaceName == 'imio.project.pst.browser.controlpanel.IImioPSTSettings':
-            if event.record.fieldName == 'pstaction_budget_states':
-                api.portal.set_registry_record('imio.project.settings.pstsubaction_budget_states', event.newValue)

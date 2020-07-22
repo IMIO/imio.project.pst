@@ -9,7 +9,6 @@ from imio.helpers.content import transitions
 from imio.migrator.migrator import Migrator
 from imio.project.pst import _tr
 from imio.project.pst import CKEDITOR_MENUSTYLES_CUSTOMIZED_MSG
-from imio.project.pst.setuphandlers import configure_pst
 from imio.project.pst.setuphandlers import createBaseCollections
 from imio.project.pst.setuphandlers import reimport_faceted_config
 from imio.project.pst.setuphandlers import set_portlet
@@ -74,8 +73,6 @@ class Migrate_To_1_3(Migrator):
         self.various_update()
 
         set_portlet(self.portal)
-
-        configure_pst(self.portal)
 
         self.migrate_description()
 

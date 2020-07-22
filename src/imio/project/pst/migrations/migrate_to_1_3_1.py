@@ -1,8 +1,12 @@
 # -*- coding: utf-8 -*-
 
 from collective.documentgenerator.utils import update_oo_config
+from eea.facetednavigation.criteria.interfaces import ICriteria
+from eea.facetednavigation.subtypes.interfaces import IFacetedNavigable
+from eea.facetednavigation.widgets.storage import Criterion
 from imio.migrator.migrator import Migrator
 from imio.project.core.content.projectspace import IProjectSpace
+from imio.project.pst.content.action import IPSTAction
 from plone import api
 from plone.app.contenttypes.migration.dxmigration import migrate_base_class_to_new_class
 from plone.registry.interfaces import IRegistry
@@ -30,7 +34,7 @@ class Migrate_To_1_3_1(Migrator):
 
     def update_dashboards(self):
         # update daterange criteria
-        brains = api.content.find(object_provides=IFacetedNavigable.__identifier__)
+        brains = api.content.find(object_provides=IFacetedNavigable.__identifier__, portal_type='Folder')
         for brain in brains:
             obj = brain.getObject()
             criterion = ICriteria(obj)
@@ -52,7 +56,7 @@ class Migrate_To_1_3_1(Migrator):
         # check if oo port must be changed
         update_oo_config()
 
-        self.runProfileSteps('imio.project.pst', steps=['actions'], run_dependencies=False)
+        self.runProfileSteps('imio.project.pst', steps=['actions', 'catalog'], run_dependencies=False)
 
         plan_values = [
             {'label': u"Agenda 21 local",
@@ -83,14 +87,20 @@ class Migrate_To_1_3_1(Migrator):
                 'key': "schemas-de-developpement-commercial"},
         ]
 
+        so_bdg_states = ['ongoing', 'achieved']
+        oo_bdg_states = ['ongoing', 'achieved']
+        a_bdg_states = ['ongoing', 'terminated', 'to_be_scheduled']
+
         registry = getUtility(IRegistry)
+        prj_fld_record = registry.get('imio.project.settings.project_fields')
         so_record = registry.get('imio.project.settings.strategicobjective_fields')
         oo_record = registry.get('imio.project.settings.operationalobjective_fields')
-        act_record = registry.get('imio.project.settings.pstaction_fields')
-        if so_record and oo_record and act_record:
-            self.add_plan_to_lists_fields(so_record, oo_record, act_record)
+        a_record = registry.get('imio.project.settings.pstaction_fields')
+        sa_record = registry.get('imio.project.settings.pstsubaction_fields')
+        if so_record and oo_record and a_record and sa_record:
+            self.add_plan_to_lists_fields(so_record, oo_record, a_record)
             self.runProfileSteps('imio.project.pst', steps=['typeinfo'], profile='default',
-                    run_dependencies=False)
+                                 run_dependencies=False)
             projectspace_brains = self.catalog(object_provides=IProjectSpace.__identifier__)
             if projectspace_brains[0].getObject().__class__.__name__ == 'ProjectSpace':
                 for projectspace_brain in projectspace_brains:
@@ -98,20 +108,31 @@ class Migrate_To_1_3_1(Migrator):
                     migrate_base_class_to_new_class(
                             projectspace_obj,
                             new_class_name='imio.project.pst.content.pstprojectspace.PSTProjectSpace')
-                    #projectspace is now pstprojectspace
+                    # projectspace is now pstprojectspace
                     projectspace_obj.portal_type = 'pstprojectspace'
+                    projectspace_obj.project_fields = prj_fld_record
                     projectspace_obj.strategicobjective_fields = so_record
                     projectspace_obj.operationalobjective_fields = oo_record
-                    projectspace_obj.pstaction_fields = act_record
-                    projectspace_obj.pstsubaction_fields = act_record
-                    if not hasattr(projectspace_obj, 'plan_values'):
+                    projectspace_obj.pstaction_fields = a_record
+                    projectspace_obj.pstsubaction_fields = sa_record
+                    if not getattr(projectspace_obj, 'plan_values'):
                         setattr(projectspace_obj, 'plan_values', plan_values)
+                    if not getattr(projectspace_obj, 'strategicobjective_budget_states'):
+                        setattr(projectspace_obj, 'strategicobjective_budget_states', so_bdg_states)
+                    if not getattr(projectspace_obj, 'operationalobjective_budget_states'):
+                        setattr(projectspace_obj, 'operationalobjective_budget_states', oo_bdg_states)
+                    if not getattr(projectspace_obj, 'pstaction_budget_states'):
+                        setattr(projectspace_obj, 'pstaction_budget_states', a_bdg_states)
+                    if not getattr(projectspace_obj, 'pstsubaction_budget_states'):
+                        setattr(projectspace_obj, 'pstsubaction_budget_states', a_bdg_states)
 
+                del registry.records['imio.project.settings.project_fields']
                 del registry.records['imio.project.settings.strategicobjective_fields']
                 del registry.records['imio.project.settings.operationalobjective_fields']
                 del registry.records['imio.project.settings.pstaction_fields']
+                del registry.records['imio.project.settings.pstsubaction_fields']
 
-        #Assigning custom permission to role
+        # Assigning custom permission to role
         self.portal.manage_permission('imio.project.pst: ecomptes import',
                                       ('Manager', 'Site Administrator', 'Contributor'), acquire=0)
         self.portal.manage_permission('imio.project.pst: ecomptes export',
@@ -119,6 +140,16 @@ class Migrate_To_1_3_1(Migrator):
 
         # update daterange criteria
         self.update_dashboards()
+
+        # remove configlets
+        config_tool = api.portal.get_tool('portal_controlpanel')
+        config_tool.unregisterConfiglet('imio.project.core.settings')
+        config_tool.unregisterConfiglet('imio.project.pst.settings')
+
+        # reindex all actions
+        actions_brains = self.catalog(object_provides=IPSTAction.__identifier__)
+        for action_brain in actions_brains:
+            action_brain.getObject().reindexObject()
 
         self.upgradeAll(omit=['imio.project.pst:default'])
 

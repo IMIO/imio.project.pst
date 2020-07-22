@@ -13,6 +13,7 @@ class IActionLink(ISymlink):
         source=ObjPathSourceBinder(
             navigation_tree_query={"portal_type": ("pstaction",)},
             portal_type=("pstaction",),
+            symlink_status=("void", "source")
         ),
         required=True,
     )

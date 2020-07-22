@@ -80,6 +80,10 @@ class ContentLinkViewlet(ViewletBase):
             return [obj.aq_parent for obj in ref
                     if obj.absolute_url() != self.context.absolute_url()]
 
+    def budget_split_url(self):
+        if self.back_references(self.context) or hasattr(self.context, "_link_portal_type"):
+            return '{}/@@budget_split'.format(self.context.absolute_url())
+
     def back_references(self, context):
         """
         Return back references from source object on specified attribute_name

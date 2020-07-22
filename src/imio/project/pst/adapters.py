@@ -18,7 +18,6 @@ from Products.CMFCore.interfaces import IContentish
 from Products.CMFPlone.utils import base_hasattr
 from Products.PluginIndexes.common.UnIndex import _marker as common_marker
 
-
 # value used to mark the fact that a date is not set, we need a date in the future for beginning-is-late collection
 UNSET_DATE_VALUE = date(3900, 1, 1)
 
@@ -71,7 +70,6 @@ class UserIsActionEditorCriterion(object):
 
 
 class TaskInAssignedGroupCriterion(object):
-
     """Return catalog criteria following assigned group member."""
 
     def __init__(self, context):

@@ -99,12 +99,11 @@
       permission="zope2.View"
       />
 
-    <browser:page
-      name="pst-settings"
-      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
-      permission="cmf.ManagePortal"
-      class=".controlpanel.SettingsView"
-      layer="imio.project.pst.interfaces.IImioProjectPSTLayer"
+    <browser:view
+      for="imio.project.pst.content.action.IPSTAction"
+      name="budget_split"
+      class=".views.BudgetSplitForm"
+      permission="cmf.ModifyPortalContent"
       />
 
     <!-- document_generation_helper_view views for different types -->
