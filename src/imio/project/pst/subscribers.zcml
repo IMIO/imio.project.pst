@@ -79,4 +79,14 @@
         handler=".subscribers.pstsubaction_moved"
         />
 
+    <subscriber
+        for="Products.PluggableAuthService.interfaces.events.IPrincipalAddedToGroupEvent"
+        handler=".subscribers.group_assignment"
+        />
+
+    <subscriber
+        for="Products.PluggableAuthService.interfaces.events.IPrincipalRemovedFromGroupEvent"
+        handler=".subscribers.group_assignment"
+        />
+
 </configure>

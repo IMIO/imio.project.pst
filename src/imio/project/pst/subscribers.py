@@ -1,36 +1,26 @@
 # -*- coding: utf-8 -*-
+import logging
+import os
+
 from collective.eeafaceted.collectionwidget.interfaces import ICollectionCategories
 from collective.eeafaceted.collectionwidget.utils import _updateDefaultCollectionFor
 from collective.eeafaceted.collectionwidget.utils import getCollectionLinkCriterion
 from eea.facetednavigation.criteria.interfaces import ICriteria
+from imio.helpers.cache import invalidate_cachekey_volatile_for
 from imio.helpers.content import set_to_annotation
 from imio.pm.wsclient.browser.settings import notify_configuration_changed
-from imio.project.core.config import SUMMARIZED_FIELDS
-from imio.project.core.content.project import IProject
-from imio.project.core.events import _updateSummarizedFields
-from imio.project.core.events import empty_fields
-from imio.project.core.utils import get_budget_states
-from imio.project.pst.content.pstprojectspace import field_constraints
 from imio.project.pst.content.action import IPSTSubAction
 from imio.project.pst.interfaces import IActionDashboardBatchActions
-from imio.project.core.content.projectspace import IProjectSpace
 from imio.project.pst.interfaces import IOODashboardBatchActions
 from imio.project.pst.interfaces import IOSDashboardBatchActions
 from imio.project.pst.interfaces import ITaskDashboardBatchActions
-from imio.project.pst.setuphandlers import COLUMNS_FOR_CONTENT_TYPES
 from plone import api
 from plone.app.uuid.utils import uuidToPhysicalPath
 from plone.registry.interfaces import IRecordModifiedEvent
-from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
-from zope.annotation import IAnnotations
 from zope.interface import alsoProvides
 from zope.interface import Invalid
 from zope.lifecycleevent.interfaces import IObjectAddedEvent
 from zope.lifecycleevent.interfaces import IObjectRemovedEvent
-
-import logging
-import os
-
 
 logger = logging.getLogger('imio.project.pst: subscribers')
 
@@ -165,6 +155,13 @@ def pstsubaction_moved(obj, event):
             api.content.move(task, obj)
         # we set a flag on the pstaction to indicate a subaction presence
         set_to_annotation('imio.project.pst.has_subactions', True, obj=event.newParent)
+
+
+def group_assignment(event):
+    """
+        manage the add of a user in a plone group
+    """
+    invalidate_cachekey_volatile_for('imio.project.pst.vocabularies.ActionEditorsVocabulary')
 
 
 FIELDS_COLUMNS = {
