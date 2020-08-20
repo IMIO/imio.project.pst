@@ -121,8 +121,6 @@ class PSTExportAsXML(BrowserView):
         ret = []
         for brain in brains:
             obj = brain.getObject()
-            if obj.id == 'reduire-la-consommation-energetique-de-ladministration-communale':
-                import ipdb; ipdb.set_trace()
             if base_hasattr(obj, '_link_portal_type'):
                 continue  # we escape action_link
             ret.append(obj)
