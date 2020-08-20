@@ -4,6 +4,8 @@ Changelog
 1.4 (unreleased)
 ----------------
 
+- Fix ecompte export issue (export now also contains subactions as actions)
+  [fngaha]
 - Added fields to configure dashboards columns in pstprojectspace
   [fngaha]
 - Added plan and plan_values fields

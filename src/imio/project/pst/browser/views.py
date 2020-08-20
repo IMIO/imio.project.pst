@@ -121,13 +121,15 @@ class PSTExportAsXML(BrowserView):
         ret = []
         for brain in brains:
             obj = brain.getObject()
+            if obj.id == 'reduire-la-consommation-energetique-de-ladministration-communale':
+                import ipdb; ipdb.set_trace()
             if base_hasattr(obj, '_link_portal_type'):
                 continue  # we escape action_link
             ret.append(obj)
             sub_brains = api.content.find(obj, depth=1, object_provides='imio.project.pst.content.action.IPSTSubAction',
                                           sort_on='getObjPositionInParent')
             for sub_brain in sub_brains:
-                subobj = brain.getObject()
+                subobj = sub_brain.getObject()
                 if base_hasattr(subobj, '_link_portal_type'):
                     continue  # we escape subaction_link
                 ret.append(subobj)
