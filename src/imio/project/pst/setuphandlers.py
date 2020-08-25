@@ -435,16 +435,24 @@ def add_plonegroups_to_registry():
     registry = getUtility(IRegistry)
     to_add = []
     if not [r for r in registry[FUNCTIONS_REGISTRY] if r['fct_id'] == 'actioneditor']:
-        to_add.append({'fct_title': u"Gestionnaire d'action", 'fct_id': u'actioneditor', 'fct_orgs': []})
+        to_add.append(
+            {'fct_title': u"Gestionnaire d'action", 'fct_id': u'actioneditor', 'fct_orgs': [], 'enabled': True}
+        )
 
     if not [r for r in registry[FUNCTIONS_REGISTRY] if r['fct_id'] == 'admin_resp']:
-        to_add.append({'fct_title': u"Responsable administratif", 'fct_id': u'admin_resp', 'fct_orgs': []})
+        to_add.append(
+            {'fct_title': u"Responsable administratif", 'fct_id': u'admin_resp', 'fct_orgs': [], 'enabled': True}
+        )
 
     if not [r for r in registry[FUNCTIONS_REGISTRY] if r['fct_id'] == 'editeur']:
-        to_add.append({'fct_title': u'Éditeur (agent)', 'fct_id': u'editeur', 'fct_orgs': []})
+        to_add.append(
+            {'fct_title': u'Éditeur (agent)', 'fct_id': u'editeur', 'fct_orgs': [], 'enabled': True}
+        )
 
     if not [r for r in registry[FUNCTIONS_REGISTRY] if r['fct_id'] == 'validateur']:
-        to_add.append({'fct_title': u'Validateur (chef service)', 'fct_id': u'validateur', 'fct_orgs': []})
+        to_add.append(
+            {'fct_title': u'Validateur (chef service)', 'fct_id': u'validateur', 'fct_orgs': [], 'enabled': True}
+        )
 
     if to_add:
         registry[FUNCTIONS_REGISTRY] = registry[FUNCTIONS_REGISTRY] + to_add
