@@ -1,5 +1,7 @@
 from plone.autoform import directives
 from collective.eeafaceted.z3ctable import _ as _z
+from collective.z3cform.datagridfield import DataGridFieldFactory
+from collective.z3cform.datagridfield import DictRow
 from imio.project.core.content.projectspace import get_pt_fields_voc
 from imio.project.core.content.projectspace import mandatory_check
 from imio.project.core.content.projectspace import position_check
@@ -9,6 +11,7 @@ from imio.project.core.content.projectspace import ProjectSpaceSchemaPolicy
 from imio.project.core import _ as _c
 from imio.project.pst import _
 from zope import schema
+from zope.interface import Interface
 from zope.interface import implements
 from zope.interface import invariant
 from zope.schema.interfaces import IVocabularyFactory
@@ -89,35 +92,104 @@ TasksColumnsVocabulary = SimpleVocabulary(
 )
 
 
+class IStrategicObjectiveFieldsSchema(Interface):
+    field_name = schema.Choice(
+        title=_(u'Field name'),
+        vocabulary=u'imio.project.pst.SOFieldsVocabulary',
+    )
+
+    read_tal_condition = schema.TextLine(
+        title=_("Read TAL condition"),
+        required=False,
+    )
+
+    write_tal_condition = schema.TextLine(
+        title=_("Write TAL condition"),
+        required=False,
+    )
+
+
+class IOperationalObjectiveFieldsSchema(Interface):
+    field_name = schema.Choice(
+        title=_(u'Field name'),
+        vocabulary=u'imio.project.pst.OOFieldsVocabulary',
+    )
+
+    read_tal_condition = schema.TextLine(
+        title=_("Read TAL condition"),
+        required=False,
+    )
+
+    write_tal_condition = schema.TextLine(
+        title=_("Write TAL condition"),
+        required=False,
+    )
+
+
+class IPSTActionFieldsSchema(Interface):
+    field_name = schema.Choice(
+        title=_(u'Field name'),
+        vocabulary=u'imio.project.pst.ActionFieldsVocabulary',
+    )
+
+    read_tal_condition = schema.TextLine(
+        title=_("Read TAL condition"),
+        required=False,
+    )
+
+    write_tal_condition = schema.TextLine(
+        title=_("Write TAL condition"),
+        required=False,
+    )
+
+
 class IPSTProjectSpace(IProjectSpace):
     """
         PST Project schema
     """
     strategicobjective_fields = schema.List(
         title=_c(u"${type} fields display", mapping={'type': _('StrategicObjective')}),
-        description=_c(u"Put fields on the right to display it. Flags are : ..."),
-        value_type=schema.Choice(vocabulary=u'imio.project.pst.SOFieldsVocabulary'),
-        # value_type=schema.Choice(source=IMFields),  # a source is not managed by registry !!
+        required=False,
+        value_type=DictRow(title=_(u'Field'),
+                           schema=IStrategicObjectiveFieldsSchema,
+                           required=False),
     )
+    directives.widget('strategicobjective_fields', DataGridFieldFactory, display_table_css_class='listing',
+                      allow_reorder=True, auto_append=False)
+
 
     operationalobjective_fields = schema.List(
         title=_c(u"${type} fields display", mapping={'type': _('OperationalObjective')}),
-        # description=_c(u'Put fields on the right to display it. Flags are : ...'),
-        value_type=schema.Choice(vocabulary=u'imio.project.pst.OOFieldsVocabulary'),
+        required=False,
+        value_type=DictRow(title=_(u'Field'),
+                           schema=IOperationalObjectiveFieldsSchema,
+                           required=False),
     )
+    directives.widget('operationalobjective_fields', DataGridFieldFactory, display_table_css_class='listing',
+                      allow_reorder=True, auto_append=False)
+
 
     pstaction_fields = schema.List(
         title=_c(u"${type} fields display", mapping={'type': _('PSTAction')}),
-        # description=_c(u'Put fields on the right to display it. Flags are : ...'),
-        value_type=schema.Choice(vocabulary=u'imio.project.pst.ActionFieldsVocabulary'),
+        required=False,
+        value_type=DictRow(title=_(u'Field'),
+                           schema=IPSTActionFieldsSchema,
+                           required=False),
     )
+    directives.widget('pstaction_fields', DataGridFieldFactory, display_table_css_class='listing',
+                      allow_reorder=True, auto_append=False)
+
 
     # this field will be hidden
     pstsubaction_fields = schema.List(
         title=_c(u"${type} fields display", mapping={'type': _('PSTSubAction')}),
-        # description=_c(u'Put fields on the right to display it. Flags are : ...'),
-        value_type=schema.Choice(vocabulary=u'imio.project.pst.ActionFieldsVocabulary'),
+        required=False,
+        value_type=DictRow(title=_(u'Field'),
+                           schema=IPSTActionFieldsSchema,
+                           required=False),
     )
+    directives.widget('pstsubaction_fields', DataGridFieldFactory, display_table_css_class='listing',
+                      allow_reorder=True, auto_append=False)
 
     strategicobjectives_columns = schema.List(
         title=_(u"StrategicObjective columns"),

@@ -32,6 +32,29 @@ class Migrate_To_1_3_1(Migrator):
                 else:
                     list_fields.append('plan')
 
+    def migrate_pst_fields(self):
+        projectspace_brains = self.catalog(portal_type='pstprojectspace')
+        for projectspace_brain in projectspace_brains:
+            projectspace_obj = projectspace_brain.getObject()
+
+            for pst_field_name in (
+                'strategicobjective_fields',
+                'operationalobjective_fields',
+                'pstaction_fields',
+                'pstsubaction_fields',
+            ):
+                updated_list = []
+                for field_name in getattr(projectspace_obj, pst_field_name):
+                    if isinstance(field_name, dict):  # field migration already effective
+                        continue
+                    updated_list.append({
+                        'field_name': field_name,
+                        'read_tal_condition': '',
+                        'write_tal_condition': '',
+                    })
+                if updated_list:
+                    setattr(projectspace_obj, pst_field_name, updated_list)
+
     def update_dashboards(self):
         # update daterange criteria
         brains = api.content.find(object_provides=IFacetedNavigable.__identifier__, portal_type='Folder')
@@ -140,6 +163,8 @@ class Migrate_To_1_3_1(Migrator):
 
         # update daterange criteria
         self.update_dashboards()
+
+        self.migrate_pst_fields()
 
         # remove configlets
         config_tool = api.portal.get_tool('portal_controlpanel')
