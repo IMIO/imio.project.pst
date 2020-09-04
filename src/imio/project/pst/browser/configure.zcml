@@ -539,4 +539,13 @@
       layer="..interfaces.IImioProjectPSTLayer"
       />
 
+    <browser:viewlet
+      for="collective.task.interfaces.ITaskContent"
+      name="viewlet.ContentLink"
+      manager="plone.app.layout.viewlets.interfaces.IAboveContentTitle"
+      class=".viewlets.ContentLinkViewlet"
+      permission="zope.Public"
+      layer="..interfaces.IImioProjectPSTLayer"
+      />
+
 </configure>
