@@ -120,7 +120,7 @@ class Migrate_To_1_3_1(Migrator):
                             new_class_name='imio.project.pst.content.pstprojectspace.PSTProjectSpace')
                     # projectspace is now pstprojectspace
                     projectspace_obj.portal_type = 'pstprojectspace'
-                    projectspace_obj.project_fields = prj_fld_record
+                    projectspace_obj.project_fields = self.migrate_pst_fields(prj_fld_record)
                     projectspace_obj.strategicobjective_fields = self.migrate_pst_fields(so_record)
                     projectspace_obj.operationalobjective_fields = self.migrate_pst_fields(oo_record)
                     projectspace_obj.pstaction_fields = self.migrate_pst_fields(a_record)
@@ -150,8 +150,6 @@ class Migrate_To_1_3_1(Migrator):
 
         # update daterange criteria
         self.update_dashboards()
-
-        self.migrate_pst_fields()
 
         # remove configlets
         config_tool = api.portal.get_tool('portal_controlpanel')
