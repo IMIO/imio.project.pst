@@ -451,7 +451,7 @@ def add_plonegroups_to_registry():
 
     if not [r for r in registry[FUNCTIONS_REGISTRY] if r['fct_id'] == 'validateur']:
         to_add.append(
-            {'fct_title': u'Validateur (chef service)', 'fct_id': u'validateur', 'fct_orgs': [], 'fct_management': False, 'enabled': True}
+            {'fct_title': u'Validateur (chef service)', 'fct_id': u'validateur', 'fct_orgs': [], 'fct_management': True, 'enabled': True}
         )
 
     if to_add:
