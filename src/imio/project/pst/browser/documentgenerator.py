@@ -323,8 +323,6 @@ class DocumentGenerationOOHelper(DocumentGenerationBaseHelper, DXDocumentGenerat
                 else:
                     raise TypeError("only pstactions and pstsubactions must"
                                     " figure in this result list")
-                if os.portal_type != 'strategicobjective':
-                    raise TypeError("only strategicobjectives must be found")
                 if os not in ret:
                     ret.append(os)
             return ret
