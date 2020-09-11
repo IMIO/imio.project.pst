@@ -321,8 +321,7 @@ class DocumentGenerationOOHelper(DocumentGenerationBaseHelper, DXDocumentGenerat
                 elif obj.portal_type == 'pstsubaction':
                     os = obj.__parent__.__parent__.__parent__
                 else:
-                    raise TypeError("only pstactions and pstsubactions must"
-                                    " figure in this result list")
+                    raise TypeError("only pstactions and pstsubactions must figure in this result list")
                 if os not in ret:
                     ret.append(os)
             return ret
