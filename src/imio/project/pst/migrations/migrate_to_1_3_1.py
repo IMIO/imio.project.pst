@@ -146,6 +146,15 @@ class Migrate_To_1_3_1(Migrator):
         config_tool.unregisterConfiglet('imio.project.core.settings')
         config_tool.unregisterConfiglet('imio.project.pst.settings')
 
+        # Allowed  web service actions on subactions
+        generated_actions = registry.get('imio.pm.wsclient.browser.settings.IWS4PMClientSettings.generated_actions')
+        for action in generated_actions:
+            action['condition'] = u"python: context.getPortalTypeName() in ('pstaction', 'pstsubaction', 'task')"
+        api.portal.set_registry_record(
+            'imio.pm.wsclient.browser.settings.IWS4PMClientSettings.generated_actions',
+            generated_actions
+        )
+
         # reindex all actions
         actions_brains = self.catalog(object_provides=IPSTAction.__identifier__)
         for action_brain in actions_brains:
