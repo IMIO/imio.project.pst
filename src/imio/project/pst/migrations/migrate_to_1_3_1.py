@@ -151,7 +151,8 @@ class Migrate_To_1_3_1(Migrator):
             if action['condition'] == u"python: context.getPortalTypeName() in ('pstaction', 'task')":
                 action['condition'] = u"python: context.getPortalTypeName() in ('pstaction', 'pstsubaction', 'task')"
             else:
-                logger.warning("Record was not updated '{}'".format(action))
+                logger.warning("Settings for WS4PM client: generated_actions was not updated ! "
+                               "Current value'{}'".format(action))
         api.portal.set_registry_record('imio.pm.wsclient.browser.settings.IWS4PMClientSettings.generated_actions',
                                        generated_actions)
 
