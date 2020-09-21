@@ -70,6 +70,21 @@ class OperationalObjective(Project):
         else:
             return self.title.encode("utf8")
 
+    def get_actions_planned_end_dates(self):
+        return [
+            act.planned_end_date
+            for act in api.content.find(
+                context=self,
+                portal_type=["pstaction", "action_link", "pstsubaction", "subaction_link"],
+            )
+            if act.planned_end_date
+        ]
+
+    def get_max_actions_planned_end_dates(self):
+        if self.get_actions_planned_end_dates():
+            return max(self.get_actions_planned_end_dates())
+        return None
+
 
 @implementer(IDataManager)
 class OperationalObjectiveDataManager(AttributeField):

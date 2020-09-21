@@ -4,6 +4,8 @@ Changelog
 1.4 (unreleased)
 ----------------
 
+- Fix planned end date dashboard column when the same field on the operational objective is empty
+  [fngaha]
 - Allowed  web service actions on subactions
   [fngaha]
 - Fix an error during setup complaining about `fct_management` missing value
