@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from collective.documentgenerator.utils import update_oo_config
+from collective.messagesviewlet.utils import add_message
 from eea.facetednavigation.criteria.interfaces import ICriteria
 from eea.facetednavigation.subtypes.interfaces import IFacetedNavigable
 from eea.facetednavigation.widgets.storage import Criterion
@@ -168,6 +169,20 @@ class Migrate_To_1_3_1(Migrator):
 
         # Reorder css and js
         self.runProfileSteps('imio.project.pst', steps=['cssregistry', 'jsregistry'], run_dependencies=False)
+
+        # message
+        if 'new-version' not in self.portal['messages-config']:
+            add_message(
+                'new-version',
+                'Version 1.3.1',
+                u'<p>Vous êtes passés à la version d\'iA.PST 1.3.1 !</p>'
+                u'<p>La <a href="https://docs.imio.be/imio-doc/ia.pst/" target="_blank">'
+                u'documentation</a> a été mise à jour et comporte une nouvelles sections sur les nouveautés</a>.</p>',
+                msg_type='warning',
+                can_hide=True,
+                req_roles=['Authenticated'],
+                activate=True
+            )
 
         # Display duration
         self.finish()
