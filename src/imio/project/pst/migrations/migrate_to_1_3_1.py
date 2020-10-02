@@ -177,7 +177,7 @@ class Migrate_To_1_3_1(Migrator):
                 'Version 1.3.1',
                 u'<p>Vous êtes passés à la version d\'iA.PST 1.3.1 !</p>'
                 u'<p>La <a href="https://docs.imio.be/imio-doc/ia.pst/" target="_blank">'
-                u'documentation</a> a été mise à jour et comporte une nouvelles sections sur les nouveautés</a>.</p>',
+                u'documentation</a> a été mise à jour et comporte une nouvelle section sur les nouveautés</a>.</p>',
                 msg_type='warning',
                 can_hide=True,
                 req_roles=['Authenticated'],
