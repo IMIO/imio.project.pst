@@ -23,6 +23,81 @@ ${task}  rediger-le-profil-de-fonction
 
 *** Test cases ***
 
+#1. Introduction
+#1.1. Présentation générale
+#1.1.1 En quoi consiste l’application ?
+#1.2. Prérequis utilisateur
+#1.3. Groupes et rôles prédéfinis
+#1.4. Les différents éléments d’un PST
+#2. Utilisation
+#2.1. Premiers pas (interface_01.png)
+#2.2. Consultation
+#2.2.1. Visualisation du plan du PST (plan_pst.png, plan_pst_detail.png)
+#2.2.2. Visualisation d’un élément (2-2-1-visualisation-pst.png, 2-2-1-visualisation-os.png, 2-2-1-visualisation-oo.png,
+#       2-2-1-visualisation-action.png, 2-2-1-visualisation-tache.png)
+#2.2.3. Menu de recherches prédéfinies et navigation (2-2-2-menu-recherches.png)
+#2.2.4. Tableaux de bord
+#2.2.4.1. Présentation générale (2-2-3-tableaux-de-bord-general.png)
+#2.2.4.2. Tableau de résultat
+#2.2.4.3. Filtres (2-2-3-tableaux-de-bord-filtres-avances.png)
+#2.2.5. Génération de documents bureautiques (2-2-4-generation-liste-documents.png)
+#2.2.5.1. Deux cas de figure se présentent lors d’une sélection d’un modèle (2-2-4-generation-document-element.png,
+#         2-2-4-generation-document-tb.png)
+#2.2.5.2. Liste des modèles du PST
+#2.3. Modification ou création des éléments
+#2.3.1. La barre d’action (barre-actions.png)
+#2.3.2. Modification
+#2.3.2.1. Attributs communs aux trois types d’éléments principaux
+#2.3.2.2. Attributs plus spécifiques de l’objectif stratégique
+#2.3.2.3. Attributs plus spécifiques de l’objectif opérationnel
+#2.3.2.4. Attributs plus spécifiques de l’action (2-3-modification-financement-derniere-ligne.png,
+#         2-3-modification-financement-ligne-ajoutee.png, 2-3-modification-boutons.png)
+#2.3.2.5. Les attributs spéciaux
+#2.3.2.5.1. Le porteur d’action (porteur.png)
+#2.3.2.5.2. Les objectifs de développement durable ou ODD (odd-selection.png, odd-visu.png)
+#2.3.3. Création d’un nouvel élément
+#2.4. Workflow (étapes de traitement)
+#2.4.1. Workflow sur les objectifs opérationnels et stratégiques
+#2.4.2. Workflow sur les actions
+#2.4.3. Changer d’état plus globalement
+#2.5. Gestion de tâches
+#2.5.1. Principe et ajout
+#2.5.1.1. Principe
+#2.5.1.2. Ajout d’une tâche (2-5-1-tache-ajout-vierge.png, 2-5-1-tache-ajout-complete.png, 2-5-1-tache-ajout-to-assign.png)
+#2.5.2. Visualisation d’une tâche
+#2.5.2.1. Sur une action (2-5-2-tache-dans-action.png)
+#2.5.2.2. Dans le tableau de bord (2-5-2-tache-dans-tableau.png)
+#3. Configuration du PST
+#3.1. Gestion des utilisateurs
+#3.2. Options sur le PST
+#3.3. Gestion des contacts (3-3-annuaire.png, 3-3-mon-organisation.png, 3-3-mes-services.png, 3-3-configuration-site.png,
+#     3-3-lien-config-services.png, 3-3-config-services.png, 3-3-groupes-plone.png)
+#3.4. Archivage du PST
+#3.4.1. Procédure (archiver-pst.png)
+#3.4.2. Caractéristiques
+#3.5. Options de configuration avancées (congig-site.png, gestion_config.png)
+#3.5.1. Affichage des attributs sur les éléments (affichage-attr.png)
+#3.5.2. Configuration de la globalisation des budgets (config-globalisation.png)
+#4. Guides pas à pas
+#4.1. Utilisateur
+#4.1.1. Se connecter (se-connecter.png)
+#4.1.2. Réinitialiser son mot de passe (mdp-oublie.png, mdp-envoye.png, mdp-reinit.png)
+#4.1.2.1. Que faire si ça échoue ?
+#4.2. Gestionnaire d’action
+#4.3. Encodeur du PST
+#4.4. Administrateur du PST
+#4.4.1. Supprimer des annexes (folder-content.png)
+#5. Interopérabilité (boutons.png, ecran-envoi.png, ecran-envoi-complete.png, envoi-realise.png, point-ia-delib.png
+#5.1. Lien avec la gestion des délibérations (01-bouton.png, 02-ecran-envoi.jpg, 03-ecran-envoi-complete.jpg,
+#     04-envoi-realise.jpg)
+#5.2. Lien vers eComptes (ecompte-export.png, ecompte-import.png)
+#6. Foire aux questions
+#6.1. Utilisation
+#6.2. Configuration
+#6.3. Vous rencontrez un problème ?
+#7. Journal des modifications
+#7.1. Version majeure 1.3
+
 Premiers pas
 # partie 2.1 Premiers pas
     Go to  ${PLONE_URL}
