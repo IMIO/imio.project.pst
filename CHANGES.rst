@@ -4,6 +4,7 @@ Changelog
 1.4 (unreleased)
 ----------------
 
+- Fix ecompte export for CPAS by adapting "typeAdmin" tag
 - Allowed  web service actions on subactions
   [fngaha]
 - Fix an error during setup complaining about `fct_management` missing value
