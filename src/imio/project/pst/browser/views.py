@@ -230,7 +230,7 @@ class PSTExportAsXML(BrowserView):
         return plans
 
     def typeAdmin(self):
-        if self.request.getURL().count('cpas') > 0:
+        if 'cpas' in self.request.getURL():
             return 'CPAS'
         return 'AC'
 
