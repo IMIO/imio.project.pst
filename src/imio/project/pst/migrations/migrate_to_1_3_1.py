@@ -49,7 +49,7 @@ class Migrate_To_1_3_1(Migrator):
         self.reindex_all_actions()
 
         # upgrade all except 'imio.project.pst:default'. Needed with bin/upgrade-portals
-        # self.upgradeAll(omit=['imio.project.pst:default'])
+        self.upgradeAll(omit=['imio.project.pst:default'])
 
         # for prod in []:
         #     mark_last_version(self.portal, product=prod)
