@@ -27,7 +27,7 @@ class PSTLayer(PloneWithPackageLayer):
         setattr(portal, '_TESTING_SITE_', True)
         setLocal('request', portal.REQUEST)
         applyProfile(portal, 'Products.CMFPlone:plone')
-#        applyProfile(portal, 'Products.CMFPlone:plone-content')  # could be done too
+        #        applyProfile(portal, 'Products.CMFPlone:plone-content')  # could be done too
         manage_addExternalMethod(portal, 'lock-unlock', '', 'imio.project.pst.robot', 'lock')
         manage_addExternalMethod(portal, 'robot_init', '', 'imio.project.pst.robot', 'robot_init')
 
@@ -73,7 +73,7 @@ class IntegrationTestCase(unittest.TestCase):
 
     def setUp(self):
         super(IntegrationTestCase, self).setUp()
-        #default setup
+        # default setup
         self.os_fields = [
             'IDublinCore.title', 'description_rich', 'reference_number', 'categories', 'plan',
             'IAnalyticBudget.projection', 'IAnalyticBudget.analytic_budget', 'budget', 'budget_comments',
@@ -110,7 +110,7 @@ class IntegrationTestCase(unittest.TestCase):
         self.oo_bdg_states = ['ongoing', 'achieved']
         self.a_bdg_states = ['ongoing', 'terminated', 'to_be_scheduled']
 
-        #tests setup
+        # tests setup
         self.portal = self.layer['portal']
         self.pst = self.portal['pst']
         self.os1 = self.pst['etre-une-commune-qui-offre-un-service-public-moderne-efficace-et-efficient']
@@ -122,7 +122,6 @@ class IntegrationTestCase(unittest.TestCase):
                    u'service-proprete', u'service-population', u'service-travaux', u'service-de-lurbanisme']
         srv_obj = self.portal['contacts']['plonegroup-organization']['services']
         self.groups = dict([(srv, srv_obj[srv].UID().decode('utf8')) for srv in act_srv])
-
 
     def login(self, username):
         logout()
