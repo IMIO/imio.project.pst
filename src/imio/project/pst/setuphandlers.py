@@ -57,6 +57,7 @@ import os
 
 
 logger = logging.getLogger('imio.project.pst: setuphandlers')
+PASSWORD = 'Project69!'
 
 
 def reimport_faceted_config(folder, xml, default_UID=None):
@@ -781,7 +782,7 @@ def _addPSTUsers(context):
 
     logger.info('Adding PST users')
     site = context.getSite()
-    password = 'Project69!'
+    password = PASSWORD
     if get_environment() == 'prod':
         password = generate_password()
         logger.info("Generated password='%s'" % password)
