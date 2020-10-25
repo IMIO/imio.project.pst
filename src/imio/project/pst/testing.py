@@ -1,8 +1,14 @@
 # -*- coding: utf-8 -*-
 """Base module for unittesting."""
 
-from imio.pyutils.system import runCommand
+import os
+import unittest
+
+import imio.project.pst
+from collective.task.field import LocalRoleMasterSelectField
+from dexterity.localrolesfield.field import LocalRolesField
 from imio.project.pst.setuphandlers import PASSWORD
+from imio.pyutils.system import runCommand
 from plone.app.robotframework.testing import REMOTE_LIBRARY_BUNDLE_FIXTURE
 from plone.app.testing import applyProfile
 from plone.app.testing import FunctionalTesting
@@ -12,15 +18,17 @@ from plone.app.testing import logout
 from plone.app.testing import PloneWithPackageLayer
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
+from plone.app.textfield import RichText
 from plone.testing import z2
 from plone.testing.z2 import Browser
 from Products.ExternalMethod.ExternalMethod import manage_addExternalMethod
 from Testing import ZopeTestCase as ztc
 from zope.globalrequest.local import setLocal
-
-import imio.project.pst
-import os
-import unittest
+from zope.schema import Choice
+from zope.schema import Date
+from zope.schema import Int
+from zope.schema import List
+from zope.schema import Text
 
 
 class PSTLayer(PloneWithPackageLayer):
@@ -75,6 +83,7 @@ class IntegrationTestCase(unittest.TestCase):
 
     def setUp(self):
         super(IntegrationTestCase, self).setUp()
+
         # default setup
         self.os_fields = [
             'IDublinCore.title', 'description_rich', 'reference_number', 'categories', 'plan',
@@ -113,6 +122,58 @@ class IntegrationTestCase(unittest.TestCase):
         self.a_bdg_states = ['ongoing', 'terminated', 'to_be_scheduled']
 
         # tests setup
+        self.strategicobjective_fields_class = {
+            'description_rich': RichText,
+            'reference_number': Int,
+            'categories': List,
+            'budget': List,
+            'budget_comments': RichText,
+            'effective_end_date': Date,
+            'observation': RichText,
+            'comments': RichText,
+            'plan': List,
+        }
+        self.operationalobjective_fields_class = {
+            'description_rich': RichText,
+            'reference_number': Int,
+            'categories': List,
+            'priority': Choice,
+            'budget': List,
+            'budget_comments': RichText,
+            'manager': LocalRolesField,
+            'extra_concerned_people': Text,
+            'result_indicator': List,
+            'planned_end_date': Date,
+            'observation': RichText,
+            'comments': RichText,
+            'plan': List,
+            'representative_responsible': LocalRolesField,
+            'administrative_responsible': LocalRolesField,
+            'manager': LocalRolesField,
+        }
+        self.pstaction_fields_class = {
+            'description_rich': RichText,
+            'reference_number': Int,
+            'categories': List,
+            'budget': List,
+            'budget_comments': RichText,
+            'manager': LocalRolesField,
+            'extra_concerned_people': Text,
+            'result_indicator': List,
+            'planned_begin_date': Date,
+            'effective_begin_date': Date,
+            'planned_end_date': Date,
+            'effective_end_date': Date,
+            'progress': Int,
+            'observation': RichText,
+            'comments': RichText,
+            'plan': List,
+            'representative_responsible': LocalRolesField,
+            'responsible': Choice,
+            'health_indicator': Choice,
+            'health_indicator_details': Text,
+        }
+
         self.portal = self.layer['portal']
         self.pst = self.portal['pst']
         self.os1 = self.pst['etre-une-commune-qui-offre-un-service-public-moderne-efficace-et-efficient']
