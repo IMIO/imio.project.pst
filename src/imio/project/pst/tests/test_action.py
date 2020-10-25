@@ -2,10 +2,13 @@
 """ Content action tests for this package."""
 
 from imio.project.pst.content import action
+from imio.project.pst.content.pstprojectspace import PSTACTION_EXCLUDED_FIELDS
 from imio.project.pst.testing import IntegrationTestCase
 from plone import api
 from plone.app.testing import TEST_USER_NAME
+from zope.app.content import queryContentType
 from zope.interface import Invalid
+from zope.schema import getFieldsInOrder
 from zope.schema._bootstrapinterfaces import RequiredMissing
 from zope.schema._bootstrapinterfaces import TooShort
 
@@ -68,3 +71,18 @@ class TestAction(IntegrationTestCase):
         self.assertEquals(raised.exception.message,
                           u'You must choose at least one group of which you are a member')
         validator.validate(self.groups.values())
+
+    def test_pstaction_fields_type(self):
+        """Test of fields type."""
+        schema = queryContentType(self.ac1)
+        fields = getFieldsInOrder(schema)
+        # field is a tuple : (field_name, field_obj)
+        for field in fields:
+            try:
+                # pstaction_fields_type is a dict : {'field_name': field_class}
+                self.assertTrue(isinstance(field[1], self.pstaction_fields_class[field[0]]))
+            except KeyError as err:
+                # its ok for fields excluded intentionally
+                print('EXCLUDED : {}'.format(err.message))
+                if err.message in PSTACTION_EXCLUDED_FIELDS:
+                    pass
