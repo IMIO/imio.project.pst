@@ -21,7 +21,7 @@ class TestOperational(IntegrationTestCase):
         # field is a tuple : (field_name, field_obj)
         for field in fields:
             try:
-                # a_fields_type is a dict : {'field_name': field_class}
+                # operationalobjective_fields_class is a dict : {'field_name': field_class}
                 self.assertTrue(isinstance(field[1], self.operationalobjective_fields_class[field[0]]))
             except KeyError as err:
                 # its ok for fields excluded intentionally
