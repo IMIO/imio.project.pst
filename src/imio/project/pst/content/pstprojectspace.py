@@ -15,6 +15,26 @@ from zope.schema.interfaces import IVocabularyFactory
 from zope.schema.vocabulary import SimpleTerm
 from zope.schema.vocabulary import SimpleVocabulary
 
+STRATEGICOBJECTIVE_EXCLUDED_FIELDS = [
+    'IDublinCore.description', 'IDublinCore.contributors', 'IDublinCore.creators', 'IDublinCore.effective',
+    'IDublinCore.expires', 'IDublinCore.language', 'IDublinCore.rights', 'IDublinCore.subjects', 'INameFromTitle.title',
+    'IVersionable.changeNote', 'effective_begin_date', 'effective_end_date', 'extra_concerned_people', 'manager',
+    'notes', 'planned_begin_date', 'planned_end_date', 'priority', 'progress', 'result_indicator', 'visible_for'
+]
+
+OPERATIONALOBJECTIVE_EXCLUDED_FIELDS = [
+    'IDublinCore.description', 'IDublinCore.contributors', 'IDublinCore.creators', 'IDublinCore.effective',
+    'IDublinCore.expires', 'IDublinCore.language', 'IDublinCore.rights', 'IDublinCore.subjects', 'INameFromTitle.title',
+    'IVersionable.changeNote', 'effective_begin_date', 'effective_end_date', 'notes', 'planned_begin_date', 'progress',
+    'visible_for'
+]
+
+PSTACTION_EXCLUDED_FIELDS = [
+    'IDublinCore.description', 'IDublinCore.contributors', 'IDublinCore.creators', 'IDublinCore.effective',
+    'IDublinCore.expires', 'IDublinCore.language', 'IDublinCore.rights', 'IDublinCore.subjects', 'INameFromTitle.title',
+    'IVersionable.changeNote', 'budget_split', 'notes', 'priority', 'visible_for'
+]
+
 field_constraints = {
     'titles': {},
     'mandatory': {'strategicobjective': ['IDublinCore.title'],
@@ -200,36 +220,18 @@ class SOFieldsVocabulary(object):
     implements(IVocabularyFactory)
 
     def __call__(self, context):
-        return get_pt_fields_voc('strategicobjective',
-                                 ['IDublinCore.description', 'IDublinCore.contributors', 'IDublinCore.creators',
-                                  'IDublinCore.effective', 'IDublinCore.expires', 'IDublinCore.language',
-                                  'IDublinCore.rights', 'IDublinCore.subjects', 'INameFromTitle.title',
-                                  'IVersionable.changeNote', 'effective_begin_date', 'effective_end_date',
-                                  'extra_concerned_people', 'manager', 'notes', 'planned_begin_date',
-                                  'planned_end_date', 'priority', 'progress', 'result_indicator', 'visible_for'],
-                                 field_constraints)
+        return get_pt_fields_voc('strategicobjective', STRATEGICOBJECTIVE_EXCLUDED_FIELDS, field_constraints)
 
 
 class OOFieldsVocabulary(object):
     implements(IVocabularyFactory)
 
     def __call__(self, context):
-        return get_pt_fields_voc('operationalobjective',
-                                 ['IDublinCore.description', 'IDublinCore.contributors', 'IDublinCore.creators',
-                                  'IDublinCore.effective', 'IDublinCore.expires', 'IDublinCore.language',
-                                  'IDublinCore.rights', 'IDublinCore.subjects', 'INameFromTitle.title',
-                                  'IVersionable.changeNote', 'effective_begin_date', 'effective_end_date', 'notes',
-                                  'planned_begin_date', 'progress', 'visible_for'],
-                                 field_constraints)
+        return get_pt_fields_voc('operationalobjective', OPERATIONALOBJECTIVE_EXCLUDED_FIELDS, field_constraints)
 
 
 class ActionFieldsVocabulary(object):
     implements(IVocabularyFactory)
 
     def __call__(self, context):
-        return get_pt_fields_voc('pstaction',
-                                 ['IDublinCore.description', 'IDublinCore.contributors', 'IDublinCore.creators',
-                                  'IDublinCore.effective', 'IDublinCore.expires', 'IDublinCore.language',
-                                  'IDublinCore.rights', 'IDublinCore.subjects', 'INameFromTitle.title',
-                                  'IVersionable.changeNote', 'budget_split', 'notes', 'priority', 'visible_for'],
-                                 field_constraints)
+        return get_pt_fields_voc('pstaction', PSTACTION_EXCLUDED_FIELDS, field_constraints)
