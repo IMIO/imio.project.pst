@@ -5,7 +5,6 @@ import os
 import unittest
 
 import imio.project.pst
-from collective.task.field import LocalRoleMasterSelectField
 from dexterity.localrolesfield.field import LocalRolesField
 from imio.project.pst.setuphandlers import PASSWORD
 from imio.pyutils.system import runCommand
@@ -149,7 +148,6 @@ class IntegrationTestCase(unittest.TestCase):
             'plan': List,
             'representative_responsible': LocalRolesField,
             'administrative_responsible': LocalRolesField,
-            'manager': LocalRolesField,
         }
         self.pstaction_fields_class = {
             'description_rich': RichText,
@@ -177,10 +175,14 @@ class IntegrationTestCase(unittest.TestCase):
         self.portal = self.layer['portal']
         self.pst = self.portal['pst']
         self.os1 = self.pst['etre-une-commune-qui-offre-un-service-public-moderne-efficace-et-efficient']
-        self.oo1 = self.os1['diminuer-le-temps-dattente-de-lusager-au-guichet-population-de-20-dans-les-12-mois'
+        self.oo2 = self.os1['diminuer-le-temps-dattente-de-lusager-au-guichet-population-de-20-dans-les-12-mois'
                             '-a-venir']
-        self.ac1 = self.oo1['engager-2-agents-pour-le-service-population']
-        self.tk1 = self.ac1['ajouter-une-annonce-sur-le-site-internet']
+        self.oo6 = self.os1['optimiser-laccueil-au-sein-de-ladministration-communale']
+        self.a3 = self.oo2['engager-2-agents-pour-le-service-population']
+        self.a4 = self.oo2['creer-un-guichet-supplementaire-dans-les-3-mois']
+        self.a9 = self.oo6['mettre-en-place-des-permanences-sur-rendez-vous']
+        self.al4 = self.oo6['creer-un-guichet-supplementaire-dans-les-3-mois']
+        self.t1 = self.a3['ajouter-une-annonce-sur-le-site-internet']
         act_srv = [u'cellule-marches-publics', u'secretariat-communal', u'service-etat-civil', u'service-informatique',
                    u'service-proprete', u'service-population', u'service-travaux', u'service-de-lurbanisme']
         srv_obj = self.portal['contacts']['plonegroup-organization']['services']
