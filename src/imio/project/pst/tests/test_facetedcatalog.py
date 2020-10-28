@@ -31,7 +31,7 @@ class TestFacetedCatalog(IntegrationTestCase):
             brains = fc.__call__(context, **query)
         self.assertEqual(cm.exception.message, 'We only support one :has_child filter')
         # with :has_child
-        api.content.transition(self.ac1, 'begin')
+        api.content.transition(self.a3, 'begin')
         query = {'facet.field': [u'review_state', u'categories', u'priority', u'representative_responsible',
                                  u'administrative_responsible', u'manager'], 'Language': ['fr', ''], 'b_size': 24,
                  'portal_type': {'query': ['operationalobjective']}, 'b_start': 0, 'path': {'query': ['/plone/pst']},
@@ -39,7 +39,7 @@ class TestFacetedCatalog(IntegrationTestCase):
                  'review_state': {'query': 'ongoing'}}}}
         brains = fc.__call__(context, **query)
         self.assertEqual(len(brains), 1)
-        self.assertEqual(brains[0].id, self.oo1.id)
+        self.assertEqual(brains[0].id, self.oo2.id)
 
         # update another action to search 2 oos
         os2 = self.pst['etre-une-commune-qui-sinscrit-dans-la-lignee-des-accords-de-reductions-des-gaz-a-effet-de-'
@@ -48,9 +48,9 @@ class TestFacetedCatalog(IntegrationTestCase):
         api.content.transition(oo2['proceder-a-lengagement-dun-conseiller-en-energie'], 'begin')
         brains = fc.__call__(context, **query)
         self.assertEqual(len(brains), 2)
-        self.assertListEqual([b.id for b in brains], [self.oo1.id, oo2.id])
+        self.assertListEqual([b.id for b in brains], [self.oo2.id, oo2.id])
 
         # change order
         query.update({'sort_on': u'id', 'sort_order': 'descending'})
         brains = fc.__call__(context, **query)
-        self.assertListEqual([b.id for b in brains], [oo2.id, self.oo1.id])
+        self.assertListEqual([b.id for b in brains], [oo2.id, self.oo2.id])

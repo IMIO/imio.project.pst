@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 """ Content action tests for this package."""
 from imio.project.pst.content.pstprojectspace import OPERATIONALOBJECTIVE_EXCLUDED_FIELDS
-from imio.project.pst.content.pstprojectspace import STRATEGICOBJECTIVE_EXCLUDED_FIELDS
 from imio.project.pst.testing import IntegrationTestCase
 from zope.app.content import queryContentType
 from zope.schema import getFieldsInOrder
@@ -16,7 +15,7 @@ class TestOperational(IntegrationTestCase):
 
     def test_operationalobjective_fields_type(self):
         """Test of fields type."""
-        schema = queryContentType(self.oo1)
+        schema = queryContentType(self.oo2)
         fields = getFieldsInOrder(schema)
         # field is a tuple : (field_name, field_obj)
         for field in fields:
