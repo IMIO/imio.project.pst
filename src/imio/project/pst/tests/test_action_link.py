@@ -44,7 +44,7 @@ class TestActionLink(IntegrationTestCase):
 
     def test_symlink_status_index(self):
         pc = self.portal.portal_catalog
-        self.assertEqual(len(pc(symlink_status='link')), 4)
+        self.assertEqual(len(pc(symlink_status='link')), 5)
         self.assertEqual(len(pc(symlink_status='source')), 4)
         self.assertEqual(len(pc(symlink_status='void')), 132)
 
