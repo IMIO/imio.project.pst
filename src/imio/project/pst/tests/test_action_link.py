@@ -16,6 +16,22 @@ class TestActionLink(IntegrationTestCase):
     def setUp(self):
         """Custom shared utility setup for tests."""
         super(TestActionLink, self).setUp()
+        intids = getUtility(IIntIds)
+        self.a24 = api.content.create(
+            container=self.oo2,
+            type='pstaction',
+            id='pstaction-24',
+            title='Pstaction 24',
+            safe_id=False,
+        )
+        self.al24 = api.content.create(
+            container=self.oo6,
+            type='action_link',
+            id='action-link-1',
+            title='Action Link 1',
+            safe_id=False,
+            symbolic_link=RelationValue(intids.getId(self.a24))
+        )
 
     def test_link(self):
         self.assertEqual(self.al4._link, self.a4)
@@ -33,24 +49,8 @@ class TestActionLink(IntegrationTestCase):
         self.assertEqual(len(pc(symlink_status='void')), 132)
 
     def test_of_indexing_when_source_modified(self):
-        intids = getUtility(IIntIds)
-        a24 = api.content.create(
-            container=self.oo2,
-            type='pstaction',
-            id='pstaction-24',
-            title='Pstaction 24',
-            safe_id=False,
-        )
-        api.content.create(
-            container=self.oo6,
-            type='action_link',
-            id='action-link-1',
-            title='Action Link 1',
-            safe_id=False,
-            symbolic_link=RelationValue(intids.getId(a24))
-        )
-        a24.title = "New title"
-        notify(ObjectModifiedEvent(a24))
+        self.a24.title = "New title"
+        notify(ObjectModifiedEvent(self.a24))
         catalog = api.portal.get_tool(name='portal_catalog')
         brains = catalog(reference_number=24)
         for brain in brains:
