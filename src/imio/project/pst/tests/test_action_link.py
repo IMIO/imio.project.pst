@@ -46,7 +46,7 @@ class TestActionLink(IntegrationTestCase):
         pc = self.portal.portal_catalog
         self.assertEqual(len(pc(symlink_status='link')), 5)
         self.assertEqual(len(pc(symlink_status='source')), 4)
-        self.assertEqual(len(pc(symlink_status='void')), 132)
+        self.assertEqual(len(pc(symlink_status='void')), 133)
 
     def test_of_indexing_when_source_modified(self):
         self.a24.title = "New title"
@@ -55,3 +55,12 @@ class TestActionLink(IntegrationTestCase):
         brains = catalog(reference_number=24)
         for brain in brains:
             self.assertEqual(brain.Title, 'New title (A.24)')
+
+    def test_of_indexing_when_child_of_source_modified(self):
+        t4 = self.a4['reparer-le-guichet']
+        t4.title = "New title"
+        notify(ObjectModifiedEvent(t4))
+        catalog = api.portal.get_tool(name='portal_catalog')
+        brains = catalog(id='reparer-le-guichet')
+        for brain in brains:
+            self.assertEqual(brain.Title, 'New title')
