@@ -64,3 +64,12 @@ class TestActionLink(IntegrationTestCase):
         brains = catalog(id='reparer-le-guichet')
         for brain in brains:
             self.assertEqual(brain.Title, 'New title')
+
+    def test_of_indexing_when_child_of_link_modified(self):
+        tl4 = self.al4['reparer-le-guichet']
+        tl4.title = "New title"
+        notify(ObjectModifiedEvent(tl4))
+        catalog = api.portal.get_tool(name='portal_catalog')
+        brains = catalog(id='reparer-le-guichet')
+        for brain in brains:
+            self.assertEqual(brain.Title, 'New title')
