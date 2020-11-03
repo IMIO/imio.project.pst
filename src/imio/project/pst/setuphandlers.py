@@ -354,10 +354,15 @@ def _addPSTprojectspace(context):
             'extra_concerned_people', 'IAnalyticBudget.projection',
             'IAnalyticBudget.analytic_budget', 'budget', 'budget_comments',
             'ISustainableDevelopmentGoals.sdgs', 'observation', 'comments']
-    params['strategicobjective_fields'] = strategicobjective_fields
-    params['operationalobjective_fields'] = operationalobjective_fields
-    params['pstaction_fields'] = pstaction_fields
-    params['pstsubaction_fields'] = pstaction_fields
+
+    def with_tal_permissions(fields):
+        return [{'field_name': field_name, 'read_tal_condition': '', 'write_tal_condition': ''}
+                for field_name in fields]
+
+    params['strategicobjective_fields'] = with_tal_permissions(strategicobjective_fields)
+    params['operationalobjective_fields'] = with_tal_permissions(operationalobjective_fields)
+    params['pstaction_fields'] = with_tal_permissions(pstaction_fields)
+    params['pstsubaction_fields'] = with_tal_permissions(pstaction_fields)
 
     strategicobjective_columns = [
             u'select_row', u'pretty_link', u'review_state',
