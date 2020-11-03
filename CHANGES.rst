@@ -4,6 +4,8 @@ Changelog
 1.4 (unreleased)
 ----------------
 
+- Fix issue of deleting pstaction / pstsubaction linked by symlink
+  [fngaha]
 - Fix ecompte export for CPAS by adapting "typeAdmin" tag
   [fngaha]
 - Allowed  web service actions on subactions

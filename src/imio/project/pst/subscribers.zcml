@@ -68,6 +68,12 @@
         />
 
     <subscriber
+        for="imio.project.pst.content.action.IPSTAction
+             OFS.event.ObjectWillBeRemovedEvent"
+        handler=".subscribers.pstaction_before_removed"
+        />
+
+    <subscriber
         for="imio.project.pst.content.action.IPSTSubAction
              zope.container.interfaces.IObjectAddedEvent"
         handler=".subscribers.pstsubaction_created"

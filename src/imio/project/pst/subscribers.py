@@ -5,6 +5,7 @@ import os
 from collective.eeafaceted.collectionwidget.interfaces import ICollectionCategories
 from collective.eeafaceted.collectionwidget.utils import _updateDefaultCollectionFor
 from collective.eeafaceted.collectionwidget.utils import getCollectionLinkCriterion
+from collective.symlink.utils import query_links_to_object
 from eea.facetednavigation.criteria.interfaces import ICriteria
 from imio.helpers.cache import invalidate_cachekey_volatile_for
 from imio.helpers.content import set_to_annotation
@@ -117,6 +118,13 @@ def operational_created(obj, event):
 def pstaction_created(obj, event):
     """  """
     alsoProvides(obj, ITaskDashboardBatchActions)
+
+
+def pstaction_before_removed(obj, event):
+    """  """
+    links = query_links_to_object(obj)
+    for link in links:
+        api.content.delete(link.from_object)
 
 
 def pstsubaction_created(obj, event):
