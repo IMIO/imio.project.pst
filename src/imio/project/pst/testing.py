@@ -175,13 +175,18 @@ class IntegrationTestCase(unittest.TestCase):
         self.portal = self.layer['portal']
         self.pst = self.portal['pst']
         self.os1 = self.pst['etre-une-commune-qui-offre-un-service-public-moderne-efficace-et-efficient']
+        self.os10 = self.pst['etre-une-commune-qui-sinscrit-dans-la-lignee-des-accords-de-reductions-des-gaz-a-effet-de' 
+                             '-serre-afin-dassurer-le-developpement-durable']
         self.oo2 = self.os1['diminuer-le-temps-dattente-de-lusager-au-guichet-population-de-20-dans-les-12-mois'
                             '-a-venir']
         self.oo6 = self.os1['optimiser-laccueil-au-sein-de-ladministration-communale']
+        self.oo15 = self.os10['reduire-la-consommation-energetique-des-batiments-communaux-de-20-dici-2024']
         self.a3 = self.oo2['engager-2-agents-pour-le-service-population']
         self.a4 = self.oo2['creer-un-guichet-supplementaire-dans-les-3-mois']
         self.a9 = self.oo6['mettre-en-place-des-permanences-sur-rendez-vous']
+        self.a16 = self.oo15['reduire-la-consommation-energetique-de-ladministration-communale']
         self.al4 = self.oo6['creer-un-guichet-supplementaire-dans-les-3-mois']
+        self.sa17 = self.a16['realiser-un-audit-energetique-du-batiment']
         self.t1 = self.a3['ajouter-une-annonce-sur-le-site-internet']
         act_srv = [u'cellule-marches-publics', u'secretariat-communal', u'service-etat-civil', u'service-informatique',
                    u'service-proprete', u'service-population', u'service-travaux', u'service-de-lurbanisme']

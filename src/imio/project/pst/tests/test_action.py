@@ -4,10 +4,13 @@
 from imio.project.pst.content import action
 from imio.project.pst.content.pstprojectspace import PSTACTION_EXCLUDED_FIELDS
 from imio.project.pst.testing import IntegrationTestCase
+from OFS.event import ObjectWillBeRemovedEvent
 from plone import api
 from plone.app.testing import TEST_USER_NAME
 from zope.app.content import queryContentType
+from zope.event import notify
 from zope.interface import Invalid
+from zope.lifecycleevent import ObjectRemovedEvent
 from zope.schema import getFieldsInOrder
 from zope.schema._bootstrapinterfaces import RequiredMissing
 from zope.schema._bootstrapinterfaces import TooShort
@@ -86,3 +89,9 @@ class TestAction(IntegrationTestCase):
                 print('EXCLUDED : {}'.format(err.message))
                 if err.message in PSTACTION_EXCLUDED_FIELDS:
                     pass
+
+    def test_of_removing_linked_action(self):
+        api.content.delete(self.a4)
+
+    def test_of_removing_linked_subaction(self):
+        api.content.delete(self.sa17)
