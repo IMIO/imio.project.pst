@@ -36,17 +36,35 @@ class TestPSTProjectSpace(IntegrationTestCase):
          Test hide field :
          remove categories in strategicobjectives_fields and assert that schemata fields has been updated
         """
+        import ipdb; ipdb.set_trace()
         self.assertEquals(
             self.pst.strategicobjective_fields,
-            ['IDublinCore.title', 'description_rich', 'reference_number', 'categories', 'plan',
-             'IAnalyticBudget.projection', 'IAnalyticBudget.analytic_budget', 'budget', 'budget_comments',
-             'observation', 'comments']
+            [{'read_tal_condition': '', 'field_name': 'IDublinCore.title', 'write_tal_condition': ''},
+             {'read_tal_condition': '', 'field_name': 'description_rich', 'write_tal_condition': ''},
+             {'read_tal_condition': '', 'field_name': 'reference_number', 'write_tal_condition': ''},
+             {'read_tal_condition': '', 'field_name': 'categories', 'write_tal_condition': ''},
+             {'read_tal_condition': '', 'field_name': 'plan', 'write_tal_condition': ''},
+             {'read_tal_condition': '', 'field_name': 'IAnalyticBudget.projection', 'write_tal_condition': ''},
+             {'read_tal_condition': '', 'field_name': 'IAnalyticBudget.analytic_budget', 'write_tal_condition': ''},
+             {'read_tal_condition': '', 'field_name': 'budget', 'write_tal_condition': ''},
+             {'read_tal_condition': '', 'field_name': 'budget_comments', 'write_tal_condition': ''},
+             {'read_tal_condition': '', 'field_name': 'observation', 'write_tal_condition': ''},
+             {'read_tal_condition': '', 'field_name': 'comments', 'write_tal_condition': ''}]
         )
-        self.pst.strategicobjective_fields.remove('categories')
+        self.pst.strategicobjective_fields.remove({'read_tal_condition': '', 'field_name': 'categories',
+                                                   'write_tal_condition': ''})
         self.assertEquals(
             self.pst.strategicobjective_fields,
-            ['IDublinCore.title', 'description_rich', 'reference_number', 'plan', 'IAnalyticBudget.projection',
-             'IAnalyticBudget.analytic_budget', 'budget', 'budget_comments', 'observation', 'comments']
+            [{'read_tal_condition': '', 'field_name': 'IDublinCore.title', 'write_tal_condition': ''},
+             {'read_tal_condition': '', 'field_name': 'description_rich', 'write_tal_condition': ''},
+             {'read_tal_condition': '', 'field_name': 'reference_number', 'write_tal_condition': ''},
+             {'read_tal_condition': '', 'field_name': 'plan', 'write_tal_condition': ''},
+             {'read_tal_condition': '', 'field_name': 'IAnalyticBudget.projection', 'write_tal_condition': ''},
+             {'read_tal_condition': '', 'field_name': 'IAnalyticBudget.analytic_budget', 'write_tal_condition': ''},
+             {'read_tal_condition': '', 'field_name': 'budget', 'write_tal_condition': ''},
+             {'read_tal_condition': '', 'field_name': 'budget_comments', 'write_tal_condition': ''},
+             {'read_tal_condition': '', 'field_name': 'observation', 'write_tal_condition': ''},
+             {'read_tal_condition': '', 'field_name': 'comments', 'write_tal_condition': ''}]
         )
         os_view = self.os1.unrestrictedTraverse('@@view')
         os_view.updateFieldsFromSchemata()
