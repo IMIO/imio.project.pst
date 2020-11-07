@@ -75,9 +75,9 @@ class DocumentGenerationBaseHelper():
     def init_hv(self):
         """ init method to be called in document """
 
-        def _cleanup_fields(fields):
+        def _cleanup_fields(field_schemas):
             """Handle some cases like IDublinCore.title to just keep title"""
-            return [fld.split('.')[-1] for fld in fields]
+            return [field_schema['field_name'].split('.')[-1] for field_schema in field_schemas]
 
         projectspace = getProjectSpace(self.real_context)
         self.activated_fields = {
