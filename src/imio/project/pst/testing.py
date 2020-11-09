@@ -1,6 +1,13 @@
 # -*- coding: utf-8 -*-
 """Base module for unittesting."""
 
+import os
+import unittest
+
+import imio.project.pst
+from collective.task.field import LocalRoleMasterSelectField
+from dexterity.localrolesfield.field import LocalRolesField
+from imio.project.pst.setuphandlers import PASSWORD
 from imio.pyutils.system import runCommand
 from plone.app.robotframework.testing import REMOTE_LIBRARY_BUNDLE_FIXTURE
 from plone.app.testing import applyProfile
@@ -11,14 +18,17 @@ from plone.app.testing import logout
 from plone.app.testing import PloneWithPackageLayer
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
+from plone.app.textfield import RichText
 from plone.testing import z2
+from plone.testing.z2 import Browser
 from Products.ExternalMethod.ExternalMethod import manage_addExternalMethod
 from Testing import ZopeTestCase as ztc
 from zope.globalrequest.local import setLocal
-
-import imio.project.pst
-import os
-import unittest
+from zope.schema import Choice
+from zope.schema import Date
+from zope.schema import Int
+from zope.schema import List
+from zope.schema import Text
 
 
 class PSTLayer(PloneWithPackageLayer):
@@ -27,7 +37,7 @@ class PSTLayer(PloneWithPackageLayer):
         setattr(portal, '_TESTING_SITE_', True)
         setLocal('request', portal.REQUEST)
         applyProfile(portal, 'Products.CMFPlone:plone')
-#        applyProfile(portal, 'Products.CMFPlone:plone-content')  # could be done too
+        #        applyProfile(portal, 'Products.CMFPlone:plone-content')  # could be done too
         manage_addExternalMethod(portal, 'lock-unlock', '', 'imio.project.pst.robot', 'lock')
         manage_addExternalMethod(portal, 'robot_init', '', 'imio.project.pst.robot', 'robot_init')
 
@@ -73,7 +83,8 @@ class IntegrationTestCase(unittest.TestCase):
 
     def setUp(self):
         super(IntegrationTestCase, self).setUp()
-        #default setup
+
+        # default setup
         self.os_fields = [
             {'read_tal_condition': '', 'field_name': 'IDublinCore.title', 'write_tal_condition': ''},
             {'read_tal_condition': '', 'field_name': 'description_rich', 'write_tal_condition': ''},
@@ -152,7 +163,59 @@ class IntegrationTestCase(unittest.TestCase):
         self.oo_bdg_states = ['ongoing', 'achieved']
         self.a_bdg_states = ['ongoing', 'terminated', 'to_be_scheduled']
 
-        #tests setup
+        # tests setup
+        self.strategicobjective_fields_class = {
+            'description_rich': RichText,
+            'reference_number': Int,
+            'categories': List,
+            'budget': List,
+            'budget_comments': RichText,
+            'effective_end_date': Date,
+            'observation': RichText,
+            'comments': RichText,
+            'plan': List,
+        }
+        self.operationalobjective_fields_class = {
+            'description_rich': RichText,
+            'reference_number': Int,
+            'categories': List,
+            'priority': Choice,
+            'budget': List,
+            'budget_comments': RichText,
+            'manager': LocalRolesField,
+            'extra_concerned_people': Text,
+            'result_indicator': List,
+            'planned_end_date': Date,
+            'observation': RichText,
+            'comments': RichText,
+            'plan': List,
+            'representative_responsible': LocalRolesField,
+            'administrative_responsible': LocalRolesField,
+            'manager': LocalRolesField,
+        }
+        self.pstaction_fields_class = {
+            'description_rich': RichText,
+            'reference_number': Int,
+            'categories': List,
+            'budget': List,
+            'budget_comments': RichText,
+            'manager': LocalRolesField,
+            'extra_concerned_people': Text,
+            'result_indicator': List,
+            'planned_begin_date': Date,
+            'effective_begin_date': Date,
+            'planned_end_date': Date,
+            'effective_end_date': Date,
+            'progress': Int,
+            'observation': RichText,
+            'comments': RichText,
+            'plan': List,
+            'representative_responsible': LocalRolesField,
+            'responsible': Choice,
+            'health_indicator': Choice,
+            'health_indicator_details': Text,
+        }
+
         self.portal = self.layer['portal']
         self.pst = self.portal['pst']
         self.os1 = self.pst['etre-une-commune-qui-offre-un-service-public-moderne-efficace-et-efficient']
@@ -164,7 +227,6 @@ class IntegrationTestCase(unittest.TestCase):
                    u'service-proprete', u'service-population', u'service-travaux', u'service-de-lurbanisme']
         srv_obj = self.portal['contacts']['plonegroup-organization']['services']
         self.groups = dict([(srv, srv_obj[srv].UID().decode('utf8')) for srv in act_srv])
-
 
     def login(self, username):
         logout()
@@ -178,4 +240,50 @@ class FunctionalTestCase(unittest.TestCase):
 
     def setUp(self):
         super(FunctionalTestCase, self).setUp()
+
+        # resources setup
+        self.app = self.layer['app']
+        self.request = self.layer['request']
         self.portal = self.layer['portal']
+        self.browser = Browser(self.portal)
+
+        # param setup
+        self.password = PASSWORD
+        self.title_input_name = 'form.widgets.IDublinCore.title'
+        self.description_input_name = 'form.widgets.description_rich'
+        self.categories_input_name = 'form.widgets.categories:list'
+        self.plan_input_name = 'form.widgets.plan:list'
+        self.result_indicator_label_input_name = 'form.widgets.result_indicator.TT.widgets.label'
+        self.result_indicator_value_input_name = 'form.widgets.result_indicator.TT.widgets.value'
+        self.result_indicator_reached_value_input_name = 'form.widgets.result_indicator.TT.widgets.reached_value'
+        self.result_indicator_year_input_name = 'form.widgets.result_indicator.TT.widgets.year:list'
+        self.priority_input_name = 'form.widgets.priority:list'
+        self.planned_end_date_day_input_name = 'form.widgets.planned_end_date-day'
+        self.planned_end_date_month_input_name = 'form.widgets.planned_end_date-month'
+        self.planned_end_date_year_input_name = 'form.widgets.planned_end_date-year'
+        self.representative_responsible_input_name = 'form.widgets.representative_responsible:list'
+        self.administrative_responsible_input_name = 'form.widgets.administrative_responsible:list'
+        self.manager_input_name = 'form.widgets.manager:list'
+        self.extra_concerned_people_input_name = 'form.widgets.extra_concerned_people'
+        self.budget_type_input_name = 'form.widgets.budget.TT.widgets.budget_type:list'
+        self.budget_year_input_name = 'form.widgets.budget.TT.widgets.year:list'
+        self.budget_amount_input_name = 'form.widgets.budget.TT.widgets.amount'
+        self.budget_comments_input_name = 'form.widgets.budget_comments'
+        self.sdgs_input_name = 'form.widgets.ISustainableDevelopmentGoals.sdgs:list'
+        self.observation_input_name = 'form.widgets.observation'
+        self.comments_input_name = 'form.widgets.comments'
+        self.save_input_name = 'form.buttons.save'
+        self.cancel_input_name = 'form.buttons.cancel'
+
+    def login(self, username, password):
+        """Simulate logging in via the login form."""
+        self.browser.open(self.portal.absolute_url() + "/login_form")
+        self.browser.getControl(name='__ac_name').value = username
+        self.browser.getControl(name='__ac_password').value = password
+        self.browser.getControl(name='submit').click()
+        self.assertTrue("Votre session est maintenant ouverte" in self.browser.contents)
+
+    def logout(self):
+        """Logout with testBrowser."""
+        self.browser.open(self.portal.absolute_url() + '/logout')
+        self.assertTrue("Votre session est maintenant termin\xc3\xa9" in self.browser.contents)

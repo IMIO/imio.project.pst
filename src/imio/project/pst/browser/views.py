@@ -229,6 +229,10 @@ class PSTExportAsXML(BrowserView):
                 plans.append(self.plan_vocab.getTerm(term_id).title)
         return plans
 
+    def typeAdmin(self):
+        if 'cpas' in self.request.getURL():
+            return 'CPAS'
+        return 'AC'
 
 class IPSTImportFromEcomptesSchema(model.Schema):
 

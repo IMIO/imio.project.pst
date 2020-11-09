@@ -6,6 +6,12 @@ Changelog
 
 - Added read & write TAL conditions on PST fields settings
   [daggelpop,fngaha]
+- Fix ecompte export for CPAS by adapting "typeAdmin" tag
+  [fngaha]
+- Allowed  web service actions on subactions
+  [fngaha]
+- Fix an error during setup complaining about `fct_management` missing value
+  [mpeeters]
 - Fix ecompte export issue (export now also contains subactions as actions)
   [fngaha]
 - Added fields to configure dashboards columns in pstprojectspace
