@@ -4,6 +4,8 @@ Changelog
 1.4 (unreleased)
 ----------------
 
+- Added read & write TAL conditions on PST fields settings
+  [daggelpop,fngaha]
 - Fix ecompte export issue (export now also contains subactions as actions)
   [fngaha]
 - Added fields to configure dashboards columns in pstprojectspace
