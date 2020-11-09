@@ -4,6 +4,8 @@ Changelog
 1.4 (unreleased)
 ----------------
 
+- Added read & write TAL conditions on PST fields settings
+  [daggelpop,fngaha]
 - Fix ecompte export for CPAS by adapting "typeAdmin" tag
   [fngaha]
 - Allowed  web service actions on subactions

@@ -71,6 +71,16 @@ class Migrate_To_1_3_1(Migrator):
                 else:
                     list_fields.append('plan')
 
+    def migrate_pst_fields(self, field_list):
+        updated_list = []
+        for field_name in field_list:
+            updated_list.append({
+                'field_name': field_name,
+                'read_tal_condition': '',
+                'write_tal_condition': '',
+            })
+        return updated_list
+
     def update_dashboards(self):
         # update daterange criteria
         brains = api.content.find(object_provides=IFacetedNavigable.__identifier__, portal_type='Folder')
@@ -144,11 +154,11 @@ class Migrate_To_1_3_1(Migrator):
                         new_class_name='imio.project.pst.content.pstprojectspace.PSTProjectSpace')
                     # projectspace is now pstprojectspace
                     projectspace_obj.portal_type = 'pstprojectspace'
-                    projectspace_obj.project_fields = prj_fld_record
-                    projectspace_obj.strategicobjective_fields = so_record
-                    projectspace_obj.operationalobjective_fields = oo_record
-                    projectspace_obj.pstaction_fields = a_record
-                    projectspace_obj.pstsubaction_fields = sa_record
+                    projectspace_obj.project_fields = self.migrate_pst_fields(prj_fld_record)
+                    projectspace_obj.strategicobjective_fields = self.migrate_pst_fields(so_record)
+                    projectspace_obj.operationalobjective_fields = self.migrate_pst_fields(oo_record)
+                    projectspace_obj.pstaction_fields = self.migrate_pst_fields(a_record)
+                    projectspace_obj.pstsubaction_fields = self.migrate_pst_fields(sa_record)
                     if not getattr(projectspace_obj, 'plan_values'):
                         setattr(projectspace_obj, 'plan_values', plan_values)
                     if not getattr(projectspace_obj, 'strategicobjective_budget_states'):

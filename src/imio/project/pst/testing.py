@@ -86,25 +86,67 @@ class IntegrationTestCase(unittest.TestCase):
 
         # default setup
         self.os_fields = [
-            'IDublinCore.title', 'description_rich', 'reference_number', 'categories', 'plan',
-            'IAnalyticBudget.projection', 'IAnalyticBudget.analytic_budget', 'budget', 'budget_comments',
-            'observation', 'comments'
+            {'read_tal_condition': '', 'field_name': 'IDublinCore.title', 'write_tal_condition': ''},
+            {'read_tal_condition': '', 'field_name': 'description_rich', 'write_tal_condition': ''},
+            {'read_tal_condition': '', 'field_name': 'reference_number', 'write_tal_condition': ''},
+            {'read_tal_condition': '', 'field_name': 'categories', 'write_tal_condition': ''},
+            {'read_tal_condition': '', 'field_name': 'plan', 'write_tal_condition': ''},
+            {'read_tal_condition': '', 'field_name': 'IAnalyticBudget.projection', 'write_tal_condition': ''},
+            {'read_tal_condition': '', 'field_name': 'IAnalyticBudget.analytic_budget', 'write_tal_condition': ''},
+            {'read_tal_condition': '', 'field_name': 'budget', 'write_tal_condition': ''},
+            {'read_tal_condition': '', 'field_name': 'budget_comments', 'write_tal_condition': ''},
+            {'read_tal_condition': '', 'field_name': 'observation', 'write_tal_condition': ''},
+            {'read_tal_condition': '', 'field_name': 'comments', 'write_tal_condition': ''}
         ]
         self.oo_fields = [
-            'IDublinCore.title', 'description_rich', 'reference_number', 'categories', 'plan',
-            'result_indicator', 'priority', 'planned_end_date', 'representative_responsible',
-            'administrative_responsible', 'manager', 'extra_concerned_people',
-            'IAnalyticBudget.projection', 'IAnalyticBudget.analytic_budget', 'budget', 'budget_comments',
-            'ISustainableDevelopmentGoals.sdgs', 'observation', 'comments'
+            {'read_tal_condition': '', 'field_name': 'IDublinCore.title', 'write_tal_condition': ''},
+            {'read_tal_condition': '', 'field_name': 'description_rich', 'write_tal_condition': ''},
+            {'read_tal_condition': '', 'field_name': 'reference_number', 'write_tal_condition': ''},
+            {'read_tal_condition': '', 'field_name': 'categories', 'write_tal_condition': ''},
+            {'read_tal_condition': '', 'field_name': 'plan', 'write_tal_condition': ''},
+            {'read_tal_condition': '', 'field_name': 'result_indicator', 'write_tal_condition': ''},
+            {'read_tal_condition': '', 'field_name': 'priority', 'write_tal_condition': ''},
+            {'read_tal_condition': '', 'field_name': 'planned_end_date', 'write_tal_condition': ''},
+            {'read_tal_condition': '', 'field_name': 'representative_responsible', 'write_tal_condition': ''},
+            {'read_tal_condition': '', 'field_name': 'administrative_responsible', 'write_tal_condition': ''},
+            {'read_tal_condition': '', 'field_name': 'manager', 'write_tal_condition': ''},
+            {'read_tal_condition': '', 'field_name': 'extra_concerned_people', 'write_tal_condition': ''},
+            {'read_tal_condition': '', 'field_name': 'IAnalyticBudget.projection', 'write_tal_condition': ''},
+            {'read_tal_condition': '', 'field_name': 'IAnalyticBudget.analytic_budget', 'write_tal_condition': ''},
+            {'read_tal_condition': '', 'field_name': 'budget', 'write_tal_condition': ''},
+            {'read_tal_condition': '', 'field_name': 'budget_comments', 'write_tal_condition': ''},
+            {'read_tal_condition': '', 'field_name': 'ISustainableDevelopmentGoals.sdgs', 'write_tal_condition': ''},
+            {'read_tal_condition': '', 'field_name': 'observation', 'write_tal_condition': ''},
+            {'read_tal_condition': '', 'field_name': 'comments', 'write_tal_condition': ''}
         ]
+
         self.a_fields = [
-            'IDublinCore.title', 'description_rich', 'reference_number', 'categories', 'plan',
-            'result_indicator', 'planned_end_date', 'planned_begin_date', 'effective_begin_date',
-            'effective_end_date', 'progress', 'health_indicator', 'health_indicator_details',
-            'representative_responsible', 'manager', 'responsible', 'extra_concerned_people',
-            'IAnalyticBudget.projection', 'IAnalyticBudget.analytic_budget', 'budget', 'budget_comments',
-            'ISustainableDevelopmentGoals.sdgs', 'observation', 'comments'
+            {'read_tal_condition': '', 'field_name': 'IDublinCore.title', 'write_tal_condition': ''},
+            {'read_tal_condition': '', 'field_name': 'description_rich', 'write_tal_condition': ''},
+            {'read_tal_condition': '', 'field_name': 'reference_number', 'write_tal_condition': ''},
+            {'read_tal_condition': '', 'field_name': 'categories', 'write_tal_condition': ''},
+            {'read_tal_condition': '', 'field_name': 'plan', 'write_tal_condition': ''},
+            {'read_tal_condition': '', 'field_name': 'result_indicator', 'write_tal_condition': ''},
+            {'read_tal_condition': '', 'field_name': 'planned_end_date', 'write_tal_condition': ''},
+            {'read_tal_condition': '', 'field_name': 'planned_begin_date', 'write_tal_condition': ''},
+            {'read_tal_condition': '', 'field_name': 'effective_begin_date', 'write_tal_condition': ''},
+            {'read_tal_condition': '', 'field_name': 'effective_end_date', 'write_tal_condition': ''},
+            {'read_tal_condition': '', 'field_name': 'progress', 'write_tal_condition': ''},
+            {'read_tal_condition': '', 'field_name': 'health_indicator', 'write_tal_condition': ''},
+            {'read_tal_condition': '', 'field_name': 'health_indicator_details', 'write_tal_condition': ''},
+            {'read_tal_condition': '', 'field_name': 'representative_responsible', 'write_tal_condition': ''},
+            {'read_tal_condition': '', 'field_name': 'manager', 'write_tal_condition': ''},
+            {'read_tal_condition': '', 'field_name': 'responsible', 'write_tal_condition': ''},
+            {'read_tal_condition': '', 'field_name': 'extra_concerned_people', 'write_tal_condition': ''},
+            {'read_tal_condition': '', 'field_name': 'IAnalyticBudget.projection', 'write_tal_condition': ''},
+            {'read_tal_condition': '', 'field_name': 'IAnalyticBudget.analytic_budget', 'write_tal_condition': ''},
+            {'read_tal_condition': '', 'field_name': 'budget', 'write_tal_condition': ''},
+            {'read_tal_condition': '', 'field_name': 'budget_comments', 'write_tal_condition': ''},
+            {'read_tal_condition': '', 'field_name': 'ISustainableDevelopmentGoals.sdgs', 'write_tal_condition': ''},
+            {'read_tal_condition': '', 'field_name': 'observation', 'write_tal_condition': ''},
+            {'read_tal_condition': '', 'field_name': 'comments', 'write_tal_condition': ''}
         ]
+
         self.os_columns = [
             u'select_row', u'pretty_link', u'review_state', u'categories', u'ModificationDate', u'history_actions'
         ]
