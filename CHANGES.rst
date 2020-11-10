@@ -18,6 +18,8 @@ Changelog
   [fngaha]
 - Added plan and plan_values fields
   [fngaha]
+- Added optional new style template without numbering
+  [bleybaert]
 
 1.3 (2020-03-05)
 ----------------
