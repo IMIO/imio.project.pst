@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2020-11-09 12:49+0000\n"
+"POT-Creation-Date: 2020-11-12 12:16+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -175,6 +175,10 @@ msgstr ""
 
 #: ./browser/views.py:385
 msgid "Split action budget"
+msgstr ""
+
+#: ./browser/templates/contentlink.pt:10
+msgid "Split budget lines between multiple instances"
 msgstr ""
 
 #: ./setuphandlers.py:896

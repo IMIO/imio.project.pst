@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2020-11-09 12:49+0000\n"
+"POT-Creation-Date: 2020-11-12 12:16+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -41,11 +41,11 @@ msgstr "Archiver le PST"
 
 #: ./content/action.py:102
 msgid "Budget split"
-msgstr ""
+msgstr "Répartition des budgets"
 
 #: ./browser/views.py:405
 msgid "Budget split saved"
-msgstr ""
+msgstr "Répartition des budgets enregistrée"
 
 #: ./content/action.py:69
 msgid "Choose principals that will be representative responsible for this project. If nothing choosed, the oo value is used for searches."
@@ -140,7 +140,7 @@ msgstr "Sous-action"
 
 #: ./content/action.py:55
 msgid "Percentage"
-msgstr ""
+msgstr "Pourcentage"
 
 #: ./profiles/default/registry.xml
 msgid "Planned begin date"
@@ -173,7 +173,11 @@ msgstr "Plan du PST"
 
 #: ./browser/views.py:385
 msgid "Split action budget"
-msgstr ""
+msgstr "Répartition des budgets entre les différentes actions"
+
+#: ./browser/templates/contentlink.pt:10
+msgid "Split budget lines between multiple instances"
+msgstr "Répartir les lignes budgétaires entre les différentes actions"
 
 #: ./setuphandlers.py:896
 msgid "State: achieved"
@@ -267,7 +271,7 @@ msgstr "L'échéance d'au moins une action est supérieure à l'échéance de l'
 
 #: ./content/action.py:113
 msgid "The sum of all percentages must amount to 100 %."
-msgstr ""
+msgstr "La somme de tous les pourcentages doit s'élever à 100%."
 
 #: ./browser/viewlets.py:115
 msgid "This content is a copy, to modify the original content click on this button ${edit}"
@@ -279,7 +283,7 @@ msgstr "Ce contenu est aussi présent dans :"
 
 #: ./content/action.py:50
 msgid "Title"
-msgstr ""
+msgstr "Titre"
 
 #: ./content/action.py:45
 msgid "UID"
