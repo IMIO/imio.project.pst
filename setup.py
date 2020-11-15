@@ -76,6 +76,7 @@ setup(
     extras_require={
         'test': [
             'plone.app.testing',
+            'ftw.testbrowser',
         ],
     },
     entry_points="""
