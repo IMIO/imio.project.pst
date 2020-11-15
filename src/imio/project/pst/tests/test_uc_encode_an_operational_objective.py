@@ -10,7 +10,7 @@ class TestEncodeAnOperationalObjective(FunctionalTestCase):
     Description: The encoding of an operational objective must be possible for a global editor,
                  an administrative manager as well as an administrator
     Author: Franck Ngaha
-    Date: 10/15/2020
+    Date: 15/10/2020
     Preconditions: The user must be authenticated as a global editor or administrative manager or administrator
     Start: The user is on the page of a strategic objective
     """
