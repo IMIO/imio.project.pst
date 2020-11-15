@@ -16,7 +16,11 @@ Changelog
   [fngaha]
 - Added fields to configure dashboards columns in pstprojectspace
   [fngaha]
-- Added plan and plan_values fields
+- Share budgets with symbolic links
+  [daggelpop,fngaha,sgeulette]
+- Added budget globalization management
+  [daggelpop,sgeulette,fngaha]
+- Added plan and plan_values fields and updated ecomptes export
   [fngaha]
 - Added optional new style template without numbering
   [bleybaert]
