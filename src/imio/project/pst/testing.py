@@ -245,7 +245,7 @@ class FunctionalTestCase(unittest.TestCase):
         self.app = self.layer['app']
         self.request = self.layer['request']
         self.portal = self.layer['portal']
-        self.browser = Browser(self.portal)
+        # self.browser = Browser(self.portal)
 
         # param setup
         self.password = PASSWORD
