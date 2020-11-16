@@ -8,18 +8,20 @@ Changelog
   [daggelpop,fngaha]
 - Fix ecompte export for CPAS by adapting "typeAdmin" tag
   [fngaha]
-- Allowed  web service actions on subactions
+- Allowed web service actions on subactions
   [fngaha]
 - Fix an error during setup complaining about `fct_management` missing value
   [mpeeters]
 - Fix ecompte export issue (export now also contains subactions as actions)
   [fngaha]
-- Added fields to configure dashboards columns in pstprojectspace
-  [fngaha]
-- Share budgets with symbolic links
+- Split symlinked budget
   [daggelpop,fngaha,sgeulette]
 - Added budget globalization management
   [daggelpop,sgeulette,fngaha]
+- Added strategicobjective, operationalobjective, pstaction, task _columns to configure dashboards columns in pstprojectspace
+  [fngaha]
+- Moved strategicobjective, operationalobjective, pstaction, pstsubaction _fields config from registry to pstprojectspace
+  [fngaha]
 - Added plan and plan_values fields and updated ecomptes export
   [fngaha]
 - Added optional new style template without numbering
