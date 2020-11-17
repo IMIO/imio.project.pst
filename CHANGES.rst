@@ -6,16 +6,28 @@ Changelog
 
 - Fix planned end date dashboard column when the same field on the operational objective is empty
   [fngaha]
-- Allowed  web service actions on subactions
+- Added read & write TAL conditions on PST fields settings
+  [daggelpop,fngaha]
+- Fix ecompte export for CPAS by adapting "typeAdmin" tag
+  [fngaha]
+- Allowed web service actions on subactions
   [fngaha]
 - Fix an error during setup complaining about `fct_management` missing value
   [mpeeters]
 - Fix ecompte export issue (export now also contains subactions as actions)
   [fngaha]
-- Added fields to configure dashboards columns in pstprojectspace
+- Split symlinked budget
+  [daggelpop,fngaha,sgeulette]
+- Added budget globalization management
+  [daggelpop,sgeulette,fngaha]
+- Added strategicobjective, operationalobjective, pstaction, task _columns to configure dashboards columns in pstprojectspace
   [fngaha]
-- Added plan and plan_values fields
+- Moved strategicobjective, operationalobjective, pstaction, pstsubaction _fields config from registry to pstprojectspace
   [fngaha]
+- Added plan and plan_values fields and updated ecomptes export
+  [fngaha]
+- Added optional new style template without numbering
+  [bleybaert]
 
 1.3 (2020-03-05)
 ----------------

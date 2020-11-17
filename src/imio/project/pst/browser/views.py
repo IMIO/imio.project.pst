@@ -25,6 +25,7 @@ from z3c.form.field import Fields
 from z3c.form.form import EditForm
 from z3c.form.interfaces import HIDDEN_MODE
 from z3c.form.form import Form
+from z3c.form.interfaces import NO_VALUE
 from zope import schema
 from zope.component import getMultiAdapter
 from zope.lifecycleevent import modified
@@ -229,6 +230,10 @@ class PSTExportAsXML(BrowserView):
                 plans.append(self.plan_vocab.getTerm(term_id).title)
         return plans
 
+    def typeAdmin(self):
+        if 'cpas' in self.request.getURL():
+            return 'CPAS'
+        return 'AC'
 
 class IPSTImportFromEcomptesSchema(model.Schema):
 
@@ -416,3 +421,6 @@ class BudgetSplitForm(EditForm):
         self.widgets['budget_split'].allow_insert = False
         self.widgets['budget_split'].allow_delete = False
         self.widgets['budget_split'].auto_append = False
+        # Prevent pickling error when auto_append = False
+        self.widgets['budget_split'].value = [{} if raw == NO_VALUE else raw for raw in
+                                              self.widgets['budget_split'].value]
