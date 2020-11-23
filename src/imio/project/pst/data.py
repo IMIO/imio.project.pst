@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from datetime import datetime
+
+from imio.project.pst.utils import get_echevins_config
 from plone.namedfile.file import NamedBlobFile
 from imio.helpers.content import richtextval
 from . import add_path
@@ -186,10 +188,7 @@ def get_templates(cids):
 
 
 def get_os_oo_ac_data(site, groups, currentYear):
-    fold = site.contacts['plonegroup-organization']['echevins']
-    echevins = {}
-    for obj in fold.objectValues():
-        echevins[obj.id] = obj.UID()
+    echevins = get_echevins_config(site)
     return [
         {
             'title': u'Etre une commune qui offre un service public moderne, efficace et efficient',

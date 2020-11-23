@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 
-from Acquisition import aq_base
+import logging
+import os
+
+from Acquisition import aq_base  # noqa
 from collective.contact.plonegroup.config import FUNCTIONS_REGISTRY
 from collective.contact.plonegroup.config import ORGANIZATIONS_REGISTRY
 from collective.documentgenerator.utils import update_templates
@@ -25,14 +28,13 @@ from imio.project.pst import _tr as _
 from imio.project.pst import add_path
 from imio.project.pst import CKEDITOR_MENUSTYLES_CUSTOMIZED_MSG
 from imio.project.pst import PRODUCT_DIR
-from imio.project.pst.content.pstprojectspace import IPSTProjectSpace
 from imio.project.pst.interfaces import IActionDashboardBatchActions
 from imio.project.pst.interfaces import IOODashboardBatchActions
 from imio.project.pst.interfaces import IOSDashboardBatchActions
 from imio.project.pst.interfaces import ITaskDashboardBatchActions
+from imio.project.pst.utils import get_services_config
 from plone import api
 from plone.app.controlpanel.markup import MarkupControlPanelAdapter
-from plone.app.uuid.utils import uuidToObject
 from plone.dexterity.utils import createContentInContainer
 from plone.registry.interfaces import IRegistry
 from Products.CMFCore.WorkflowCore import WorkflowException
@@ -51,10 +53,6 @@ from zope.intid.interfaces import IIntIds
 from zope.lifecycleevent import ObjectCreatedEvent
 from zope.schema.vocabulary import SimpleTerm
 from zope.schema.vocabulary import SimpleVocabulary
-
-import logging
-import os
-
 
 logger = logging.getLogger('imio.project.pst: setuphandlers')
 PASSWORD = 'Project69!'
@@ -701,12 +699,7 @@ def addDemoData(context):
             return 2019
 
     logger.info('Adding demo data')
-    registry = getUtility(IRegistry)
-    registry[ORGANIZATIONS_REGISTRY]
-    groups = {}
-    for uid in registry[ORGANIZATIONS_REGISTRY]:
-        service = uuidToObject(uid)
-        groups[service.id] = uid
+    groups = get_services_config()
 
     # data has 4-5 levels :
     # - strategicobjective

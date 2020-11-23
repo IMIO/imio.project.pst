@@ -1,11 +1,15 @@
 # -*- coding: utf-8 -*-
+from collective.contact.plonegroup.config import ORGANIZATIONS_REGISTRY
 from imio.project.pst.content.pstprojectspace import IPSTProjectSpace
 from plone import api
+from plone.app.uuid.utils import uuidToObject
 from plone.memoize import ram
+from plone.registry.interfaces import IRegistry
 from Products.Five import BrowserView
 
 from collective.contact.plonegroup.utils import organizations_with_suffixes
 from imio.helpers.cache import get_cachekey_volatile
+from zope.component import getUtility
 
 
 def list_wf_states_cache_key(function, context, portal_type):
@@ -73,6 +77,33 @@ def filter_states(context, portal_type, skip_states=[]):
         return [st for st in states if st not in skip_states]
     return states
 
+
+def get_echevins_config(site):
+    """
+    Get an (id, uid) dictionary of echevins config.
+    :param site: The portal root
+    :return: Echevins dict
+    :rtype: dict
+    """
+    echevins_organisation = site.contacts['plonegroup-organization']['echevins']
+    echevins_dict = {}
+    for obj in echevins_organisation.objectValues():
+        echevins_dict[obj.id] = obj.UID()
+    return echevins_dict
+
+
+def get_services_config():
+    """
+    Get an (id, uid) dictionary of services config.
+    :return: Services dict
+    :rtype: dict
+    """
+    registry = getUtility(IRegistry)
+    services_dict = {}
+    for uid in registry[ORGANIZATIONS_REGISTRY]:
+        service_organisation = uuidToObject(uid)
+        services_dict[service_organisation.id] = uid
+    return services_dict
 
 # views
 
