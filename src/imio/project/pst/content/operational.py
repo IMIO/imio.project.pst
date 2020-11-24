@@ -99,7 +99,7 @@ class OperationalObjectiveDataManager(AttributeField):
                 uid = None
             if uid is None:
                 return
-            path = api.content.find(UID=self.context.UID())[0].getPath()
+            path = api.content.find(UID=uid)[0].getPath()
             act_planned_end_date = [
                 act.planned_end_date
                 for act in api.content.find(
