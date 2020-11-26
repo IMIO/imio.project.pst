@@ -127,7 +127,7 @@ class ContextInformationViewlet(MessagesViewlet):
             if self.context.list_planned_end_date_of_contained_brains(
                     ["pstaction", "action_link", "pstsubaction", "subaction_link"]):
                 if not self.context.planned_end_date:
-                    msg = _(u"The due date is not encoded on the operational objective, the system displays"
+                    msg = _(u"The planned end date is not fill on the operational objective, the system displays"
                             u" the largest of its actions")
                     ret.append(
                         PseudoMessage(
