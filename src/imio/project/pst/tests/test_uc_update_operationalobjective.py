@@ -17,8 +17,8 @@ class TestUpdateOperationalObjective(FunctionalTestCase):
     Description: The updating of an operational objective must be possible for a global editor,
                  an administrative manager as well as an administrator
     Author: Franck Ngaha
-    Created: 25/10/2020
-    Updated: 26/10/2020
+    Created: 25/11/2020
+    Updated: 26/11/2020
     Preconditions: The user must be authenticated as a global editor or administrative manager or administrator
     Start: The user is on the page of a operational objective
     """
