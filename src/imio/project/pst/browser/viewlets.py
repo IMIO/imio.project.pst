@@ -53,22 +53,20 @@ class ActionPrettyLinkTitleViewlet(PrettyLinkTitleViewlet):
 
 
 class TasksListViewlet(OriginalTasksListViewlet):
-
     """Tasks list for current task container object."""
 
     def update(self):
-        if self.context.portal_type in ('task', ):
+        if self.context.portal_type in ('task',):
             super(TasksListViewlet, self).update()
 
     def render(self):
-        if self.context.portal_type in ('task', ):
+        if self.context.portal_type in ('task',):
             return super(TasksListViewlet, self).render()
         else:
             return ""
 
 
 class ContentLinkViewlet(ViewletBase):
-
     index = ViewPageTemplateFile("templates/contentlink.pt")
 
     def content_link(self):
@@ -114,8 +112,8 @@ class ContextInformationViewlet(MessagesViewlet):
                 linked_context = original_obj
             msg = _(u"This content is a copy, to modify the original content click on this button ${edit}",
                     mapping={"edit": '<a href="{0}/edit">{1}</a>'.format(
-                    linked_context.absolute_url(),
-                             _tr('Edit', domain='plone'))})
+                        linked_context.absolute_url(),
+                        _tr('Edit', domain='plone'))})
             ret.append(
                 PseudoMessage(
                     msg_type="significant",
@@ -126,10 +124,11 @@ class ContextInformationViewlet(MessagesViewlet):
             )
 
         if self.context.portal_type == "operationalobjective":
-            if self.context.get_actions_planned_end_dates():
+            if self.context.list_planned_end_date_of_contained_brains(
+                    ["pstaction", "action_link", "pstsubaction", "subaction_link"]):
                 if not self.context.planned_end_date:
-                    msg = _(u"The planned end date field of this operational objective has no value, "
-                            u"the furthest planned end date date from its actions has been taken")
+                    msg = _(u"The due date is not encoded on the operational objective, the system displays"
+                            u" the largest of its actions")
                     ret.append(
                         PseudoMessage(
                             msg_type="significant",
@@ -138,7 +137,8 @@ class ContextInformationViewlet(MessagesViewlet):
                             can_hide=False,
                         )
                     )
-                elif self.context.get_max_actions_planned_end_dates() > self.context.planned_end_date:
+                elif self.context.get_max_planned_end_date_of_contained_brains(
+                        ["pstaction", "action_link", "pstsubaction", "subaction_link"]) > self.context.planned_end_date:
                     msg = _(u"The planned end date of any one of the actions is greater than the planned end date "
                             u"of the operational objective")
                     ret.append(
@@ -154,7 +154,6 @@ class ContextInformationViewlet(MessagesViewlet):
 
 
 class SitemapLinkViewlet(ViewletBase):
-
     index = ViewPageTemplateFile('templates/sitemap_link.pt')
 
     def href(self):
