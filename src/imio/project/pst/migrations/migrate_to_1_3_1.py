@@ -43,7 +43,7 @@ class Migrate_To_1_3_1(Migrator):
         self.remove_configlets()
 
         # Allowed webservices on subactions
-        self.configure_webservices()
+        self.migrate_webservices_config()
 
         # reindex all actions
         self.reindex_all_actions()
@@ -73,12 +73,13 @@ class Migrate_To_1_3_1(Migrator):
 
     def migrate_pst_fields(self, field_list):
         updated_list = []
-        for field_name in field_list:
-            updated_list.append({
-                'field_name': field_name,
-                'read_tal_condition': '',
-                'write_tal_condition': '',
-            })
+        if field_list:
+            for field_name in field_list:
+                updated_list.append({
+                    'field_name': field_name,
+                    'read_tal_condition': '',
+                    'write_tal_condition': '',
+                })
         return updated_list
 
     def update_dashboards(self):
@@ -187,17 +188,19 @@ class Migrate_To_1_3_1(Migrator):
         config_tool.unregisterConfiglet('imio.project.core.settings')
         config_tool.unregisterConfiglet('imio.project.pst.settings')
 
-    def configure_webservices(self):
+    def migrate_webservices_config(self):
+        """Add pstsbaction to webservice TAL condition."""
         registry = getUtility(IRegistry)
         generated_actions = registry.get('imio.pm.wsclient.browser.settings.IWS4PMClientSettings.generated_actions')
-        for action in generated_actions:
-            if action['condition'] == u"python: context.getPortalTypeName() in ('pstaction', 'task')":
-                action['condition'] = u"python: context.getPortalTypeName() in ('pstaction', 'pstsubaction', 'task')"
-            else:
-                logger.warning("Settings for WS4PM client: generated_actions was not updated ! "
-                               "Current value'{}'".format(action))
-        api.portal.set_registry_record('imio.pm.wsclient.browser.settings.IWS4PMClientSettings.generated_actions',
-                                       generated_actions)
+        if generated_actions:
+            for action in generated_actions:
+                if action['condition'] == u"python: context.getPortalTypeName() in ('pstaction', 'task')":
+                    action['condition'] = u"python: context.getPortalTypeName() in ('pstaction', 'pstsubaction', 'task')"
+                else:
+                    logger.warning("Settings for WS4PM client: generated_actions was not updated ! "
+                                   "Current value'{}'".format(action))
+            api.portal.set_registry_record('imio.pm.wsclient.browser.settings.IWS4PMClientSettings.generated_actions',
+                                           generated_actions)
 
     def reindex_all_actions(self):
         actions_brains = self.catalog(object_provides=IPSTAction.__identifier__)
