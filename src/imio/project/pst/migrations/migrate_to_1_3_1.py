@@ -1,20 +1,21 @@
 # -*- coding: utf-8 -*-
 
+import logging
+
 from collective.documentgenerator.utils import update_oo_config
 from collective.messagesviewlet.utils import add_message
 from eea.facetednavigation.criteria.interfaces import ICriteria
 from eea.facetednavigation.subtypes.interfaces import IFacetedNavigable
 from eea.facetednavigation.widgets.storage import Criterion
+from imio.helpers.content import richtextval
 from imio.migrator.migrator import Migrator
+from imio.project.core.content.project import IProject
 from imio.project.core.content.projectspace import IProjectSpace
 from imio.project.pst.content.action import IPSTAction
 from plone import api
 from plone.app.contenttypes.migration.dxmigration import migrate_base_class_to_new_class
 from plone.registry.interfaces import IRegistry
-from Products.CPUtils.Extensions.utils import mark_last_version
 from zope.component import getUtility
-
-import logging
 
 logger = logging.getLogger('imio.project.pst')
 
@@ -59,6 +60,9 @@ class Migrate_To_1_3_1(Migrator):
 
         # Add a new-version warning message in message config
         self.add_new_version_message()
+
+        # Use safe_html
+        self.migrate_projects_richtextvalues()
 
         # Display duration
         self.finish()
@@ -195,7 +199,8 @@ class Migrate_To_1_3_1(Migrator):
         if generated_actions:
             for action in generated_actions:
                 if action['condition'] == u"python: context.getPortalTypeName() in ('pstaction', 'task')":
-                    action['condition'] = u"python: context.getPortalTypeName() in ('pstaction', 'pstsubaction', 'task')"
+                    action[
+                        'condition'] = u"python: context.getPortalTypeName() in ('pstaction', 'pstsubaction', 'task')"
                 else:
                     logger.warning("Settings for WS4PM client: generated_actions was not updated ! "
                                    "Current value'{}'".format(action))
@@ -221,6 +226,15 @@ class Migrate_To_1_3_1(Migrator):
             req_roles=['Authenticated'],
             activate=True
         )
+
+    def migrate_projects_richtextvalues(self):
+        project_brains = self.catalog(object_provides=IProject.__identifier__)
+        for project_brain in project_brains:
+            for field_name in ['budget_comments', 'observation', 'comments']:
+                project_obj = project_brain.getObject()
+                field_value = getattr(project_obj, field_name)
+                if field_value:
+                    setattr(project_obj, field_name, richtextval(field_value.raw))
 
 
 def migrate(context):
