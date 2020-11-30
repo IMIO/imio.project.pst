@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2020-11-26 07:32+0000\n"
+"POT-Creation-Date: 2020-11-30 17:10+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -268,7 +268,7 @@ msgid "The 'workflow' menu - allows the user to execute workflow transitions"
 msgstr ""
 
 #: ./browser/viewlets.py:130
-msgid "The planned end date is not fill on the operational objective, the system displays the largest of its actions"
+msgid "The planned end date is not fill on the operational objective, the system displays the largest of its possible actions"
 msgstr ""
 
 #: ./browser/viewlets.py:142
