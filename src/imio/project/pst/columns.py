@@ -9,9 +9,11 @@ from collective.eeafaceted.z3ctable.columns import MemberIdColumn
 from collective.eeafaceted.z3ctable.columns import PrettyLinkColumn
 from collective.eeafaceted.z3ctable.columns import VocabularyColumn
 from collective.task.interfaces import ITaskMethods
+from DateTime import DateTime
 from imio.prettylink.interfaces import IPrettyLink
 from imio.project.core.content.projectspace import IProjectSpace
 from imio.project.pst.adapters import UNSET_DATE_VALUE
+from plone import api
 from Products.CMFPlone.utils import base_hasattr
 from zope.i18n import translate
 from zope.component import getMultiAdapter
@@ -20,7 +22,6 @@ import cgi
 
 
 class IconTitleColumn(PrettyLinkColumn):
-
     params = {'showContentIcon': True, 'display_tag_title': False}
 
 
@@ -38,7 +39,6 @@ class ActionIconTitleColumn(PrettyLinkColumn):
 
 
 class HistoryActionsColumn(ActionsColumn):
-
     params = {'showHistory': True, 'showActions': True}
 
     def renderCell(self, item):
@@ -47,57 +47,68 @@ class HistoryActionsColumn(ActionsColumn):
 
 
 class CategoriesColumn(VocabularyColumn):
-
     vocabulary = u'imio.project.core.content.project.categories_vocabulary'
 
 
 class PlannedBeginDateColumn(DateColumn):
-
     ignored_value = UNSET_DATE_VALUE
 
 
 class PlannedEndDateColumn(DateColumn):
-
     ignored_value = UNSET_DATE_VALUE
+
+    def renderCell(self, item):
+        res = u'-'
+        value = self.getValue(item)
+        if not value or value == 'None' or value == self.ignored_value:
+            item_obj = item.getObject()
+            if item_obj.portal_type == 'operationalobjective':
+                value = item_obj.get_max_planned_end_date_of_contained_brains(
+                    ["pstaction", "action_link", "pstsubaction", "subaction_link"])
+            elif item_obj.portal_type == 'pstaction':
+                value = item_obj.get_max_planned_end_date_of_contained_brains(["pstsubaction", "subaction_link"])
+        if value:
+            if isinstance(value, DateTime):
+                value = value.asdatetime().date()
+            res = api.portal.get_localized_time(datetime=value, long_format=self.long_format, time_only=self.time_only)
+            if self.use_caching:
+                cached_result = self._get_cached_result(value)
+                if cached_result:
+                    res = cached_result
+                else:
+                    self._store_cached_result(value, res)
+        return res
 
 
 class EffectiveBeginDateColumn(DateColumn):
-
     ignored_value = UNSET_DATE_VALUE
 
 
 class EffectiveEndDateColumn(DateColumn):
-
     ignored_value = UNSET_DATE_VALUE
 
 
 class PriorityColumn(VocabularyColumn):
-
     vocabulary = u'imio.project.core.content.project.priority_vocabulary'
 
 
 class HealthIndicatorColumn(VocabularyColumn):
-
     vocabulary = u'imio.project.pst.content.action.health_indicator_vocabulary'
 
 
 class ProgressColumn(BaseColumn):
-
     pass
 
 
 class ManagerColumn(VocabularyColumn):
-
     vocabulary = u'imio.project.core.content.project.manager_vocabulary'
 
 
 class ResponsibleColumn(VocabularyColumn):
-
     vocabulary = u'imio.project.pst.ActionEditorsVocabulary'
 
 
 class TaskParentColumn(PrettyLinkColumn):
-
     params = {'showContentIcon': True, 'target': '_blank'}
     header = _cez('header_task_parent')
 
@@ -108,17 +119,14 @@ class TaskParentColumn(PrettyLinkColumn):
 
 
 class AssignedGroupColumn(VocabularyColumn):
-
     vocabulary = u'imio.project.core.content.project.manager_vocabulary'
 
 
 class AssignedUserColumn(MemberIdColumn):
-
     attrName = u'assigned_user'
 
 
 class DueDateColumn(DateColumn):
-
     attrName = u'due_date'
 
 
@@ -153,7 +161,7 @@ class ParentsColumn(BaseColumn):
         if item.portal_type == 'task':
             parent = obj.aq_inner.aq_parent
             # walking on tasks
-            while parent.portal_type not in ('pstaction',  'pstsubaction'):
+            while parent.portal_type not in ('pstaction', 'pstsubaction'):
                 title = u' {}'.format(self.ploneview.cropText(parent.title, 35))
                 ret.append(u'<a href="{}" target="_blank" title="{}" class="contenttype-task">'
                            u'<span class="pretty_link_content">{}</span></a>'.format(parent.absolute_url(),
@@ -189,7 +197,6 @@ class SubOrganizationTitle(PrettyLinkColumn):
 
 
 class SDGsColumn(IconsColumn):
-
     attrName = u'sdgs'
 
     def titleValue(self, item, val):
