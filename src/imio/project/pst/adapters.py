@@ -191,18 +191,6 @@ def effective_begin_date_index(obj):
     return UNSET_DATE_VALUE
 
 
-@indexer(IContentish)
-def planned_end_date_index(obj):
-    if base_hasattr(obj, 'planned_end_date'):
-        if obj.planned_end_date:
-            return obj.planned_end_date
-        else:
-            if obj.portal_type == "operationalobjective":
-                return obj.get_max_actions_planned_end_dates()
-
-    return UNSET_DATE_VALUE
-
-
 @indexer(ITask)
 def directly_in_pstaction_index(obj):
     inner = obj.aq_inner

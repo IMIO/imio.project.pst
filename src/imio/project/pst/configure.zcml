@@ -99,7 +99,6 @@
     <adapter name="progress" factory=".adapters.progress_index" />
     <adapter name="extra_concerned_people" factory=".adapters.extra_concerned_people_index" />
     <adapter name="effective_begin_date" factory=".adapters.effective_begin_date_index" />
-    <adapter name="planned_end_date" factory=".adapters.planned_end_date_index" />
     <adapter name="directly_in_pstaction" factory=".adapters.directly_in_pstaction_index" />
 
     <!-- UTILS METHODS -->
