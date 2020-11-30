@@ -128,7 +128,7 @@ class ContextInformationViewlet(MessagesViewlet):
                     ["pstaction", "action_link", "pstsubaction", "subaction_link"]):
                 if not self.context.planned_end_date:
                     msg = _(u"The planned end date is not fill on the operational objective, the system displays"
-                            u" the largest of its actions")
+                            u" the largest of its possible actions")
                     ret.append(
                         PseudoMessage(
                             msg_type="significant",
