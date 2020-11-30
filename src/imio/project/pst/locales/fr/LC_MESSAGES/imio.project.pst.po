@@ -267,7 +267,7 @@ msgstr "The 'workflow' menu - allows the user to execute workflow transitions"
 
 #: ./browser/viewlets.py:130
 msgid "The planned end date is not fill on the operational objective, the system displays the largest of its actions"
-msgstr "La date d'échéance n'est pas encodée sur l'obectif opérationnel, le système affiche celle la plus grande de ses actions"
+msgstr "La date d'échéance n'est pas encodée sur l'objectif opérationnel, le système affiche celle la plus grande de ses éventuelles actions"
 
 #: ./browser/viewlets.py:142
 msgid "The planned end date of any one of the actions is greater than the planned end date of the operational objective"
