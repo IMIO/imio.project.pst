@@ -4,7 +4,7 @@ from ftw.testbrowser.pages import statusmessages
 from imio.project.pst.testing import FunctionalTestCase
 
 
-def step_3a(browser):
+def step_a1_3(browser):
     """The user cancel the form."""
     form = browser.forms['form']
     form.find_button_by_label('Annuler').click()
@@ -33,7 +33,7 @@ class TestUpdateOperationalObjective(FunctionalTestCase):
         self.oo_15 = self.os_10['reduire-la-consommation-energetique-des-batiments-communaux-de-20-dici-2024']
 
     @browsing
-    def test_scenario(self, browser):
+    def test_nominal_scenario(self, browser):
         self.preconditions(browser)  # Login as psteditor
         self.start_up(browser)  # Open (OO.15)
         self.step_1(browser)  # The user opens edit form
@@ -42,24 +42,24 @@ class TestUpdateOperationalObjective(FunctionalTestCase):
         self.step_4(browser)  # The system save changes with "Modify changes" info success
 
     @browsing
-    def test_alternative_3a(self, browser):
+    def test_alternative_a1(self, browser):
         """The user cancel the form."""
         self.preconditions(browser)
         self.start_up(browser)
         self.step_1(browser)
         self.step_2(browser)
-        step_3a(browser)  # The user cancel the form
-        self.step_4a(browser)  # The system back to the previous page with "Addition canceled" Info
+        step_a1_3(browser)  # The user cancel the form
+        self.step_a1_4(browser)  # The system back to the previous page with "Addition canceled" Info
 
     @browsing
-    def test_alternative_3b(self, browser):
+    def test_alternative_a2(self, browser):
         """The user remove the deadline and save."""
         self.preconditions(browser)
         self.start_up(browser)
         self.step_1(browser)
         self.step_2(browser)
-        self.step_3b(browser)  # The user removes the deadline
-        self.step_4b(browser)  # The system updates element with warning message
+        self.step_a2_3(browser)  # The user removes the deadline
+        self.step_a2_4(browser)  # The system updates element with warning message
 
     def preconditions(self, browser):
         """Login as psteditor."""
@@ -88,7 +88,7 @@ class TestUpdateOperationalObjective(FunctionalTestCase):
         fields[self.title_form_widget_name] = u'Titre'
         form.find_button_by_label('Sauvegarder').click()
 
-    def step_3b(self, browser):
+    def step_a2_3(self, browser):
         """The user remove the deadline and save."""
         form = browser.forms['form']
         fields = form.values
@@ -103,7 +103,7 @@ class TestUpdateOperationalObjective(FunctionalTestCase):
         self.assertEqual('Titre (OO.15)', heading.text)
         statusmessages.assert_message(u'Modifications sauvegardées')
 
-    def step_4a(self, browser):
+    def step_a1_4(self, browser):
         """The system back to the previous page with 'Modification canceled' Info."""
         heading = browser.css('.documentFirstHeading').first
         self.assertEqual(
@@ -111,7 +111,7 @@ class TestUpdateOperationalObjective(FunctionalTestCase):
             heading.text)
         statusmessages.assert_message(u'Modification annulée')
 
-    def step_4b(self, browser):
+    def step_a2_4(self, browser):
         """The system displays the max planned end date of the contained items with a warning message."""
         heading = browser.css('.documentFirstHeading').first
         self.assertEqual(
