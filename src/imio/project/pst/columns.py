@@ -57,6 +57,16 @@ class PlannedBeginDateColumn(DateColumn):
 class PlannedEndDateColumn(DateColumn):
     ignored_value = UNSET_DATE_VALUE
 
+    def getCSSClasses(self, item):
+        css = self.cssClasses.copy()
+        value = self.getValue(item)
+        if not value or value == 'None' or value == self.ignored_value:
+            td = css.get('td', None)
+            if td:
+                td = td + '_warn'
+                css.update({'td': td})
+        return css
+
     def renderCell(self, item):
         res = u'-'
         value = self.getValue(item)
