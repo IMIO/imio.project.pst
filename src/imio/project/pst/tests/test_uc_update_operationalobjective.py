@@ -121,7 +121,7 @@ class TestUpdateOperationalObjective(FunctionalTestCase):
         self.assertEqual(
             browser.css('#messagesviewlet').text,
             [u"Avertissement La date d'échéance n'est pas encodée sur l'obectif opérationnel, "
-             u"le système affiche celle la plus grande de ses actions"]
+             u"le système affiche celle la plus grande de ses éventuelles actions"]
         )
         statusmessages.assert_message(u'Modifications sauvegardées')
         self.assertEqual(browser.css('#form-widgets-planned_end_date').text, ['30/06/2024'])
