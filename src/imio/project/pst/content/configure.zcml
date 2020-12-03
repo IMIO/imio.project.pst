@@ -82,5 +82,12 @@
       factory=".operational.OperationalObjectiveDataManager"
       />
 
+    <adapter
+      for="imio.project.pst.content.action.IPSTAction
+           zope.schema.interfaces.IField"
+      provides="z3c.form.interfaces.IDataManager"
+      factory=".action.PSTActionDataManager"
+      />
+
 
 </configure>
