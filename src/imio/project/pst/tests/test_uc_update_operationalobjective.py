@@ -63,7 +63,10 @@ class TestUpdateOperationalObjective(FunctionalTestCase):
 
     @browsing
     def test_alternative_a3(self, browser):
-        """The user fills a planned end date smaller than the largest of their contained actions."""
+        """
+        The user fills a planned end date smaller than the largest of their contained actions.
+        (2023, 06, 30) < (2024, 06, 30)
+        """
         self.preconditions(browser)
         self.start_up(browser)
         self.step_1(browser)
