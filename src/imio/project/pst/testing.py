@@ -5,9 +5,10 @@ import os
 import unittest
 
 import imio.project.pst
-from collective.task.field import LocalRoleMasterSelectField
 from dexterity.localrolesfield.field import LocalRolesField
 from imio.project.pst.setuphandlers import PASSWORD
+from imio.project.pst.utils import get_echevins_config
+from imio.project.pst.utils import get_services_config
 from imio.pyutils.system import runCommand
 from plone.app.robotframework.testing import REMOTE_LIBRARY_BUNDLE_FIXTURE
 from plone.app.testing import applyProfile
@@ -245,35 +246,50 @@ class FunctionalTestCase(unittest.TestCase):
         self.app = self.layer['app']
         self.request = self.layer['request']
         self.portal = self.layer['portal']
-        # self.browser = Browser(self.portal)
+        self.browser = Browser(self.portal)
 
         # param setup
         self.password = PASSWORD
-        self.title_input_name = 'form.widgets.IDublinCore.title'
-        self.description_input_name = 'form.widgets.description_rich'
-        self.categories_input_name = 'form.widgets.categories:list'
-        self.plan_input_name = 'form.widgets.plan:list'
-        self.result_indicator_label_input_name = 'form.widgets.result_indicator.TT.widgets.label'
-        self.result_indicator_value_input_name = 'form.widgets.result_indicator.TT.widgets.value'
-        self.result_indicator_reached_value_input_name = 'form.widgets.result_indicator.TT.widgets.reached_value'
-        self.result_indicator_year_input_name = 'form.widgets.result_indicator.TT.widgets.year:list'
-        self.priority_input_name = 'form.widgets.priority:list'
-        self.planned_end_date_day_input_name = 'form.widgets.planned_end_date-day'
-        self.planned_end_date_month_input_name = 'form.widgets.planned_end_date-month'
-        self.planned_end_date_year_input_name = 'form.widgets.planned_end_date-year'
-        self.representative_responsible_input_name = 'form.widgets.representative_responsible:list'
-        self.administrative_responsible_input_name = 'form.widgets.administrative_responsible:list'
-        self.manager_input_name = 'form.widgets.manager:list'
-        self.extra_concerned_people_input_name = 'form.widgets.extra_concerned_people'
-        self.budget_type_input_name = 'form.widgets.budget.TT.widgets.budget_type:list'
-        self.budget_year_input_name = 'form.widgets.budget.TT.widgets.year:list'
-        self.budget_amount_input_name = 'form.widgets.budget.TT.widgets.amount'
-        self.budget_comments_input_name = 'form.widgets.budget_comments'
-        self.sdgs_input_name = 'form.widgets.ISustainableDevelopmentGoals.sdgs:list'
-        self.observation_input_name = 'form.widgets.observation'
-        self.comments_input_name = 'form.widgets.comments'
-        self.save_input_name = 'form.buttons.save'
-        self.cancel_input_name = 'form.buttons.cancel'
+        self.echevins_config = get_echevins_config(self.portal)
+        self.services_config = get_services_config()
+        self.title_form_widget_name = 'form.widgets.IDublinCore.title'
+        self.description_form_widget_name = 'form.widgets.description_rich'
+        self.categories_form_widget_name = 'form.widgets.categories:list'
+        self.plan_form_widget_name = 'form.widgets.plan:list'
+        self.result_indicator_label_form_widget_name = 'form.widgets.result_indicator.TT.widgets.label'
+        self.result_indicator_value_form_widget_name = 'form.widgets.result_indicator.TT.widgets.value'
+        self.result_indicator_reached_value_form_widget_name = 'form.widgets.result_indicator.TT.widgets.reached_value'
+        self.result_indicator_year_form_widget_name = 'form.widgets.result_indicator.TT.widgets.year:list'
+        self.priority_form_widget_name = 'form.widgets.priority:list'
+        self.planned_end_date_day_form_widget_name = 'form.widgets.planned_end_date-day'
+        self.planned_end_date_month_form_widget_name = 'form.widgets.planned_end_date-month'
+        self.planned_end_date_year_form_widget_name = 'form.widgets.planned_end_date-year'
+        self.planned_begin_date_day_form_widget_name = 'form.widgets.planned_begin_date-day'
+        self.planned_begin_date_month_form_widget_name = 'form.widgets.planned_begin_date-month'
+        self.planned_begin_date_year_form_widget_name = 'form.widgets.planned_begin_date-year'
+        self.effective_begin_date_day_form_widget_name = 'form.widgets.effective_begin_date-day'
+        self.effective_begin_date_month_form_widget_name = 'form.widgets.effective_begin_date-month'
+        self.effective_begin_date_year_form_widget_name = 'form.widgets.effective_begin_date-year'
+        self.effective_end_date_day_form_widget_name = 'form.widgets.effective_end_date-day'
+        self.effective_end_date_month_form_widget_name = 'form.widgets.effective_end_date-month'
+        self.effective_end_date_year_form_widget_name = 'form.widgets.effective_end_date-year'
+        self.progress_form_widget_name = 'form.widgets.progress'
+        self.health_indicator_form_widget_name = 'form.widgets.health_indicator:list'
+        self.health_indicator_details = 'form.widgets.health_indicator_details'
+        self.representative_responsible_form_widget_name = 'form.widgets.representative_responsible:list'
+        self.administrative_responsible_form_widget_name = 'form.widgets.administrative_responsible:list'
+        self.manager_form_widget_name = 'form.widgets.manager:list'
+        self.responsible_form_widget_name = 'form.widgets.responsible:list'
+        self.extra_concerned_people_form_widget_name = 'form.widgets.extra_concerned_people'
+        self.budget_type_form_widget_name = 'form.widgets.budget.TT.widgets.budget_type:list'
+        self.budget_year_form_widget_name = 'form.widgets.budget.TT.widgets.year:list'
+        self.budget_amount_form_widget_name = 'form.widgets.budget.TT.widgets.amount'
+        self.budget_comments_form_widget_name = 'form.widgets.budget_comments'
+        self.sdgs_form_widget_name = 'form.widgets.ISustainableDevelopmentGoals.sdgs:list'
+        self.observation_form_widget_name = 'form.widgets.observation'
+        self.comments_form_widget_name = 'form.widgets.comments'
+        self.save_button_name = 'form.buttons.save'
+        self.cancel_button_name = 'form.buttons.cancel'
 
     def login(self, username, password):
         """Simulate logging in via the login form."""
