@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2020-11-30 17:10+0000\n"
+"POT-Creation-Date: 2020-12-03 18:54+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -265,19 +265,31 @@ msgstr "Tâches (sous-)"
 msgid "The 'workflow' menu - allows the user to execute workflow transitions"
 msgstr "The 'workflow' menu - allows the user to execute workflow transitions"
 
-#: ./browser/viewlets.py:130
+#: ./browser/viewlets.py:181
+msgid "The planned end date is not fill on the action, the system displays the largest of its possible sub actions"
+msgstr "La date d'échéance n'est pas encodée sur l'action, le système affiche celle la plus grande de ses éventuelles sous-actions"
+
+#: ./browser/viewlets.py:141
 msgid "The planned end date is not fill on the operational objective, the system displays the largest of its possible actions"
 msgstr "La date d'échéance n'est pas encodée sur l'obectif opérationnel, le système affiche celle la plus grande de ses éventuelles actions"
 
-#: ./browser/viewlets.py:142
+#: ./browser/viewlets.py:130
 msgid "The planned end date of any one of the actions is greater than the planned end date of the operational objective"
-msgstr "L'échéance d'au moins une action est supérieure à l'échéance de l'objectif opérationnel"
+msgstr "La date d'échéance d'au moins une action est supérieure à celle de l'objectif opérationnel"
+
+#: ./browser/viewlets.py:157
+msgid "The planned end date of any one of the sub actions is greater than the planned end date of the action"
+msgstr "La date d'échéance d'au moins une sous action est supérieure à celle de l'action"
+
+#: ./browser/viewlets.py:171
+msgid "The planned end date of the action is greater than that of the operational objective"
+msgstr "La date d'échéance de l'action est supérieure à celle de l'objcectif opérationnel"
 
 #: ./content/action.py:117
 msgid "The sum of all percentages must amount to 100 %."
 msgstr "La somme de tous les pourcentages doit s'élever à 100%."
 
-#: ./browser/viewlets.py:113
+#: ./browser/viewlets.py:112
 msgid "This content is a copy, to modify the original content click on this button ${edit}"
 msgstr "Ce contenu est une copie miroir ! Cliquer sur ce lien ${edit} pour modifier l'original"
 
