@@ -103,7 +103,6 @@ class ContextInformationViewlet(MessagesViewlet):
 
     def getAllMessages(self):
         ret = []
-
         link_type, symlink_obj, original_obj, subpath = is_linked_object(self.context)
         if link_type:
             if subpath:
@@ -122,24 +121,13 @@ class ContextInformationViewlet(MessagesViewlet):
                     can_hide=False,
                 )
             )
-
         if self.context.portal_type == "operationalobjective":
-            if self.context.list_planned_end_date_of_contained_brains(
-                    ["pstaction", "action_link", "pstsubaction", "subaction_link"]):
-                if not self.context.planned_end_date:
-                    msg = _(u"The planned end date is not fill on the operational objective, the system displays"
-                            u" the largest of its possible actions")
-                    ret.append(
-                        PseudoMessage(
-                            msg_type="significant",
-                            text=richtextval(msg),
-                            hidden_uid=generate_uid(),
-                            can_hide=False,
-                        )
-                    )
-                elif self.context.get_max_planned_end_date_of_contained_brains(
-                        ["pstaction", "action_link", "pstsubaction", "subaction_link"]) > self.context.planned_end_date:
-                    msg = _(u"The planned end date of any one of the actions is greater than the planned end date "
+            if self.context.planned_end_date:
+                max_contained_date = self.context.get_max_planned_end_date_of_contained_brains(
+                    ["pstaction", "action_link", "pstsubaction", "subaction_link"])
+                if max_contained_date:
+                    if max_contained_date > self.context.planned_end_date:
+                        msg = _(u"The planned end date of any one of the actions is greater than the planned end date "
                             u"of the operational objective")
                     ret.append(
                         PseudoMessage(
@@ -149,7 +137,57 @@ class ContextInformationViewlet(MessagesViewlet):
                             can_hide=False,
                         )
                     )
-
+            else:
+                msg = _(u"The planned end date is not fill on the operational objective, the system displays"
+                        u" the largest of its possible actions")
+                ret.append(
+                    PseudoMessage(
+                        msg_type="significant",
+                        text=richtextval(msg),
+                        hidden_uid=generate_uid(),
+                        can_hide=False,
+                    )
+                )
+        if self.context.portal_type == "pstaction":
+            if self.context.planned_end_date:
+                max_contained_dates = self.context.get_max_planned_end_date_of_contained_brains(
+                    ["pstsubaction", "subaction_link"])
+                if max_contained_dates:
+                    if max_contained_dates > self.context.planned_end_date:
+                        msg = _(
+                            u"The planned end date of any one of the sub actions is greater than the planned end date "
+                            u"of the action")
+                        ret.append(
+                            PseudoMessage(
+                                msg_type="significant",
+                                text=richtextval(msg),
+                                hidden_uid=generate_uid(),
+                                can_hide=False,
+                            )
+                        )
+                max_containers_dates = self.context.get_max_planned_end_date_of_containers_brains()
+                if max_containers_dates:
+                    if max_containers_dates < self.context.planned_end_date:
+                        msg = _(u"The planned end date of the action is greater than that of the operational objective")
+                        ret.append(
+                            PseudoMessage(
+                                msg_type="significant",
+                                text=richtextval(msg),
+                                hidden_uid=generate_uid(),
+                                can_hide=False,
+                            )
+                        )
+            else:
+                msg = _(u"The planned end date is not fill on the action, the system displays the largest of its"
+                        u" possible sub actions")
+                ret.append(
+                    PseudoMessage(
+                        msg_type="significant",
+                        text=richtextval(msg),
+                        hidden_uid=generate_uid(),
+                        can_hide=False,
+                    )
+                )
         return ret
 
 
