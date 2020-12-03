@@ -147,7 +147,7 @@ class TestUpdateOperationalObjective(FunctionalTestCase):
         )
         statusmessages.assert_message(u'Modifications sauvegardées')
         self.assertEqual(browser.css('#form-widgets-planned_end_date').text, ['30/06/2024'])
-        
+
     def step_4_a3(self, browser):
         """The system updates element with warning message."""
         heading = browser.css('.documentFirstHeading').first
@@ -157,7 +157,8 @@ class TestUpdateOperationalObjective(FunctionalTestCase):
         )
         self.assertEqual(
             browser.css('#messagesviewlet').text,
-            [u"Avertissement L'échéance d'au moins une action est supérieure à l'échéance de l'objectif opérationnel"]
+            [u"Avertissement La date d'échéance d'au moins une action est supérieure à celle de l'objectif "
+             u"opérationnel"]
         )
         statusmessages.assert_message(u'Modifications sauvegardées')
         self.assertEqual(browser.css('#form-widgets-planned_end_date').text, ['30/06/2023'])
