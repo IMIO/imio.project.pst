@@ -790,6 +790,7 @@ def _addPSTUsers(context):
     srv_obj = site['contacts']['plonegroup-organization']['services']
     orgs = dict([(srv, srv_obj[srv].UID()) for srv in act_srv])
     users = {
+        ('pstadmin', u'PST administrateur'): ["Administrators"],
         ('psteditor', u'PST editeur global'): ["pst_editors"],
         ('pstreader', u'PST lecteur global'): ["pst_readers"],
         ('chef', u'Michel Chef'): (['%s_%s' % (orgs[org], fct) for org in orgs for fct in ('admin_resp', 'validateur')]
