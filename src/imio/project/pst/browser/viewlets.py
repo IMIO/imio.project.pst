@@ -128,15 +128,15 @@ class ContextInformationViewlet(MessagesViewlet):
                 if max_contained_date:
                     if max_contained_date > self.context.planned_end_date:
                         msg = _(u"The planned end date of any one of the actions is greater than the planned end date "
-                            u"of the operational objective")
-                    ret.append(
-                        PseudoMessage(
-                            msg_type="significant",
-                            text=richtextval(msg),
-                            hidden_uid=generate_uid(),
-                            can_hide=False,
+                                u"of the operational objective")
+                        ret.append(
+                            PseudoMessage(
+                                msg_type="significant",
+                                text=richtextval(msg),
+                                hidden_uid=generate_uid(),
+                                can_hide=False,
+                            )
                         )
-                    )
             else:
                 msg = _(u"The planned end date is not fill on the operational objective, the system displays"
                         u" the largest of its possible actions")
