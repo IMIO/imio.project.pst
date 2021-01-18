@@ -2,123 +2,131 @@
 from ftw.testbrowser import browsing
 from ftw.testbrowser.pages import statusmessages
 from imio.project.pst.testing import FunctionalTestCase
+from plone import api
 
 
 def step_3a(browser):
-    """The user cancel the form."""
+    """The actor cancel the form."""
     form = browser.forms['form']
     form.find_button_by_label('Annuler').click()
 
 
 def step_3c(browser):
-    """The user fills in the fields but omit mandatory fields and save."""
+    """The actor fills in the fields but omit mandatory fields and save."""
     form = browser.forms['form']
     form.find_button_by_label('Sauvegarder').click()
 
 
-def preconditions(browser, user):
-    """Login as user."""
-    browser.login(username=user['username'], password=user['password']).open()
+def preconditions(browser, actor):
+    """Login as actor."""
+    browser.login(username=actor['username'], password=actor['password']).open()
+
+
+def step_1(browser, context):
+    """The actor adds operational objective."""
+    browser.open(context.absolute_url() + '/++add++operationalobjective')
 
 
 class TestCreateOperationalObjective(FunctionalTestCase):
-    """Test use case.
+    """Use case tests.
     Name: Create an operational objective
-    Actor(s): pst_editors, admin
-    Description: The creation of an operational objective must be possible for a pst editor and an administrator
+    Actor(s): pst editors, pst admin
+    Goal: allows actors to create an operational objective
     Author: Franck Ngaha
     Created: 15/10/2020
-    Updated: 05/01/2021
-    Preconditions: The user must be authenticated as a pst editor or administrator
-    Start: The user is on the view of a strategic objective
+    Updated: 18/01/2021
+    Preconditions: The actor must be authenticated in a given specific context :
+    - a pst editor in the context of a strategic objective in anyone of all his states (created, ongoing, achieved)
+    - a pst admin in the context of a strategic objective in anyone of all his states (created, ongoing, achieved)
     """
 
     def setUp(self):
         super(TestCreateOperationalObjective, self).setUp()
+        # Actors
         self.pst_admin = {'username': 'pstadmin', 'password': self.password}
         self.pst_editor = {'username': 'psteditor', 'password': self.password}
+        # Contexts
         self.portal = self.layer['portal']
         self.pst = self.portal['pst']
         self.os_1 = self.pst['etre-une-commune-qui-offre-un-service-public-moderne-efficace-et-efficient']
+        # scenarios
+        self.scenarios = ['main_scenario', 'alternative_scenario_3a', 'alternative_scenario_3b',
+                          'exceptional_scenario_3c']
 
     @browsing
-    def test_main_scenario_as_admin(self, browser):
-        self.main_scenario(browser, self.pst_admin)
+    def test_scenarios_as_admin_in_strategic_objective_created(self, browser):
+        api.content.transition(obj=self.os_1, transition='back_to_created')
+        self.call_scenarios(browser, self.pst_admin, self.os_1)
 
     @browsing
-    def test_main_scenario_as_pst_editor(self, browser):
-        self.main_scenario(browser, self.pst_editor)
+    def test_scenarios_as_admin_in_strategic_objective_ongoing(self, browser):
+        self.call_scenarios(browser, self.pst_admin, self.os_1)
 
     @browsing
-    def test_alternative_scenario_3a_as_admin(self, browser):
-        self.alternative_scenario_3a(browser, self.pst_admin)
+    def test_scenarios_as_admin_in_strategic_objective_achieved(self, browser):
+        api.content.transition(obj=self.os_1, transition='achieve')
+        self.call_scenarios(browser, self.pst_admin, self.os_1)
 
     @browsing
-    def test_alternative_scenario_3a_as_pst_editor(self, browser):
-        self.alternative_scenario_3a(browser, self.pst_editor)
+    def test_scenarios_as_pst_editor_in_strategic_objective_created(self, browser):
+        api.content.transition(obj=self.os_1, transition='back_to_created')
+        self.call_scenarios(browser, self.pst_editor, self.os_1)
 
     @browsing
-    def test_alternative_scenario_3b_as_admin(self, browser):
-        self.alternative_scenario_3b(browser, self.pst_admin)
+    def test_scenarios_as_pst_editor_in_strategic_objective_ongoing(self, browser):
+        self.call_scenarios(browser, self.pst_editor, self.os_1)
 
     @browsing
-    def test_alternative_scenario_3b_as_pst_editor(self, browser):
-        self.alternative_scenario_3b(browser, self.pst_editor)
+    def test_scenarios_as_pst_editor_in_strategic_objective_achieved(self, browser):
+        api.content.transition(obj=self.os_1, transition='achieve')
+        self.call_scenarios(browser, self.pst_editor, self.os_1)
 
-    @browsing
-    def test_exceptional_scenario_3c_as_admin(self, browser):
-        self.exceptional_scenario_3c(browser, self.pst_admin)
+    def call_scenarios(self, browser, actor, context):
+        for scenario in self.scenarios:
+            self.__getattribute__(scenario)(browser, actor, context)
 
-    @browsing
-    def test_exceptional_scenario_3c_as_pst_editor(self, browser):
-        self.exceptional_scenario_3c(browser, self.pst_editor)
-
-    def main_scenario(self, browser, user):
-        preconditions(browser, user)  # Login as user
-        self.start_up(browser)  # Open (OS.1)
-        self.step_1(browser)  # The user adds operational objective
+    def main_scenario(self, browser, actor, context):
+        preconditions(browser, actor)  # Login as actor
+        self.start_up(browser, context)  # Open context
+        step_1(browser, context)  # The actor adds operational objective
         self.step_2(browser)  # The system calculates default values and displays the form
-        self.step_3(browser)  # The user fills in fields and save
+        self.step_3(browser)  # The actor fills in fields and save
         self.step_4(browser)  # The system creates and displays the operational objective
 
-    def alternative_scenario_3a(self, browser, user):
-        """The user cancel the form."""
-        preconditions(browser, user)
-        self.start_up(browser)
-        self.step_1(browser)
+    def alternative_scenario_3a(self, browser, actor, context):
+        """The actor cancels the form."""
+        preconditions(browser, actor)
+        self.start_up(browser, context)
+        step_1(browser, context)
         self.step_2(browser)
-        step_3a(browser)  # The user cancel the form
+        step_3a(browser)  # The actor cancels the form
         self.step_4a(browser)  # The system back to the previous page with "Addition canceled" Info
 
-    def alternative_scenario_3b(self, browser, user):
-        """The user fills in the fields but not the deadline and save."""
-        preconditions(browser, user)
-        self.start_up(browser)
-        self.step_1(browser)
+    def alternative_scenario_3b(self, browser, actor, context):
+        """The actor fills in the fields but not the deadline and save."""
+        preconditions(browser, actor)
+        self.start_up(browser, context)
+        step_1(browser, context)
         self.step_2(browser)
-        self.step_3b(browser)  # The user fills in the fields but not the deadline
+        self.step_3b(browser)  # The actor fills in the fields but not the deadline
         self.step_4b(browser)  # The system creates the operational objective with warning message
 
-    def exceptional_scenario_3c(self, browser, user):
-        """The user fills in the fields but omit a mandatory field and save."""
-        preconditions(browser, user)
-        self.start_up(browser)
-        self.step_1(browser)
+    def exceptional_scenario_3c(self, browser, actor, context):
+        """The actor fills in the fields but omit a mandatory field and save."""
+        preconditions(browser, actor)
+        self.start_up(browser, context)
+        step_1(browser, context)
         self.step_2(browser)
-        step_3c(browser)  # The user fills in the fields but omit mandatory fields
+        step_3c(browser)  # The actor fills in the fields but omit mandatory fields
         self.step_4c(browser)  # system warn, (back to the step 2)
 
-    def start_up(self, browser):
-        """Open (OS.1)."""
-        browser.open(self.os_1)
+    def start_up(self, browser, context):
+        """Open context."""
+        browser.open(context)
         heading = browser.css('.documentFirstHeading').first
         self.assertEqual(
             "Etre une commune qui offre un service public moderne, efficace et efficient (OS.1)".decode('utf8'),
             heading.text)
-
-    def step_1(self, browser):
-        """The user adds operationalobjactive."""
-        browser.open(self.os_1.absolute_url() + '/++add++operationalobjective')
 
     def step_2(self, browser):
         """
@@ -135,7 +143,7 @@ class TestCreateOperationalObjective(FunctionalTestCase):
         self.assertTrue(plans.__eq__(set(self.os_1.plan)))
 
     def step_3(self, browser):
-        """The user fills in the form and save."""
+        """The actor fills in the form and save."""
         form = browser.forms['form']
         fields = form.values
         fields[self.title_form_widget_name] = u"Titre"
@@ -145,8 +153,8 @@ class TestCreateOperationalObjective(FunctionalTestCase):
         fields[self.result_indicator_reached_value_form_widget_name] = u"50"
         fields[self.result_indicator_year_form_widget_name] = u"2020"
         fields[self.priority_form_widget_name] = u"2"
-        fields[self.planned_end_date_day_form_widget_name] = u"25"
-        fields[self.planned_end_date_month_form_widget_name] = u"11"
+        fields[self.planned_end_date_day_form_widget_name] = u"31"
+        fields[self.planned_end_date_month_form_widget_name] = u"12"
         fields[self.planned_end_date_year_form_widget_name] = u"2020"
         fields[self.representative_responsible_form_widget_name] = [self.echevins_config['bourgmestre']]
         fields[self.administrative_responsible_form_widget_name] = [
@@ -163,7 +171,7 @@ class TestCreateOperationalObjective(FunctionalTestCase):
         form.find_button_by_label('Sauvegarder').click()
 
     def step_3b(self, browser):
-        """The user fills in the fields but not the deadline and save."""
+        """The actor fills in the fields but not the deadline and save."""
         form = browser.forms['form']
         fields = form.values
         fields[self.title_form_widget_name] = u"Titre"
@@ -188,13 +196,9 @@ class TestCreateOperationalObjective(FunctionalTestCase):
         statusmessages.assert_message(u"Ajout annulé")
 
     def step_4b(self, browser):
-        """
-        The system searches for the max planned end date of the contained items,
-        adds it to the operational objective metadata,
-        creates and displays the element with a warning message
-        """
+        """The system creates the pst action with warning message."""
         heading = browser.css('.documentFirstHeading').first
-        self.assertEqual('Titre (OO.24)', heading.text)
+        self.assertEqual('Titre (OO.25)', heading.text)
         statusmessages.assert_message(u"Elément créé")
 
     def step_4c(self, browser):
