@@ -5,6 +5,16 @@ from imio.project.pst.testing import FunctionalTestCase
 from plone import api
 
 
+def preconditions(browser, actor):
+    """Login as actor."""
+    browser.login(username=actor['username'], password=actor['password']).open()
+
+
+def step_1(browser, context):
+    """The actor adds pst action."""
+    browser.open(context.absolute_url() + '/++add++pstaction')
+
+
 def step_3a(browser):
     """The actor cancels the form."""
     form = browser.forms['form']
@@ -17,16 +27,6 @@ def step_3c(browser):
     form.find_button_by_label('Sauvegarder').click()
 
 
-def preconditions(browser, actor):
-    """Login as actor."""
-    browser.login(username=actor['username'], password=actor['password']).open()
-
-
-def step_1(browser, context):
-    """The actor adds pst action."""
-    browser.open(context.absolute_url() + '/++add++pstaction')
-
-
 class TestCreatePstAction(FunctionalTestCase):
     """Use case tests.
     Name: Create a pst action
@@ -36,10 +36,10 @@ class TestCreatePstAction(FunctionalTestCase):
     Created: 12/01/2021
     Updated: 18/01/2021
     Preconditions: The actor must be authenticated in a given specific context :
-    - pst admin in the context of an operational objective in all states (created, ongoing, achieved)
-    - pst editor in the context of an operational objective in all states (created, ongoing, achieved)
-    - administrative responsible in the context of an operational objective in state ongoing
-    - manager in the context of an operational objective in all states (created, ongoing, achieved)
+    - a pst admin in the context of an operational objective in anyone of all his states (created, ongoing, achieved)
+    - a pst editor in the context of an operational objective in anyone of all his states (created, ongoing, achieved)
+    - an administrative responsible in the context of an operational objective in state ongoing
+    - a manager in the context of an operational objective in anyone of all his states (created, ongoing, achieved)
     """
 
     def setUp(self):
@@ -62,48 +62,68 @@ class TestCreatePstAction(FunctionalTestCase):
     @browsing
     def test_scenarios_as_admin_in_operational_objective_created(self, browser):
         api.content.transition(obj=self.oo_2, transition='back_to_created')
+        state = api.content.get_state(obj=self.oo_2)
+        self.assertEqual(state, 'created')
         self.call_scenarios(browser, self.pst_admin, self.oo_2)
 
     @browsing
-    def test_scenarios_as_admin_with_operational_objective_ongoing(self, browser):
+    def test_scenarios_as_admin_in_operational_objective_ongoing(self, browser):
+        state = api.content.get_state(obj=self.oo_2)
+        self.assertEqual(state, 'ongoing')
         self.call_scenarios(browser, self.pst_admin, self.oo_2)
 
     @browsing
-    def test_main_scenario_as_admin_with_operational_objective_achieved(self, browser):
+    def test_main_scenario_as_admin_in_operational_objective_achieved(self, browser):
         api.content.transition(obj=self.oo_2, transition='achieve')
+        state = api.content.get_state(obj=self.oo_2)
+        self.assertEqual(state, 'achieved')
         self.call_scenarios(browser, self.pst_admin, self.oo_2)
 
     @browsing
     def test_scenarios_as_pst_editor_in_operational_objective_created(self, browser):
         api.content.transition(obj=self.oo_2, transition='back_to_created')
+        state = api.content.get_state(obj=self.oo_2)
+        self.assertEqual(state, 'created')
         self.call_scenarios(browser, self.pst_editor, self.oo_2)
 
     @browsing
-    def test_scenarios_as_pst_editor_with_operational_objective_ongoing(self, browser):
+    def test_scenarios_as_pst_editor_in_operational_objective_ongoing(self, browser):
+        state = api.content.get_state(obj=self.oo_2)
+        self.assertEqual(state, 'ongoing')
         self.call_scenarios(browser, self.pst_editor, self.oo_2)
 
     @browsing
-    def test_main_scenario_as_pst_editor_with_operational_objective_achieved(self, browser):
+    def test_main_scenario_as_pst_editor_in_operational_objective_achieved(self, browser):
         api.content.transition(obj=self.oo_2, transition='achieve')
+        state = api.content.get_state(obj=self.oo_2)
+        self.assertEqual(state, 'achieved')
         self.call_scenarios(browser, self.pst_editor, self.oo_2)
 
     # TODO: Fix "InsufficientPrivileges" PRJ-471
     # @browsing
-    # def test_scenarios_as_adm_resp_with_operational_objective_ongoing(self, browser):
+    # def test_scenarios_as_adm_resp_in_operational_objective_ongoing(self, browser):
+    #     state = api.content.get_state(obj=self.oo_2)
+    #     self.assertEqual(state, 'ongoing')
     #     self.call_scenarios(browser, self.adm_resp, self.oo_2)
     #
     @browsing
     def test_scenarios_as_manager_in_operational_objective_created(self, browser):
         api.content.transition(obj=self.oo_2, transition='back_to_created')
+        state = api.content.get_state(obj=self.oo_2)
+        self.assertEqual(state, 'created')
         self.call_scenarios(browser, self.manager, self.oo_2)
 
     @browsing
-    def test_scenarios_as_manager_with_operational_objective_ongoing(self, browser):
+    def test_scenarios_as_manager_in_operational_objective_ongoing(self, browser):
+        state = api.content.get_state(obj=self.oo_2)
+        self.assertEqual(state, 'ongoing')
         self.call_scenarios(browser, self.manager, self.oo_2)
 
     @browsing
-    def test_main_scenario_as_manager_with_operational_objective_achieved(self, browser):
+    def test_main_scenario_as_manager_in_operational_objective_achieved(self, browser):
         api.content.transition(obj=self.oo_2, transition='achieve')
+        state = api.content.get_state(obj=self.oo_2)
+        self.assertEqual(state, 'achieved')
         self.call_scenarios(browser, self.manager, self.oo_2)
 
     def call_scenarios(self, browser, actor, context):
@@ -114,7 +134,7 @@ class TestCreatePstAction(FunctionalTestCase):
         preconditions(browser, actor)  # Login as actor
         self.start_up(browser, context)  # Open context
         step_1(browser, context)  # The actor adds pst action
-        self.step_2(browser)  # The system calculates default values and displays the form
+        self.step_2(browser, context)  # The system calculates default values and displays the form
         self.step_3(browser)  # The actor fills in fields and save
         self.step_4(browser)  # The system creates and displays the pst action
 
@@ -123,7 +143,7 @@ class TestCreatePstAction(FunctionalTestCase):
         preconditions(browser, actor)
         self.start_up(browser, context)
         step_1(browser, context)
-        self.step_2(browser)
+        self.step_2(browser, context)
         step_3a(browser)  # The actor cancels the form
         self.step_4a(browser)  # The system back to the previous page with "Addition canceled" Info
 
@@ -132,7 +152,7 @@ class TestCreatePstAction(FunctionalTestCase):
         preconditions(browser, actor)
         self.start_up(browser, context)
         step_1(browser, context)
-        self.step_2(browser)
+        self.step_2(browser, context)
         self.step_3b(browser)  # The actor fills in the fields but not the deadline
         self.step_4b(browser)  # The system creates the pst action with warning message
 
@@ -141,7 +161,7 @@ class TestCreatePstAction(FunctionalTestCase):
         preconditions(browser, actor)
         self.start_up(browser, context)
         step_1(browser, context)
-        self.step_2(browser)
+        self.step_2(browser, context)
         step_3c(browser)  # The actor fills in the fields but omit mandatory fields
         self.step_4c(browser)  # system warn, (back to the step 2)
 
@@ -153,7 +173,7 @@ class TestCreatePstAction(FunctionalTestCase):
             "Diminuer le temps d'attente de l'usager au guichet population de 20% dans les 12 mois à venir (OO.2)"
             "".decode('utf8'), heading.text)
 
-    def step_2(self, browser):
+    def step_2(self, browser, context):
         """
         The system calculates the default values of the 'Categories' and 'Plans' fields,
         pre-populates and displays add action form
@@ -164,8 +184,8 @@ class TestCreatePstAction(FunctionalTestCase):
         fields = form.values
         categories = fields[self.categories_form_widget_name]
         plans = fields[self.plan_form_widget_name]
-        self.assertTrue(categories.__eq__(set(self.oo_2.categories)))
-        self.assertTrue(plans.__eq__(set(self.oo_2.plan)))
+        self.assertTrue(categories.__eq__(set(getattr(context, 'categories', []))))
+        self.assertTrue(plans.__eq__(set(getattr(context, 'plan', []))))
 
     def step_3(self, browser):
         """The actor fills in the form and save."""
