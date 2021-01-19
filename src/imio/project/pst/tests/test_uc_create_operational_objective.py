@@ -5,6 +5,16 @@ from imio.project.pst.testing import FunctionalTestCase
 from plone import api
 
 
+def preconditions(browser, actor):
+    """Login as actor."""
+    browser.login(username=actor['username'], password=actor['password']).open()
+
+
+def step_1(browser, context):
+    """The actor adds operational objective."""
+    browser.open(context.absolute_url() + '/++add++operationalobjective')
+
+
 def step_3a(browser):
     """The actor cancel the form."""
     form = browser.forms['form']
@@ -17,16 +27,6 @@ def step_3c(browser):
     form.find_button_by_label('Sauvegarder').click()
 
 
-def preconditions(browser, actor):
-    """Login as actor."""
-    browser.login(username=actor['username'], password=actor['password']).open()
-
-
-def step_1(browser, context):
-    """The actor adds operational objective."""
-    browser.open(context.absolute_url() + '/++add++operationalobjective')
-
-
 class TestCreateOperationalObjective(FunctionalTestCase):
     """Use case tests.
     Name: Create an operational objective
@@ -36,8 +36,8 @@ class TestCreateOperationalObjective(FunctionalTestCase):
     Created: 15/10/2020
     Updated: 18/01/2021
     Preconditions: The actor must be authenticated in a given specific context :
-    - a pst editor in the context of a strategic objective in anyone of all his states (created, ongoing, achieved)
     - a pst admin in the context of a strategic objective in anyone of all his states (created, ongoing, achieved)
+    - a pst editor in the context of a strategic objective in anyone of all his states (created, ongoing, achieved)
     """
 
     def setUp(self):
@@ -56,29 +56,41 @@ class TestCreateOperationalObjective(FunctionalTestCase):
     @browsing
     def test_scenarios_as_admin_in_strategic_objective_created(self, browser):
         api.content.transition(obj=self.os_1, transition='back_to_created')
+        state = api.content.get_state(obj=self.os_1)
+        self.assertEqual(state, 'created')
         self.call_scenarios(browser, self.pst_admin, self.os_1)
 
     @browsing
     def test_scenarios_as_admin_in_strategic_objective_ongoing(self, browser):
+        state = api.content.get_state(obj=self.os_1)
+        self.assertEqual(state, 'ongoing')
         self.call_scenarios(browser, self.pst_admin, self.os_1)
 
     @browsing
     def test_scenarios_as_admin_in_strategic_objective_achieved(self, browser):
         api.content.transition(obj=self.os_1, transition='achieve')
+        state = api.content.get_state(obj=self.os_1)
+        self.assertEqual(state, 'achieved')
         self.call_scenarios(browser, self.pst_admin, self.os_1)
 
     @browsing
     def test_scenarios_as_pst_editor_in_strategic_objective_created(self, browser):
         api.content.transition(obj=self.os_1, transition='back_to_created')
+        state = api.content.get_state(obj=self.os_1)
+        self.assertEqual(state, 'created')
         self.call_scenarios(browser, self.pst_editor, self.os_1)
 
     @browsing
     def test_scenarios_as_pst_editor_in_strategic_objective_ongoing(self, browser):
+        state = api.content.get_state(obj=self.os_1)
+        self.assertEqual(state, 'ongoing')
         self.call_scenarios(browser, self.pst_editor, self.os_1)
 
     @browsing
     def test_scenarios_as_pst_editor_in_strategic_objective_achieved(self, browser):
         api.content.transition(obj=self.os_1, transition='achieve')
+        state = api.content.get_state(obj=self.os_1)
+        self.assertEqual(state, 'achieved')
         self.call_scenarios(browser, self.pst_editor, self.os_1)
 
     def call_scenarios(self, browser, actor, context):
@@ -89,7 +101,7 @@ class TestCreateOperationalObjective(FunctionalTestCase):
         preconditions(browser, actor)  # Login as actor
         self.start_up(browser, context)  # Open context
         step_1(browser, context)  # The actor adds operational objective
-        self.step_2(browser)  # The system calculates default values and displays the form
+        self.step_2(browser, context)  # The system calculates default values and displays the form
         self.step_3(browser)  # The actor fills in fields and save
         self.step_4(browser)  # The system creates and displays the operational objective
 
@@ -98,7 +110,7 @@ class TestCreateOperationalObjective(FunctionalTestCase):
         preconditions(browser, actor)
         self.start_up(browser, context)
         step_1(browser, context)
-        self.step_2(browser)
+        self.step_2(browser, context)
         step_3a(browser)  # The actor cancels the form
         self.step_4a(browser)  # The system back to the previous page with "Addition canceled" Info
 
@@ -107,7 +119,7 @@ class TestCreateOperationalObjective(FunctionalTestCase):
         preconditions(browser, actor)
         self.start_up(browser, context)
         step_1(browser, context)
-        self.step_2(browser)
+        self.step_2(browser, context)
         self.step_3b(browser)  # The actor fills in the fields but not the deadline
         self.step_4b(browser)  # The system creates the operational objective with warning message
 
@@ -116,7 +128,7 @@ class TestCreateOperationalObjective(FunctionalTestCase):
         preconditions(browser, actor)
         self.start_up(browser, context)
         step_1(browser, context)
-        self.step_2(browser)
+        self.step_2(browser, context)
         step_3c(browser)  # The actor fills in the fields but omit mandatory fields
         self.step_4c(browser)  # system warn, (back to the step 2)
 
@@ -128,7 +140,7 @@ class TestCreateOperationalObjective(FunctionalTestCase):
             "Etre une commune qui offre un service public moderne, efficace et efficient (OS.1)".decode('utf8'),
             heading.text)
 
-    def step_2(self, browser):
+    def step_2(self, browser, context):
         """
         The system calculates the default values of the 'Categories' and 'Plans' fields,
         pre-populates and displays add action form
@@ -139,8 +151,8 @@ class TestCreateOperationalObjective(FunctionalTestCase):
         fields = form.values
         categories = fields[self.categories_form_widget_name]
         plans = fields[self.plan_form_widget_name]
-        self.assertTrue(categories.__eq__(set(self.os_1.categories)))
-        self.assertTrue(plans.__eq__(set(self.os_1.plan)))
+        self.assertTrue(categories.__eq__(set(getattr(context, 'categories', []))))
+        self.assertTrue(plans.__eq__(set(getattr(context, 'plan', []))))
 
     def step_3(self, browser):
         """The actor fills in the form and save."""
