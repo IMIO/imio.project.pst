@@ -5,6 +5,8 @@ from datetime import datetime
 from imio.project.pst.content import action
 from imio.project.pst.content.pstprojectspace import PSTACTION_EXCLUDED_FIELDS
 from imio.project.pst.testing import IntegrationTestCase
+from imio.project.pst.utils import find_deadlines_on_children, find_max_deadline_on_children, find_brains_on_parents, \
+    find_deadlines_on_parents, find_max_deadline_on_parents
 from plone import api
 from plone.app.testing import TEST_USER_NAME
 from zope.app.content import queryContentType
@@ -93,37 +95,26 @@ class TestAction(IntegrationTestCase):
                 if err.message in PSTACTION_EXCLUDED_FIELDS:
                     pass
 
-    def test_list_contained_brains(self):
-        """Test list_contained_brains method on pstaction."""
-        self.assertEqual(
-            [brain.Title for brain in
-             self.a_16.list_contained_brains(["pstsubaction", "subaction_link"])],
-            ['R\xc3\xa9aliser un audit \xc3\xa9nerg\xc3\xa9tique du b\xc3\xa2timent (SA.17)',
-             "En fonction des r\xc3\xa9sultats, proc\xc3\xa9der \xc3\xa0 l'isolation du b\xc3\xa2timent (SA.18)",
-             'En fonction des r\xc3\xa9sultats, remplacer le syst\xc3\xa8me de chauffage (SA.19)']
-        )
+    def test_find_deadlines_on_children(self):
+        """Test find_deadlines_on_children method on pstaction."""
+        self.assertEqual(find_deadlines_on_children(self.a_16, {"pstsubaction": "planned_end_date",
+                                                                "subaction_link": "planned_end_date",
+                                                                "task": "due_date"}),
+                         [datetime.date(datetime(2020, 6, 30)), datetime.date(datetime(2020, 6, 30)),
+                          datetime.date(datetime(2020, 10, 31)), datetime.date(datetime(2020, 10, 31))])
 
-    def test_list_planned_end_date_of_contained_brains(self):
-        """Test list_planned_end_date_of_contained_brains method on pstaction."""
-        self.assertEqual(
-            self.a_16.list_planned_end_date_of_contained_brains(["pstsubaction", "subaction_link"]),
-            [datetime.date(datetime(2020, 6, 30)), datetime.date(datetime(2020, 10, 31)),
-             datetime.date(datetime(2020, 10, 31))]
-        )
+    def test_find_max_deadline_on_children(self):
+        """Test find_max_deadline_on_children method on pstaction."""
+        self.assertEqual(find_max_deadline_on_children(self.a_16, {"pstsubaction": "planned_end_date",
+                                                                   "subaction_link": "planned_end_date",
+                                                                   "task": "due_date"}),
+                         datetime.date(datetime(2020, 10, 31)))
 
-    def test_get_max_planned_end_date_of_contained_brains(self):
-        """Test get_max_planned_end_date_of_contained_brains method on pstaction."""
+    def test_find_brains_on_parents(self):
+        """Test find_brains_on_parents method on pstaction."""
         self.assertEqual(
-            self.a_16.get_max_planned_end_date_of_contained_brains(["pstsubaction", "subaction_link"]),
-            datetime.date(datetime(2020, 10, 31))
-        )
-
-    def test_list_containers_brains(self):
-        """Test list_containers_brains method on pstsubaction."""
-        self.assertEqual(
-            [containers_brains[0].Title for containers_brains in self.sa_17.list_containers_brains()],
+            [containers_brains[0].Title for containers_brains in find_brains_on_parents(self.a_16)],
             [
-                "R\xc3\xa9duire la consommation \xc3\xa9nerg\xc3\xa9tique de l'administration communale (A.16)",
                 "R\xc3\xa9duire la consommation \xc3\xa9nerg\xc3\xa9tique des b\xc3\xa2timents communaux de 20% d'ici "
                 "2024 (OO.15)",
                 "Etre une commune qui s'inscrit dans la lign\xc3\xa9e des accords de r\xc3\xa9ductions des gaz \xc3\xa0"
@@ -131,14 +122,15 @@ class TestAction(IntegrationTestCase):
             ]
         )
 
-    def test_list_planned_end_date_of_containers_brains(self):
-        """Test list_planned_end_dates_of_containers_brains method on pstsubaction."""
+    def test_find_deadlines_on_parents(self):
+        """Test find_deadlines_on_parents method on pstaction."""
         self.assertEqual(
-            self.sa_17.list_planned_end_date_of_containers_brains(),
-            [datetime.date(datetime(2024, 6, 30)), datetime.date(datetime(2024, 12, 31))]
+            find_deadlines_on_parents(self.a_16, {"operationalobjective": "planned_end_date"}),
+            [datetime.date(datetime(2024, 12, 31))]
         )
 
-    def test_get_max_planned_end_date_of_containers_brains(self):
-        """Test get_max_planned_end_date_of_containers_brains method on pstsubaction."""
-        self.assertEqual(self.sa_17.get_max_planned_end_date_of_containers_brains(),
-                         datetime.date(datetime(2024, 12, 31)))
+    def test_find_max_deadline_on_parents(self):
+        """Test find_max_deadline_on_parents method on pstaction."""
+        self.assertEqual(
+            find_max_deadline_on_parents(self.a_16, {"operationalobjective": "planned_end_date"}),
+            datetime.date(datetime(2024, 12, 31)))
