@@ -493,7 +493,8 @@ def get_os_oo_ac_data(site, groups, currentYear):
                                 'sdgs': ['13'],
                                 'tasks': [
                                     {'title': u'Écrire le cahier des charges',
-                                     'assigned_group': groups['cellule-marches-publics']},
+                                     'assigned_group': groups['cellule-marches-publics'],
+                                     'due_date': datetime.date(datetime(2020, 06, 30))},
                                     {'title': u'Choisir le prestataire',
                                      'assigned_group': groups['service-de-lurbanisme']},
                                 ]},
