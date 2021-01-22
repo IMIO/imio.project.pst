@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
+from datetime import date
+
 from collective.contact.plonegroup.config import ORGANIZATIONS_REGISTRY
+from imio.project.core.content.projectspace import IProjectSpace
 from imio.project.pst.content.pstprojectspace import IPSTProjectSpace
 from plone import api
 from plone.app.uuid.utils import uuidToObject
@@ -10,6 +13,9 @@ from Products.Five import BrowserView
 from collective.contact.plonegroup.utils import organizations_with_suffixes
 from imio.helpers.cache import get_cachekey_volatile
 from zope.component import getUtility
+
+
+EMPTY_DATE = date(1950, 1, 1)
 
 
 def list_wf_states_cache_key(function, context, portal_type):
@@ -104,6 +110,105 @@ def get_services_config():
         service_organisation = uuidToObject(uid)
         services_dict[service_organisation.id] = uid
     return services_dict
+
+
+def find_deadlines_on_children(context=None, query=None):
+    """
+    Find deadlines on children.
+    :param context: Context for the search
+    :type context: Content object
+    :param query: Key pair values of portal type and planned end date field name.
+    :type query: Dict
+    :returns: deadlines (zope.schema._field.Datetime)
+    :rtype: List
+    :Example: query = {"operationalobjective": "planned_end_date", "pstaction": "planned_end_date", "task": "due_date"}
+    """
+    deadlines = []
+    brains = api.content.find(context=context, portal_typ=query.keys())
+    for brain in brains:
+        for item in query.items():
+            if brain.portal_type == item[0]:
+                if getattr(brain, item[1]):
+                    if getattr(brain, item[1]) != EMPTY_DATE:
+                        deadlines.append(getattr(brain, item[1]))
+                        break
+    return deadlines
+
+
+def find_max_deadline_on_children(context=None, query=None):
+    """
+    Find max deadline on children.
+    :param context: Context for the search
+    :type context: Content object
+    :param query: Key pair values of portal types and deadline field name.
+    :type query: Dict
+    :returns: max deadline (zope.schema._field.Datetime), or None
+    :rtype: zope.schema.Date
+    :Example: query = {"operationalobjective": "planned_end_date", "pstaction": "planned_end_date", "task": "due_date"}
+    """
+    max_deadline = None
+    deadlines = find_deadlines_on_children(context, query)
+    if deadlines:
+        max_deadline = max(deadlines)
+    return max_deadline
+
+
+def find_brains_on_parents(context=None):
+    """
+    Find brains on parent.
+    :param context: Context for the search
+    :type context: Content object
+    :returns: List of Catalog brains
+    :rtype: List
+    """
+    parent_brains = []
+    parent = context.__parent__
+    while not IProjectSpace.providedBy(parent) and parent.portal_type != 'Plone Site':
+        parent_brains.append(api.content.find(parent, depth=0))
+        parent = parent.__parent__
+    return parent_brains
+
+
+def find_deadlines_on_parents(context=None, query=None):
+    """
+    Find deadlines on parents.
+    :param context: Context for the search
+    :type context: Content object
+    :param query: Key pair values of portal types and deadline field name.
+    :type query: Dict
+    :returns: deadlines (zope.schema._field.Datetime)
+    :rtype: List
+    :Example: query = {"operationalobjective": "planned_end_date", "pstaction": "planned_end_date", "task": "due_date"}
+    """
+    deadlines = []
+    parent_brains = find_brains_on_parents(context)
+    for brains in parent_brains:
+        for item in query.items():
+            if brains[0].portal_type == item[0]:
+                if getattr(brains[0], item[1]):
+                    if getattr(brains[0], item[1]) != EMPTY_DATE:
+                        deadlines.append(getattr(brains[0], item[1]))
+                        break
+    return deadlines
+
+
+def find_max_deadline_on_parents(context=None, query=None):
+    """
+    Find max deadline on parents.
+    :param context: Context for the search
+    :type context: Content object
+    :param query: Key pair values of portal types and deadline field name.
+    :type query: Dict
+    :returns: max deadline (zope.schema._field.Datetime), or None
+    :rtype: zope.schema._field.Datetime
+    :Example: query = {"operationalobjective": "planned_end_date", "pstaction": "planned_end_date", "task": "due_date"}
+    """
+    max_deadline = None
+    deadlines = find_deadlines_on_parents(context, query)
+    if deadlines:
+        max_deadline = max(deadlines)
+    return max_deadline
+
 
 # views
 
