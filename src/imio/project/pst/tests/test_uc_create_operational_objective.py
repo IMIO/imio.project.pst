@@ -136,9 +136,7 @@ class TestCreateOperationalObjective(FunctionalTestCase):
         """Open context."""
         browser.open(context)
         heading = browser.css('.documentFirstHeading').first
-        self.assertEqual(
-            "Etre une commune qui offre un service public moderne, efficace et efficient (OS.1)".decode('utf8'),
-            heading.text)
+        self.assertEqual(context.Title().decode('utf8'), heading.text)
 
     def step_2(self, browser, context):
         """

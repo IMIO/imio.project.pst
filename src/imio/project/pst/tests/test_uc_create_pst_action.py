@@ -169,9 +169,7 @@ class TestCreatePstAction(FunctionalTestCase):
         """Open context."""
         browser.open(context)
         heading = browser.css('.documentFirstHeading').first
-        self.assertEqual(
-            "Diminuer le temps d'attente de l'usager au guichet population de 20% dans les 12 mois à venir (OO.2)"
-            "".decode('utf8'), heading.text)
+        self.assertEqual(context.Title().decode('utf8'), heading.text)
 
     def step_2(self, browser, context):
         """

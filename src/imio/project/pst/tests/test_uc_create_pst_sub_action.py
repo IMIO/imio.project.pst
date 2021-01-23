@@ -183,8 +183,7 @@ class TestCreatePstSubAction(FunctionalTestCase):
         """Open context."""
         browser.open(context)
         heading = browser.css('.documentFirstHeading').first
-        self.assertEqual(
-            "Réduire la consommation énergétique de l'administration communale (A.16)".decode('utf8'), heading.text)
+        self.assertEqual(context.Title().decode('utf8'), heading.text)
 
     def step_2(self, browser, context):
         """
