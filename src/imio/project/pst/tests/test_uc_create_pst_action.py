@@ -34,7 +34,7 @@ class TestCreatePstAction(FunctionalTestCase):
     Goal: allows actors to create a pst action
     Author: Franck Ngaha
     Created: 12/01/2021
-    Updated: 18/01/2021
+    Updated: 24/01/2021
     Preconditions: The actor must be authenticated in a given specific context :
     - a pst admin in the context of an operational objective in anyone of all his states (created, ongoing, achieved)
     - a pst editor in the context of an operational objective in anyone of all his states (created, ongoing, achieved)
@@ -60,7 +60,8 @@ class TestCreatePstAction(FunctionalTestCase):
             'main_scenario',
             'alternative_scenario_3a',
             'alternative_scenario_3b',
-            'exceptional_scenario_3c'
+            'exceptional_scenario_3c',
+            'alternative_scenario_3d',
         ]
 
     @browsing
@@ -169,6 +170,15 @@ class TestCreatePstAction(FunctionalTestCase):
         step_3c(browser)  # The actor fills in the fields but omit mandatory fields
         self.step_4c(browser)  # system warn, (back to the step 2)
 
+    def alternative_scenario_3d(self, browser, actor, context):
+        """The actor fills in element with a deadline date greater than the parent's greater."""
+        preconditions(browser, actor)
+        self.start_up(browser, context)
+        step_1(browser, context)
+        self.step_2(browser, context)
+        self.step_3d(browser)  # The actor fills in the fields with greater deadline
+        self.step_4d(browser)  # The system creates the pst action with warning message
+
     def start_up(self, browser, context):
         """Open context."""
         browser.open(context)
@@ -236,6 +246,18 @@ class TestCreatePstAction(FunctionalTestCase):
         fields[self.manager_form_widget_name] = [self.services_config['service-informatique'].decode('utf8')]
         form.find_button_by_label('Sauvegarder').click()
 
+    def step_3d(self, browser):
+        """The actor fills in element with a deadline date greater than the parent's greater."""
+        form = browser.forms['form']
+        fields = form.values
+        fields[self.title_dublinCore_form_widget_name] = u"Titre"
+        fields[self.planned_end_date_day_form_widget_name] = u"1"
+        fields[self.planned_end_date_month_form_widget_name] = u"1"
+        fields[self.planned_end_date_year_form_widget_name] = u"2021"
+        fields[self.representative_responsible_form_widget_name] = [self.echevins_config['bourgmestre']]
+        fields[self.manager_form_widget_name] = [self.services_config['service-informatique'].decode('utf8')]
+        form.find_button_by_label('Sauvegarder').click()
+
     def step_4(self, browser):
         """The system creates and displays the element with "Saved changes" info success."""
         heading = browser.css('.documentFirstHeading').first
@@ -260,3 +282,10 @@ class TestCreatePstAction(FunctionalTestCase):
         self.assertEqual(u'Ajouter Action', heading.text)
         self.assertTrue('Champ obligatoire' in browser.contents)
         statusmessages.assert_message(u"Il y a des erreurs.")
+
+    def step_4d(self, browser):
+        """The system creates the pst action with warning message."""
+        heading = browser.css('.documentFirstHeading').first
+        self.assertEqual('Titre (A.26)', heading.text)
+        statusmessages.assert_message(u"Elément créé")
+
