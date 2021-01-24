@@ -110,7 +110,7 @@ class TestUpdatePstAction(FunctionalTestCase):
         """The user update title and save."""
         form = browser.forms['form']
         fields = form.values
-        fields[self.title_form_widget_name] = u'Titre'
+        fields[self.title_dublinCore_form_widget_name] = u'Titre'
         form.find_button_by_label('Sauvegarder').click()
 
     def step_3_a2(self, browser):

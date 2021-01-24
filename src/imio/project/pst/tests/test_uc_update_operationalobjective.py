@@ -11,7 +11,7 @@ def step_3_a1(browser):
 
 
 class TestUpdateOperationalObjective(FunctionalTestCase):
-    """Test use case.
+    """Use case tests.
     Name: Update an operational objective
     Actor(s): pst_editors, admin_resp
     Description: The updating of an operational objective must be possible for a global editor,
@@ -98,7 +98,7 @@ class TestUpdateOperationalObjective(FunctionalTestCase):
         """The user update title and save."""
         form = browser.forms['form']
         fields = form.values
-        fields[self.title_form_widget_name] = u'Titre'
+        fields[self.title_dublinCore_form_widget_name] = u'Titre'
         form.find_button_by_label('Sauvegarder').click()
 
     def step_3_a2(self, browser):

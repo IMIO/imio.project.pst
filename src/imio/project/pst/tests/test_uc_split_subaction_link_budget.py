@@ -15,7 +15,7 @@ def step_3a(browser):
 
 
 class TestSplitSubActionLinkBudget(FunctionalTestCase):
-    """
+    """Use case tests.
     Name: Split sub action link budget
     Actor(s): admin, pst_editors, actioneditor
     Description: The distribution of budgets must be possible for a global editor, an action manager as well as an administrator

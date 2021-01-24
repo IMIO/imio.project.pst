@@ -203,8 +203,8 @@ class TestCreatePstSubAction(FunctionalTestCase):
         """The actor fills in the form and save."""
         form = browser.forms['form']
         fields = form.values
-        fields[self.title_form_widget_name] = u"Titre"
-        fields[self.description_form_widget_name] = u"Description"
+        fields[self.title_dublinCore_form_widget_name] = u"Titre"
+        fields[self.description_rich_form_widget_name] = u"Description"
         fields[self.result_indicator_label_form_widget_name] = u"Libellé"
         fields[self.result_indicator_value_form_widget_name] = u"100"
         fields[self.result_indicator_reached_value_form_widget_name] = u"50"
