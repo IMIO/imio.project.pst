@@ -70,6 +70,7 @@ class TestCreateTask(FunctionalTestCase):
         self.scenarios = [
             'main_scenario',
             'alternative_scenario_3a',
+            'alternative_scenario_3c',
             'exceptional_scenario_3b'
         ]
 
@@ -283,6 +284,15 @@ class TestCreateTask(FunctionalTestCase):
         step_3b(browser)  # The actor fills in the fields but omit mandatory fields
         self.step_4b(browser)  # system warn, (back to the step 2)
 
+    def alternative_scenario_3c(self, browser, actor, context):
+        """The actor fills in the fields but not the deadline and save."""
+        preconditions(browser, actor)
+        self.start_up(browser, context)
+        step_1(browser, context)
+        self.step_2(browser, context)
+        self.step_3c(browser)  # The actor fills in the fields but not the deadline
+        self.step_4c(browser)  # The system creates the task with warning message
+
     def start_up(self, browser, context):
         """Open context."""
         browser.open(context)
@@ -313,6 +323,13 @@ class TestCreateTask(FunctionalTestCase):
         fields[self.due_date_year_form_widget_name] = u"2020"
         form.find_button_by_label('Sauvegarder').click()
 
+    def step_3c(self, browser):
+        """The actor fills in the fields but not the deadline and save."""
+        form = browser.forms['form']
+        fields = form.values
+        fields[self.title_form_widget_name] = u"Titre"
+        form.find_button_by_label('Sauvegarder').click()
+
     def step_4(self, browser):
         """The system creates and displays the element with "Saved changes" info success."""
         heading = browser.css('.documentFirstHeading').first
@@ -331,3 +348,9 @@ class TestCreateTask(FunctionalTestCase):
         self.assertEqual(u'Ajouter Tâche', heading.text)
         self.assertTrue('Champ obligatoire' in browser.contents)
         statusmessages.assert_message(u"Il y a des erreurs.")
+
+    def step_4c(self, browser):
+        """The system creates the task with warning message."""
+        heading = browser.css('.documentFirstHeading').first
+        self.assertEqual('Titre', heading.text)
+        statusmessages.assert_message(u"Elément créé")
