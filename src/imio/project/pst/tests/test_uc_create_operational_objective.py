@@ -112,7 +112,7 @@ class TestCreateOperationalObjective(FunctionalTestCase):
         step_1(browser, context)
         self.step_2(browser, context)
         step_3a(browser)  # The actor cancels the form
-        self.step_4a(browser)  # The system back to the previous page with "Addition canceled" Info
+        self.step_4a(browser, context)  # The system back to the previous page with "Addition canceled" Info
 
     def alternative_scenario_3b(self, browser, actor, context):
         """The actor fills in the fields but not the deadline and save."""
@@ -197,12 +197,10 @@ class TestCreateOperationalObjective(FunctionalTestCase):
         self.assertEqual('Titre (OO.24)', heading.text)
         statusmessages.assert_message(u'Elément créé')
 
-    def step_4a(self, browser):
+    def step_4a(self, browser, context):
         """The system back to the previous page with "Addition canceled" Info."""
         heading = browser.css('.documentFirstHeading').first
-        self.assertEqual(
-            "Etre une commune qui offre un service public moderne, efficace et efficient (OS.1)".decode('utf8'),
-            heading.text)
+        self.assertEqual(context.Title().decode('utf8'), heading.text)
         statusmessages.assert_message(u"Ajout annulé")
 
     def step_4b(self, browser):

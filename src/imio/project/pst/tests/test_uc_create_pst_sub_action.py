@@ -168,7 +168,7 @@ class TestCreatePstSubAction(FunctionalTestCase):
         step_1(browser, context)
         self.step_2(browser, context)
         step_3a(browser)  # The actor cancels the form
-        self.step_4a(browser)  # The system back to the previous page with "Addition canceled" Info
+        self.step_4a(browser, context)  # The system back to the previous page with "Addition canceled" Info
 
     def exceptional_scenario_3b(self, browser, actor, context):
         """The actor fills in the fields but omit a mandatory field and save."""
@@ -243,11 +243,10 @@ class TestCreatePstSubAction(FunctionalTestCase):
         self.assertEqual('Titre (SA.24)', heading.text)
         statusmessages.assert_message(u'Elément créé')
 
-    def step_4a(self, browser):
+    def step_4a(self, browser, context):
         """The system back to the previous page with "Addition canceled" Info."""
         heading = browser.css('.documentFirstHeading').first
-        self.assertEqual(
-            "Réduire la consommation énergétique de l'administration communale (A.16)".decode('utf8'), heading.text)
+        self.assertEqual(context.Title().decode('utf8'), heading.text)
         statusmessages.assert_message(u"Ajout annulé")
 
     def step_4b(self, browser):
