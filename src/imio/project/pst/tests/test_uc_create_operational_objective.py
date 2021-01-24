@@ -50,8 +50,12 @@ class TestCreateOperationalObjective(FunctionalTestCase):
         self.pst = self.portal['pst']
         self.os_1 = self.pst['etre-une-commune-qui-offre-un-service-public-moderne-efficace-et-efficient']
         # scenarios
-        self.scenarios = ['main_scenario', 'alternative_scenario_3a', 'alternative_scenario_3b',
-                          'exceptional_scenario_3c']
+        self.scenarios = [
+            'main_scenario',
+            'alternative_scenario_3a',
+            'alternative_scenario_3b',
+            'exceptional_scenario_3c'
+        ]
 
     @browsing
     def test_scenarios_as_admin_in_strategic_objective_created(self, browser):

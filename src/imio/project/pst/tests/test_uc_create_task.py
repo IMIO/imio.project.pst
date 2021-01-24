@@ -67,7 +67,11 @@ class TestCreateTask(FunctionalTestCase):
         self.a_3 = self.oo_2['engager-2-agents-pour-le-service-population']
         self.a_16 = self.oo_15['reduire-la-consommation-energetique-de-ladministration-communale']
         # scenarios
-        self.scenarios = ['main_scenario', 'alternative_scenario_3a', 'exceptional_scenario_3b']
+        self.scenarios = [
+            'main_scenario',
+            'alternative_scenario_3a',
+            'exceptional_scenario_3b'
+        ]
 
     @browsing
     def test_scenarios_as_admin_in_pst_action_created(self, browser):

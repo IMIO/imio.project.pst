@@ -56,8 +56,12 @@ class TestCreatePstAction(FunctionalTestCase):
         self.oo_2 = self.os_1[
             'diminuer-le-temps-dattente-de-lusager-au-guichet-population-de-20-dans-les-12-mois-a-venir']
         # scenarios
-        self.scenarios = ['main_scenario', 'alternative_scenario_3a', 'alternative_scenario_3b',
-                          'exceptional_scenario_3c']
+        self.scenarios = [
+            'main_scenario',
+            'alternative_scenario_3a',
+            'alternative_scenario_3b',
+            'exceptional_scenario_3c'
+        ]
 
     @browsing
     def test_scenarios_as_admin_in_operational_objective_created(self, browser):
