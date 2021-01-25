@@ -117,7 +117,7 @@ def find_deadlines_on_children(context=None, query=None):
     Find deadlines on children.
     :param context: Context for the search
     :type context: Content object
-    :param query: Key pair values of portal type and planned end date field name.
+    :param query: All children's key pair values (portal types and deadline field name).
     :type query: Dict
     :returns: deadlines (zope.schema._field.Datetime)
     :rtype: List
@@ -140,7 +140,7 @@ def find_max_deadline_on_children(context=None, query=None):
     Find max deadline on children.
     :param context: Context for the search
     :type context: Content object
-    :param query: Key pair values of portal types and deadline field name.
+    :param query: All children's key pair values (portal types and deadline field name).
     :type query: Dict
     :returns: max deadline (zope.schema._field.Datetime), or None
     :rtype: zope.schema.Date
@@ -174,7 +174,7 @@ def find_deadlines_on_parents(context=None, query=None):
     Find deadlines on parents.
     :param context: Context for the search
     :type context: Content object
-    :param query: Key pair values of portal types and deadline field name.
+    :param query: All parents key pair values (portal types and deadline field name).
     :type query: Dict
     :returns: deadlines (zope.schema._field.Datetime)
     :rtype: List
@@ -192,22 +192,31 @@ def find_deadlines_on_parents(context=None, query=None):
     return deadlines
 
 
-def find_max_deadline_on_parents(context=None, query=None):
+def is_smaller_deadline_on_parents(context=None, query=None):
     """
-    Find max deadline on parents.
+    Find smaller deadline on the parents.
     :param context: Context for the search
     :type context: Content object
-    :param query: Key pair values of portal types and deadline field name.
+    :param query: All parents key pair values (portal types and deadline field name).
     :type query: Dict
-    :returns: max deadline (zope.schema._field.Datetime), or None
-    :rtype: zope.schema._field.Datetime
+    :returns: True if there is smaller date on parents or False
+    :rtype: bool
     :Example: query = {"operationalobjective": "planned_end_date", "pstaction": "planned_end_date", "task": "due_date"}
     """
-    max_deadline = None
+    is_smaller_deadline = False
     deadlines = find_deadlines_on_parents(context, query)
     if deadlines:
-        max_deadline = max(deadlines)
-    return max_deadline
+        for deadline in deadlines:
+            for item in query.items():
+                if context.portal_type == item[0]:
+                    if getattr(context, item[1]):
+                        if getattr(context, item[1]) != EMPTY_DATE:
+                            if deadline < getattr(context, item[1]):
+                                is_smaller_deadline = True
+                                break
+            if is_smaller_deadline:
+                break
+    return is_smaller_deadline
 
 
 # views
