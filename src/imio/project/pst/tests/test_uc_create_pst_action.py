@@ -171,7 +171,7 @@ class TestCreatePstAction(FunctionalTestCase):
         self.step_4c(browser)  # system warn, (back to the step 2)
 
     def alternative_scenario_3d(self, browser, actor, context):
-        """The actor fills in element with a deadline date greater than the parent's greater."""
+        """The actor fills in element with a deadline date greater than one of the parents."""
         preconditions(browser, actor)
         self.start_up(browser, context)
         step_1(browser, context)
@@ -247,14 +247,13 @@ class TestCreatePstAction(FunctionalTestCase):
         form.find_button_by_label('Sauvegarder').click()
 
     def step_3d(self, browser):
-        """The actor fills in element with a deadline date greater than the parent's greater."""
+        """The actor fills in element with a deadline date greater than one of the parents."""
         form = browser.forms['form']
         fields = form.values
         fields[self.title_dublinCore_form_widget_name] = u"Titre"
         fields[self.planned_end_date_day_form_widget_name] = u"1"
         fields[self.planned_end_date_month_form_widget_name] = u"1"
         fields[self.planned_end_date_year_form_widget_name] = u"2021"
-        fields[self.representative_responsible_form_widget_name] = [self.echevins_config['bourgmestre']]
         fields[self.manager_form_widget_name] = [self.services_config['service-informatique'].decode('utf8')]
         form.find_button_by_label('Sauvegarder').click()
 
