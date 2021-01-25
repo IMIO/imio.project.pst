@@ -1,10 +1,14 @@
 # -*- coding: utf-8 -*-
 """Custom viewlets."""
 
+from zc.relation.interfaces import ICatalog
+
 from Acquisition import aq_inner
+from Products.CMFPlone.utils import base_hasattr
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from collective.messagesviewlet.browser.messagesviewlet import MessagesViewlet
-from collective.messagesviewlet.message import generate_uid
 from collective.messagesviewlet.message import PseudoMessage
+from collective.messagesviewlet.message import generate_uid
 from collective.symlink.utils import is_linked_object
 from collective.task.browser.viewlets import TasksListViewlet as OriginalTasksListViewlet
 from imio.helpers.content import richtextval
@@ -12,11 +16,8 @@ from imio.prettylink.interfaces import IPrettyLink
 from imio.project.core.content.project import IProject
 from imio.project.core.utils import getProjectSpace
 from imio.project.pst import _tr
-from plone import api
+from imio.project.pst.utils import find_max_deadline_on_children, is_smaller_deadline_on_parents
 from plone.app.layout.viewlets import ViewletBase
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from Products.CMFPlone.utils import base_hasattr
-from zc.relation.interfaces import ICatalog
 from zope.component import getUtility
 from zope.intid.interfaces import IIntIds
 from zope.security import checkPermission
@@ -123,12 +124,19 @@ class ContextInformationViewlet(MessagesViewlet):
             )
         if self.context.portal_type == "operationalobjective":
             if self.context.planned_end_date:
-                max_contained_date = self.context.get_max_planned_end_date_of_contained_brains(
-                    ["pstaction", "action_link", "pstsubaction", "subaction_link"])
-                if max_contained_date:
-                    if max_contained_date > self.context.planned_end_date:
-                        msg = _(u"The planned end date of any one of the actions is greater than the planned end date "
-                                u"of the operational objective")
+                max_children_deadline = find_max_deadline_on_children(
+                    self.context,
+                    {
+                        "pstaction": "planned_end_date",
+                        "action_link": "planned_end_date",
+                        "pstsubaction": "planned_end_date",
+                        "subaction_link": "planned_end_date",
+                        "task": "due_date"
+                    }
+                )
+                if max_children_deadline:
+                    if max_children_deadline > self.context.planned_end_date:
+                        msg = _(u"The deadline of any one of children is greater than those of this element")
                         ret.append(
                             PseudoMessage(
                                 msg_type="significant",
@@ -138,8 +146,8 @@ class ContextInformationViewlet(MessagesViewlet):
                             )
                         )
             else:
-                msg = _(u"The planned end date is not fill on the operational objective, the system displays"
-                        u" the largest of its possible actions")
+                msg = _(u"The deadline is not fill on this element, the system displays the largest of its "
+                        u"possible children")
                 ret.append(
                     PseudoMessage(
                         msg_type="significant",
@@ -150,13 +158,17 @@ class ContextInformationViewlet(MessagesViewlet):
                 )
         if self.context.portal_type == "pstaction":
             if self.context.planned_end_date:
-                max_contained_dates = self.context.get_max_planned_end_date_of_contained_brains(
-                    ["pstsubaction", "subaction_link"])
-                if max_contained_dates:
-                    if max_contained_dates > self.context.planned_end_date:
-                        msg = _(
-                            u"The planned end date of any one of the sub actions is greater than the planned end date "
-                            u"of the action")
+                max_children_deadline = find_max_deadline_on_children(
+                    self.context,
+                    {
+                        "pstsubaction": "planned_end_date",
+                        "subaction_link": "planned_end_date",
+                        "task": "due_date"
+                    }
+                )
+                if max_children_deadline:
+                    if max_children_deadline > self.context.planned_end_date:
+                        msg = _(u"The deadline of any one of children is greater than those of this element")
                         ret.append(
                             PseudoMessage(
                                 msg_type="significant",
@@ -165,21 +177,96 @@ class ContextInformationViewlet(MessagesViewlet):
                                 can_hide=False,
                             )
                         )
-                max_containers_dates = self.context.get_max_planned_end_date_of_containers_brains()
-                if max_containers_dates:
-                    if max_containers_dates < self.context.planned_end_date:
-                        msg = _(u"The planned end date of the action is greater than that of the operational objective")
-                        ret.append(
-                            PseudoMessage(
-                                msg_type="significant",
-                                text=richtextval(msg),
-                                hidden_uid=generate_uid(),
-                                can_hide=False,
-                            )
+                if is_smaller_deadline_on_parents(self.context, {"pstaction": "planned_end_date",
+                                                                 "operationalobjective": "planned_end_date"}):
+                    msg = _(u"The deadline of this element is greater than one of its parents")
+                    ret.append(
+                        PseudoMessage(
+                            msg_type="significant",
+                            text=richtextval(msg),
+                            hidden_uid=generate_uid(),
+                            can_hide=False,
                         )
+                    )
             else:
-                msg = _(u"The planned end date is not fill on the action, the system displays the largest of its"
-                        u" possible sub actions")
+                msg = _(u"The deadline is not fill on this element, the system displays the largest of its "
+                        u"possible children")
+                ret.append(
+                    PseudoMessage(
+                        msg_type="significant",
+                        text=richtextval(msg),
+                        hidden_uid=generate_uid(),
+                        can_hide=False,
+                    )
+                )
+        if self.context.portal_type == "pstsubaction":
+            if self.context.planned_end_date:
+                max_children_deadline = find_max_deadline_on_children(
+                    self.context,
+                    {
+                        "pstsubaction": "planned_end_date",
+                        "subaction_link": "planned_end_date",
+                        "task": "due_date"
+                    }
+                )
+                if max_children_deadline:
+                    if max_children_deadline > self.context.planned_end_date:
+                        msg = _(u"The deadline of any one of children is greater than those of this element")
+                        ret.append(
+                            PseudoMessage(
+                                msg_type="significant",
+                                text=richtextval(msg),
+                                hidden_uid=generate_uid(),
+                                can_hide=False,
+                            )
+                        )
+                if is_smaller_deadline_on_parents(self.context,
+                                                  {"pstsubaction": "planned_end_date", "pstaction": "planned_end_date",
+                                                   "operationalobjective": "planned_end_date"}):
+                    msg = _(u"The deadline of this element is greater than one of its parents")
+                    ret.append(
+                        PseudoMessage(
+                            msg_type="significant",
+                            text=richtextval(msg),
+                            hidden_uid=generate_uid(),
+                            can_hide=False,
+                        )
+                    )
+            else:
+                msg = _(u"The deadline is not fill on this element, the system displays the largest of its "
+                        u"possible children")
+                ret.append(
+                    PseudoMessage(
+                        msg_type="significant",
+                        text=richtextval(msg),
+                        hidden_uid=generate_uid(),
+                        can_hide=False,
+                    )
+                )
+        if self.context.portal_type == "task":
+            if self.context.due_date:
+                max_children_deadline = find_max_deadline_on_children(
+                    self.context,
+                    {
+                        "pstsubaction": "planned_end_date",
+                        "subaction_link": "planned_end_date",
+                        "task": "due_date"
+                    }
+                )
+                if is_smaller_deadline_on_parents(self.context, {"task": "due_date", "pstsubaction": "planned_end_date",
+                                                                 "pstaction": "planned_end_date",
+                                                                 "operationalobjective": "planned_end_date"}):
+                    msg = _(u"The deadline of this element is greater than one of its parents")
+                    ret.append(
+                        PseudoMessage(
+                            msg_type="significant",
+                            text=richtextval(msg),
+                            hidden_uid=generate_uid(),
+                            can_hide=False,
+                        )
+                    )
+            else:
+                msg = _(u"The deadline is not fill on this element")
                 ret.append(
                     PseudoMessage(
                         msg_type="significant",
