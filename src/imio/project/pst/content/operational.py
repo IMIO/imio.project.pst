@@ -8,6 +8,7 @@ from imio.project.core.content.project import Project
 from imio.project.core.utils import getProjectSpace
 from imio.project.core.utils import getVocabularyTermsForOrganization
 from imio.project.pst import _
+from imio.project.pst.utils import find_max_deadline_on_children
 from plone import api
 from plone.autoform import directives as form
 from plone.dexterity.schema import DexteritySchemaPolicy
@@ -78,8 +79,15 @@ class OperationalObjectiveDataManager(AttributeField):
         if self.field.__name__ == "planned_end_date":
             value = self.context.planned_end_date
             if not value:
-                value = self.context.get_max_planned_end_date_of_contained_brains(
-                    ["pstaction", "action_link", "pstsubaction", "subaction_link"])
+                value = find_max_deadline_on_children(
+                    self.context,
+                    {
+                        "pstaction": "planned_end_date",
+                        "pstsubaction": "planned_end_date",
+                        "subaction_link": "planned_end_date",
+                        "task": "due_date"
+                    }
+                )
         return value
 
 
