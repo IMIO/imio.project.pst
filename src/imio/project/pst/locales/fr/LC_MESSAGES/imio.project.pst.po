@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2020-12-03 18:54+0000\n"
+"POT-Creation-Date: 2021-01-24 18:36+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,7 +23,7 @@ msgstr "Lien action"
 msgid "Actions"
 msgstr "Actions"
 
-#: ./setuphandlers.py:860
+#: ./setuphandlers.py:861
 msgid "Actions under"
 msgstr "Actions (sous-)"
 
@@ -31,7 +31,7 @@ msgstr "Actions (sous-)"
 msgid "Administrative responsible"
 msgstr "Responsable administratif"
 
-#: ./setuphandlers.py:965
+#: ./setuphandlers.py:966
 msgid "All"
 msgstr "Tous"
 
@@ -107,7 +107,7 @@ msgstr "Import some demo data for the imio.project.pst"
 msgid "Installs the imio.project.pst add-on."
 msgstr "Installs the imio.project.pst"
 
-#: ./setuphandlers.py:859
+#: ./setuphandlers.py:860
 msgid "Operational objectives"
 msgstr "Objectifs opérationnels"
 
@@ -179,47 +179,47 @@ msgstr "Répartition des budgets entre les différentes actions"
 msgid "Split budget lines between multiple instances"
 msgstr "Répartir les lignes budgétaires entre les différentes actions"
 
-#: ./setuphandlers.py:889
+#: ./setuphandlers.py:890
 msgid "State: achieved"
 msgstr "État: clôturé"
 
-#: ./setuphandlers.py:897
+#: ./setuphandlers.py:898
 msgid "State: closed"
 msgstr "État: clôturé"
 
-#: ./setuphandlers.py:887
+#: ./setuphandlers.py:888
 msgid "State: created"
 msgstr "État: en création"
 
-#: ./setuphandlers.py:899
+#: ./setuphandlers.py:900
 msgid "State: in progress"
 msgstr "État: en cours"
 
-#: ./setuphandlers.py:888
+#: ./setuphandlers.py:889
 msgid "State: ongoing"
 msgstr "État: en cours"
 
-#: ./setuphandlers.py:900
+#: ./setuphandlers.py:901
 msgid "State: realized"
 msgstr "État: réalisé"
 
-#: ./setuphandlers.py:895
+#: ./setuphandlers.py:896
 msgid "State: stopped"
 msgstr "État: annulé"
 
-#: ./setuphandlers.py:894
+#: ./setuphandlers.py:895
 msgid "State: terminated"
 msgstr "État: finalisé"
 
-#: ./setuphandlers.py:902
+#: ./setuphandlers.py:903
 msgid "State: to assign"
 msgstr "État: à assigner"
 
-#: ./setuphandlers.py:892
+#: ./setuphandlers.py:893
 msgid "State: to be scheduled"
 msgstr "État: à agender"
 
-#: ./setuphandlers.py:901
+#: ./setuphandlers.py:902
 msgid "State: to do"
 msgstr "État: à faire"
 
@@ -227,7 +227,7 @@ msgstr "État: à faire"
 msgid "Steps to ease tests of imio.project.pst"
 msgstr "Steps to ease tests of imio.project.pst"
 
-#: ./setuphandlers.py:858
+#: ./setuphandlers.py:859
 msgid "Strategic objectives"
 msgstr "Objectifs stratégiques"
 
@@ -257,7 +257,7 @@ msgstr "Tâches"
 msgid "Tasks columns"
 msgstr "Colonnes à afficher sur les tâches"
 
-#: ./setuphandlers.py:861
+#: ./setuphandlers.py:862
 msgid "Tasks under"
 msgstr "Tâches (sous-)"
 
@@ -265,31 +265,27 @@ msgstr "Tâches (sous-)"
 msgid "The 'workflow' menu - allows the user to execute workflow transitions"
 msgstr "The 'workflow' menu - allows the user to execute workflow transitions"
 
-#: ./browser/viewlets.py:181
-msgid "The planned end date is not fill on the action, the system displays the largest of its possible sub actions"
-msgstr "La date d'échéance n'est pas encodée sur l'action, le système affiche celle la plus grande de ses éventuelles sous-actions"
+#: ./browser/viewlets.py:290
+msgid "The deadline is not fill on this element"
+msgstr "La date d'échéance n'est pas renseignée sur cet élément."
 
-#: ./browser/viewlets.py:141
-msgid "The planned end date is not fill on the operational objective, the system displays the largest of its possible actions"
-msgstr "La date d'échéance n'est pas encodée sur l'obectif opérationnel, le système affiche celle la plus grande de ses éventuelles actions"
+#: ./browser/viewlets.py:149
+msgid "The deadline is not fill on this element, the system displays the largest of its possible children"
+msgstr "La date d'échéance n'est pas renseignée sur cet élément, le système affiche la plus grande de ses éventuels enfants."
 
-#: ./browser/viewlets.py:130
-msgid "The planned end date of any one of the actions is greater than the planned end date of the operational objective"
-msgstr "La date d'échéance d'au moins une action est supérieure à celle de l'objectif opérationnel"
+#: ./browser/viewlets.py:139
+msgid "The deadline of any one of children is greater than those of this element"
+msgstr "La date d'échéance d'un des enfants est supérieure à celles de cet élément."
 
-#: ./browser/viewlets.py:157
-msgid "The planned end date of any one of the sub actions is greater than the planned end date of the action"
-msgstr "La date d'échéance d'au moins une sous action est supérieure à celle de l'action"
-
-#: ./browser/viewlets.py:171
-msgid "The planned end date of the action is greater than that of the operational objective"
-msgstr "La date d'échéance de l'action est supérieure à celle de l'objcectif opérationnel"
+#: ./browser/viewlets.py:186
+msgid "The deadline of this element is greater than one of its parents"
+msgstr "La date d'échéance de cet élément est supérieure à au moins une de ses parents."
 
 #: ./content/action.py:117
 msgid "The sum of all percentages must amount to 100 %."
 msgstr "La somme de tous les pourcentages doit s'élever à 100%."
 
-#: ./browser/viewlets.py:112
+#: ./browser/viewlets.py:113
 msgid "This content is a copy, to modify the original content click on this button ${edit}"
 msgstr "Ce contenu est une copie miroir ! Cliquer sur ce lien ${edit} pour modifier l'original"
 
@@ -309,27 +305,27 @@ msgstr ""
 msgid "Update profile to run individually some update steps"
 msgstr "Update profile to run individually some update steps"
 
-#: ./setuphandlers.py:987
+#: ./setuphandlers.py:988
 msgid "Which I am administrative responsible"
 msgstr "Dont je suis responsable administratif"
 
-#: ./setuphandlers.py:1004
+#: ./setuphandlers.py:1005
 msgid "Which I am manager"
 msgstr "Dont je suis gestionnaire"
 
-#: ./setuphandlers.py:1058
+#: ./setuphandlers.py:1059
 msgid "Which I am responsible"
 msgstr "Dont je suis le porteur"
 
-#: ./setuphandlers.py:1021
+#: ./setuphandlers.py:1022
 msgid "Which an action deadline has passed"
 msgstr "En retard pdv échéance actions"
 
-#: ./setuphandlers.py:1090
+#: ./setuphandlers.py:1091
 msgid "Which beginning is late"
 msgstr "En retard pdv date début effective"
 
-#: ./setuphandlers.py:1074
+#: ./setuphandlers.py:1075
 msgid "Which deadline has passed"
 msgstr "En retard pdv échéance"
 
@@ -432,30 +428,30 @@ msgstr "Objectifs stratégiques"
 msgid "strategic_legend_operational_objectives"
 msgstr "Objectifs opérationnels"
 
-#: ./setuphandlers.py:1161
+#: ./setuphandlers.py:1162
 msgid "task_have_treated"
 msgstr "Que j'ai traité"
 
-#: ./setuphandlers.py:1144
+#: ./setuphandlers.py:1145
 msgid "task_im_treating"
 msgstr "Que je traite"
 
-#: ./setuphandlers.py:1127
+#: ./setuphandlers.py:1128
 msgid "task_to_treat"
 msgstr "Qui m'est assigné"
 
-#: ./setuphandlers.py:1179
+#: ./setuphandlers.py:1180
 msgid "tasks_in_my_group"
 msgstr "Dans mon service"
 
-#: ./setuphandlers.py:1110
+#: ./setuphandlers.py:1111
 msgid "tasks_to_assign"
 msgstr "À assigner"
 
-#: ./setuphandlers.py:1196
+#: ./setuphandlers.py:1197
 msgid "tasks_to_close"
 msgstr "À clôturer"
 
-#: ./setuphandlers.py:1213
+#: ./setuphandlers.py:1214
 msgid "tasks_with_due_date_passed"
 msgstr "En retard pdv échéance"

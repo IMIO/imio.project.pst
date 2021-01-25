@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2020-12-03 18:54+0000\n"
+"POT-Creation-Date: 2021-01-24 18:36+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,7 +25,7 @@ msgstr ""
 msgid "Actions"
 msgstr ""
 
-#: ./setuphandlers.py:860
+#: ./setuphandlers.py:861
 msgid "Actions under"
 msgstr ""
 
@@ -33,7 +33,7 @@ msgstr ""
 msgid "Administrative responsible"
 msgstr ""
 
-#: ./setuphandlers.py:965
+#: ./setuphandlers.py:966
 msgid "All"
 msgstr ""
 
@@ -109,7 +109,7 @@ msgstr ""
 msgid "Installs the imio.project.pst add-on."
 msgstr ""
 
-#: ./setuphandlers.py:859
+#: ./setuphandlers.py:860
 msgid "Operational objectives"
 msgstr ""
 
@@ -181,47 +181,47 @@ msgstr ""
 msgid "Split budget lines between multiple instances"
 msgstr ""
 
-#: ./setuphandlers.py:889
+#: ./setuphandlers.py:890
 msgid "State: achieved"
 msgstr ""
 
-#: ./setuphandlers.py:897
+#: ./setuphandlers.py:898
 msgid "State: closed"
 msgstr ""
 
-#: ./setuphandlers.py:887
+#: ./setuphandlers.py:888
 msgid "State: created"
 msgstr ""
 
-#: ./setuphandlers.py:899
+#: ./setuphandlers.py:900
 msgid "State: in progress"
 msgstr ""
 
-#: ./setuphandlers.py:888
+#: ./setuphandlers.py:889
 msgid "State: ongoing"
 msgstr ""
 
-#: ./setuphandlers.py:900
+#: ./setuphandlers.py:901
 msgid "State: realized"
 msgstr ""
 
-#: ./setuphandlers.py:895
+#: ./setuphandlers.py:896
 msgid "State: stopped"
 msgstr ""
 
-#: ./setuphandlers.py:894
+#: ./setuphandlers.py:895
 msgid "State: terminated"
 msgstr ""
 
-#: ./setuphandlers.py:902
+#: ./setuphandlers.py:903
 msgid "State: to assign"
 msgstr ""
 
-#: ./setuphandlers.py:892
+#: ./setuphandlers.py:893
 msgid "State: to be scheduled"
 msgstr ""
 
-#: ./setuphandlers.py:901
+#: ./setuphandlers.py:902
 msgid "State: to do"
 msgstr ""
 
@@ -229,7 +229,7 @@ msgstr ""
 msgid "Steps to ease tests of imio.project.pst"
 msgstr ""
 
-#: ./setuphandlers.py:858
+#: ./setuphandlers.py:859
 msgid "Strategic objectives"
 msgstr ""
 
@@ -259,7 +259,7 @@ msgstr ""
 msgid "Tasks columns"
 msgstr ""
 
-#: ./setuphandlers.py:861
+#: ./setuphandlers.py:862
 msgid "Tasks under"
 msgstr ""
 
@@ -267,31 +267,27 @@ msgstr ""
 msgid "The 'workflow' menu - allows the user to execute workflow transitions"
 msgstr ""
 
-#: ./browser/viewlets.py:181
-msgid "The planned end date is not fill on the action, the system displays the largest of its possible sub actions"
+#: ./browser/viewlets.py:290
+msgid "The deadline is not fill on this element"
 msgstr ""
 
-#: ./browser/viewlets.py:141
-msgid "The planned end date is not fill on the operational objective, the system displays the largest of its possible actions"
+#: ./browser/viewlets.py:149
+msgid "The deadline is not fill on this element, the system displays the largest of its possible children"
 msgstr ""
 
-#: ./browser/viewlets.py:130
-msgid "The planned end date of any one of the actions is greater than the planned end date of the operational objective"
+#: ./browser/viewlets.py:139
+msgid "The deadline of any one of children is greater than those of this element"
 msgstr ""
 
-#: ./browser/viewlets.py:157
-msgid "The planned end date of any one of the sub actions is greater than the planned end date of the action"
-msgstr ""
-
-#: ./browser/viewlets.py:171
-msgid "The planned end date of the action is greater than that of the operational objective"
+#: ./browser/viewlets.py:186
+msgid "The deadline of this element is greater than one of its parents"
 msgstr ""
 
 #: ./content/action.py:117
 msgid "The sum of all percentages must amount to 100 %."
 msgstr ""
 
-#: ./browser/viewlets.py:112
+#: ./browser/viewlets.py:113
 msgid "This content is a copy, to modify the original content click on this button ${edit}"
 msgstr ""
 
@@ -311,27 +307,27 @@ msgstr ""
 msgid "Update profile to run individually some update steps"
 msgstr ""
 
-#: ./setuphandlers.py:987
+#: ./setuphandlers.py:988
 msgid "Which I am administrative responsible"
 msgstr ""
 
-#: ./setuphandlers.py:1004
+#: ./setuphandlers.py:1005
 msgid "Which I am manager"
 msgstr ""
 
-#: ./setuphandlers.py:1058
+#: ./setuphandlers.py:1059
 msgid "Which I am responsible"
 msgstr ""
 
-#: ./setuphandlers.py:1021
+#: ./setuphandlers.py:1022
 msgid "Which an action deadline has passed"
 msgstr ""
 
-#: ./setuphandlers.py:1090
+#: ./setuphandlers.py:1091
 msgid "Which beginning is late"
 msgstr ""
 
-#: ./setuphandlers.py:1074
+#: ./setuphandlers.py:1075
 msgid "Which deadline has passed"
 msgstr ""
 
@@ -434,30 +430,30 @@ msgstr ""
 msgid "strategic_legend_operational_objectives"
 msgstr ""
 
-#: ./setuphandlers.py:1161
+#: ./setuphandlers.py:1162
 msgid "task_have_treated"
 msgstr ""
 
-#: ./setuphandlers.py:1144
+#: ./setuphandlers.py:1145
 msgid "task_im_treating"
 msgstr ""
 
-#: ./setuphandlers.py:1127
+#: ./setuphandlers.py:1128
 msgid "task_to_treat"
 msgstr ""
 
-#: ./setuphandlers.py:1179
+#: ./setuphandlers.py:1180
 msgid "tasks_in_my_group"
 msgstr ""
 
-#: ./setuphandlers.py:1110
+#: ./setuphandlers.py:1111
 msgid "tasks_to_assign"
 msgstr ""
 
-#: ./setuphandlers.py:1196
+#: ./setuphandlers.py:1197
 msgid "tasks_to_close"
 msgstr ""
 
-#: ./setuphandlers.py:1213
+#: ./setuphandlers.py:1214
 msgid "tasks_with_due_date_passed"
 msgstr ""
