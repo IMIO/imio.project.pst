@@ -71,7 +71,8 @@ class TestCreateTask(FunctionalTestCase):
             'main_scenario',
             'alternative_scenario_3a',
             'alternative_scenario_3c',
-            'exceptional_scenario_3b'
+            'exceptional_scenario_3b',
+            'alternative_scenario_3d',
         ]
 
     @browsing
@@ -293,6 +294,15 @@ class TestCreateTask(FunctionalTestCase):
         self.step_3c(browser)  # The actor fills in the fields but not the deadline
         self.step_4c(browser)  # The system creates the task with warning message
 
+    def alternative_scenario_3d(self, browser, actor, context):
+        """The actor fills in element with a deadline date greater than one of the parents."""
+        preconditions(browser, actor)
+        self.start_up(browser, context)
+        step_1(browser, context)
+        self.step_2(browser, context)
+        self.step_3d(browser)  # The actor fills in the fields with greater deadline
+        self.step_4d(browser)  # The system creates the pst action with warning message
+
     def start_up(self, browser, context):
         """Open context."""
         browser.open(context)
@@ -330,6 +340,16 @@ class TestCreateTask(FunctionalTestCase):
         fields[self.title_form_widget_name] = u"Titre"
         form.find_button_by_label('Sauvegarder').click()
 
+    def step_3d(self, browser):
+        """The actor fills in element with a deadline date greater than one of the parents."""
+        form = browser.forms['form']
+        fields = form.values
+        fields[self.title_form_widget_name] = u"Titre"
+        fields[self.due_date_day_form_widget_name] = u"31"
+        fields[self.due_date_month_form_widget_name] = u"7"
+        fields[self.due_date_year_form_widget_name] = u"2020"
+        form.find_button_by_label('Sauvegarder').click()
+
     def step_4(self, browser):
         """The system creates and displays the element with "Saved changes" info success."""
         heading = browser.css('.documentFirstHeading').first
@@ -351,6 +371,12 @@ class TestCreateTask(FunctionalTestCase):
 
     def step_4c(self, browser):
         """The system creates the task with warning message."""
+        heading = browser.css('.documentFirstHeading').first
+        self.assertEqual('Titre', heading.text)
+        statusmessages.assert_message(u"Elément créé")
+
+    def step_4d(self, browser):
+        """The system creates the pst action with warning message."""
         heading = browser.css('.documentFirstHeading').first
         self.assertEqual('Titre', heading.text)
         statusmessages.assert_message(u"Elément créé")
