@@ -76,6 +76,32 @@ class TestUpdateOperationalObjective(FunctionalTestCase):
         self.assertEqual(state, 'achieved')
         self.call_scenarios(browser, self.pst_admin, self.oo_15)
 
+    @browsing
+    def test_scenarios_as_pst_editor_in_operational_objective_created(self, browser):
+        api.content.transition(obj=self.oo_15, transition='back_to_created')
+        state = api.content.get_state(obj=self.oo_15)
+        self.assertEqual(state, 'created')
+        self.call_scenarios(browser, self.pst_editor, self.oo_15)
+
+    @browsing
+    def test_scenarios_as_pst_editor_in_operational_objective_ongoing(self, browser):
+        state = api.content.get_state(obj=self.oo_15)
+        self.assertEqual(state, 'ongoing')
+        self.call_scenarios(browser, self.pst_editor, self.oo_15)
+
+    @browsing
+    def test_main_scenario_as_pst_editor_in_operational_objective_achieved(self, browser):
+        api.content.transition(obj=self.oo_15, transition='achieve')
+        state = api.content.get_state(obj=self.oo_15)
+        self.assertEqual(state, 'achieved')
+        self.call_scenarios(browser, self.pst_editor, self.oo_15)
+
+    @browsing
+    def test_scenarios_as_adm_resp_in_operational_objective_ongoing(self, browser):
+        state = api.content.get_state(obj=self.oo_15)
+        self.assertEqual(state, 'ongoing')
+        self.call_scenarios(browser, self.adm_resp, self.oo_15)
+
     def call_scenarios(self, browser, actor, context):
         for scenario in self.scenarios:
             self.__getattribute__(scenario)(browser, actor, context)
