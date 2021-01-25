@@ -4,7 +4,7 @@ from datetime import datetime
 
 from imio.project.pst.testing import IntegrationTestCase
 from imio.project.pst.utils import find_deadlines_on_children, find_max_deadline_on_children, find_brains_on_parents, \
-    find_deadlines_on_parents, find_max_deadline_on_parents
+    find_deadlines_on_parents, is_smaller_deadline_on_parents
 
 
 class TestUtils(IntegrationTestCase):
@@ -194,29 +194,98 @@ class TestUtils(IntegrationTestCase):
             ]
         )
 
-    def test_find_max_deadline_on_pst_action_parents(self):
-        """Test find_max_deadline_on_pst_action_parents method on pst action."""
+    def test_is_smaller_deadline_on_pst_action_parents(self):
+        """
+        Test is_smaller_deadline_on_pst_action_parents method on pst action.
+        context deadline : a_16 = 30/06/2024
+        parent deadline : oo_15 = 31/12/2024
+        """
+        self.assertEqual(self.a_16.planned_end_date, datetime.date(datetime(2024, 6, 30)))
+        self.assertEqual(self.oo_15.planned_end_date, datetime.date(datetime(2024, 12, 31)))
         self.assertEqual(
-            find_max_deadline_on_parents(self.a_16, {"operationalobjective": "planned_end_date"}),
-            datetime.date(datetime(2024, 12, 31))
+            is_smaller_deadline_on_parents(
+                self.a_16,
+                {"pstaction": "planned_end_date", "operationalobjective": "planned_end_date"}
+            ),
+            False
+        )
+        # context deadline : a_16 = 30/06/2024 => 01/01/2025
+        self.a_16.planned_end_date = datetime.date(datetime(2025, 1, 1))
+        self.assertEqual(
+            is_smaller_deadline_on_parents(
+                self.a_16,
+                {"pstaction": "planned_end_date", "operationalobjective": "planned_end_date"}
+            ),
+            True
         )
 
-    def test_find_max_deadline_on_pst_sub_action_parents(self):
-        """Test find_max_deadline_on_pst_sub_action_parents method on pst sub action."""
+    def test_is_smaller_deadline_on_pst_sub_action_parents(self):
+        """
+        Test is_smaller_deadline_on_pst_sub_action_parents method on pst sub action.
+        context deadline : sa_17 = 30/06/2020
+        parent deadline : a_16 = 30/06/2024, oo_15 = 31/12/2024
+        """
+        self.assertEqual(self.sa_17.planned_end_date, datetime.date(datetime(2020, 6, 30)))
+        self.assertEqual(self.a_16.planned_end_date, datetime.date(datetime(2024, 6, 30)))
+        self.assertEqual(self.oo_15.planned_end_date, datetime.date(datetime(2024, 12, 31)))
         self.assertEqual(
-            find_max_deadline_on_parents(
+            is_smaller_deadline_on_parents(
                 self.sa_17,
-                {"pstaction": "planned_end_date", "operationalobjective": "planned_end_date"}
+                {
+                    "pstsubaction": "planned_end_date",
+                    "pstaction": "planned_end_date",
+                    "operationalobjective": "planned_end_date"
+                }
             ),
-            datetime.date(datetime(2024, 12, 31))
+            False
+        )
+        # context deadline : sa_17 = 30/06/2020 => 30/07/2024
+        self.sa_17.planned_end_date = datetime.date(datetime(2024, 7, 30))
+        self.assertEqual(
+            is_smaller_deadline_on_parents(
+                self.sa_17,
+                {
+                    "pstsubaction": "planned_end_date",
+                    "pstaction": "planned_end_date",
+                    "operationalobjective": "planned_end_date"
+                }
+            ),
+            True
         )
 
-    def test_find_max_deadline_on_task_parents(self):
-        """Test find_max_deadline_on_task_parents method on pst task."""
+    def test_is_smaller_deadline_on_task_parents(self):
+        """
+        Test is_smaller_deadline_on_task_parents method on pst task.
+        context deadline : task = 30/04/2020
+        parent deadline : sa_17 = 30/06/2020, a_16 = 30/06/2024, oo_15 = 31/12/2024
+        """
+        self.assertEqual(self.task.due_date, datetime.date(datetime(2020, 4, 30)))
+        self.assertEqual(self.sa_17.planned_end_date, datetime.date(datetime(2020, 6, 30)))
+        self.assertEqual(self.a_16.planned_end_date, datetime.date(datetime(2024, 6, 30)))
+        self.assertEqual(self.oo_15.planned_end_date, datetime.date(datetime(2024, 12, 31)))
         self.assertEqual(
-            find_max_deadline_on_parents(
+            is_smaller_deadline_on_parents(
                 self.task,
-                {"pstaction": "planned_end_date", "operationalobjective": "planned_end_date"}
+                {
+                    "task": "due_date",
+                    "pstsubaction": "planned_end_date",
+                    "pstaction": "planned_end_date",
+                    "operationalobjective": "planned_end_date"
+                }
             ),
-            datetime.date(datetime(2024, 12, 31))
+            False
+        )
+        # context deadline : task = 30/04/2020 => 31/07/2020
+        self.task.due_date = datetime.date(datetime(2020, 7, 31))
+        self.assertEqual(
+            is_smaller_deadline_on_parents(
+                self.task,
+                {
+                    "task": "due_date",
+                    "pstsubaction": "planned_end_date",
+                    "pstaction": "planned_end_date",
+                    "operationalobjective": "planned_end_date"
+                }
+            ),
+            True
         )
