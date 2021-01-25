@@ -30,11 +30,11 @@ def step_3c(browser):
 class TestCreateOperationalObjective(FunctionalTestCase):
     """Use case tests.
     Name: Create an operational objective
-    Actor(s): pst editors, pst admin
+    Actor(s): pst admin, pst editors
     Goal: allows actors to create an operational objective
     Author: Franck Ngaha
     Created: 15/10/2020
-    Updated: 18/01/2021
+    Updated: 25/01/2021
     Preconditions: The actor must be authenticated in a given specific context :
     - a pst admin in the context of a strategic objective in anyone of all his states (created, ongoing, achieved)
     - a pst editor in the context of a strategic objective in anyone of all his states (created, ongoing, achieved)
