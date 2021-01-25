@@ -21,7 +21,22 @@ class TestUtils(IntegrationTestCase):
         self.task = self.sa_17['ecrire-le-cahier-des-charges']
 
     def test_find_deadlines_on_operational_objective_children(self):
-        """Test find_deadlines_on_operational_objective_children method on operational objective."""
+        """
+        Test find_deadlines_on_operational_objective_children method on operational objective.
+        children deadlines :
+        (a_16, 30/06/2024)
+            (sa_17, 30/06/2020)
+                (t1, 30/04/2020)
+                (t2, 31/03/2020)
+            (sa_18, 31/10/2020)
+            (sa_19, 31/10/2020)
+        (a_20, 30/06/2024)
+            (sal_17, 30/06/2020)
+                (t1, 30/04/2020)
+                (t2, 31/03/2020)
+            (sal_18, 31/10/2020)
+            (sal_19, 31/10/2020)
+        """
         self.assertEqual(
             find_deadlines_on_children(
                 self.oo_15,
@@ -49,7 +64,15 @@ class TestUtils(IntegrationTestCase):
         )
 
     def test_find_deadlines_on_pst_action_children(self):
-        """Test find_deadlines_on_pst_action_children method on pst action."""
+        """
+        Test find_deadlines_on_pst_action_children method on pst action.
+        children deadlines :
+        (sa_17, 30/06/2020)
+            (t1, 30/04/2020)
+            (t2, 31/03/2020)
+        (sa_18, 31/10/2020)
+        (sa_19, 31/10/2020)
+        """
         self.assertEqual(
             find_deadlines_on_children(
                 self.a_16,
@@ -69,28 +92,56 @@ class TestUtils(IntegrationTestCase):
         )
 
     def test_find_deadlines_on_pst_sub_action_children(self):
-        """Test find_deadlines_on_pst_sub_action_children method on pst sub action."""
+        """
+        Test find_deadlines_on_pst_sub_action_children method on pst sub action.
+        (t1, 30/04/2020)
+        (t2, 31/03/2020)
+        """
         self.assertEqual(
             find_deadlines_on_children(self.sa_17, {"task": "due_date"}),
             [datetime.date(datetime(2020, 4, 30)), datetime.date(datetime(2020, 3, 31))]
         )
 
     def test_find_max_deadline_on_operational_objective_children(self):
-        """Test find_max_deadline_on_operational_objective_children method on operational objective."""
+        """
+        Test find_max_deadline_on_operational_objective_children method on operational objective.
+        children deadlines :
+        (a_16, 30/06/2024)
+            (sa_17, 30/06/2020)
+                (t1, 30/04/2020)
+                (t2, 31/03/2020)
+            (sa_18, 31/10/2020)
+            (sa_19, 31/10/2020)
+        (a_20, 30/06/2024)
+            (sal_17, 30/06/2020)
+                (t1, 30/04/2020)
+                (t2, 31/03/2020)
+            (sal_18, 31/10/2020)
+            (sal_19, 31/10/2020)
+        """
         self.assertEqual(
             find_max_deadline_on_children(
                 self.oo_15,
                 {
+                    "pstaction": "planned_end_date",
                     "pstsubaction": "planned_end_date",
                     "subaction_link": "planned_end_date",
                     "task": "due_date"
                 }
             ),
-            datetime.date(datetime(2020, 10, 31))
+            datetime.date(datetime(2024, 6, 30))
         )
 
     def test_find_max_deadline_on_pst_action_children(self):
-        """Test find_max_deadline_on_pst_action_children method on pst action."""
+        """
+        Test find_max_deadline_on_pst_action_children method on pst action.
+        children deadlines :
+        (sa_17, 30/06/2020)
+            (t1, 30/04/2020)
+            (t2, 31/03/2020)
+        (sa_18, 31/10/2020)
+        (sa_19, 31/10/2020)
+        """
         self.assertEqual(
             find_max_deadline_on_children(
                 self.a_16,
@@ -104,7 +155,11 @@ class TestUtils(IntegrationTestCase):
         )
 
     def test_find_max_deadline_on_pst_sub_action_children(self):
-        """Test find_max_deadline_on_pst_sub_action_children method on pst sub action."""
+        """
+        Test find_max_deadline_on_pst_sub_action_children method on pst sub action.
+        (t1, 30/04/2020)
+        (t2, 31/03/2020)
+        """
         self.assertEqual(
             find_max_deadline_on_children(self.sa_17, {"task": "due_date"}),
             datetime.date(datetime(2020, 4, 30))
@@ -160,14 +215,25 @@ class TestUtils(IntegrationTestCase):
         )
 
     def test_find_deadlines_on_pst_action_parents(self):
-        """Test find_deadlines_on_pst_action_parents method on pst action."""
+        """
+        Test find_deadlines_on_pst_action_parents method on pst action.
+        parent deadlines :
+        (oo_15, 31/12/2024)
+            (a_16, 30/06/2024)
+        """
         self.assertEqual(
             find_deadlines_on_parents(self.a_16, {"operationalobjective": "planned_end_date"}),
             [datetime.date(datetime(2024, 12, 31))]
         )
 
     def test_find_deadlines_on_pst_sub_action_parents(self):
-        """Test find_deadlines_on_pst_sub_action_parents method on pst sub action."""
+        """
+        Test find_deadlines_on_pst_sub_action_parents method on pst sub action.
+        parent deadlines :
+        (oo_15, 31/12/2024)
+            (a_16, 30/06/2024)
+                (sa_17, 30/06/2020)
+        """
         self.assertEqual(
             find_deadlines_on_parents(
                 self.sa_17,
@@ -177,7 +243,14 @@ class TestUtils(IntegrationTestCase):
         )
 
     def test_find_deadlines_on_task_parents(self):
-        """Test find_deadlines_on_task_parents method on task."""
+        """
+        Test find_deadlines_on_task_parents method on task.
+        parent deadlines :
+        (oo_15, 31/12/2024)
+            (a_16, 30/06/2024)
+                (sa_17, 30/06/2020)
+                    (t1, 30/04/2020)
+        """
         self.assertEqual(
             find_deadlines_on_parents(
                 self.task,
@@ -197,8 +270,8 @@ class TestUtils(IntegrationTestCase):
     def test_is_smaller_deadline_on_pst_action_parents(self):
         """
         Test is_smaller_deadline_on_pst_action_parents method on pst action.
-        context deadline : a_16 = 30/06/2024
-        parent deadline : oo_15 = 31/12/2024
+        context deadline : (a_16, 30/06/2024)
+        parent deadline : (oo_15, 31/12/2024)
         """
         self.assertEqual(self.a_16.planned_end_date, datetime.date(datetime(2024, 6, 30)))
         self.assertEqual(self.oo_15.planned_end_date, datetime.date(datetime(2024, 12, 31)))
@@ -222,8 +295,11 @@ class TestUtils(IntegrationTestCase):
     def test_is_smaller_deadline_on_pst_sub_action_parents(self):
         """
         Test is_smaller_deadline_on_pst_sub_action_parents method on pst sub action.
-        context deadline : sa_17 = 30/06/2020
-        parent deadline : a_16 = 30/06/2024, oo_15 = 31/12/2024
+        context deadline : (sa_17, 30/06/2020)
+        parent deadline :
+         (oo_15, 31/12/2024)
+             (a_16, 30/06/2024)
+                 (sa_17, 30/06/2020)
         """
         self.assertEqual(self.sa_17.planned_end_date, datetime.date(datetime(2020, 6, 30)))
         self.assertEqual(self.a_16.planned_end_date, datetime.date(datetime(2024, 6, 30)))
@@ -257,7 +333,11 @@ class TestUtils(IntegrationTestCase):
         """
         Test is_smaller_deadline_on_task_parents method on pst task.
         context deadline : task = 30/04/2020
-        parent deadline : sa_17 = 30/06/2020, a_16 = 30/06/2024, oo_15 = 31/12/2024
+        parent deadline :
+         (oo_15, 31/12/2024)
+             (a_16, 30/06/2024)
+                 (sa_17, 30/06/2020)
+                      (t1, 30/04/2020)
         """
         self.assertEqual(self.task.due_date, datetime.date(datetime(2020, 4, 30)))
         self.assertEqual(self.sa_17.planned_end_date, datetime.date(datetime(2020, 6, 30)))
