@@ -304,6 +304,17 @@ class PSTSubAction(Project):
         return False
 
 
+@implementer(IDataManager)
+class PSTSubActionDataManager(AttributeField):
+    def get(self):
+        value = super(PSTSubActionDataManager, self).get()
+        if self.field.__name__ == "planned_end_date":
+            value = self.context.planned_end_date
+            if not value:
+                value = find_max_deadline_on_children(self.context, {"task": "due_date"})
+        return value
+
+
 class SubActionAddForm(ProjectAddForm):
     portal_type = 'pstsubaction'
 
