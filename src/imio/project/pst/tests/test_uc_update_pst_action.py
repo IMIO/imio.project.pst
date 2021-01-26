@@ -253,7 +253,7 @@ class TestUpdatePstAction(FunctionalTestCase):
     def step_4(self, browser):
         """The system save changes with "Modify changes" info success."""
         heading = browser.css('.documentFirstHeading').first
-        self.assertEqual('Titre (OO.15)', heading.text)
+        self.assertEqual('Titre (A.16)', heading.text)
         statusmessages.assert_message(u'Modifications sauvegardées')
 
     def step_4a(self, browser, context):
@@ -265,14 +265,14 @@ class TestUpdatePstAction(FunctionalTestCase):
     def step_4b(self, browser):
         """The system displays the max deadline of the contained items with a warning message."""
         heading = browser.css('.documentFirstHeading').first
-        self.assertEqual(u"Titre (OO.15)", heading.text)
+        self.assertEqual(u"Titre (A.16)", heading.text)
         self.assertEqual(
             browser.css('#messagesviewlet').text,
             [u"Avertissement La date d'échéance n'est pas renseignée sur cet élément, le système affiche la plus "
              u"grande de ses éventuels enfants."]
         )
         statusmessages.assert_message(u'Modifications sauvegardées')
-        self.assertEqual(browser.css('#form-widgets-planned_end_date').text, ['30/06/2024'])
+        self.assertEqual(browser.css('#form-widgets-planned_end_date').text, ['31/10/2020'])
 
     def step_4c(self, browser, context):
         """The system updates element with warning message."""
@@ -291,7 +291,7 @@ class TestUpdatePstAction(FunctionalTestCase):
         self.assertEqual(context.Title(), heading.text)
         self.assertEqual(
             browser.css('#messagesviewlet').text,
-            [u"Avertissement La date d'échéance d'un des enfants est supérieure à celles de cet élément."]
+            [u"Avertissement La date d'échéance de cet élément est supérieure à au moins une de ses parents."]
         )
         statusmessages.assert_message(u'Modifications sauvegardées')
         self.assertEqual(browser.css('#form-widgets-planned_end_date').text, ['01/01/2025'])
