@@ -135,7 +135,7 @@ class TestUpdateOperationalObjective(FunctionalTestCase):
     def alternative_scenario_3c(self, browser, actor, context):
         """
         The actor fills a deadline smaller than the largest of their children.
-        (2023, 06, 30) < (2024, 06, 30)
+        (30/06/2023) < (a_16, 30/06/2024)
         """
         preconditions(browser, actor)
         self.start_up(browser, context)
