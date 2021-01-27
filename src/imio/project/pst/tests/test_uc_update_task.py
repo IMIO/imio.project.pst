@@ -28,7 +28,7 @@ class TestUpdateTask(FunctionalTestCase):
     Goal: allows actors to update a task
     Author: Franck Ngaha
     Created: 27/01/2021
-    Updated: 26/01/2021
+    Updated: 27/01/2021
     Preconditions: The actor must be authenticated in a given specific context :
     - a pst admin in the context of a task in anyone of all his states
     (created, to_assign, to_do, in_progress, realized, closed)
