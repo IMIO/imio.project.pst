@@ -245,14 +245,6 @@ class ContextInformationViewlet(MessagesViewlet):
                 )
         if self.context.portal_type == "task":
             if self.context.due_date:
-                max_children_deadline = find_max_deadline_on_children(
-                    self.context,
-                    {
-                        "pstsubaction": "planned_end_date",
-                        "subaction_link": "planned_end_date",
-                        "task": "due_date"
-                    }
-                )
                 if is_smaller_deadline_on_parents(self.context, {"task": "due_date", "pstsubaction": "planned_end_date",
                                                                  "pstaction": "planned_end_date",
                                                                  "operationalobjective": "planned_end_date"}):
