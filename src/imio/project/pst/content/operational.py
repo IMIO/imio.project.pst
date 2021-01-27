@@ -8,6 +8,7 @@ from imio.project.core.content.project import Project
 from imio.project.core.utils import getProjectSpace
 from imio.project.core.utils import getVocabularyTermsForOrganization
 from imio.project.pst import _
+from imio.project.pst.utils import find_max_deadline_on_children
 from plone import api
 from plone.autoform import directives as form
 from plone.dexterity.schema import DexteritySchemaPolicy
@@ -74,28 +75,20 @@ class OperationalObjective(Project):
 @implementer(IDataManager)
 class OperationalObjectiveDataManager(AttributeField):
     def get(self):
+        value = super(OperationalObjectiveDataManager, self).get()
         if self.field.__name__ == "planned_end_date":
-            if self.context.planned_end_date:
-                return self.context.planned_end_date
-
-            try:
-                uid = self.context.UID()
-            except:
-                uid = None
-            if uid is None:
-                return
-            path = api.content.find(UID=self.context.UID())[0].getPath()
-            act_planned_end_date = [
-                act.planned_end_date
-                for act in api.content.find(
-                    path=path,
-                    portal_type=["pstaction", "action_link", "pstsubaction", "subaction_link"],
-                ) if act.planned_end_date
-            ]
-            if act_planned_end_date:
-                return max(act_planned_end_date)
-
-        return super(OperationalObjectiveDataManager, self).get()
+            value = self.context.planned_end_date
+            if not value:
+                value = find_max_deadline_on_children(
+                    self.context,
+                    {
+                        "pstaction": "planned_end_date",
+                        "pstsubaction": "planned_end_date",
+                        "subaction_link": "planned_end_date",
+                        "task": "due_date"
+                    }
+                )
+        return value
 
 
 class RepresentativeResponsibleVocabulary(object):
@@ -112,7 +105,7 @@ class OperationalObjectiveSchemaPolicy(DexteritySchemaPolicy):
     """ """
 
     def bases(self, schemaName, tree):
-        return (IOperationalObjective, )
+        return (IOperationalObjective,)
 
 
 class ManagerVocabulary(object):
@@ -127,10 +120,8 @@ class ManagerVocabulary(object):
 
 
 class OOAddForm(ProjectAddForm):
-
     portal_type = 'operationalobjective'
 
 
 class OOAdd(DefaultAddView):
-
     form = OOAddForm

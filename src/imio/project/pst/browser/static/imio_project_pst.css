@@ -81,6 +81,11 @@ body.template-item_view h1 .pretty_link_icons img{
     height: 20px;
 }
 
+/* planned_end_date dashboard column warning */
+.td_cell_planned_end_date_warn {
+    color: red;
+}
+
 /* plone group 1st level */
 .pg_org_category {
     font-weight: bold;

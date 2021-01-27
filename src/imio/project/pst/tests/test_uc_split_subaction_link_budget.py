@@ -15,7 +15,7 @@ def step_3a(browser):
 
 
 class TestSplitSubActionLinkBudget(FunctionalTestCase):
-    """
+    """Use case tests.
     Name: Split sub action link budget
     Actor(s): admin, pst_editors, actioneditor
     Description: The distribution of budgets must be possible for a global editor, an action manager as well as an administrator
@@ -117,10 +117,10 @@ class TestSplitSubActionLinkBudget(FunctionalTestCase):
     def step_4(self, browser):
         """The system updates the values of the fields of the different hierarchies."""
         # <<<<<<<
-        # {'': 'Wallonie', 'Global': '-', '2024': '-', '2020': '-', '2021': '-', '2022': '-', '2023': '-', '2019': '-'}
-        # =======
         # {'': 'Wallonie', 'Global': '1000.0', '2024': '-', '2020': '250.0', '2021': '250.0', '2022': '250.0',
         # '2023': '-', '2019': '250.0'}
+        # =======
+        # {'': 'Wallonie', 'Global': '-', '2024': '-', '2020': '-', '2021': '-', '2022': '-', '2023': '-', '2019': '-'}
         # >>>>>>>
         browser.open(self.a_20)
         self.assertEqual(browser.css('.budgetinfos_table').first.dicts(), [
@@ -140,11 +140,11 @@ class TestSplitSubActionLinkBudget(FunctionalTestCase):
             {'': 'Totaux', 'Global': '1000.0', '2024': '-', '2020': '250.0', '2021': '250.0', '2022': '250.0',
              '2023': '-', '2019': '250.0'}])
         # <<<<<<<
-        # {'': 'Wallonie', 'Global': '6500.0', '2024': '-', '2020': '1500.0', '2021': '2000.0', '2022': '1500.0',
-        # '2023': '-', '2019': '1500.0'}
-        # =======
         # {'': 'Wallonie', 'Global': '5500.0', '2024': '-', '2020': '1250.0', '2021': '1750.0', '2022': '1250.0',
         # '2023': '-', '2019': '1250.0'}
+        # =======
+        # {'': 'Wallonie', 'Global': '6500.0', '2024': '-', '2020': '1500.0', '2021': '2000.0', '2022': '1500.0',
+        # '2023': '-', '2019': '1500.0'}
         # >>>>>>>
         browser.open(self.a_16)
         self.assertEqual(browser.css('.budgetinfos_table').first.dicts(), [

@@ -1,10 +1,14 @@
 # -*- coding: utf-8 -*-
 """Custom viewlets."""
 
+from zc.relation.interfaces import ICatalog
+
 from Acquisition import aq_inner
+from Products.CMFPlone.utils import base_hasattr
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from collective.messagesviewlet.browser.messagesviewlet import MessagesViewlet
-from collective.messagesviewlet.message import generate_uid
 from collective.messagesviewlet.message import PseudoMessage
+from collective.messagesviewlet.message import generate_uid
 from collective.symlink.utils import is_linked_object
 from collective.task.browser.viewlets import TasksListViewlet as OriginalTasksListViewlet
 from imio.helpers.content import richtextval
@@ -12,11 +16,8 @@ from imio.prettylink.interfaces import IPrettyLink
 from imio.project.core.content.project import IProject
 from imio.project.core.utils import getProjectSpace
 from imio.project.pst import _tr
-from plone import api
+from imio.project.pst.utils import find_max_deadline_on_children, is_smaller_deadline_on_parents
 from plone.app.layout.viewlets import ViewletBase
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from Products.CMFPlone.utils import base_hasattr
-from zc.relation.interfaces import ICatalog
 from zope.component import getUtility
 from zope.intid.interfaces import IIntIds
 from zope.security import checkPermission
@@ -53,22 +54,20 @@ class ActionPrettyLinkTitleViewlet(PrettyLinkTitleViewlet):
 
 
 class TasksListViewlet(OriginalTasksListViewlet):
-
     """Tasks list for current task container object."""
 
     def update(self):
-        if self.context.portal_type in ('task', ):
+        if self.context.portal_type in ('task',):
             super(TasksListViewlet, self).update()
 
     def render(self):
-        if self.context.portal_type in ('task', ):
+        if self.context.portal_type in ('task',):
             return super(TasksListViewlet, self).render()
         else:
             return ""
 
 
 class ContentLinkViewlet(ViewletBase):
-
     index = ViewPageTemplateFile("templates/contentlink.pt")
 
     def content_link(self):
@@ -105,7 +104,6 @@ class ContextInformationViewlet(MessagesViewlet):
 
     def getAllMessages(self):
         ret = []
-
         link_type, symlink_obj, original_obj, subpath = is_linked_object(self.context)
         if link_type:
             if subpath:
@@ -114,8 +112,8 @@ class ContextInformationViewlet(MessagesViewlet):
                 linked_context = original_obj
             msg = _(u"This content is a copy, to modify the original content click on this button ${edit}",
                     mapping={"edit": '<a href="{0}/edit">{1}</a>'.format(
-                    linked_context.absolute_url(),
-                             _tr('Edit', domain='plone'))})
+                        linked_context.absolute_url(),
+                        _tr('Edit', domain='plone'))})
             ret.append(
                 PseudoMessage(
                     msg_type="significant",
@@ -124,21 +122,21 @@ class ContextInformationViewlet(MessagesViewlet):
                     can_hide=False,
                 )
             )
-
         if self.context.portal_type == "operationalobjective":
             if self.context.planned_end_date:
-                act_planned_end_date = [
-                    act.planned_end_date
-                    for act in api.content.find(
-                        context=self.context,
-                        portal_type=["pstaction", "action_link", "pstsubaction", "subaction_link"],
-                    )
-                    if act.planned_end_date
-                ]
-                if act_planned_end_date:
-                    if max(act_planned_end_date) > self.context.planned_end_date:
-                        msg = _(u"The planned end date of any one of the actions is greater than the planned end date "
-                                u"of the operational objective")
+                max_children_deadline = find_max_deadline_on_children(
+                    self.context,
+                    {
+                        "pstaction": "planned_end_date",
+                        "action_link": "planned_end_date",
+                        "pstsubaction": "planned_end_date",
+                        "subaction_link": "planned_end_date",
+                        "task": "due_date"
+                    }
+                )
+                if max_children_deadline:
+                    if max_children_deadline > self.context.planned_end_date:
+                        msg = _(u"The deadline of any one of children is greater than those of this element")
                         ret.append(
                             PseudoMessage(
                                 msg_type="significant",
@@ -147,12 +145,132 @@ class ContextInformationViewlet(MessagesViewlet):
                                 can_hide=False,
                             )
                         )
-
+            else:
+                msg = _(u"The deadline is not fill on this element, the system displays the largest of its "
+                        u"possible children")
+                ret.append(
+                    PseudoMessage(
+                        msg_type="significant",
+                        text=richtextval(msg),
+                        hidden_uid=generate_uid(),
+                        can_hide=False,
+                    )
+                )
+        if self.context.portal_type == "pstaction":
+            if self.context.planned_end_date:
+                max_children_deadline = find_max_deadline_on_children(
+                    self.context,
+                    {
+                        "pstsubaction": "planned_end_date",
+                        "subaction_link": "planned_end_date",
+                        "task": "due_date"
+                    }
+                )
+                if max_children_deadline:
+                    if max_children_deadline > self.context.planned_end_date:
+                        msg = _(u"The deadline of any one of children is greater than those of this element")
+                        ret.append(
+                            PseudoMessage(
+                                msg_type="significant",
+                                text=richtextval(msg),
+                                hidden_uid=generate_uid(),
+                                can_hide=False,
+                            )
+                        )
+                if is_smaller_deadline_on_parents(self.context, {"pstaction": "planned_end_date",
+                                                                 "operationalobjective": "planned_end_date"}):
+                    msg = _(u"The deadline of this element is greater than one of its parents")
+                    ret.append(
+                        PseudoMessage(
+                            msg_type="significant",
+                            text=richtextval(msg),
+                            hidden_uid=generate_uid(),
+                            can_hide=False,
+                        )
+                    )
+            else:
+                msg = _(u"The deadline is not fill on this element, the system displays the largest of its "
+                        u"possible children")
+                ret.append(
+                    PseudoMessage(
+                        msg_type="significant",
+                        text=richtextval(msg),
+                        hidden_uid=generate_uid(),
+                        can_hide=False,
+                    )
+                )
+        if self.context.portal_type == "pstsubaction":
+            if self.context.planned_end_date:
+                max_children_deadline = find_max_deadline_on_children(
+                    self.context,
+                    {
+                        "pstsubaction": "planned_end_date",
+                        "subaction_link": "planned_end_date",
+                        "task": "due_date"
+                    }
+                )
+                if max_children_deadline:
+                    if max_children_deadline > self.context.planned_end_date:
+                        msg = _(u"The deadline of any one of children is greater than those of this element")
+                        ret.append(
+                            PseudoMessage(
+                                msg_type="significant",
+                                text=richtextval(msg),
+                                hidden_uid=generate_uid(),
+                                can_hide=False,
+                            )
+                        )
+                if is_smaller_deadline_on_parents(self.context,
+                                                  {"pstsubaction": "planned_end_date", "pstaction": "planned_end_date",
+                                                   "operationalobjective": "planned_end_date"}):
+                    msg = _(u"The deadline of this element is greater than one of its parents")
+                    ret.append(
+                        PseudoMessage(
+                            msg_type="significant",
+                            text=richtextval(msg),
+                            hidden_uid=generate_uid(),
+                            can_hide=False,
+                        )
+                    )
+            else:
+                msg = _(u"The deadline is not fill on this element, the system displays the largest of its "
+                        u"possible children")
+                ret.append(
+                    PseudoMessage(
+                        msg_type="significant",
+                        text=richtextval(msg),
+                        hidden_uid=generate_uid(),
+                        can_hide=False,
+                    )
+                )
+        if self.context.portal_type == "task":
+            if self.context.due_date:
+                if is_smaller_deadline_on_parents(self.context, {"task": "due_date", "pstsubaction": "planned_end_date",
+                                                                 "pstaction": "planned_end_date",
+                                                                 "operationalobjective": "planned_end_date"}):
+                    msg = _(u"The deadline of this element is greater than one of its parents")
+                    ret.append(
+                        PseudoMessage(
+                            msg_type="significant",
+                            text=richtextval(msg),
+                            hidden_uid=generate_uid(),
+                            can_hide=False,
+                        )
+                    )
+            else:
+                msg = _(u"The deadline is not fill on this element")
+                ret.append(
+                    PseudoMessage(
+                        msg_type="significant",
+                        text=richtextval(msg),
+                        hidden_uid=generate_uid(),
+                        can_hide=False,
+                    )
+                )
         return ret
 
 
 class SitemapLinkViewlet(ViewletBase):
-
     index = ViewPageTemplateFile('templates/sitemap_link.pt')
 
     def href(self):

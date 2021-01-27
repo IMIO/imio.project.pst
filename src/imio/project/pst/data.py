@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from datetime import datetime
+
+from imio.project.pst.utils import get_echevins_config
 from plone.namedfile.file import NamedBlobFile
 from imio.helpers.content import richtextval
 from . import add_path
@@ -186,10 +188,7 @@ def get_templates(cids):
 
 
 def get_os_oo_ac_data(site, groups, currentYear):
-    fold = site.contacts['plonegroup-organization']['echevins']
-    echevins = {}
-    for obj in fold.objectValues():
-        echevins[obj.id] = obj.UID()
+    echevins = get_echevins_config(site)
     return [
         {
             'title': u'Etre une commune qui offre un service public moderne, efficace et efficient',
@@ -494,9 +493,11 @@ def get_os_oo_ac_data(site, groups, currentYear):
                                 'sdgs': ['13'],
                                 'tasks': [
                                     {'title': u'Écrire le cahier des charges',
-                                     'assigned_group': groups['cellule-marches-publics']},
+                                     'assigned_group': groups['cellule-marches-publics'],
+                                     'due_date': datetime.date(datetime(2020, 04, 30))},
                                     {'title': u'Choisir le prestataire',
-                                     'assigned_group': groups['service-de-lurbanisme']},
+                                     'assigned_group': groups['service-de-lurbanisme'],
+                                     'due_date': datetime.date(datetime(2020, 03, 31))},
                                 ]},
                                 {'title': u'En fonction des résultats, procéder à l\'isolation du bâtiment',
                                  'categories': [],

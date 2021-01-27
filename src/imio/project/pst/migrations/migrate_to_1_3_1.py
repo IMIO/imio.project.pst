@@ -1,20 +1,21 @@
 # -*- coding: utf-8 -*-
 
+import logging
+
 from collective.documentgenerator.utils import update_oo_config
 from collective.messagesviewlet.utils import add_message
 from eea.facetednavigation.criteria.interfaces import ICriteria
 from eea.facetednavigation.subtypes.interfaces import IFacetedNavigable
 from eea.facetednavigation.widgets.storage import Criterion
+from imio.helpers.content import richtextval
 from imio.migrator.migrator import Migrator
+from imio.project.core.content.project import IProject
 from imio.project.core.content.projectspace import IProjectSpace
 from imio.project.pst.content.action import IPSTAction
 from plone import api
 from plone.app.contenttypes.migration.dxmigration import migrate_base_class_to_new_class
 from plone.registry.interfaces import IRegistry
-from Products.CPUtils.Extensions.utils import mark_last_version
 from zope.component import getUtility
-
-import logging
 
 logger = logging.getLogger('imio.project.pst')
 
@@ -43,7 +44,7 @@ class Migrate_To_1_3_1(Migrator):
         self.remove_configlets()
 
         # Allowed webservices on subactions
-        self.configure_webservices()
+        self.migrate_webservices_config()
 
         # reindex all actions
         self.reindex_all_actions()
@@ -60,6 +61,9 @@ class Migrate_To_1_3_1(Migrator):
         # Add a new-version warning message in message config
         self.add_new_version_message()
 
+        # Use safe_html
+        self.migrate_projects_richtextvalues()
+
         # Display duration
         self.finish()
 
@@ -73,12 +77,13 @@ class Migrate_To_1_3_1(Migrator):
 
     def migrate_pst_fields(self, field_list):
         updated_list = []
-        for field_name in field_list:
-            updated_list.append({
-                'field_name': field_name,
-                'read_tal_condition': '',
-                'write_tal_condition': '',
-            })
+        if field_list:
+            for field_name in field_list:
+                updated_list.append({
+                    'field_name': field_name,
+                    'read_tal_condition': '',
+                    'write_tal_condition': '',
+                })
         return updated_list
 
     def update_dashboards(self):
@@ -187,17 +192,20 @@ class Migrate_To_1_3_1(Migrator):
         config_tool.unregisterConfiglet('imio.project.core.settings')
         config_tool.unregisterConfiglet('imio.project.pst.settings')
 
-    def configure_webservices(self):
+    def migrate_webservices_config(self):
+        """Add pstsbaction to webservice TAL condition."""
         registry = getUtility(IRegistry)
         generated_actions = registry.get('imio.pm.wsclient.browser.settings.IWS4PMClientSettings.generated_actions')
-        for action in generated_actions:
-            if action['condition'] == u"python: context.getPortalTypeName() in ('pstaction', 'task')":
-                action['condition'] = u"python: context.getPortalTypeName() in ('pstaction', 'pstsubaction', 'task')"
-            else:
-                logger.warning("Settings for WS4PM client: generated_actions was not updated ! "
-                               "Current value'{}'".format(action))
-        api.portal.set_registry_record('imio.pm.wsclient.browser.settings.IWS4PMClientSettings.generated_actions',
-                                       generated_actions)
+        if generated_actions:
+            for action in generated_actions:
+                if action['condition'] == u"python: context.getPortalTypeName() in ('pstaction', 'task')":
+                    action[
+                        'condition'] = u"python: context.getPortalTypeName() in ('pstaction', 'pstsubaction', 'task')"
+                else:
+                    logger.warning("Settings for WS4PM client: generated_actions was not updated ! "
+                                   "Current value'{}'".format(action))
+            api.portal.set_registry_record('imio.pm.wsclient.browser.settings.IWS4PMClientSettings.generated_actions',
+                                           generated_actions)
 
     def reindex_all_actions(self):
         actions_brains = self.catalog(object_provides=IPSTAction.__identifier__)
@@ -218,6 +226,15 @@ class Migrate_To_1_3_1(Migrator):
             req_roles=['Authenticated'],
             activate=True
         )
+
+    def migrate_projects_richtextvalues(self):
+        project_brains = self.catalog(object_provides=IProject.__identifier__)
+        for project_brain in project_brains:
+            for field_name in ['budget_comments', 'observation', 'comments']:
+                project_obj = project_brain.getObject()
+                field_value = getattr(project_obj, field_name)
+                if field_value:
+                    setattr(project_obj, field_name, richtextval(field_value.raw))
 
 
 def migrate(context):
