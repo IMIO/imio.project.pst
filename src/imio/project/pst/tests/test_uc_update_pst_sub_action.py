@@ -213,7 +213,7 @@ class TestUpdatePstAction(FunctionalTestCase):
         self.assertEqual(context.Title().decode('utf8'), heading.text)
 
     def step_2(self, browser):
-        """The system displays operational objective's edit form."""
+        """The system displays pst sub action's edit form."""
         heading = browser.css('.documentFirstHeading').first
         self.assertEqual(u'Editer Sous-action', heading.text)
 
