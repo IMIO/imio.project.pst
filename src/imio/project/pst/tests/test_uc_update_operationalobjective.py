@@ -27,7 +27,7 @@ class TestUpdateOperationalObjective(FunctionalTestCase):
     Actor(s): pst admin, pst editors, administrative responsible
     Goal: allows actors to update an operational objective
     Author: Franck Ngaha
-    Created: 25/11/2020
+    Created: 25/01/2021
     Updated: 25/01/2021
     Preconditions: The actor must be authenticated in a given specific context :
     - a pst admin in the context of an operational objective in anyone of all his states (created, ongoing, achieved)

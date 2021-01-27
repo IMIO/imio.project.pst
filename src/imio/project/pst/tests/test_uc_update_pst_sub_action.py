@@ -27,7 +27,7 @@ class TestUpdatePstAction(FunctionalTestCase):
     Actor(s): pst admin, pst editors, manager
     Goal: allows actors to update a pst sub action
     Author: Franck Ngaha
-    Created: 26/11/2020
+    Created: 26/01/2021
     Updated: 26/01/2021
     Preconditions: The actor must be authenticated in a given specific context :
     - a pst admin in the context of a pst sub action in anyone of all his states
