@@ -13,6 +13,7 @@ from DateTime import DateTime
 from imio.prettylink.interfaces import IPrettyLink
 from imio.project.core.content.projectspace import IProjectSpace
 from imio.project.pst.adapters import UNSET_DATE_VALUE
+from imio.project.pst.utils import find_max_deadline_on_children
 from plone import api
 from Products.CMFPlone.utils import base_hasattr
 from zope.i18n import translate
@@ -73,10 +74,16 @@ class PlannedEndDateColumn(DateColumn):
         if not value or value == 'None' or value == self.ignored_value:
             item_obj = item.getObject()
             if item_obj.portal_type == 'operationalobjective':
-                value = item_obj.get_max_planned_end_date_of_contained_brains(
-                    ["pstaction", "action_link", "pstsubaction", "subaction_link"])
+                value = find_max_deadline_on_children(item_obj, {"pstaction": "planned_end_date",
+                                                                 "pstsubaction": "planned_end_date",
+                                                                 "subaction_link": "planned_end_date",
+                                                                 "task": "due_date"})
             elif item_obj.portal_type == 'pstaction':
-                value = item_obj.get_max_planned_end_date_of_contained_brains(["pstsubaction", "subaction_link"])
+                value = find_max_deadline_on_children(item_obj, {"pstsubaction": "planned_end_date",
+                                                                 "subaction_link": "planned_end_date",
+                                                                 "task": "due_date"})
+            elif item_obj.portal_type == 'pstsubaction':
+                value = find_max_deadline_on_children(item_obj, {"task": "due_date"})
         if value:
             if isinstance(value, DateTime):
                 value = value.asdatetime().date()
