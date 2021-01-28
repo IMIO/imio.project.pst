@@ -152,6 +152,21 @@ class TestUpdatePstAction(FunctionalTestCase):
         self.assertEqual(state, 'ongoing')
         self.call_scenarios(browser, self.manager, self.sa_17)
 
+    @browsing
+    def test_scenarios_as_pst_manager_in_pst_sub_action_stopped(self, browser):
+        api.content.transition(obj=self.sa_17, transition='stop')
+        state = api.content.get_state(obj=self.sa_17)
+        self.assertEqual(state, 'stopped')
+        self.call_scenarios(browser, self.manager, self.sa_17)
+
+    @browsing
+    def test_scenarios_as_pst_manager_in_pst_sub_action_terminated(self, browser):
+        api.content.transition(obj=self.sa_17, transition='begin')
+        api.content.transition(obj=self.sa_17, transition='finish')
+        state = api.content.get_state(obj=self.sa_17)
+        self.assertEqual(state, 'terminated')
+        self.call_scenarios(browser, self.manager, self.sa_17)
+
     def call_scenarios(self, browser, actor, context):
         for scenario in self.scenarios:
             self.__getattribute__(scenario)(browser, actor, context)
