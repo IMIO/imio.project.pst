@@ -2,10 +2,21 @@
 from ftw.testbrowser import browsing
 from ftw.testbrowser.pages import statusmessages
 from imio.project.pst.testing import FunctionalTestCase
+from plone import api
 
 
-def step_3_a1(browser):
-    """The user cancel the form."""
+def preconditions(browser, actor):
+    """Login as actor."""
+    browser.login(username=actor['username'], password=actor['password']).open()
+
+
+def step_1(browser, context):
+    """The actor opens edit form."""
+    browser.open(context.absolute_url() + '/edit')
+
+
+def step_3a(browser):
+    """The actor cancels the form."""
     form = browser.forms['form']
     form.find_button_by_label('Annuler').click()
 
@@ -13,17 +24,27 @@ def step_3_a1(browser):
 class TestUpdatePstAction(FunctionalTestCase):
     """Test use case.
     Name: Update pstaction
-    Actor(s): pst_editors, actioneditor
-    Description: The updating of an action must be possible for a global editor,
-                 an action manager as well as an administrator
+    Actor(s): pst admin, pst editors, manager
+    Goal: allows actors to update a pst action
     Author: Franck Ngaha
     Created: 03/12/2020
-    Preconditions: The user must be authenticated as a global editor or action manager or administrator
-    Start: The user is on the page of an action
+    Created: 28/01/2021
+    Preconditions: The actor must be authenticated in a given specific context :
+    - a pst admin in the context of a pst sub action in anyone of all his states
+    (created, to_be_schedule, dongoing, stopped, terminated)
+    - a pst editor in the context of a pst sub action in anyone of all his states
+    (created, to_be_schedule, dongoing, stopped, terminated)
+    - a manager in the context of a pst sub action in anyone of all his states
+    (created, to_be_scheduled, ongoing, stopped, terminated)
     """
 
     def setUp(self):
         super(TestUpdatePstAction, self).setUp()
+        # Actors
+        self.pst_admin = {'username': 'pstadmin', 'password': self.password}
+        self.pst_editor = {'username': 'psteditor', 'password': self.password}
+        self.manager = {'username': 'agent', 'password': self.password}
+        # Contexts
         self.portal = self.layer['portal']
         self.pst = self.portal['pst']
         self.os_10 = self.pst[
@@ -31,75 +52,179 @@ class TestUpdatePstAction(FunctionalTestCase):
             'rer-le-developpement-durable']
         self.oo_15 = self.os_10['reduire-la-consommation-energetique-des-batiments-communaux-de-20-dici-2024']
         self.a_16 = self.oo_15['reduire-la-consommation-energetique-de-ladministration-communale']
+        # scenarios
+        self.scenarios = [
+            'main_scenario',
+            'alternative_scenario_3a',
+            'alternative_scenario_3b',
+            'alternative_scenario_3c',
+            'alternative_scenario_3d',
+        ]
 
     @browsing
-    def test_nominal_scenario(self, browser):
-        self.preconditions(browser)  # Login as psteditor
-        self.start_up(browser)  # Open (A.16)
-        self.step_1(browser)  # The user opens edit form
-        self.step_2(browser)  # The system displays action's edit form
-        self.step_3(browser)  # The user update title and save
+    def test_scenarios_as_admin_in_pst_action_created(self, browser):
+        api.content.transition(obj=self.a_16, transition='back_to_created')
+        state = api.content.get_state(obj=self.a_16)
+        self.assertEqual(state, 'created')
+        self.call_scenarios(browser, self.pst_admin, self.a_16)
+
+    @browsing
+    def test_scenarios_as_admin_in_pst_action_to_be_scheduled(self, browser):
+        state = api.content.get_state(obj=self.a_16)
+        self.assertEqual(state, 'to_be_scheduled')
+        self.call_scenarios(browser, self.pst_admin, self.a_16)
+
+    @browsing
+    def test_scenarios_as_admin_in_pst_action_ongoing(self, browser):
+        api.content.transition(obj=self.a_16, transition='begin')
+        state = api.content.get_state(obj=self.a_16)
+        self.assertEqual(state, 'ongoing')
+        self.call_scenarios(browser, self.pst_admin, self.a_16)
+
+    @browsing
+    def test_scenarios_as_admin_in_pst_action_stopped(self, browser):
+        api.content.transition(obj=self.a_16, transition='stop')
+        state = api.content.get_state(obj=self.a_16)
+        self.assertEqual(state, 'stopped')
+        self.call_scenarios(browser, self.pst_admin, self.a_16)
+
+    @browsing
+    def test_scenarios_as_admin_in_pst_action_terminated(self, browser):
+        api.content.transition(obj=self.a_16, transition='begin')
+        api.content.transition(obj=self.a_16, transition='finish')
+        state = api.content.get_state(obj=self.a_16)
+        self.assertEqual(state, 'terminated')
+        self.call_scenarios(browser, self.pst_admin, self.a_16)
+
+    @browsing
+    def test_scenarios_as_pst_editor_in_pst_action_created(self, browser):
+        api.content.transition(obj=self.a_16, transition='back_to_created')
+        state = api.content.get_state(obj=self.a_16)
+        self.assertEqual(state, 'created')
+        self.call_scenarios(browser, self.pst_admin, self.a_16)
+
+    @browsing
+    def test_scenarios_as_pst_editor_in_pst_action_to_be_scheduled(self, browser):
+        state = api.content.get_state(obj=self.a_16)
+        self.assertEqual(state, 'to_be_scheduled')
+        self.call_scenarios(browser, self.pst_editor, self.a_16)
+
+    @browsing
+    def test_scenarios_as_pst_editor_in_pst_action_ongoing(self, browser):
+        api.content.transition(obj=self.a_16, transition='begin')
+        state = api.content.get_state(obj=self.a_16)
+        self.assertEqual(state, 'ongoing')
+        self.call_scenarios(browser, self.pst_editor, self.a_16)
+
+    @browsing
+    def test_scenarios_as_pst_editor_in_pst_action_stopped(self, browser):
+        api.content.transition(obj=self.a_16, transition='stop')
+        state = api.content.get_state(obj=self.a_16)
+        self.assertEqual(state, 'stopped')
+        self.call_scenarios(browser, self.pst_editor, self.a_16)
+
+    @browsing
+    def test_scenarios_as_pst_editor_in_pst_action_terminated(self, browser):
+        api.content.transition(obj=self.a_16, transition='begin')
+        api.content.transition(obj=self.a_16, transition='finish')
+        state = api.content.get_state(obj=self.a_16)
+        self.assertEqual(state, 'terminated')
+        self.call_scenarios(browser, self.pst_editor, self.a_16)
+
+    @browsing
+    def test_scenarios_as_manager_in_pst_action_created(self, browser):
+        api.content.transition(obj=self.a_16, transition='back_to_created')
+        state = api.content.get_state(obj=self.a_16)
+        self.assertEqual(state, 'created')
+        self.call_scenarios(browser, self.manager, self.a_16)
+
+    @browsing
+    def test_scenarios_as_manager_in_pst_action_to_be_scheduled(self, browser):
+        state = api.content.get_state(obj=self.a_16)
+        self.assertEqual(state, 'to_be_scheduled')
+        self.call_scenarios(browser, self.manager, self.a_16)
+
+    @browsing
+    def test_scenarios_as_manager_in_pst_action_ongoing(self, browser):
+        api.content.transition(obj=self.a_16, transition='begin')
+        state = api.content.get_state(obj=self.a_16)
+        self.assertEqual(state, 'ongoing')
+        self.call_scenarios(browser, self.manager, self.a_16)
+
+    @browsing
+    def test_scenarios_as_pst_manager_in_pst_action_stopped(self, browser):
+        api.content.transition(obj=self.sa_17, transition='stop')
+        state = api.content.get_state(obj=self.sa_17)
+        self.assertEqual(state, 'stopped')
+        self.call_scenarios(browser, self.manager, self.sa_17)
+
+    @browsing
+    def test_scenarios_as_pst_manager_in_pst_action_terminated(self, browser):
+        api.content.transition(obj=self.sa_17, transition='begin')
+        api.content.transition(obj=self.sa_17, transition='finish')
+        state = api.content.get_state(obj=self.sa_17)
+        self.assertEqual(state, 'terminated')
+        self.call_scenarios(browser, self.manager, self.sa_17)
+
+    def call_scenarios(self, browser, actor, context):
+        for scenario in self.scenarios:
+            self.__getattribute__(scenario)(browser, actor, context)
+
+    def main_scenario(self, browser, actor, context):
+        preconditions(browser, actor)  # Login as actor
+        self.start_up(browser, context)  # Open context
+        step_1(browser, context)  # The actor opens edit form
+        self.step_2(browser)  # The system displays pst sub action's edit form
+        self.step_3(browser)  # The actor update fields and save
         self.step_4(browser)  # The system save changes with "Modify changes" info success
 
-    @browsing
-    def test_alternative_a1(self, browser):
-        """The user cancel the form."""
-        self.preconditions(browser)
-        self.start_up(browser)
-        self.step_1(browser)
+    def alternative_scenario_3a(self, browser, actor, context):
+        """The actor cancel the form."""
+        preconditions(browser, actor)
+        self.start_up(browser, context)
+        step_1(browser, context)
         self.step_2(browser)
-        step_3_a1(browser)  # The user cancel the form
-        self.step_4_a1(browser)  # The system back to the previous page with "Addition canceled" Info
+        step_3a(browser)  # The actor cancels the form
+        self.step_4a(browser, context)  # The system back to the previous page with "Modification canceled" Info
 
-    @browsing
-    def test_alternative_a2(self, browser):
-        """The user remove the deadline and save."""
-        self.preconditions(browser)
-        self.start_up(browser)
-        self.step_1(browser)
+    def alternative_scenario_3b(self, browser, actor, context):
+        """The actor remove the deadline and save."""
+        preconditions(browser, actor)
+        self.start_up(browser, context)
+        step_1(browser, context)
         self.step_2(browser)
-        self.step_3_a2(browser)  # The user removes the deadline
-        self.step_4_a2(browser)  # The system displays the max planned end date of the contained items and warn
+        self.step_3b(browser)  # The actor removes the deadline
+        self.step_4b(browser)  # The system displays the max deadline of the contained items with warning message
 
-    @browsing
-    def test_alternative_a3(self, browser):
+    def alternative_scenario_3c(self, browser, actor, context):
         """
-        The user fills a planned end date smaller than the largest of their contained actions.
-        (2020, 10, 29) < (2020, 10, 31)
+        The user fills a deadline smaller than the largest of their contained actions.
+        (30/10/2020) < (sa_18, 31/10/2020)
         """
-        self.preconditions(browser)
-        self.start_up(browser)
-        self.step_1(browser)
+        preconditions(browser, actor)
+        self.start_up(browser, context)
+        step_1(browser, context)
         self.step_2(browser)
-        self.step_3_a3(browser)  # The user fills a smaller planned end date
-        self.step_4_a3(browser)  # The system updates element with warning message
+        self.step_3c(browser)  # The actor fills a smaller deadline
+        self.step_4c(browser, context)  # The system updates element with warning message
 
-    @browsing
-    def test_alternative_a4(self, browser):
+    def alternative_scenario_3d(self, browser, actor, context):
         """
-        The user fills a planned end date larger than their operational objective.
-        (2025, 12, 31) < (2024, 12, 31)
+        The actor fills a deadline greater than one of their parents.
+        (a_16, 30/06/2024) < (30/07/2024) < (oo_15, 31/12/2024)
         """
-        self.preconditions(browser)
-        self.start_up(browser)
-        self.step_1(browser)
+        preconditions(browser, actor)
+        self.start_up(browser, context)
+        step_1(browser, context)
         self.step_2(browser)
-        self.step_3_a4(browser)  # The user fills a larger planned end date
-        self.step_4_a4(browser)  # The system updates element with warning message
+        self.step_3d(browser)  # The actor fills a greater deadline
+        self.step_4d(browser, context)  # The system updates element with warning message
 
-    def preconditions(self, browser):
-        """Login as psteditor."""
-        browser.login(username='psteditor', password=self.password).open()
-
-    def start_up(self, browser):
-        """Open (A.16)."""
-        browser.open(self.a_16)
+    def start_up(self, browser, context):
+        """Open context."""
+        browser.open(context)
         heading = browser.css('.documentFirstHeading').first
-        self.assertEqual(u"Réduire la consommation énergétique de l'administration communale (A.16)", heading.text)
-
-    def step_1(self, browser):
-        """The user opens edit form."""
-        browser.open(self.a_16.absolute_url() + '/edit')
+        self.assertEqual(context.Title().decode('utf8'), heading.text)
 
     def step_2(self, browser):
         """The system displays action's edit form."""
@@ -107,13 +232,13 @@ class TestUpdatePstAction(FunctionalTestCase):
         self.assertEqual(u'Editer Action', heading.text)
 
     def step_3(self, browser):
-        """The user update title and save."""
+        """The actor update fields and save."""
         form = browser.forms['form']
         fields = form.values
         fields[self.title_dublinCore_form_widget_name] = u'Titre'
         form.find_button_by_label('Sauvegarder').click()
 
-    def step_3_a2(self, browser):
+    def step_3b(self, browser):
         """The user remove the deadline and save."""
         form = browser.forms['form']
         fields = form.values
@@ -122,22 +247,22 @@ class TestUpdatePstAction(FunctionalTestCase):
         fields[self.planned_end_date_year_form_widget_name] = u''
         form.find_button_by_label('Sauvegarder').click()
 
-    def step_3_a3(self, browser):
-        """The user fills a smaller planned end date."""
+    def step_3c(self, browser):
+        """The actor fills a smaller deadline."""
         form = browser.forms['form']
         fields = form.values
-        fields[self.planned_end_date_day_form_widget_name] = u'29'
+        fields[self.planned_end_date_day_form_widget_name] = u'30'
         fields[self.planned_end_date_month_form_widget_name] = u'10'
         fields[self.planned_end_date_year_form_widget_name] = u'2020'
         form.find_button_by_label('Sauvegarder').click()
 
-    def step_3_a4(self, browser):
-        """The user fills a larger planned end date."""
+    def step_3d(self, browser):
+        """The actor fills a greater deadline."""
         form = browser.forms['form']
         fields = form.values
-        fields[self.planned_end_date_day_form_widget_name] = u'31'
-        fields[self.planned_end_date_month_form_widget_name] = u'12'
-        fields[self.planned_end_date_year_form_widget_name] = u'2025'
+        fields[self.planned_end_date_day_form_widget_name] = u'30'
+        fields[self.planned_end_date_month_form_widget_name] = u'7'
+        fields[self.planned_end_date_year_form_widget_name] = u'2024'
         form.find_button_by_label('Sauvegarder').click()
 
     def step_4(self, browser):
@@ -146,16 +271,14 @@ class TestUpdatePstAction(FunctionalTestCase):
         self.assertEqual('Titre (A.16)', heading.text)
         statusmessages.assert_message(u'Modifications sauvegardées')
 
-    def step_4_a1(self, browser):
+    def step_4a(self, browser, context):
         """The system back to the previous page with 'Modification canceled' Info."""
         heading = browser.css('.documentFirstHeading').first
-        self.assertEqual(
-            u"Réduire la consommation énergétique de l'administration communale (A.16)",
-            heading.text)
+        self.assertEqual(context.Title().decode('utf8'), heading.text)
         statusmessages.assert_message(u'Modification annulée')
 
-    def step_4_a2(self, browser):
-        """The system displays the max planned end date of the contained items with a warning message."""
+    def step_4b(self, browser):
+        """The system displays the max deadline of the contained items with a warning message."""
         heading = browser.css('.documentFirstHeading').first
         self.assertEqual(
             u"Réduire la consommation énergétique de l'administration communale (A.16)",
@@ -163,36 +286,30 @@ class TestUpdatePstAction(FunctionalTestCase):
         )
         self.assertEqual(
             browser.css('#messagesviewlet').text,
-            [u"Avertissement La date d'échéance n'est pas encodée sur l'action, "
-             u"le système affiche celle la plus grande de ses éventuelles sous-actions"]
+            [u"Avertissement La date d'échéance n'est pas renseignée sur cet élément, le système affiche la plus "
+             u"grande de ses éventuels enfants."]
         )
         statusmessages.assert_message(u'Modifications sauvegardées')
         self.assertEqual(browser.css('#form-widgets-planned_end_date').text, ['31/10/2020'])
 
-    def step_4_a3(self, browser):
+    def step_4c(self, browser, context):
         """The system updates element with warning message."""
         heading = browser.css('.documentFirstHeading').first
-        self.assertEqual(
-            u"Réduire la consommation énergétique de l'administration communale (A.16)",
-            heading.text
-        )
+        self.assertEqual(context.Title(), heading.text)
         self.assertEqual(
             browser.css('#messagesviewlet').text,
-            [u"Avertissement La date d'échéance d'au moins une sous action est supérieure à celle de l'action"]
+            [u"Avertissement La date d'échéance d'un des enfants est supérieure à celles de cet élément."]
         )
         statusmessages.assert_message(u'Modifications sauvegardées')
         self.assertEqual(browser.css('#form-widgets-planned_end_date').text, ['29/10/2020'])
 
-    def step_4_a4(self, browser):
+    def step_4d(self, browser, context):
         """The system updates element with warning message."""
         heading = browser.css('.documentFirstHeading').first
-        self.assertEqual(
-            u"Réduire la consommation énergétique de l'administration communale (A.16)",
-            heading.text
-        )
+        self.assertEqual(context.Title(), heading.text)
         self.assertEqual(
             browser.css('#messagesviewlet').text,
-            [u"Avertissement La date d'échéance de l'action est supérieure à celle de l'objcectif opérationnel"]
+            [u"Avertissement La date d'échéance de cet élément est supérieure à au moins une de ses parents."]
         )
         statusmessages.assert_message(u'Modifications sauvegardées')
-        self.assertEqual(browser.css('#form-widgets-planned_end_date').text, ['31/12/2025'])
+        self.assertEqual(browser.css('#form-widgets-planned_end_date').text, ['30/07/2024'])
