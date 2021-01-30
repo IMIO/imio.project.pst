@@ -3,9 +3,6 @@ from ftw.testbrowser import browsing
 from ftw.testbrowser.pages import statusmessages
 from imio.project.pst.testing import FunctionalTestCase
 from plone import api
-from z3c.relationfield import RelationValue
-from zope.component import getUtility
-from zope.intid import IIntIds
 
 
 def preconditions(browser, actor):
@@ -25,7 +22,7 @@ class TestCreateActionLink(FunctionalTestCase):
     Goal: allows actors to create an action link
     Author: Franck Ngaha
     Created: 29/01/2021
-    Updated: 29/01/2021
+    Updated: 30/01/2021
     Preconditions: The actor must be authenticated in a given specific context :
     - a pst admin in the context of an operational objective in anyone of all his states (created, ongoing, achieved)
     - a pst editor in the context of an operational objective in anyone of all his states (created, ongoing, achieved)
@@ -129,7 +126,7 @@ class TestCreateActionLink(FunctionalTestCase):
         preconditions(browser, actor)  # Login as actor
         self.start_up(browser, context)  # Open context
         step_1(browser, context)  # The actor adds action link
-        self.step_2(browser, context)  # The system displays the form
+        self.step_2(browser)  # The system displays the form
         self.step_3(browser)  # The actor fills in field and save
         self.step_4(browser)  # The system creates, check unicity and displays the action link with warning message
 
@@ -138,7 +135,7 @@ class TestCreateActionLink(FunctionalTestCase):
         preconditions(browser, actor)
         self.start_up(browser, context)
         step_1(browser, context)
-        self.step_2(browser, context)
+        self.step_2(browser)
         self.step_3a(browser)  # The actor cancels the form
         self.step_4a(browser, context)  # The system back to the previous page with "Addition canceled" Info
 
@@ -147,7 +144,7 @@ class TestCreateActionLink(FunctionalTestCase):
         preconditions(browser, actor)
         self.start_up(browser, context)
         step_1(browser, context)
-        self.step_2(browser, context)
+        self.step_2(browser)
         self.step_3b(browser)  # The actor fills in the fields but omit mandatory fields
         self.step_4b(browser)  # system warn, (back to the step 2)
 
@@ -157,7 +154,7 @@ class TestCreateActionLink(FunctionalTestCase):
         heading = browser.css('.documentFirstHeading').first
         self.assertEqual(context.Title().decode('utf8'), heading.text)
 
-    def step_2(self, browser, context):
+    def step_2(self, browser):
         """The system displays add action form."""
         heading = browser.css('.documentFirstHeading').first
         self.assertEqual(u'Ajouter Lien action', heading.text)
