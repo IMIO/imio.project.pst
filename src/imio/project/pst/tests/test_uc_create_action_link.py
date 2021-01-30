@@ -155,7 +155,7 @@ class TestCreateActionLink(FunctionalTestCase):
         self.assertEqual(context.Title().decode('utf8'), heading.text)
 
     def step_2(self, browser):
-        """The system displays add action form."""
+        """The system displays add action link form."""
         heading = browser.css('.documentFirstHeading').first
         self.assertEqual(u'Ajouter Lien action', heading.text)
 
