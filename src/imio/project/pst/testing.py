@@ -249,12 +249,13 @@ class FunctionalTestCase(unittest.TestCase):
         self.browser = Browser(self.portal)
 
         # param setup
-        self.password = PASSWORD
+        self.cancel_button_name = 'form.buttons.cancel'
         self.echevins_config = get_echevins_config(self.portal)
+        self.password = PASSWORD
+        self.save_button_name = 'form.buttons.save'
+        self.search_button_name = 'form.buttons.cancel'
         self.services_config = get_services_config()
         self.title_dublinCore_form_widget_name = 'form.widgets.IDublinCore.title'
-        self.save_button_name = 'form.buttons.save'
-        self.cancel_button_name = 'form.buttons.cancel'
         # project
         self.budget_type_form_widget_name = 'form.widgets.budget.TT.widgets.budget_type:list'
         self.budget_year_form_widget_name = 'form.widgets.budget.TT.widgets.year:list'
@@ -292,6 +293,9 @@ class FunctionalTestCase(unittest.TestCase):
         self.health_indicator_form_widget_name = 'form.widgets.health_indicator:list'
         self.health_indicator_details = 'form.widgets.health_indicator_details'
         self.responsible_form_widget_name = 'form.widgets.responsible:list'
+        # symlink
+        # self.symbolic_link_form_widgets_name = 'form.widgets.symbolic_link'
+        self.symbolic_link_form_widgets_name = 'form.widgets.symbolic_link.widgets.query'
         # behavior task
         self.assigned_group_form_widget_name = 'form.widgets.ITask.assigned_group:list'
         self.assigned_user_form_widget_name = 'form.widgets.ITask.assigned_user:list'
