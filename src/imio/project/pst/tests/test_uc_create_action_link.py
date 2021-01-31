@@ -22,7 +22,7 @@ class TestCreateActionLink(FunctionalTestCase):
     Goal: allows actors to create an action link
     Author: Franck Ngaha
     Created: 29/01/2021
-    Updated: 30/01/2021
+    Updated: 31/01/2021
     Preconditions: The actor must be authenticated in a given specific context :
     - a pst admin in the context of an operational objective in anyone of all his states (created, ongoing, achieved)
     - a pst editor in the context of an operational objective in anyone of all his states (created, ongoing, achieved)
