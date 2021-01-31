@@ -175,7 +175,7 @@ class TestCreateActionLink(FunctionalTestCase):
 
     def step_4(self, browser):
         """
-        The system creates, check unicity and displays the element with "Saved changes" info success and mirror
+        The system creates, check unicity and displays the element with "Saved changes" info success and original
         link warning.
         """
         heading = browser.css('.documentFirstHeading').first
@@ -186,10 +186,13 @@ class TestCreateActionLink(FunctionalTestCase):
             ["Avertissement Ce contenu est une copie miroir ! Cliquer sur ce lien Modifier pour modifier l'original"]
         )
         al_7 = self.oo_2['placer-des-pictogrammes-de-guidance']
-        self.assertNotEqual(self.a_7.UID(), al_7.UID())
-        # TODO: verify with symlink update
-        # tl_1 = al_7['acheter-fournir-des-pictogrammes-de-guidance']
-        # self.assertNotEqual(self.t1.UID(), tl_1.UID())
+        tl1 = al_7['acheter-fournir-des-pictogrammes-de-guidance']
+        a_7_brain = api.content.find(context=self.a_7, depth=0)[0]
+        al_7_brain = api.content.find(context=al_7, depth=0)[0]
+        self.assertNotEqual(a_7_brain.UID, al_7_brain.UID)
+        t1_brain = api.content.find(context=self.t1, depht=0)[0]
+        tl1_brain = api.content.find(context=tl1, depth=0)[0]
+        self.assertNotEqual(t1_brain.UID, tl1_brain.UID)
 
     def step_4a(self, browser, context):
         """The system back to the previous page with "Addition canceled" Info."""
