@@ -45,6 +45,7 @@ class TestCreateActionLink(FunctionalTestCase):
             'diminuer-le-temps-dattente-de-lusager-au-guichet-population-de-20-dans-les-12-mois-a-venir']
         self.oo_6 = self.os_1['optimiser-laccueil-au-sein-de-ladministration-communale']
         self.a_7 = self.oo_6['placer-des-pictogrammes-de-guidance']
+        self.t1 = self.a_7['acheter-fournir-des-pictogrammes-de-guidance']
         # scenarios
         self.scenarios = [
             'main_scenario',
@@ -186,6 +187,9 @@ class TestCreateActionLink(FunctionalTestCase):
         )
         al_7 = self.oo_2['placer-des-pictogrammes-de-guidance']
         self.assertNotEqual(self.a_7.UID(), al_7.UID())
+        # TODO: verify with symlink update
+        # tl_1 = al_7['acheter-fournir-des-pictogrammes-de-guidance']
+        # self.assertNotEqual(self.t1.UID(), tl_1.UID())
 
     def step_4a(self, browser, context):
         """The system back to the previous page with "Addition canceled" Info."""

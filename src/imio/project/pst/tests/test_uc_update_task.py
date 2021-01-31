@@ -200,6 +200,20 @@ class TestUpdateTask(FunctionalTestCase):
         heading = browser.css('.documentFirstHeading').first
         self.assertEqual('Titre', heading.text)
         statusmessages.assert_message(u'Modifications sauvegardées')
+        catalog = api.portal.get_tool(name='portal_catalog')
+        # TODO: verify with symlink update
+        # mirror_t1_brain = catalog(path={"query": '/plone/pst/etre-une-commune-qui-sinscrit-dans-la-lignee-des-accords'
+        #                                          '-de-reductions-des-gaz-a-effet-de-serre-afin-dassurer-le-developpem'
+        #                                          'ent-durable/reduire-la-consommation-energetique-des-batiments-commu'
+        #                                          'naux-de-20-dici-2024/reduire-la-consommation-energetique-de-ladmini'
+        #                                          'stration-communale/realiser-un-audit-energetique-du-batiment/ecrire'
+        #                                          '-le-cahier-des-charges'})[0]
+        # t1_brain = catalog(path={"query": '/plone/pst/etre-une-commune-qui-sinscrit-dans-la-lignee-des-accords-de-re'
+        #                                   'ductions-des-gaz-a-effet-de-serre-afin-dassurer-le-developpement-durable/'
+        #                                   'reduire-la-consommation-energetique-des-batiments-communaux-de-20-dici-20'
+        #                                   '24/reduire-la-consommation-energetique-du-hangar-communal/realiser-un-aud'
+        #                                   'it-energetique-du-batiment/ecrire-le-cahier-des-charges'})[0]
+        # self.assertEqual(t1_brain.Title, mirror_t1_brain.Title)
 
     def step_4a(self, browser, context):
         """The system back to the previous page with 'Modification canceled' Info."""
