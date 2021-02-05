@@ -273,6 +273,7 @@ class FunctionalTestCase(unittest.TestCase):
         self.extra_concerned_people_form_widget_name = 'form.widgets.extra_concerned_people'
         self.manager_form_widget_name = 'form.widgets.manager:list'
         self.observation_form_widget_name = 'form.widgets.observation'
+        self.organization_type_form_widget_name = 'form.widgets.organization_type:list'
         self.plan_form_widget_name = 'form.widgets.plan:list'
         self.planned_begin_date_day_form_widget_name = 'form.widgets.planned_begin_date-day'
         self.planned_begin_date_month_form_widget_name = 'form.widgets.planned_begin_date-month'
