@@ -1,8 +1,15 @@
 # -*- coding: utf-8 -*-
 
+import logging
 from datetime import datetime
 from os.path import dirname
 
+from lxml.etree import XMLSyntaxError
+
+from Products.CMFPlone import PloneMessageFactory as PMF
+from Products.CMFPlone.utils import base_hasattr
+from Products.Five.browser import BrowserView
+from Products.statusmessages.interfaces import IStatusMessage
 from collective.eeafaceted.dashboard.browser.overrides import DashboardFacetedTableView as DFTV
 from collective.z3cform.datagridfield import DataGridFieldFactory
 from imio.helpers.content import get_vocab
@@ -11,26 +18,19 @@ from imio.project.core import _ as _c
 from imio.project.core.config import SUMMARIZED_FIELDS
 from imio.project.pst import _
 from imio.project.pst.content.action import IPSTAction
-from Products.CMFPlone import PloneMessageFactory as PMF
 from lxml import etree
-from lxml.etree import XMLSyntaxError
 from plone import api
 from plone.app.versioningbehavior.browser import VersionView as OVV
 from plone.supermodel import model
-from Products.CMFPlone.utils import base_hasattr
-from Products.Five.browser import BrowserView
-from Products.statusmessages.interfaces import IStatusMessage
 from z3c.form import button
 from z3c.form.field import Fields
 from z3c.form.form import EditForm
-from z3c.form.interfaces import HIDDEN_MODE
 from z3c.form.form import Form
+from z3c.form.interfaces import HIDDEN_MODE
 from z3c.form.interfaces import NO_VALUE
 from zope import schema
 from zope.component import getMultiAdapter
 from zope.lifecycleevent import modified
-
-import logging
 
 logger = logging.getLogger('imio.project.pst: views')
 
@@ -230,10 +230,9 @@ class PSTExportAsXML(BrowserView):
                 plans.append(self.plan_vocab.getTerm(term_id).title)
         return plans
 
-    def typeAdmin(self):
-        if 'cpas' in self.request.getURL():
-            return 'CPAS'
-        return 'AC'
+    def organization_type(self):
+        return self.context.organization_type.upper()
+
 
 class IPSTImportFromEcomptesSchema(model.Schema):
 
