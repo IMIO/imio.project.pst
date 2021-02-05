@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
 """Custom columns."""
+import cgi
+
+from DateTime import DateTime
+from Products.CMFPlone.utils import base_hasattr
 from collective.eeafaceted.z3ctable import _ as _cez
 from collective.eeafaceted.z3ctable.columns import ActionsColumn
 from collective.eeafaceted.z3ctable.columns import BaseColumn
@@ -9,17 +13,13 @@ from collective.eeafaceted.z3ctable.columns import MemberIdColumn
 from collective.eeafaceted.z3ctable.columns import PrettyLinkColumn
 from collective.eeafaceted.z3ctable.columns import VocabularyColumn
 from collective.task.interfaces import ITaskMethods
-from DateTime import DateTime
 from imio.prettylink.interfaces import IPrettyLink
 from imio.project.core.content.projectspace import IProjectSpace
 from imio.project.pst.adapters import UNSET_DATE_VALUE
 from imio.project.pst.utils import find_max_deadline_on_children
 from plone import api
-from Products.CMFPlone.utils import base_hasattr
-from zope.i18n import translate
 from zope.component import getMultiAdapter
-
-import cgi
+from zope.i18n import translate
 
 
 class IconTitleColumn(PrettyLinkColumn):
@@ -49,6 +49,14 @@ class HistoryActionsColumn(ActionsColumn):
 
 class CategoriesColumn(VocabularyColumn):
     vocabulary = u'imio.project.core.content.project.categories_vocabulary'
+
+    def getCSSClasses(self, item):
+        css = self.cssClasses.copy()
+        value = self.getValue(item)
+        if value and value != self.ignored_value:
+            if api.portal.get().pst.colorize_project_rows and 'interne' in item.categories[0]:
+                css.update({'tr': 'volet_interne'})
+        return css
 
 
 class PlannedBeginDateColumn(DateColumn):
