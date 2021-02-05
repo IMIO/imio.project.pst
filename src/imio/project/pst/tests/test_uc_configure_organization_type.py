@@ -26,7 +26,7 @@ def step_3a(browser):
 class TestExportPstToEcompte(FunctionalTestCase):
     """Use case tests.
     Name: Configure organization type
-    Actor(s): pst admin, pst editors
+    Actor(s): pst admin
     Goal: allows actors to create an an xml export to Ecompte
     Author: Franck Ngaha
     Created: 04/02/2021
@@ -86,7 +86,7 @@ class TestExportPstToEcompte(FunctionalTestCase):
         self.assertEqual(u'Editer Espace de projets PST', heading.text)
 
     def step_3(self, browser):
-        """The actor update configure organization type field and save."""
+        """The actor update organization type field and save."""
         form = browser.forms['form']
         fields = form.values
         fields[self.organization_type_form_widget_name] = u"cpas"
