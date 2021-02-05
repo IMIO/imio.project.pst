@@ -262,6 +262,7 @@ class FunctionalTestCase(unittest.TestCase):
         self.budget_amount_form_widget_name = 'form.widgets.budget.TT.widgets.amount'
         self.budget_comments_form_widget_name = 'form.widgets.budget_comments'
         self.categories_form_widget_name = 'form.widgets.categories:list'
+        self.colorize_project_rows_form_widgets = 'form.widgets.colorize_project_rows:list'
         self.comments_form_widget_name = 'form.widgets.comments'
         self.description_rich_form_widget_name = 'form.widgets.description_rich'
         self.effective_begin_date_day_form_widget_name = 'form.widgets.effective_begin_date-day'
