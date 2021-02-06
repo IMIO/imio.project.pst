@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2021-01-24 18:36+0000\n"
+"POT-Creation-Date: 2021-02-06 19:02+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,7 +27,7 @@ msgstr "Actions"
 msgid "Actions under"
 msgstr "Actions (sous-)"
 
-#: ./content/operational.py:41
+#: ./content/operational.py:42
 msgid "Administrative responsible"
 msgstr "Responsable administratif"
 
@@ -39,15 +39,15 @@ msgstr "Tous"
 msgid "Archive PST"
 msgstr "Archiver le PST"
 
-#: ./content/action.py:106
+#: ./content/action.py:107
 msgid "Budget split"
 msgstr "Répartition des budgets"
 
-#: ./browser/views.py:406
+#: ./browser/views.py:405
 msgid "Budget split saved"
 msgstr "Répartition des budgets enregistrée"
 
-#: ./content/action.py:73
+#: ./content/action.py:74
 msgid "Choose principals that will be representative responsible for this project. If nothing choosed, the oo value is used for searches."
 msgstr "Sélectionner les utilisateurs qui seront responsable mandataire de l'objectif. Si personne n'est sélectionné, la valeur indiquée sur l'oo est utilisée pour les recherches."
 
@@ -79,7 +79,7 @@ msgstr "Sans valeur"
 msgid "Export as XML"
 msgstr "Export vers eComptes"
 
-#: ./content/pstprojectspace.py:173
+#: ./content/pstprojectspace.py:175
 msgid "Field"
 msgstr ""
 
@@ -87,11 +87,11 @@ msgstr ""
 msgid "Field name"
 msgstr ""
 
-#: ./content/action.py:90
+#: ./content/action.py:91
 msgid "Health indicator"
 msgstr "Indice de santé"
 
-#: ./content/action.py:96
+#: ./content/action.py:97
 msgid "Health indicator_details"
 msgstr "Détails de l'indice de santé"
 
@@ -111,12 +111,12 @@ msgstr "Installs the imio.project.pst"
 msgid "Operational objectives"
 msgstr "Objectifs opérationnels"
 
-#: ./content/pstprojectspace.py:182
+#: ./content/pstprojectspace.py:184
 #: ./profiles/default/types/operationalobjective.xml
 msgid "OperationalObjective"
 msgstr "Objectif opérationnel"
 
-#: ./content/pstprojectspace.py:221
+#: ./content/pstprojectspace.py:223
 msgid "OperationalObjective columns"
 msgstr "Colonnes à afficher sur les objectifs opérationnels"
 
@@ -124,21 +124,21 @@ msgstr "Colonnes à afficher sur les objectifs opérationnels"
 msgid "PST Project space"
 msgstr "Espace de projets PST"
 
-#: ./content/pstprojectspace.py:193
+#: ./content/pstprojectspace.py:195
 #: ./profiles/default/types/pstaction.xml
 msgid "PSTAction"
 msgstr "Action"
 
-#: ./content/pstprojectspace.py:227
+#: ./content/pstprojectspace.py:229
 msgid "PSTAction columns"
 msgstr "Colonnes à afficher sur les actions"
 
-#: ./content/pstprojectspace.py:205
+#: ./content/pstprojectspace.py:207
 #: ./profiles/default/types/pstsubaction.xml
 msgid "PSTSubAction"
 msgstr "Sous-action"
 
-#: ./content/action.py:59
+#: ./content/action.py:60
 msgid "Percentage"
 msgstr "Pourcentage"
 
@@ -154,16 +154,16 @@ msgstr "Échéance"
 msgid "Read TAL condition"
 msgstr "Condition TAL de lecture"
 
-#: ./content/action.py:103
+#: ./content/action.py:104
 msgid "Realisation indicator"
 msgstr "Indicateur de réalisation"
 
-#: ./content/action.py:72
-#: ./content/operational.py:30
+#: ./content/action.py:73
+#: ./content/operational.py:31
 msgid "Representative responsible"
 msgstr "Responsable mandataire"
 
-#: ./content/action.py:83
+#: ./content/action.py:84
 msgid "Responsible"
 msgstr "Porteur de l'action"
 
@@ -171,7 +171,7 @@ msgstr "Porteur de l'action"
 msgid "Sitemap"
 msgstr "Plan du PST"
 
-#: ./browser/views.py:386
+#: ./browser/views.py:385
 msgid "Split action budget"
 msgstr "Répartition des budgets entre les différentes actions"
 
@@ -236,7 +236,7 @@ msgstr "Objectifs stratégiques"
 msgid "StrategicObjective"
 msgstr "Objectif stratégique"
 
-#: ./content/pstprojectspace.py:215
+#: ./content/pstprojectspace.py:217
 msgid "StrategicObjective columns"
 msgstr "Colonnes à afficher sur les objectifs stratégiques"
 
@@ -253,7 +253,7 @@ msgstr "Lien symbolique"
 msgid "Tasks"
 msgstr "Tâches"
 
-#: ./content/pstprojectspace.py:233
+#: ./content/pstprojectspace.py:235
 msgid "Tasks columns"
 msgstr "Colonnes à afficher sur les tâches"
 
@@ -265,7 +265,7 @@ msgstr "Tâches (sous-)"
 msgid "The 'workflow' menu - allows the user to execute workflow transitions"
 msgstr "The 'workflow' menu - allows the user to execute workflow transitions"
 
-#: ./browser/viewlets.py:290
+#: ./browser/viewlets.py:261
 msgid "The deadline is not fill on this element"
 msgstr "La date d'échéance n'est pas renseignée sur cet élément."
 
@@ -277,11 +277,11 @@ msgstr "La date d'échéance n'est pas renseignée sur cet élément, le systèm
 msgid "The deadline of any one of children is greater than those of this element"
 msgstr "La date d'échéance d'un des enfants est supérieure à celles de cet élément."
 
-#: ./browser/viewlets.py:186
+#: ./browser/viewlets.py:182
 msgid "The deadline of this element is greater than one of its parents"
 msgstr "La date d'échéance de cet élément est supérieure à au moins une de ses parents."
 
-#: ./content/action.py:117
+#: ./content/action.py:118
 msgid "The sum of all percentages must amount to 100 %."
 msgstr "La somme de tous les pourcentages doit s'élever à 100%."
 
@@ -293,17 +293,21 @@ msgstr "Ce contenu est une copie miroir ! Cliquer sur ce lien ${edit} pour modif
 msgid "This content is also present :"
 msgstr "Ce contenu est aussi présent dans :"
 
-#: ./content/action.py:54
+#: ./content/action.py:55
 msgid "Title"
 msgstr "Titre"
 
-#: ./content/action.py:49
+#: ./content/action.py:50
 msgid "UID"
 msgstr ""
 
 #: ./profiles.zcml:31
 msgid "Update profile to run individually some update steps"
 msgstr "Update profile to run individually some update steps"
+
+#: ./content/pstprojectspace.py:172
+msgid "Warning ! Completion of these fields requires a good knowledge of the TAL language. Be sure to get help from the product support team."
+msgstr "Attention ! La complétion de ces champs nécessite une bonne connaissance du langage TAL. Veillez vous faire aider par notre support produit."
 
 #: ./setuphandlers.py:988
 msgid "Which I am administrative responsible"
@@ -341,7 +345,7 @@ msgstr "Plan de travail: ${action_title}"
 msgid "Write TAL condition"
 msgstr "Condition TAL d'écriture"
 
-#: ./content/action.py:161
+#: ./content/action.py:162
 msgid "You must choose at least one group of which you are a member"
 msgstr "Vous devez choisir au moins un des groupes dont vous êtes membre"
 
