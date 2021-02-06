@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2021-01-24 18:36+0000\n"
+"POT-Creation-Date: 2021-02-06 19:02+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,7 +29,7 @@ msgstr ""
 msgid "Actions under"
 msgstr ""
 
-#: ./content/operational.py:41
+#: ./content/operational.py:42
 msgid "Administrative responsible"
 msgstr ""
 
@@ -41,15 +41,15 @@ msgstr ""
 msgid "Archive PST"
 msgstr ""
 
-#: ./content/action.py:106
+#: ./content/action.py:107
 msgid "Budget split"
 msgstr ""
 
-#: ./browser/views.py:406
+#: ./browser/views.py:405
 msgid "Budget split saved"
 msgstr ""
 
-#: ./content/action.py:73
+#: ./content/action.py:74
 msgid "Choose principals that will be representative responsible for this project. If nothing choosed, the oo value is used for searches."
 msgstr ""
 
@@ -81,7 +81,7 @@ msgstr ""
 msgid "Export as XML"
 msgstr ""
 
-#: ./content/pstprojectspace.py:173
+#: ./content/pstprojectspace.py:175
 msgid "Field"
 msgstr ""
 
@@ -89,11 +89,11 @@ msgstr ""
 msgid "Field name"
 msgstr ""
 
-#: ./content/action.py:90
+#: ./content/action.py:91
 msgid "Health indicator"
 msgstr ""
 
-#: ./content/action.py:96
+#: ./content/action.py:97
 msgid "Health indicator_details"
 msgstr ""
 
@@ -113,12 +113,12 @@ msgstr ""
 msgid "Operational objectives"
 msgstr ""
 
-#: ./content/pstprojectspace.py:182
+#: ./content/pstprojectspace.py:184
 #: ./profiles/default/types/operationalobjective.xml
 msgid "OperationalObjective"
 msgstr ""
 
-#: ./content/pstprojectspace.py:221
+#: ./content/pstprojectspace.py:223
 msgid "OperationalObjective columns"
 msgstr ""
 
@@ -126,21 +126,21 @@ msgstr ""
 msgid "PST Project space"
 msgstr ""
 
-#: ./content/pstprojectspace.py:193
+#: ./content/pstprojectspace.py:195
 #: ./profiles/default/types/pstaction.xml
 msgid "PSTAction"
 msgstr ""
 
-#: ./content/pstprojectspace.py:227
+#: ./content/pstprojectspace.py:229
 msgid "PSTAction columns"
 msgstr ""
 
-#: ./content/pstprojectspace.py:205
+#: ./content/pstprojectspace.py:207
 #: ./profiles/default/types/pstsubaction.xml
 msgid "PSTSubAction"
 msgstr ""
 
-#: ./content/action.py:59
+#: ./content/action.py:60
 msgid "Percentage"
 msgstr ""
 
@@ -156,16 +156,16 @@ msgstr ""
 msgid "Read TAL condition"
 msgstr ""
 
-#: ./content/action.py:103
+#: ./content/action.py:104
 msgid "Realisation indicator"
 msgstr ""
 
-#: ./content/action.py:72
-#: ./content/operational.py:30
+#: ./content/action.py:73
+#: ./content/operational.py:31
 msgid "Representative responsible"
 msgstr ""
 
-#: ./content/action.py:83
+#: ./content/action.py:84
 msgid "Responsible"
 msgstr ""
 
@@ -173,7 +173,7 @@ msgstr ""
 msgid "Sitemap"
 msgstr ""
 
-#: ./browser/views.py:386
+#: ./browser/views.py:385
 msgid "Split action budget"
 msgstr ""
 
@@ -238,7 +238,7 @@ msgstr ""
 msgid "StrategicObjective"
 msgstr ""
 
-#: ./content/pstprojectspace.py:215
+#: ./content/pstprojectspace.py:217
 msgid "StrategicObjective columns"
 msgstr ""
 
@@ -255,7 +255,7 @@ msgstr ""
 msgid "Tasks"
 msgstr ""
 
-#: ./content/pstprojectspace.py:233
+#: ./content/pstprojectspace.py:235
 msgid "Tasks columns"
 msgstr ""
 
@@ -267,7 +267,7 @@ msgstr ""
 msgid "The 'workflow' menu - allows the user to execute workflow transitions"
 msgstr ""
 
-#: ./browser/viewlets.py:290
+#: ./browser/viewlets.py:261
 msgid "The deadline is not fill on this element"
 msgstr ""
 
@@ -279,11 +279,11 @@ msgstr ""
 msgid "The deadline of any one of children is greater than those of this element"
 msgstr ""
 
-#: ./browser/viewlets.py:186
+#: ./browser/viewlets.py:182
 msgid "The deadline of this element is greater than one of its parents"
 msgstr ""
 
-#: ./content/action.py:117
+#: ./content/action.py:118
 msgid "The sum of all percentages must amount to 100 %."
 msgstr ""
 
@@ -295,16 +295,20 @@ msgstr ""
 msgid "This content is also present :"
 msgstr ""
 
-#: ./content/action.py:54
+#: ./content/action.py:55
 msgid "Title"
 msgstr ""
 
-#: ./content/action.py:49
+#: ./content/action.py:50
 msgid "UID"
 msgstr ""
 
 #: ./profiles.zcml:31
 msgid "Update profile to run individually some update steps"
+msgstr ""
+
+#: ./content/pstprojectspace.py:172
+msgid "Warning ! Completion of these fields requires a good knowledge of the TAL language. Be sure to get help from the product support team."
 msgstr ""
 
 #: ./setuphandlers.py:988
@@ -343,7 +347,7 @@ msgstr ""
 msgid "Write TAL condition"
 msgstr ""
 
-#: ./content/action.py:161
+#: ./content/action.py:162
 msgid "You must choose at least one group of which you are a member"
 msgstr ""
 
