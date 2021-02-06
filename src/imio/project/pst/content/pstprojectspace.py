@@ -169,6 +169,8 @@ class IPSTProjectSpace(IProjectSpace):
     """
     strategicobjective_fields = schema.List(
         title=_c(u"${type} fields display", mapping={'type': _('StrategicObjective')}),
+        description=_(u'Warning ! Completion of these fields requires a good knowledge of the TAL language. '
+                      u'Be sure to get help from the product support team.'),
         required=False,
         value_type=DictRow(title=_(u'Field'),
                            schema=IStrategicObjectiveFieldsSchema,
@@ -177,9 +179,10 @@ class IPSTProjectSpace(IProjectSpace):
     directives.widget('strategicobjective_fields', DataGridFieldFactory, display_table_css_class='listing',
                       allow_reorder=True, auto_append=False)
 
-
     operationalobjective_fields = schema.List(
         title=_c(u"${type} fields display", mapping={'type': _('OperationalObjective')}),
+        description=_(u'Warning ! Completion of these fields requires a good knowledge of the TAL language. '
+                      u'Be sure to get help from the product support team.'),
         required=False,
         value_type=DictRow(title=_(u'Field'),
                            schema=IOperationalObjectiveFieldsSchema,
@@ -188,9 +191,10 @@ class IPSTProjectSpace(IProjectSpace):
     directives.widget('operationalobjective_fields', DataGridFieldFactory, display_table_css_class='listing',
                       allow_reorder=True, auto_append=False)
 
-
     pstaction_fields = schema.List(
         title=_c(u"${type} fields display", mapping={'type': _('PSTAction')}),
+        description=_(u'Warning ! Completion of these fields requires a good knowledge of the TAL language. '
+                      u'Be sure to get help from the product support team.'),
         required=False,
         value_type=DictRow(title=_(u'Field'),
                            schema=IPSTActionFieldsSchema,
@@ -198,7 +202,6 @@ class IPSTProjectSpace(IProjectSpace):
     )
     directives.widget('pstaction_fields', DataGridFieldFactory, display_table_css_class='listing',
                       allow_reorder=True, auto_append=False)
-
 
     # this field will be hidden
     pstsubaction_fields = schema.List(
