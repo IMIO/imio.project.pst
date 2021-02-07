@@ -95,7 +95,7 @@ class ContentLinkViewlet(ViewletBase):
             return msg
 
     def budget_split_url(self):
-        if self.back_references(self.context) or hasattr(self.context, "_link_portal_type"):
+        if self.back_references(get_original_context(self.context)) or hasattr(self.context, "_link_portal_type"):
             return '{}/@@budget_split'.format(self.context.absolute_url())
 
     def back_references(self, context):
