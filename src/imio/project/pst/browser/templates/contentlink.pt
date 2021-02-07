@@ -6,6 +6,7 @@
   </li>
   </ul>
 </div>
+<div id="original-link" tal:define="msg view/original_link" tal:condition="msg" tal:content="structure msg"></div>
 <div id="budget-split-link" tal:condition="view/budget_split_url" i18n:domain="imio.project.pst">
   <a href="" tal:attributes="href view/budget_split_url"
     i18n:translate="">Split budget lines between multiple instances</a>

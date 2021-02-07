@@ -79,6 +79,20 @@ class ContentLinkViewlet(ViewletBase):
             return [obj.aq_parent for obj in ref
                     if obj.absolute_url() != self.context.absolute_url()]
 
+    def original_link(self):
+        link_type, symlink_obj, original_obj, subpath = is_linked_object(self.context)
+        if link_type:
+            if subpath:
+                linked_context = original_obj.restrictedTraverse(subpath)
+            else:
+                linked_context = original_obj
+            msg = _(u"This content is a copy, to modify the original content click on this button ${edit}",
+                    mapping={"edit": '<a href="{0}/edit">{1}</a>'.format(
+                        linked_context.absolute_url(),
+                        _tr('Edit', domain='plone')
+                    )})
+            return msg
+
     def budget_split_url(self):
         if self.back_references(self.context) or hasattr(self.context, "_link_portal_type"):
             return '{}/@@budget_split'.format(self.context.absolute_url())
@@ -104,24 +118,6 @@ class ContextInformationViewlet(MessagesViewlet):
 
     def getAllMessages(self):
         ret = []
-        link_type, symlink_obj, original_obj, subpath = is_linked_object(self.context)
-        if link_type:
-            if subpath:
-                linked_context = original_obj.restrictedTraverse(subpath)
-            else:
-                linked_context = original_obj
-            msg = _(u"This content is a copy, to modify the original content click on this button ${edit}",
-                    mapping={"edit": '<a href="{0}/edit">{1}</a>'.format(
-                        linked_context.absolute_url(),
-                        _tr('Edit', domain='plone'))})
-            ret.append(
-                PseudoMessage(
-                    msg_type="significant",
-                    text=richtextval(msg),
-                    hidden_uid=generate_uid(),
-                    can_hide=False,
-                )
-            )
         if self.context.portal_type == "operationalobjective":
             if self.context.planned_end_date:
                 max_children_deadline = find_max_deadline_on_children(
