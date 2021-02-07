@@ -219,6 +219,21 @@ def is_smaller_deadline_on_parents(context=None, query=None):
     return is_smaller_deadline
 
 
+def get_original_context(context=None):
+    """
+    Get the original context from Symlink or SymlinkSubItem.
+    :param context: Context
+    :type context: Content object
+    :returns: The original context
+    """
+    original = context
+    if hasattr(context, '_context'):  # SymlinkSubItem
+        original = context._context.aq_inner
+    elif hasattr(context, '_link_portal_type'):  # Symlink
+        original = context.symbolic_link.to_object
+    return original
+
+
 # views
 
 class UtilsMethods(BrowserView):

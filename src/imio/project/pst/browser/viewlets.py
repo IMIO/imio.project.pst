@@ -16,7 +16,7 @@ from imio.prettylink.interfaces import IPrettyLink
 from imio.project.core.content.project import IProject
 from imio.project.core.utils import getProjectSpace
 from imio.project.pst import _tr
-from imio.project.pst.utils import find_max_deadline_on_children, is_smaller_deadline_on_parents
+from imio.project.pst.utils import find_max_deadline_on_children, is_smaller_deadline_on_parents, get_original_context
 from plone.app.layout.viewlets import ViewletBase
 from zope.component import getUtility
 from zope.intid.interfaces import IIntIds
@@ -71,13 +71,13 @@ class ContentLinkViewlet(ViewletBase):
     index = ViewPageTemplateFile("templates/contentlink.pt")
 
     def content_link(self):
-        if self.back_references(self.context):
-            return [obj.aq_parent for obj in self.back_references(self.context)]
-        if hasattr(self.context, "_link_portal_type"):
-            ref = [obj for obj in self.back_references(self.context.symbolic_link.to_object)]
-            ref.append(self.context.symbolic_link.to_object)
-            return [obj.aq_parent for obj in ref
-                    if obj.absolute_url() != self.context.absolute_url()]
+        ret = []
+        if hasattr(self.context, "_context"):
+            ret = [obj for obj in
+                   self.back_references(get_original_context(get_original_context(self.context).aq_parent))]
+        else:
+            ret = [obj.aq_parent for obj in self.back_references(get_original_context(self.context))]
+        return ret
 
     def original_link(self):
         link_type, symlink_obj, original_obj, subpath = is_linked_object(self.context)
