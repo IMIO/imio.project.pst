@@ -5,7 +5,7 @@ from collective.task.interfaces import ITaskContent
 from collective.z3cform.chosen.widget import AjaxChosenFieldWidget
 from collective.z3cform.chosen.widget import AjaxChosenMultiFieldWidget
 from collective.z3cform.datagridfield import DataGridFieldFactory
-#from dexterity.localrolesfield.field import LocalRoleField
+# from dexterity.localrolesfield.field import LocalRoleField
 from collective.z3cform.datagridfield import DictRow
 from dexterity.localrolesfield.field import LocalRolesField
 from imio.helpers.content import get_from_annotation
@@ -14,6 +14,7 @@ from imio.project.core.content.project import IProject
 from imio.project.core.content.project import Project
 from imio.project.core.utils import getProjectSpace
 from imio.project.pst import _
+from imio.project.pst.utils import find_max_deadline_on_children
 from plone import api
 from plone.autoform import directives as form
 from plone.autoform.interfaces import IFormFieldProvider
@@ -22,8 +23,12 @@ from plone.dexterity.schema import DexteritySchemaPolicy
 from plone.directives.form import default_value
 from z3c.form import validator
 from zc.relation.interfaces import ICatalog
+
+from z3c.form.datamanager import AttributeField
+from z3c.form.interfaces import IDataManager
 from zope import schema
 from zope.component import getUtility
+from zope.interface import implementer
 from zope.interface import Interface
 from zope.interface import implements
 from zope.interface import Invalid
@@ -114,7 +119,7 @@ class IPSTAction(IProject):
 
 
 # We add a default value for the pstaction. This works but changes on other field params don't work.
-#IPSTAction['manager'].defaultFactory = default_manager
+# IPSTAction['manager'].defaultFactory = default_manager
 
 @default_value(field=IPSTAction['manager'])
 def default_manager(data):
@@ -127,7 +132,7 @@ def default_manager(data):
 
 class ManagerFieldValidator(validator.SimpleFieldValidator):
     def validate(self, value):
-        #we call the already defined validators
+        # we call the already defined validators
         super(ManagerFieldValidator, self).validate(value)
         member = api.user.get_current()
         # bypass for Managers
@@ -156,8 +161,9 @@ class ManagerFieldValidator(validator.SimpleFieldValidator):
         if not check_intersection():
             raise Invalid(_(u"You must choose at least one group of which you are a member"))
 
-#validator.WidgetValidatorDiscriminators(ManagerFieldValidator, field=IPSTAction['manager'])
-#provideAdapter(ManagerFieldValidator)
+
+# validator.WidgetValidatorDiscriminators(ManagerFieldValidator, field=IPSTAction['manager'])
+# provideAdapter(ManagerFieldValidator)
 
 
 class PSTAction(Project):
@@ -208,11 +214,29 @@ class PSTAction(Project):
         return get_from_annotation('imio.project.pst.has_subactions', obj=self, default=False)
 
 
+@implementer(IDataManager)
+class PSTActionDataManager(AttributeField):
+    def get(self):
+        value = super(PSTActionDataManager, self).get()
+        if self.field.__name__ == "planned_end_date":
+            value = self.context.planned_end_date
+            if not value:
+                value = find_max_deadline_on_children(
+                    self.context,
+                    {
+                        "pstsubaction": "planned_end_date",
+                        "subaction_link": "planned_end_date",
+                        "task": "due_date"
+                    }
+                )
+        return value
+
+
 class PSTActionSchemaPolicy(DexteritySchemaPolicy):
     """ """
 
     def bases(self, schemaName, tree):
-        return (IPSTAction, )
+        return (IPSTAction,)
 
 
 class HealthIndicatorVocabulary(object):
@@ -228,12 +252,10 @@ class HealthIndicatorVocabulary(object):
 
 
 class ActionAddForm(ProjectAddForm):
-
     portal_type = 'pstaction'
 
 
 class ActionAdd(DefaultAddView):
-
     form = ActionAddForm
 
 
@@ -282,11 +304,20 @@ class PSTSubAction(Project):
         return False
 
 
-class SubActionAddForm(ProjectAddForm):
+@implementer(IDataManager)
+class PSTSubActionDataManager(AttributeField):
+    def get(self):
+        value = super(PSTSubActionDataManager, self).get()
+        if self.field.__name__ == "planned_end_date":
+            value = self.context.planned_end_date
+            if not value:
+                value = find_max_deadline_on_children(self.context, {"task": "due_date"})
+        return value
 
+
+class SubActionAddForm(ProjectAddForm):
     portal_type = 'pstsubaction'
 
 
 class SubActionAdd(DefaultAddView):
-
     form = SubActionAddForm

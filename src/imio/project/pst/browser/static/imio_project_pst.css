@@ -81,6 +81,19 @@ body.template-item_view h1 .pretty_link_icons img{
     height: 20px;
 }
 
+/* planned_end_date dashboard column warning */
+.td_cell_planned_end_date_warn {
+    color: blue;
+}
+
+/* background of categories item displayed on the item project */
+table.listing tbody tr.odd.volet_interne td {
+    background-color: #fffacd;
+}
+table.listing tbody tr.even.volet_interne td {
+    background-color: #ffe37f;
+}
+
 /* plone group 1st level */
 .pg_org_category {
     font-weight: bold;

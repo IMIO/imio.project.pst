@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
 """Custom columns."""
+import cgi
+
+from DateTime import DateTime
+from Products.CMFPlone.utils import base_hasattr
 from collective.eeafaceted.z3ctable import _ as _cez
 from collective.eeafaceted.z3ctable.columns import ActionsColumn
 from collective.eeafaceted.z3ctable.columns import BaseColumn
@@ -12,15 +16,13 @@ from collective.task.interfaces import ITaskMethods
 from imio.prettylink.interfaces import IPrettyLink
 from imio.project.core.content.projectspace import IProjectSpace
 from imio.project.pst.adapters import UNSET_DATE_VALUE
-from Products.CMFPlone.utils import base_hasattr
-from zope.i18n import translate
+from imio.project.pst.utils import find_max_deadline_on_children
+from plone import api
 from zope.component import getMultiAdapter
-
-import cgi
+from zope.i18n import translate
 
 
 class IconTitleColumn(PrettyLinkColumn):
-
     params = {'showContentIcon': True, 'display_tag_title': False}
 
 
@@ -38,7 +40,6 @@ class ActionIconTitleColumn(PrettyLinkColumn):
 
 
 class HistoryActionsColumn(ActionsColumn):
-
     params = {'showHistory': True, 'showActions': True}
 
     def renderCell(self, item):
@@ -47,57 +48,92 @@ class HistoryActionsColumn(ActionsColumn):
 
 
 class CategoriesColumn(VocabularyColumn):
-
     vocabulary = u'imio.project.core.content.project.categories_vocabulary'
+
+    def getCSSClasses(self, item):
+        css = self.cssClasses.copy()
+        value = self.getValue(item)
+        if value and value != self.ignored_value:
+            if api.portal.get().pst.colorize_project_rows and 'interne' in item.categories[0]:
+                css.update({'tr': 'volet_interne'})
+        return css
 
 
 class PlannedBeginDateColumn(DateColumn):
-
     ignored_value = UNSET_DATE_VALUE
 
 
 class PlannedEndDateColumn(DateColumn):
-
     ignored_value = UNSET_DATE_VALUE
+
+    def getCSSClasses(self, item):
+        css = self.cssClasses.copy()
+        value = self.getValue(item)
+        if not value or value == 'None' or value == self.ignored_value:
+            td = css.get('td', None)
+            if td:
+                td = td + '_warn'
+                css.update({'td': td})
+        return css
+
+    def renderCell(self, item):
+        res = u'-'
+        value = self.getValue(item)
+        if not value or value == 'None' or value == self.ignored_value:
+            item_obj = item.getObject()
+            if item_obj.portal_type == 'operationalobjective':
+                value = find_max_deadline_on_children(item_obj, {"pstaction": "planned_end_date",
+                                                                 "pstsubaction": "planned_end_date",
+                                                                 "subaction_link": "planned_end_date",
+                                                                 "task": "due_date"})
+            elif item_obj.portal_type == 'pstaction':
+                value = find_max_deadline_on_children(item_obj, {"pstsubaction": "planned_end_date",
+                                                                 "subaction_link": "planned_end_date",
+                                                                 "task": "due_date"})
+            elif item_obj.portal_type == 'pstsubaction':
+                value = find_max_deadline_on_children(item_obj, {"task": "due_date"})
+        if value:
+            if isinstance(value, DateTime):
+                value = value.asdatetime().date()
+            res = api.portal.get_localized_time(datetime=value, long_format=self.long_format, time_only=self.time_only)
+            if self.use_caching:
+                cached_result = self._get_cached_result(value)
+                if cached_result:
+                    res = cached_result
+                else:
+                    self._store_cached_result(value, res)
+        return res
 
 
 class EffectiveBeginDateColumn(DateColumn):
-
     ignored_value = UNSET_DATE_VALUE
 
 
 class EffectiveEndDateColumn(DateColumn):
-
     ignored_value = UNSET_DATE_VALUE
 
 
 class PriorityColumn(VocabularyColumn):
-
     vocabulary = u'imio.project.core.content.project.priority_vocabulary'
 
 
 class HealthIndicatorColumn(VocabularyColumn):
-
     vocabulary = u'imio.project.pst.content.action.health_indicator_vocabulary'
 
 
 class ProgressColumn(BaseColumn):
-
     pass
 
 
 class ManagerColumn(VocabularyColumn):
-
     vocabulary = u'imio.project.core.content.project.manager_vocabulary'
 
 
 class ResponsibleColumn(VocabularyColumn):
-
     vocabulary = u'imio.project.pst.ActionEditorsVocabulary'
 
 
 class TaskParentColumn(PrettyLinkColumn):
-
     params = {'showContentIcon': True, 'target': '_blank'}
     header = _cez('header_task_parent')
 
@@ -108,17 +144,14 @@ class TaskParentColumn(PrettyLinkColumn):
 
 
 class AssignedGroupColumn(VocabularyColumn):
-
     vocabulary = u'imio.project.core.content.project.manager_vocabulary'
 
 
 class AssignedUserColumn(MemberIdColumn):
-
     attrName = u'assigned_user'
 
 
 class DueDateColumn(DateColumn):
-
     attrName = u'due_date'
 
 
@@ -153,7 +186,7 @@ class ParentsColumn(BaseColumn):
         if item.portal_type == 'task':
             parent = obj.aq_inner.aq_parent
             # walking on tasks
-            while parent.portal_type not in ('pstaction',  'pstsubaction'):
+            while parent.portal_type not in ('pstaction', 'pstsubaction'):
                 title = u' {}'.format(self.ploneview.cropText(parent.title, 35))
                 ret.append(u'<a href="{}" target="_blank" title="{}" class="contenttype-task">'
                            u'<span class="pretty_link_content">{}</span></a>'.format(parent.absolute_url(),
@@ -189,7 +222,6 @@ class SubOrganizationTitle(PrettyLinkColumn):
 
 
 class SDGsColumn(IconsColumn):
-
     attrName = u'sdgs'
 
     def titleValue(self, item, val):

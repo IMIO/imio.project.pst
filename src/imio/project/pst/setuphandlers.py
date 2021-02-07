@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 
-from Acquisition import aq_base
+import logging
+import os
+
+from Acquisition import aq_base  # noqa
 from collective.contact.plonegroup.config import FUNCTIONS_REGISTRY
 from collective.contact.plonegroup.config import ORGANIZATIONS_REGISTRY
 from collective.documentgenerator.utils import update_templates
@@ -25,14 +28,13 @@ from imio.project.pst import _tr as _
 from imio.project.pst import add_path
 from imio.project.pst import CKEDITOR_MENUSTYLES_CUSTOMIZED_MSG
 from imio.project.pst import PRODUCT_DIR
-from imio.project.pst.content.pstprojectspace import IPSTProjectSpace
 from imio.project.pst.interfaces import IActionDashboardBatchActions
 from imio.project.pst.interfaces import IOODashboardBatchActions
 from imio.project.pst.interfaces import IOSDashboardBatchActions
 from imio.project.pst.interfaces import ITaskDashboardBatchActions
+from imio.project.pst.utils import get_services_config
 from plone import api
 from plone.app.controlpanel.markup import MarkupControlPanelAdapter
-from plone.app.uuid.utils import uuidToObject
 from plone.dexterity.utils import createContentInContainer
 from plone.registry.interfaces import IRegistry
 from Products.CMFCore.WorkflowCore import WorkflowException
@@ -52,11 +54,8 @@ from zope.lifecycleevent import ObjectCreatedEvent
 from zope.schema.vocabulary import SimpleTerm
 from zope.schema.vocabulary import SimpleVocabulary
 
-import logging
-import os
-
-
 logger = logging.getLogger('imio.project.pst: setuphandlers')
+PASSWORD = 'Project69!'
 
 
 def reimport_faceted_config(folder, xml, default_UID=None):
@@ -354,10 +353,15 @@ def _addPSTprojectspace(context):
             'extra_concerned_people', 'IAnalyticBudget.projection',
             'IAnalyticBudget.analytic_budget', 'budget', 'budget_comments',
             'ISustainableDevelopmentGoals.sdgs', 'observation', 'comments']
-    params['strategicobjective_fields'] = strategicobjective_fields
-    params['operationalobjective_fields'] = operationalobjective_fields
-    params['pstaction_fields'] = pstaction_fields
-    params['pstsubaction_fields'] = pstaction_fields
+
+    def with_tal_permissions(fields):
+        return [{'field_name': field_name, 'read_tal_condition': '', 'write_tal_condition': ''}
+                for field_name in fields]
+
+    params['strategicobjective_fields'] = with_tal_permissions(strategicobjective_fields)
+    params['operationalobjective_fields'] = with_tal_permissions(operationalobjective_fields)
+    params['pstaction_fields'] = with_tal_permissions(pstaction_fields)
+    params['pstsubaction_fields'] = with_tal_permissions(pstaction_fields)
 
     strategicobjective_columns = [
             u'select_row', u'pretty_link', u'review_state',
@@ -436,22 +440,22 @@ def add_plonegroups_to_registry():
     to_add = []
     if not [r for r in registry[FUNCTIONS_REGISTRY] if r['fct_id'] == 'actioneditor']:
         to_add.append(
-            {'fct_title': u"Gestionnaire d'action", 'fct_id': u'actioneditor', 'fct_orgs': [], 'enabled': True}
+            {'fct_title': u"Gestionnaire d'action", 'fct_id': u'actioneditor', 'fct_orgs': [], 'fct_management': False, 'enabled': True}
         )
 
     if not [r for r in registry[FUNCTIONS_REGISTRY] if r['fct_id'] == 'admin_resp']:
         to_add.append(
-            {'fct_title': u"Responsable administratif", 'fct_id': u'admin_resp', 'fct_orgs': [], 'enabled': True}
+            {'fct_title': u"Responsable administratif", 'fct_id': u'admin_resp', 'fct_orgs': [], 'fct_management': False, 'enabled': True}
         )
 
     if not [r for r in registry[FUNCTIONS_REGISTRY] if r['fct_id'] == 'editeur']:
         to_add.append(
-            {'fct_title': u'Éditeur (agent)', 'fct_id': u'editeur', 'fct_orgs': [], 'enabled': True}
+            {'fct_title': u'Éditeur (agent)', 'fct_id': u'editeur', 'fct_orgs': [], 'fct_management': False, 'enabled': True}
         )
 
     if not [r for r in registry[FUNCTIONS_REGISTRY] if r['fct_id'] == 'validateur']:
         to_add.append(
-            {'fct_title': u'Validateur (chef service)', 'fct_id': u'validateur', 'fct_orgs': [], 'enabled': True}
+            {'fct_title': u'Validateur (chef service)', 'fct_id': u'validateur', 'fct_orgs': [], 'fct_management': True, 'enabled': True}
         )
 
     if to_add:
@@ -695,12 +699,7 @@ def addDemoData(context):
             return 2019
 
     logger.info('Adding demo data')
-    registry = getUtility(IRegistry)
-    registry[ORGANIZATIONS_REGISTRY]
-    groups = {}
-    for uid in registry[ORGANIZATIONS_REGISTRY]:
-        service = uuidToObject(uid)
-        groups[service.id] = uid
+    groups = get_services_config()
 
     # data has 4-5 levels :
     # - strategicobjective
@@ -781,7 +780,7 @@ def _addPSTUsers(context):
 
     logger.info('Adding PST users')
     site = context.getSite()
-    password = 'Project69!'
+    password = PASSWORD
     if get_environment() == 'prod':
         password = generate_password()
         logger.info("Generated password='%s'" % password)
@@ -791,6 +790,7 @@ def _addPSTUsers(context):
     srv_obj = site['contacts']['plonegroup-organization']['services']
     orgs = dict([(srv, srv_obj[srv].UID()) for srv in act_srv])
     users = {
+        ('pstadmin', u'PST administrateur'): ["Administrators"],
         ('psteditor', u'PST editeur global'): ["pst_editors"],
         ('pstreader', u'PST lecteur global'): ["pst_readers"],
         ('chef', u'Michel Chef'): (['%s_%s' % (orgs[org], fct) for org in orgs for fct in ('admin_resp', 'validateur')]

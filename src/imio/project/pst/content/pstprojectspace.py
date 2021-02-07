@@ -1,5 +1,7 @@
 from plone.autoform import directives
 from collective.eeafaceted.z3ctable import _ as _z
+from collective.z3cform.datagridfield import DataGridFieldFactory
+from collective.z3cform.datagridfield import DictRow
 from imio.project.core.content.projectspace import get_pt_fields_voc
 from imio.project.core.content.projectspace import mandatory_check
 from imio.project.core.content.projectspace import position_check
@@ -9,11 +11,32 @@ from imio.project.core.content.projectspace import ProjectSpaceSchemaPolicy
 from imio.project.core import _ as _c
 from imio.project.pst import _
 from zope import schema
+from zope.interface import Interface
 from zope.interface import implements
 from zope.interface import invariant
 from zope.schema.interfaces import IVocabularyFactory
 from zope.schema.vocabulary import SimpleTerm
 from zope.schema.vocabulary import SimpleVocabulary
+
+STRATEGICOBJECTIVE_EXCLUDED_FIELDS = [
+    'IDublinCore.description', 'IDublinCore.contributors', 'IDublinCore.creators', 'IDublinCore.effective',
+    'IDublinCore.expires', 'IDublinCore.language', 'IDublinCore.rights', 'IDublinCore.subjects', 'INameFromTitle.title',
+    'IVersionable.changeNote', 'effective_begin_date', 'effective_end_date', 'extra_concerned_people', 'manager',
+    'notes', 'planned_begin_date', 'planned_end_date', 'priority', 'progress', 'result_indicator', 'visible_for'
+]
+
+OPERATIONALOBJECTIVE_EXCLUDED_FIELDS = [
+    'IDublinCore.description', 'IDublinCore.contributors', 'IDublinCore.creators', 'IDublinCore.effective',
+    'IDublinCore.expires', 'IDublinCore.language', 'IDublinCore.rights', 'IDublinCore.subjects', 'INameFromTitle.title',
+    'IVersionable.changeNote', 'effective_begin_date', 'effective_end_date', 'notes', 'planned_begin_date', 'progress',
+    'visible_for'
+]
+
+PSTACTION_EXCLUDED_FIELDS = [
+    'IDublinCore.description', 'IDublinCore.contributors', 'IDublinCore.creators', 'IDublinCore.effective',
+    'IDublinCore.expires', 'IDublinCore.language', 'IDublinCore.rights', 'IDublinCore.subjects', 'INameFromTitle.title',
+    'IVersionable.changeNote', 'budget_split', 'notes', 'priority', 'visible_for'
+]
 
 field_constraints = {
     'titles': {},
@@ -89,35 +112,107 @@ TasksColumnsVocabulary = SimpleVocabulary(
 )
 
 
+class IStrategicObjectiveFieldsSchema(Interface):
+    field_name = schema.Choice(
+        title=_(u'Field name'),
+        vocabulary=u'imio.project.pst.SOFieldsVocabulary',
+    )
+
+    read_tal_condition = schema.TextLine(
+        title=_("Read TAL condition"),
+        required=False,
+    )
+
+    write_tal_condition = schema.TextLine(
+        title=_("Write TAL condition"),
+        required=False,
+    )
+
+
+class IOperationalObjectiveFieldsSchema(Interface):
+    field_name = schema.Choice(
+        title=_(u'Field name'),
+        vocabulary=u'imio.project.pst.OOFieldsVocabulary',
+    )
+
+    read_tal_condition = schema.TextLine(
+        title=_("Read TAL condition"),
+        required=False,
+    )
+
+    write_tal_condition = schema.TextLine(
+        title=_("Write TAL condition"),
+        required=False,
+    )
+
+
+class IPSTActionFieldsSchema(Interface):
+    field_name = schema.Choice(
+        title=_(u'Field name'),
+        vocabulary=u'imio.project.pst.ActionFieldsVocabulary',
+    )
+
+    read_tal_condition = schema.TextLine(
+        title=_("Read TAL condition"),
+        required=False,
+    )
+
+    write_tal_condition = schema.TextLine(
+        title=_("Write TAL condition"),
+        required=False,
+    )
+
+
 class IPSTProjectSpace(IProjectSpace):
     """
         PST Project schema
     """
     strategicobjective_fields = schema.List(
         title=_c(u"${type} fields display", mapping={'type': _('StrategicObjective')}),
-        description=_c(u"Put fields on the right to display it. Flags are : ..."),
-        value_type=schema.Choice(vocabulary=u'imio.project.pst.SOFieldsVocabulary'),
-        # value_type=schema.Choice(source=IMFields),  # a source is not managed by registry !!
+        description=_(u'Warning ! Completion of these fields requires a good knowledge of the TAL language. '
+                      u'Be sure to get help from the product support team.'),
+        required=False,
+        value_type=DictRow(title=_(u'Field'),
+                           schema=IStrategicObjectiveFieldsSchema,
+                           required=False),
     )
+    directives.widget('strategicobjective_fields', DataGridFieldFactory, display_table_css_class='listing',
+                      allow_reorder=True, auto_append=False)
 
     operationalobjective_fields = schema.List(
         title=_c(u"${type} fields display", mapping={'type': _('OperationalObjective')}),
-        # description=_c(u'Put fields on the right to display it. Flags are : ...'),
-        value_type=schema.Choice(vocabulary=u'imio.project.pst.OOFieldsVocabulary'),
+        description=_(u'Warning ! Completion of these fields requires a good knowledge of the TAL language. '
+                      u'Be sure to get help from the product support team.'),
+        required=False,
+        value_type=DictRow(title=_(u'Field'),
+                           schema=IOperationalObjectiveFieldsSchema,
+                           required=False),
     )
+    directives.widget('operationalobjective_fields', DataGridFieldFactory, display_table_css_class='listing',
+                      allow_reorder=True, auto_append=False)
 
     pstaction_fields = schema.List(
         title=_c(u"${type} fields display", mapping={'type': _('PSTAction')}),
-        # description=_c(u'Put fields on the right to display it. Flags are : ...'),
-        value_type=schema.Choice(vocabulary=u'imio.project.pst.ActionFieldsVocabulary'),
+        description=_(u'Warning ! Completion of these fields requires a good knowledge of the TAL language. '
+                      u'Be sure to get help from the product support team.'),
+        required=False,
+        value_type=DictRow(title=_(u'Field'),
+                           schema=IPSTActionFieldsSchema,
+                           required=False),
     )
+    directives.widget('pstaction_fields', DataGridFieldFactory, display_table_css_class='listing',
+                      allow_reorder=True, auto_append=False)
 
     # this field will be hidden
     pstsubaction_fields = schema.List(
         title=_c(u"${type} fields display", mapping={'type': _('PSTSubAction')}),
-        # description=_c(u'Put fields on the right to display it. Flags are : ...'),
-        value_type=schema.Choice(vocabulary=u'imio.project.pst.ActionFieldsVocabulary'),
+        required=False,
+        value_type=DictRow(title=_(u'Field'),
+                           schema=IPSTActionFieldsSchema,
+                           required=False),
     )
+    directives.widget('pstsubaction_fields', DataGridFieldFactory, display_table_css_class='listing',
+                      allow_reorder=True, auto_append=False)
 
     strategicobjectives_columns = schema.List(
         title=_(u"StrategicObjective columns"),
@@ -200,36 +295,18 @@ class SOFieldsVocabulary(object):
     implements(IVocabularyFactory)
 
     def __call__(self, context):
-        return get_pt_fields_voc('strategicobjective',
-                                 ['IDublinCore.description', 'IDublinCore.contributors', 'IDublinCore.creators',
-                                  'IDublinCore.effective', 'IDublinCore.expires', 'IDublinCore.language',
-                                  'IDublinCore.rights', 'IDublinCore.subjects', 'INameFromTitle.title',
-                                  'IVersionable.changeNote', 'effective_begin_date', 'effective_end_date',
-                                  'extra_concerned_people', 'manager', 'notes', 'planned_begin_date',
-                                  'planned_end_date', 'priority', 'progress', 'result_indicator', 'visible_for'],
-                                 field_constraints)
+        return get_pt_fields_voc('strategicobjective', STRATEGICOBJECTIVE_EXCLUDED_FIELDS, field_constraints)
 
 
 class OOFieldsVocabulary(object):
     implements(IVocabularyFactory)
 
     def __call__(self, context):
-        return get_pt_fields_voc('operationalobjective',
-                                 ['IDublinCore.description', 'IDublinCore.contributors', 'IDublinCore.creators',
-                                  'IDublinCore.effective', 'IDublinCore.expires', 'IDublinCore.language',
-                                  'IDublinCore.rights', 'IDublinCore.subjects', 'INameFromTitle.title',
-                                  'IVersionable.changeNote', 'effective_begin_date', 'effective_end_date', 'notes',
-                                  'planned_begin_date', 'progress', 'visible_for'],
-                                 field_constraints)
+        return get_pt_fields_voc('operationalobjective', OPERATIONALOBJECTIVE_EXCLUDED_FIELDS, field_constraints)
 
 
 class ActionFieldsVocabulary(object):
     implements(IVocabularyFactory)
 
     def __call__(self, context):
-        return get_pt_fields_voc('pstaction',
-                                 ['IDublinCore.description', 'IDublinCore.contributors', 'IDublinCore.creators',
-                                  'IDublinCore.effective', 'IDublinCore.expires', 'IDublinCore.language',
-                                  'IDublinCore.rights', 'IDublinCore.subjects', 'INameFromTitle.title',
-                                  'IVersionable.changeNote', 'budget_split', 'notes', 'priority', 'visible_for'],
-                                 field_constraints)
+        return get_pt_fields_voc('pstaction', PSTACTION_EXCLUDED_FIELDS, field_constraints)
