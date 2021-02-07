@@ -72,11 +72,12 @@ class ContentLinkViewlet(ViewletBase):
 
     def content_link(self):
         ret = []
-        if hasattr(self.context, "_context"):
+        if hasattr(self.context, "_context") or self.context.portal_type == 'task':
             ret = [obj for obj in
                    self.back_references(get_original_context(get_original_context(self.context).aq_parent))]
         else:
-            ret = [obj.aq_parent for obj in self.back_references(get_original_context(self.context))]
+            refs = [obj for obj in self.back_references(get_original_context(self.context))]
+            ret = [obj.aq_parent for obj in refs if obj.absolute_url() != self.context.absolute_url()]
         return ret
 
     def original_link(self):
