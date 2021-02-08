@@ -140,6 +140,24 @@ class Migrate_To_1_3_1(Migrator):
         oo_bdg_states = ['ongoing', 'achieved']
         a_bdg_states = ['ongoing', 'terminated', 'to_be_scheduled']
 
+        strategicobjective_columns = [
+            u'select_row', u'pretty_link', u'review_state',
+            u'categories', u'ModificationDate', u'history_actions']
+        operationalobjective_columns = [
+            u'select_row', u'pretty_link', u'parents', u'review_state',
+            u'manager', u'planned_end_date', u'priority', u'categories',
+            u'sdgs', u'ModificationDate', u'history_actions']
+        pstaction_columns = [
+            u'select_row', u'pretty_link', u'parents', u'review_state',
+            u'manager', u'responsible', u'planned_begin_date', u'planned_end_date',
+            u'effective_begin_date', u'effective_end_date', u'progress',
+            u'health_indicator', u'sdgs', u'ModificationDate',
+            u'history_actions']
+        tasks_columns = [
+            u'select_row', u'pretty_link', u'parents', u'review_state',
+            u'assigned_group', u'assigned_user', u'due_date', u'CreationDate',
+            u'ModificationDate', u'history_actions']
+        
         registry = getUtility(IRegistry)
         prj_fld_record = registry.get('imio.project.settings.project_fields')
         so_record = registry.get('imio.project.settings.strategicobjective_fields')
@@ -174,6 +192,14 @@ class Migrate_To_1_3_1(Migrator):
                         setattr(projectspace_obj, 'pstaction_budget_states', a_bdg_states)
                     if not getattr(projectspace_obj, 'pstsubaction_budget_states'):
                         setattr(projectspace_obj, 'pstsubaction_budget_states', a_bdg_states)
+                    if not getattr(projectspace_obj, 'strategicobjectives_columns'):
+                        setattr(projectspace_obj, 'strategicobjectives_columns', strategicobjective_columns)
+                    if not getattr(projectspace_obj, 'operationalobjectives_columns'):
+                        setattr(projectspace_obj, 'operationalobjectives_columns', operationalobjective_columns)
+                    if not getattr(projectspace_obj, 'pstactions_columns'):
+                        setattr(projectspace_obj, 'pstactions_columns', pstaction_columns)
+                    if not getattr(projectspace_obj, 'tasks_columns'):
+                        setattr(projectspace_obj, 'tasks_columns', tasks_columns)
 
                 del registry.records['imio.project.settings.project_fields']
                 del registry.records['imio.project.settings.strategicobjective_fields']
