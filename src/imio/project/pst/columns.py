@@ -52,10 +52,11 @@ class CategoriesColumn(VocabularyColumn):
 
     def getCSSClasses(self, item):
         css = self.cssClasses.copy()
-        value = self.getValue(item)
-        if value and value != self.ignored_value:
-            if api.portal.get().pst.colorize_project_rows and 'interne' in item.categories[0]:
-                css.update({'tr': 'volet_interne'})
+        # TODO: Add more tests
+        # value = self.getValue(item)
+        # if value and value != self.ignored_value:
+        #     if api.portal.get().pst.colorize_project_rows and 'interne' in item.categories[0]:
+        #         css.update({'tr': 'volet_interne'})
         return css
 
 
