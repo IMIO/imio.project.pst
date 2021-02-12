@@ -4,6 +4,7 @@ import logging
 
 from collective.documentgenerator.utils import update_oo_config
 from collective.messagesviewlet.utils import add_message
+from dexterity.localroles.utils import add_fti_configuration
 from eea.facetednavigation.criteria.interfaces import ICriteria
 from eea.facetednavigation.subtypes.interfaces import IFacetedNavigable
 from eea.facetednavigation.widgets.storage import Criterion
@@ -200,6 +201,9 @@ class Migrate_To_1_3_1(Migrator):
                         setattr(projectspace_obj, 'pstactions_columns', pstaction_columns)
                     if not getattr(projectspace_obj, 'tasks_columns'):
                         setattr(projectspace_obj, 'tasks_columns', tasks_columns)
+                    add_fti_configuration('pstprojectspace',
+                                          {'internally_published': {'pst_readers': {'roles': ['Reader']}}},
+                                          keyname='static_config', force=False)
 
                 del registry.records['imio.project.settings.project_fields']
                 del registry.records['imio.project.settings.strategicobjective_fields']
