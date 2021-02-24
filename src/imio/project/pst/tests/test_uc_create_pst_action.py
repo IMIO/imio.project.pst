@@ -34,7 +34,7 @@ class TestCreatePstAction(FunctionalTestCase):
     Goal: allows actors to create a pst action
     Author: Franck Ngaha
     Created: 12/01/2021
-    Updated: 24/01/2021
+    Updated: 24/02/2021
     Preconditions: The actor must be authenticated in a given specific context :
     - a pst admin in the context of an operational objective in anyone of all his states (created, ongoing, achieved)
     - a pst editor in the context of an operational objective in anyone of all his states (created, ongoing, achieved)
@@ -259,9 +259,19 @@ class TestCreatePstAction(FunctionalTestCase):
 
     def step_4(self, browser):
         """The system creates and displays the element with "Saved changes" info success."""
-        heading = browser.css('.documentFirstHeading').first
-        self.assertEqual('Titre (A.24)', heading.text)
         statusmessages.assert_message(u'Elément créé')
+        # catalog check
+        context = browser.context
+        brain = api.content.find(context=context, depth=0)[0]
+        self.assertIn(context.title, brain.Title)
+        self.assertEqual(context.categories, brain.categories)
+        self.assertEqual(context.manager, brain.manager)
+        self.assertEqual(context.planned_begin_date, brain.planned_begin_date)
+        self.assertEqual(context.effective_begin_date, brain.effective_begin_date)
+        self.assertEqual(context.planned_end_date, brain.planned_end_date)
+        self.assertEqual(context.effective_end_date, brain.effective_end_date)
+        self.assertEqual(context.progress, brain.progress)
+        self.assertEqual(context.sdgs, brain.sdgs)
 
     def step_4a(self, browser, context):
         """The system back to the previous page with "Addition canceled" Info."""

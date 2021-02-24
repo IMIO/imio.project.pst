@@ -34,7 +34,7 @@ class TestCreatePstSubAction(FunctionalTestCase):
     Goal: allows actors to create a pst sub action
     Author: Franck Ngaha
     Created: 18/01/2021
-    Updated: 19/01/2021
+    Updated: 24/02/2021
     Preconditions: The actor must be authenticated in a given specific context :
     - a pst admin in the context of a pst action in anyone of all his states
     (created, ongoing, stopped, terminated, to_be_scheduled)
@@ -282,9 +282,19 @@ class TestCreatePstSubAction(FunctionalTestCase):
 
     def step_4(self, browser):
         """The system creates and displays the element with "Saved changes" info success."""
-        heading = browser.css('.documentFirstHeading').first
-        self.assertEqual('Titre (SA.24)', heading.text)
         statusmessages.assert_message(u'Elément créé')
+        # catalog check
+        context = browser.context
+        brain = api.content.find(context=context, depth=0)[0]
+        self.assertIn(context.title, brain.Title)
+        self.assertEqual(context.categories, brain.categories)
+        self.assertEqual(context.manager, brain.manager)
+        self.assertEqual(context.planned_begin_date, brain.planned_begin_date)
+        self.assertEqual(context.effective_begin_date, brain.effective_begin_date)
+        self.assertEqual(context.planned_end_date, brain.planned_end_date)
+        self.assertEqual(context.effective_end_date, brain.effective_end_date)
+        self.assertEqual(context.progress, brain.progress)
+        self.assertEqual(context.sdgs, brain.sdgs)
 
     def step_4a(self, browser, context):
         """The system back to the previous page with "Addition canceled" Info."""
