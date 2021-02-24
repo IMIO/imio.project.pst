@@ -1,12 +1,9 @@
 # -*- coding: utf-8 -*-
 """ Content action tests for this package."""
-from datetime import datetime
 
 from imio.project.pst.content import action
 from imio.project.pst.content.pstprojectspace import PSTACTION_EXCLUDED_FIELDS
 from imio.project.pst.testing import IntegrationTestCase
-from imio.project.pst.utils import find_deadlines_on_children, find_max_deadline_on_children, find_brains_on_parents, \
-    find_deadlines_on_parents, find_max_deadline_on_parents
 from plone import api
 from plone.app.testing import TEST_USER_NAME
 from zope.app.content import queryContentType
@@ -22,11 +19,6 @@ class TestAction(IntegrationTestCase):
     def setUp(self):
         """Custom shared utility setup for tests."""
         super(TestAction, self).setUp()
-        self.os_10 = self.pst['etre-une-commune-qui-sinscrit-dans-la-lignee-des-accords-de-reductions-des-gaz-a-effet-'
-                              'de-serre-afin-dassurer-le-developpement-durable']
-        self.oo_15 = self.os_10['reduire-la-consommation-energetique-des-batiments-communaux-de-20-dici-2024']
-        self.a_16 = self.oo_15['reduire-la-consommation-energetique-de-ladministration-communale']
-        self.sa_17 = self.a_16['realiser-un-audit-energetique-du-batiment']
 
     def test_default_manager(self):
         """
