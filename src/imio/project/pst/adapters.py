@@ -105,7 +105,7 @@ class ChildrenActionDeadlineHasPassedCriterion(object):
 
 @indexer(IContentish)
 def categories_index(obj):
-    if base_hasattr(obj, 'categories') and obj.categories:
+    if hasattr(obj, 'categories') and obj.categories:
         return obj.categories
 
     return common_marker
