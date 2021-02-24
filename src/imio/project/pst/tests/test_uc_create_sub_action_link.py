@@ -207,10 +207,6 @@ class TestCreateSubActionLink(FunctionalTestCase):
         heading = browser.css('.documentFirstHeading').first
         self.assertEqual(u"Réaliser un audit énergétique du bâtiment (SA.17)", heading.text)
         statusmessages.assert_message(u'Elément créé')
-        self.assertEqual(
-            browser.css('#messagesviewlet').text,
-            ["Avertissement Ce contenu est une copie miroir ! Cliquer sur ce lien Modifier pour modifier l'original"]
-        )
         sal_17 = self.a_13['realiser-un-audit-energetique-du-batiment']
         self.assertNotEqual(self.sa_17.UID(), sal_17.UID())
 
