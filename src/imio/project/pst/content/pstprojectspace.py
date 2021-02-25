@@ -92,6 +92,7 @@ PstactionColumnsVocabulary = SimpleVocabulary(
      SimpleTerm(value=u'effective_end_date', title=_z(u'header_effective_end_date')),
      SimpleTerm(value=u'progress', title=_z(u'header_progress')),
      SimpleTerm(value=u'health_indicator', title=_z(u'header_health_indicator')),
+     SimpleTerm(value=u'categories', title=_c(u'Categories')),
      SimpleTerm(value=u'sdgs', title=_z(u'header_sdgs')),
      SimpleTerm(value=u'CreationDate', title=_z(u'header_CreationDate')),
      SimpleTerm(value=u'ModificationDate', title=_z(u'header_ModificationDate')),
