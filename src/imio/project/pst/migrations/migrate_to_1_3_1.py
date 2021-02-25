@@ -21,6 +21,69 @@ from zope.component import getUtility
 logger = logging.getLogger('imio.project.pst')
 
 
+def migrate_pst_fields(field_list):
+    updated_list = []
+    if field_list:
+        for field_name in field_list:
+            updated_list.append({
+                'field_name': field_name,
+                'read_tal_condition': '',
+                'write_tal_condition': '',
+            })
+    return updated_list
+
+
+def update_dashboards():
+    # update daterange criteria
+    brains = api.content.find(object_provides=IFacetedNavigable.__identifier__, portal_type='Folder')
+    for brain in brains:
+        obj = brain.getObject()
+        criterion = ICriteria(obj)
+        for key, criteria in criterion.items():
+            if criteria.get("widget") != "daterange":
+                continue
+            if criteria.get("usePloneDateFormat") is True:
+                continue
+            logger.info("Upgrade daterange widget for faceted {0}".format(obj))
+            position = criterion.criteria.index(criteria)
+            values = criteria.__dict__
+            values["usePloneDateFormat"] = True
+            values["labelStart"] = u'Start date'
+            values["labelEnd"] = u'End date'
+            criterion.criteria[position] = Criterion(**values)
+            criterion.criteria._p_changed = 1
+
+
+def add_plan_to_lists_fields(*lists_fields):
+    for list_fields in lists_fields:
+        if 'plan' not in list_fields:
+            if 'categories' in list_fields:
+                list_fields.insert(list_fields.index('categories') + 1, 'plan')
+            else:
+                list_fields.append('plan')
+
+
+def remove_configlets():
+    config_tool = api.portal.get_tool('portal_controlpanel')
+    config_tool.unregisterConfiglet('imio.project.core.settings')
+    config_tool.unregisterConfiglet('imio.project.pst.settings')
+
+
+def migrate_webservices_config():
+    """Add pstsbaction to webservice TAL condition."""
+    registry = getUtility(IRegistry)
+    generated_actions = registry.get('imio.pm.wsclient.browser.settings.IWS4PMClientSettings.generated_actions')
+    if generated_actions:
+        for action in generated_actions:
+            if action['condition'] == u"python: context.getPortalTypeName() in ('pstaction', 'task')":
+                action['condition'] = u"python: context.getPortalTypeName() in ('pstaction', 'pstsubaction', 'task')"
+            else:
+                logger.warning("Settings for WS4PM client: generated_actions was not updated ! "
+                               "Current value'{}'".format(action))
+        api.portal.set_registry_record('imio.pm.wsclient.browser.settings.IWS4PMClientSettings.generated_actions',
+                                       generated_actions)
+
+
 class Migrate_To_1_3_1(Migrator):
 
     def __init__(self, context):
@@ -32,6 +95,9 @@ class Migrate_To_1_3_1(Migrator):
 
         self.runProfileSteps('imio.project.pst', steps=['actions', 'catalog'], run_dependencies=False)
 
+        # add category column
+        self.adapt_collections()
+
         # migrate projectspace in pstprojectspace
         self.migrate_projectspace_in_pstprojectspace()
 
@@ -39,13 +105,13 @@ class Migrate_To_1_3_1(Migrator):
         self.manage_permission()
 
         # update daterange criteria
-        self.update_dashboards()
+        update_dashboards()
 
         # remove configlets
-        self.remove_configlets()
+        remove_configlets()
 
         # Allowed webservices on subactions
-        self.migrate_webservices_config()
+        migrate_webservices_config()
 
         # reindex all actions
         self.reindex_all_actions()
@@ -68,44 +134,18 @@ class Migrate_To_1_3_1(Migrator):
         # Display duration
         self.finish()
 
-    def add_plan_to_lists_fields(self, *lists_fields):
-        for list_fields in lists_fields:
-            if 'plan' not in list_fields:
-                if 'categories' in list_fields:
-                    list_fields.insert(list_fields.index('categories') + 1, 'plan')
-                else:
-                    list_fields.append('plan')
-
-    def migrate_pst_fields(self, field_list):
-        updated_list = []
-        if field_list:
-            for field_name in field_list:
-                updated_list.append({
-                    'field_name': field_name,
-                    'read_tal_condition': '',
-                    'write_tal_condition': '',
-                })
-        return updated_list
-
-    def update_dashboards(self):
-        # update daterange criteria
-        brains = api.content.find(object_provides=IFacetedNavigable.__identifier__, portal_type='Folder')
-        for brain in brains:
-            obj = brain.getObject()
-            criterion = ICriteria(obj)
-            for key, criteria in criterion.items():
-                if criteria.get("widget") != "daterange":
-                    continue
-                if criteria.get("usePloneDateFormat") is True:
-                    continue
-                logger.info("Upgrade daterange widget for faceted {0}".format(obj))
-                position = criterion.criteria.index(criteria)
-                values = criteria.__dict__
-                values["usePloneDateFormat"] = True
-                values["labelStart"] = u'Start date'
-                values["labelEnd"] = u'End date'
-                criterion.criteria[position] = Criterion(**values)
-                criterion.criteria._p_changed = 1
+    def adapt_collections(self):
+        # add category column
+        act_dbs = self.catalog(portal_type="Folder",
+                               object_provides="imio.project.pst.interfaces.IActionDashboardBatchActions")
+        for db in act_dbs:
+            for brain in self.catalog.searchResults({'path': {'query': db.getPath()},
+                                                     'portal_type': 'DashboardCollection'}):
+                col = brain.getObject()
+                if u'categories' not in col.customViewFields:
+                    nl = list(col.customViewFields)
+                    nl.insert(col.customViewFields.index(u'sdgs'), u'categories')
+                    col.customViewFields = tuple(nl)
 
     def migrate_projectspace_in_pstprojectspace(self):
         plan_values = [
@@ -158,7 +198,7 @@ class Migrate_To_1_3_1(Migrator):
             u'select_row', u'pretty_link', u'parents', u'review_state',
             u'assigned_group', u'assigned_user', u'due_date', u'CreationDate',
             u'ModificationDate', u'history_actions']
-        
+
         registry = getUtility(IRegistry)
         prj_fld_record = registry.get('imio.project.settings.project_fields')
         so_record = registry.get('imio.project.settings.strategicobjective_fields')
@@ -166,7 +206,7 @@ class Migrate_To_1_3_1(Migrator):
         a_record = registry.get('imio.project.settings.pstaction_fields')
         sa_record = registry.get('imio.project.settings.pstsubaction_fields')
         if so_record and oo_record and a_record and sa_record:
-            self.add_plan_to_lists_fields(so_record, oo_record, a_record)
+            add_plan_to_lists_fields(so_record, oo_record, a_record)
             self.runProfileSteps('imio.project.pst', steps=['typeinfo'], profile='default',
                                  run_dependencies=False)
             projectspace_brains = self.catalog(object_provides=IProjectSpace.__identifier__)
@@ -178,11 +218,11 @@ class Migrate_To_1_3_1(Migrator):
                         new_class_name='imio.project.pst.content.pstprojectspace.PSTProjectSpace')
                     # projectspace is now pstprojectspace
                     projectspace_obj.portal_type = 'pstprojectspace'
-                    projectspace_obj.project_fields = self.migrate_pst_fields(prj_fld_record)
-                    projectspace_obj.strategicobjective_fields = self.migrate_pst_fields(so_record)
-                    projectspace_obj.operationalobjective_fields = self.migrate_pst_fields(oo_record)
-                    projectspace_obj.pstaction_fields = self.migrate_pst_fields(a_record)
-                    projectspace_obj.pstsubaction_fields = self.migrate_pst_fields(sa_record)
+                    projectspace_obj.project_fields = migrate_pst_fields(prj_fld_record)
+                    projectspace_obj.strategicobjective_fields = migrate_pst_fields(so_record)
+                    projectspace_obj.operationalobjective_fields = migrate_pst_fields(oo_record)
+                    projectspace_obj.pstaction_fields = migrate_pst_fields(a_record)
+                    projectspace_obj.pstsubaction_fields = migrate_pst_fields(sa_record)
                     if not getattr(projectspace_obj, 'plan_values'):
                         setattr(projectspace_obj, 'plan_values', plan_values)
                     if not getattr(projectspace_obj, 'strategicobjective_budget_states'):
@@ -216,26 +256,6 @@ class Migrate_To_1_3_1(Migrator):
                                       ('Manager', 'Site Administrator', 'Contributor'), acquire=0)
         self.portal.manage_permission('imio.project.pst: ecomptes export',
                                       ('Manager', 'Site Administrator', 'Contributor'), acquire=0)
-
-    def remove_configlets(self):
-        config_tool = api.portal.get_tool('portal_controlpanel')
-        config_tool.unregisterConfiglet('imio.project.core.settings')
-        config_tool.unregisterConfiglet('imio.project.pst.settings')
-
-    def migrate_webservices_config(self):
-        """Add pstsbaction to webservice TAL condition."""
-        registry = getUtility(IRegistry)
-        generated_actions = registry.get('imio.pm.wsclient.browser.settings.IWS4PMClientSettings.generated_actions')
-        if generated_actions:
-            for action in generated_actions:
-                if action['condition'] == u"python: context.getPortalTypeName() in ('pstaction', 'task')":
-                    action[
-                        'condition'] = u"python: context.getPortalTypeName() in ('pstaction', 'pstsubaction', 'task')"
-                else:
-                    logger.warning("Settings for WS4PM client: generated_actions was not updated ! "
-                                   "Current value'{}'".format(action))
-            api.portal.set_registry_record('imio.pm.wsclient.browser.settings.IWS4PMClientSettings.generated_actions',
-                                           generated_actions)
 
     def reindex_all_actions(self):
         actions_brains = self.catalog(object_provides=IPSTAction.__identifier__)
