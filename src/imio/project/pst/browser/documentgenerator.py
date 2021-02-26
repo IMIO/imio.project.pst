@@ -376,6 +376,8 @@ class DocumentGenerationOOHelper(DocumentGenerationBaseHelper, DXDocumentGenerat
         """
             return the result indicator as a string
         """
+        if not self.real_context.result_indicator:
+            return ''
         rows = []
         for row in self.real_context.result_indicator:
             if reached and expected:
