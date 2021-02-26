@@ -192,7 +192,7 @@ class Migrate_To_1_3_1(Migrator):
             u'select_row', u'pretty_link', u'parents', u'review_state',
             u'manager', u'responsible', u'planned_begin_date', u'planned_end_date',
             u'effective_begin_date', u'effective_end_date', u'progress',
-            u'health_indicator', u'sdgs', u'ModificationDate',
+            u'health_indicator', u'categories', u'sdgs', u'ModificationDate',
             u'history_actions']
         tasks_columns = [
             u'select_row', u'pretty_link', u'parents', u'review_state',
