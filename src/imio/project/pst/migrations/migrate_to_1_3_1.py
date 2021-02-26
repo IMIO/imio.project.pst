@@ -264,10 +264,10 @@ class Migrate_To_1_3_1(Migrator):
         self.portal.manage_permission('imio.project.pst: ecomptes export',
                                       ('Manager', 'Site Administrator', 'Contributor'), acquire=0)
 
-    def reindex_all_actions(self):
-        actions_brains = self.catalog(object_provides=IPSTAction.__identifier__)
-        for action_brain in actions_brains:
-            action_brain.getObject().reindexObject()
+    def reindex_all_projects(self):
+        brains = self.catalog(object_provides=IProject.__identifier__)
+        for brain in brains:
+            brain.getObject().reindexObject()
 
     def add_new_version_message(self):
         if 'new-version' in self.portal['messages-config']:
