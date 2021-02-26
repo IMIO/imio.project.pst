@@ -1,9 +1,16 @@
 Changelog
 =========
 
-1.4 (unreleased)
+1.3.1 (unreleased)
 ----------------
-
+- Fixed a document generation bug when result indicator is None
+  [fngaha]
+- Enabled categories column on action dashboard
+  [fngaha]
+- Adapt categories indexation
+  [fngaha]
+- Move symlink origin link to ContentLink viewlet
+  [daggelpop,fngaha]
 - Fix planned end date dashboard column when the same field on the operational objective is empty
   [fngaha]
 - Added read & write TAL conditions on PST fields settings
