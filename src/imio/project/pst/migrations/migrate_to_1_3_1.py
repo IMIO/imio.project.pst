@@ -13,6 +13,7 @@ from imio.migrator.migrator import Migrator
 from imio.project.core.content.project import IProject
 from imio.project.core.content.projectspace import IProjectSpace
 from imio.project.pst.content.action import IPSTAction
+from imio.project.pst.content.pstprojectspace import IPSTProjectSpace
 from plone import api
 from plone.app.contenttypes.migration.dxmigration import migrate_base_class_to_new_class
 from plone.registry.interfaces import IRegistry
@@ -95,11 +96,10 @@ class Migrate_To_1_3_1(Migrator):
 
         self.runProfileSteps('imio.project.pst', steps=['actions', 'catalog'], run_dependencies=False)
 
-        # add category column
-        self.adapt_collections()
-
         # migrate projectspace in pstprojectspace
         self.migrate_projectspace_in_pstprojectspace()
+
+        self.enable_categories_column_on_action_dashboard()
 
         # Assigning new custom ecomptes permissions to role
         self.manage_permission()
@@ -133,19 +133,6 @@ class Migrate_To_1_3_1(Migrator):
 
         # Display duration
         self.finish()
-
-    def adapt_collections(self):
-        # add category column
-        act_dbs = self.catalog(portal_type="Folder",
-                               object_provides="imio.project.pst.interfaces.IActionDashboardBatchActions")
-        for db in act_dbs:
-            for brain in self.catalog.searchResults({'path': {'query': db.getPath()},
-                                                     'portal_type': 'DashboardCollection'}):
-                col = brain.getObject()
-                if u'categories' not in col.customViewFields:
-                    nl = list(col.customViewFields)
-                    nl.insert(col.customViewFields.index(u'sdgs'), u'categories')
-                    col.customViewFields = tuple(nl)
 
     def migrate_projectspace_in_pstprojectspace(self):
         plan_values = [
@@ -250,6 +237,26 @@ class Migrate_To_1_3_1(Migrator):
                 del registry.records['imio.project.settings.operationalobjective_fields']
                 del registry.records['imio.project.settings.pstaction_fields']
                 del registry.records['imio.project.settings.pstsubaction_fields']
+
+    def enable_categories_column_on_action_dashboard(self):
+        act_dbs = self.catalog(portal_type="Folder",
+                               object_provides="imio.project.pst.interfaces.IActionDashboardBatchActions")
+        for db in act_dbs:
+            for brain in self.catalog.searchResults({'path': {'query': db.getPath()},
+                                                     'portal_type': 'DashboardCollection'}):
+                col = brain.getObject()
+                if u'categories' not in col.customViewFields:
+                    nl = list(col.customViewFields)
+                    nl.insert(col.customViewFields.index(u'sdgs'), u'categories')
+                    col.customViewFields = tuple(nl)
+        brains = self.catalog(object_provides=IPSTProjectSpace.__identifier__)
+        for brain in brains:
+            pst = brain.getObject()
+            if 'categories' not in pst.pstactions_columns:
+                if 'sdgs' in pst.pstactions_columns:
+                    pst.pstactions_columns.insert(pst.pstactions_columns.index('sdgs'), 'categories')
+                else:
+                    pst.pstactions_columns.append('categories')
 
     def manage_permission(self):
         self.portal.manage_permission('imio.project.pst: ecomptes import',
