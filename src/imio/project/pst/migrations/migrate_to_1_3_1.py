@@ -12,7 +12,6 @@ from imio.helpers.content import richtextval
 from imio.migrator.migrator import Migrator
 from imio.project.core.content.project import IProject
 from imio.project.core.content.projectspace import IProjectSpace
-from imio.project.pst.content.action import IPSTAction
 from imio.project.pst.content.pstprojectspace import IPSTProjectSpace
 from plone import api
 from plone.app.contenttypes.migration.dxmigration import migrate_base_class_to_new_class
@@ -114,7 +113,7 @@ class Migrate_To_1_3_1(Migrator):
         migrate_webservices_config()
 
         # reindex all actions
-        self.reindex_all_actions()
+        self.reindex_all_projects()
 
         # upgrade all except 'imio.project.pst:default'. Needed with bin/upgrade-portals
         self.upgradeAll(omit=['imio.project.pst:default'])
