@@ -15,6 +15,7 @@ from collective.eeafaceted.z3ctable.columns import VocabularyColumn
 from collective.task.interfaces import ITaskMethods
 from imio.prettylink.interfaces import IPrettyLink
 from imio.project.core.content.projectspace import IProjectSpace
+from imio.project.core.utils import getProjectSpace
 from imio.project.pst.adapters import UNSET_DATE_VALUE
 from imio.project.pst.utils import find_max_deadline_on_children
 from plone import api
@@ -54,7 +55,7 @@ class CategoriesColumn(VocabularyColumn):
         css = self.cssClasses.copy()
         value = self.getValue(item)
         if value and value != self.ignored_value:
-            if api.portal.get().pst.colorize_project_rows and 'interne' in item.categories[0]:
+            if getProjectSpace(self.context).colorize_project_rows and 'interne' in item.categories[0]:
                 css.update({'tr': 'volet_interne'})
         return css
 
