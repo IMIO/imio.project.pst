@@ -15,6 +15,7 @@ from imio.project.core.content.projectspace import IProjectSpace
 from imio.project.pst.content.pstprojectspace import IPSTProjectSpace
 from plone import api
 from plone.app.contenttypes.migration.dxmigration import migrate_base_class_to_new_class
+from plone.app.textfield import RichTextValue
 from plone.registry.interfaces import IRegistry
 from zope.component import getUtility
 
@@ -290,7 +291,8 @@ class Migrate_To_1_3_1(Migrator):
                 project_obj = project_brain.getObject()
                 field_value = getattr(project_obj, field_name)
                 if field_value:
-                    setattr(project_obj, field_name, richtextval(field_value.raw))
+                    if isinstance(field_value, RichTextValue):
+                        setattr(project_obj, field_name, richtextval(field_value.raw))
 
 
 def migrate(context):
