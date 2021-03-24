@@ -92,7 +92,11 @@ def get_templates(cids):
                    "not((context.getPortalTypeName() == 'Folder' and context.getId() == 'tasks') or "
                    "(context.getPortalTypeName() == 'pstaction' and not context.has_subactions()) or "
                    "context.getPortalTypeName() == 'pstsubaction')",
-                   'context_variables': [{'name': u'with_tasks', 'value': u''}],
+                   'context_variables': [
+                       {'name': u'with_tasks', 'value': u''},
+                       {'name': u'option_0', 'value': u'1'},
+                       {'name': u'option_1', 'value': u''},
+                   ],
                    'pod_template_to_use': cids[30].UID()}},
 
         {'cid': 45, 'cont': 'templates', 'id': 'dfollow-tasks', 'title': u'Suivi avec tâches',
