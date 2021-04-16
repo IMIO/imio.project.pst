@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from ftw.testbrowser import browsing
 from ftw.testbrowser.pages import statusmessages
+from imio.project.core.utils import get_global_budget_infos
 from imio.project.pst.testing import FunctionalTestCase
 from plone import api
 
@@ -112,7 +113,8 @@ class TestUpdateOperationalObjective(FunctionalTestCase):
         step_1(browser, context)  # The actor opens edit form
         self.step_2(browser)  # The system displays operational objective's edit form
         self.step_3(browser)  # The actor update fields and save
-        self.step_4(browser)  # The system save changes with "Modify changes" info success
+        self.step_4(browser, context)  # The system updates summarized fields and save changes with "Modify changes"
+        # info success
 
     def alternative_scenario_3a(self, browser, actor, context):
         """The actor cancel the form."""
@@ -160,6 +162,8 @@ class TestUpdateOperationalObjective(FunctionalTestCase):
         form = browser.forms['form']
         fields = form.values
         fields[self.title_dublinCore_form_widget_name] = u'Titre'
+        browser.find('Financement/Budget').fill(
+            [{u'Montant': '500,0', u'Type de budget': 'wallonie', u'Ann\xe9e': '2021'}])
         form.find_button_by_label('Sauvegarder').click()
 
     def step_3b(self, browser):
@@ -180,11 +184,14 @@ class TestUpdateOperationalObjective(FunctionalTestCase):
         fields[self.planned_end_date_year_form_widget_name] = u'2023'
         form.find_button_by_label('Sauvegarder').click()
 
-    def step_4(self, browser):
-        """The system save changes with "Modify changes" info success."""
+    def step_4(self, browser, context):
+        """The system updates summarized fields and save changes with "Modify changes" info success."""
         heading = browser.css('.documentFirstHeading').first
         self.assertEqual('Titre (OO.15)', heading.text)
         statusmessages.assert_message(u'Modifications sauvegardées')
+        self.assertEqual(get_global_budget_infos(context.aq_parent),
+                         {'europe': 5800.0, 'wallonie': 7550.0, 'ville': 5430.0, 'federal': 500.0, 'autres': 500.0,
+                          'federation-wallonie-bruxelles': 520.55})
 
     def step_4a(self, browser, context):
         """The system back to the previous page with 'Modification canceled' Info."""
