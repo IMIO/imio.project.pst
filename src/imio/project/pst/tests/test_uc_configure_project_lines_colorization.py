@@ -23,7 +23,7 @@ def step_3a(browser):
     form.find_button_by_label('Annuler').click()
 
 
-class TestExportPstToEcompte(FunctionalTestCase):
+class TestConfigureProjectLinesColorization(FunctionalTestCase):
     """Use case tests.
     Name: Configure project lines colorization
     Actor(s): pst admin
@@ -36,7 +36,7 @@ class TestExportPstToEcompte(FunctionalTestCase):
     """
 
     def setUp(self):
-        super(TestExportPstToEcompte, self).setUp()
+        super(TestConfigureProjectLinesColorization, self).setUp()
         # Actors
         self.pst_admin = {'username': 'pstadmin', 'password': self.password}
         # Contexts
