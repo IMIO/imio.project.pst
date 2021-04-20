@@ -256,13 +256,15 @@ class FunctionalTestCase(unittest.TestCase):
         self.search_button_name = 'form.buttons.cancel'
         self.services_config = get_services_config()
         self.title_dublinCore_form_widget_name = 'form.widgets.IDublinCore.title'
+        # project space
+        self.colorize_project_rows_form_widgets = 'form.widgets.colorize_project_rows:list'
+        self.organization_type_form_widget_name = 'form.widgets.organization_type:list'
         # project
         self.budget_type_form_widget_name = 'form.widgets.budget.TT.widgets.budget_type:list'
         self.budget_year_form_widget_name = 'form.widgets.budget.TT.widgets.year:list'
         self.budget_amount_form_widget_name = 'form.widgets.budget.TT.widgets.amount'
         self.budget_comments_form_widget_name = 'form.widgets.budget_comments'
         self.categories_form_widget_name = 'form.widgets.categories:list'
-        self.colorize_project_rows_form_widgets = 'form.widgets.colorize_project_rows:list'
         self.comments_form_widget_name = 'form.widgets.comments'
         self.description_rich_form_widget_name = 'form.widgets.description_rich'
         self.effective_begin_date_day_form_widget_name = 'form.widgets.effective_begin_date-day'
@@ -274,7 +276,6 @@ class FunctionalTestCase(unittest.TestCase):
         self.extra_concerned_people_form_widget_name = 'form.widgets.extra_concerned_people'
         self.manager_form_widget_name = 'form.widgets.manager:list'
         self.observation_form_widget_name = 'form.widgets.observation'
-        self.organization_type_form_widget_name = 'form.widgets.organization_type:list'
         self.plan_form_widget_name = 'form.widgets.plan:list'
         self.planned_begin_date_day_form_widget_name = 'form.widgets.planned_begin_date-day'
         self.planned_begin_date_month_form_widget_name = 'form.widgets.planned_begin_date-month'
