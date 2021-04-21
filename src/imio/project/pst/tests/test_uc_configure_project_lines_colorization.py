@@ -27,10 +27,10 @@ class TestConfigureProjectLinesColorization(FunctionalTestCase):
     """Use case tests.
     Name: Configure project lines colorization
     Actor(s): pst admin
-    Goal: allows actors to create an an xml export to Ecompte
+    Goal: allows actors to configure project lines colorization
     Author: Franck Ngaha
     Created: 05/02/2021
-    Updated: 05/02/2021
+    Updated: 21/04/2021
     Preconditions: The actor must be authenticated in a given specific context :
     - a pst admin in the context of a pst project space in state (internally_published)
     """
@@ -90,14 +90,42 @@ class TestConfigureProjectLinesColorization(FunctionalTestCase):
         form = browser.forms['form']
         fields = form.values
         fields[self.colorize_project_rows_form_widgets] = True
-        form.find_button_by_label('Sauvegarder').click()
+
+        # fill some fields to avoid widget errors
+        browser.find(u'Catégories possibles').fill([
+            {u'Libellé': u"Volet interne : Administration générale - Amélioration de l'Administration",
+             u'Clé': 'volet-interne-adm-generale-amelioration-administration'}])
+        browser.find(u'Priorités possibles').fill([{u'Libellé': '1', u'Clé': '1'}])
+        browser.find(u'Types de budget possibles').fill([{u'Libellé': 'Wallonie', u'Clé': 'wallonie'}])
+        browser.find(u'Plans possibles').fill([{u'Libellé': 'Plan de gestion', u'Clé': 'plan-de-gestion'}])
+        browser.find(u'Colonnes à afficher sur les objectifs stratégiques').fill(
+            [u'Sélection', u'Titre (lien)', u'État', u'Catégories', u'Modifié le', u'Actions PST'])
+        browser.find(u'Colonnes à afficher sur les objectifs opérationnels').fill(
+            [u'Sélection', u'Titre (lien)', u'Parents', u'État', u'Gestionnaire', u'Échéance', u'Priorité',
+             u'Catégories', u'O.D.D.', u'Modifié le', u'Actions PST'])
+        browser.find(u'Colonnes à afficher sur les actions').fill(
+            [u'Sélection', u'Titre (lien)', u'Parents', u'État', u'Gestionnaire', u'Porteur', u'Date début prévue',
+             u'Échéance', u'Date début effective', u'Date fin effective', u'Progression', u'Indice de santé',
+             u'O.D.D.', u'Modifié le', u'Actions PST'])
+        browser.find(u'Colonnes à afficher sur les tâches').fill(
+            [u'Sélection', u'Titre (lien)', u'Parents', u'État', u'Groupe assigné', u'Utilisateur assigné',
+             u'Échéance', u'Créé le', u'Modifié le', u'Actions PST'])
+        browser.find(
+            u'États à considérer pour la globalisation des champs financiers du type Objectif stratégique').fill(
+            [u'En cours', u'Clôturé'])
+        browser.find(
+            u'États à considérer pour la globalisation des champs financiers du type Objectif opérationnel').fill(
+            [u'En cours', u'Clôturé'])
+        browser.find(u'États à considérer pour la globalisation des champs financiers du type Action').fill(
+            [u'En cours', u'Finalisé', u'À programmer'])
+
+        browser.find_button_by_label('Sauvegarder').click()
 
     def step_4(self, browser, context):
         """The system save changes with "Modify changes" info success."""
         heading = browser.css('.documentFirstHeading').first
-        # TODO: PRJ-481
-        # self.assertEqual(context.Title().decode('utf8'), heading.text)
-        # statusmessages.assert_message(u'Modifications sauvegardées')
+        self.assertEqual(context.Title().decode('utf8'), heading.text)
+        statusmessages.assert_message(u'Modifications sauvegardées')
 
     def step_4a(self, browser, context):
         """The system back to the previous page with 'Modification canceled' Info."""
