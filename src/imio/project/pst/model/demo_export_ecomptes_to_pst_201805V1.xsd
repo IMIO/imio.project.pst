@@ -32,6 +32,8 @@
                 <ETP>0</ETP>
                 <Plans/>
                 <Partenaires/>
+                <Articles/>
+                <Projections/>
                 <ObjectifStrategiques>
                     <ObjectifStrategique Exercice="2021" ElementId="754bb88a6dd441a1ba7786d722e08979">
                         <Libelle>OS.1 - Etre une commune qui offre un service public moderne, efficace et efficient</Libelle>
@@ -54,6 +56,8 @@
                         </Plans>
                         
                         <Partenaires/>
+                        <Articles/>
+                        <Projections/>
                         <ObjectifsOperationnels>
                             <ObjectifOperationnel Exercice="2021" ElementId="6a9843e1d46a45478e38d0d598ebc246">
                                 <Libelle>OO.2 - Diminuer le temps d'attente de l'usager au guichet population de 20% dans les 12 mois à venir</Libelle>
@@ -91,6 +95,8 @@
                                 </Plans>
                                 
                                 <Partenaires/>
+                                <Articles/>
+                                <Projections/>
                                 <Actions>
                                     <Action Exercice="2021" ElementId="8a9b8139dfc3432b9b10e6682ed19fe3">
                                         <Libelle>A.3 - Engager 2 agents pour le Service Population</Libelle>
@@ -123,6 +129,8 @@
                                         </Plans>
                                         
                                         <Partenaires/>
+                                        <Articles/>
+                                        <Projections/>
                                     </Action>
                                     <Action Exercice="2021" ElementId="d85e4ba2f1b24d428d556b4d31c03685">
                                         <Libelle>A.4 - Créer un guichet supplémentaire dans les 3 mois</Libelle>
@@ -155,6 +163,8 @@
                                         </Plans>
                                         
                                         <Partenaires/>
+                                        <Articles/>
+                                        <Projections/>
                                     </Action>
                                     <Action Exercice="2021" ElementId="842a8977e2fe416a9788d05bbad013db">
                                         <Libelle>A.5 - Mettre en ligne sur le site internet différents documents "population" à télécharger de chez soi</Libelle>
@@ -187,6 +197,8 @@
                                         </Plans>
                                         
                                         <Partenaires/>
+                                        <Articles/>
+                                        <Projections/>
                                     </Action>
                                 </Actions>
                             </ObjectifOperationnel>
@@ -226,6 +238,8 @@
                                 </Plans>
                                 
                                 <Partenaires/>
+                                <Articles/>
+                                <Projections/>
                                 <Actions>
                                     <Action Exercice="2021" ElementId="770bd93c48c446889f4a58e5d7ca306c">
                                         <Libelle>A.7 - Placer des pictogrammes de guidance</Libelle>
@@ -258,6 +272,8 @@
                                         </Plans>
                                         
                                         <Partenaires/>
+                                        <Articles/>
+                                        <Projections/>
                                     </Action>
                                     <Action Exercice="2021" ElementId="d7d2ce3035664c83a97cfca65588e28c">
                                         <Libelle>A.8 - Installer une rampe d'accès pour PMR</Libelle>
@@ -290,6 +306,8 @@
                                         </Plans>
                                         
                                         <Partenaires/>
+                                        <Articles/>
+                                        <Projections/>
                                     </Action>
                                     <Action Exercice="2021" ElementId="f45c4604f833422cbf29f54b422dca8f">
                                         <Libelle>A.9 - Mettre en place des permanences sur rendez-vous</Libelle>
@@ -322,6 +340,8 @@
                                         </Plans>
                                         
                                         <Partenaires/>
+                                        <Articles/>
+                                        <Projections/>
                                     </Action>
                                 </Actions>
                             </ObjectifOperationnel>
@@ -345,6 +365,8 @@
                         
                         
                         <Partenaires/>
+                        <Articles/>
+                        <Projections/>
                         <ObjectifsOperationnels>
                             <ObjectifOperationnel Exercice="2021" ElementId="e7bee8590e1b4d7eacf55c8e069479a3">
                                 <Libelle>OO.11 - Doter la commune de compétences en matière énergétique pour fin 2021 compte tenu du budget</Libelle>
@@ -379,6 +401,8 @@
                                 
                                 
                                 <Partenaires/>
+                                <Articles/>
+                                <Projections/>
                                 <Actions>
                                     <Action Exercice="2021" ElementId="1c122b964805405d9de3627e6a4dd42c">
                                         <Libelle>A.12 - Procéder à l'engagement d'un conseiller en énergie</Libelle>
@@ -408,6 +432,8 @@
                                         
                                         
                                         <Partenaires/>
+                                        <Articles/>
+                                        <Projections/>
                                     </Action>
                                     <Action Exercice="2021" ElementId="ecf7b62e76fb405f9bd2d600e0bcaf40">
                                         <Libelle>A.13 - Répondre à l'appel à projet "écopasseur" de la Wallonie</Libelle>
@@ -437,6 +463,41 @@
                                         
                                         
                                         <Partenaires/>
+                                        <Articles>
+                                            <Article>
+                                                <Exercice>2019</Exercice>
+                                                <Service>O</Service>
+                                                <Type>D</Type>
+                                                <CodeArticle>xxx/wal-13.2019</CodeArticle>
+                                                <Libelle>Répondre à l'appel à projet wallon "écopasseur"</Libelle>
+                                                <Montant>0</Montant>
+                                            </Article>
+                                            <Article>
+                                                <Exercice>2019</Exercice>
+                                                <Service>O</Service>
+                                                <Type>D</Type>
+                                                <CodeArticle>xxx/eur-13.2019</CodeArticle>
+                                                <Libelle>Répondre à l'appel à projet wallon "écopasseur"</Libelle>
+                                                <Montant>50</Montant>
+                                            </Article>
+                                            <Article>
+                                                <Exercice>2019</Exercice>
+                                                <Service>O</Service>
+                                                <Type>D</Type>
+                                                <CodeArticle>xxx/fwb-13.2019</CodeArticle>
+                                                <Libelle>Répondre à l'appel à projet wallon "écopasseur"</Libelle>
+                                                <Montant>5</Montant>
+                                            </Article>
+                                            <Article>
+                                                <Exercice>2020</Exercice>
+                                                <Service>O</Service>
+                                                <Type>D</Type>
+                                                <CodeArticle>xxx/vil-13.2020</CodeArticle>
+                                                <Libelle>Répondre à l'appel à projet wallon "écopasseur"</Libelle>
+                                                <Montant>215</Montant>
+                                            </Article>
+                                        </Articles>
+                                        <Projections/>
                                     </Action>
                                     <Action Exercice="2021" ElementId="0c505eaf20954eb4972798ff5b5e8852">
                                         <Libelle>A.14 - Inscrire systématiquement les agents du service travaux aux formations énergétiques</Libelle>
@@ -466,6 +527,41 @@
                                         
                                         
                                         <Partenaires/>
+                                        <Articles>
+                                            <Article>
+                                                <Exercice>2019</Exercice>
+                                                <Service>O</Service>
+                                                <Type>D</Type>
+                                                <CodeArticle>xxx/wal-14.2019</CodeArticle>
+                                                <Libelle>Inscrire les agents aux formations énergétiques</Libelle>
+                                                <Montant>550</Montant>
+                                            </Article>
+                                            <Article>
+                                                <Exercice>2019</Exercice>
+                                                <Service>O</Service>
+                                                <Type>D</Type>
+                                                <CodeArticle>xxx/eur-14.2019</CodeArticle>
+                                                <Libelle>Inscrire les agents aux formations énergétiques</Libelle>
+                                                <Montant>5250</Montant>
+                                            </Article>
+                                            <Article>
+                                                <Exercice>2020</Exercice>
+                                                <Service>O</Service>
+                                                <Type>D</Type>
+                                                <CodeArticle>xxx/fwb-14.2020</CodeArticle>
+                                                <Libelle>Inscrire les agents aux formations énergétiques</Libelle>
+                                                <Montant>515.55</Montant>
+                                            </Article>
+                                            <Article>
+                                                <Exercice>2020</Exercice>
+                                                <Service>O</Service>
+                                                <Type>D</Type>
+                                                <CodeArticle>xxx/vil-14.2020</CodeArticle>
+                                                <Libelle>Inscrire les agents aux formations énergétiques</Libelle>
+                                                <Montant>5215</Montant>
+                                            </Article>
+                                        </Articles>
+                                        <Projections/>
                                     </Action>
                                 </Actions>
                             </ObjectifOperationnel>
@@ -502,6 +598,8 @@
                                 
                                 
                                 <Partenaires/>
+                                <Articles/>
+                                <Projections/>
                                 <Actions>
                                     <Action Exercice="2021" ElementId="0352a2664fce4b8698dcc7e42c6fd45f">
                                         <Libelle>A.16 - Réduire la consommation énergétique de l'administration communale</Libelle>
@@ -531,6 +629,8 @@
                                         
                                         
                                         <Partenaires/>
+                                        <Articles/>
+                                        <Projections/>
                                     </Action>
                                     <Action Exercice="2021" ElementId="b07ec94c0e804690a9ef971db84e12b1">
                                         <Libelle>A.16 - SA.17 - Réaliser un audit énergétique du bâtiment</Libelle>
@@ -560,6 +660,41 @@
                                         
                                         
                                         <Partenaires/>
+                                        <Articles>
+                                            <Article>
+                                                <Exercice>2019</Exercice>
+                                                <Service>O</Service>
+                                                <Type>D</Type>
+                                                <CodeArticle>xxx/wal-17.2019</CodeArticle>
+                                                <Libelle>Réaliser un audit énergétique du bâtiment</Libelle>
+                                                <Montant>500</Montant>
+                                            </Article>
+                                            <Article>
+                                                <Exercice>2020</Exercice>
+                                                <Service>O</Service>
+                                                <Type>D</Type>
+                                                <CodeArticle>xxx/wal-17.2020</CodeArticle>
+                                                <Libelle>Réaliser un audit énergétique du bâtiment</Libelle>
+                                                <Montant>500</Montant>
+                                            </Article>
+                                            <Article>
+                                                <Exercice>2021</Exercice>
+                                                <Service>O</Service>
+                                                <Type>D</Type>
+                                                <CodeArticle>xxx/wal-17.2021</CodeArticle>
+                                                <Libelle>Réaliser un audit énergétique du bâtiment</Libelle>
+                                                <Montant>500</Montant>
+                                            </Article>
+                                            <Article>
+                                                <Exercice>2022</Exercice>
+                                                <Service>O</Service>
+                                                <Type>D</Type>
+                                                <CodeArticle>xxx/wal-17.2022</CodeArticle>
+                                                <Libelle>Réaliser un audit énergétique du bâtiment</Libelle>
+                                                <Montant>500</Montant>
+                                            </Article>
+                                        </Articles>
+                                        <Projections/>
                                     </Action>
                                     <Action Exercice="2021" ElementId="40554585324e43f9b711dbcee196c988">
                                         <Libelle>A.16 - SA.18 - En fonction des résultats, procéder à l'isolation du bâtiment</Libelle>
@@ -589,6 +724,41 @@
                                         
                                         
                                         <Partenaires/>
+                                        <Articles>
+                                            <Article>
+                                                <Exercice>2019</Exercice>
+                                                <Service>O</Service>
+                                                <Type>D</Type>
+                                                <CodeArticle>xxx/wal-18.2019</CodeArticle>
+                                                <Libelle>Procéder à l'isolation du bâtiment</Libelle>
+                                                <Montant>1000</Montant>
+                                            </Article>
+                                            <Article>
+                                                <Exercice>2020</Exercice>
+                                                <Service>O</Service>
+                                                <Type>D</Type>
+                                                <CodeArticle>xxx/wal-18.2020</CodeArticle>
+                                                <Libelle>Procéder à l'isolation du bâtiment</Libelle>
+                                                <Montant>1000</Montant>
+                                            </Article>
+                                            <Article>
+                                                <Exercice>2021</Exercice>
+                                                <Service>O</Service>
+                                                <Type>D</Type>
+                                                <CodeArticle>xxx/wal-18.2021</CodeArticle>
+                                                <Libelle>Procéder à l'isolation du bâtiment</Libelle>
+                                                <Montant>1000</Montant>
+                                            </Article>
+                                            <Article>
+                                                <Exercice>2022</Exercice>
+                                                <Service>O</Service>
+                                                <Type>D</Type>
+                                                <CodeArticle>xxx/wal-18.2022</CodeArticle>
+                                                <Libelle>Procéder à l'isolation du bâtiment</Libelle>
+                                                <Montant>1000</Montant>
+                                            </Article>
+                                        </Articles>
+                                        <Projections/>
                                     </Action>
                                     <Action Exercice="2021" ElementId="b8cb5fbfd9d549259f8b4015ac7cb786">
                                         <Libelle>A.16 - SA.19 - En fonction des résultats, remplacer le système de chauffage</Libelle>
@@ -618,6 +788,41 @@
                                         
                                         
                                         <Partenaires/>
+                                        <Articles>
+                                            <Article>
+                                                <Exercice>2021</Exercice>
+                                                <Service>O</Service>
+                                                <Type>D</Type>
+                                                <CodeArticle>xxx/eur-19.2021</CodeArticle>
+                                                <Libelle>remplacer le système de chauffage</Libelle>
+                                                <Montant>500</Montant>
+                                            </Article>
+                                            <Article>
+                                                <Exercice>2021</Exercice>
+                                                <Service>O</Service>
+                                                <Type>D</Type>
+                                                <CodeArticle>xxx/fed-19.2021</CodeArticle>
+                                                <Libelle>remplacer le système de chauffage</Libelle>
+                                                <Montant>500</Montant>
+                                            </Article>
+                                            <Article>
+                                                <Exercice>2021</Exercice>
+                                                <Service>O</Service>
+                                                <Type>D</Type>
+                                                <CodeArticle>xxx/wal-19.2021</CodeArticle>
+                                                <Libelle>remplacer le système de chauffage</Libelle>
+                                                <Montant>500</Montant>
+                                            </Article>
+                                            <Article>
+                                                <Exercice>2021</Exercice>
+                                                <Service>O</Service>
+                                                <Type>D</Type>
+                                                <CodeArticle>xxx/aut-19.2021</CodeArticle>
+                                                <Libelle>remplacer le système de chauffage</Libelle>
+                                                <Montant>500</Montant>
+                                            </Article>
+                                        </Articles>
+                                        <Projections/>
                                     </Action>
                                     <Action Exercice="2021" ElementId="7648e6b9bc9f43c7aa8b37cbb4e29125">
                                         <Libelle>A.20 - Réduire la consommation énergétique du hangar communal</Libelle>
@@ -647,6 +852,8 @@
                                         
                                         
                                         <Partenaires/>
+                                        <Articles/>
+                                        <Projections/>
                                     </Action>
                                 </Actions>
                             </ObjectifOperationnel>
@@ -670,6 +877,8 @@
                         
                         
                         <Partenaires/>
+                        <Articles/>
+                        <Projections/>
                         <ObjectifsOperationnels>
                             <ObjectifOperationnel Exercice="2021" ElementId="4198174b0616464e8dc3f017ba7a6d9c">
                                 <Libelle>OO.22 - Assurer la propreté dans l'ensemble des parcs de la commune de manière à réduire la présence de déchets de 90% au 31 12 2022</Libelle>
@@ -704,6 +913,8 @@
                                 
                                 
                                 <Partenaires/>
+                                <Articles/>
+                                <Projections/>
                                 <Actions>
                                     <Action Exercice="2021" ElementId="a3838a32a45f47b695043cb97430e1d8">
                                         <Libelle>A.23 - Installer des distributeurs de sacs "ramasse crottes", dans les parcs (entrée et sortie)</Libelle>
@@ -733,6 +944,8 @@
                                         
                                         
                                         <Partenaires/>
+                                        <Articles/>
+                                        <Projections/>
                                     </Action>
                                 </Actions>
                             </ObjectifOperationnel>
