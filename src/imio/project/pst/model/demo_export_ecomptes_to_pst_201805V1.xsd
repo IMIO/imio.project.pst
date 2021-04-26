@@ -1,0 +1,745 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<dataroot>
+    <Identifiants>
+        <Id>20210426</Id>
+        <TypeAdmin>AC</TypeAdmin>
+        <INS>99999</INS>
+        <Type>PST</Type>
+        <Exercice>2021</Exercice>
+        <Version>201805V1</Version>
+        <Generateur>PST</Generateur>
+    </Identifiants>
+    <PST>
+        <DescriptionPST>
+            <IdPST>a3fb92fbde9b4af3a7bb024daed676b7</IdPST>
+            <Libelle>PST 2019-2024</Libelle>
+            <ExerciceDebut>2019</ExerciceDebut>
+            <ExerciceFin>2024</ExerciceFin>
+        </DescriptionPST>
+        <Volets>
+            <Volet ElementId="neant" Exercice="2021">
+                <Libelle>NEANT</Libelle>
+                <Description>
+                    <Mode>TEXTE</Mode>
+                    <Valeur/>
+                </Description>
+                <Statut>NON_COMMENCE</Statut>
+                <TauxAvancement>0</TauxAvancement>
+                <RemarqueStatut>
+                    <Mode>TEXTE</Mode>
+                    <Valeur/>
+                </RemarqueStatut>
+                <ETP>0</ETP>
+                <Plans/>
+                <Partenaires/>
+                <ObjectifStrategiques>
+                    <ObjectifStrategique Exercice="2021" ElementId="754bb88a6dd441a1ba7786d722e08979">
+                        <Libelle>OS.1 - Etre une commune qui offre un service public moderne, efficace et efficient</Libelle>
+                        <Description>
+                            <Mode>TEXTE</Mode>
+                            <Valeur></Valeur>
+                        </Description>
+                        <Statut>EN_COURS</Statut>
+                        <TauxAvancement>0</TauxAvancement>
+                        <RemarqueStatut>
+                            <Mode>TEXTE</Mode>
+                            <Valeur/>
+                        </RemarqueStatut>
+                        <ETP>0</ETP>
+                        
+                        
+                        <Plans>
+                            <Plan>Plan de formation du personnel</Plan>
+                            <Plan>Plan de gestion</Plan>
+                        </Plans>
+                        
+                        <Partenaires/>
+                        <ObjectifsOperationnels>
+                            <ObjectifOperationnel Exercice="2021" ElementId="6a9843e1d46a45478e38d0d598ebc246">
+                                <Libelle>OO.2 - Diminuer le temps d'attente de l'usager au guichet population de 20% dans les 12 mois à venir</Libelle>
+                                <Description>
+                                    <Mode>TEXTE</Mode>
+                                    <Valeur></Valeur>
+                                </Description>
+                                <Statut>EN_COURS</Statut>
+                                <Responsable>
+                                    <Civilite>MONSIEUR</Civilite>
+                                    <Nom>Secrétariat Communal</Nom>
+                                    <Prenom/>
+                                    <Tel/>
+                                    <eMail/>
+                                </Responsable>
+                                <Mandataire>
+                                    <Civilite>MONSIEUR</Civilite>
+                                    <Nom>1er échevin</Nom>
+                                    <Prenom/>
+                                    <Tel/>
+                                    <eMail/>
+                                </Mandataire>
+                                <Departement>Service Population</Departement>
+                                <TauxAvancement>0</TauxAvancement>
+                                <RemarqueStatut>
+                                    <Mode>TEXTE</Mode>
+                                    <Valeur/>
+                                </RemarqueStatut>
+                                <ETP>0</ETP>
+                                
+                                
+                                <Plans>
+                                    <Plan>Plan de formation du personnel</Plan>
+                                    <Plan>Plan de gestion</Plan>
+                                </Plans>
+                                
+                                <Partenaires/>
+                                <Actions>
+                                    <Action Exercice="2021" ElementId="8a9b8139dfc3432b9b10e6682ed19fe3">
+                                        <Libelle>A.3 - Engager 2 agents pour le Service Population</Libelle>
+                                        
+                                        <DateFin>2020-06-30</DateFin>
+                                        <Description>
+                                            <Mode>TEXTE</Mode>
+                                            <Valeur></Valeur>
+                                        </Description>
+                                        <Statut>EN_COURS</Statut>
+                                        <Mandataire>
+                                            <Civilite>MONSIEUR</Civilite>
+                                            <Nom>1er échevin</Nom>
+                                            <Prenom/>
+                                            <Tel/>
+                                            <eMail/>
+                                        </Mandataire>
+                                        <Departement>Service Population</Departement>
+                                        <TauxAvancement>0</TauxAvancement>
+                                        <RemarqueStatut>
+                                            <Mode>TEXTE</Mode>
+                                            <Valeur/>
+                                        </RemarqueStatut>
+                                        <ETP>0</ETP>
+                                        
+                                        
+                                        <Plans>
+                                            <Plan>Plan de formation du personnel</Plan>
+                                            <Plan>Plan de gestion</Plan>
+                                        </Plans>
+                                        
+                                        <Partenaires/>
+                                    </Action>
+                                    <Action Exercice="2021" ElementId="d85e4ba2f1b24d428d556b4d31c03685">
+                                        <Libelle>A.4 - Créer un guichet supplémentaire dans les 3 mois</Libelle>
+                                        
+                                        <DateFin>2020-06-30</DateFin>
+                                        <Description>
+                                            <Mode>TEXTE</Mode>
+                                            <Valeur></Valeur>
+                                        </Description>
+                                        <Statut>EN_COURS</Statut>
+                                        <Mandataire>
+                                            <Civilite>MONSIEUR</Civilite>
+                                            <Nom>1er échevin</Nom>
+                                            <Prenom/>
+                                            <Tel/>
+                                            <eMail/>
+                                        </Mandataire>
+                                        <Departement>Service Population</Departement>
+                                        <TauxAvancement>0</TauxAvancement>
+                                        <RemarqueStatut>
+                                            <Mode>TEXTE</Mode>
+                                            <Valeur/>
+                                        </RemarqueStatut>
+                                        <ETP>0</ETP>
+                                        
+                                        
+                                        <Plans>
+                                            <Plan>Plan de formation du personnel</Plan>
+                                            <Plan>Plan de gestion</Plan>
+                                        </Plans>
+                                        
+                                        <Partenaires/>
+                                    </Action>
+                                    <Action Exercice="2021" ElementId="842a8977e2fe416a9788d05bbad013db">
+                                        <Libelle>A.5 - Mettre en ligne sur le site internet différents documents "population" à télécharger de chez soi</Libelle>
+                                        
+                                        <DateFin>2020-09-30</DateFin>
+                                        <Description>
+                                            <Mode>TEXTE</Mode>
+                                            <Valeur></Valeur>
+                                        </Description>
+                                        <Statut>EN_ATTENTE</Statut>
+                                        <Mandataire>
+                                            <Civilite>MONSIEUR</Civilite>
+                                            <Nom>1er échevin</Nom>
+                                            <Prenom/>
+                                            <Tel/>
+                                            <eMail/>
+                                        </Mandataire>
+                                        <Departement>Service Population</Departement>
+                                        <TauxAvancement>0</TauxAvancement>
+                                        <RemarqueStatut>
+                                            <Mode>TEXTE</Mode>
+                                            <Valeur/>
+                                        </RemarqueStatut>
+                                        <ETP>0</ETP>
+                                        
+                                        
+                                        <Plans>
+                                            <Plan>Plan de formation du personnel</Plan>
+                                            <Plan>Plan de gestion</Plan>
+                                        </Plans>
+                                        
+                                        <Partenaires/>
+                                    </Action>
+                                </Actions>
+                            </ObjectifOperationnel>
+                            <ObjectifOperationnel Exercice="2021" ElementId="85ca9a9c7ded4fc2974e44f1c5934746">
+                                <Libelle>OO.6 - Optimiser l'accueil au sein de l'administration communale</Libelle>
+                                <Description>
+                                    <Mode>TEXTE</Mode>
+                                    <Valeur></Valeur>
+                                </Description>
+                                <Statut>EN_COURS</Statut>
+                                <Responsable>
+                                    <Civilite>MONSIEUR</Civilite>
+                                    <Nom>Secrétariat Communal</Nom>
+                                    <Prenom/>
+                                    <Tel/>
+                                    <eMail/>
+                                </Responsable>
+                                <Mandataire>
+                                    <Civilite>MONSIEUR</Civilite>
+                                    <Nom>1er échevin</Nom>
+                                    <Prenom/>
+                                    <Tel/>
+                                    <eMail/>
+                                </Mandataire>
+                                <Departement>Service Etat-civil</Departement>
+                                <TauxAvancement>0</TauxAvancement>
+                                <RemarqueStatut>
+                                    <Mode>TEXTE</Mode>
+                                    <Valeur/>
+                                </RemarqueStatut>
+                                <ETP>0</ETP>
+                                
+                                
+                                <Plans>
+                                    <Plan>Plan de formation du personnel</Plan>
+                                    <Plan>Plan de gestion</Plan>
+                                </Plans>
+                                
+                                <Partenaires/>
+                                <Actions>
+                                    <Action Exercice="2021" ElementId="770bd93c48c446889f4a58e5d7ca306c">
+                                        <Libelle>A.7 - Placer des pictogrammes de guidance</Libelle>
+                                        
+                                        <DateFin>2020-06-30</DateFin>
+                                        <Description>
+                                            <Mode>TEXTE</Mode>
+                                            <Valeur></Valeur>
+                                        </Description>
+                                        <Statut>EN_ATTENTE</Statut>
+                                        <Mandataire>
+                                            <Civilite>MONSIEUR</Civilite>
+                                            <Nom>1er échevin</Nom>
+                                            <Prenom/>
+                                            <Tel/>
+                                            <eMail/>
+                                        </Mandataire>
+                                        <Departement>Service Population</Departement>
+                                        <TauxAvancement>0</TauxAvancement>
+                                        <RemarqueStatut>
+                                            <Mode>TEXTE</Mode>
+                                            <Valeur/>
+                                        </RemarqueStatut>
+                                        <ETP>0</ETP>
+                                        
+                                        
+                                        <Plans>
+                                            <Plan>Plan de formation du personnel</Plan>
+                                            <Plan>Plan de gestion</Plan>
+                                        </Plans>
+                                        
+                                        <Partenaires/>
+                                    </Action>
+                                    <Action Exercice="2021" ElementId="d7d2ce3035664c83a97cfca65588e28c">
+                                        <Libelle>A.8 - Installer une rampe d'accès pour PMR</Libelle>
+                                        
+                                        <DateFin>2020-06-30</DateFin>
+                                        <Description>
+                                            <Mode>TEXTE</Mode>
+                                            <Valeur></Valeur>
+                                        </Description>
+                                        <Statut>EN_ATTENTE</Statut>
+                                        <Mandataire>
+                                            <Civilite>MONSIEUR</Civilite>
+                                            <Nom>1er échevin</Nom>
+                                            <Prenom/>
+                                            <Tel/>
+                                            <eMail/>
+                                        </Mandataire>
+                                        <Departement>Service Population</Departement>
+                                        <TauxAvancement>0</TauxAvancement>
+                                        <RemarqueStatut>
+                                            <Mode>TEXTE</Mode>
+                                            <Valeur/>
+                                        </RemarqueStatut>
+                                        <ETP>0</ETP>
+                                        
+                                        
+                                        <Plans>
+                                            <Plan>Plan de formation du personnel</Plan>
+                                            <Plan>Plan de gestion</Plan>
+                                        </Plans>
+                                        
+                                        <Partenaires/>
+                                    </Action>
+                                    <Action Exercice="2021" ElementId="f45c4604f833422cbf29f54b422dca8f">
+                                        <Libelle>A.9 - Mettre en place des permanences sur rendez-vous</Libelle>
+                                        
+                                        <DateFin>2020-09-30</DateFin>
+                                        <Description>
+                                            <Mode>TEXTE</Mode>
+                                            <Valeur></Valeur>
+                                        </Description>
+                                        <Statut>EN_ATTENTE</Statut>
+                                        <Mandataire>
+                                            <Civilite>MONSIEUR</Civilite>
+                                            <Nom>1er échevin</Nom>
+                                            <Prenom/>
+                                            <Tel/>
+                                            <eMail/>
+                                        </Mandataire>
+                                        <Departement>Service Population</Departement>
+                                        <TauxAvancement>0</TauxAvancement>
+                                        <RemarqueStatut>
+                                            <Mode>TEXTE</Mode>
+                                            <Valeur/>
+                                        </RemarqueStatut>
+                                        <ETP>0</ETP>
+                                        
+                                        
+                                        <Plans>
+                                            <Plan>Plan de formation du personnel</Plan>
+                                            <Plan>Plan de gestion</Plan>
+                                        </Plans>
+                                        
+                                        <Partenaires/>
+                                    </Action>
+                                </Actions>
+                            </ObjectifOperationnel>
+                        </ObjectifsOperationnels>
+                    </ObjectifStrategique>
+                    <ObjectifStrategique Exercice="2021" ElementId="2d2f1590ce1c426792dd0042752829df">
+                        <Libelle>OS.10 - Etre une commune qui s'inscrit dans la lignée des accords de réductions des gaz à effet de serre afin d'assurer le développement durable</Libelle>
+                        <Description>
+                            <Mode>TEXTE</Mode>
+                            <Valeur></Valeur>
+                        </Description>
+                        <Statut>EN_COURS</Statut>
+                        <TauxAvancement>0</TauxAvancement>
+                        <RemarqueStatut>
+                            <Mode>TEXTE</Mode>
+                            <Valeur/>
+                        </RemarqueStatut>
+                        <ETP>0</ETP>
+                        
+                        <Plans/>
+                        
+                        
+                        <Partenaires/>
+                        <ObjectifsOperationnels>
+                            <ObjectifOperationnel Exercice="2021" ElementId="e7bee8590e1b4d7eacf55c8e069479a3">
+                                <Libelle>OO.11 - Doter la commune de compétences en matière énergétique pour fin 2021 compte tenu du budget</Libelle>
+                                <Description>
+                                    <Mode>TEXTE</Mode>
+                                    <Valeur></Valeur>
+                                </Description>
+                                <Statut>EN_COURS</Statut>
+                                <Responsable>
+                                    <Civilite>MONSIEUR</Civilite>
+                                    <Nom>Secrétariat Communal</Nom>
+                                    <Prenom/>
+                                    <Tel/>
+                                    <eMail/>
+                                </Responsable>
+                                <Mandataire>
+                                    <Civilite>MONSIEUR</Civilite>
+                                    <Nom>4ème échevin</Nom>
+                                    <Prenom/>
+                                    <Tel/>
+                                    <eMail/>
+                                </Mandataire>
+                                <Departement>Service de l'Urbanisme</Departement>
+                                <TauxAvancement>0</TauxAvancement>
+                                <RemarqueStatut>
+                                    <Mode>TEXTE</Mode>
+                                    <Valeur/>
+                                </RemarqueStatut>
+                                <ETP>0</ETP>
+                                
+                                <Plans/>
+                                
+                                
+                                <Partenaires/>
+                                <Actions>
+                                    <Action Exercice="2021" ElementId="1c122b964805405d9de3627e6a4dd42c">
+                                        <Libelle>A.12 - Procéder à l'engagement d'un conseiller en énergie</Libelle>
+                                        
+                                        <DateFin>2020-06-30</DateFin>
+                                        <Description>
+                                            <Mode>TEXTE</Mode>
+                                            <Valeur></Valeur>
+                                        </Description>
+                                        <Statut>EN_ATTENTE</Statut>
+                                        <Mandataire>
+                                            <Civilite>MONSIEUR</Civilite>
+                                            <Nom>4ème échevin</Nom>
+                                            <Prenom/>
+                                            <Tel/>
+                                            <eMail/>
+                                        </Mandataire>
+                                        <Departement>Service de l'Urbanisme</Departement>
+                                        <TauxAvancement>0</TauxAvancement>
+                                        <RemarqueStatut>
+                                            <Mode>TEXTE</Mode>
+                                            <Valeur/>
+                                        </RemarqueStatut>
+                                        <ETP>0</ETP>
+                                        
+                                        <Plans/>
+                                        
+                                        
+                                        <Partenaires/>
+                                    </Action>
+                                    <Action Exercice="2021" ElementId="ecf7b62e76fb405f9bd2d600e0bcaf40">
+                                        <Libelle>A.13 - Répondre à l'appel à projet "écopasseur" de la Wallonie</Libelle>
+                                        
+                                        <DateFin>2020-06-30</DateFin>
+                                        <Description>
+                                            <Mode>TEXTE</Mode>
+                                            <Valeur></Valeur>
+                                        </Description>
+                                        <Statut>EN_ATTENTE</Statut>
+                                        <Mandataire>
+                                            <Civilite>MONSIEUR</Civilite>
+                                            <Nom>4ème échevin</Nom>
+                                            <Prenom/>
+                                            <Tel/>
+                                            <eMail/>
+                                        </Mandataire>
+                                        <Departement>Service de l'Urbanisme</Departement>
+                                        <TauxAvancement>0</TauxAvancement>
+                                        <RemarqueStatut>
+                                            <Mode>TEXTE</Mode>
+                                            <Valeur/>
+                                        </RemarqueStatut>
+                                        <ETP>0</ETP>
+                                        
+                                        <Plans/>
+                                        
+                                        
+                                        <Partenaires/>
+                                    </Action>
+                                    <Action Exercice="2021" ElementId="0c505eaf20954eb4972798ff5b5e8852">
+                                        <Libelle>A.14 - Inscrire systématiquement les agents du service travaux aux formations énergétiques</Libelle>
+                                        
+                                        <DateFin>2020-09-30</DateFin>
+                                        <Description>
+                                            <Mode>TEXTE</Mode>
+                                            <Valeur></Valeur>
+                                        </Description>
+                                        <Statut>EN_ATTENTE</Statut>
+                                        <Mandataire>
+                                            <Civilite>MONSIEUR</Civilite>
+                                            <Nom>4ème échevin</Nom>
+                                            <Prenom/>
+                                            <Tel/>
+                                            <eMail/>
+                                        </Mandataire>
+                                        <Departement>Service Population</Departement>
+                                        <TauxAvancement>0</TauxAvancement>
+                                        <RemarqueStatut>
+                                            <Mode>TEXTE</Mode>
+                                            <Valeur/>
+                                        </RemarqueStatut>
+                                        <ETP>0</ETP>
+                                        
+                                        <Plans/>
+                                        
+                                        
+                                        <Partenaires/>
+                                    </Action>
+                                </Actions>
+                            </ObjectifOperationnel>
+                            <ObjectifOperationnel Exercice="2021" ElementId="701e20ed997045ebb378ae9a4c5461cb">
+                                <Libelle>OO.15 - Réduire la consommation énergétique des bâtiments communaux de 20% d'ici 2024</Libelle>
+                                <Description>
+                                    <Mode>TEXTE</Mode>
+                                    <Valeur></Valeur>
+                                </Description>
+                                <Statut>EN_COURS</Statut>
+                                <Responsable>
+                                    <Civilite>MONSIEUR</Civilite>
+                                    <Nom>Secrétariat Communal</Nom>
+                                    <Prenom/>
+                                    <Tel/>
+                                    <eMail/>
+                                </Responsable>
+                                <Mandataire>
+                                    <Civilite>MONSIEUR</Civilite>
+                                    <Nom>1er échevin</Nom>
+                                    <Prenom/>
+                                    <Tel/>
+                                    <eMail/>
+                                </Mandataire>
+                                <Departement>Service de l'Urbanisme</Departement>
+                                <TauxAvancement>0</TauxAvancement>
+                                <RemarqueStatut>
+                                    <Mode>TEXTE</Mode>
+                                    <Valeur/>
+                                </RemarqueStatut>
+                                <ETP>0</ETP>
+                                
+                                <Plans/>
+                                
+                                
+                                <Partenaires/>
+                                <Actions>
+                                    <Action Exercice="2021" ElementId="0352a2664fce4b8698dcc7e42c6fd45f">
+                                        <Libelle>A.16 - Réduire la consommation énergétique de l'administration communale</Libelle>
+                                        
+                                        <DateFin>2024-06-30</DateFin>
+                                        <Description>
+                                            <Mode>TEXTE</Mode>
+                                            <Valeur></Valeur>
+                                        </Description>
+                                        <Statut>EN_ATTENTE</Statut>
+                                        <Mandataire>
+                                            <Civilite>MONSIEUR</Civilite>
+                                            <Nom>1er échevin</Nom>
+                                            <Prenom/>
+                                            <Tel/>
+                                            <eMail/>
+                                        </Mandataire>
+                                        <Departement>Service de l'Urbanisme</Departement>
+                                        <TauxAvancement>0</TauxAvancement>
+                                        <RemarqueStatut>
+                                            <Mode>TEXTE</Mode>
+                                            <Valeur/>
+                                        </RemarqueStatut>
+                                        <ETP>0</ETP>
+                                        
+                                        <Plans/>
+                                        
+                                        
+                                        <Partenaires/>
+                                    </Action>
+                                    <Action Exercice="2021" ElementId="b07ec94c0e804690a9ef971db84e12b1">
+                                        <Libelle>A.16 - SA.17 - Réaliser un audit énergétique du bâtiment</Libelle>
+                                        
+                                        <DateFin>2020-06-30</DateFin>
+                                        <Description>
+                                            <Mode>TEXTE</Mode>
+                                            <Valeur></Valeur>
+                                        </Description>
+                                        <Statut>EN_ATTENTE</Statut>
+                                        <Mandataire>
+                                            <Civilite>MONSIEUR</Civilite>
+                                            <Nom>1er échevin</Nom>
+                                            <Prenom/>
+                                            <Tel/>
+                                            <eMail/>
+                                        </Mandataire>
+                                        <Departement>Service de l'Urbanisme</Departement>
+                                        <TauxAvancement>0</TauxAvancement>
+                                        <RemarqueStatut>
+                                            <Mode>TEXTE</Mode>
+                                            <Valeur/>
+                                        </RemarqueStatut>
+                                        <ETP>0</ETP>
+                                        
+                                        <Plans/>
+                                        
+                                        
+                                        <Partenaires/>
+                                    </Action>
+                                    <Action Exercice="2021" ElementId="40554585324e43f9b711dbcee196c988">
+                                        <Libelle>A.16 - SA.18 - En fonction des résultats, procéder à l'isolation du bâtiment</Libelle>
+                                        
+                                        <DateFin>2020-10-31</DateFin>
+                                        <Description>
+                                            <Mode>TEXTE</Mode>
+                                            <Valeur></Valeur>
+                                        </Description>
+                                        <Statut>EN_ATTENTE</Statut>
+                                        <Mandataire>
+                                            <Civilite>MONSIEUR</Civilite>
+                                            <Nom>1er échevin</Nom>
+                                            <Prenom/>
+                                            <Tel/>
+                                            <eMail/>
+                                        </Mandataire>
+                                        <Departement>Service Travaux</Departement>
+                                        <TauxAvancement>0</TauxAvancement>
+                                        <RemarqueStatut>
+                                            <Mode>TEXTE</Mode>
+                                            <Valeur/>
+                                        </RemarqueStatut>
+                                        <ETP>0</ETP>
+                                        
+                                        <Plans/>
+                                        
+                                        
+                                        <Partenaires/>
+                                    </Action>
+                                    <Action Exercice="2021" ElementId="b8cb5fbfd9d549259f8b4015ac7cb786">
+                                        <Libelle>A.16 - SA.19 - En fonction des résultats, remplacer le système de chauffage</Libelle>
+                                        
+                                        <DateFin>2020-10-31</DateFin>
+                                        <Description>
+                                            <Mode>TEXTE</Mode>
+                                            <Valeur></Valeur>
+                                        </Description>
+                                        <Statut>EN_ATTENTE</Statut>
+                                        <Mandataire>
+                                            <Civilite>MONSIEUR</Civilite>
+                                            <Nom>1er échevin</Nom>
+                                            <Prenom/>
+                                            <Tel/>
+                                            <eMail/>
+                                        </Mandataire>
+                                        <Departement>Service Population</Departement>
+                                        <TauxAvancement>0</TauxAvancement>
+                                        <RemarqueStatut>
+                                            <Mode>TEXTE</Mode>
+                                            <Valeur/>
+                                        </RemarqueStatut>
+                                        <ETP>0</ETP>
+                                        
+                                        <Plans/>
+                                        
+                                        
+                                        <Partenaires/>
+                                    </Action>
+                                    <Action Exercice="2021" ElementId="7648e6b9bc9f43c7aa8b37cbb4e29125">
+                                        <Libelle>A.20 - Réduire la consommation énergétique du hangar communal</Libelle>
+                                        
+                                        <DateFin>2024-06-30</DateFin>
+                                        <Description>
+                                            <Mode>TEXTE</Mode>
+                                            <Valeur></Valeur>
+                                        </Description>
+                                        <Statut>EN_ATTENTE</Statut>
+                                        <Mandataire>
+                                            <Civilite>MONSIEUR</Civilite>
+                                            <Nom>1er échevin</Nom>
+                                            <Prenom/>
+                                            <Tel/>
+                                            <eMail/>
+                                        </Mandataire>
+                                        <Departement>Service de l'Urbanisme</Departement>
+                                        <TauxAvancement>0</TauxAvancement>
+                                        <RemarqueStatut>
+                                            <Mode>TEXTE</Mode>
+                                            <Valeur/>
+                                        </RemarqueStatut>
+                                        <ETP>0</ETP>
+                                        
+                                        <Plans/>
+                                        
+                                        
+                                        <Partenaires/>
+                                    </Action>
+                                </Actions>
+                            </ObjectifOperationnel>
+                        </ObjectifsOperationnels>
+                    </ObjectifStrategique>
+                    <ObjectifStrategique Exercice="2021" ElementId="c7bd3df547454e8b9e20d16577d99a7a">
+                        <Libelle>OS.21 - Etre une commune où il fait bon vivre dans un cadre agréable, propre et en toute sécurité</Libelle>
+                        <Description>
+                            <Mode>TEXTE</Mode>
+                            <Valeur></Valeur>
+                        </Description>
+                        <Statut>EN_COURS</Statut>
+                        <TauxAvancement>0</TauxAvancement>
+                        <RemarqueStatut>
+                            <Mode>TEXTE</Mode>
+                            <Valeur/>
+                        </RemarqueStatut>
+                        <ETP>0</ETP>
+                        
+                        <Plans/>
+                        
+                        
+                        <Partenaires/>
+                        <ObjectifsOperationnels>
+                            <ObjectifOperationnel Exercice="2021" ElementId="4198174b0616464e8dc3f017ba7a6d9c">
+                                <Libelle>OO.22 - Assurer la propreté dans l'ensemble des parcs de la commune de manière à réduire la présence de déchets de 90% au 31 12 2022</Libelle>
+                                <Description>
+                                    <Mode>TEXTE</Mode>
+                                    <Valeur></Valeur>
+                                </Description>
+                                <Statut>EN_COURS</Statut>
+                                <Responsable>
+                                    <Civilite>MONSIEUR</Civilite>
+                                    <Nom>Secrétariat Communal</Nom>
+                                    <Prenom/>
+                                    <Tel/>
+                                    <eMail/>
+                                </Responsable>
+                                <Mandataire>
+                                    <Civilite>MONSIEUR</Civilite>
+                                    <Nom>2ème échevin</Nom>
+                                    <Prenom/>
+                                    <Tel/>
+                                    <eMail/>
+                                </Mandataire>
+                                <Departement>Service Propreté</Departement>
+                                <TauxAvancement>0</TauxAvancement>
+                                <RemarqueStatut>
+                                    <Mode>TEXTE</Mode>
+                                    <Valeur/>
+                                </RemarqueStatut>
+                                <ETP>0</ETP>
+                                
+                                <Plans/>
+                                
+                                
+                                <Partenaires/>
+                                <Actions>
+                                    <Action Exercice="2021" ElementId="a3838a32a45f47b695043cb97430e1d8">
+                                        <Libelle>A.23 - Installer des distributeurs de sacs "ramasse crottes", dans les parcs (entrée et sortie)</Libelle>
+                                        
+                                        <DateFin>2021-06-30</DateFin>
+                                        <Description>
+                                            <Mode>TEXTE</Mode>
+                                            <Valeur></Valeur>
+                                        </Description>
+                                        <Statut>EN_COURS</Statut>
+                                        <Mandataire>
+                                            <Civilite>MONSIEUR</Civilite>
+                                            <Nom>2ème échevin</Nom>
+                                            <Prenom/>
+                                            <Tel/>
+                                            <eMail/>
+                                        </Mandataire>
+                                        <Departement>Service Propreté</Departement>
+                                        <TauxAvancement>0</TauxAvancement>
+                                        <RemarqueStatut>
+                                            <Mode>TEXTE</Mode>
+                                            <Valeur/>
+                                        </RemarqueStatut>
+                                        <ETP>0</ETP>
+                                        
+                                        <Plans/>
+                                        
+                                        
+                                        <Partenaires/>
+                                    </Action>
+                                </Actions>
+                            </ObjectifOperationnel>
+                        </ObjectifsOperationnels>
+                    </ObjectifStrategique>
+                </ObjectifStrategiques>
+            </Volet>
+        </Volets>
+    </PST>
+</dataroot>
