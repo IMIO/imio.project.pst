@@ -31,7 +31,7 @@ class TestFacetedCatalog(IntegrationTestCase):
             brains = fc.__call__(context, **query)
         self.assertEqual(cm.exception.message, 'We only support one :has_child filter')
         # with :has_child
-        api.content.transition(self.ac1, 'begin')
+        api.content.transition(self.a3, 'begin')
         query = {'facet.field': [u'review_state', u'categories', u'priority', u'representative_responsible',
                                  u'administrative_responsible', u'manager'], 'Language': ['fr', ''], 'b_size': 24,
                  'portal_type': {'query': ['operationalobjective']}, 'b_start': 0, 'path': {'query': ['/plone/pst']},

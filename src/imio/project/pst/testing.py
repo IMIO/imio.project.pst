@@ -221,8 +221,8 @@ class IntegrationTestCase(unittest.TestCase):
         self.os1 = self.pst['etre-une-commune-qui-offre-un-service-public-moderne-efficace-et-efficient']
         self.oo2 = self.os1['diminuer-le-temps-dattente-de-lusager-au-guichet-population-de-20-dans-les-12-mois'
                             '-a-venir']
-        self.ac1 = self.oo2['engager-2-agents-pour-le-service-population']
-        self.tk1 = self.ac1['ajouter-une-annonce-sur-le-site-internet']
+        self.a3 = self.oo2['engager-2-agents-pour-le-service-population']
+        self.tk1 = self.a3['ajouter-une-annonce-sur-le-site-internet']
         act_srv = [u'cellule-marches-publics', u'secretariat-communal', u'service-etat-civil', u'service-informatique',
                    u'service-proprete', u'service-population', u'service-travaux', u'service-de-lurbanisme']
         srv_obj = self.portal['contacts']['plonegroup-organization']['services']

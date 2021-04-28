@@ -60,7 +60,7 @@ class TestColumns(IntegrationTestCase):
         # ac search
         category = self.pst['pstactions']
         column = ParentsColumn(category, category.REQUEST, category.unrestrictedTraverse('@@faceted-table-view'))
-        brain = self.portal.portal_catalog(UID=self.ac1.UID())[0]
+        brain = self.portal.portal_catalog(UID=self.a3.UID())[0]
         rendered = column.renderCell(brain)
         self.assertIn(u'<span class="pretty_link_content"> Etre une commune qui offre un ...</span>', rendered)
         self.assertIn(u'<span class="pretty_link_content"> Diminuer le temps d\'attente de ...</span>', rendered)
@@ -75,7 +75,7 @@ class TestColumns(IntegrationTestCase):
         self.assertIn(u'<span class="pretty_link_content"> Engager 2 agents pour le Service ...</span>', rendered)
 
         # tk1 on ac1 context
-        column2 = ParentsColumn(self.ac1, category.REQUEST, category.unrestrictedTraverse('@@faceted-table-view'))
+        column2 = ParentsColumn(self.a3, category.REQUEST, category.unrestrictedTraverse('@@faceted-table-view'))
         rendered2 = column2.renderCell(brain)
         self.assertEqual(rendered2, '-')
 
@@ -97,12 +97,12 @@ class TestColumns(IntegrationTestCase):
         self.assertIn(u'<span class="pretty_link_content"> Tâche de second niveau</span>', rendered2)
 
         # adding sub action
-        self.sac1 = api.content.create(self.ac1, 'pstsubaction', title=u'Sous-action')
+        self.sac1 = api.content.create(self.a3, 'pstsubaction', title=u'Sous-action')
 
         # ac search, rendering action and subaction
         category = self.pst['pstactions']
         column = ParentsColumn(category, category.REQUEST, category.unrestrictedTraverse('@@faceted-table-view'))
-        brain = self.portal.portal_catalog(UID=self.ac1.UID())[0]
+        brain = self.portal.portal_catalog(UID=self.a3.UID())[0]
         rendered = column.renderCell(brain)
         self.assertIn(u'<span class="pretty_link_content"> Etre une commune qui offre un ...</span>', rendered)
         self.assertIn(u'<span class="pretty_link_content"> Diminuer le temps d\'attente de ...</span>', rendered)

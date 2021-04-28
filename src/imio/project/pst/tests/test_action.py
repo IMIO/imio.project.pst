@@ -37,13 +37,13 @@ class TestAction(IntegrationTestCase):
         self.assertEquals(action.default_manager(Dummy(self.oo2)), [self.groups['service-population'],
                                                                     self.groups['service-etat-civil']])
         # we login as a service member, the context isn't the good one
-        self.assertEquals(action.default_manager(Dummy(self.ac1)), [])
+        self.assertEquals(action.default_manager(Dummy(self.a3)), [])
 
     def test_manager_validator(self):
         """
             test default values
         """
-        validator = action.ManagerFieldValidator(self.ac1, None, None,
+        validator = action.ManagerFieldValidator(self.a3, None, None,
                                                  action.IPSTAction['manager'], None)
         # bypass for Managers
         self.login(TEST_USER_NAME)
@@ -74,7 +74,7 @@ class TestAction(IntegrationTestCase):
 
     def test_pstaction_fields_type(self):
         """Test of fields type."""
-        schema = queryContentType(self.ac1)
+        schema = queryContentType(self.a3)
         fields = getFieldsInOrder(schema)
         # field is a tuple : (field_name, field_obj)
         for field in fields:
