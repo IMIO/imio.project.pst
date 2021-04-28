@@ -164,7 +164,6 @@ class IntegrationTestCase(unittest.TestCase):
         self.oo_bdg_states = ['ongoing', 'achieved']
         self.a_bdg_states = ['ongoing', 'terminated', 'to_be_scheduled']
 
-        # tests setup
         self.strategicobjective_fields_class = {
             'description_rich': RichText,
             'reference_number': Int,
@@ -216,12 +215,13 @@ class IntegrationTestCase(unittest.TestCase):
             'health_indicator_details': Text,
         }
 
+        # tests setup
         self.portal = self.layer['portal']
         self.pst = self.portal['pst']
         self.os1 = self.pst['etre-une-commune-qui-offre-un-service-public-moderne-efficace-et-efficient']
-        self.oo1 = self.os1['diminuer-le-temps-dattente-de-lusager-au-guichet-population-de-20-dans-les-12-mois'
+        self.oo2 = self.os1['diminuer-le-temps-dattente-de-lusager-au-guichet-population-de-20-dans-les-12-mois'
                             '-a-venir']
-        self.ac1 = self.oo1['engager-2-agents-pour-le-service-population']
+        self.ac1 = self.oo2['engager-2-agents-pour-le-service-population']
         self.tk1 = self.ac1['ajouter-une-annonce-sur-le-site-internet']
         act_srv = [u'cellule-marches-publics', u'secretariat-communal', u'service-etat-civil', u'service-informatique',
                    u'service-proprete', u'service-population', u'service-travaux', u'service-de-lurbanisme']

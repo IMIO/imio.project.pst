@@ -18,7 +18,7 @@ class TestViews(IntegrationTestCase):
         view.collection = self.pst['operationalobjectives']['all']
         self.assertNotIn(u'parents', view._getViewFields())
         # oo context
-        view = self.oo1.unrestrictedTraverse('@@faceted-table-view')
+        view = self.oo2.unrestrictedTraverse('@@faceted-table-view')
         view.collection = self.pst['pstactions']['all']
         self.assertNotIn(u'parents', view._getViewFields())
         # category context

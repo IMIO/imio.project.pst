@@ -105,7 +105,7 @@ class TestPSTProjectSpace(IntegrationTestCase):
             }
         ]
         self.login('psteditor')
-        oo_view = self.oo1.restrictedTraverse('@@view')
+        oo_view = self.oo2.restrictedTraverse('@@view')
         oo_view.updateFieldsFromSchemata()
         schema_fields = [fld for fld in oo_view.fields]
         self.assertEquals(
@@ -115,7 +115,7 @@ class TestPSTProjectSpace(IntegrationTestCase):
              'extra_concerned_people', 'IAnalyticBudget.projection', 'IAnalyticBudget.analytic_budget', 'budget',
              'budget_comments', 'ISustainableDevelopmentGoals.sdgs', 'observation', 'comments']
         )
-        oo_edit = self.oo1.restrictedTraverse('@@edit')
+        oo_edit = self.oo2.restrictedTraverse('@@edit')
         oo_edit.portal_type = oo_edit.context.portal_type
         oo_edit.updateFields()
         schema_fields = [fld for fld in oo_edit.fields]
@@ -128,7 +128,7 @@ class TestPSTProjectSpace(IntegrationTestCase):
         )
         self.assertNotEquals(oo_edit.fields.get('comments').mode, 'display')
         self.login('chef')
-        oo_view = self.oo1.restrictedTraverse('@@view')
+        oo_view = self.oo2.restrictedTraverse('@@view')
         oo_view.updateFieldsFromSchemata()
         schema_fields = [fld for fld in oo_view.fields]
         self.assertEquals(
@@ -138,7 +138,7 @@ class TestPSTProjectSpace(IntegrationTestCase):
              'extra_concerned_people', 'IAnalyticBudget.projection', 'IAnalyticBudget.analytic_budget', 'budget',
              'budget_comments', 'ISustainableDevelopmentGoals.sdgs', 'observation', 'comments']
         )
-        oo_edit = self.oo1.restrictedTraverse('@@edit')
+        oo_edit = self.oo2.restrictedTraverse('@@edit')
         oo_edit.portal_type = oo_edit.context.portal_type
         oo_edit.updateFields()
         schema_fields = [fld for fld in oo_view.fields]

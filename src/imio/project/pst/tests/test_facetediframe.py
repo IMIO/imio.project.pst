@@ -38,10 +38,10 @@ class TestFacetediframe(IntegrationTestCase):
         self.assertEquals(crit.default, 'sortable_title')
         self.assertIsNotNone(getCriterionByTitle(self.pst['pstactions'], 'Health indicator'))
         # oo criteria
-        crit = getCriterionByTitle(self.oo1, 'Sort on')
+        crit = getCriterionByTitle(self.oo2, 'Sort on')
         self.assertEquals(crit.default, 'getObjPositionInParent')
-        self.assertIsNotNone(getCriterionByTitle(self.oo1, 'Health indicator'))
-        self.assertIsNotNone(getCriterionByTitle(self.oo1, 'path'))
+        self.assertIsNotNone(getCriterionByTitle(self.oo2, 'Health indicator'))
+        self.assertIsNotNone(getCriterionByTitle(self.oo2, 'path'))
         # tasks search
         crit = getCriterionByTitle(self.pst['tasks'], 'Sort on')
         self.assertEquals(crit.default, 'sortable_title')

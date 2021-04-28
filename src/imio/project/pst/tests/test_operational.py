@@ -21,7 +21,7 @@ class TestOperational(IntegrationTestCase):
 
     def test_operationalobjective_fields_type(self):
         """Test operationalobjective fields type."""
-        schema = queryContentType(self.oo1)
+        schema = queryContentType(self.oo2)
         fields = getFieldsInOrder(schema)
         # field is a tuple : (field_name, field_obj)
         for field in fields:

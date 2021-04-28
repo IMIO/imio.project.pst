@@ -49,7 +49,7 @@ class TestColumns(IntegrationTestCase):
         # oo search
         category = self.pst['operationalobjectives']
         column = ParentsColumn(category, category.REQUEST, category.unrestrictedTraverse('@@faceted-table-view'))
-        brain = self.portal.portal_catalog(UID=self.oo1.UID())[0]
+        brain = self.portal.portal_catalog(UID=self.oo2.UID())[0]
         rendered = column.renderCell(brain)
         self.assertEqual(rendered, u'<ul class="parents_col"><li><a href="http://nohost/plone/pst/etre-une-commune'
                                    u'-qui-offre-un-service-public-moderne-efficace-et-efficient" target="_blank" '

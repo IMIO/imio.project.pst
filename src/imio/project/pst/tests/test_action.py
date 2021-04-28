@@ -31,10 +31,10 @@ class TestAction(IntegrationTestCase):
 
         # we login as a pst editor
         self.login('psteditor')
-        self.assertEquals(action.default_manager(Dummy(self.oo1)), [])
+        self.assertEquals(action.default_manager(Dummy(self.oo2)), [])
         # we login as a service member
         self.login('agent')
-        self.assertEquals(action.default_manager(Dummy(self.oo1)), [self.groups['service-population'],
+        self.assertEquals(action.default_manager(Dummy(self.oo2)), [self.groups['service-population'],
                                                                     self.groups['service-etat-civil']])
         # we login as a service member, the context isn't the good one
         self.assertEquals(action.default_manager(Dummy(self.ac1)), [])
