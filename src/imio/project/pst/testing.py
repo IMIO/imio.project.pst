@@ -183,7 +183,6 @@ class IntegrationTestCase(unittest.TestCase):
             'priority': Choice,
             'budget': List,
             'budget_comments': RichText,
-            'manager': LocalRolesField,
             'extra_concerned_people': Text,
             'result_indicator': List,
             'planned_end_date': Date,
