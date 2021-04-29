@@ -47,14 +47,6 @@ class TestUpdateTask(FunctionalTestCase):
         self.validateur = {'username': 'agent', 'password': self.password}
         self.editeur = {'username': 'agent', 'password': self.password}
         # Contexts
-        self.portal = self.layer['portal']
-        self.pst = self.portal['pst']
-        self.os_10 = self.pst[
-            'etre-une-commune-qui-sinscrit-dans-la-lignee-des-accords-de-reductions-des-gaz-a-effet-de-serre-afin-dassu'
-            'rer-le-developpement-durable']
-        self.oo_15 = self.os_10['reduire-la-consommation-energetique-des-batiments-communaux-de-20-dici-2024']
-        self.a_16 = self.oo_15['reduire-la-consommation-energetique-de-ladministration-communale']
-        self.sa_17 = self.a_16['realiser-un-audit-energetique-du-batiment']
         self.t1 = self.sa_17['ecrire-le-cahier-des-charges']
         # scenarios
         self.scenarios = [
@@ -183,9 +175,9 @@ class TestUpdateTask(FunctionalTestCase):
         """
         The actor fills a deadline (31/07/2020) greater than one of their parents.
         parent deadline :
-         (oo_15, 31/12/2024)
-             (a_16, 30/06/2024)
-                 (sa_17, 30/06/2020)
+         (oo15, 31/12/2024)
+             (a16, 30/06/2024)
+                 (sa17, 30/06/2020)
                       (t1, 30/04/2020)
         """
         form = browser.forms['form']

@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from xml.etree import ElementTree
 
 from ftw.testbrowser import browsing
 from ftw.testbrowser.pages import statusmessages
@@ -39,9 +38,6 @@ class TestConfigureProjectLinesColorization(FunctionalTestCase):
         super(TestConfigureProjectLinesColorization, self).setUp()
         # Actors
         self.pst_admin = {'username': 'pstadmin', 'password': self.password}
-        # Contexts
-        self.portal = self.layer['portal']
-        self.pst = self.portal['pst']
         # scenarios
         self.scenarios = [
             'main_scenario',

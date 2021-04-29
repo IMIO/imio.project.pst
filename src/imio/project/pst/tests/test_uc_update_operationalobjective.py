@@ -42,13 +42,6 @@ class TestUpdateOperationalObjective(FunctionalTestCase):
         self.pst_admin = {'username': 'pstadmin', 'password': self.password}
         self.pst_editor = {'username': 'psteditor', 'password': self.password}
         self.adm_resp = {'username': 'chef', 'password': self.password}
-        # Contexts
-        self.portal = self.layer['portal']
-        self.pst = self.portal['pst']
-        self.os_10 = self.pst[
-            'etre-une-commune-qui-sinscrit-dans-la-lignee-des-accords-de-reductions-des-gaz-a-effet-de-serre-afin-dassu'
-            'rer-le-developpement-durable']
-        self.oo_15 = self.os_10['reduire-la-consommation-energetique-des-batiments-communaux-de-20-dici-2024']
         # scenarios
         self.scenarios = [
             'main_scenario',
@@ -59,49 +52,49 @@ class TestUpdateOperationalObjective(FunctionalTestCase):
 
     @browsing
     def test_scenarios_as_admin_in_operational_objective_created(self, browser):
-        api.content.transition(obj=self.oo_15, transition='back_to_created')
-        state = api.content.get_state(obj=self.oo_15)
+        api.content.transition(obj=self.oo15, transition='back_to_created')
+        state = api.content.get_state(obj=self.oo15)
         self.assertEqual(state, 'created')
-        self.call_scenarios(browser, self.pst_admin, self.oo_15)
+        self.call_scenarios(browser, self.pst_admin, self.oo15)
 
     @browsing
     def test_scenarios_as_admin_in_operational_objective_ongoing(self, browser):
-        state = api.content.get_state(obj=self.oo_15)
+        state = api.content.get_state(obj=self.oo15)
         self.assertEqual(state, 'ongoing')
-        self.call_scenarios(browser, self.pst_admin, self.oo_15)
+        self.call_scenarios(browser, self.pst_admin, self.oo15)
 
     @browsing
     def test_main_scenario_as_admin_in_operational_objective_achieved(self, browser):
-        api.content.transition(obj=self.oo_15, transition='achieve')
-        state = api.content.get_state(obj=self.oo_15)
+        api.content.transition(obj=self.oo15, transition='achieve')
+        state = api.content.get_state(obj=self.oo15)
         self.assertEqual(state, 'achieved')
-        self.call_scenarios(browser, self.pst_admin, self.oo_15)
+        self.call_scenarios(browser, self.pst_admin, self.oo15)
 
     @browsing
     def test_scenarios_as_pst_editor_in_operational_objective_created(self, browser):
-        api.content.transition(obj=self.oo_15, transition='back_to_created')
-        state = api.content.get_state(obj=self.oo_15)
+        api.content.transition(obj=self.oo15, transition='back_to_created')
+        state = api.content.get_state(obj=self.oo15)
         self.assertEqual(state, 'created')
-        self.call_scenarios(browser, self.pst_editor, self.oo_15)
+        self.call_scenarios(browser, self.pst_editor, self.oo15)
 
     @browsing
     def test_scenarios_as_pst_editor_in_operational_objective_ongoing(self, browser):
-        state = api.content.get_state(obj=self.oo_15)
+        state = api.content.get_state(obj=self.oo15)
         self.assertEqual(state, 'ongoing')
-        self.call_scenarios(browser, self.pst_editor, self.oo_15)
+        self.call_scenarios(browser, self.pst_editor, self.oo15)
 
     @browsing
     def test_main_scenario_as_pst_editor_in_operational_objective_achieved(self, browser):
-        api.content.transition(obj=self.oo_15, transition='achieve')
-        state = api.content.get_state(obj=self.oo_15)
+        api.content.transition(obj=self.oo15, transition='achieve')
+        state = api.content.get_state(obj=self.oo15)
         self.assertEqual(state, 'achieved')
-        self.call_scenarios(browser, self.pst_editor, self.oo_15)
+        self.call_scenarios(browser, self.pst_editor, self.oo15)
 
     @browsing
     def test_scenarios_as_adm_resp_in_operational_objective_ongoing(self, browser):
-        state = api.content.get_state(obj=self.oo_15)
+        state = api.content.get_state(obj=self.oo15)
         self.assertEqual(state, 'ongoing')
-        self.call_scenarios(browser, self.adm_resp, self.oo_15)
+        self.call_scenarios(browser, self.adm_resp, self.oo15)
 
     def call_scenarios(self, browser, actor, context):
         for scenario in self.scenarios:

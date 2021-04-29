@@ -45,10 +45,6 @@ class TestCreateOperationalObjective(FunctionalTestCase):
         # Actors
         self.pst_admin = {'username': 'pstadmin', 'password': self.password}
         self.pst_editor = {'username': 'psteditor', 'password': self.password}
-        # Contexts
-        self.portal = self.layer['portal']
-        self.pst = self.portal['pst']
-        self.os_1 = self.pst['etre-une-commune-qui-offre-un-service-public-moderne-efficace-et-efficient']
         # scenarios
         self.scenarios = [
             'main_scenario',
@@ -59,43 +55,43 @@ class TestCreateOperationalObjective(FunctionalTestCase):
 
     @browsing
     def test_scenarios_as_admin_in_strategic_objective_created(self, browser):
-        api.content.transition(obj=self.os_1, transition='back_to_created')
-        state = api.content.get_state(obj=self.os_1)
+        api.content.transition(obj=self.os1, transition='back_to_created')
+        state = api.content.get_state(obj=self.os1)
         self.assertEqual(state, 'created')
-        self.call_scenarios(browser, self.pst_admin, self.os_1)
+        self.call_scenarios(browser, self.pst_admin, self.os1)
 
     @browsing
     def test_scenarios_as_admin_in_strategic_objective_ongoing(self, browser):
-        state = api.content.get_state(obj=self.os_1)
+        state = api.content.get_state(obj=self.os1)
         self.assertEqual(state, 'ongoing')
-        self.call_scenarios(browser, self.pst_admin, self.os_1)
+        self.call_scenarios(browser, self.pst_admin, self.os1)
 
     @browsing
     def test_scenarios_as_admin_in_strategic_objective_achieved(self, browser):
-        api.content.transition(obj=self.os_1, transition='achieve')
-        state = api.content.get_state(obj=self.os_1)
+        api.content.transition(obj=self.os1, transition='achieve')
+        state = api.content.get_state(obj=self.os1)
         self.assertEqual(state, 'achieved')
-        self.call_scenarios(browser, self.pst_admin, self.os_1)
+        self.call_scenarios(browser, self.pst_admin, self.os1)
 
     @browsing
     def test_scenarios_as_pst_editor_in_strategic_objective_created(self, browser):
-        api.content.transition(obj=self.os_1, transition='back_to_created')
-        state = api.content.get_state(obj=self.os_1)
+        api.content.transition(obj=self.os1, transition='back_to_created')
+        state = api.content.get_state(obj=self.os1)
         self.assertEqual(state, 'created')
-        self.call_scenarios(browser, self.pst_editor, self.os_1)
+        self.call_scenarios(browser, self.pst_editor, self.os1)
 
     @browsing
     def test_scenarios_as_pst_editor_in_strategic_objective_ongoing(self, browser):
-        state = api.content.get_state(obj=self.os_1)
+        state = api.content.get_state(obj=self.os1)
         self.assertEqual(state, 'ongoing')
-        self.call_scenarios(browser, self.pst_editor, self.os_1)
+        self.call_scenarios(browser, self.pst_editor, self.os1)
 
     @browsing
     def test_scenarios_as_pst_editor_in_strategic_objective_achieved(self, browser):
-        api.content.transition(obj=self.os_1, transition='achieve')
-        state = api.content.get_state(obj=self.os_1)
+        api.content.transition(obj=self.os1, transition='achieve')
+        state = api.content.get_state(obj=self.os1)
         self.assertEqual(state, 'achieved')
-        self.call_scenarios(browser, self.pst_editor, self.os_1)
+        self.call_scenarios(browser, self.pst_editor, self.os1)
 
     def call_scenarios(self, browser, actor, context):
         for scenario in self.scenarios:

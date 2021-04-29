@@ -48,7 +48,7 @@ class TestDocumentGenerator(IntegrationTestCase):
         self.assertEqual(objs[0], self.a3)
         objs = view.getTasks(self.a3)
         self.assertEqual(len(objs), 2)
-        self.assertEqual(objs[0], self.tk1)
+        self.assertEqual(objs[0], self.t1)
 
         def short_id(helper_i):
             if helper_i is None:
@@ -141,7 +141,7 @@ class TestDocumentGenerator(IntegrationTestCase):
         self.assertEqual(objs[0], self.a3)
         objs = view.getTasks(self.a3)
         self.assertEqual(len(objs), 2)
-        self.assertEqual(objs[0], self.tk1)
+        self.assertEqual(objs[0], self.t1)
 
     def test_DocumentGenerationOOHelper(self):
         view = self.oo2.unrestrictedTraverse('@@document_generation_helper_view')
@@ -177,7 +177,7 @@ class TestDocumentGenerator(IntegrationTestCase):
         self.assertEqual(objs[0], self.a3)
         objs = view.getTasks(self.a3)
         self.assertEqual(len(objs), 2)
-        self.assertEqual(objs[0], self.tk1)
+        self.assertEqual(objs[0], self.t1)
 
     def test_DocumentGenerationPSTActionsHelper(self):
         view = self.a3.unrestrictedTraverse('@@document_generation_helper_view')
@@ -196,13 +196,13 @@ class TestDocumentGenerator(IntegrationTestCase):
         self.assertFalse(view.hasChildrenBudget(self.a3))
         objs = view.getTasks(self.a3)
         self.assertEqual(len(objs), 2)
-        self.assertEqual(objs[0], self.tk1)
+        self.assertEqual(objs[0], self.t1)
         # on dashboard
         view.request.form['facetedQuery'] = ''
         self.assertTrue(view.is_dashboard())
         brains = self.pc(path={'query': '/'.join(self.a3.getPhysicalPath()), 'depth': 1})
         view.uids_to_objs(brains)
-        self.assertListEqual(view.objs, [self.a3['rediger-le-profil-de-fonction'], self.tk1])
+        self.assertListEqual(view.objs, [self.a3['rediger-le-profil-de-fonction'], self.t1])
         self.assertEqual(view.sel_type, 'task')
         objs = view.getStrategicObjectives()
         self.assertEqual(len(objs), 1)

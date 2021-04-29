@@ -68,7 +68,7 @@ class TestColumns(IntegrationTestCase):
         # tk1 on global search
         category = self.pst['tasks']
         column = ParentsColumn(category, category.REQUEST, category.unrestrictedTraverse('@@faceted-table-view'))
-        brain = self.portal.portal_catalog(UID=self.tk1.UID())[0]
+        brain = self.portal.portal_catalog(UID=self.t1.UID())[0]
         rendered = column.renderCell(brain)
         self.assertIn(u'<span class="pretty_link_content"> Etre une commune qui offre un ...</span>', rendered)
         self.assertIn(u'<span class="pretty_link_content"> Diminuer le temps d\'attente de ...</span>', rendered)
@@ -80,7 +80,7 @@ class TestColumns(IntegrationTestCase):
         self.assertEqual(rendered2, '-')
 
         # Adding sub task
-        tk2 = api.content.create(self.tk1, 'task', title=u'Tâche de second niveau')
+        tk2 = api.content.create(self.t1, 'task', title=u'Tâche de second niveau')
         tk3 = api.content.create(tk2, 'task', title=u'Tâche de 3ème niveau')
         brain = self.portal.portal_catalog(UID=tk3.UID())[0]
         rendered = column.renderCell(brain)  # search context
@@ -116,7 +116,7 @@ class TestColumns(IntegrationTestCase):
         # tk1 on global search : tk1 has been moved to sac1
         category = self.pst['tasks']
         column = ParentsColumn(category, category.REQUEST, category.unrestrictedTraverse('@@faceted-table-view'))
-        brain = self.portal.portal_catalog(UID=self.tk1.UID())[0]
+        brain = self.portal.portal_catalog(UID=self.t1.UID())[0]
         rendered = column.renderCell(brain)
         self.assertIn(u'<span class="pretty_link_content"> Etre une commune qui offre un ...</span>', rendered)
         self.assertIn(u'<span class="pretty_link_content"> Diminuer le temps d\'attente de ...</span>', rendered)

@@ -33,9 +33,6 @@ class TestExportPstToEcompte(FunctionalTestCase):
         # Actors
         self.pst_admin = {'username': 'pstadmin', 'password': self.password}
         self.pst_editor = {'username': 'psteditor', 'password': self.password}
-        # Contexts
-        self.portal = self.layer['portal']
-        self.pst = self.portal['pst']
         # scenarios
         self.scenarios = [
             'main_scenario',

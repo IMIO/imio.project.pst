@@ -77,7 +77,57 @@ PST_ROBOT_TESTING = FunctionalTesting(
     name="PST_ROBOT_TESTING")
 
 
-class IntegrationTestCase(unittest.TestCase):
+class TestCase(unittest.TestCase):
+    """Base class for tests."""
+
+    def setUp(self):
+        super(TestCase, self).setUp()
+
+        # context setup
+        self.portal = self.layer['portal']
+        self.pst = self.portal['pst']
+        self.os1 = self.pst['etre-une-commune-qui-offre-un-service-public-moderne-efficace-et-efficient']
+        self.os10 = self.pst['etre-une-commune-qui-sinscrit-dans-la-lignee-des-accords-de-reductions-des-gaz-a-effet-'
+                             'de-serre-afin-dassurer-le-developpement-durable']
+        self.os21 = self.pst['etre-une-commune-ou-il-fait-bon-vivre-dans-un-cadre-agreable-propre-et-en-toute-securite']
+        self.oo2 = self.os1['diminuer-le-temps-dattente-de-lusager-au-guichet-population-de-20-dans-les-12-mois'
+                            '-a-venir']
+        self.oo6 = self.os1['optimiser-laccueil-au-sein-de-ladministration-communale']
+        self.oo11 = self.os10['doter-la-commune-de-competences-en-matiere-energetique-pour-fin-2021-compte-tenu-du-'
+                              'budget']
+        self.oo15 = self.os10['reduire-la-consommation-energetique-des-batiments-communaux-de-20-dici-2024']
+        self.oo22 = self.os21['assurer-la-proprete-dans-lensemble-des-parcs-de-la-commune-de-maniere-a-reduire-la-'
+                              'presence-de-dechets-de-90-au-31-12-2022']
+        self.a3 = self.oo2['engager-2-agents-pour-le-service-population']
+        self.a4 = self.oo2['creer-un-guichet-supplementaire-dans-les-3-mois']
+        self.a5 = self.oo2['mettre-en-ligne-sur-le-site-internet-differents-documents-population-a-telecharger-de-chez-'
+                           'soi']
+        self.a7 = self.oo6['placer-des-pictogrammes-de-guidance']
+        self.a8 = self.oo6['installer-une-rampe-dacces-pour-pmr']
+        self.a9 = self.oo6['mettre-en-place-des-permanences-sur-rendez-vous']
+        self.a12 = self.oo11['proceder-a-lengagement-dun-conseiller-en-energie']
+        self.a13 = self.oo11['repondre-a-lappel-a-projet-ecopasseur-de-la-wallonie']
+        self.a14 = self.oo11['inscrire-systematiquement-les-agents-du-service-travaux-aux-formations-energetiques']
+        self.a16 = self.oo15['reduire-la-consommation-energetique-de-ladministration-communale']
+        self.a20 = self.oo15['reduire-la-consommation-energetique-du-hangar-communal']
+        self.a23 = self.oo22['installer-des-distributeurs-de-sacs-ramasse-crottes-dans-les-parcs-entree-et-sortie']
+        self.a4l1 = self.oo6['creer-un-guichet-supplementaire-dans-les-3-mois']
+        self.sa17 = self.a16['realiser-un-audit-energetique-du-batiment']
+        self.sa18 = self.a16['en-fonction-des-resultats-proceder-a-lisolation-du-batiment']
+        self.sa19 = self.a16['en-fonction-des-resultats-remplacer-le-systeme-de-chauffage']
+        self.sa17l1 = self.a20['realiser-un-audit-energetique-du-batiment']
+        self.sa18l1 = self.a20['en-fonction-des-resultats-proceder-a-lisolation-du-batiment']
+        self.sa19l1 = self.a20['en-fonction-des-resultats-remplacer-le-systeme-de-chauffage']
+        self.t1 = self.a3['ajouter-une-annonce-sur-le-site-internet']
+        act_srv = [u'cellule-marches-publics', u'secretariat-communal', u'service-etat-civil', u'service-informatique',
+                   u'service-proprete', u'service-population', u'service-travaux', u'service-de-lurbanisme']
+        srv_obj = self.portal['contacts']['plonegroup-organization']['services']
+
+        # test setup
+        self.groups = dict([(srv, srv_obj[srv].UID().decode('utf8')) for srv in act_srv])
+
+
+class IntegrationTestCase(TestCase):
     """Base class for integration tests."""
 
     layer = PST_TESTING_PROFILE_INTEGRATION
@@ -215,25 +265,12 @@ class IntegrationTestCase(unittest.TestCase):
             'health_indicator_details': Text,
         }
 
-        # tests setup
-        self.portal = self.layer['portal']
-        self.pst = self.portal['pst']
-        self.os1 = self.pst['etre-une-commune-qui-offre-un-service-public-moderne-efficace-et-efficient']
-        self.oo2 = self.os1['diminuer-le-temps-dattente-de-lusager-au-guichet-population-de-20-dans-les-12-mois'
-                            '-a-venir']
-        self.a3 = self.oo2['engager-2-agents-pour-le-service-population']
-        self.tk1 = self.a3['ajouter-une-annonce-sur-le-site-internet']
-        act_srv = [u'cellule-marches-publics', u'secretariat-communal', u'service-etat-civil', u'service-informatique',
-                   u'service-proprete', u'service-population', u'service-travaux', u'service-de-lurbanisme']
-        srv_obj = self.portal['contacts']['plonegroup-organization']['services']
-        self.groups = dict([(srv, srv_obj[srv].UID().decode('utf8')) for srv in act_srv])
-
     def login(self, username):
         logout()
         login(self.portal, username)
 
 
-class FunctionalTestCase(unittest.TestCase):
+class FunctionalTestCase(TestCase):
     """Base class for functional tests."""
 
     layer = PST_TEST_PROFILE_FUNCTIONAL

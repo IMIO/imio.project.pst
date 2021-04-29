@@ -27,15 +27,6 @@ class TestSplitSubActionLinkBudget(FunctionalTestCase):
 
     def setUp(self):
         super(TestSplitSubActionLinkBudget, self).setUp()
-        self.portal = self.layer['portal']
-        self.pst = self.portal['pst']
-        self.os_10 = self.pst['etre-une-commune-qui-sinscrit-dans-la-lignee-des-accords-de-reductions-des-gaz-a-effet-d'
-                              'e-serre-afin-dassurer-le-developpement-durable']
-        self.oo_15 = self.os_10['reduire-la-consommation-energetique-des-batiments-communaux-de-20-dici-2024']
-        self.a_20 = self.oo_15['reduire-la-consommation-energetique-du-hangar-communal']
-        self.sa_l_17 = self.a_20['realiser-un-audit-energetique-du-batiment']
-        self.a_16 = self.oo_15['reduire-la-consommation-energetique-de-ladministration-communale']
-        self.sa_17 = self.a_20['realiser-un-audit-energetique-du-batiment']
 
     @browsing
     def test_scenario(self, browser):
@@ -94,7 +85,7 @@ class TestSplitSubActionLinkBudget(FunctionalTestCase):
 
     def start_up(self, browser):
         """Open (SA.17)."""
-        browser.open(self.sa_l_17)
+        browser.open(self.sa17l1)
         heading = browser.css('.documentFirstHeading').first
         self.assertEqual("Réaliser un audit énergétique du bâtiment (SA.17)".decode('utf8'), heading.text)
 
@@ -122,7 +113,7 @@ class TestSplitSubActionLinkBudget(FunctionalTestCase):
         # =======
         # {'': 'Wallonie', 'Global': '-', '2024': '-', '2020': '-', '2021': '-', '2022': '-', '2023': '-', '2019': '-'}
         # >>>>>>>
-        browser.open(self.a_20)
+        browser.open(self.a20)
         self.assertEqual(browser.css('.budgetinfos_table').first.dicts(), [
             {'': 'Europe', 'Global': '0.0', '2024': '-', '2020': '-', '2021': '0.0', '2022': '-', '2023': '-',
              '2019': '-'},
@@ -146,7 +137,7 @@ class TestSplitSubActionLinkBudget(FunctionalTestCase):
         # {'': 'Wallonie', 'Global': '6500.0', '2024': '-', '2020': '1500.0', '2021': '2000.0', '2022': '1500.0',
         # '2023': '-', '2019': '1500.0'}
         # >>>>>>>
-        browser.open(self.a_16)
+        browser.open(self.a16)
         self.assertEqual(browser.css('.budgetinfos_table').first.dicts(), [
             {'': 'Europe', 'Global': '500.0', '2024': '-', '2020': '-', '2021': '500.0', '2022': '-', '2023': '-',
              '2019': '-'},
@@ -163,7 +154,7 @@ class TestSplitSubActionLinkBudget(FunctionalTestCase):
              '2022': '-', '2023': '-', '2019': '-'},
             {'': 'Totaux', 'Global': '7000.0', '2024': '-', '2020': '1250.0', '2021': '3250.0', '2022': '1250.0',
              '2023': '-', '2019': '1250.0'}])
-        browser.open(self.oo_15)
+        browser.open(self.oo15)
         self.assertEqual(browser.css('.budgetinfos_table').first.dicts(), [
             {'': 'Europe', 'Global': '500.0', '2024': '-', '2020': '-', '2021': '500.0', '2022': '-', '2023': '-',
              '2019': '-'},

@@ -38,14 +38,7 @@ class TestCreateActionLink(FunctionalTestCase):
         self.adm_resp = {'username': 'chef', 'password': self.password}
         self.manager = {'username': 'agent', 'password': self.password}
         # Contexts
-        self.portal = self.layer['portal']
-        self.pst = self.portal['pst']
-        self.os_1 = self.pst['etre-une-commune-qui-offre-un-service-public-moderne-efficace-et-efficient']
-        self.oo_2 = self.os_1[
-            'diminuer-le-temps-dattente-de-lusager-au-guichet-population-de-20-dans-les-12-mois-a-venir']
-        self.oo_6 = self.os_1['optimiser-laccueil-au-sein-de-ladministration-communale']
-        self.a_7 = self.oo_6['placer-des-pictogrammes-de-guidance']
-        self.t1 = self.a_7['acheter-fournir-des-pictogrammes-de-guidance']
+        self.t1 = self.a7['acheter-fournir-des-pictogrammes-de-guidance']
         # scenarios
         self.scenarios = [
             'main_scenario',
@@ -55,69 +48,69 @@ class TestCreateActionLink(FunctionalTestCase):
 
     @browsing
     def test_scenarios_as_admin_in_operational_objective_created(self, browser):
-        api.content.transition(obj=self.oo_2, transition='back_to_created')
-        state = api.content.get_state(obj=self.oo_2)
+        api.content.transition(obj=self.oo2, transition='back_to_created')
+        state = api.content.get_state(obj=self.oo2)
         self.assertEqual(state, 'created')
-        self.call_scenarios(browser, self.pst_admin, self.oo_2)
+        self.call_scenarios(browser, self.pst_admin, self.oo2)
 
     @browsing
     def test_scenarios_as_admin_in_operational_objective_ongoing(self, browser):
-        state = api.content.get_state(obj=self.oo_2)
+        state = api.content.get_state(obj=self.oo2)
         self.assertEqual(state, 'ongoing')
-        self.call_scenarios(browser, self.pst_admin, self.oo_2)
+        self.call_scenarios(browser, self.pst_admin, self.oo2)
 
     @browsing
     def test_main_scenario_as_admin_in_operational_objective_achieved(self, browser):
-        api.content.transition(obj=self.oo_2, transition='achieve')
-        state = api.content.get_state(obj=self.oo_2)
+        api.content.transition(obj=self.oo2, transition='achieve')
+        state = api.content.get_state(obj=self.oo2)
         self.assertEqual(state, 'achieved')
-        self.call_scenarios(browser, self.pst_admin, self.oo_2)
+        self.call_scenarios(browser, self.pst_admin, self.oo2)
 
     @browsing
     def test_scenarios_as_pst_editor_in_operational_objective_created(self, browser):
-        api.content.transition(obj=self.oo_2, transition='back_to_created')
-        state = api.content.get_state(obj=self.oo_2)
+        api.content.transition(obj=self.oo2, transition='back_to_created')
+        state = api.content.get_state(obj=self.oo2)
         self.assertEqual(state, 'created')
-        self.call_scenarios(browser, self.pst_editor, self.oo_2)
+        self.call_scenarios(browser, self.pst_editor, self.oo2)
 
     @browsing
     def test_scenarios_as_pst_editor_in_operational_objective_ongoing(self, browser):
-        state = api.content.get_state(obj=self.oo_2)
+        state = api.content.get_state(obj=self.oo2)
         self.assertEqual(state, 'ongoing')
-        self.call_scenarios(browser, self.pst_editor, self.oo_2)
+        self.call_scenarios(browser, self.pst_editor, self.oo2)
 
     @browsing
     def test_main_scenario_as_pst_editor_in_operational_objective_achieved(self, browser):
-        api.content.transition(obj=self.oo_2, transition='achieve')
-        state = api.content.get_state(obj=self.oo_2)
+        api.content.transition(obj=self.oo2, transition='achieve')
+        state = api.content.get_state(obj=self.oo2)
         self.assertEqual(state, 'achieved')
-        self.call_scenarios(browser, self.pst_editor, self.oo_2)
+        self.call_scenarios(browser, self.pst_editor, self.oo2)
 
     @browsing
     def test_scenarios_as_adm_resp_in_operational_objective_ongoing(self, browser):
-        state = api.content.get_state(obj=self.oo_2)
+        state = api.content.get_state(obj=self.oo2)
         self.assertEqual(state, 'ongoing')
-        self.call_scenarios(browser, self.adm_resp, self.oo_2)
+        self.call_scenarios(browser, self.adm_resp, self.oo2)
 
     @browsing
     def test_scenarios_as_manager_in_operational_objective_created(self, browser):
-        api.content.transition(obj=self.oo_2, transition='back_to_created')
-        state = api.content.get_state(obj=self.oo_2)
+        api.content.transition(obj=self.oo2, transition='back_to_created')
+        state = api.content.get_state(obj=self.oo2)
         self.assertEqual(state, 'created')
-        self.call_scenarios(browser, self.manager, self.oo_2)
+        self.call_scenarios(browser, self.manager, self.oo2)
 
     @browsing
     def test_scenarios_as_manager_in_operational_objective_ongoing(self, browser):
-        state = api.content.get_state(obj=self.oo_2)
+        state = api.content.get_state(obj=self.oo2)
         self.assertEqual(state, 'ongoing')
-        self.call_scenarios(browser, self.manager, self.oo_2)
+        self.call_scenarios(browser, self.manager, self.oo2)
 
     @browsing
     def test_main_scenario_as_manager_in_operational_objective_achieved(self, browser):
-        api.content.transition(obj=self.oo_2, transition='achieve')
-        state = api.content.get_state(obj=self.oo_2)
+        api.content.transition(obj=self.oo2, transition='achieve')
+        state = api.content.get_state(obj=self.oo2)
         self.assertEqual(state, 'achieved')
-        self.call_scenarios(browser, self.manager, self.oo_2)
+        self.call_scenarios(browser, self.manager, self.oo2)
 
     def call_scenarios(self, browser, actor, context):
         for scenario in self.scenarios:
@@ -162,7 +155,7 @@ class TestCreateActionLink(FunctionalTestCase):
 
     def step_3(self, browser):
         """The actor fills in the form and save."""
-        browser.find('Lien symbolique').fill(self.a_7)
+        browser.find('Lien symbolique').fill(self.a7)
         browser.find('Sauvegarder').click()
 
     def step_3a(self, browser):
@@ -181,15 +174,11 @@ class TestCreateActionLink(FunctionalTestCase):
         heading = browser.css('.documentFirstHeading').first
         self.assertEqual('Placer des pictogrammes de guidance (A.7)', heading.text)
         statusmessages.assert_message(u'Elément créé')
-        self.assertEqual(
-            browser.css('#messagesviewlet').text,
-            ["Avertissement Ce contenu est une copie miroir ! Cliquer sur ce lien Modifier pour modifier l'original"]
-        )
-        al_7 = self.oo_2['placer-des-pictogrammes-de-guidance']
+        al_7 = self.oo2['placer-des-pictogrammes-de-guidance']
         tl1 = al_7['acheter-fournir-des-pictogrammes-de-guidance']
-        a_7_brain = api.content.find(context=self.a_7, depth=0)[0]
-        al_7_brain = api.content.find(context=al_7, depth=0)[0]
-        self.assertNotEqual(a_7_brain.UID, al_7_brain.UID)
+        a7_brain = api.content.find(context=self.a7, depth=0)[0]
+        al7_brain = api.content.find(context=al_7, depth=0)[0]
+        self.assertNotEqual(a7_brain.UID, al7_brain.UID)
         t1_brain = api.content.find(context=self.t1, depht=0)[0]
         tl1_brain = api.content.find(context=tl1, depth=0)[0]
         self.assertNotEqual(t1_brain.UID, tl1_brain.UID)

@@ -74,9 +74,6 @@ class TestConfigureBudgetGlobalizationOfActionsSub(FunctionalTestCase):
         super(TestConfigureBudgetGlobalizationOfActionsSub, self).setUp()
         # Actors
         self.pst_admin = {'username': 'pstadmin', 'password': self.password}
-        # Contexts
-        self.portal = self.layer['portal']
-        self.pst = self.portal['pst']
         # scenarios
         self.scenarios = [
             'main_scenario',
