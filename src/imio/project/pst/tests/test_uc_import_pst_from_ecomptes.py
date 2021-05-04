@@ -3,9 +3,9 @@
 import xml.etree.ElementTree as ET
 
 from ftw.testbrowser import browsing
+from ftw.testbrowser.pages import statusmessages
 from imio.project.pst.testing import FunctionalTestCase
 from plone import api
-from zope.annotation import IAnnotations
 
 
 def preconditions(browser, actor):
@@ -16,6 +16,28 @@ def preconditions(browser, actor):
 def step_1(browser):
     """The actor clicks on "Import from eComptes"."""
     browser.click_on("Import depuis eComptes".decode('utf8'))
+
+
+def step_3a(browser):
+    """The actor fills in the fields but omit mandatory fields."""
+    browser.find_button_by_label('Importer').click()
+    # write browser contents
+    # with open('browser_contents', 'w') as f:
+    #     f.write(browser.contents)
+
+
+def step_3b(browser):
+    """The actor fills in an invalid ecomptes xml file."""
+    xml_file = '../../src/imio.project.pst/src/imio/project/pst/model/PST_eComptes_Export_201805V1.xsd'
+    # select xml file
+    file_field = browser.find(u'Document XML exporté depuis eComptes')
+    with open(xml_file, 'r') as f:
+        file_field.set('value', (f.read(), 'ecomptes_pst.xml'))
+    # import xml file
+    browser.find_button_by_label('Importer').click()
+    # write browser contents
+    # with open('browser_contents', 'w') as f:
+    #     f.write(browser.contents)
 
 
 class TestImportPstFromEcompte(FunctionalTestCase):
@@ -39,6 +61,8 @@ class TestImportPstFromEcompte(FunctionalTestCase):
         # scenarios
         self.scenarios = [
             'main_scenario',
+            'exceptional_scenario_3a',
+            'exceptional_scenario_3b',
         ]
 
     @browsing
@@ -64,6 +88,24 @@ class TestImportPstFromEcompte(FunctionalTestCase):
         self.step_2(browser)  # The system displays import data from eComptes form
         self.step_3(browser)  # The actor selects and imports the eComptes xml file
         self.step_4()  # The system integrates analytics budgets
+
+    def exceptional_scenario_3a(self, browser, actor, context):
+        """The actor fills in the fields but omit a mandatory field and save."""
+        preconditions(browser, actor)
+        self.start_up(browser, context)
+        step_1(browser)
+        self.step_2(browser)
+        step_3a(browser)  # The actor fills in the fields but omit mandatory fields
+        self.step_4a(browser)  # system warn, (back to the step 3)
+
+    def exceptional_scenario_3b(self, browser, actor, context):
+        """The actor fills in an invalid ecomptes xml file."""
+        preconditions(browser, actor)
+        self.start_up(browser, context)
+        step_1(browser)
+        self.step_2(browser)
+        step_3b(browser)  # The actor fills in an invalid ecomptes xml file
+        self.step_4b(browser)  # system warn, (back to the step 3)
 
     def start_up(self, browser, context):
         """Open context."""
@@ -97,6 +139,7 @@ class TestImportPstFromEcompte(FunctionalTestCase):
 
     def step_4(self):
         """The system integrates analytics budgets.."""
+        statusmessages.assert_message(u'Le document XML a été importé avec succès.')
         self.assertEqual(self.sa17.analytic_budget, [
             {'service': u'O', 'title': u'Réaliser un audit énergétique du bâtiment', 'btype': u'D',
              'amount': 500.0, 'year': 2019, 'article': u'xxx/wal-17.2019'},
@@ -106,3 +149,16 @@ class TestImportPstFromEcompte(FunctionalTestCase):
              'amount': 500.0, 'year': 2021, 'article': u'xxx/wal-17.2021'},
             {'service': u'O', 'title': u'Réaliser un audit énergétique du bâtiment', 'btype': u'D',
              'amount': 500.0, 'year': 2022, 'article': u'xxx/wal-17.2022'}])
+
+    def step_4a(self, browser):
+        """The system displays warnings, (Back to the step 3)."""
+        heading = browser.css('.documentFirstHeading').first
+        self.assertEqual(u'Importer des données depuis eComptes', heading.text)
+        self.assertTrue('Champ obligatoire' in browser.contents)
+        statusmessages.assert_message(u"Il y a des erreurs.")
+
+    def step_4b(self, browser):
+        """The system displays warnings, (Back to the step 3)."""
+        heading = browser.css('.documentFirstHeading').first
+        self.assertEqual(u'Importer des données depuis eComptes', heading.text)
+        statusmessages.assert_message(u"Le document importé n'est pas reconnu comme une exportation eComptes valide.")
