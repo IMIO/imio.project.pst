@@ -57,11 +57,11 @@ class TestCreateStrategicObjective(FunctionalTestCase):
         self.assertEqual(state, 'internally_published')
         self.call_scenarios(browser, self.pst_admin, self.pst)
 
-    # @browsing
-    # def test_scenarios_as_pst_editor_in_pst_project_space_internally_published(self, browser):
-    #     state = api.content.get_state(obj=self.pst)
-    #     self.assertEqual(state, 'internally_published')
-    #     self.call_scenarios(browser, self.pst_editor, self.pst)
+    @browsing
+    def test_scenarios_as_pst_editor_in_pst_project_space_internally_published(self, browser):
+        state = api.content.get_state(obj=self.pst)
+        self.assertEqual(state, 'internally_published')
+        self.call_scenarios(browser, self.pst_editor, self.pst)
 
     def call_scenarios(self, browser, actor, context):
         for scenario in self.scenarios:
