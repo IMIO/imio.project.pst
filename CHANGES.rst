@@ -31,7 +31,7 @@ Changelog
   [fngaha]
 - Moved strategicobjective, operationalobjective, pstaction, pstsubaction _fields config from registry to pstprojectspace
   [fngaha]
-- Added plan and plan_values fields and updated ecomptes export
+- Added plan and plan_values fields, updated ecomptes export and templates
   [fngaha]
 - Added optional new style template without numbering
   [bleybaert]
