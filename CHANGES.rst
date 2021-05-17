@@ -3,6 +3,7 @@ Changelog
 
 1.3.1 (unreleased)
 ----------------
+- Fixed ddetail template
 - Fixed a document generation bug when result indicator is None
   [fngaha]
 - Enabled categories column on action dashboard
