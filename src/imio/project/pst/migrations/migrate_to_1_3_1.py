@@ -85,6 +85,21 @@ def migrate_webservices_config():
                                        generated_actions)
 
 
+def added_dfollow_options():
+    context_var = api.portal.get().templates.dfollow.context_variables
+    has_options = False
+    for var in context_var:
+        if var['name'].startswith('option'):
+            has_options = True
+            break
+    if not has_options:
+        api.portal.get().templates.dfollow.context_variables = [
+            {'name': u'with_tasks', 'value': u''},
+            {'name': u'option_0', 'value': u'1'},
+            {'name': u'option_1', 'value': u''},
+        ]
+
+
 class Migrate_To_1_3_1(Migrator):
 
     def __init__(self, context):
@@ -95,6 +110,9 @@ class Migrate_To_1_3_1(Migrator):
         update_oo_config()
 
         self.runProfileSteps('imio.project.pst', steps=['actions', 'catalog'], run_dependencies=False)
+
+        self.runProfileSteps('imio.project.pst', steps=['imioprojectpst-override-templates'], profile='update',
+                             run_dependencies=False)
 
         # migrate projectspace in pstprojectspace
         self.migrate_projectspace_in_pstprojectspace()
@@ -130,6 +148,9 @@ class Migrate_To_1_3_1(Migrator):
 
         # Use safe_html
         self.migrate_projects_richtextvalues()
+
+        # Add options to the context variable of dfollow template
+        added_dfollow_options()
 
         # Display duration
         self.finish()
