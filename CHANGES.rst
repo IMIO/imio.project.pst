@@ -4,6 +4,9 @@ Changelog
 1.3.1 (unreleased)
 ----------------
 - Fix ddetail template
+  [fngaha]
+- Added a presentation option to the follow-up report
+  [fngaha]
 - Fix a document generation bug when result indicator is None
   [fngaha]
 - Enabled categories column on action dashboard
