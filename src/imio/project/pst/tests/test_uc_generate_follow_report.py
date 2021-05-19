@@ -132,38 +132,38 @@ class TestGenerateDetailedReport(FunctionalTestCase):
 
     @browsing
     def test_scenarios_as_admin_in_pst_sub_action_created(self, browser):
-        api.content.transition(obj=self.a16, transition='back_to_created')
-        state = api.content.get_state(obj=self.a16)
+        api.content.transition(obj=self.sa17, transition='back_to_created')
+        state = api.content.get_state(obj=self.sa17)
         self.assertEqual(state, 'created')
-        self.call_scenarios(browser, self.pst_admin, self.a16)
+        self.call_scenarios(browser, self.pst_admin, self.sa17)
 
     @browsing
     def test_scenarios_as_admin_in_pst_sub_action_to_be_scheduled(self, browser):
-        state = api.content.get_state(obj=self.a16)
+        state = api.content.get_state(obj=self.sa17)
         self.assertEqual(state, 'to_be_scheduled')
-        self.call_scenarios(browser, self.pst_admin, self.a16)
+        self.call_scenarios(browser, self.pst_admin, self.sa17)
 
     @browsing
     def test_scenarios_as_admin_in_pst_sub_action_ongoing(self, browser):
-        api.content.transition(obj=self.a16, transition='begin')
-        state = api.content.get_state(obj=self.a16)
+        api.content.transition(obj=self.sa17, transition='begin')
+        state = api.content.get_state(obj=self.sa17)
         self.assertEqual(state, 'ongoing')
-        self.call_scenarios(browser, self.pst_admin, self.a16)
+        self.call_scenarios(browser, self.pst_admin, self.sa17)
 
     @browsing
     def test_scenarios_as_admin_in_pst_sub_action_stopped(self, browser):
-        api.content.transition(obj=self.a16, transition='stop')
-        state = api.content.get_state(obj=self.a16)
+        api.content.transition(obj=self.sa17, transition='stop')
+        state = api.content.get_state(obj=self.sa17)
         self.assertEqual(state, 'stopped')
-        self.call_scenarios(browser, self.pst_admin, self.a16)
+        self.call_scenarios(browser, self.pst_admin, self.sa17)
 
     @browsing
     def test_scenarios_as_admin_in_pst_sub_action_terminated(self, browser):
-        api.content.transition(obj=self.a16, transition='begin')
-        api.content.transition(obj=self.a16, transition='finish')
-        state = api.content.get_state(obj=self.a16)
+        api.content.transition(obj=self.sa17, transition='begin')
+        api.content.transition(obj=self.sa17, transition='finish')
+        state = api.content.get_state(obj=self.sa17)
         self.assertEqual(state, 'terminated')
-        self.call_scenarios(browser, self.pst_admin, self.a16)
+        self.call_scenarios(browser, self.pst_admin, self.sa17)
 
     @browsing
     def test_scenarios_as_pst_editor_in_pst_project_space_internally_published(self, browser):
@@ -248,38 +248,38 @@ class TestGenerateDetailedReport(FunctionalTestCase):
 
     @browsing
     def test_scenarios_as_pst_editor_in_pst_sub_action_created(self, browser):
-        api.content.transition(obj=self.a16, transition='back_to_created')
-        state = api.content.get_state(obj=self.a16)
+        api.content.transition(obj=self.sa17, transition='back_to_created')
+        state = api.content.get_state(obj=self.sa17)
         self.assertEqual(state, 'created')
-        self.call_scenarios(browser, self.pst_editor, self.a16)
+        self.call_scenarios(browser, self.pst_editor, self.sa17)
 
     @browsing
     def test_scenarios_as_pst_editor_in_pst_sub_action_to_be_scheduled(self, browser):
-        state = api.content.get_state(obj=self.a16)
+        state = api.content.get_state(obj=self.sa17)
         self.assertEqual(state, 'to_be_scheduled')
-        self.call_scenarios(browser, self.pst_editor, self.a16)
+        self.call_scenarios(browser, self.pst_editor, self.sa17)
 
     @browsing
     def test_scenarios_as_pst_editor_in_pst_sub_action_ongoing(self, browser):
-        api.content.transition(obj=self.a16, transition='begin')
-        state = api.content.get_state(obj=self.a16)
+        api.content.transition(obj=self.sa17, transition='begin')
+        state = api.content.get_state(obj=self.sa17)
         self.assertEqual(state, 'ongoing')
-        self.call_scenarios(browser, self.pst_editor, self.a16)
+        self.call_scenarios(browser, self.pst_editor, self.sa17)
 
     @browsing
     def test_scenarios_as_pst_editor_in_pst_sub_action_stopped(self, browser):
-        api.content.transition(obj=self.a16, transition='stop')
-        state = api.content.get_state(obj=self.a16)
+        api.content.transition(obj=self.sa17, transition='stop')
+        state = api.content.get_state(obj=self.sa17)
         self.assertEqual(state, 'stopped')
-        self.call_scenarios(browser, self.pst_editor, self.a16)
+        self.call_scenarios(browser, self.pst_editor, self.sa17)
 
     @browsing
     def test_scenarios_as_pst_editor_in_pst_sub_action_terminated(self, browser):
-        api.content.transition(obj=self.a16, transition='begin')
-        api.content.transition(obj=self.a16, transition='finish')
-        state = api.content.get_state(obj=self.a16)
+        api.content.transition(obj=self.sa17, transition='begin')
+        api.content.transition(obj=self.sa17, transition='finish')
+        state = api.content.get_state(obj=self.sa17)
         self.assertEqual(state, 'terminated')
-        self.call_scenarios(browser, self.pst_editor, self.a16)
+        self.call_scenarios(browser, self.pst_editor, self.sa17)
 
     @browsing
     def test_scenarios_as_pst_reader_in_pst_project_space_internally_published(self, browser):
@@ -364,38 +364,38 @@ class TestGenerateDetailedReport(FunctionalTestCase):
 
     @browsing
     def test_scenarios_as_pst_reader_in_pst_sub_action_created(self, browser):
-        api.content.transition(obj=self.a16, transition='back_to_created')
-        state = api.content.get_state(obj=self.a16)
+        api.content.transition(obj=self.sa17, transition='back_to_created')
+        state = api.content.get_state(obj=self.sa17)
         self.assertEqual(state, 'created')
-        self.call_scenarios(browser, self.pst_reader, self.a16)
+        self.call_scenarios(browser, self.pst_reader, self.sa17)
 
     @browsing
     def test_scenarios_as_pst_reader_in_pst_sub_action_to_be_scheduled(self, browser):
-        state = api.content.get_state(obj=self.a16)
+        state = api.content.get_state(obj=self.sa17)
         self.assertEqual(state, 'to_be_scheduled')
-        self.call_scenarios(browser, self.pst_reader, self.a16)
+        self.call_scenarios(browser, self.pst_reader, self.sa17)
 
     @browsing
     def test_scenarios_as_pst_reader_in_pst_sub_action_ongoing(self, browser):
-        api.content.transition(obj=self.a16, transition='begin')
-        state = api.content.get_state(obj=self.a16)
+        api.content.transition(obj=self.sa17, transition='begin')
+        state = api.content.get_state(obj=self.sa17)
         self.assertEqual(state, 'ongoing')
-        self.call_scenarios(browser, self.pst_reader, self.a16)
+        self.call_scenarios(browser, self.pst_reader, self.sa17)
 
     @browsing
     def test_scenarios_as_pst_reader_in_pst_sub_action_stopped(self, browser):
-        api.content.transition(obj=self.a16, transition='stop')
-        state = api.content.get_state(obj=self.a16)
+        api.content.transition(obj=self.sa17, transition='stop')
+        state = api.content.get_state(obj=self.sa17)
         self.assertEqual(state, 'stopped')
-        self.call_scenarios(browser, self.pst_reader, self.a16)
+        self.call_scenarios(browser, self.pst_reader, self.sa17)
 
     @browsing
     def test_scenarios_as_pst_reader_in_pst_sub_action_terminated(self, browser):
-        api.content.transition(obj=self.a16, transition='begin')
-        api.content.transition(obj=self.a16, transition='finish')
-        state = api.content.get_state(obj=self.a16)
+        api.content.transition(obj=self.sa17, transition='begin')
+        api.content.transition(obj=self.sa17, transition='finish')
+        state = api.content.get_state(obj=self.sa17)
         self.assertEqual(state, 'terminated')
-        self.call_scenarios(browser, self.pst_reader, self.a16)
+        self.call_scenarios(browser, self.pst_reader, self.sa17)
 
     def call_scenarios(self, browser, actor, context):
         for scenario in self.scenarios:
