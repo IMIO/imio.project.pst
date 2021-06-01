@@ -39,7 +39,11 @@ def get_main_templates(cids):
          'trans': ['publish_internally'],
          'attrs': {'style_template': [cids[1].UID()], 'pod_formats': ['odt'], 'pod_portal_types': ['pstprojectspace',
                    'strategicobjective', 'operationalobjective', 'pstaction', 'pstsubaction'],
-                   'context_variables': [{'name': u'with_tasks', 'value': u''}],
+                   'context_variables': [
+                       {'name': u'with_tasks', 'value': u''},
+                       {'name': u'option_0', 'value': u'1'},
+                       {'name': u'option_1', 'value': u''},
+                   ],
                    'is_reusable': True,
                    'odt_file': NamedBlobFile(data=open('%s/suivi.odt' % TMPL_DIR, 'r').read(),
                                              filename=u'suivi.odt', contentType='applications/odt')}},

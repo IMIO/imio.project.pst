@@ -85,15 +85,16 @@ def migrate_webservices_config():
                                        generated_actions)
 
 
-def added_dfollow_options():
-    context_var = api.portal.get().templates.dfollow.context_variables
+def update_options(template_id):
+    template = getattr(api.portal.get().templates, template_id)
+    context_var = template.context_variables
     has_options = False
     for var in context_var:
         if var['name'].startswith('option'):
             has_options = True
             break
     if not has_options:
-        api.portal.get().templates.dfollow.context_variables = [
+        template.context_variables = [
             {'name': u'with_tasks', 'value': u''},
             {'name': u'option_0', 'value': u'1'},
             {'name': u'option_1', 'value': u''},
@@ -149,8 +150,11 @@ class Migrate_To_1_3_1(Migrator):
         # Use safe_html
         self.migrate_projects_richtextvalues()
 
+        # Add options to the context variable of follow template
+        update_options('follow')
+
         # Add options to the context variable of dfollow template
-        added_dfollow_options()
+        update_options('dfollow')
 
         # Display duration
         self.finish()
