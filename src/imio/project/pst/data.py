@@ -52,6 +52,14 @@ def get_main_templates(cids):
                    'is_reusable': True,
                    'odt_file': NamedBlobFile(data=open('%s/export.ods' % TMPL_DIR, 'r').read(),
                                              filename=u'export.ods', contentType='applications/ods')}},
+
+        {'cid': 90, 'cont': 'templates', 'id': 'managers', 'title': u'Suivi gestionnaires',
+         'type': 'ConfigurablePODTemplate', 'trans': ['publish_internally'],
+         'attrs': {'pod_formats': ['ods'], 'pod_portal_types': ['pstaction', 'pstsubaction'], 'tal_condition': "python:"
+                    "context.restrictedTraverse('pst-utils').is_in_user_groups(user=member, groups=['actioneditor'])",
+                   'is_reusable': True,
+                   'odt_file': NamedBlobFile(data=open('%s/managers.ods' % TMPL_DIR, 'r').read(),
+                                             filename=u'managers.ods', contentType='applications/ods')}},
     ]
 
 
@@ -114,6 +122,12 @@ def get_templates(cids):
                    "context.restrictedTraverse('pst-utils')"
                    ".is_in_user_groups(user=member, groups=['pst_editors'])",
                    'pod_template_to_use': cids[80].UID()}},
+
+        {'cid': 95, 'cont': 'templates', 'id': 'dmanagers', 'title': u'Suivi gestionnaires',
+         'type': 'DashboardPODTemplate', 'trans': ['publish_internally'],
+         'attrs': {'pod_formats': ['ods'], 'tal_condition': "python:"
+                   "context.getPortalTypeName() == 'Folder' and context.getId() == 'pstactions'",
+                   'pod_template_to_use': cids[90].UID()}},
 
         {'cid': 100, 'cont': 'templates', 'id': 'detail-all', 'title': u'Détaillé (Tout)',
          'type': 'ConfigurablePODTemplate', 'trans': ['publish_internally'],
