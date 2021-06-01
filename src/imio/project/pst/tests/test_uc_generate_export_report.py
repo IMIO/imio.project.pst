@@ -10,7 +10,7 @@ def preconditions(browser, actor):
     browser.login(username=actor['username'], password=actor['password']).open()
 
 
-class TestGenerateDetailedReport(FunctionalTestCase):
+class TestGenerateExportReport(FunctionalTestCase):
     """Use case tests.
     Name: Generate a "Export" report
     Actor(s): pst admin, pst editors
@@ -32,7 +32,7 @@ class TestGenerateDetailedReport(FunctionalTestCase):
     """
 
     def setUp(self):
-        super(TestGenerateDetailedReport, self).setUp()
+        super(TestGenerateExportReport, self).setUp()
         # Actors
         self.pst_admin = {'username': 'pstadmin', 'password': self.password}
         self.pst_editor = {'username': 'psteditor', 'password': self.password}
