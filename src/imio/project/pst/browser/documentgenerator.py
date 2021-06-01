@@ -4,12 +4,14 @@ from collective.documentgenerator.helper.archetypes import ATDocumentGenerationH
 from collective.documentgenerator.helper.dexterity import DXDocumentGenerationHelperView
 from collective.eeafaceted.dashboard.browser.overrides import DashboardDocumentGenerationView
 from collective.symlink.utils import is_linked_object
+from imio.project.core import _tr
 from imio.project.core.config import CHILDREN_BUDGET_INFOS_ANNOTATION_KEY as CBIAK
 from imio.project.core.utils import getProjectSpace
 from imio.project.pst.utils import filter_states
 from imio.pyutils.bs import remove_attributes
 from imio.pyutils.bs import replace_entire_strings
 from imio.pyutils.bs import unwrap_tags
+from plone import api
 from zope.annotation import IAnnotations
 from zope.component import getUtility
 from zope.schema.interfaces import IVocabularyFactory
@@ -89,6 +91,9 @@ class DocumentGenerationBaseHelper():
 
     def keep_field(self, key, field):
         return field in self.activated_fields[key]
+
+    def get_state(self):
+        return _tr(api.content.get_state(self.real_context), domain='plone')
 
 
 #     def render_xhtml(self, field_name):
@@ -236,6 +241,8 @@ class DocumentGenerationSOHelper(DocumentGenerationBaseHelper, DXDocumentGenerat
         Methods used in document generation view, for strategicobjective
     """
 
+    acronym = 'OS'
+
     def getStrategicObjectives(self, skip_states=['created']):
         """
             get a list of unique contained strategic objective
@@ -308,6 +315,8 @@ class DocumentGenerationOOHelper(DocumentGenerationBaseHelper, DXDocumentGenerat
     """
         Methods used in document generation view, for operationalobjective
     """
+
+    acronym = 'OO'
 
     def getStrategicObjectives(self, skip_states=['created']):
         """
@@ -393,6 +402,8 @@ class DocumentGenerationPSTActionsHelper(DocumentGenerationBaseHelper, DXDocumen
     """
         Methods used in document generation view, for PSTAction
     """
+
+    acronym = 'A'
 
     def is_linked(self):
         return is_linked_object(self.real_context)
@@ -505,6 +516,8 @@ class DocumentGenerationPSTSubActionsHelper(DocumentGenerationPSTActionsHelper):
     """
         Methods used in document generation view, for PSTSubAction
     """
+
+    acronym = 'SA'
 
     def getStrategicObjectives(self, skip_states=['created']):
         """

@@ -3,6 +3,8 @@ Changelog
 
 1.3.1 (unreleased)
 ----------------
+- Added new dashboard template for manager follow-up
+  [fngaha]
 - Fix ddetail template
   [fngaha]
 - Added a presentation option to the follow-up report
