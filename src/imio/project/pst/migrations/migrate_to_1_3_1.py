@@ -8,11 +8,15 @@ from dexterity.localroles.utils import add_fti_configuration
 from eea.facetednavigation.criteria.interfaces import ICriteria
 from eea.facetednavigation.subtypes.interfaces import IFacetedNavigable
 from eea.facetednavigation.widgets.storage import Criterion
+from imio.helpers.content import create
 from imio.helpers.content import richtextval
 from imio.migrator.migrator import Migrator
 from imio.project.core.content.project import IProject
 from imio.project.core.content.projectspace import IProjectSpace
 from imio.project.pst.content.pstprojectspace import IPSTProjectSpace
+from imio.project.pst.data import get_main_templates
+from imio.project.pst.data import get_styles_templates
+from imio.project.pst.data import get_templates
 from plone import api
 from plone.app.contenttypes.migration.dxmigration import migrate_base_class_to_new_class
 from plone.app.textfield import RichTextValue
@@ -101,6 +105,13 @@ def update_options(template_id):
         ]
 
 
+def update_templates():
+    """Add new templates"""
+    cids = create(get_styles_templates())
+    cids.update(create(get_main_templates(cids)))
+    cids.update(create(get_templates(cids)))
+
+
 class Migrate_To_1_3_1(Migrator):
 
     def __init__(self, context):
@@ -155,6 +166,9 @@ class Migrate_To_1_3_1(Migrator):
 
         # Add options to the context variable of dfollow template
         update_options('dfollow')
+
+        # Add new templates
+        update_templates()
 
         # Display duration
         self.finish()

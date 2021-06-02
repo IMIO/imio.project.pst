@@ -171,7 +171,7 @@ def _addTemplatesDirectory(context):
     for id in reversed(['style', 'style_wo_nb', 'detail', 'detail-tasks', 'follow', 'follow-tasks', 'export',
                         'detail-all', 'detail-tasks-all', 'ddetail', 'ddetail-tasks', 'dfollow', 'dfollow-tasks',
                         'dexport', 'ddetail-all', 'ddetail-tasks-all', 'follow-all', 'follow-tasks-all', 'dfollow-all',
-                        'dfollow-tasks-all']):
+                        'dfollow-tasks-all', 'managers', 'dmanagers']):
         folder.moveObjectToPosition(id, 0)
 
 
