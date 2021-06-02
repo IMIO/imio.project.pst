@@ -157,6 +157,9 @@ class Migrate_To_1_3_1(Migrator):
         # Add a new-version warning message in message config
         self.add_new_version_message()
 
+        # Add a new-dashboard warning message in message config
+        self.add_new_dashboard_message()
+
         # Use safe_html
         self.migrate_projects_richtextvalues()
 
@@ -318,6 +321,22 @@ class Migrate_To_1_3_1(Migrator):
             req_roles=['Authenticated'],
             activate=True
         )
+
+    def add_new_dashboard_message(self):
+        if 'new-version' in self.portal['messages-config']:
+            api.content.delete(self.portal['messages-config']['new-version'])
+        if 'new-dashboard' not in self.portal['messages-config']:
+            add_message(
+                'new-dashboard',
+                'Nouveau modèle de tableau de bord',
+                u'<p>Votre instance a été mise à jour avec <a href="https://docs.imio.be/imio-doc/ia.pst/'
+                u'fonctionnalites/nouveau_modele_tableau_bord.html" target="_blank">une nouvelle fonctionnalité</a>.'
+                u'</p>',
+                msg_type='warning',
+                can_hide=True,
+                req_roles=['Authenticated'],
+                activate=True
+            )
 
     def migrate_projects_richtextvalues(self):
         project_brains = self.catalog(object_provides=IProject.__identifier__)
