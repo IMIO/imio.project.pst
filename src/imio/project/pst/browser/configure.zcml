@@ -143,6 +143,13 @@
         />
 
     <browser:page
+        for="collective.task.behaviors.ITask"
+        name="document_generation_helper_view"
+        class="imio.project.pst.browser.documentgenerator.DocumentGenerationTasksHelper"
+        permission="zope2.View"
+        />
+
+    <browser:page
         for="imio.project.pst.content.action_link.IActionLink"
         name="document_generation_helper_view"
         class="imio.project.pst.browser.documentgenerator.DocumentGenerationPSTActionsHelper"

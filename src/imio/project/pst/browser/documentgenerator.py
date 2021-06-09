@@ -597,6 +597,12 @@ class DocumentGenerationPSTSubActionsHelper(DocumentGenerationPSTActionsHelper):
             return [brain.getObject() for brain in brains]
 
 
+class DocumentGenerationTasksHelper(DocumentGenerationBaseHelper, DXDocumentGenerationHelperView):
+    """
+        Methods used in document generation view, for Tasks
+    """
+
+
 class DocumentGenerationPSTCategoriesHelper(DocumentGenerationBaseHelper, ATDocumentGenerationHelperView):
     """
         Helper for categories folder
