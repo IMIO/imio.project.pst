@@ -55,6 +55,8 @@ class Migrate_To_1_3_2(Migrator):
     def add_new_version_message(self):
         if 'new-version' in self.portal['messages-config']:
             api.content.delete(self.portal['messages-config']['new-version'])
+        if 'new-dashboard' in self.portal['messages-config']:
+            api.content.delete(self.portal['messages-config']['new-dashboard'])
         add_message(
             'new-version',
             'Version 1.3.2',
