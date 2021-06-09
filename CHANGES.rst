@@ -1,7 +1,12 @@
 Changelog
 =========
 
-1.3.1 (unreleased)
+1.3.2 (unreleased)
+----------------
+- Added new dashboard template for tasks editor follow-up
+  [fngaha]
+
+1.3.1 (2021-06-02)
 ----------------
 - Added new dashboard template for manager follow-up
   [fngaha]
