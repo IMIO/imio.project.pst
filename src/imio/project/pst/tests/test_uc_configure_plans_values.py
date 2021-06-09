@@ -121,7 +121,6 @@ class TestConfigurePlansValues(FunctionalTestCase):
         heading = browser.css('.documentFirstHeading').first
         self.assertEqual(context.Title().decode('utf8'), heading.text)
         statusmessages.assert_message(u'Modifications sauvegardées')
-        import ipdb; ipdb.set_trace()
 
     def step_4a(self, browser, context):
         """The system back to the previous page with 'Modification canceled' Info."""
