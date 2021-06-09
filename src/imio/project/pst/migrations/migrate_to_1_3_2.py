@@ -28,7 +28,6 @@ class Migrate_To_1_3_2(Migrator):
 
     def run(self):
         # check if oo port must be changed
-        import ipdb; ipdb.set_trace()
         update_oo_config()
 
         self.runProfileSteps('imio.project.pst', steps=['imioprojectpst-override-templates'], profile='update',
