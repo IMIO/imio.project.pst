@@ -89,7 +89,6 @@ class Migrate_To_1_3_2(Migrator):
             )
 
     def migrate_budget(self):
-        import ipdb; ipdb.set_trace()
         brains = self.catalog(object_provides=IProject.__identifier__)
         for brain in brains:
             budget = brain.getObject().budget
