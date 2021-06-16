@@ -6,6 +6,7 @@ from collective.documentgenerator.utils import update_oo_config
 from collective.messagesviewlet.utils import add_message
 from imio.helpers.content import create
 from imio.migrator.migrator import Migrator
+from imio.project.core.content.project import IProject
 from imio.project.pst.data import get_main_templates
 from imio.project.pst.data import get_styles_templates
 from imio.project.pst.data import get_templates
@@ -45,6 +46,9 @@ class Migrate_To_1_3_2(Migrator):
         # Add a new-version warning message in message config
         self.add_new_version_message()
 
+        # Handle budget comment <NO_VALUE> by setting None
+        self.migrate_budget()
+
         # Add new templates
         update_templates()
 
@@ -83,6 +87,16 @@ class Migrate_To_1_3_2(Migrator):
                 req_roles=['Authenticated'],
                 activate=True
             )
+
+    def migrate_budget(self):
+        import ipdb; ipdb.set_trace()
+        brains = self.catalog(object_provides=IProject.__identifier__)
+        for brain in brains:
+            budget = brain.getObject().budget
+            if budget:
+                for budget_line in budget:
+                    budget_line['budget_comment'] = None
+
 
 
 def migrate(context):

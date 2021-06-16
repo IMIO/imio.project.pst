@@ -3,6 +3,8 @@ Changelog
 
 1.3.2 (unreleased)
 ----------------
+- Added budget comment in budget schema
+  [fngaha]
 - Added new dashboard template for tasks editor follow-up
   [fngaha]
 
