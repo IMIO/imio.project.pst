@@ -22,6 +22,13 @@ def update_templates():
     cids.update(create(get_templates(cids)))
 
 
+def add_context_var(template_id, context_var):
+    template = getattr(api.portal.get().templates, template_id)
+    context_vars = template.context_variables
+    if context_var not in context_vars:
+        context_vars.append(context_var)
+
+
 class Migrate_To_1_3_2(Migrator):
 
     def __init__(self, context):
@@ -51,6 +58,9 @@ class Migrate_To_1_3_2(Migrator):
 
         # Add new templates
         update_templates()
+
+        # Add new context variable in detail template
+        add_context_var('detail', {'name': u'without_oo_fields', 'value': u','})
 
         # Display duration
         self.finish()
@@ -95,7 +105,6 @@ class Migrate_To_1_3_2(Migrator):
             if budget:
                 for budget_line in budget:
                     budget_line['budget_comment'] = None
-
 
 
 def migrate(context):
