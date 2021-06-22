@@ -292,6 +292,8 @@ class FunctionalTestCase(TestCase):
         self.search_button_name = 'form.buttons.cancel'
         self.services_config = get_services_config()
         self.title_dublinCore_form_widget_name = 'form.widgets.IDublinCore.title'
+        self.description_form_widget_name = 'form.widgets.description'
+        self.file_form_widget_name = 'form.widgets.file'
         # project space
         self.colorize_project_rows_form_widgets = 'form.widgets.colorize_project_rows:list'
         self.organization_type_form_widget_name = 'form.widgets.organization_type:list'
