@@ -508,7 +508,7 @@ class DocumentGenerationPSTActionsHelper(DocumentGenerationBaseHelper, DXDocumen
             brains = pcat(portal_type='task',
                           path={'query': '/'.join(context.getPhysicalPath()), 'depth': depth},
                           review_state=filter_states(self.portal, 'task', skip_states),
-                          sort_on='path')
+                          sort_on='getObjPositionInParent')
             return [brain.getObject() for brain in brains]
 
 
@@ -593,7 +593,7 @@ class DocumentGenerationPSTSubActionsHelper(DocumentGenerationPSTActionsHelper):
             brains = pcat(portal_type='task',
                           path={'query': '/'.join(context.getPhysicalPath()), 'depth': depth},
                           review_state=filter_states(self.portal, 'task', skip_states),
-                          sort_on='path')
+                          sort_on='getObjPositionInParent')
             return [brain.getObject() for brain in brains]
 
 
