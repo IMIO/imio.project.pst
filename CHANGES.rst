@@ -3,6 +3,8 @@ Changelog
 
 1.3.2 (unreleased)
 ----------------
+- Added a new style "Title Sub-Task" in general style
+  [fngaha]
 - Sorted tasks on parent position instead of path
   [fngaha]
 - Configured hiding of oo fields in the "Detailed" report
