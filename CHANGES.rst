@@ -3,6 +3,8 @@ Changelog
 
 1.3.2 (unreleased)
 ----------------
+- Sorted tasks on parent position instead of path
+  [fngaha]
 - Configured hiding of oo fields in the "Detailed" report
   [fngaha]
 - Added budget comment in budget schema
