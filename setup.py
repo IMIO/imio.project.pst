@@ -61,6 +61,7 @@ setup(
         'collective.symlink',
         'collective.z3cform.chosen',
         'dexterity.localrolesfield',
+        'imio.annex',
         'imio.dashboard',
         'imio.helpers',
         'imio.project.core',
