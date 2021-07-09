@@ -11,6 +11,7 @@
     <dependency>profile-collective.portlet.actions:default</dependency>
     <dependency>profile-collective.z3cform.chosen:default</dependency>
     <dependency>profile-communesplone.layout:default</dependency>
+    <dependency>profile-imio.annex:default</dependency>
     <dependency>profile-imio.project.core:default</dependency>
     <dependency>profile-plonetheme.imioapps:pstskin</dependency>
     <dependency>profile-imio.dashboard:default</dependency>
