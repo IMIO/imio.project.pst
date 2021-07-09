@@ -3,6 +3,8 @@ Changelog
 
 1.3.2 (unreleased)
 ----------------
+- integrated imio.annex
+  [fngaha]
 - Added a new style "Title Sub-Task" in general style and applied it in detailed template to solve numbering problem
   [fngaha]
 - Sorted tasks on parent position instead of path
