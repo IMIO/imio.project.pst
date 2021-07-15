@@ -13,6 +13,7 @@
  <property name="allowed_content_types">
   <element value="pstsubaction"/>
   <element value="subaction_link" />
+  <element value="annex"/>
   <element value="File"/>
   <element value="task"/>
  </property>
