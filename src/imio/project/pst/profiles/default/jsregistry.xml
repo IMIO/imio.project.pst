@@ -275,4 +275,16 @@
 
     <javascript id="++resource++imio.project.pst/imio_project_pst.js" insert-after="++resource++imio.project.core/imio_project_core.js" />
 
+    <javascript id="++resource++faceted.select2.view.js" insert-after="++resource++imio.project.pst/imio_project_pst.js" />
+
+    <javascript id="++resource++collective.js.tooltipster/tooltipster.bundle.min.js" insert-after="++resource++faceted.select2.view.js" />
+
+    <javascript id="++resource++collective.js.tooltipster/tooltipster_helper.js" insert-after="++resource++collective.js.tooltipster/tooltipster.bundle.min.js" />
+
+    <javascript id="++resource++select2-widget/select2-widget.js" insert-after="++resource++collective.js.tooltipster/tooltipster_helper.js" />
+
+    <javascript id="++resource++collective.iconifiedcategory/iconifiedcategory.js" insert-after="++resource++select2-widget/select2-widget.js" />
+
+    <javascript id="++resource++imio.annex.quickupload/helpers.js" insert-after="++resource++collective.iconifiedcategory/iconifiedcategory.js" />
+
 </object>
