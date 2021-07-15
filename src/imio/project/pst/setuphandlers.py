@@ -4,17 +4,21 @@ import logging
 import os
 
 from Acquisition import aq_base  # noqa
+from Products.CMFCore.WorkflowCore import WorkflowException
+from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
+from Products.CMFPlone.utils import base_hasattr
+from Products.CMFPlone.utils import getToolByName
 from collective.contact.plonegroup.config import FUNCTIONS_REGISTRY
 from collective.contact.plonegroup.config import ORGANIZATIONS_REGISTRY
 from collective.documentgenerator.utils import update_templates
 from collective.eeafaceted.collectionwidget.interfaces import ICollectionCategories
 from collective.eeafaceted.collectionwidget.utils import _updateDefaultCollectionFor
 from collective.eeafaceted.dashboard.utils import enableFacetedDashboardFor
+from data import TMPL_DIR
 from data import get_main_templates
 from data import get_os_oo_ac_data
 from data import get_styles_templates
 from data import get_templates
-from data import TMPL_DIR
 from dexterity.localroles.utils import add_fti_configuration
 from imio.actionspanel.interfaces import IFolderContentsShowableMarker
 from imio.helpers.catalog import addOrUpdateIndexes
@@ -24,23 +28,20 @@ from imio.helpers.content import transitions
 from imio.helpers.security import generate_password
 from imio.helpers.security import get_environment
 from imio.project.core.utils import getProjectSpace
-from imio.project.pst import _tr as _
-from imio.project.pst import add_path
 from imio.project.pst import CKEDITOR_MENUSTYLES_CUSTOMIZED_MSG
 from imio.project.pst import PRODUCT_DIR
+from imio.project.pst import _tr as _
+from imio.project.pst import add_path
 from imio.project.pst.interfaces import IActionDashboardBatchActions
 from imio.project.pst.interfaces import IOODashboardBatchActions
 from imio.project.pst.interfaces import IOSDashboardBatchActions
 from imio.project.pst.interfaces import ITaskDashboardBatchActions
 from imio.project.pst.utils import get_services_config
 from plone import api
+from plone import namedfile
 from plone.app.controlpanel.markup import MarkupControlPanelAdapter
 from plone.dexterity.utils import createContentInContainer
 from plone.registry.interfaces import IRegistry
-from Products.CMFCore.WorkflowCore import WorkflowException
-from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
-from Products.CMFPlone.utils import base_hasattr
-from Products.CMFPlone.utils import getToolByName
 from utils import list_wf_states
 from z3c.relationfield.relation import RelationValue
 from zope.annotation.interfaces import IAnnotations
@@ -134,6 +135,8 @@ def post_install(context):
     configure_task_rolefields(portal)
     # configure actions panel registry
     configure_actions_panel(portal)
+    # configure iconified category
+    configure_iconified_category(portal)
 
     # add usefull methods
     try:
@@ -1477,6 +1480,31 @@ def configure_wsclient(context):
         gsm.registerHandler(wsclient_configuration_changed, (IRecordModifiedEvent, ))
     [logger.info(msg) for msg in log]
     return '\n'.join(log)
+
+
+def configure_iconified_category(context):
+    portal = api.portal.get()
+    current_path = os.path.dirname(__file__)
+    category_config = api.content.create(
+        type='ContentCategoryConfiguration',
+        title=_('Categorization'),
+        container=portal,
+    )
+    category_config.exclude_from_nav = True
+    category_group = api.content.create(
+        type='ContentCategoryGroup',
+        title='Annexes',
+        container=category_config,
+    )
+    filename = u'attach.png'
+    f = open(os.path.join(current_path, 'profiles/default/images', filename), 'r')
+    icon = namedfile.NamedBlobFile(f.read(), filename=filename)
+    api.content.create(
+        type='ContentCategory',
+        title='Annexes PST',
+        container=category_group,
+        icon=icon,
+    )
 
 
 def set_portlet(obj):
