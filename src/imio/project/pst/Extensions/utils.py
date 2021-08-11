@@ -73,16 +73,17 @@ def clean_examples(self):
     # Delete users
     for userid in ['psteditor', 'pstreader', 'chef', 'agent']:
         user = api.user.get(userid=userid)
-        for brain in api.content.find(Creator=userid, sort_on='path', sort_order='descending'):
-            log_list(out, "Deleting object '%s' created by '%s'" % (brain.getPath(), userid))
-            api.content.delete(obj=brain.getObject(), check_linkintegrity=False)
-        for group in api.group.get_groups(user=user):
-            if group.id == 'AuthenticatedUsers':
-                continue
-            log_list(out, "Removing user '%s' from group '%s'" % (userid, group.getProperty('title')))
-            api.group.remove_user(group=group, user=user)
-        log_list(out, "Deleting user '%s'" % userid)
-        api.user.delete(user=user)
+        if user:
+            for brain in api.content.find(Creator=userid, sort_on='path', sort_order='descending'):
+                log_list(out, "Deleting object '%s' created by '%s'" % (brain.getPath(), userid))
+                api.content.delete(obj=brain.getObject(), check_linkintegrity=False)
+            for group in api.group.get_groups(user=user):
+                if group.id == 'AuthenticatedUsers':
+                    continue
+                log_list(out, "Removing user '%s' from group '%s'" % (userid, group.getProperty('title')))
+                api.group.remove_user(group=group, user=user)
+            log_list(out, "Deleting user '%s'" % userid)
+            api.user.delete(user=user)
     # Delete groups
     functions = [dic['fct_id'] for dic in api.portal.get_registry_record(FUNCTIONS_REGISTRY)]
     groups = api.group.get_groups()
