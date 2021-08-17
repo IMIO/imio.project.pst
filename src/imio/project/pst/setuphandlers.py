@@ -1482,29 +1482,29 @@ def configure_wsclient(context):
     return '\n'.join(log)
 
 
-def configure_iconified_category(context):
-    portal = api.portal.get()
-    current_path = os.path.dirname(__file__)
-    category_config = api.content.create(
-        type='ContentCategoryConfiguration',
-        title=_('Categorization'),
-        container=portal,
-    )
-    category_config.exclude_from_nav = True
-    category_group = api.content.create(
-        type='ContentCategoryGroup',
-        title='Annexes',
-        container=category_config,
-    )
-    filename = u'attach.png'
-    f = open(os.path.join(current_path, 'profiles/default/images', filename), 'r')
-    icon = namedfile.NamedBlobFile(f.read(), filename=filename)
-    api.content.create(
-        type='ContentCategory',
-        title='Annexes PST',
-        container=category_group,
-        icon=icon,
-    )
+def configure_iconified_category(portal):
+    if not hasattr(portal, 'categorization'):
+        current_path = os.path.dirname(__file__)
+        category_config = api.content.create(
+            type='ContentCategoryConfiguration',
+            title=_('Categorization'),
+            container=portal,
+        )
+        category_config.exclude_from_nav = True
+        category_group = api.content.create(
+            type='ContentCategoryGroup',
+            title='Annexes',
+            container=category_config,
+        )
+        filename = u'attach.png'
+        f = open(os.path.join(current_path, 'profiles/default/images', filename), 'r')
+        icon = namedfile.NamedBlobFile(f.read(), filename=filename)
+        api.content.create(
+            type='ContentCategory',
+            title='Annexes PST',
+            container=category_group,
+            icon=icon,
+        )
 
 
 def set_portlet(obj):
