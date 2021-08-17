@@ -407,8 +407,8 @@ def _addPSTprojectspace(context):
     # set locally allowed types
     behaviour = ISelectableConstrainTypes(pstprojectspace)
     behaviour.setConstrainTypesMode(1)
-    behaviour.setLocallyAllowedTypes(['strategicobjective', 'File', ])
-    behaviour.setImmediatelyAddableTypes(['strategicobjective', 'File', ])
+    behaviour.setLocallyAllowedTypes(['strategicobjective', 'annex', ])
+    behaviour.setImmediatelyAddableTypes(['strategicobjective', 'annex', ])
     transitions(pstprojectspace, ['publish_internally'])
 
 
