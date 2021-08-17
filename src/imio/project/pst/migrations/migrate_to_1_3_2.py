@@ -2,15 +2,21 @@
 
 import logging
 
+import transaction
+from Products.CMFPlone.interfaces import ISelectableConstrainTypes
 from collective.documentgenerator.utils import update_oo_config
+from collective.iconifiedcategory.utils import calculate_category_id
 from collective.messagesviewlet.utils import add_message
 from imio.helpers.content import create
 from imio.migrator.migrator import Migrator
 from imio.project.core.content.project import IProject
+from imio.project.core.content.projectspace import IProjectSpace
 from imio.project.pst.data import get_main_templates
 from imio.project.pst.data import get_styles_templates
 from imio.project.pst.data import get_templates
+from imio.project.pst.setuphandlers import configure_iconified_category
 from plone import api
+from plone.app.contenttypes.interfaces import IFile
 
 logger = logging.getLogger('imio.project.pst')
 
@@ -38,6 +44,7 @@ class Migrate_To_1_3_2(Migrator):
         # check if oo port must be changed
         update_oo_config()
 
+        # override templates
         self.runProfileSteps('imio.project.pst', steps=['imioprojectpst-override-templates'], profile='update',
                              run_dependencies=False)
 
@@ -61,6 +68,9 @@ class Migrate_To_1_3_2(Migrator):
 
         # Add new context variable in detail template
         add_context_var('detail', {'name': u'without_oo_fields', 'value': u','})
+
+        # Migrate annex File in Annex content
+        self.migrate_annex()
 
         # Display duration
         self.finish()
@@ -105,6 +115,40 @@ class Migrate_To_1_3_2(Migrator):
             if budget:
                 for budget_line in budget:
                     budget_line['budget_comment'] = None
+
+    def migrate_annex(self):
+        qi = self.context.portal_quickinstaller
+        if not qi.isProductInstalled('imio.annex'):
+            self.runProfileSteps('imio.project.pst', steps=['typeinfo'], run_dependencies=False)
+            qi.installProduct('imio.annex')
+            brains = self.catalog(object_provides=IProjectSpace.__identifier__)
+            for brain in brains:
+                pstprojectspace = brain.getObject()
+                behaviour = ISelectableConstrainTypes(pstprojectspace)
+                behaviour.setConstrainTypesMode(1)
+                behaviour.setLocallyAllowedTypes(['strategicobjective', 'annex', ])
+                behaviour.setImmediatelyAddableTypes(['strategicobjective', 'annex', ])
+            portal = api.portal.get()
+            configure_iconified_category(portal)
+            annexTypeId = calculate_category_id(portal.categorization.annexes.get('annexes-pst'))
+            brains = self.catalog(object_provides=IFile.__identifier__)
+            for brain in brains:
+                file_obj = brain.getObject()
+                parent = file_obj.aq_parent
+                if parent.portal_type in ['pstprojectspace', 'strategicobjective', 'operationalobjective',
+                                          'pstaction', 'pstsubaction']:
+                    annexId = file_obj.id
+                    api.content.delete(obj=parent[annexId])
+                    api.content.create(
+                        container=parent,
+                        type='annex',
+                        id=annexId,
+                        title=file_obj.Title(),
+                        description=file_obj.Description(),
+                        content_category=annexTypeId,
+                        file=file_obj.file,
+                    )
+                    transaction.commit()
 
 
 def migrate(context):
