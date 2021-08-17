@@ -14,7 +14,6 @@
   <element value="pstaction"/>
   <element value="action_link"/>
   <element value="annex"/>
-  <element value="File"/>
  </property>
  <property name="allow_discussion">False</property>
  <property name="default_view">view</property>

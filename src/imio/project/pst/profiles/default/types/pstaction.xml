@@ -14,7 +14,6 @@
   <element value="pstsubaction"/>
   <element value="subaction_link" />
   <element value="annex"/>
-  <element value="File"/>
   <element value="task"/>
  </property>
  <property name="allow_discussion">False</property>
