@@ -11,8 +11,8 @@ def preconditions(browser, actor):
 
 
 def step_1(browser, context):
-    """The actor adds annex."""
-    browser.open(context.absolute_url() + '/++add++annex')
+    """The actor adds file."""
+    browser.open(context.absolute_url() + '/++add++File')
 
 
 def step_3a(browser):
@@ -26,14 +26,14 @@ def step_3b(browser):
     form.find_button_by_label('Sauvegarder').click()
 
 
-class TestCreateAnnex(FunctionalTestCase):
+class TestCreateFile(FunctionalTestCase):
     """Use case tests.
-    Name: Create an annex
+    Name: Create an file
     Actor(s): pst admin, pst editors, administrative responsible, manager
-    Goal: allows actors to create an annex
+    Goal: allows actors to create a file
     Author: Franck Ngaha
-    Created: 17/08/2021
-    Updated: 17/08/2021
+    Created: 21/06/2021
+    Updated: 22/06/2021
     Preconditions: The actor must be authenticated in a given specific context :
     - a pst admin in the context of a pst project space in state (internally_published)
     - a pst admin in the context of a strategic objective in anyone of all his states (created, ongoing, achieved)
@@ -417,7 +417,6 @@ class TestCreateAnnex(FunctionalTestCase):
         self.assertEqual(state, 'terminated')
         self.call_scenarios(browser, self.manager, self.sa17)
 
-    # ------------------------------------------------------------------------------------------------------------------
     def call_scenarios(self, browser, actor, context):
         for scenario in self.scenarios:
             self.__getattribute__(scenario)(browser, actor, context)
@@ -425,10 +424,10 @@ class TestCreateAnnex(FunctionalTestCase):
     def main_scenario(self, browser, actor, context):
         preconditions(browser, actor)  # Login as actor
         self.start_up(browser, context)  # Open context
-        step_1(browser, context)  # The actor adds annex
+        step_1(browser, context)  # The actor adds file
         self.step_2(browser, context)  # The system displays the form
         self.step_3(browser)  # The actor fills in fields and save
-        self.step_4(browser)  # The system creates and displays annex
+        self.step_4(browser)  # The system creates and displays file
 
     def alternative_scenario_3a(self, browser, actor, context):
         """The actor cancels the form."""
@@ -455,9 +454,9 @@ class TestCreateAnnex(FunctionalTestCase):
         self.assertEqual(context.Title().decode('utf8'), heading.text)
 
     def step_2(self, browser, context):
-        """The system displays add annex form."""
+        """The system displays add file form."""
         heading = browser.css('.documentFirstHeading').first
-        self.assertEqual(u'Ajouter Annexe', heading.text)
+        self.assertEqual(u'Ajouter Fichier', heading.text)
 
     def step_3(self, browser):
         """The actor fills in the form and save."""
@@ -469,8 +468,12 @@ class TestCreateAnnex(FunctionalTestCase):
         #     f.write(browser.contents)
 
     def step_4(self, browser):
-        """The system creates and displays annex with "Saved changes" info success."""
+        """The system creates and displays file with "Saved changes" info success."""
         statusmessages.assert_message(u'Elément créé')
+        browser.find('annex_test.pdf').click()
+        self.assert_file_metadata(filename='annex_test.pdf',
+                                  content_type='application/pdf',
+                                  browser=browser)
 
     def step_4a(self, browser, context):
         """The system back to the previous page with "Addition canceled" Info."""
@@ -481,7 +484,7 @@ class TestCreateAnnex(FunctionalTestCase):
     def step_4b(self, browser):
         """The system displays warnings, (Back to the step 2)."""
         heading = browser.css('.documentFirstHeading').first
-        self.assertEqual(u'Ajouter Annexe', heading.text)
+        self.assertEqual(u'Ajouter Fichier', heading.text)
         self.assertTrue('Champ obligatoire' in browser.contents)
         statusmessages.assert_message(u"Il y a des erreurs.")
 
