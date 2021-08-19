@@ -751,6 +751,15 @@ def addDemoData(context):
                 for task_dict in act_dict.get('tasks', []):
                     task_obj = createContentInContainer(action_obj, "task", **task_dict)
                     do_transitions(task_obj, transitions=['do_to_assign'], logger=logger)
+                for annex_dict in act_dict.get('annexes', []):
+                    api.content.create(
+                        container=action_obj,
+                        type='annex',
+                        id=annex_dict.get('id'),
+                        title=annex_dict.get('title'),
+                        content_category=annex_dict.get('content_category'),
+                        file=annex_dict.get('file'),
+                    )
 
     # add action_link
     intids = getUtility(IIntIds)
