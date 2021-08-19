@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
-
+import os
 from datetime import datetime
 
+from collective.iconifiedcategory.utils import calculate_category_id
 from imio.project.pst.utils import get_echevins_config
+from plone import api, namedfile
 from plone.namedfile.file import NamedBlobFile
 from imio.helpers.content import richtextval
 from . import add_path
@@ -228,6 +230,10 @@ def get_templates(cids):
 
 def get_os_oo_ac_data(site, groups, currentYear):
     echevins = get_echevins_config(site)
+    filename = u'annex_test.pdf'
+    current_path = os.path.dirname(__file__)
+    f = open(os.path.join(current_path, 'model', filename), 'r')
+    annex_file = namedfile.NamedBlobFile(f.read(), filename=filename)
     return [
         {
             'title': u'Etre une commune qui offre un service public moderne, efficace et efficient',
@@ -277,6 +283,16 @@ def get_os_oo_ac_data(site, groups, currentYear):
                          'health_indicator_details': u'',
                          'comments': richtextval(u''),
                          'plan': [u'plan-de-formation-du-personnel', u'plan-de-gestion'],
+                         'annexes': [
+                             {
+                                 'id': 'annex_test',
+                                 'title': u'Annex test',
+                                 'content_category': calculate_category_id(
+                                     site.categorization.annexes.get('annexes-pst')
+                                 ),
+                              'file': annex_file
+                             }
+                         ],
                          'tasks': [
                              {'title': u'Rédiger le profil de fonction',
                               'assigned_group': groups['service-population'], 'assigned_user': 'agent'},
