@@ -7,6 +7,7 @@ from Products.CMFPlone.interfaces import ISelectableConstrainTypes
 from collective.documentgenerator.utils import update_oo_config
 from collective.iconifiedcategory.utils import calculate_category_id
 from collective.messagesviewlet.utils import add_message
+from collective.task.behaviors import ITask
 from imio.helpers.content import create
 from imio.migrator.migrator import Migrator
 from imio.project.core.content.project import IProject
@@ -72,6 +73,9 @@ class Migrate_To_1_3_2(Migrator):
         # Migrate annex File in Annex content
         self.migrate_annex()
 
+        # reindex all projects spaces, projects and tasks
+        self.reindex_some_types()
+
         # Display duration
         self.finish()
 
@@ -119,36 +123,47 @@ class Migrate_To_1_3_2(Migrator):
     def migrate_annex(self):
         qi = self.context.portal_quickinstaller
         if not qi.isProductInstalled('imio.annex'):
-            self.runProfileSteps('imio.project.pst', steps=['typeinfo'], run_dependencies=False)
             qi.installProduct('imio.annex')
-            brains = self.catalog(object_provides=IProjectSpace.__identifier__)
-            for brain in brains:
-                pstprojectspace = brain.getObject()
-                behaviour = ISelectableConstrainTypes(pstprojectspace)
-                behaviour.setConstrainTypesMode(1)
-                behaviour.setLocallyAllowedTypes(['strategicobjective', 'annex', ])
-                behaviour.setImmediatelyAddableTypes(['strategicobjective', 'annex', ])
-            portal = api.portal.get()
-            configure_iconified_category(portal)
-            annexTypeId = calculate_category_id(portal.categorization.annexes.get('annexes-pst'))
-            brains = self.catalog(object_provides=IFile.__identifier__)
-            for brain in brains:
-                file_obj = brain.getObject()
-                parent = file_obj.aq_parent
-                if parent.portal_type in ['pstprojectspace', 'strategicobjective', 'operationalobjective',
-                                          'pstaction', 'pstsubaction']:
-                    annexId = file_obj.id
-                    api.content.delete(obj=parent[annexId])
-                    api.content.create(
-                        container=parent,
-                        type='annex',
-                        id=annexId,
-                        title=file_obj.Title(),
-                        description=file_obj.Description(),
-                        content_category=annexTypeId,
-                        file=file_obj.file,
-                    )
-                    transaction.commit()
+        self.runProfileSteps('imio.project.pst', steps=['typeinfo'], run_dependencies=False)
+        brains = self.catalog(object_provides=IProjectSpace.__identifier__)
+        for brain in brains:
+            pst_obj = brain.getObject()
+            behaviour = ISelectableConstrainTypes(pst_obj)
+            behaviour.setConstrainTypesMode(1)
+            behaviour.setLocallyAllowedTypes(['strategicobjective', 'annex', ])
+            behaviour.setImmediatelyAddableTypes(['strategicobjective', 'annex', ])
+        portal = api.portal.get()
+        configure_iconified_category(portal)
+        annexTypeId = calculate_category_id(portal.categorization.annexes.get('annexes-pst'))
+        brains = self.catalog(object_provides=IFile.__identifier__)
+        for brain in brains:
+            file_obj = brain.getObject()
+            parent = file_obj.aq_parent
+            if parent.portal_type in ['pstprojectspace', 'strategicobjective', 'operationalobjective',
+                                      'pstaction', 'pstsubaction', 'task']:
+                annexId = file_obj.id
+                api.content.delete(obj=parent[annexId])
+                api.content.create(
+                    container=parent,
+                    type='annex',
+                    id=annexId,
+                    title=file_obj.Title(),
+                    description=file_obj.Description(),
+                    content_category=annexTypeId,
+                    file=file_obj.file,
+                )
+                transaction.commit()
+
+    def reindex_some_types(self):
+        brains = self.catalog(object_provides=IProjectSpace.__identifier__)
+        for brain in brains:
+            brain.getObject().reindexObject()
+        brains = self.catalog(object_provides=IProject.__identifier__)
+        for brain in brains:
+            brain.getObject().reindexObject()
+        brains = self.catalog(object_provides=ITask.__identifier__)
+        for brain in brains:
+            brain.getObject().reindexObject()
 
 
 def migrate(context):
