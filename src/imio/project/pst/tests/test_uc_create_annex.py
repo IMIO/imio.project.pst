@@ -33,15 +33,16 @@ class TestCreateAnnex(FunctionalTestCase):
     Goal: allows actors to create an annex
     Author: Franck Ngaha
     Created: 17/08/2021
-    Updated: 17/08/2021
+    Updated: 30/08/2021
     Preconditions: The actor must be authenticated in a given specific context :
     - a pst admin in the context of a pst project space in state (internally_published)
     - a pst admin in the context of a strategic objective in anyone of all his states (created, ongoing, achieved)
     - a pst admin in the context of an operational objective in anyone of all his states (created, ongoing, achieved)
     - a pst admin in the context of a pst action in anyone of all his states
-    (created, ongoing, stopped, terminated, to_be_scheduled)
     - a pst admin in the context of a pst sub action in anyone of all his states
     (created, ongoing, stopped, terminated, to_be_scheduled)
+    - a pst admin in the context of a task in anyone of all his states
+    (created, to_assign, to_do, in_progress, realized, closed)
     - a pst editor in the context of a pst project space in state (internally_published)
     - a pst editor in the context of a strategic objective in anyone of all his states (created, ongoing, achieved)
     - a pst editor in the context of an operational objective in anyone of all his states (created, ongoing, achieved)
@@ -49,12 +50,17 @@ class TestCreateAnnex(FunctionalTestCase):
     (created, ongoing, stopped, terminated, to_be_scheduled)
     - a pst editor in the context of a pst sub action in anyone of all his states
     (created, ongoing, stopped, terminated, to_be_scheduled)
+    - a pst editor in the context of a task in anyone of all his states
+    (created, to_assign, to_do, in_progress, realized, closed)
     - an administrative responsible in the context of an operational objective in anyone of all his states (created, ongoing, achieved)
+    - an administrative responsible in the context of a task in states (to_assign, to_do, in_progress, realized)
     - a manager in the context of an operational objective in anyone of all his states (created, ongoing, achieved)
     - a manager in the context of a pst action in anyone of all his states
     (created, ongoing, stopped, terminated, to_be_scheduled)
     - a manager in the context of a pst sub action in anyone of all his states
     (created, ongoing, stopped, terminated, to_be_scheduled)
+    - a validator in the context of a task in states (to_assign, to_do, in_progress, realized)
+    - an editor in the context of a task in states (to_do, in_progress, realized)
     """
 
     def setUp(self):
@@ -64,6 +70,8 @@ class TestCreateAnnex(FunctionalTestCase):
         self.pst_editor = {'username': 'psteditor', 'password': self.password}
         self.adm_resp = {'username': 'chef', 'password': self.password}
         self.manager = {'username': 'agent', 'password': self.password}
+        self.validator = self.adm_resp
+        self.editor = self.manager
         # scenarios
         self.scenarios = [
             'main_scenario',
@@ -188,6 +196,49 @@ class TestCreateAnnex(FunctionalTestCase):
         self.assertEqual(state, 'terminated')
         self.call_scenarios(browser, self.pst_admin, self.sa17)
 
+    @browsing
+    def test_scenarios_as_admin_in_task_created(self, browser):
+        api.content.transition(obj=self.t2, transition='back_in_to_assign')
+        api.content.transition(obj=self.t2, transition='back_in_created')
+        state = api.content.get_state(obj=self.t2)
+        self.assertEqual(state, 'created')
+        self.call_scenarios(browser, self.pst_admin, self.t2)
+
+    @browsing
+    def test_scenarios_as_admin_in_task_to_assign(self, browser):
+        api.content.transition(obj=self.t2, transition='back_in_to_assign')
+        state = api.content.get_state(obj=self.t2)
+        self.assertEqual(state, 'to_assign')
+        self.call_scenarios(browser, self.pst_admin, self.t2)
+
+    @browsing
+    def test_scenarios_as_admin_in_task_to_do(self, browser):
+        state = api.content.get_state(obj=self.t2)
+        self.assertEqual(state, 'to_do')
+        self.call_scenarios(browser, self.pst_admin, self.t2)
+
+    @browsing
+    def test_scenarios_as_admin_in_task_in_progress(self, browser):
+        api.content.transition(obj=self.t2, transition='do_in_progress')
+        state = api.content.get_state(obj=self.t2)
+        self.assertEqual(state, 'in_progress')
+        self.call_scenarios(browser, self.pst_admin, self.t2)
+
+    @browsing
+    def test_scenarios_as_admin_in_task_realized(self, browser):
+        api.content.transition(obj=self.t2, transition='do_realized')
+        state = api.content.get_state(obj=self.t2)
+        self.assertEqual(state, 'realized')
+        self.call_scenarios(browser, self.pst_admin, self.t2)
+
+    @browsing
+    def test_scenarios_as_admin_in_task_closed(self, browser):
+        api.content.transition(obj=self.t2, transition='do_realized')
+        api.content.transition(obj=self.t2, transition='do_closed')
+        state = api.content.get_state(obj=self.t2)
+        self.assertEqual(state, 'closed')
+        self.call_scenarios(browser, self.pst_admin, self.t2)
+
     # pst editor -------------------------------------------------------------------------------------------------------
     @browsing
     def test_scenarios_as_pst_editor_in_pst_project_space_internally_published(self, browser):
@@ -305,6 +356,49 @@ class TestCreateAnnex(FunctionalTestCase):
         self.assertEqual(state, 'terminated')
         self.call_scenarios(browser, self.pst_editor, self.sa17)
 
+    @browsing
+    def test_scenarios_as_pst_editor_in_task_created(self, browser):
+        api.content.transition(obj=self.t2, transition='back_in_to_assign')
+        api.content.transition(obj=self.t2, transition='back_in_created')
+        state = api.content.get_state(obj=self.t2)
+        self.assertEqual(state, 'created')
+        self.call_scenarios(browser, self.pst_editor, self.t2)
+
+    @browsing
+    def test_scenarios_as_pst_editor_in_task_to_assign(self, browser):
+        api.content.transition(obj=self.t2, transition='back_in_to_assign')
+        state = api.content.get_state(obj=self.t2)
+        self.assertEqual(state, 'to_assign')
+        self.call_scenarios(browser, self.pst_editor, self.t2)
+
+    @browsing
+    def test_scenarios_as_pst_editor_in_task_to_do(self, browser):
+        state = api.content.get_state(obj=self.t2)
+        self.assertEqual(state, 'to_do')
+        self.call_scenarios(browser, self.pst_editor, self.t2)
+
+    @browsing
+    def test_scenarios_as_pst_editor_in_task_in_progress(self, browser):
+        api.content.transition(obj=self.t2, transition='do_in_progress')
+        state = api.content.get_state(obj=self.t2)
+        self.assertEqual(state, 'in_progress')
+        self.call_scenarios(browser, self.pst_editor, self.t2)
+
+    @browsing
+    def test_scenarios_as_pst_editor_in_task_realized(self, browser):
+        api.content.transition(obj=self.t2, transition='do_realized')
+        state = api.content.get_state(obj=self.t2)
+        self.assertEqual(state, 'realized')
+        self.call_scenarios(browser, self.pst_editor, self.t2)
+
+    @browsing
+    def test_scenarios_as_pst_editor_in_task_closed(self, browser):
+        api.content.transition(obj=self.t2, transition='do_realized')
+        api.content.transition(obj=self.t2, transition='do_closed')
+        state = api.content.get_state(obj=self.t2)
+        self.assertEqual(state, 'closed')
+        self.call_scenarios(browser, self.pst_editor, self.t2)
+
     # administrative responsible ---------------------------------------------------------------------------------------
     @browsing
     def test_scenarios_as_adm_resp_in_operational_objective_created(self, browser):
@@ -325,6 +419,33 @@ class TestCreateAnnex(FunctionalTestCase):
         state = api.content.get_state(obj=self.oo2)
         self.assertEqual(state, 'achieved')
         self.call_scenarios(browser, self.adm_resp, self.oo2)
+
+    @browsing
+    def test_scenarios_as_adm_resp_in_task_to_assign(self, browser):
+        api.content.transition(obj=self.t2, transition='back_in_to_assign')
+        state = api.content.get_state(obj=self.t2)
+        self.assertEqual(state, 'to_assign')
+        self.call_scenarios(browser, self.adm_resp, self.t2)
+
+    @browsing
+    def test_scenarios_as_adm_resp_in_task_to_do(self, browser):
+        state = api.content.get_state(obj=self.t2)
+        self.assertEqual(state, 'to_do')
+        self.call_scenarios(browser, self.adm_resp, self.t2)
+
+    @browsing
+    def test_scenarios_as_adm_resp_in_task_in_progress(self, browser):
+        api.content.transition(obj=self.t2, transition='do_in_progress')
+        state = api.content.get_state(obj=self.t2)
+        self.assertEqual(state, 'in_progress')
+        self.call_scenarios(browser, self.adm_resp, self.t2)
+
+    @browsing
+    def test_scenarios_as_adm_resp_in_task_realized(self, browser):
+        api.content.transition(obj=self.t2, transition='do_realized')
+        state = api.content.get_state(obj=self.t2)
+        self.assertEqual(state, 'realized')
+        self.call_scenarios(browser, self.adm_resp, self.t2)
 
     # manager ----------------------------------------------------------------------------------------------------------
     @browsing
@@ -416,6 +537,55 @@ class TestCreateAnnex(FunctionalTestCase):
         state = api.content.get_state(obj=self.sa17)
         self.assertEqual(state, 'terminated')
         self.call_scenarios(browser, self.manager, self.sa17)
+
+    # validator --------------------------------------------------------------------------------------------------------
+    @browsing
+    def test_scenarios_as_validator_in_task_to_assign(self, browser):
+        api.content.transition(obj=self.t2, transition='back_in_to_assign')
+        state = api.content.get_state(obj=self.t2)
+        self.assertEqual(state, 'to_assign')
+        self.call_scenarios(browser, self.validator, self.t2)
+
+    @browsing
+    def test_scenarios_as_validator_in_task_to_do(self, browser):
+        state = api.content.get_state(obj=self.t2)
+        self.assertEqual(state, 'to_do')
+        self.call_scenarios(browser, self.validator, self.t2)
+
+    @browsing
+    def test_scenarios_as_validator_in_task_in_progress(self, browser):
+        api.content.transition(obj=self.t2, transition='do_in_progress')
+        state = api.content.get_state(obj=self.t2)
+        self.assertEqual(state, 'in_progress')
+        self.call_scenarios(browser, self.validator, self.t2)
+
+    @browsing
+    def test_scenarios_as_validator_in_task_realized(self, browser):
+        api.content.transition(obj=self.t2, transition='do_realized')
+        state = api.content.get_state(obj=self.t2)
+        self.assertEqual(state, 'realized')
+        self.call_scenarios(browser, self.validator, self.t2)
+
+    # editor -----------------------------------------------------------------------------------------------------------
+    @browsing
+    def test_scenarios_as_editor_in_task_to_do(self, browser):
+        state = api.content.get_state(obj=self.t2)
+        self.assertEqual(state, 'to_do')
+        self.call_scenarios(browser, self.editor, self.t2)
+
+    @browsing
+    def test_scenarios_as_editor_in_task_in_progress(self, browser):
+        api.content.transition(obj=self.t2, transition='do_in_progress')
+        state = api.content.get_state(obj=self.t2)
+        self.assertEqual(state, 'in_progress')
+        self.call_scenarios(browser, self.editor, self.t2)
+
+    @browsing
+    def test_scenarios_as_editor_in_task_realized(self, browser):
+        api.content.transition(obj=self.t2, transition='do_realized')
+        state = api.content.get_state(obj=self.t2)
+        self.assertEqual(state, 'realized')
+        self.call_scenarios(browser, self.editor, self.t2)
 
     # ------------------------------------------------------------------------------------------------------------------
     def call_scenarios(self, browser, actor, context):
