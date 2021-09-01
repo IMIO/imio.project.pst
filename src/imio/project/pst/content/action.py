@@ -248,6 +248,7 @@ class HealthIndicatorVocabulary(object):
         terms.append(SimpleTerm(u'bon', u'bon', u'Bon'))
         terms.append(SimpleTerm(u'risque', u'risque', u'Risque'))
         terms.append(SimpleTerm(u'blocage', u'blocage', u'Blocage'))
+        terms.append(SimpleTerm(u'pause', u'pause', u'En pause'))
         return SimpleVocabulary(terms)
 
 
