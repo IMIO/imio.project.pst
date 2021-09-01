@@ -36,6 +36,29 @@ def add_context_var(template_id, context_var):
         context_vars.append(context_var)
 
 
+def migrate_context_var():
+    import ipdb; ipdb.set_trace()
+    template_vars = {
+        'detail' : ({'name': u'without_oo_fields', 'value': u','}),
+        'ddetail' : ({'name': u'without_oo_fields', 'value': u','}),
+        'ddetail-all' : ({'name': u'without_oo_fields', 'value': u','}),
+        'ddetail-tasks' : ({'name': u'without_oo_fields', 'value': u','}),
+        'ddetail-tasks-all' : ({'name': u'without_oo_fields', 'value': u','}),
+        'detail-tasks': ({'name': u'without_oo_fields', 'value': u','}),
+        'follow-tasks': ({'name': u'option_0', 'value': u'1'}, {'name': u'option_1', 'value': u''}),
+        'dfollow-tasks': ({'name': u'option_0', 'value': u'1'}, {'name': u'option_1', 'value': u''}),
+        'dfollow-all': ({'name': u'option_0', 'value': u'1'}, {'name': u'option_1', 'value': u''}),
+        'dfollow-tasks-all': ({'name': u'option_0', 'value': u'1'}, {'name': u'option_1', 'value': u''}),
+        'detail-all': ({'name': u'without_oo_fields', 'value': u','}),
+        'detail-tasks-all': ({'name': u'without_oo_fields', 'value': u','}),
+        'follow-all': ({'name': u'option_0', 'value': u'1'}, {'name': u'option_1', 'value': u''}),
+        'follow-tasks-all': ({'name': u'option_0', 'value': u'1'}, {'name': u'option_1', 'value': u''}),
+    }
+    for template_id in template_vars:
+        for context_var in template_vars[id]:
+            add_context_var(template_id, context_var)
+
+
 class Migrate_To_1_3_2(Migrator):
 
     def __init__(self, context):
@@ -67,8 +90,8 @@ class Migrate_To_1_3_2(Migrator):
         # Add new templates
         update_templates()
 
-        # Add new context variable in detail template
-        add_context_var('detail', {'name': u'without_oo_fields', 'value': u','})
+        # Migrate context variable
+        migrate_context_var()
 
         # Migrate annex File in Annex content
         self.migrate_annex()
