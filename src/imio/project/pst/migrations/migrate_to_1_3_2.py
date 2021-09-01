@@ -37,7 +37,6 @@ def add_context_var(template_id, context_var):
 
 
 def migrate_context_var():
-    import ipdb; ipdb.set_trace()
     template_vars = {
         'detail' : ({'name': u'without_oo_fields', 'value': u','}),
         'ddetail' : ({'name': u'without_oo_fields', 'value': u','}),
