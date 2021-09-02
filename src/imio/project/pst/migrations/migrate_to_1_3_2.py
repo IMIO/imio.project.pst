@@ -31,30 +31,29 @@ def update_templates():
 
 def add_context_var(template_id, context_var):
     template = getattr(api.portal.get().templates, template_id)
-    context_vars = template.context_variables
-    if context_var not in context_vars:
-        context_vars.append(context_var)
+    if context_var not in template.context_variables:
+        template.context_variables.append(context_var)
 
 
 def migrate_context_var():
     template_vars = {
-        'detail' : ({'name': u'without_oo_fields', 'value': u','}),
-        'ddetail' : ({'name': u'without_oo_fields', 'value': u','}),
-        'ddetail-all' : ({'name': u'without_oo_fields', 'value': u','}),
-        'ddetail-tasks' : ({'name': u'without_oo_fields', 'value': u','}),
-        'ddetail-tasks-all' : ({'name': u'without_oo_fields', 'value': u','}),
-        'detail-tasks': ({'name': u'without_oo_fields', 'value': u','}),
-        'follow-tasks': ({'name': u'option_0', 'value': u'1'}, {'name': u'option_1', 'value': u''}),
-        'dfollow-tasks': ({'name': u'option_0', 'value': u'1'}, {'name': u'option_1', 'value': u''}),
-        'dfollow-all': ({'name': u'option_0', 'value': u'1'}, {'name': u'option_1', 'value': u''}),
-        'dfollow-tasks-all': ({'name': u'option_0', 'value': u'1'}, {'name': u'option_1', 'value': u''}),
-        'detail-all': ({'name': u'without_oo_fields', 'value': u','}),
-        'detail-tasks-all': ({'name': u'without_oo_fields', 'value': u','}),
-        'follow-all': ({'name': u'option_0', 'value': u'1'}, {'name': u'option_1', 'value': u''}),
-        'follow-tasks-all': ({'name': u'option_0', 'value': u'1'}, {'name': u'option_1', 'value': u''}),
+        'ddetail': [{'name': u'without_oo_fields', 'value': u','}],
+        'ddetail-all': [{'name': u'without_oo_fields', 'value': u','}],
+        'ddetail-tasks': [{'name': u'without_oo_fields', 'value': u','}],
+        'ddetail-tasks-all': [{'name': u'without_oo_fields', 'value': u','}],
+        'detail': [{'name': u'without_oo_fields', 'value': u','}],
+        'detail-all': [{'name': u'without_oo_fields', 'value': u','}],
+        'detail-tasks': [{'name': u'without_oo_fields', 'value': u','}],
+        'detail-tasks-all': [{'name': u'without_oo_fields', 'value': u','}],
+        'dfollow-all': [{'name': u'option_0', 'value': u'1'}, {'name': u'option_1', 'value': u''}],
+        'dfollow-tasks': [{'name': u'option_0', 'value': u'1'}, {'name': u'option_1', 'value': u''}],
+        'dfollow-tasks-all': [{'name': u'option_0', 'value': u'1'}, {'name': u'option_1', 'value': u''}],
+        'follow-all': [{'name': u'option_0', 'value': u'1'}, {'name': u'option_1', 'value': u''}],
+        'follow-tasks': [{'name': u'option_0', 'value': u'1'}, {'name': u'option_1', 'value': u''}],
+        'follow-tasks-all': [{'name': u'option_0', 'value': u'1'}, {'name': u'option_1', 'value': u''}],
     }
     for template_id in template_vars:
-        for context_var in template_vars[id]:
+        for context_var in template_vars[template_id]:
             add_context_var(template_id, context_var)
 
 
