@@ -58,6 +58,7 @@ def get_main_templates(cids):
          'attrs': {'pod_formats': ['ods'], 'pod_portal_types': ['pstprojectspace', 'strategicobjective',
                    'operationalobjective', 'pstaction', 'pstsubaction'], 'tal_condition': "python:"
                    "context.restrictedTraverse('pst-utils').is_in_user_groups(user=member, groups=['pst_editors'])",
+                   'context_variables': [{'name': u'with_tasks', 'value': u''}],
                    'is_reusable': True,
                    'odt_file': NamedBlobFile(data=open('%s/export.ods' % TMPL_DIR, 'r').read(),
                                              filename=u'export.ods', contentType='applications/ods')}},
@@ -155,6 +156,7 @@ def get_templates(cids):
                    "context.getPortalTypeName() == 'pstsubaction') and "
                    "context.restrictedTraverse('pst-utils')"
                    ".is_in_user_groups(user=member, groups=['pst_editors'])",
+                   'context_variables': [{'name': u'with_tasks', 'value': u''}],
                    'pod_template_to_use': cids[80].UID()}},
 
         {'cid': 95, 'cont': 'templates', 'id': 'dmanagers', 'title': u'Suivi gestionnaires',
