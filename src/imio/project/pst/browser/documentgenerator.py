@@ -52,23 +52,35 @@ class DocumentGenerationBaseHelper():
             so_v = self.getDGHV(so)
             oos = self.getOperationalObjectives(so=so, skip_states=[])
             if not oos:
-                ret.append((so_v, None, None, None))
+                ret.append((so_v, None, None, None, None))
                 continue
             for oo in oos:
                 oo_v = self.getDGHV(oo)
                 acts = self.getActions(oo=oo, skip_states=[])
                 if not acts:
-                    ret.append((so_v, oo_v, None, None))
+                    ret.append((so_v, oo_v, None, None, None))
                     continue
                 for act in acts:
                     act_v = self.getDGHV(act)
                     subacts = self.getSubActions(action=act, skip_states=[])
+                    tasks = self.getTasks(action=act, skip_states=[])
                     if not subacts:
-                        ret.append((so_v, oo_v, act_v, None))
-                        continue
+                        if not tasks:
+                            ret.append((so_v, oo_v, act_v, None, None))
+                            continue
+                        for task in tasks:
+                            task_v = self.getDGHV(task)
+                            ret.append((so_v, oo_v, act_v, None, task_v))
+                            continue
                     for subact in subacts:
                         subact_v = self.getDGHV(subact)
-                        ret.append((so_v, oo_v, act_v, subact_v))
+                        tasks = self.getTasks(action=subact, skip_states=[])
+                        if not tasks:
+                            ret.append((so_v, oo_v, act_v, subact_v, None))
+                            continue
+                        for task in tasks:
+                            task_v = self.getDGHV(task)
+                            ret.append((so_v, oo_v, act_v, subact_v, task_v))
         return ret
 
     def skip_states(self):
