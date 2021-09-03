@@ -3,6 +3,8 @@ Changelog
 
 1.3.2 (unreleased)
 ----------------
+- Added tasks in export report
+  [fngaha]
 - Added new health indicator vocabulary "pause"
   [fngaha]
 - integrated imio.annex
