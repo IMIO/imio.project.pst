@@ -31,6 +31,8 @@ def update_templates():
 
 def add_context_var(template_id, context_var):
     template = getattr(api.portal.get().templates, template_id)
+    if not template.context_variables:
+        template.context_variables = []
     if context_var not in template.context_variables:
         template.context_variables.append(context_var)
 
@@ -45,9 +47,11 @@ def migrate_context_var():
         'detail-all': [{'name': u'without_oo_fields', 'value': u','}],
         'detail-tasks': [{'name': u'without_oo_fields', 'value': u','}],
         'detail-tasks-all': [{'name': u'without_oo_fields', 'value': u','}],
+        'dexport': [{'name': u'with_tasks', 'value': u''}],
         'dfollow-all': [{'name': u'option_0', 'value': u'1'}, {'name': u'option_1', 'value': u''}],
         'dfollow-tasks': [{'name': u'option_0', 'value': u'1'}, {'name': u'option_1', 'value': u''}],
         'dfollow-tasks-all': [{'name': u'option_0', 'value': u'1'}, {'name': u'option_1', 'value': u''}],
+        'export': [{'name': u'with_tasks', 'value': u''}],
         'follow-all': [{'name': u'option_0', 'value': u'1'}, {'name': u'option_1', 'value': u''}],
         'follow-tasks': [{'name': u'option_0', 'value': u'1'}, {'name': u'option_1', 'value': u''}],
         'follow-tasks-all': [{'name': u'option_0', 'value': u'1'}, {'name': u'option_1', 'value': u''}],
