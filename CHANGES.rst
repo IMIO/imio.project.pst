@@ -3,8 +3,6 @@ Changelog
 
 1.3.2 (unreleased)
 ----------------
-- Used by default the JS function `setoddeven` of `helpers.js`
-  [fngaha]
 - Added optional tasks in export report
   [fngaha]
 - Added new health indicator vocabulary "pause"
