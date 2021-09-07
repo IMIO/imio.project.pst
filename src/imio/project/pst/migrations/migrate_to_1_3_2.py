@@ -8,7 +8,7 @@ from collective.documentgenerator.utils import update_oo_config
 from collective.iconifiedcategory.utils import calculate_category_id
 from collective.messagesviewlet.utils import add_message
 from collective.task.behaviors import ITask
-from imio.helpers.content import create
+from imio.helpers.content import create, richtextval
 from imio.migrator.migrator import Migrator
 from imio.project.core.content.project import IProject
 from imio.project.core.content.projectspace import IProjectSpace
@@ -97,6 +97,9 @@ class Migrate_To_1_3_2(Migrator):
 
         # Migrate annex File in Annex content
         self.migrate_annex()
+
+        # Migrate to text/x-html-safe
+        self.migrate_to_text_x_html_safe()
 
         # reindex all projects spaces, projects and tasks
         self.reindex_some_types()
@@ -189,6 +192,23 @@ class Migrate_To_1_3_2(Migrator):
         brains = self.catalog(object_provides=ITask.__identifier__)
         for brain in brains:
             brain.getObject().reindexObject()
+
+    def migrate_to_text_x_html_safe(self):
+        """Migrate richtext's outputMimeType to text/x-html-safe."""
+        for brain in self.catalog(object_provides='imio.project.core.content.project.IProject'):
+            obj = brain.getObject()
+            if obj.budget_comments:
+                if obj.budget_comments.outputMimeType == 'text/html':
+                    obj.budget_comments = richtextval(obj.budget_comments.raw)
+                    obj.reindexObject()
+            if obj.observation:
+                if obj.observation.outputMimeType == 'text/html':
+                    obj.observation = richtextval(obj.observation.raw)
+                    obj.reindexObject()
+            if obj.comments:
+                if obj.comments.outputMimeType == 'text/html':
+                    obj.comments = richtextval(obj.comments.raw)
+                    obj.reindexObject()
 
 
 def migrate(context):
