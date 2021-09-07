@@ -3,6 +3,8 @@ Changelog
 
 1.3.2 (unreleased)
 ----------------
+- Used and migrated text/x-html-safe for rich fields
+  [fngaha]
 - Added optional tasks in export report
   [fngaha]
 - Added new health indicator vocabulary "pause"
