@@ -47,7 +47,7 @@ class TestUpdateTask(FunctionalTestCase):
         self.validateur = {'username': 'agent', 'password': self.password}
         self.editeur = {'username': 'agent', 'password': self.password}
         # Contexts
-        self.t1 = self.sa_17['ecrire-le-cahier-des-charges']
+        self.t1 = self.sa17['ecrire-le-cahier-des-charges']
         # scenarios
         self.scenarios = [
             'main_scenario',

@@ -120,6 +120,7 @@ class TestCase(unittest.TestCase):
         self.sa19l1 = self.a20['en-fonction-des-resultats-remplacer-le-systeme-de-chauffage']
         self.t1 = self.a3['ajouter-une-annonce-sur-le-site-internet']
         self.t2 = self.a3['rediger-le-profil-de-fonction']
+        self.an1 = self.a3['annex_test']
         act_srv = [u'cellule-marches-publics', u'secretariat-communal', u'service-etat-civil', u'service-informatique',
                    u'service-proprete', u'service-population', u'service-travaux', u'service-de-lurbanisme']
         srv_obj = self.portal['contacts']['plonegroup-organization']['services']
