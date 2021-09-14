@@ -15,6 +15,7 @@ from imio.project.core.content.projectspace import IProjectSpace
 from imio.project.pst.data import get_main_templates
 from imio.project.pst.data import get_styles_templates
 from imio.project.pst.data import get_templates
+from imio.project.pst.setuphandlers import _ as _translate
 from imio.project.pst.setuphandlers import configure_iconified_category
 from plone import api
 from plone.app.contenttypes.interfaces import IFile
@@ -100,6 +101,9 @@ class Migrate_To_1_3_2(Migrator):
 
         # Migrate to text/x-html-safe
         self.migrate_to_text_x_html_safe()
+
+        # Update front_page
+        self.update_front_page()
 
         # reindex all projects spaces, projects and tasks
         self.reindex_some_types()
@@ -209,6 +213,11 @@ class Migrate_To_1_3_2(Migrator):
                 if obj.comments.outputMimeType == 'text/html':
                     obj.comments = richtextval(obj.comments.raw)
                     obj.reindexObject()
+
+    def update_front_page(self):
+        frontpage = getattr(self.portal, 'front-page')
+        frontpage.title = _translate("front_page_title")
+        frontpage.reindexObject()
 
 
 def migrate(context):
