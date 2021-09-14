@@ -3,6 +3,8 @@ Changelog
 
 1.3.2 (unreleased)
 ----------------
+- Updated front page
+  [fngaha]
 - Used and migrated text/x-html-safe for rich fields
   [fngaha]
 - Added optional tasks in export report
