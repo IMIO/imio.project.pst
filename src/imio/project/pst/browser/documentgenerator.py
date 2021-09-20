@@ -173,15 +173,8 @@ class BudgetHelper():
     """
 
     def getOwnBudget(self):
-        """
-            get the own rendered widget
-        """
-        soup = self.display_widget('budget', soup=True)
-        table = soup.find('fieldset').find('table')
-        remove_attributes(table, ['class', 'id', 'data-id_prefix', 'data-name_prefix'])
-        replace_entire_strings(table)
-        unwrap_tags(table, ['span'])
-        return str(table)
+        """ get the own rendered widget."""
+        return self._render_widget('budget')
 
     def getOwnBudgetAsText(self):
         """
@@ -246,6 +239,23 @@ class BudgetHelper():
             if budget['year'] in fixed_years:
                 budget_by_year[budget['year']] += budget['amount']
         return budget_by_year
+
+    def getAnalyticBudget(self):
+        """Get the analytic budget rendered widget."""
+        return self._render_widget('IAnalyticBudget.analytic_budget')
+
+    def getProjection(self):
+        """Get the projection rendered widget."""
+        return self._render_widget('IAnalyticBudget.projection')
+
+    def _render_widget(self, widget):
+        """Get the projection rendered widget."""
+        soup = self.display_widget(widget, soup=True)
+        table = soup.find('fieldset').find('table')
+        remove_attributes(table, ['class', 'id', 'data-id_prefix', 'data-name_prefix'])
+        replace_entire_strings(table)
+        unwrap_tags(table, ['span'])
+        return str(table)
 
 
 class DocumentGenerationSOHelper(DocumentGenerationBaseHelper, DXDocumentGenerationHelperView, BudgetHelper):
