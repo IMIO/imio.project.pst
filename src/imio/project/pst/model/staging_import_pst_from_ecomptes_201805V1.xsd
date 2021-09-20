@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <dataroot>
     <Identifiants>
-        <Id>20210426</Id>
+        <Id>20210920</Id>
         <TypeAdmin>AC</TypeAdmin>
         <INS>99999</INS>
         <Type>PST</Type>
@@ -11,7 +11,7 @@
     </Identifiants>
     <PST>
         <DescriptionPST>
-            <IdPST>57eb69784b134a7f942c838a7c80b849</IdPST>
+            <IdPST>7fa2db778be64f88870f5d803e2581d5</IdPST>
             <Libelle>PST 2019-2024</Libelle>
             <ExerciceDebut>2019</ExerciceDebut>
             <ExerciceFin>2024</ExerciceFin>
@@ -35,7 +35,7 @@
                 <Articles/>
                 <Projections/>
                 <ObjectifStrategiques>
-                    <ObjectifStrategique Exercice="2021" ElementId="2252b914544d410f930e624678a2e4ba">
+                    <ObjectifStrategique Exercice="2021" ElementId="ee394cd82a6b462aa2bf1b842ff3917a">
                         <Libelle>OS.1 - Etre une commune qui offre un service public moderne, efficace et efficient</Libelle>
                         <Description>
                             <Mode>TEXTE</Mode>
@@ -48,18 +48,18 @@
                             <Valeur/>
                         </RemarqueStatut>
                         <ETP>0</ETP>
-                        
-                        
+
+
                         <Plans>
                             <Plan>Plan de formation du personnel</Plan>
                             <Plan>Plan de gestion</Plan>
                         </Plans>
-                        
+
                         <Partenaires/>
                         <Articles/>
                         <Projections/>
                         <ObjectifsOperationnels>
-                            <ObjectifOperationnel Exercice="2021" ElementId="59b93586986c43a1a772930b9c26dd4b">
+                            <ObjectifOperationnel Exercice="2021" ElementId="e63bc0a568664ca6909dc262ea5cb8eb">
                                 <Libelle>OO.2 - Diminuer le temps d'attente de l'usager au guichet population de 20% dans les 12 mois à venir</Libelle>
                                 <Description>
                                     <Mode>TEXTE</Mode>
@@ -87,20 +87,20 @@
                                     <Valeur/>
                                 </RemarqueStatut>
                                 <ETP>0</ETP>
-                                
-                                
+
+
                                 <Plans>
                                     <Plan>Plan de formation du personnel</Plan>
                                     <Plan>Plan de gestion</Plan>
                                 </Plans>
-                                
+
                                 <Partenaires/>
                                 <Articles/>
                                 <Projections/>
                                 <Actions>
-                                    <Action Exercice="2021" ElementId="5d5fd4b87d364359b2e8319e4590460f">
+                                    <Action Exercice="2021" ElementId="878b4498f3c64fa1a4f490d707465c1d">
                                         <Libelle>A.3 - Engager 2 agents pour le Service Population</Libelle>
-                                        
+
                                         <DateFin>2020-06-30</DateFin>
                                         <Description>
                                             <Mode>TEXTE</Mode>
@@ -121,20 +121,20 @@
                                             <Valeur/>
                                         </RemarqueStatut>
                                         <ETP>0</ETP>
-                                        
-                                        
+
+
                                         <Plans>
                                             <Plan>Plan de formation du personnel</Plan>
                                             <Plan>Plan de gestion</Plan>
                                         </Plans>
-                                        
+
                                         <Partenaires/>
                                         <Articles/>
                                         <Projections/>
                                     </Action>
-                                    <Action Exercice="2021" ElementId="a5b2d39349104a44972d2c04902b7d47">
+                                    <Action Exercice="2021" ElementId="b58789f824a84fc0a16bf1e02ed38c53">
                                         <Libelle>A.4 - Créer un guichet supplémentaire dans les 3 mois</Libelle>
-                                        
+
                                         <DateFin>2020-06-30</DateFin>
                                         <Description>
                                             <Mode>TEXTE</Mode>
@@ -155,20 +155,20 @@
                                             <Valeur/>
                                         </RemarqueStatut>
                                         <ETP>0</ETP>
-                                        
-                                        
+
+
                                         <Plans>
                                             <Plan>Plan de formation du personnel</Plan>
                                             <Plan>Plan de gestion</Plan>
                                         </Plans>
-                                        
+
                                         <Partenaires/>
                                         <Articles/>
                                         <Projections/>
                                     </Action>
-                                    <Action Exercice="2021" ElementId="beb49eb48ada48a380eb2f757c4a1fc3">
+                                    <Action Exercice="2021" ElementId="5dfa10c4ee3a43748430b31f69cf6532">
                                         <Libelle>A.5 - Mettre en ligne sur le site internet différents documents "population" à télécharger de chez soi</Libelle>
-                                        
+
                                         <DateFin>2020-09-30</DateFin>
                                         <Description>
                                             <Mode>TEXTE</Mode>
@@ -189,20 +189,20 @@
                                             <Valeur/>
                                         </RemarqueStatut>
                                         <ETP>0</ETP>
-                                        
-                                        
+
+
                                         <Plans>
                                             <Plan>Plan de formation du personnel</Plan>
                                             <Plan>Plan de gestion</Plan>
                                         </Plans>
-                                        
+
                                         <Partenaires/>
                                         <Articles/>
                                         <Projections/>
                                     </Action>
                                 </Actions>
                             </ObjectifOperationnel>
-                            <ObjectifOperationnel Exercice="2021" ElementId="50ed6f4012d04601bed66b4cf8830a83">
+                            <ObjectifOperationnel Exercice="2021" ElementId="62765f4a23e140049cded6812969f23d">
                                 <Libelle>OO.6 - Optimiser l'accueil au sein de l'administration communale</Libelle>
                                 <Description>
                                     <Mode>TEXTE</Mode>
@@ -230,20 +230,20 @@
                                     <Valeur/>
                                 </RemarqueStatut>
                                 <ETP>0</ETP>
-                                
-                                
+
+
                                 <Plans>
                                     <Plan>Plan de formation du personnel</Plan>
                                     <Plan>Plan de gestion</Plan>
                                 </Plans>
-                                
+
                                 <Partenaires/>
                                 <Articles/>
                                 <Projections/>
                                 <Actions>
-                                    <Action Exercice="2021" ElementId="afd69a1b07a645f3b241cf3762893a1a">
+                                    <Action Exercice="2021" ElementId="d04a756a5b7a4ccd98150cec64ae53c3">
                                         <Libelle>A.7 - Placer des pictogrammes de guidance</Libelle>
-                                        
+
                                         <DateFin>2020-06-30</DateFin>
                                         <Description>
                                             <Mode>TEXTE</Mode>
@@ -264,20 +264,20 @@
                                             <Valeur/>
                                         </RemarqueStatut>
                                         <ETP>0</ETP>
-                                        
-                                        
+
+
                                         <Plans>
                                             <Plan>Plan de formation du personnel</Plan>
                                             <Plan>Plan de gestion</Plan>
                                         </Plans>
-                                        
+
                                         <Partenaires/>
                                         <Articles/>
                                         <Projections/>
                                     </Action>
-                                    <Action Exercice="2021" ElementId="e1e7a3a5c2994e5fbadbb3ab31aeff84">
+                                    <Action Exercice="2021" ElementId="9902ce8914b7483eb114ff29cab0acb0">
                                         <Libelle>A.8 - Installer une rampe d'accès pour PMR</Libelle>
-                                        
+
                                         <DateFin>2020-06-30</DateFin>
                                         <Description>
                                             <Mode>TEXTE</Mode>
@@ -298,20 +298,20 @@
                                             <Valeur/>
                                         </RemarqueStatut>
                                         <ETP>0</ETP>
-                                        
-                                        
+
+
                                         <Plans>
                                             <Plan>Plan de formation du personnel</Plan>
                                             <Plan>Plan de gestion</Plan>
                                         </Plans>
-                                        
+
                                         <Partenaires/>
                                         <Articles/>
                                         <Projections/>
                                     </Action>
-                                    <Action Exercice="2021" ElementId="1e132ba6e5ce4cf8b312c5c144527b83">
+                                    <Action Exercice="2021" ElementId="a899b74d7c704a7386ba37d29a77280e">
                                         <Libelle>A.9 - Mettre en place des permanences sur rendez-vous</Libelle>
-                                        
+
                                         <DateFin>2020-09-30</DateFin>
                                         <Description>
                                             <Mode>TEXTE</Mode>
@@ -332,13 +332,13 @@
                                             <Valeur/>
                                         </RemarqueStatut>
                                         <ETP>0</ETP>
-                                        
-                                        
+
+
                                         <Plans>
                                             <Plan>Plan de formation du personnel</Plan>
                                             <Plan>Plan de gestion</Plan>
                                         </Plans>
-                                        
+
                                         <Partenaires/>
                                         <Articles/>
                                         <Projections/>
@@ -347,7 +347,7 @@
                             </ObjectifOperationnel>
                         </ObjectifsOperationnels>
                     </ObjectifStrategique>
-                    <ObjectifStrategique Exercice="2021" ElementId="37a3c9e87d7b4467924509f7bceda59d">
+                    <ObjectifStrategique Exercice="2021" ElementId="38196493f75f4172a026d381e26e98af">
                         <Libelle>OS.10 - Etre une commune qui s'inscrit dans la lignée des accords de réductions des gaz à effet de serre afin d'assurer le développement durable</Libelle>
                         <Description>
                             <Mode>TEXTE</Mode>
@@ -360,15 +360,15 @@
                             <Valeur/>
                         </RemarqueStatut>
                         <ETP>0</ETP>
-                        
+
                         <Plans/>
-                        
-                        
+
+
                         <Partenaires/>
                         <Articles/>
                         <Projections/>
                         <ObjectifsOperationnels>
-                            <ObjectifOperationnel Exercice="2021" ElementId="3af88a3f49d94124b430e8fabfec05c3">
+                            <ObjectifOperationnel Exercice="2021" ElementId="b5038f1359fa461dbd3f5496991d611a">
                                 <Libelle>OO.11 - Doter la commune de compétences en matière énergétique pour fin 2021 compte tenu du budget</Libelle>
                                 <Description>
                                     <Mode>TEXTE</Mode>
@@ -396,17 +396,17 @@
                                     <Valeur/>
                                 </RemarqueStatut>
                                 <ETP>0</ETP>
-                                
+
                                 <Plans/>
-                                
-                                
+
+
                                 <Partenaires/>
                                 <Articles/>
                                 <Projections/>
                                 <Actions>
-                                    <Action Exercice="2021" ElementId="60a701c7950145bb965ccc3b1be0aa5f">
+                                    <Action Exercice="2021" ElementId="cf0bcd9a8bf449108418f1b57736b274">
                                         <Libelle>A.12 - Procéder à l'engagement d'un conseiller en énergie</Libelle>
-                                        
+
                                         <DateFin>2020-06-30</DateFin>
                                         <Description>
                                             <Mode>TEXTE</Mode>
@@ -427,17 +427,17 @@
                                             <Valeur/>
                                         </RemarqueStatut>
                                         <ETP>0</ETP>
-                                        
+
                                         <Plans/>
-                                        
-                                        
+
+
                                         <Partenaires/>
                                         <Articles/>
                                         <Projections/>
                                     </Action>
-                                    <Action Exercice="2021" ElementId="5dcb926617994f41836dd3715f68325a">
+                                    <Action Exercice="2021" ElementId="07542f50004248529f12e43dccf725d8">
                                         <Libelle>A.13 - Répondre à l'appel à projet "écopasseur" de la Wallonie</Libelle>
-                                        
+
                                         <DateFin>2020-06-30</DateFin>
                                         <Description>
                                             <Mode>TEXTE</Mode>
@@ -458,10 +458,10 @@
                                             <Valeur/>
                                         </RemarqueStatut>
                                         <ETP>0</ETP>
-                                        
+
                                         <Plans/>
-                                        
-                                        
+
+
                                         <Partenaires/>
                                         <Articles>
                                             <Article>
@@ -499,9 +499,9 @@
                                         </Articles>
                                         <Projections/>
                                     </Action>
-                                    <Action Exercice="2021" ElementId="a63281b242e346e982e847ab2e1ee34b">
+                                    <Action Exercice="2021" ElementId="44fd9a9ce8494890ac2dfe337e35a7b4">
                                         <Libelle>A.14 - Inscrire systématiquement les agents du service travaux aux formations énergétiques</Libelle>
-                                        
+
                                         <DateFin>2020-09-30</DateFin>
                                         <Description>
                                             <Mode>TEXTE</Mode>
@@ -522,10 +522,10 @@
                                             <Valeur/>
                                         </RemarqueStatut>
                                         <ETP>0</ETP>
-                                        
+
                                         <Plans/>
-                                        
-                                        
+
+
                                         <Partenaires/>
                                         <Articles>
                                             <Article>
@@ -565,7 +565,7 @@
                                     </Action>
                                 </Actions>
                             </ObjectifOperationnel>
-                            <ObjectifOperationnel Exercice="2021" ElementId="ab287c65a5504b1788d46a6cfcaf1221">
+                            <ObjectifOperationnel Exercice="2021" ElementId="f09cc5bdbfc049f5821737c843fad87d">
                                 <Libelle>OO.15 - Réduire la consommation énergétique des bâtiments communaux de 20% d'ici 2024</Libelle>
                                 <Description>
                                     <Mode>TEXTE</Mode>
@@ -593,17 +593,17 @@
                                     <Valeur/>
                                 </RemarqueStatut>
                                 <ETP>0</ETP>
-                                
+
                                 <Plans/>
-                                
-                                
+
+
                                 <Partenaires/>
                                 <Articles/>
                                 <Projections/>
                                 <Actions>
-                                    <Action Exercice="2021" ElementId="ad59322612114ed191bd538f5ad207da">
+                                    <Action Exercice="2021" ElementId="513a6b471414461e91b0b30575ce25da">
                                         <Libelle>A.16 - Réduire la consommation énergétique de l'administration communale</Libelle>
-                                        
+
                                         <DateFin>2024-06-30</DateFin>
                                         <Description>
                                             <Mode>TEXTE</Mode>
@@ -624,17 +624,17 @@
                                             <Valeur/>
                                         </RemarqueStatut>
                                         <ETP>0</ETP>
-                                        
+
                                         <Plans/>
-                                        
-                                        
+
+
                                         <Partenaires/>
                                         <Articles/>
                                         <Projections/>
                                     </Action>
-                                    <Action Exercice="2021" ElementId="412f1981ae984f61bccde35fb99c3116">
+                                    <Action Exercice="2021" ElementId="b626d2fbed664259972395fe3d8386d4">
                                         <Libelle>A.16 - SA.17 - Réaliser un audit énergétique du bâtiment</Libelle>
-                                        
+
                                         <DateFin>2020-06-30</DateFin>
                                         <Description>
                                             <Mode>TEXTE</Mode>
@@ -655,10 +655,10 @@
                                             <Valeur/>
                                         </RemarqueStatut>
                                         <ETP>0</ETP>
-                                        
+
                                         <Plans/>
-                                        
-                                        
+
+
                                         <Partenaires/>
                                         <Articles>
                                             <Article>
@@ -696,9 +696,9 @@
                                         </Articles>
                                         <Projections/>
                                     </Action>
-                                    <Action Exercice="2021" ElementId="d02b6c900d094c768b26dc2703756f45">
+                                    <Action Exercice="2021" ElementId="64440858714248d8b4672c20c0d2d4b7">
                                         <Libelle>A.16 - SA.18 - En fonction des résultats, procéder à l'isolation du bâtiment</Libelle>
-                                        
+
                                         <DateFin>2020-10-31</DateFin>
                                         <Description>
                                             <Mode>TEXTE</Mode>
@@ -719,10 +719,10 @@
                                             <Valeur/>
                                         </RemarqueStatut>
                                         <ETP>0</ETP>
-                                        
+
                                         <Plans/>
-                                        
-                                        
+
+
                                         <Partenaires/>
                                         <Articles>
                                             <Article>
@@ -760,9 +760,9 @@
                                         </Articles>
                                         <Projections/>
                                     </Action>
-                                    <Action Exercice="2021" ElementId="932616b343b54964b748c8e11515398a">
+                                    <Action Exercice="2021" ElementId="f8d74c1916824a3f8dcf1e2184776f9c">
                                         <Libelle>A.16 - SA.19 - En fonction des résultats, remplacer le système de chauffage</Libelle>
-                                        
+
                                         <DateFin>2020-10-31</DateFin>
                                         <Description>
                                             <Mode>TEXTE</Mode>
@@ -783,10 +783,10 @@
                                             <Valeur/>
                                         </RemarqueStatut>
                                         <ETP>0</ETP>
-                                        
+
                                         <Plans/>
-                                        
-                                        
+
+
                                         <Partenaires/>
                                         <Articles>
                                             <Article>
@@ -824,9 +824,9 @@
                                         </Articles>
                                         <Projections/>
                                     </Action>
-                                    <Action Exercice="2021" ElementId="ed2bca57a7e34045934cafa76190d4dc">
+                                    <Action Exercice="2021" ElementId="fa6f0b7aa82a4de28d30e57f463c3ce7">
                                         <Libelle>A.20 - Réduire la consommation énergétique du hangar communal</Libelle>
-                                        
+
                                         <DateFin>2024-06-30</DateFin>
                                         <Description>
                                             <Mode>TEXTE</Mode>
@@ -847,10 +847,10 @@
                                             <Valeur/>
                                         </RemarqueStatut>
                                         <ETP>0</ETP>
-                                        
+
                                         <Plans/>
-                                        
-                                        
+
+
                                         <Partenaires/>
                                         <Articles/>
                                         <Projections/>
@@ -859,7 +859,7 @@
                             </ObjectifOperationnel>
                         </ObjectifsOperationnels>
                     </ObjectifStrategique>
-                    <ObjectifStrategique Exercice="2021" ElementId="64ecdf4b01ee489dbc63d9f30d4ec333">
+                    <ObjectifStrategique Exercice="2021" ElementId="92428a18a8bf4025a1a3802661f2ce31">
                         <Libelle>OS.21 - Etre une commune où il fait bon vivre dans un cadre agréable, propre et en toute sécurité</Libelle>
                         <Description>
                             <Mode>TEXTE</Mode>
@@ -872,15 +872,15 @@
                             <Valeur/>
                         </RemarqueStatut>
                         <ETP>0</ETP>
-                        
+
                         <Plans/>
-                        
-                        
+
+
                         <Partenaires/>
                         <Articles/>
                         <Projections/>
                         <ObjectifsOperationnels>
-                            <ObjectifOperationnel Exercice="2021" ElementId="d1f57a4f5512460487a4ea6a2019dc54">
+                            <ObjectifOperationnel Exercice="2021" ElementId="d8d9ed7c395c4d859d4dc0c39e14cb2b">
                                 <Libelle>OO.22 - Assurer la propreté dans l'ensemble des parcs de la commune de manière à réduire la présence de déchets de 90% au 31 12 2022</Libelle>
                                 <Description>
                                     <Mode>TEXTE</Mode>
@@ -908,17 +908,17 @@
                                     <Valeur/>
                                 </RemarqueStatut>
                                 <ETP>0</ETP>
-                                
+
                                 <Plans/>
-                                
-                                
+
+
                                 <Partenaires/>
                                 <Articles/>
                                 <Projections/>
                                 <Actions>
-                                    <Action Exercice="2021" ElementId="b4169d01f2c74a1bb4ffa6b330f687af">
+                                    <Action Exercice="2021" ElementId="0cb32984b5cf4420b072d26fb3ff881f">
                                         <Libelle>A.23 - Installer des distributeurs de sacs "ramasse crottes", dans les parcs (entrée et sortie)</Libelle>
-                                        
+
                                         <DateFin>2021-06-30</DateFin>
                                         <Description>
                                             <Mode>TEXTE</Mode>
@@ -939,10 +939,10 @@
                                             <Valeur/>
                                         </RemarqueStatut>
                                         <ETP>0</ETP>
-                                        
+
                                         <Plans/>
-                                        
-                                        
+
+
                                         <Partenaires/>
                                         <Articles/>
                                         <Projections/>
