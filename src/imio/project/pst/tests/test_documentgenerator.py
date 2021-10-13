@@ -129,7 +129,7 @@ class TestDocumentGenerator(IntegrationTestCase):
         self.portal.REQUEST['PUBLISHED'] = view
         self.assertEqual(view.getOwnBudget(), '<table><thead><tr><th>Budget_type</th><th>Year</th><th>Amount</th><th>De'
                                               'tail / Comment</th></tr></thead><tbody><tr><td>Wallonie</td><td>2019</td'
-                                              '><td>1,000.0</td><td>&lt;NO_VALUE&gt;</td><td></td></tr></tbody></table>'
+                                              '><td>1,000.0</td><td></td><td></td></tr></tbody></table>'
                          )
         self.assertEqual(view.getOwnBudgetAsText(), '2019 pour Wallonie: 1000€')
         # TODO : Fix AssertionError
