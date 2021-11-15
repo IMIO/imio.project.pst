@@ -3,6 +3,8 @@ Changelog
 
 2.0 (unreleased)
 ----------------
+- Removed deprecated package Products.PasswordStrength
+  [fngaha]
 
 1.3.2 (2021-10-05)
 ----------------

@@ -46,7 +46,6 @@ setup(
         'Plone',
         'Pillow',
         'Products.CPUtils',
-        'Products.PasswordStrength > 0.3.1',
         'appy',
         'communesplone.layout',
         'collective.behavior.sdg',
