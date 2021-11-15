@@ -3,6 +3,8 @@ Changelog
 
 2.0 (unreleased)
 ----------------
+- Removed deprecated class BaseFolder
+  [fngaha]
 - Removed deprecated package Products.PasswordStrength
   [fngaha]
 

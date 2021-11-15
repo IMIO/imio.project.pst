@@ -4,7 +4,6 @@
 from AccessControl.Permissions import delete_objects
 from plone import api
 from plone.dexterity.content import Container
-from Products.Archetypes.BaseFolder import BaseFolder
 from Products.CMFPlone.PloneFolder import BasePloneFolder
 from zope.component import queryUtility
 from zope.i18n.interfaces import ITranslationDomain
@@ -34,7 +33,7 @@ def add_path(path):
 # Normally to delete an item, user must have the delete permission on the item and on the parent container
 # Now container 'manage_delObjects' method is protected by roles (Member)
 # Based on what is done in AccessControl.class_init
-for klass in (BaseFolder, BasePloneFolder, Container):
+for klass in (BasePloneFolder, Container):
     new = []
     for perm in klass.__ac_permissions__:
         if perm[0] == delete_objects:
