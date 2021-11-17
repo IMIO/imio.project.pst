@@ -13,7 +13,6 @@ from plone import api
 from plone.autoform import directives as form
 from plone.dexterity.schema import DexteritySchemaPolicy
 from plone.dexterity.browser.add import DefaultAddView
-from collective.z3cform.chosen.widget import AjaxChosenMultiFieldWidget
 from z3c.form.datamanager import AttributeField
 from z3c.form.interfaces import IDataManager
 from zope import schema
@@ -36,7 +35,6 @@ class IOperationalObjective(IProject):
         required=True,
         min_length=1,
     )
-    form.widget('representative_responsible', AjaxChosenMultiFieldWidget, populate_select=True)
 
     administrative_responsible = LocalRolesField(
         title=_(u"Administrative responsible"),
@@ -47,7 +45,6 @@ class IOperationalObjective(IProject):
         required=True,
         min_length=1,
     )
-    form.widget('administrative_responsible', AjaxChosenMultiFieldWidget, populate_select=True)
 
     manager = LocalRolesField(
         title=_c(u"Manager"),
@@ -58,7 +55,6 @@ class IOperationalObjective(IProject):
         required=True,
         min_length=1,
     )
-    form.widget('manager', AjaxChosenMultiFieldWidget, populate_select=True)
 
 
 class OperationalObjective(Project):

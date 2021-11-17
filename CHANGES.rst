@@ -3,6 +3,8 @@ Changelog
 
 2.0 (unreleased)
 ----------------
+- Removed deprecated package collective.z3cform.chosen
+  [fngaha]
 - Removed deprecated class BaseFolder
   [fngaha]
 - Removed deprecated package Products.PasswordStrength

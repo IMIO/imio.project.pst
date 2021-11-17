@@ -12,7 +12,6 @@
     <include package="Products.PasswordStrength" />
     <include package="collective.behavior.sdg" />
     <include package="collective.documentgenerator" />
-    <include package="collective.z3cform.chosen" />
     <include package="communesplone.layout" />
     <include package="imio.dashboard" />
     <include package="imio.helpers" />
