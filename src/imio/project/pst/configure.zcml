@@ -9,7 +9,6 @@
 
     <five:registerPackage package="." initialize=".initialize" />
 
-    <include package="Products.PasswordStrength" />
     <include package="collective.behavior.sdg" />
     <include package="collective.documentgenerator" />
     <include package="communesplone.layout" />
