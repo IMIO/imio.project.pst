@@ -3,6 +3,9 @@ Changelog
 
 2.0 (unreleased)
 ----------------
+
+- Used py3 appy
+  [fngaha]
 - Removed deprecated package collective.z3cform.chosen
   [fngaha]
 - Removed deprecated class BaseFolder
@@ -12,6 +15,7 @@ Changelog
 
 1.3.2 (2021-10-05)
 ----------------
+
 - Updated front page
   [fngaha]
 - Used and migrated text/x-html-safe for rich fields
@@ -35,6 +39,7 @@ Changelog
 
 1.3.1 (2021-06-02)
 ----------------
+
 - Added new dashboard template for manager follow-up
   [fngaha]
 - Fix ddetail template
