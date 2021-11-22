@@ -8,7 +8,6 @@
     <dependency>profile-collective.externaleditor:default</dependency>
     <dependency>profile-collective.messagesviewlet:messages</dependency>
     <dependency>profile-collective.portlet.actions:default</dependency>
-    <dependency>profile-communesplone.layout:default</dependency>
     <dependency>profile-imio.annex:default</dependency>
     <dependency>profile-imio.project.core:default</dependency>
     <dependency>profile-plonetheme.imioapps:pstskin</dependency>

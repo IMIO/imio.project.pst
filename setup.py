@@ -47,7 +47,6 @@ setup(
         'Pillow',
         'Products.CPUtils',
         'appy',
-        'communesplone.layout',
         'collective.behavior.sdg',
         'collective.ckeditor',
         'collective.dexteritytextindexer',
