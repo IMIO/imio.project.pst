@@ -4,6 +4,8 @@ Changelog
 2.0 (unreleased)
 ----------------
 
+- removed communesplone.layout deprecated package
+  [fngaha]
 - Used py3 appy
   [fngaha]
 - Removed deprecated package collective.z3cform.chosen
