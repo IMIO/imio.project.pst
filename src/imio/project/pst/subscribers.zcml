@@ -5,17 +5,6 @@
 
     <include package="z3c.unconfigure" file="meta.zcml" />
 
-    <unconfigure>
-        <subscriber
-            for="plone.app.controlpanel.interfaces.IConfigurationChangedEvent"
-            handler="imio.pm.wsclient.browser.settings.notify_configuration_changed"
-            />
-        <subscriber
-            for="plone.registry.interfaces.IRecordModifiedEvent"
-            handler="imio.pm.wsclient.browser.settings.notify_configuration_changed"
-            />
-    </unconfigure>
-
     <subscriber
         for="plone.app.controlpanel.interfaces.IConfigurationChangedEvent"
         handler=".subscribers.wsclient_configuration_changed"

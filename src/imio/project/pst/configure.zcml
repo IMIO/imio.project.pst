@@ -13,7 +13,6 @@
     <include package="collective.documentgenerator" />
     <include package="imio.dashboard" />
     <include package="imio.helpers" />
-    <include package="imio.pm.wsclient" />
     <include package="imio.project.core" />
     <include package="plone.app.lockingbehavior"/>
     <include package="plone.app.versioningbehavior" />

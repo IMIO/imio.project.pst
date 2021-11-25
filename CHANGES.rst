@@ -4,7 +4,9 @@ Changelog
 2.0 (unreleased)
 ----------------
 
-- removed communesplone.layout deprecated package
+- Removed deprecated package imio.pm.wsclient
+  [fngaha]
+- removed deprecated package communesplone.layout
   [fngaha]
 - Used py3 appy
   [fngaha]
