@@ -4,6 +4,8 @@ Changelog
 2.0 (unreleased)
 ----------------
 
+- Fixed Py3 errors
+  [fngaha]
 - Removed deprecated package imio.pm.wsclient
   [fngaha]
 - removed deprecated package communesplone.layout

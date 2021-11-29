@@ -9,14 +9,11 @@ from imio.project.core.utils import getProjectSpace
 from imio.project.core.utils import getVocabularyTermsForOrganization
 from imio.project.pst import _
 from imio.project.pst.utils import find_max_deadline_on_children
-from plone import api
-from plone.autoform import directives as form
-from plone.dexterity.schema import DexteritySchemaPolicy
 from plone.dexterity.browser.add import DefaultAddView
+from plone.dexterity.schema import DexteritySchemaPolicy
 from z3c.form.datamanager import AttributeField
 from z3c.form.interfaces import IDataManager
 from zope import schema
-from zope.interface import implements
 from zope.interface import implementer
 from zope.schema.interfaces import IVocabularyFactory
 from zope.schema.vocabulary import SimpleVocabulary
@@ -57,9 +54,9 @@ class IOperationalObjective(IProject):
     )
 
 
+@implementer(IOperationalObjective)
 class OperationalObjective(Project):
     """ """
-    implements(IOperationalObjective)
 
     def Title(self):
         if getattr(getProjectSpace(self), 'use_ref_number', True):
@@ -87,10 +84,10 @@ class OperationalObjectiveDataManager(AttributeField):
         return value
 
 
+@implementer(IVocabularyFactory)
 class RepresentativeResponsibleVocabulary(object):
     """
     """
-    implements(IVocabularyFactory)
 
     def __call__(self, context):
         """"""
@@ -104,12 +101,12 @@ class OperationalObjectiveSchemaPolicy(DexteritySchemaPolicy):
         return (IOperationalObjective,)
 
 
+@implementer(IVocabularyFactory)
 class ManagerVocabulary(object):
     """
         Temporary class needed to access the site before migration.
         Can be removed after 1.3 migration
     """
-    implements(IVocabularyFactory)
 
     def __call__(self, context):
         return SimpleVocabulary([])

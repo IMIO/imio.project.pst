@@ -4,14 +4,14 @@ from collective.contact.plonegroup.browser.settings import getSelectedOrganizati
 from collective.contact.plonegroup.config import get_registry_organizations
 from collective.contact.plonegroup.utils import get_selected_org_suffix_users
 from imio.helpers.cache import get_cachekey_volatile
-from imio.project.pst import _
 from imio.project.pst import EMPTY_STRING
+from imio.project.pst import _
 from imio.project.pst.utils import list_wf_states
 from plone import api
 from plone.memoize import ram
 from zope.globalrequest import getRequest
 from zope.i18n import translate
-from zope.interface import implements
+from zope.interface import implementer
 from zope.schema.interfaces import IVocabularyFactory
 from zope.schema.vocabulary import SimpleTerm
 from zope.schema.vocabulary import SimpleVocabulary
@@ -21,11 +21,11 @@ def voc_cache_key(method, self, context):
     return get_cachekey_volatile("%s.%s" % (self.__class__.__module__, self.__class__.__name__))
 
 
+@implementer(IVocabularyFactory)
 class BaseReviewStatesVocabulary(object):
 
     """ Portal type states vocabulary """
 
-    implements(IVocabularyFactory)
 
     portal_type = ''
 
@@ -57,17 +57,17 @@ class PSTTaskReviewStatesVocabulary(BaseReviewStatesVocabulary):
     portal_type = 'task'
 
 
+@implementer(IVocabularyFactory)
 class ManagerVocabulary(object):
     """ Common manager vocabulary for operational and action """
-    implements(IVocabularyFactory)
 
     def __call__(self, context):
         return SimpleVocabulary([SimpleTerm(t[0], title=t[1]) for t in getSelectedOrganizations(first_index=2)])
 
 
+@implementer(IVocabularyFactory)
 class ActionCategoriesVocabularyFactory(object):
     """Provides an actions categories vocabulary"""
-    implements(IVocabularyFactory)
 
     def __call__(self, context):
         portal_actions = api.portal.get_tool('portal_actions')
@@ -79,9 +79,9 @@ class ActionCategoriesVocabularyFactory(object):
         )
 
 
+@implementer(IVocabularyFactory)
 class ActionEditorsVocabulary(object):
     """ Provides an action editors vocabulary """
-    implements(IVocabularyFactory)
 
     @ram.cache(voc_cache_key)
     def __call__(self, context):
@@ -104,9 +104,9 @@ class ActionEditorsVocabulary(object):
         return SimpleVocabulary(terms)
 
 
+@implementer(IVocabularyFactory)
 class EmptyActionEditorsVocabulary(object):
     """ action exitors vocabulary with empty value """
-    implements(IVocabularyFactory)
 
     def __call__(self, context):
         voc_inst = ActionEditorsVocabulary()

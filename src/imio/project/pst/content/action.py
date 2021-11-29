@@ -20,16 +20,14 @@ from plone.dexterity.browser.add import DefaultAddView
 from plone.dexterity.schema import DexteritySchemaPolicy
 from plone.directives.form import default_value
 from z3c.form import validator
-from zc.relation.interfaces import ICatalog
-
 from z3c.form.datamanager import AttributeField
 from z3c.form.interfaces import IDataManager
+from zc.relation.interfaces import ICatalog
 from zope import schema
 from zope.component import getUtility
-from zope.interface import implementer
 from zope.interface import Interface
-from zope.interface import implements
 from zope.interface import Invalid
+from zope.interface import implementer
 from zope.interface import invariant
 from zope.interface import provider
 from zope.intid.interfaces import IIntIds
@@ -162,9 +160,9 @@ class ManagerFieldValidator(validator.SimpleFieldValidator):
 # provideAdapter(ManagerFieldValidator)
 
 
+@implementer(IPSTAction)
 class PSTAction(Project):
     """ """
-    implements(IPSTAction)
     # we block local roles acquisition
     __ac_local_roles_block__ = True
 
@@ -235,8 +233,8 @@ class PSTActionSchemaPolicy(DexteritySchemaPolicy):
         return (IPSTAction,)
 
 
+@implementer(IVocabularyFactory)
 class HealthIndicatorVocabulary(object):
-    implements(IVocabularyFactory)
 
     def __call__(self, context):
         """"""
@@ -260,9 +258,9 @@ class IPSTSubAction(IPSTAction):
     pass
 
 
+@implementer(IPSTSubAction)
 class PSTSubAction(Project):
     """ """
-    implements(IPSTSubAction)
     # we block local roles acquisition
     __ac_local_roles_block__ = True
 

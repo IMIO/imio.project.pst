@@ -7,21 +7,11 @@
 # GNU General Public License (GPL)
 #
 
-from Acquisition import aq_inner
-from collective.contact.widget.interfaces import IContactContent
-from collective.task.interfaces import ITaskContent
-from imio.history.browser.views import IHDocumentBylineViewlet
-from imio.project.core.content.projectspace import IProjectSpace
-from imio.project.core.content.project import IProject
-from plone.app.contenttypes.interfaces import IDocument
-from plone.app.contenttypes.interfaces import IFile
-from plone.app.contenttypes.interfaces import IFolder
 from plone.app.controlpanel.usergroups import GroupsOverviewControlPanel
 from plone.app.controlpanel.usergroups import UsersGroupsControlPanelView
 from plone.app.controlpanel.usergroups import UsersOverviewControlPanel
-from plone.app.layout.navigation.root import getNavigationRoot
-from plone.app.layout.viewlets.common import ContentActionsViewlet as CAV
-from plone.app.layout.viewlets.common import PathBarViewlet as PBV
+
+from Acquisition import aq_inner
 from Products.CMFPlone import utils
 from Products.CMFPlone.browser.interfaces import INavigationBreadcrumbs
 from Products.CMFPlone.browser.navigation import get_view_url
@@ -32,8 +22,19 @@ from Products.CMFPlone.utils import base_hasattr
 from Products.CPUtils.Extensions.utils import check_zope_admin
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from collective.contact.widget.interfaces import IContactContent
+from collective.task.interfaces import ITaskContent
+from imio.history.browser.views import IHDocumentBylineViewlet
+from imio.project.core.content.project import IProject
+from imio.project.core.content.projectspace import IProjectSpace
+from plone.app.contenttypes.interfaces import IDocument
+from plone.app.contenttypes.interfaces import IFile
+from plone.app.contenttypes.interfaces import IFolder
+from plone.app.layout.navigation.root import getNavigationRoot
+from plone.app.layout.viewlets.common import ContentActionsViewlet as CAV
+from plone.app.layout.viewlets.common import PathBarViewlet as PBV
 from zope.component import getMultiAdapter
-from zope.interface import implements
+from zope.interface import implementer
 
 
 class DocumentBylineViewlet(IHDocumentBylineViewlet):
@@ -48,8 +49,8 @@ class DocumentBylineViewlet(IHDocumentBylineViewlet):
         return True
 
 
+@implementer(INavigationBreadcrumbs)
 class PhysicalNavigationBreadcrumbs(BrowserView):
-    implements(INavigationBreadcrumbs)
 
     def breadcrumbs(self):
         context = aq_inner(self.context)

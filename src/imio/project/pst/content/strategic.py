@@ -6,7 +6,7 @@ from imio.project.core.content.project import Project
 from imio.project.core.utils import getProjectSpace
 from plone.dexterity.browser.add import DefaultAddView
 from plone.dexterity.schema import DexteritySchemaPolicy
-from zope.interface import implements
+from zope.interface import implementer
 
 
 class IStrategicObjective(IProject):
@@ -15,9 +15,9 @@ class IStrategicObjective(IProject):
     """
 
 
+@implementer(IStrategicObjective)
 class StrategicObjective(Project):
     """ """
-    implements(IStrategicObjective)
 
     def Title(self):
         if getattr(getProjectSpace(self), 'use_ref_number', True):

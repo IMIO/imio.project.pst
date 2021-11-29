@@ -1,18 +1,17 @@
-from plone.autoform import directives
 from collective.eeafaceted.z3ctable import _ as _z
 from collective.z3cform.datagridfield import DataGridFieldFactory
 from collective.z3cform.datagridfield import DictRow
-from imio.project.core.content.projectspace import get_pt_fields_voc
-from imio.project.core.content.projectspace import mandatory_check
-from imio.project.core.content.projectspace import position_check
+from imio.project.core import _ as _c
 from imio.project.core.content.projectspace import IProjectSpace
 from imio.project.core.content.projectspace import ProjectSpace
 from imio.project.core.content.projectspace import ProjectSpaceSchemaPolicy
-from imio.project.core import _ as _c
+from imio.project.core.content.projectspace import get_pt_fields_voc
+from imio.project.core.content.projectspace import mandatory_check
+from imio.project.core.content.projectspace import position_check
 from imio.project.pst import _
+from plone.autoform import directives
 from zope import schema
-from zope.interface import Interface
-from zope.interface import implements
+from zope.interface import Interface, implementer
 from zope.interface import invariant
 from zope.schema.interfaces import IVocabularyFactory
 from zope.schema.vocabulary import SimpleTerm
@@ -280,9 +279,9 @@ class IPSTProjectSpace(IProjectSpace):
         position_check(data, field_constraints)
 
 
+@implementer(IPSTProjectSpace)
 class PSTProjectSpace(ProjectSpace):
     """ """
-    implements(IPSTProjectSpace)
 
 
 class PSTProjectSpaceSchemaPolicy(ProjectSpaceSchemaPolicy):
@@ -292,22 +291,22 @@ class PSTProjectSpaceSchemaPolicy(ProjectSpaceSchemaPolicy):
         return (IPSTProjectSpace,)
 
 
+@implementer(IVocabularyFactory)
 class SOFieldsVocabulary(object):
-    implements(IVocabularyFactory)
 
     def __call__(self, context):
         return get_pt_fields_voc('strategicobjective', STRATEGICOBJECTIVE_EXCLUDED_FIELDS, field_constraints)
 
 
+@implementer(IVocabularyFactory)
 class OOFieldsVocabulary(object):
-    implements(IVocabularyFactory)
 
     def __call__(self, context):
         return get_pt_fields_voc('operationalobjective', OPERATIONALOBJECTIVE_EXCLUDED_FIELDS, field_constraints)
 
 
+@implementer(IVocabularyFactory)
 class ActionFieldsVocabulary(object):
-    implements(IVocabularyFactory)
 
     def __call__(self, context):
         return get_pt_fields_voc('pstaction', PSTACTION_EXCLUDED_FIELDS, field_constraints)
