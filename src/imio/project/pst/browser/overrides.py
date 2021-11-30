@@ -7,9 +7,9 @@
 # GNU General Public License (GPL)
 #
 
-from plone.app.controlpanel.usergroups import GroupsOverviewControlPanel
-from plone.app.controlpanel.usergroups import UsersGroupsControlPanelView
-from plone.app.controlpanel.usergroups import UsersOverviewControlPanel
+from Products.CMFPlone.controlpanel.browser.usergroups_groupsoverview import GroupsOverviewControlPanel
+from Products.CMFPlone.controlpanel.browser.usergroups_groupsoverview import UsersGroupsControlPanelView
+from Products.CMFPlone.controlpanel.browser.usergroups_usersoverview import UsersOverviewControlPanel
 
 from Acquisition import aq_inner
 from Products.CMFPlone import utils

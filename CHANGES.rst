@@ -4,6 +4,8 @@ Changelog
 2.0 (unreleased)
 ----------------
 
+- Fixed ModuleNotFoundError, use `Products.CMFPlone` instead of `plone.app.controlpanel`
+  [fngaha]
 - Fixed Py3 errors
   [fngaha]
 - Removed deprecated package imio.pm.wsclient
