@@ -137,7 +137,7 @@ def dual_split_combination(string, separator):
                 BEGIN = e
             else:
                 BEGIN = BEGIN + '-' + e
-                print BEGIN
+                print(BEGIN)
         for j, e in enumerate(L[i+1:]):
             if j == 0:
                 END = e

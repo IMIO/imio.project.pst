@@ -14,11 +14,11 @@ from collective.documentgenerator.utils import update_templates
 from collective.eeafaceted.collectionwidget.interfaces import ICollectionCategories
 from collective.eeafaceted.collectionwidget.utils import _updateDefaultCollectionFor
 from collective.eeafaceted.dashboard.utils import enableFacetedDashboardFor
-from data import TMPL_DIR
-from data import get_main_templates
-from data import get_os_oo_ac_data
-from data import get_styles_templates
-from data import get_templates
+from imio.project.pst.data import TMPL_DIR
+from imio.project.pst.data import get_main_templates
+from imio.project.pst.data import get_os_oo_ac_data
+from imio.project.pst.data import get_styles_templates
+from imio.project.pst.data import get_templates
 from dexterity.localroles.utils import add_fti_configuration
 from imio.actionspanel.interfaces import IFolderContentsShowableMarker
 from imio.helpers.catalog import addOrUpdateIndexes
@@ -533,7 +533,7 @@ def adaptDefaultPortal(site):
             msg_indent = _('ckeditor_style_indent_first_line').encode('utf-8')
             msg_table_no_optimization = _('ckeditor_style_table_no_optimization').encode('utf-8')
 
-            menuStyles = unicode(
+            menuStyles = str(
                 "[\n{0}\n{{ name : '{1}'\t\t, element : 'span', attributes : {{ 'class' : 'highlight-red' }} }},\n"
                 "{{ name : '{2}'\t\t, element : 'span', attributes : {{ 'class' : 'highlight-blue' }} }},\n"
                 "{{ name : '{3}'\t\t, element : 'span', attributes : {{ 'class' : 'highlight-green' }} }},\n"
@@ -809,7 +809,7 @@ def _addPSTUsers(context):
             member.setMemberProperties({'fullname': fullname, 'email': 'test@macommune.be'})
             for gp in users[(uid, fullname)]:
                 api.group.add_user(groupname=gp, username=uid)
-        except ValueError, exc:
+        except ValueError as exc:
             if str(exc).startswith('The login name you selected is already in use'):
                 continue
             logger("Error creating user '%s': %s" % (uid, exc))
