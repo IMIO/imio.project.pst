@@ -73,9 +73,9 @@
              provides="collective.compoundcriterion.interfaces.ICompoundCriterionFilter"
              name="task-validation" />
 
-    <adapter for=" Products.Archetypes.interfaces.base.IBaseFolder"
+    <!--adapter for=" Products.Archetypes.interfaces.base.IBaseFolder"
              factory=".migrations.migrate_to_1_1.FolderMigrator"
-             name="pst-atfolder-migration" />
+             name="pst-atfolder-migration" /-->
 
     <include package="z3c.unconfigure" file="meta.zcml" />
     <include package="eea.facetednavigation" />

@@ -26,8 +26,9 @@ from imio.project.pst.setuphandlers import _ as _translate
 from imio.project.pst.setuphandlers import configure_task_config
 from imio.project.pst.setuphandlers import configure_task_rolefields
 from plone.app.contenttypes.interfaces import IPloneAppContenttypesLayer
-from plone.app.contenttypes.migration.migration import BaseCustomMigator
-from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
+# Deprecated
+#from plone.app.contenttypes.migration.migration import BaseCustomMigator
+#from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
 from Products.CMFPlone.utils import base_hasattr
 from Products.CPUtils.Extensions.utils import mark_last_version
 from zope.component import getAdapter
@@ -48,28 +49,29 @@ interfaces = [
 ]
 
 
-class FolderMigrator(BaseCustomMigator):
-    """ Folder migration"""
-
-    def migrate(self, old, new):
-        new_path = "/".join(new.getPhysicalPath())
-        for iface in interfaces:
-            if iface.providedBy(old):
-                alsoProvides(new, iface)
-                logger.warn("{0} also provides {1}".format(new_path, str(iface)))
-
-        if old.getConstrainTypesMode() != 0:
-            behaviour = ISelectableConstrainTypes(new)
-            behaviour.setConstrainTypesMode(1)
-            if old.getConstrainTypesMode() == 1:
-                behaviour.setLocallyAllowedTypes(old.getLocallyAllowedTypes())
-                behaviour.setImmediatelyAddableTypes(old.getImmediatelyAddableTypes())
-
-        if IFacetedNavigable.providedBy(old):
-            criteria = Criteria(new)
-            criteria._update(ICriteria(old).criteria)
-            IFacetedLayout(new).update_layout('faceted-table-items')
-            logger.warn("Added faceted criteria and layout to {0}".format(new_path))
+# Deprecated
+# class FolderMigrator(BaseCustomMigator):
+#     """ Folder migration"""
+#
+#     def migrate(self, old, new):
+#         new_path = "/".join(new.getPhysicalPath())
+#         for iface in interfaces:
+#             if iface.providedBy(old):
+#                 alsoProvides(new, iface)
+#                 logger.warn("{0} also provides {1}".format(new_path, str(iface)))
+#
+#         if old.getConstrainTypesMode() != 0:
+#             behaviour = ISelectableConstrainTypes(new)
+#             behaviour.setConstrainTypesMode(1)
+#             if old.getConstrainTypesMode() == 1:
+#                 behaviour.setLocallyAllowedTypes(old.getLocallyAllowedTypes())
+#                 behaviour.setImmediatelyAddableTypes(old.getImmediatelyAddableTypes())
+#
+#         if IFacetedNavigable.providedBy(old):
+#             criteria = Criteria(new)
+#             criteria._update(ICriteria(old).criteria)
+#             IFacetedLayout(new).update_layout('faceted-table-items')
+#             logger.warn("Added faceted criteria and layout to {0}".format(new_path))
 
 
 class Migrate_To_1_1(Migrator):
