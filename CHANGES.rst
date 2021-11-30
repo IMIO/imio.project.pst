@@ -4,6 +4,8 @@ Changelog
 2.0 (unreleased)
 ----------------
 
+- Fix ImportError, By removing plone.app.controlpanel subscribers
+  [fngaha]
 - Fix ImportError, by removing `@@usergroup-userprefs` and `@@usergroup-groupprefs` overrides
   [fngaha]
 - Fixed ImportError, by removing deprecated ContentActionsViewlet

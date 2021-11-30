@@ -39,21 +39,17 @@ from imio.project.pst.interfaces import ITaskDashboardBatchActions
 from imio.project.pst.utils import get_services_config
 from plone import api
 from plone import namedfile
-from plone.app.controlpanel.markup import MarkupControlPanelAdapter
 from plone.dexterity.utils import createContentInContainer
 from plone.registry.interfaces import IRegistry
 from utils import list_wf_states
 from z3c.relationfield.relation import RelationValue
 from zope.annotation.interfaces import IAnnotations
-from zope.component import getGlobalSiteManager
 from zope.component import getMultiAdapter
 from zope.component import getUtility
 from zope.event import notify
 from zope.interface import alsoProvides
 from zope.intid.interfaces import IIntIds
 from zope.lifecycleevent import ObjectCreatedEvent
-from zope.schema.vocabulary import SimpleTerm
-from zope.schema.vocabulary import SimpleVocabulary
 
 logger = logging.getLogger('imio.project.pst: setuphandlers')
 PASSWORD = 'Project69!'
@@ -556,10 +552,6 @@ def adaptDefaultPortal(site):
 
     except ImportError:
         pass
-
-    # Set markup allowed types: for RichText field, don't display anymore types listbox
-    adapter = MarkupControlPanelAdapter(site)
-    adapter.set_allowed_types(['text/html'])
 
     # Activate browser message
     msg = site['messages-config']['browser-warning']

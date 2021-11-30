@@ -6,15 +6,6 @@
     <include package="z3c.unconfigure" file="meta.zcml" />
 
     <subscriber
-        for="plone.app.controlpanel.interfaces.IConfigurationChangedEvent"
-        handler=".subscribers.wsclient_configuration_changed"
-        />
-    <subscriber
-        for="plone.registry.interfaces.IRecordModifiedEvent"
-        handler=".subscribers.wsclient_configuration_changed"
-        />
-
-    <subscriber
         for="imio.project.core.content.projectspace.IProjectSpace
              zope.container.interfaces.IObjectAddedEvent"
         handler=".subscribers.projectspace_created"
