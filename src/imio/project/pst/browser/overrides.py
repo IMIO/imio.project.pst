@@ -124,15 +124,3 @@ class BaseOverviewControlPanel(UsersGroupsControlPanelView):
                 adapted_item['roles'][role]['canAssign'] = False
             adapted_results.append(adapted_item)
         return adapted_results
-
-
-class PSTUsersOverviewControlPanel(BaseOverviewControlPanel, UsersOverviewControlPanel):
-    """See PMBaseOverviewControlPanel docstring."""
-
-
-class PSTGroupsOverviewControlPanel(BaseOverviewControlPanel, GroupsOverviewControlPanel):
-    """See PMBaseOverviewControlPanel docstring."""
-
-    @property
-    def portal_roles(self):
-        return ['Manager', 'Site Administrator']

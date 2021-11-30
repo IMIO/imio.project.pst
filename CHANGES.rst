@@ -4,6 +4,8 @@ Changelog
 2.0 (unreleased)
 ----------------
 
+- Fix ImportError, by removing `@@usergroup-userprefs` and `@@usergroup-groupprefs` overrides
+  [fngaha]
 - Fixed ImportError, by removing deprecated ContentActionsViewlet
   [fngaha]
 - Fixed ModuleNotFoundError, use `Products.CMFPlone` instead of `plone.app.controlpanel`
