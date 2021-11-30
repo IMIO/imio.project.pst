@@ -31,7 +31,6 @@ from plone.app.contenttypes.interfaces import IDocument
 from plone.app.contenttypes.interfaces import IFile
 from plone.app.contenttypes.interfaces import IFolder
 from plone.app.layout.navigation.root import getNavigationRoot
-from plone.app.layout.viewlets.common import ContentActionsViewlet as CAV
 from plone.app.layout.viewlets.common import PathBarViewlet as PBV
 from zope.component import getMultiAdapter
 from zope.interface import implementer
@@ -105,16 +104,6 @@ class Plone(PV):
             if interface.providedBy(context):
                 return False
         return super(Plone, self).showEditableBorder()
-
-
-class ContentActionsViewlet(CAV):
-    """ """
-    def render(self):
-        context = aq_inner(self.context)
-        for interface in (IDocument, IPloneSiteRoot):
-            if interface.providedBy(context):
-                return ''
-        return self.index()
 
 
 class BaseOverviewControlPanel(UsersGroupsControlPanelView):
