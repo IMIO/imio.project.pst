@@ -6,6 +6,8 @@ Changelog
 
 1.3.2 (2021-10-05)
 ----------------
+- Fix sitemap when there are annex on a task
+  [fngaha]
 - Updated front page
   [fngaha]
 - Used and migrated text/x-html-safe for rich fields

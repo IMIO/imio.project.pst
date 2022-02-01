@@ -19,6 +19,8 @@ class SitemapView(BrowserView):
         }
 
     def children(self, context):
+        if context.portal_type == "annex":
+            return []
         filters = {
             'pstprojectspace': {"portal_type": 'strategicobjective'},
             'strategicobjective': {"portal_type": 'operationalobjective'},
