@@ -44,6 +44,9 @@
  <index name="directly_in_pstaction" meta_type="BooleanIndex">
   <indexed_attr value="directly_in_pstaction"/>
  </index>
+ <index name="plan" meta_type="KeywordIndex">
+  <indexed_attr value="plan"/>
+ </index>
   <column value="categories" />
   <column value="planned_begin_date" />
   <column value="planned_end_date" />
@@ -54,4 +57,5 @@
   <column value="progress" />
   <column value="manager" />
   <column value="responsible" />
+  <column value="plan" />
 </object>

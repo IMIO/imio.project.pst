@@ -210,6 +210,14 @@ def directly_in_pstaction_index(obj):
         iter = iter.aq_parent
 
 
+@indexer(IContentish)
+def plan_index(obj):
+    if hasattr(obj, 'plan') and obj.plan:
+        return obj.plan
+
+    return common_marker
+
+
 ################
 # GUI cleaning #
 ################
