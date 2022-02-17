@@ -15,7 +15,7 @@ from imio.project.core.content.projectspace import IProjectSpace
 from imio.project.pst.data import get_main_templates
 from imio.project.pst.data import get_styles_templates
 from imio.project.pst.data import get_templates
-from imio.project.pst.setuphandlers import _ as _translate
+from imio.project.pst.setuphandlers import _ as _translate, reimport_faceted_config
 from imio.project.pst.setuphandlers import configure_iconified_category
 from plone import api
 from plone.app.contenttypes.interfaces import IFile
@@ -69,12 +69,15 @@ class Migrate_To_1_3_2(Migrator):
 
     def run(self):
         # check if oo port must be changed
-        update_oo_config()
+        # update_oo_config()
 
         # override templates
-        self.runProfileSteps('imio.project.pst', steps=['imioprojectpst-override-templates'], profile='update',
+        self.runProfileSteps('imio.project.pst', steps=['imioprojectpst-update-templates'], profile='update',
                              run_dependencies=False)
 
+        # Import catalog tool's
+        self.runProfileSteps('imio.project.pst', steps=['catalog'], profile='default',
+                             run_dependencies=False)
         # upgrade all except 'imio.project.pst:default'. Needed with bin/upgrade-portals
         # self.upgradeAll(omit=['imio.project.pst:default'])
 
@@ -82,34 +85,54 @@ class Migrate_To_1_3_2(Migrator):
         #     mark_last_version(self.portal, product=prod)
 
         # Reorder css and js
-        self.runProfileSteps('imio.project.pst', steps=['cssregistry', 'jsregistry'], run_dependencies=False)
+        # self.runProfileSteps('imio.project.pst', steps=['cssregistry', 'jsregistry'], run_dependencies=False)
 
-        # Add a new-version warning message in message config
-        self.add_new_version_message()
+        # Add a backport warning message in message config
+        self.add_backport_message()
 
         # Handle budget comment <NO_VALUE> by setting None
-        self.migrate_budget()
+        # self.migrate_budget()
 
         # Add new templates
-        update_templates()
+        # update_templates()
 
         # Migrate context variable
-        migrate_context_var()
+        # migrate_context_var()
 
         # Migrate annex File in Annex content
-        self.migrate_annex()
+        # self.migrate_annex()
 
         # Migrate to text/x-html-safe
-        self.migrate_to_text_x_html_safe()
+        # self.migrate_to_text_x_html_safe()
 
         # Update front_page
-        self.update_front_page()
+        # self.update_front_page()
 
         # reindex all projects spaces, projects and tasks
-        self.reindex_some_types()
+        # self.reindex_some_types()
+
+        # Updated dashboard config
+        self.update_dashboard_criterias()
 
         # Display duration
         self.finish()
+
+    def add_backport_message(self):
+        msgs_to_del = ('new-version', 'doc', 'new-dashboard')
+        for msg_to_del in msgs_to_del:
+            if msg_to_del in self.portal['messages-config']:
+                api.content.delete(self.portal['messages-config'][msg_to_del])
+        add_message(
+            'backport',
+            'Mise à jour',
+            u'<p>Votre instance a été mise à jour !</p>'
+            u'<p>La <a href="https://docs.imio.be/imio-doc/ia.pst/fonctionnalites/index.html#version-1-3-2" target="_blank">'
+            u'documentation</a> a également été mise à jour avec les nouvelles fonctionnalités</a>.</p>',
+            msg_type='warning',
+            can_hide=True,
+            req_roles=['Authenticated'],
+            activate=True
+        )
 
     def add_new_version_message(self):
         if 'new-version' in self.portal['messages-config']:
@@ -219,6 +242,18 @@ class Migrate_To_1_3_2(Migrator):
         frontpage.title = _translate("front_page_title")
         frontpage.reindexObject()
 
+    def update_dashboard_criterias(self):
+        for brain in self.catalog(object_provides='imio.project.pst.interfaces.IImioPSTProject'):
+            pst = brain.getObject()
+            mapping = {
+                'strategicobjectives': 'strategicobjective',
+                'operationalobjectives': 'operationalobjective',
+                'pstactions': 'pstaction',
+            }
+            for col_folder_id, content_type in mapping.iteritems():
+                col_folder = pst[col_folder_id]
+                reimport_faceted_config(col_folder, xml='{}.xml'.format(content_type),
+                                        default_UID=col_folder['all'].UID())
 
 def migrate(context):
     Migrate_To_1_3_2(context).run()

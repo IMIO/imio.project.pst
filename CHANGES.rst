@@ -6,6 +6,8 @@ Changelog
 
 1.3.2 (2021-10-05)
 ----------------
+- Added plan to os, oo, act dashbords config and updated migration
+  [fngaha]
 - Added plan index, metadata and custom method
   [fngaha]
 - Added sub-actions in the follow template
