@@ -654,8 +654,9 @@ def addDemoOrganization(context):
           u'Service du Personnel', u'Service Propreté', u'Service Population',
           u'Service Travaux', u'Service de l\'Urbanisme', ]),
     ]
-    act_srv = [u'Cellule Marchés Publics', u'Secrétariat Communal', u'Service Etat-civil', u'Service Informatique',
-               u'Service Propreté', u'Service Population', u'Service Travaux', u'Service de l\'Urbanisme']
+    act_srv = [u'1er échevin', u'Cellule Marchés Publics', u'Secrétariat Communal', u'Service Etat-civil',
+               u'Service Informatique', u'Service Propreté', u'Service Population', u'Service Travaux',
+               u'Service de l\'Urbanisme']
     registry = getUtility(IRegistry)
     group_ids = []
 
@@ -802,10 +803,18 @@ def _addPSTUsers(context):
         password = generate_password()
         logger.info("Generated password='%s'" % password)
         site.plone_utils.addPortalMessage("Generated password='%s'" % password, type='warning')
-    act_srv = [u'cellule-marches-publics', u'secretariat-communal', u'service-etat-civil', u'service-informatique',
-               u'service-proprete', u'service-population', u'service-travaux', u'service-de-lurbanisme']
+    act_org = [u'1er-echevin', u'cellule-marches-publics', u'secretariat-communal', u'service-etat-civil',
+               u'service-informatique', u'service-proprete', u'service-population', u'service-travaux',
+               u'service-de-lurbanisme']
     srv_obj = site['contacts']['plonegroup-organization']['services']
-    orgs = dict([(srv, srv_obj[srv].UID()) for srv in act_srv])
+    echev_obj = site['contacts']['plonegroup-organization']['echevins']
+    orgs = []
+    for org in act_org:
+        if org in srv_obj:
+            orgs.append((org, srv_obj[org].UID()))
+        elif org in echev_obj:
+            orgs.append((org, echev_obj[org].UID()))
+    orgs = dict(orgs)
     users = {
         ('pstadmin', u'PST administrateur'): ["Administrators"],
         ('psteditor', u'PST editeur global'): ["pst_editors"],
@@ -814,6 +823,7 @@ def _addPSTUsers(context):
                                    + ["pst_readers"]),
         ('agent', u'Fred Agent'): (['%s_%s' % (orgs[org], fct) for org in orgs for fct in ('actioneditor', 'editeur')]
                                    + ["pst_readers"]),
+        ('1er-echevin', u'1er échevin'): (['%s_%s' % (orgs['1er-echevin'], 'repr_resp')] + ["pst_readers"]),
     }
 
     for uid, fullname in users.keys():
