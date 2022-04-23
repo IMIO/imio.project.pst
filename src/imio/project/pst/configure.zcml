@@ -58,6 +58,11 @@
              name="user-is-administrative-responsible" />
 
     <adapter for="*"
+             factory=".adapters.UserIsRepresentativeResponsibleCriterion"
+             provides="collective.compoundcriterion.interfaces.ICompoundCriterionFilter"
+             name="user-is-representative-responsible" />
+
+    <adapter for="*"
              factory=".adapters.UserIsActionEditorCriterion"
              provides="collective.compoundcriterion.interfaces.ICompoundCriterionFilter"
              name="user-is-actioneditor" />
