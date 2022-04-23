@@ -3,6 +3,8 @@ Changelog
 
 1.3.3 (unreleased)
 ----------------
+- Add a test user "1er échevin"
+  [fngaha]
 - Added representative responsible function in plonegroup config
   [fngaha]
 
