@@ -3,6 +3,8 @@ Changelog
 
 1.3.3 (unreleased)
 ----------------
+- Added a filter "Which I am representative responsible" for operational objectives and pst actions
+  [fngaha]
 - Add a test user "1er échevin"
   [fngaha]
 - Added representative responsible function in plonegroup config

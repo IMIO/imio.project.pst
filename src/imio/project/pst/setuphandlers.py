@@ -959,7 +959,7 @@ def createStateCollections(folder, content_type):
             col.setLayout('tabular_view')
 
 
-def createDashboardCollections(folder, collections):
+def createDashboardCollections(folder, collections, position=None):
     """Use collections dict to create and configure collections in folder."""
     for i, dic in enumerate(collections):
         if not base_hasattr(folder, dic['id']):
@@ -981,8 +981,11 @@ def createDashboardCollections(folder, collections):
                 collection.setSubject(dic['subj'])
                 collection.reindexObject(['Subject'])
             collection.setLayout('tabular_view')
-        if folder.getObjectPosition(dic['id']) != i:
-            folder.moveObjectToPosition(dic['id'], i)
+        if position:
+            folder.moveObjectToPosition(dic['id'], position)
+        else:
+            if folder.getObjectPosition(dic['id']) != i:
+                folder.moveObjectToPosition(dic['id'], i)
 
 
 def createBaseCollections(folder, content_type):
@@ -1018,6 +1021,23 @@ def createBaseCollections(folder, content_type):
                     {'i': 'portal_type', 'o': 'plone.app.querystring.operation.selection.is', 'v': content_type},
                     {'i': 'CompoundCriterion', 'o': 'plone.app.querystring.operation.compound.is',
                      'v': 'user-is-administrative-responsible'},
+                    {'i': 'path', 'o': 'plone.app.querystring.operation.string.path', 'v': ps_path}
+                ],
+                'cond': u"",
+                'bypass': [],
+                'flds': COLUMNS_FOR_CONTENT_TYPES[content_type[0]],
+                'sort': u'sortable_title',
+                'rev': False,
+                'count': False
+            },
+            {
+                'id': 'i-am-representative_responsible',
+                'tit': _("Which I am representative responsible"),
+                'subj': ('search',),
+                'query': [
+                    {'i': 'portal_type', 'o': 'plone.app.querystring.operation.selection.is', 'v': content_type},
+                    {'i': 'CompoundCriterion', 'o': 'plone.app.querystring.operation.compound.is',
+                     'v': 'user-is-representative-responsible'},
                     {'i': 'path', 'o': 'plone.app.querystring.operation.string.path', 'v': ps_path}
                 ],
                 'cond': u"",
@@ -1072,6 +1092,23 @@ def createBaseCollections(folder, content_type):
                     {'i': 'portal_type', 'o': 'plone.app.querystring.operation.selection.is', 'v': content_type},
                     {'i': 'CompoundCriterion', 'o': 'plone.app.querystring.operation.compound.is',
                      'v': 'user-is-actioneditor'},
+                    {'i': 'path', 'o': 'plone.app.querystring.operation.string.path', 'v': ps_path}
+                ],
+                'cond': u"",
+                'bypass': [],
+                'flds': COLUMNS_FOR_CONTENT_TYPES[content_type[0]],
+                'sort': u'sortable_title',
+                'rev': False,
+                'count': False
+            },
+            {
+                'id': 'i-am-representative_responsible',
+                'tit': _("Which I am representative responsible"),
+                'subj': ('search',),
+                'query': [
+                    {'i': 'portal_type', 'o': 'plone.app.querystring.operation.selection.is', 'v': content_type},
+                    {'i': 'CompoundCriterion', 'o': 'plone.app.querystring.operation.compound.is',
+                     'v': 'user-is-representative-responsible'},
                     {'i': 'path', 'o': 'plone.app.querystring.operation.string.path', 'v': ps_path}
                 ],
                 'cond': u"",

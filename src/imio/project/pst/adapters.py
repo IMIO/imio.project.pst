@@ -56,6 +56,19 @@ class UserIsAdministrativeResponsibleCriterion(object):
         return {'administrative_responsible': {'query': orgs}}
 
 
+class UserIsRepresentativeResponsibleCriterion(object):
+
+    def __init__(self, context):
+        self.context = context
+
+    @property
+    def query(self):
+        groups = api.group.get_groups(user=api.user.get_current())
+        orgs = organizations_with_suffixes(groups, ['repr_resp'])
+        # if orgs is empty list, nothing is returned => ok
+        return {'representative_responsible': {'query': orgs}}
+
+
 class UserIsActionEditorCriterion(object):
 
     def __init__(self, context):
