@@ -1314,9 +1314,13 @@ def configure_rolefields(portal):
             'administrative_responsible': {
                 'achieved': {'admin_resp': {'roles': ['Reader']}},
                 'created': {'admin_resp': {'roles': ['Reader']}},
-                'ongoing': {'admin_resp': {'roles': ['Reader', 'Editor', 'Contributor']}}
-            }
-            # TODO: representative_responsible
+                'ongoing': {'admin_resp': {'roles': ['Reader', 'Editor', 'Contributor']}},
+            },
+            'representative_responsible': {
+                'achieved': {'repr_resp': {'roles': ['Reader']}},
+                'created': {'repr_resp': {'roles': ['Reader']}},
+                'ongoing': {'repr_resp': {'roles': ['Reader']}},
+            },
         },
         ('pstaction', 'pstsubaction'): {
             'static_config': {
@@ -1336,7 +1340,14 @@ def configure_rolefields(portal):
                 'ongoing': {'actioneditor': {'roles': ['Editor', 'Reviewer', 'Contributor']}},
                 'terminated': {'actioneditor': {'roles': ['Editor', 'Reviewer']}},
                 'stopped': {'actioneditor': {'roles': ['Editor', 'Reviewer']}},
-            }
+            },
+            'representative_responsible': {
+                'created': {'actioneditor': {'roles': ['Reader']}},
+                'to_be_scheduled': {'actioneditor': {'roles': ['Reader']}},
+                'ongoing': {'actioneditor': {'roles': ['Reader']}},
+                'terminated': {'actioneditor': {'roles': ['Reader']}},
+                'stopped': {'actioneditor': {'roles': ['Reader']}},
+            },
         },
     }
     for portal_types, roles_config in config.iteritems():

@@ -3,6 +3,8 @@ Changelog
 
 1.3.3 (unreleased)
 ----------------
+- configure the representative responsible local role
+  [fngaha]
 - Override the source of representative responsible vocabulary
   [fngaha]
 - Added a filter "Which I am representative responsible" for operational objectives and pst actions

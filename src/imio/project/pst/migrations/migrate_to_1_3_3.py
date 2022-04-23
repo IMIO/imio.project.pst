@@ -3,6 +3,7 @@
 import logging
 
 from collective.contact.plonegroup.config import FUNCTIONS_REGISTRY
+from dexterity.localroles.utils import add_fti_configuration
 from imio.migrator.migrator import Migrator
 from imio.project.core.utils import getProjectSpace
 from imio.project.pst.setuphandlers import _ as _translate, COLUMNS_FOR_CONTENT_TYPES, createDashboardCollections
@@ -56,6 +57,31 @@ def add_representative_responsible_collection():
         createDashboardCollections(folder, collections, 1)
 
 
+def configure_representative_responsible_local_roles():
+    config = {
+        ('operationalobjective',): {
+            'representative_responsible': {
+                'achieved': {'repr_resp': {'roles': ['Reader']}},
+                'created': {'repr_resp': {'roles': ['Reader']}},
+                'ongoing': {'repr_resp': {'roles': ['Reader']}},
+            },
+        },
+        ('pstaction', 'pstsubaction'): {
+            'representative_responsible': {
+                'created': {'actioneditor': {'roles': ['Reader']}},
+                'to_be_scheduled': {'actioneditor': {'roles': ['Reader']}},
+                'ongoing': {'actioneditor': {'roles': ['Reader']}},
+                'terminated': {'actioneditor': {'roles': ['Reader']}},
+                'stopped': {'actioneditor': {'roles': ['Reader']}},
+            },
+        },
+    }
+    for portal_types, roles_config in config.iteritems():
+        for portal_type in portal_types:
+            for keyname in roles_config:
+                add_fti_configuration(portal_type, roles_config[keyname], keyname=keyname, force=False)
+
+
 class MigrateTo133(Migrator):
 
     def __init__(self, context):
@@ -67,6 +93,9 @@ class MigrateTo133(Migrator):
 
         # Added an additional collection "Which I am representative responsible" for operational objective and pstaction
         add_representative_responsible_collection()
+
+        # Configure representative responsible role for operational objectives and pst actions
+        configure_representative_responsible_local_roles()
 
         # Display duration
         self.finish()
