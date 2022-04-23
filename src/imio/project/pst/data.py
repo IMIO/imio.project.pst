@@ -3,7 +3,6 @@ import os
 from datetime import datetime
 
 from collective.iconifiedcategory.utils import calculate_category_id
-from imio.project.pst.utils import get_echevins_config
 from plone import api, namedfile
 from plone.namedfile.file import NamedBlobFile
 from imio.helpers.content import richtextval
@@ -280,7 +279,6 @@ def get_templates(cids):
 
 
 def get_os_oo_ac_data(site, groups, currentYear):
-    echevins = get_echevins_config(site)
     filename = u'annex_test.pdf'
     current_path = os.path.dirname(__file__)
     f = open(os.path.join(current_path, 'model', filename), 'r')
@@ -306,7 +304,7 @@ def get_os_oo_ac_data(site, groups, currentYear):
                     ],
                     'priority': u'1',
                     'planned_end_date': datetime.date(datetime(2020, 12, 31)),
-                    'representative_responsible': [echevins['1er-echevin']],
+                    'representative_responsible': [groups['1er-echevin']],
                     'administrative_responsible': [groups['secretariat-communal']],
                     'manager': [groups['service-population'], groups['service-etat-civil']],
                     'extra_concerned_people': u'',
@@ -414,7 +412,7 @@ def get_os_oo_ac_data(site, groups, currentYear):
                     ],
                     'priority': u'1',
                     'planned_end_date': datetime.date(datetime(2020, 12, 31)),
-                    'representative_responsible': [echevins['1er-echevin']],
+                    'representative_responsible': [groups['1er-echevin']],
                     'administrative_responsible': [groups['secretariat-communal']],
                     'manager': [groups['service-population'], groups['service-etat-civil']],
                     'extra_concerned_people': u'',
@@ -509,7 +507,7 @@ def get_os_oo_ac_data(site, groups, currentYear):
                     ],
                     'priority': u'1',
                     'planned_end_date': datetime.date(datetime(2021, 12, 31)),
-                    'representative_responsible': [echevins['4eme-echevin']],
+                    'representative_responsible': [groups['4eme-echevin']],
                     'administrative_responsible': [groups['secretariat-communal']],
                     'manager': [groups['service-de-lurbanisme']],
                     'extra_concerned_people': u'',
@@ -585,7 +583,7 @@ def get_os_oo_ac_data(site, groups, currentYear):
                     ],
                     'priority': u'1',
                     'planned_end_date': datetime.date(datetime(2024, 12, 31)),
-                    'representative_responsible': [echevins['1er-echevin']],
+                    'representative_responsible': [groups['1er-echevin']],
                     'administrative_responsible': [groups['secretariat-communal']],
                     'manager': [groups['service-de-lurbanisme']],
                     'extra_concerned_people': u'',
@@ -712,7 +710,7 @@ def get_os_oo_ac_data(site, groups, currentYear):
                                           'reached_value': 0, 'year': 2020}],
                     'priority': u'1',
                     'planned_end_date': datetime.date(datetime(2022, 12, 31)),
-                    'representative_responsible': [echevins['2eme-echevin'], echevins['3eme-echevin']],
+                    'representative_responsible': [groups['2eme-echevin'], groups['3eme-echevin']],
                     'administrative_responsible': [groups['secretariat-communal']],
                     'manager': [groups['service-proprete'], groups['service-travaux']],
                     'extra_concerned_people': u'Police\r\nAgents constatateurs communaux\r\nAgent sanctionnateur '

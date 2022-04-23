@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+from collective.z3cform.chosen.widget import AjaxChosenMultiFieldWidget
 from dexterity.localrolesfield.field import LocalRolesField
 from imio.project.core import _ as _c
 from imio.project.core.browser.views import ProjectAddForm
@@ -9,16 +9,14 @@ from imio.project.core.utils import getProjectSpace
 from imio.project.core.utils import getVocabularyTermsForOrganization
 from imio.project.pst import _
 from imio.project.pst.utils import find_max_deadline_on_children
-from plone import api
 from plone.autoform import directives as form
-from plone.dexterity.schema import DexteritySchemaPolicy
 from plone.dexterity.browser.add import DefaultAddView
-from collective.z3cform.chosen.widget import AjaxChosenMultiFieldWidget
+from plone.dexterity.schema import DexteritySchemaPolicy
 from z3c.form.datamanager import AttributeField
 from z3c.form.interfaces import IDataManager
 from zope import schema
-from zope.interface import implements
 from zope.interface import implementer
+from zope.interface import implements
 from zope.schema.interfaces import IVocabularyFactory
 from zope.schema.vocabulary import SimpleVocabulary
 
@@ -31,7 +29,7 @@ class IOperationalObjective(IProject):
         title=_(u"Representative responsible"),
         # description=_(u"Choose principals that will be representative responsible for this project."),
         value_type=schema.Choice(
-            vocabulary=u'imio.project.pst.content.operational.representative_responsible_vocabulary',
+            vocabulary=u'imio.project.core.content.project.manager_vocabulary',
         ),
         required=True,
         min_length=1,

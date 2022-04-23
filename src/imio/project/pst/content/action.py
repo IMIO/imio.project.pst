@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+from zc.relation.interfaces import ICatalog
+
 from Acquisition import aq_inner
 from collective.contact.plonegroup.utils import organizations_with_suffixes
 from collective.task.interfaces import ITaskContent
@@ -22,16 +24,14 @@ from plone.dexterity.browser.add import DefaultAddView
 from plone.dexterity.schema import DexteritySchemaPolicy
 from plone.directives.form import default_value
 from z3c.form import validator
-from zc.relation.interfaces import ICatalog
-
 from z3c.form.datamanager import AttributeField
 from z3c.form.interfaces import IDataManager
 from zope import schema
 from zope.component import getUtility
-from zope.interface import implementer
 from zope.interface import Interface
-from zope.interface import implements
 from zope.interface import Invalid
+from zope.interface import implementer
+from zope.interface import implements
 from zope.interface import invariant
 from zope.interface import provider
 from zope.intid.interfaces import IIntIds
@@ -74,7 +74,7 @@ class IPSTAction(IProject):
         description=_(u"Choose principals that will be representative responsible for this project. "
                       u"If nothing choosed, the oo value is used for searches."),
         value_type=schema.Choice(
-            vocabulary=u'imio.project.pst.content.operational.representative_responsible_vocabulary',
+            vocabulary=u'imio.project.core.content.project.manager_vocabulary',
         ),
         required=False,
     )
