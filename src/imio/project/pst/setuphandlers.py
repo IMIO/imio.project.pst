@@ -451,6 +451,11 @@ def add_plonegroups_to_registry():
             {'fct_title': u"Responsable administratif", 'fct_id': u'admin_resp', 'fct_orgs': [], 'fct_management': False, 'enabled': True}
         )
 
+    if not [r for r in registry[FUNCTIONS_REGISTRY] if r['fct_id'] == 'repr_resp']:
+        to_add.append(
+            {'fct_title': u"Responsable mandataire", 'fct_id': u'repr_resp', 'fct_orgs': [], 'fct_management': False, 'enabled': True}
+        )
+
     if not [r for r in registry[FUNCTIONS_REGISTRY] if r['fct_id'] == 'editeur']:
         to_add.append(
             {'fct_title': u'Éditeur (agent)', 'fct_id': u'editeur', 'fct_orgs': [], 'fct_management': False, 'enabled': True}
