@@ -654,9 +654,9 @@ def addDemoOrganization(context):
           u'Service du Personnel', u'Service Propreté', u'Service Population',
           u'Service Travaux', u'Service de l\'Urbanisme', ]),
     ]
-    act_srv = [u'1er échevin', u'Cellule Marchés Publics', u'Secrétariat Communal', u'Service Etat-civil',
-               u'Service Informatique', u'Service Propreté', u'Service Population', u'Service Travaux',
-               u'Service de l\'Urbanisme']
+    act_srv = [u'1er échevin', u'2ème échevin', u'Cellule Marchés Publics', u'Secrétariat Communal',
+               u'Service Etat-civil', u'Service Informatique', u'Service Propreté', u'Service Population',
+               u'Service Travaux', u'Service de l\'Urbanisme']
     registry = getUtility(IRegistry)
     group_ids = []
 
