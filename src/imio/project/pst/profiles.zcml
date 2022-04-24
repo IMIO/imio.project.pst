@@ -110,4 +110,12 @@
         handler="imio.project.pst.migrations.migrate_to_1_3_2.migrate"
         profile="imio.project.pst:default" />
 
+    <genericsetup:upgradeStep
+        title="Go to imio.project.pst 1.3.3"
+        description=""
+        source="1.3.2"
+        destination="1.3.3"
+        handler="imio.project.pst.migrations.migrate_to_1_3_3.migrate"
+        profile="imio.project.pst:default" />
+
 </configure>
