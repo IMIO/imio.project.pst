@@ -17,11 +17,11 @@ Changelog
   [fngaha]
 - Added a plan filter in os, oo, act
   [fngaha]
+- Added sub-actions in the follow template
+  [fngaha]
 
 1.3.2 (2021-10-05)
 ----------------
-- Added sub-actions in the follow template
-  [fngaha]
 - Fix sitemap when there are annex on a task
   [fngaha]
 - Updated front page

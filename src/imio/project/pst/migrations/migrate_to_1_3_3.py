@@ -43,6 +43,10 @@ class MigrateTo133(Migrator):
         Migrator.__init__(self, context)
 
     def run(self):
+        # update templates
+        self.runProfileSteps('imio.project.pst', steps=['imioprojectpst-update-templates'], profile='update',
+                             run_dependencies=False)
+
         # Import catalog tool's
         self.runProfileSteps('imio.project.pst', steps=['catalog'], profile='default',
                              run_dependencies=False)
