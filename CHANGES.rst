@@ -5,8 +5,6 @@ Changelog
 ----------------
 - Activate all aldermen organizations
   [fngaha]
-- updated demo data, use only two firt representative responsible
-  [fngaha]
 - configure the representative responsible local role
   [fngaha]
 - Override the source of representative responsible vocabulary

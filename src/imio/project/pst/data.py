@@ -507,7 +507,7 @@ def get_os_oo_ac_data(site, groups, currentYear):
                     ],
                     'priority': u'1',
                     'planned_end_date': datetime.date(datetime(2021, 12, 31)),
-                    'representative_responsible': [groups['1er-echevin']],
+                    'representative_responsible': [groups['4eme-echevin']],
                     'administrative_responsible': [groups['secretariat-communal']],
                     'manager': [groups['service-de-lurbanisme']],
                     'extra_concerned_people': u'',
@@ -710,7 +710,7 @@ def get_os_oo_ac_data(site, groups, currentYear):
                                           'reached_value': 0, 'year': 2020}],
                     'priority': u'1',
                     'planned_end_date': datetime.date(datetime(2022, 12, 31)),
-                    'representative_responsible': [groups['2eme-echevin']],
+                    'representative_responsible': [groups['2eme-echevin'], groups['3eme-echevin']],
                     'administrative_responsible': [groups['secretariat-communal']],
                     'manager': [groups['service-proprete'], groups['service-travaux']],
                     'extra_concerned_people': u'Police\r\nAgents constatateurs communaux\r\nAgent sanctionnateur '
