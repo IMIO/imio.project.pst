@@ -1016,13 +1016,13 @@ def createBaseCollections(folder, content_type):
 
         'operationalobjective': [
             {
-                'id': 'i-am-administrative_responsible',
-                'tit': _("Which I am administrative responsible"),
+                'id': 'i-am-representative_responsible',
+                'tit': _("Which I am representative responsible"),
                 'subj': ('search',),
                 'query': [
                     {'i': 'portal_type', 'o': 'plone.app.querystring.operation.selection.is', 'v': content_type},
                     {'i': 'CompoundCriterion', 'o': 'plone.app.querystring.operation.compound.is',
-                     'v': 'user-is-administrative-responsible'},
+                     'v': 'user-is-representative-responsible'},
                     {'i': 'path', 'o': 'plone.app.querystring.operation.string.path', 'v': ps_path}
                 ],
                 'cond': u"",
@@ -1033,13 +1033,13 @@ def createBaseCollections(folder, content_type):
                 'count': False
             },
             {
-                'id': 'i-am-representative_responsible',
-                'tit': _("Which I am representative responsible"),
+                'id': 'i-am-administrative_responsible',
+                'tit': _("Which I am administrative responsible"),
                 'subj': ('search',),
                 'query': [
                     {'i': 'portal_type', 'o': 'plone.app.querystring.operation.selection.is', 'v': content_type},
                     {'i': 'CompoundCriterion', 'o': 'plone.app.querystring.operation.compound.is',
-                     'v': 'user-is-representative-responsible'},
+                     'v': 'user-is-administrative-responsible'},
                     {'i': 'path', 'o': 'plone.app.querystring.operation.string.path', 'v': ps_path}
                 ],
                 'cond': u"",
@@ -1087,13 +1087,13 @@ def createBaseCollections(folder, content_type):
 
         'pstaction': [
             {
-                'id': 'i-am-manager',
-                'tit': _("Which I am manager"),
+                'id': 'i-am-representative_responsible',
+                'tit': _("Which I am representative responsible"),
                 'subj': ('search',),
                 'query': [
                     {'i': 'portal_type', 'o': 'plone.app.querystring.operation.selection.is', 'v': content_type},
                     {'i': 'CompoundCriterion', 'o': 'plone.app.querystring.operation.compound.is',
-                     'v': 'user-is-actioneditor'},
+                     'v': 'user-is-representative-responsible'},
                     {'i': 'path', 'o': 'plone.app.querystring.operation.string.path', 'v': ps_path}
                 ],
                 'cond': u"",
@@ -1104,13 +1104,13 @@ def createBaseCollections(folder, content_type):
                 'count': False
             },
             {
-                'id': 'i-am-representative_responsible',
-                'tit': _("Which I am representative responsible"),
+                'id': 'i-am-manager',
+                'tit': _("Which I am manager"),
                 'subj': ('search',),
                 'query': [
                     {'i': 'portal_type', 'o': 'plone.app.querystring.operation.selection.is', 'v': content_type},
                     {'i': 'CompoundCriterion', 'o': 'plone.app.querystring.operation.compound.is',
-                     'v': 'user-is-representative-responsible'},
+                     'v': 'user-is-actioneditor'},
                     {'i': 'path', 'o': 'plone.app.querystring.operation.string.path', 'v': ps_path}
                 ],
                 'cond': u"",
