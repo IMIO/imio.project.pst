@@ -15,13 +15,11 @@ Changelog
   [fngaha]
 - Added representative responsible function in plonegroup config
   [fngaha]
+- Added a plan filter in os, oo, act
+  [fngaha]
 
 1.3.2 (2021-10-05)
 ----------------
-- Added plan to os, oo, act dashbords config and updated migration
-  [fngaha]
-- Added plan index, metadata and custom method
-  [fngaha]
 - Added sub-actions in the follow template
   [fngaha]
 - Fix sitemap when there are annex on a task

@@ -6,7 +6,8 @@ from collective.contact.plonegroup.config import FUNCTIONS_REGISTRY, ORGANIZATIO
 from dexterity.localroles.utils import add_fti_configuration
 from imio.migrator.migrator import Migrator
 from imio.project.core.utils import getProjectSpace
-from imio.project.pst.setuphandlers import _ as _translate, COLUMNS_FOR_CONTENT_TYPES, createDashboardCollections
+from imio.project.pst.setuphandlers import _ as _translate, COLUMNS_FOR_CONTENT_TYPES, createDashboardCollections, \
+    reimport_faceted_config
 
 logger = logging.getLogger('imio.project.pst')
 
@@ -42,6 +43,12 @@ class MigrateTo133(Migrator):
         Migrator.__init__(self, context)
 
     def run(self):
+        # Import catalog tool's
+        self.runProfileSteps('imio.project.pst', steps=['catalog'], profile='default',
+                             run_dependencies=False)
+        # Updated dashboard config
+        self.update_dashboard_criterias()
+
         # Added a new representative responsible function
         self.migrate_plonegroups()
 
@@ -108,6 +115,19 @@ class MigrateTo133(Migrator):
                 },
             ]
             createDashboardCollections(folder, collections, 1)
+
+    def update_dashboard_criterias(self):
+        for brain in self.catalog(object_provides='imio.project.pst.interfaces.IImioPSTProject'):
+            pst = brain.getObject()
+            mapping = {
+                'strategicobjectives': 'strategicobjective',
+                'operationalobjectives': 'operationalobjective',
+                'pstactions': 'pstaction',
+            }
+            for col_folder_id, content_type in mapping.iteritems():
+                col_folder = pst[col_folder_id]
+                reimport_faceted_config(col_folder, xml='{}.xml'.format(content_type),
+                                        default_UID=col_folder['all'].UID())
 
 
 def migrate(context):
