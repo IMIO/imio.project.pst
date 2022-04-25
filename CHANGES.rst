@@ -3,6 +3,8 @@ Changelog
 
 1.3.3 (unreleased)
 ----------------
+- Activate all aldermen organizations
+  [fngaha]
 - updated demo data, use only two firt representative responsible
   [fngaha]
 - configure the representative responsible local role

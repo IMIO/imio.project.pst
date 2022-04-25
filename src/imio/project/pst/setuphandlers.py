@@ -654,7 +654,8 @@ def addDemoOrganization(context):
           u'Service du Personnel', u'Service Propreté', u'Service Population',
           u'Service Travaux', u'Service de l\'Urbanisme', ]),
     ]
-    act_srv = [u'1er échevin', u'2ème échevin', u'Cellule Marchés Publics', u'Secrétariat Communal',
+    act_srv = [u'1er échevin', u'2ème échevin', u'3ème échevin', u'4ème échevin', u'5ème échevin', u'6ème échevin',
+               u'7ème échevin', u'8ème échevin', u'9ème échevin', u'Cellule Marchés Publics', u'Secrétariat Communal',
                u'Service Etat-civil', u'Service Informatique', u'Service Propreté', u'Service Population',
                u'Service Travaux', u'Service de l\'Urbanisme']
     registry = getUtility(IRegistry)
@@ -803,9 +804,10 @@ def _addPSTUsers(context):
         password = generate_password()
         logger.info("Generated password='%s'" % password)
         site.plone_utils.addPortalMessage("Generated password='%s'" % password, type='warning')
-    act_org = [u'1er-echevin', u'cellule-marches-publics', u'secretariat-communal', u'service-etat-civil',
-               u'service-informatique', u'service-proprete', u'service-population', u'service-travaux',
-               u'service-de-lurbanisme']
+    act_org = [u'1er-echevin', u'2eme-echevin', u'3eme-echevin', u'4eme-echevin', u'5eme-echevin', u'6eme-echevin',
+               u'7eme-echevin', u'8eme-echevin', u'9eme-echevin', u'cellule-marches-publics', u'secretariat-communal',
+               u'service-etat-civil', u'service-informatique', u'service-proprete', u'service-population',
+               u'service-travaux', u'service-de-lurbanisme']
     srv_obj = site['contacts']['plonegroup-organization']['services']
     echev_obj = site['contacts']['plonegroup-organization']['echevins']
     orgs = []
