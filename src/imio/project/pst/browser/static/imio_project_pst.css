@@ -321,3 +321,7 @@ dl.portletActionsPortlet dd.portletItem span {
     margin-bottom: 0.3em;
     line-height: 1em;
 }
+body.template-facetednavigation_view.portaltype-folder div#faceted-results div#doc-generation-view {
+    margin-top: auto;
+    position: relative;
+}
