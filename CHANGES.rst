@@ -3,6 +3,8 @@ Changelog
 
 1.3.3 (unreleased)
 ----------------
+- Fix document generation view display issue
+  [fngaha]
 - Activate all aldermen organizations
   [fngaha]
 - configure the representative responsible local role
