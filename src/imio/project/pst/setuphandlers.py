@@ -825,7 +825,7 @@ def _addPSTUsers(context):
                                    + ["pst_readers"]),
         ('agent', u'Fred Agent'): (['%s_%s' % (orgs[org], fct) for org in orgs for fct in ('actioneditor', 'editeur')]
                                    + ["pst_readers"]),
-        ('1er-echevin', u'1er échevin'): (['%s_%s' % (orgs['1er-echevin'], 'repr_resp')] + ["pst_readers"]),
+        ('1er-echevin', u'Jean 1er échevin'): (['%s_%s' % (orgs['1er-echevin'], 'repr_resp')] + ["pst_readers"]),
     }
 
     for uid, fullname in users.keys():
