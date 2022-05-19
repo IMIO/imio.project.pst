@@ -3,11 +3,13 @@
 import logging
 
 from collective.contact.plonegroup.config import FUNCTIONS_REGISTRY, ORGANIZATIONS_REGISTRY
+from collective.messagesviewlet.utils import add_message
 from dexterity.localroles.utils import add_fti_configuration
 from imio.migrator.migrator import Migrator
 from imio.project.core.utils import getProjectSpace
 from imio.project.pst.setuphandlers import _ as _translate, COLUMNS_FOR_CONTENT_TYPES, createDashboardCollections, \
     reimport_faceted_config
+from plone import api
 
 logger = logging.getLogger('imio.project.pst')
 
@@ -64,6 +66,9 @@ class MigrateTo133(Migrator):
 
         # Configure representative responsible role for operational objectives and pst actions
         configure_representative_responsible_local_roles()
+
+        # Add a new version message in message config
+        self.add_new_version_message()
 
         # Display duration
         self.finish()
@@ -132,6 +137,23 @@ class MigrateTo133(Migrator):
                 col_folder = pst[col_folder_id]
                 reimport_faceted_config(col_folder, xml='{}.xml'.format(content_type),
                                         default_UID=col_folder['all'].UID())
+
+    def add_new_version_message(self):
+        if 'new-version' in self.portal['messages-config']:
+            api.content.delete(self.portal['messages-config']['new-version'])
+        if 'new-dashboard' in self.portal['messages-config']:
+            api.content.delete(self.portal['messages-config']['new-dashboard'])
+        add_message(
+            'new-version',
+            'Version 1.3.3',
+            u'<p>Vous êtes passés à la version d\'iA.PST 1.3.3 !</p>'
+            u'<p>La <a href="https://docs.imio.be/imio-doc/ia.pst/fonctionnalites/index.html" target="_blank">'
+            u'documentation</a> a été mise à jour</a>.</p>',
+            msg_type='warning',
+            can_hide=True,
+            req_roles=['Authenticated'],
+            activate=True
+        )
 
 
 def migrate(context):

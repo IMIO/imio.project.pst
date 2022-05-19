@@ -97,3 +97,7 @@ msgstr "L'utilisateur connecté est gestionnaire d'action"
 #: configure.zcml
 msgid "user-is-administrative-responsible"
 msgstr "L'utilisateur connecté est responsable administratif"
+
+#: configure.zcml
+msgid "user-is-representative-responsible"
+msgstr "L'utilisateur connecté est responsable mandataire"
