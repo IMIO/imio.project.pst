@@ -99,3 +99,7 @@ msgstr ""
 #: configure.zcml
 msgid "user-is-administrative-responsible"
 msgstr ""
+
+#: configure.zcml
+msgid "user-is-representative-responsible"
+msgstr ""
