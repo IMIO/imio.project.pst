@@ -143,6 +143,8 @@ class MigrateTo133(Migrator):
             api.content.delete(self.portal['messages-config']['new-version'])
         if 'new-dashboard' in self.portal['messages-config']:
             api.content.delete(self.portal['messages-config']['new-dashboard'])
+        if 'doc' in self.portal['messages-config']:
+            api.content.delete(self.portal['messages-config']['doc'])
         add_message(
             'new-version',
             'Version 1.3.3',
