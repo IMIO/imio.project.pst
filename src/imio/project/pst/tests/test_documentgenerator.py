@@ -101,6 +101,21 @@ class TestDocumentGenerator(IntegrationTestCase):
         struct = [(short_id(tup[0]), short_id(tup[1]), short_id(tup[2]), short_id(tup[3])) for tup in view.flatten_structure()]
         self.assertListEqual(struct, short_flattened_struct[:10])
 
+        # list_pst_elements
+        elt_titles = [
+            u'Etre une commune qui offre un service public moderne, efficace et efficient',
+            u"Diminuer le temps d'attente de l'usager au guichet population de 20% dans les 12 mois \xe0 venir",
+            u'Engager 2 agents pour le Service Population',
+            u'Cr\xe9er un guichet suppl\xe9mentaire dans les 3 mois',
+            u'Mettre en ligne sur le site internet diff\xe9rents documents "population" \xe0 t\xe9l\xe9charger de '
+            u'chez soi',
+            u"Optimiser l'accueil au sein de l'administration communale",
+            u'Placer des pictogrammes de guidance',
+            u"Installer une rampe d'acc\xe8s pour PMR",
+            u'Mettre en place des permanences sur rendez-vous',
+            u'Cr\xe9er un guichet suppl\xe9mentaire dans les 3 mois']
+        self.assertEqual([elt.real_context.title for elt in view.list_pst_elements()], elt_titles)
+
         # check activated fields
         view.init_hv()
         dic = view.activated_fields
