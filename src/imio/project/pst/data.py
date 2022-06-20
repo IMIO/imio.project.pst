@@ -77,6 +77,14 @@ def get_main_templates(cids):
                    'is_reusable': True,
                    'odt_file': NamedBlobFile(data=open('%s/editors.ods' % TMPL_DIR, 'r').read(),
                                              filename=u'editors.ods', contentType='applications/ods')}},
+
+        {'cid': 170, 'cont': 'templates', 'id': 'progress_state', 'title': u"État d'avancement",
+         'type': 'ConfigurablePODTemplate', 'trans': ['publish_internally'],
+         'attrs': {'pod_formats': ['ods'], 'pod_portal_types': ['pstprojectspace', 'strategicobjective',
+                   'operationalobjective', 'pstaction', 'pstsubaction'],
+                   'is_reusable': True,
+                   'odt_file': NamedBlobFile(data=open('%s/progress_state.ods' % TMPL_DIR, 'r').read(),
+                                             filename=u'progress_state.ods', contentType='applications/ods')}},
     ]
 
 
@@ -163,12 +171,6 @@ def get_templates(cids):
          'attrs': {'pod_formats': ['ods'], 'tal_condition': "python:"
                    "context.getPortalTypeName() == 'Folder' and context.getId() == 'pstactions'",
                    'pod_template_to_use': cids[90].UID()}},
-
-        {'cid': 155, 'cont': 'templates', 'id': 'deditors', 'title': u'Suivi éditeurs',
-         'type': 'DashboardPODTemplate', 'trans': ['publish_internally'],
-         'attrs': {'pod_formats': ['ods'], 'tal_condition': "python:"
-                    "context.getPortalTypeName() == 'Folder' and context.getId() == 'tasks'",
-                   'pod_template_to_use': cids[150].UID()}},
 
         {'cid': 100, 'cont': 'templates', 'id': 'detail-all', 'title': u'Détaillé (Tout)',
          'type': 'ConfigurablePODTemplate', 'trans': ['publish_internally'],
@@ -275,6 +277,17 @@ def get_templates(cids):
                        {'name': u'option_1', 'value': u''},
                    ],
                    'pod_template_to_use': cids[30].UID()}},
+
+        {'cid': 155, 'cont': 'templates', 'id': 'deditors', 'title': u'Suivi éditeurs',
+         'type': 'DashboardPODTemplate', 'trans': ['publish_internally'],
+         'attrs': {'pod_formats': ['ods'], 'tal_condition': "python:"
+                    "context.getPortalTypeName() == 'Folder' and context.getId() == 'tasks'",
+                   'pod_template_to_use': cids[150].UID()}},
+
+        {'cid': 175, 'cont': 'templates', 'id': 'dprogress_state', 'title': u"État d'avancement",
+         'type': 'DashboardPODTemplate', 'trans': ['publish_internally'],
+         'attrs': {'pod_formats': ['ods'],
+                   'pod_template_to_use': cids[170].UID()}},
     ]
 
 

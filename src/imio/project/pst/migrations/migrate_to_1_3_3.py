@@ -5,8 +5,10 @@ import logging
 from collective.contact.plonegroup.config import FUNCTIONS_REGISTRY, ORGANIZATIONS_REGISTRY
 from collective.messagesviewlet.utils import add_message
 from dexterity.localroles.utils import add_fti_configuration
+from imio.helpers.content import create
 from imio.migrator.migrator import Migrator
 from imio.project.core.utils import getProjectSpace
+from imio.project.pst.data import get_styles_templates, get_main_templates, get_templates
 from imio.project.pst.setuphandlers import _ as _translate, COLUMNS_FOR_CONTENT_TYPES, createDashboardCollections, \
     reimport_faceted_config
 from plone import api
@@ -39,6 +41,13 @@ def configure_representative_responsible_local_roles():
                 add_fti_configuration(portal_type, roles_config[keyname], keyname=keyname, force=False)
 
 
+def update_templates():
+    """Add new template"""
+    cids = create(get_styles_templates())
+    cids.update(create(get_main_templates(cids)))
+    cids.update(create(get_templates(cids)))
+
+
 class MigrateTo133(Migrator):
 
     def __init__(self, context):
@@ -69,6 +78,9 @@ class MigrateTo133(Migrator):
 
         # Add a new version message in message config
         self.add_new_version_message()
+
+        # Add new template
+        update_templates()
 
         # Display duration
         self.finish()

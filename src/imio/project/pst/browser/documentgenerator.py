@@ -83,6 +83,25 @@ class DocumentGenerationBaseHelper():
                             ret.append((so_v, oo_v, act_v, subact_v, task_v))
         return ret
 
+    def list_pst_elements(self):
+        """
+        Return list of pst elements
+        (OS.1), (OO.2), (A.3), (A.4), (A.5), (OO.6), (A.7), (A.8), (A.9), (AL.4), (OS.10), ...
+        """
+        lst = []
+        for so in self.getStrategicObjectives(skip_states=[]):
+            lst.append(self.getDGHV(so))
+            oos = self.getOperationalObjectives(so=so, skip_states=[])
+            for oo in oos:
+                lst.append(self.getDGHV(oo))
+                acts = self.getActions(oo=oo, skip_states=[])
+                for act in acts:
+                    lst.append(self.getDGHV(act))
+                    subacts = self.getSubActions(action=act, skip_states=[])
+                    for subact in subacts:
+                        lst.append(self.getDGHV(subact))
+        return lst
+
     def skip_states(self):
         return self.context_var('skip_states').split(',')
 
