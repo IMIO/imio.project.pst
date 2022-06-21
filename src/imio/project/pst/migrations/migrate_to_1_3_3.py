@@ -3,6 +3,7 @@
 import logging
 
 from collective.contact.plonegroup.config import FUNCTIONS_REGISTRY, ORGANIZATIONS_REGISTRY
+from collective.documentgenerator.config import set_oo_port
 from collective.messagesviewlet.utils import add_message
 from dexterity.localroles.utils import add_fti_configuration
 from imio.helpers.content import create
@@ -82,6 +83,9 @@ class MigrateTo133(Migrator):
         # Add new template
         update_templates()
 
+        # Get environment value in buildout to define port
+        set_oo_port()
+
         # Display duration
         self.finish()
 
@@ -151,12 +155,9 @@ class MigrateTo133(Migrator):
                                         default_UID=col_folder['all'].UID())
 
     def add_new_version_message(self):
-        if 'new-version' in self.portal['messages-config']:
-            api.content.delete(self.portal['messages-config']['new-version'])
-        if 'new-dashboard' in self.portal['messages-config']:
-            api.content.delete(self.portal['messages-config']['new-dashboard'])
-        if 'doc' in self.portal['messages-config']:
-            api.content.delete(self.portal['messages-config']['doc'])
+        for msg in ['new-version', 'new-dashboard', 'doc', 'backport']:
+            if msg in self.portal['messages-config']:
+                api.content.delete(self.portal['messages-config'][msg])
         add_message(
             'new-version',
             'Version 1.3.3',
