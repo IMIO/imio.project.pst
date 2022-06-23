@@ -283,11 +283,6 @@ def get_templates(cids):
          'attrs': {'pod_formats': ['ods'], 'tal_condition': "python:"
                     "context.getPortalTypeName() == 'Folder' and context.getId() == 'tasks'",
                    'pod_template_to_use': cids[150].UID()}},
-
-        {'cid': 175, 'cont': 'templates', 'id': 'dprogress_state', 'title': u"État d'avancement",
-         'type': 'DashboardPODTemplate', 'trans': ['publish_internally'],
-         'attrs': {'pod_formats': ['ods'],
-                   'pod_template_to_use': cids[170].UID()}},
     ]
 
 
