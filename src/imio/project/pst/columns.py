@@ -2,6 +2,7 @@
 """Custom columns."""
 import cgi
 
+import html
 from DateTime import DateTime
 from Products.CMFPlone.utils import base_hasattr
 from collective.eeafaceted.z3ctable import _ as _cez
@@ -171,13 +172,10 @@ class ParentsColumn(BaseColumn):
     def get_parents(self, ret, obj):
         parent = obj.aq_inner.aq_parent
         while not IProjectSpace.providedBy(parent):
-            title = u' {}'.format(self.ploneview.cropText(parent.title, 35))
+            title = u' {}'.format(self.ploneview.cropText(html.escape(parent.title), 35))
             ret.append(u'<a href="{}" target="_blank" title="{}" class="contenttype-{}">'
-                       u'<span class="pretty_link_content">{}</span></a>'.format(parent.absolute_url(),
-                                                                                 cgi.escape(parent.title,
-                                                                                            quote=True),
-                                                                                 parent.portal_type,
-                                                                                 title))
+                       u'<span class="pretty_link_content">{}</span></a>'.format(
+                parent.absolute_url(), html.escape(parent.title), parent.portal_type, title))
             parent = parent.aq_inner.aq_parent
 
     def renderCell(self, item):
