@@ -3,6 +3,9 @@ Changelog
 
 1.3.3 (unreleased)
 ----------------
+- Improved progress state model with a new type column,
+  auto filters, style condition and fixed first line
+  [fngaha]
 - Added a new progress state document
   [fngaha]
 - Fix document generation view display issue
