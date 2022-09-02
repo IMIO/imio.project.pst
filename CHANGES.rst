@@ -3,6 +3,13 @@ Changelog
 
 1.3.3 (unreleased)
 ----------------
+- Updated templates by fixing different display condition :
+  text "Sélection d’objectifs stratégiques", table of contents
+  result_indicator, planned_end_date, representative_responsible, administrative_responsible, manager, projection,
+  analytic_budget, budget for oos
+  result_indicator, planned_end_date, representative_responsible, health_indicator, manager, projection,
+  analytic_budget, budget, progress for actions and subactions
+  [fngaha]
 - Improved progress state model with a new type column,
   auto filters, style condition and fixed first line
   [fngaha]
