@@ -176,7 +176,7 @@ class PSTAction(Project):
         if getattr(getProjectSpace(self), 'use_ref_number', True):
             return '%s (A.%s)' % (self.title.encode('utf8'), self.reference_number)
         else:
-            return self.title.encode('utf8')
+            return '%s (A)' % (self.title.encode('utf8'))
 
     def back_references(self):
         """
@@ -274,7 +274,7 @@ class PSTSubAction(Project):
         if getattr(getProjectSpace(self), 'use_ref_number', True):
             return '%s (SA.%s)' % (self.title.encode('utf8'), self.reference_number)
         else:
-            return self.title.encode('utf8')
+            return '%s (SA)' % (self.title.encode('utf8'))
 
     def back_references(self):
         """

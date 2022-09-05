@@ -3,6 +3,8 @@ Changelog
 
 1.3.3 (unreleased)
 ----------------
+- Always specify the type of project elements (OS, OO, A, SA)
+  [fngaha]
 - Updated templates by fixing different display condition :
   text "Sélection d’objectifs stratégiques", table of contents
   result_indicator, planned_end_date, representative_responsible, administrative_responsible, manager, projection,

@@ -67,7 +67,7 @@ class OperationalObjective(Project):
         if getattr(getProjectSpace(self), 'use_ref_number', True):
             return '%s (OO.%s)' % (self.title.encode('utf8'), self.reference_number)
         else:
-            return self.title.encode("utf8")
+            return '%s (OO)' % (self.title.encode('utf8'))
 
 
 @implementer(IDataManager)
