@@ -23,7 +23,7 @@ class StrategicObjective(Project):
         if getattr(getProjectSpace(self), 'use_ref_number', True):
             return '%s (OS.%s)' % (self.title.encode('utf8'), self.reference_number)
         else:
-            return self.title.encode('utf8')
+            return '%s (OS)' % (self.title.encode('utf8'))
 
 
 class StrategicObjectiveSchemaPolicy(DexteritySchemaPolicy):
