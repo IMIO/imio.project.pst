@@ -3,6 +3,8 @@ Changelog
 
 1.3.3 (unreleased)
 ----------------
+- Differentiated actions from sub-actions in documents by color. Assigned light blue to sub-actions
+  [fngaha]
 - Always specify the type of project elements (OS, OO, A, SA)
   [fngaha]
 - Updated templates by fixing different display condition :
