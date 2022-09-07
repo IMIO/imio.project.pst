@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2022-04-11 13:24+0000\n"
+"POT-Creation-Date: 2022-09-07 10:40+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,15 +25,15 @@ msgstr ""
 msgid "Actions"
 msgstr ""
 
-#: ./setuphandlers.py:873
+#: ./setuphandlers.py:890
 msgid "Actions under"
 msgstr ""
 
-#: ./content/operational.py:42
+#: ./content/operational.py:40
 msgid "Administrative responsible"
 msgstr ""
 
-#: ./setuphandlers.py:978
+#: ./setuphandlers.py:998
 msgid "All"
 msgstr ""
 
@@ -49,7 +49,7 @@ msgstr ""
 msgid "Budget split saved"
 msgstr ""
 
-#: ./setuphandlers.py:1516
+#: ./setuphandlers.py:1564
 msgid "Categorization"
 msgstr ""
 
@@ -113,7 +113,7 @@ msgstr ""
 msgid "Installs the imio.project.pst add-on."
 msgstr ""
 
-#: ./setuphandlers.py:872
+#: ./setuphandlers.py:889
 msgid "Operational objectives"
 msgstr ""
 
@@ -165,7 +165,7 @@ msgid "Realisation indicator"
 msgstr ""
 
 #: ./content/action.py:73
-#: ./content/operational.py:31
+#: ./content/operational.py:29
 msgid "Representative responsible"
 msgstr ""
 
@@ -185,47 +185,47 @@ msgstr ""
 msgid "Split budget lines between multiple instances"
 msgstr ""
 
-#: ./setuphandlers.py:902
+#: ./setuphandlers.py:919
 msgid "State: achieved"
 msgstr ""
 
-#: ./setuphandlers.py:910
+#: ./setuphandlers.py:927
 msgid "State: closed"
 msgstr ""
 
-#: ./setuphandlers.py:900
+#: ./setuphandlers.py:917
 msgid "State: created"
 msgstr ""
 
-#: ./setuphandlers.py:912
+#: ./setuphandlers.py:929
 msgid "State: in progress"
 msgstr ""
 
-#: ./setuphandlers.py:901
+#: ./setuphandlers.py:918
 msgid "State: ongoing"
 msgstr ""
 
-#: ./setuphandlers.py:913
+#: ./setuphandlers.py:930
 msgid "State: realized"
 msgstr ""
 
-#: ./setuphandlers.py:908
+#: ./setuphandlers.py:925
 msgid "State: stopped"
 msgstr ""
 
-#: ./setuphandlers.py:907
+#: ./setuphandlers.py:924
 msgid "State: terminated"
 msgstr ""
 
-#: ./setuphandlers.py:915
+#: ./setuphandlers.py:932
 msgid "State: to assign"
 msgstr ""
 
-#: ./setuphandlers.py:905
+#: ./setuphandlers.py:922
 msgid "State: to be scheduled"
 msgstr ""
 
-#: ./setuphandlers.py:914
+#: ./setuphandlers.py:931
 msgid "State: to do"
 msgstr ""
 
@@ -233,7 +233,7 @@ msgstr ""
 msgid "Steps to ease tests of imio.project.pst"
 msgstr ""
 
-#: ./setuphandlers.py:871
+#: ./setuphandlers.py:888
 msgid "Strategic objectives"
 msgstr ""
 
@@ -263,7 +263,7 @@ msgstr ""
 msgid "Tasks columns"
 msgstr ""
 
-#: ./setuphandlers.py:874
+#: ./setuphandlers.py:891
 msgid "Tasks under"
 msgstr ""
 
@@ -315,31 +315,31 @@ msgstr ""
 msgid "Warning ! Completion of these fields requires a good knowledge of the TAL language. Be sure to get help from the product support team."
 msgstr ""
 
-#: ./setuphandlers.py:1000
+#: ./setuphandlers.py:1037
 msgid "Which I am administrative responsible"
 msgstr ""
 
-#: ./setuphandlers.py:1034
+#: ./setuphandlers.py:1054
 msgid "Which I am manager"
 msgstr ""
 
-#: ./setuphandlers.py:1017
+#: ./setuphandlers.py:1020
 msgid "Which I am representative responsible"
 msgstr ""
 
-#: ./setuphandlers.py:1088
+#: ./setuphandlers.py:1125
 msgid "Which I am responsible"
 msgstr ""
 
-#: ./setuphandlers.py:1051
+#: ./setuphandlers.py:1071
 msgid "Which an action deadline has passed"
 msgstr ""
 
-#: ./setuphandlers.py:1120
+#: ./setuphandlers.py:1157
 msgid "Which beginning is late"
 msgstr ""
 
-#: ./setuphandlers.py:1104
+#: ./setuphandlers.py:1141
 msgid "Which deadline has passed"
 msgstr ""
 
@@ -359,55 +359,55 @@ msgstr ""
 msgid "You must choose at least one group of which you are a member"
 msgstr ""
 
-#: ./setuphandlers.py:530
+#: ./setuphandlers.py:535
 msgid "ckeditor_style_highlight_in_blue"
 msgstr ""
 
-#: ./setuphandlers.py:531
+#: ./setuphandlers.py:536
 msgid "ckeditor_style_highlight_in_green"
 msgstr ""
 
-#: ./setuphandlers.py:529
+#: ./setuphandlers.py:534
 msgid "ckeditor_style_highlight_in_red"
 msgstr ""
 
-#: ./setuphandlers.py:532
+#: ./setuphandlers.py:537
 msgid "ckeditor_style_highlight_in_yellow"
 msgstr ""
 
-#: ./setuphandlers.py:537
+#: ./setuphandlers.py:542
 msgid "ckeditor_style_indent_first_line"
 msgstr ""
 
-#: ./setuphandlers.py:535
+#: ./setuphandlers.py:540
 msgid "ckeditor_style_large"
 msgstr ""
 
-#: ./setuphandlers.py:534
+#: ./setuphandlers.py:539
 msgid "ckeditor_style_small"
 msgstr ""
 
-#: ./setuphandlers.py:538
+#: ./setuphandlers.py:543
 msgid "ckeditor_style_table_no_optimization"
 msgstr ""
 
-#: ./setuphandlers.py:536
+#: ./setuphandlers.py:541
 msgid "ckeditor_style_x_large"
 msgstr ""
 
-#: ./setuphandlers.py:533
+#: ./setuphandlers.py:538
 msgid "ckeditor_style_x_small"
 msgstr ""
 
-#: ./setuphandlers.py:511
+#: ./setuphandlers.py:516
 msgid "front_page_descr"
 msgstr ""
 
-#: ./setuphandlers.py:512
+#: ./setuphandlers.py:517
 msgid "front_page_text"
 msgstr ""
 
-#: ./setuphandlers.py:510
+#: ./setuphandlers.py:515
 msgid "front_page_title"
 msgstr ""
 
@@ -442,30 +442,30 @@ msgstr ""
 msgid "strategic_legend_operational_objectives"
 msgstr ""
 
-#: ./setuphandlers.py:1191
+#: ./setuphandlers.py:1228
 msgid "task_have_treated"
 msgstr ""
 
-#: ./setuphandlers.py:1174
+#: ./setuphandlers.py:1211
 msgid "task_im_treating"
 msgstr ""
 
-#: ./setuphandlers.py:1157
+#: ./setuphandlers.py:1194
 msgid "task_to_treat"
 msgstr ""
 
-#: ./setuphandlers.py:1209
+#: ./setuphandlers.py:1246
 msgid "tasks_in_my_group"
 msgstr ""
 
-#: ./setuphandlers.py:1140
+#: ./setuphandlers.py:1177
 msgid "tasks_to_assign"
 msgstr ""
 
-#: ./setuphandlers.py:1226
+#: ./setuphandlers.py:1263
 msgid "tasks_to_close"
 msgstr ""
 
-#: ./setuphandlers.py:1243
+#: ./setuphandlers.py:1280
 msgid "tasks_with_due_date_passed"
 msgstr ""
