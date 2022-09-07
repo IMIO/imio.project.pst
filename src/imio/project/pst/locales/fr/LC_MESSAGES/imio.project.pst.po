@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2022-04-11 13:24+0000\n"
+"POT-Creation-Date: 2022-09-07 10:40+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,15 +23,15 @@ msgstr "Lien action"
 msgid "Actions"
 msgstr "Actions"
 
-#: ./setuphandlers.py:873
+#: ./setuphandlers.py:890
 msgid "Actions under"
 msgstr "Actions (sous-)"
 
-#: ./content/operational.py:42
+#: ./content/operational.py:40
 msgid "Administrative responsible"
 msgstr "Responsable administratif"
 
-#: ./setuphandlers.py:978
+#: ./setuphandlers.py:998
 msgid "All"
 msgstr "Tous"
 
@@ -85,7 +85,7 @@ msgstr ""
 
 #: ./content/pstprojectspace.py:118
 msgid "Field name"
-msgstr ""
+msgstr "Nom du champ"
 
 #: ./content/action.py:91
 msgid "Health indicator"
@@ -107,7 +107,7 @@ msgstr "Import some demo data for the imio.project.pst"
 msgid "Installs the imio.project.pst add-on."
 msgstr "Installs the imio.project.pst"
 
-#: ./setuphandlers.py:872
+#: ./setuphandlers.py:889
 msgid "Operational objectives"
 msgstr "Objectifs opérationnels"
 
@@ -159,7 +159,7 @@ msgid "Realisation indicator"
 msgstr "Indicateur de réalisation"
 
 #: ./content/action.py:73
-#: ./content/operational.py:31
+#: ./content/operational.py:29
 msgid "Representative responsible"
 msgstr "Responsable mandataire"
 
@@ -179,47 +179,47 @@ msgstr "Répartition des budgets entre les différentes actions"
 msgid "Split budget lines between multiple instances"
 msgstr "Répartir les lignes budgétaires entre les différentes actions"
 
-#: ./setuphandlers.py:902
+#: ./setuphandlers.py:919
 msgid "State: achieved"
 msgstr "État: clôturé"
 
-#: ./setuphandlers.py:910
+#: ./setuphandlers.py:927
 msgid "State: closed"
 msgstr "État: clôturé"
 
-#: ./setuphandlers.py:900
+#: ./setuphandlers.py:917
 msgid "State: created"
 msgstr "État: en création"
 
-#: ./setuphandlers.py:912
+#: ./setuphandlers.py:929
 msgid "State: in progress"
 msgstr "État: en cours"
 
-#: ./setuphandlers.py:901
+#: ./setuphandlers.py:918
 msgid "State: ongoing"
 msgstr "État: en cours"
 
-#: ./setuphandlers.py:913
+#: ./setuphandlers.py:930
 msgid "State: realized"
 msgstr "État: réalisé"
 
-#: ./setuphandlers.py:908
+#: ./setuphandlers.py:925
 msgid "State: stopped"
 msgstr "État: annulé"
 
-#: ./setuphandlers.py:907
+#: ./setuphandlers.py:924
 msgid "State: terminated"
 msgstr "État: finalisé"
 
-#: ./setuphandlers.py:915
+#: ./setuphandlers.py:932
 msgid "State: to assign"
 msgstr "État: à assigner"
 
-#: ./setuphandlers.py:905
+#: ./setuphandlers.py:922
 msgid "State: to be scheduled"
 msgstr "État: à agender"
 
-#: ./setuphandlers.py:914
+#: ./setuphandlers.py:931
 msgid "State: to do"
 msgstr "État: à faire"
 
@@ -227,7 +227,7 @@ msgstr "État: à faire"
 msgid "Steps to ease tests of imio.project.pst"
 msgstr "Steps to ease tests of imio.project.pst"
 
-#: ./setuphandlers.py:871
+#: ./setuphandlers.py:888
 msgid "Strategic objectives"
 msgstr "Objectifs stratégiques"
 
@@ -257,7 +257,7 @@ msgstr "Tâches"
 msgid "Tasks columns"
 msgstr "Colonnes à afficher sur les tâches"
 
-#: ./setuphandlers.py:874
+#: ./setuphandlers.py:891
 msgid "Tasks under"
 msgstr "Tâches (sous-)"
 
@@ -309,31 +309,31 @@ msgstr "Update profile to run individually some update steps"
 msgid "Warning ! Completion of these fields requires a good knowledge of the TAL language. Be sure to get help from the product support team."
 msgstr "Attention ! La complétion de ces champs nécessite une bonne connaissance du langage TAL. Veillez vous faire aider par notre support produit."
 
-#: ./setuphandlers.py:1000
+#: ./setuphandlers.py:1037
 msgid "Which I am administrative responsible"
 msgstr "Dont je suis responsable administratif"
 
-#: ./setuphandlers.py:1034
+#: ./setuphandlers.py:1054
 msgid "Which I am manager"
 msgstr "Dont je suis gestionnaire"
 
-#: ./setuphandlers.py:1017
+#: ./setuphandlers.py:1020
 msgid "Which I am representative responsible"
 msgstr "Dont je suis responsable mandataire"
 
-#: ./setuphandlers.py:1088
+#: ./setuphandlers.py:1125
 msgid "Which I am responsible"
 msgstr "Dont je suis le porteur"
 
-#: ./setuphandlers.py:1051
+#: ./setuphandlers.py:1071
 msgid "Which an action deadline has passed"
 msgstr "En retard pdv échéance actions"
 
-#: ./setuphandlers.py:1120
+#: ./setuphandlers.py:1157
 msgid "Which beginning is late"
 msgstr "En retard pdv date début effective"
 
-#: ./setuphandlers.py:1104
+#: ./setuphandlers.py:1141
 msgid "Which deadline has passed"
 msgstr "En retard pdv échéance"
 
@@ -353,55 +353,55 @@ msgstr "Condition TAL d'écriture"
 msgid "You must choose at least one group of which you are a member"
 msgstr "Vous devez choisir au moins un des groupes dont vous êtes membre"
 
-#: ./setuphandlers.py:530
+#: ./setuphandlers.py:535
 msgid "ckeditor_style_highlight_in_blue"
 msgstr "Texte bleu"
 
-#: ./setuphandlers.py:531
+#: ./setuphandlers.py:536
 msgid "ckeditor_style_highlight_in_green"
 msgstr "Texte vert"
 
-#: ./setuphandlers.py:529
+#: ./setuphandlers.py:534
 msgid "ckeditor_style_highlight_in_red"
 msgstr "Texte rouge"
 
-#: ./setuphandlers.py:532
+#: ./setuphandlers.py:537
 msgid "ckeditor_style_highlight_in_yellow"
 msgstr "Surligner en jaune"
 
-#: ./setuphandlers.py:537
+#: ./setuphandlers.py:542
 msgid "ckeditor_style_indent_first_line"
 msgstr "Indenter première ligne"
 
-#: ./setuphandlers.py:535
+#: ./setuphandlers.py:540
 msgid "ckeditor_style_large"
 msgstr "Grand texte"
 
-#: ./setuphandlers.py:534
+#: ./setuphandlers.py:539
 msgid "ckeditor_style_small"
 msgstr "Petit texte"
 
-#: ./setuphandlers.py:538
+#: ./setuphandlers.py:543
 msgid "ckeditor_style_table_no_optimization"
 msgstr "Sans optimisation largeur colonnes"
 
-#: ./setuphandlers.py:536
+#: ./setuphandlers.py:541
 msgid "ckeditor_style_x_large"
 msgstr "Très grand texte"
 
-#: ./setuphandlers.py:533
+#: ./setuphandlers.py:538
 msgid "ckeditor_style_x_small"
 msgstr "Très petit texte"
 
-#: ./setuphandlers.py:511
+#: ./setuphandlers.py:516
 msgid "front_page_descr"
 msgstr "Bienvenue sur votre outil de gestion du PST"
 
-#: ./setuphandlers.py:512
+#: ./setuphandlers.py:517
 msgid "front_page_text"
 msgstr "<p>&nbsp;</p><p>L'application de gestion du PST contient actuellement les <strong>fonctionnalités suivantes</strong>:</p><ul><li>encodage des objectifs stratégiques, des objectifs opérationnels et des actions</li><li>possibilité de créer des sous-actions</li><li>possibilité de partager une action ou sous-action dans plusieurs objectifs</li><li>encodage de tâches</li><li>visualisation des éléments via des tableaux de bord filtrables</li><li>génération de document au format bureautique : rapports détaillé, de suivi, csv, etc.</li><li>possibilité de créer un point collège/conseil depuis une action, sous-action ou une tâche</li><li>Lien export / import avec e-comptes</li><li>Formulaires adaptables : suppression ou réorganisation des champs</li><li>Navigation via l'arborescence complète</li><li>exportation des données dans un tableur</li><li>gestion des contacts (services traitants, échevins)</li><li>gestion des droits par service</li><li>workflow de traitement sur tous les types d'éléments</li><li>...</li></ul>"
 
-#: ./setuphandlers.py:510
+#: ./setuphandlers.py:515
 msgid "front_page_title"
 msgstr "Programme Stratégique Transversal 1.3.3"
 
@@ -436,30 +436,30 @@ msgstr "Objectifs stratégiques"
 msgid "strategic_legend_operational_objectives"
 msgstr "Objectifs opérationnels"
 
-#: ./setuphandlers.py:1191
+#: ./setuphandlers.py:1228
 msgid "task_have_treated"
 msgstr "Que j'ai traité"
 
-#: ./setuphandlers.py:1174
+#: ./setuphandlers.py:1211
 msgid "task_im_treating"
 msgstr "Que je traite"
 
-#: ./setuphandlers.py:1157
+#: ./setuphandlers.py:1194
 msgid "task_to_treat"
 msgstr "Qui m'est assigné"
 
-#: ./setuphandlers.py:1209
+#: ./setuphandlers.py:1246
 msgid "tasks_in_my_group"
 msgstr "Dans mon service"
 
-#: ./setuphandlers.py:1140
+#: ./setuphandlers.py:1177
 msgid "tasks_to_assign"
 msgstr "À assigner"
 
-#: ./setuphandlers.py:1226
+#: ./setuphandlers.py:1263
 msgid "tasks_to_close"
 msgstr "À clôturer"
 
-#: ./setuphandlers.py:1243
+#: ./setuphandlers.py:1280
 msgid "tasks_with_due_date_passed"
 msgstr "En retard pdv échéance"
