@@ -3,6 +3,8 @@ Changelog
 
 1.3.3 (unreleased)
 ----------------
+- improved progress state template by removing unecessary column "type" and added conditionnal format to title column
+  [fngaha]
 - Fix locales language in projectspace
   [fngaha]
 - Differentiated actions from sub-actions in documents by color. Assigned light blue to sub-actions
