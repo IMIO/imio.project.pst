@@ -21,3 +21,7 @@ class IActionLink(ISymlink):
 
 class ActionLink(Symlink):
     implements(IActionLink)
+
+    def Title(self):
+        return super(ActionLink, self).Title().replace('(A', '(AL')
+
