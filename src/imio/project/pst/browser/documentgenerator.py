@@ -638,6 +638,22 @@ class DocumentGenerationPSTSubActionsHelper(DocumentGenerationPSTActionsHelper):
             return [brain.getObject() for brain in brains]
 
 
+class DocumentGenerationPSTActionsLinkHelper(DocumentGenerationPSTActionsHelper):
+    """
+        Methods used in document generation view, for PSTSubAction
+    """
+
+    acronym = 'AL'
+
+
+class DocumentGenerationPSTSubActionsLinkHelper(DocumentGenerationPSTSubActionsHelper):
+    """
+        Methods used in document generation view, for PSTSubAction
+    """
+
+    acronym = 'SAL'
+
+
 class DocumentGenerationTasksHelper(DocumentGenerationBaseHelper, DXDocumentGenerationHelperView):
     """
         Methods used in document generation view, for Tasks

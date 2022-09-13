@@ -152,14 +152,14 @@
     <browser:page
         for="imio.project.pst.content.action_link.IActionLink"
         name="document_generation_helper_view"
-        class="imio.project.pst.browser.documentgenerator.DocumentGenerationPSTActionsHelper"
+        class="imio.project.pst.browser.documentgenerator.DocumentGenerationPSTActionsLinkHelper"
         permission="zope2.View"
         />
 
     <browser:page
         for="imio.project.pst.content.subaction_link.ISubActionLink"
         name="document_generation_helper_view"
-        class="imio.project.pst.browser.documentgenerator.DocumentGenerationPSTActionsHelper"
+        class="imio.project.pst.browser.documentgenerator.DocumentGenerationPSTSubActionsLinkHelper"
         permission="zope2.View"
         />
 

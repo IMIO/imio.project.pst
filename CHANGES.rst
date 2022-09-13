@@ -3,7 +3,7 @@ Changelog
 
 1.3.3 (unreleased)
 ----------------
-- improved progress state template by removing unecessary column "type" and added conditionnal format to title column
+- improved progress state template, added conditionnal format to title column
   [fngaha]
 - Fix locales language in projectspace
   [fngaha]
