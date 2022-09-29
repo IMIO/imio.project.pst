@@ -77,6 +77,9 @@ class MigrateTo133(Migrator):
         # Configure representative responsible role for operational objectives and pst actions
         configure_representative_responsible_local_roles()
 
+        # Update front_page
+        self.update_front_page()
+
         # Add a new version message in message config
         self.add_new_version_message()
 
@@ -153,6 +156,11 @@ class MigrateTo133(Migrator):
                 col_folder = pst[col_folder_id]
                 reimport_faceted_config(col_folder, xml='{}.xml'.format(content_type),
                                         default_UID=col_folder['all'].UID())
+
+    def update_front_page(self):
+        frontpage = getattr(self.portal, 'front-page')
+        frontpage.title = _translate("front_page_title")
+        frontpage.reindexObject()
 
     def add_new_version_message(self):
         for msg in ['new-version', 'new-dashboard', 'doc', 'backport']:
