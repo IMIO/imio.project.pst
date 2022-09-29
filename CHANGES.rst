@@ -3,6 +3,8 @@ Changelog
 
 1.3.3 (unreleased)
 ----------------
+- Updated columns following pentests corrections
+  [fngaha]
 - improved progress state template, added new columns (deadline, progress, observation) and conditionnal format to title column
   [fngaha]
 - Fix locales language in projectspace

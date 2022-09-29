@@ -157,7 +157,7 @@ class DueDateColumn(DateColumn):
     attrName = u'due_date'
 
 
-class ParentsColumn(BaseColumn):
+class ParentsColumn(PrettyLinkColumn):
     """
         * always rendered on searches
         * only rendered on context when displaying tasks
@@ -221,6 +221,7 @@ class SubOrganizationTitle(PrettyLinkColumn):
 
 
 class SDGsColumn(IconsColumn):
+    escape = False
     attrName = u'sdgs'
 
     def titleValue(self, item, val):
