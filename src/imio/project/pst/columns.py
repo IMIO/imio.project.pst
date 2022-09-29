@@ -124,7 +124,7 @@ class HealthIndicatorColumn(VocabularyColumn):
 
 
 class ProgressColumn(BaseColumn):
-    pass
+    escape = False
 
 
 class ManagerColumn(VocabularyColumn):
