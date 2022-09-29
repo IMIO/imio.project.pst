@@ -221,6 +221,7 @@ class SubOrganizationTitle(PrettyLinkColumn):
 
 
 class SDGsColumn(IconsColumn):
+    escape = False
     attrName = u'sdgs'
 
     def titleValue(self, item, val):
