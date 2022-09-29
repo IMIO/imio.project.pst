@@ -157,7 +157,7 @@ class DueDateColumn(DateColumn):
     attrName = u'due_date'
 
 
-class ParentsColumn(BaseColumn):
+class ParentsColumn(PrettyLinkColumn):
     """
         * always rendered on searches
         * only rendered on context when displaying tasks
