@@ -111,7 +111,7 @@ class MigrateTo133(Migrator):
         echev_uids = [echevin[1].UID() for echevin in echevs]
         to_add = [echev_uid for echev_uid in echev_uids if echev_uid not in registry[ORGANIZATIONS_REGISTRY]]
         if to_add:
-            registry[ORGANIZATIONS_REGISTRY] = registry[ORGANIZATIONS_REGISTRY] + to_add
+            registry[ORGANIZATIONS_REGISTRY].extend(to_add)
 
     def add_representative_responsible_collection(self):
         """

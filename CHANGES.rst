@@ -3,6 +3,8 @@ Changelog
 
 1.3.3 (unreleased)
 ----------------
+- Fix WrongContainedType
+  [fngaha]
 - Migrated front_page
   [fngaha]
 - Updated columns following pentests corrections
