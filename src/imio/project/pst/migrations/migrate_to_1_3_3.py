@@ -145,7 +145,7 @@ class MigrateTo133(Migrator):
             createDashboardCollections(folder, collections, 1)
 
     def update_dashboard_criterias(self):
-        for brain in self.catalog(object_provides='imio.project.pst.interfaces.IImioPSTProject'):
+        for brain in self.catalog(object_provides='imio.project.pst.content.pstprojectspace.IPSTProjectSpace'):
             pst = brain.getObject()
             mapping = {
                 'strategicobjectives': 'strategicobjective',

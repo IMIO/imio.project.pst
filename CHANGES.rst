@@ -3,6 +3,8 @@ Changelog
 
 1.3.3 (unreleased)
 ----------------
+- Fix dashboard migration
+  [fngaha]
 - Added a new Users Summary template
   [fngaha]
 - Fix WrongContainedType
