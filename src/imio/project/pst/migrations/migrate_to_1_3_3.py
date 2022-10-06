@@ -117,32 +117,33 @@ class MigrateTo133(Migrator):
         """
         Added an additional collection "Which I am representative responsible" for operational objective and pstaction
         """
-        pst = self.portal.pst
-        for tup in [('operationalobjectives', ['operationalobjective']), ('pstactions', ['pstaction'])]:
-            col_folder = tup[0]
-            content_type = tup[1]
-            folder = pst[col_folder]
-            ps_path = '/'.join(getProjectSpace(folder).getPhysicalPath())
-            collections = [
-                {
-                    'id': 'i-am-representative_responsible',
-                    'tit': _translate("Which I am representative responsible"),
-                    'subj': ('search',),
-                    'query': [
-                        {'i': 'portal_type', 'o': 'plone.app.querystring.operation.selection.is', 'v': content_type},
-                        {'i': 'CompoundCriterion', 'o': 'plone.app.querystring.operation.compound.is',
-                         'v': 'user-is-representative-responsible'},
-                        {'i': 'path', 'o': 'plone.app.querystring.operation.string.path', 'v': ps_path}
-                    ],
-                    'cond': u"",
-                    'bypass': [],
-                    'flds': COLUMNS_FOR_CONTENT_TYPES[content_type[0]],
-                    'sort': u'sortable_title',
-                    'rev': False,
-                    'count': False
-                },
-            ]
-            createDashboardCollections(folder, collections, 1)
+        for brain in self.catalog(object_provides='imio.project.pst.content.pstprojectspace.IPSTProjectSpace'):
+            pst = brain.getObject()
+            for tup in [('operationalobjectives', ['operationalobjective']), ('pstactions', ['pstaction'])]:
+                col_folder = tup[0]
+                content_type = tup[1]
+                folder = pst[col_folder]
+                ps_path = '/'.join(getProjectSpace(folder).getPhysicalPath())
+                collections = [
+                    {
+                        'id': 'i-am-representative_responsible',
+                        'tit': _translate("Which I am representative responsible"),
+                        'subj': ('search',),
+                        'query': [
+                            {'i': 'portal_type', 'o': 'plone.app.querystring.operation.selection.is', 'v': content_type},
+                            {'i': 'CompoundCriterion', 'o': 'plone.app.querystring.operation.compound.is',
+                             'v': 'user-is-representative-responsible'},
+                            {'i': 'path', 'o': 'plone.app.querystring.operation.string.path', 'v': ps_path}
+                        ],
+                        'cond': u"",
+                        'bypass': [],
+                        'flds': COLUMNS_FOR_CONTENT_TYPES[content_type[0]],
+                        'sort': u'sortable_title',
+                        'rev': False,
+                        'count': False
+                    },
+                ]
+                createDashboardCollections(folder, collections, 1)
 
     def update_dashboard_criterias(self):
         for brain in self.catalog(object_provides='imio.project.pst.content.pstprojectspace.IPSTProjectSpace'):
