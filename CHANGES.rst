@@ -3,6 +3,8 @@ Changelog
 
 1.3.3 (unreleased)
 ----------------
+- Fix AttributeError: pst in migration
+  [fngaha]
 - Fix dashboard migration
   [fngaha]
 - Added a new Users Summary template
