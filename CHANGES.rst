@@ -3,6 +3,8 @@ Changelog
 
 1.3.3 (unreleased)
 ----------------
+- Added a new Users Summary template
+  [fngaha]
 - Fix WrongContainedType
   [fngaha]
 - Migrated front_page

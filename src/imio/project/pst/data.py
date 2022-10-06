@@ -81,10 +81,17 @@ def get_main_templates(cids):
         {'cid': 170, 'cont': 'templates', 'id': 'progress_state', 'title': u"État d'avancement",
          'type': 'ConfigurablePODTemplate', 'trans': ['publish_internally'],
          'attrs': {'pod_formats': ['ods'], 'pod_portal_types': ['pstprojectspace', 'strategicobjective',
-                   'operationalobjective', 'pstaction', 'pstsubaction'],
+                                                                'operationalobjective', 'pstaction', 'pstsubaction'],
                    'is_reusable': True,
                    'odt_file': NamedBlobFile(data=open('%s/progress_state.ods' % TMPL_DIR, 'r').read(),
                                              filename=u'progress_state.ods', contentType='applications/ods')}},
+
+        {'cid': 180, 'cont': 'templates', 'id': 'summary-users', 'title': u"Résumé utilisateurs",
+         'type': 'ConfigurablePODTemplate', 'trans': ['publish_internally'],
+         'attrs': {'pod_formats': ['ods'], 'pod_portal_types': ['pstprojectspace'], 'tal_condition': "python: False",
+                   'roles_bypassing_talcondition': {"Manager"}, 'is_reusable': True,
+                   'odt_file': NamedBlobFile(data=open('%s/summary-users-groups.ods' % TMPL_DIR, 'r').read(),
+                                             filename=u'summary-users-groups.ods', contentType='applications/ods')}},
     ]
 
 
