@@ -3,6 +3,8 @@ Changelog
 
 1.3.3 (unreleased)
 ----------------
+- Reindexed all projects to fix plan filter
+  [fngaha]
 - Fix AttributeError: pst in migration
   [fngaha]
 - Fix dashboard migration
