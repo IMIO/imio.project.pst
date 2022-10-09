@@ -8,6 +8,7 @@ from collective.messagesviewlet.utils import add_message
 from dexterity.localroles.utils import add_fti_configuration
 from imio.helpers.content import create
 from imio.migrator.migrator import Migrator
+from imio.project.core.content.project import IProject
 from imio.project.core.utils import getProjectSpace
 from imio.project.pst.data import get_styles_templates, get_main_templates, get_templates
 from imio.project.pst.setuphandlers import _ as _translate, COLUMNS_FOR_CONTENT_TYPES, createDashboardCollections, \
@@ -64,6 +65,9 @@ class MigrateTo133(Migrator):
                              run_dependencies=False)
         # Updated dashboard config
         self.update_dashboard_criterias()
+
+        # reindex all projects
+        self.reindex_projects()
 
         # Added a new representative responsible function
         self.migrate_plonegroups()
@@ -178,6 +182,11 @@ class MigrateTo133(Migrator):
             req_roles=['Authenticated'],
             activate=True
         )
+
+    def reindex_projects(self):
+        brains = self.catalog(object_provides=IProject.__identifier__)
+        for brain in brains:
+            brain.getObject().reindexObject()
 
 
 def migrate(context):
