@@ -3,6 +3,8 @@ Changelog
 
 1.3.3 (unreleased)
 ----------------
+- Add health indicator and health indicator details colomns in progress state template SUP-29601
+  [fngaha]
 - Reindexed all projects to fix plan filter
   [fngaha]
 - Fix AttributeError: pst in migration
