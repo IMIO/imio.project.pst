@@ -40,6 +40,12 @@ class ActionIconTitleColumn(PrettyLinkColumn):
         pl.contentValue = self.contentValue(item)
         return pl.getLink()
 
+    def getCSSClasses(self, item):
+        css = self.cssClasses.copy()
+        if getProjectSpace(self.context).colorize_project_rows and item.categories and 'interne' in item.categories[0]:
+            css.update({'tr': 'volet_interne'})
+        return css
+
 
 class HistoryActionsColumn(ActionsColumn):
     params = {'showHistory': True, 'showActions': True}
@@ -51,14 +57,6 @@ class HistoryActionsColumn(ActionsColumn):
 
 class CategoriesColumn(VocabularyColumn):
     vocabulary = u'imio.project.core.content.project.categories_vocabulary'
-
-    def getCSSClasses(self, item):
-        css = self.cssClasses.copy()
-        value = self.getValue(item)
-        if value and value != self.ignored_value:
-            if getProjectSpace(self.context).colorize_project_rows and 'interne' in item.categories[0]:
-                css.update({'tr': 'volet_interne'})
-        return css
 
 
 class PlannedBeginDateColumn(DateColumn):
