@@ -4,6 +4,7 @@ from collective.contact.plonegroup.browser.settings import getSelectedOrganizati
 from collective.contact.plonegroup.config import get_registry_organizations
 from collective.contact.plonegroup.utils import get_selected_org_suffix_users
 from imio.helpers.cache import get_cachekey_volatile
+from imio.helpers.content import uuidToObject
 from imio.project.pst import _
 from imio.project.pst import EMPTY_STRING
 from imio.project.pst.utils import list_wf_states
@@ -62,7 +63,8 @@ class ManagerVocabulary(object):
     implements(IVocabularyFactory)
 
     def __call__(self, context):
-        return SimpleVocabulary([SimpleTerm(t[0], title=t[1]) for t in getSelectedOrganizations(first_index=2)])
+        return SimpleVocabulary([SimpleTerm(t[0], title=t[1]) for t in getSelectedOrganizations(first_index=2) if
+                                 uuidToObject(t[0]).organization_type == u'service'])
 
 
 class ActionCategoriesVocabularyFactory(object):
