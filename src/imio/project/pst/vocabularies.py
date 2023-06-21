@@ -63,8 +63,7 @@ class ManagerVocabulary(object):
     implements(IVocabularyFactory)
 
     def __call__(self, context):
-        return SimpleVocabulary([SimpleTerm(t[0], title=t[1]) for t in getSelectedOrganizations(first_index=2) if
-                                 uuidToObject(t[0]).organization_type == u'service'])
+        return SimpleVocabulary([SimpleTerm(t[0], title=t[1]) for t in getSelectedOrganizations(first_index=2)])
 
 
 class ActionCategoriesVocabularyFactory(object):
