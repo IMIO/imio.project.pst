@@ -3,6 +3,8 @@ Changelog
 
 1.3.3 (unreleased)
 ----------------
+- Fix AttributeError aq_inner due to lack of acquisition on SymlinkSubItem objects
+  [fngaha]
 - Adapted the way to "Colorize project lines" PRJ-484
   [fngaha]
 - Add health indicator and health indicator details colomns in progress state template SUP-29601

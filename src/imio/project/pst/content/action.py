@@ -271,6 +271,10 @@ class PSTSubAction(Project):
     __ac_local_roles_block__ = True
 
     def Title(self):
+        portal = api.portal.get()
+        if self.getPhysicalPath()[1] != portal.id:
+            from imio.helpers.content import uuidToObject
+            self = uuidToObject(self.UID(), unrestricted=True)
         if getattr(getProjectSpace(self), 'use_ref_number', True):
             return '%s (SA.%s)' % (self.title.encode('utf8'), self.reference_number)
         else:
