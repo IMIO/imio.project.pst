@@ -74,7 +74,7 @@ class IPSTAction(IProject):
         description=_(u"Choose principals that will be representative responsible for this project. "
                       u"If nothing choosed, the oo value is used for searches."),
         value_type=schema.Choice(
-            vocabulary=u'imio.project.pst.content.operational.representative_responsible_vocabulary',
+            vocabulary=u'imio.project.core.content.project.manager_vocabulary',
         ),
         required=False,
     )

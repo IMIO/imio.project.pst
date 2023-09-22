@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
-from collective.contact.plonegroup.browser.settings import getSelectedOrganizations
 from collective.z3cform.chosen.widget import AjaxChosenMultiFieldWidget
 from dexterity.localrolesfield.field import LocalRolesField
-from imio.helpers.content import uuidToObject
 from imio.project.core import _ as _c
 from imio.project.core.browser.views import ProjectAddForm
 from imio.project.core.content.project import IProject
@@ -20,7 +18,7 @@ from zope import schema
 from zope.interface import implementer
 from zope.interface import implements
 from zope.schema.interfaces import IVocabularyFactory
-from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
+from zope.schema.vocabulary import SimpleVocabulary
 
 
 class IOperationalObjective(IProject):
@@ -31,7 +29,7 @@ class IOperationalObjective(IProject):
         title=_(u"Representative responsible"),
         # description=_(u"Choose principals that will be representative responsible for this project."),
         value_type=schema.Choice(
-            vocabulary=u'imio.project.pst.content.operational.representative_responsible_vocabulary',
+            vocabulary=u'imio.project.core.content.project.manager_vocabulary',
         ),
         required=True,
         min_length=1,
@@ -98,9 +96,7 @@ class RepresentativeResponsibleVocabulary(object):
 
     def __call__(self, context):
         """"""
-        # return getVocabularyTermsForOrganization(context, 'echevins', 'active', sort_on='getObjPositionInParent')
-        return SimpleVocabulary([SimpleTerm(t[0], title=t[1]) for t in getSelectedOrganizations(first_index=2) if
-                                 uuidToObject(t[0]).organization_type == u'echevinat'])
+        return getVocabularyTermsForOrganization(context, 'echevins', 'active', sort_on='getObjPositionInParent')
 
 
 class OperationalObjectiveSchemaPolicy(DexteritySchemaPolicy):
