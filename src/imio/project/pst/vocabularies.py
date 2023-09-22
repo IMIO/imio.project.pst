@@ -4,7 +4,6 @@ from collective.contact.plonegroup.browser.settings import getSelectedOrganizati
 from collective.contact.plonegroup.config import get_registry_organizations
 from collective.contact.plonegroup.utils import get_selected_org_suffix_users
 from imio.helpers.cache import get_cachekey_volatile
-from imio.helpers.content import uuidToObject
 from imio.project.pst import _
 from imio.project.pst import EMPTY_STRING
 from imio.project.pst.utils import list_wf_states
