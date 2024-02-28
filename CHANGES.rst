@@ -3,6 +3,8 @@ Changelog
 
 1.3.3 (unreleased)
 ----------------
+- Fix the strategic objective list
+  [fngaha]
 - Fix AttributeError aq_inner due to lack of acquisition on SymlinkSubItem objects
   [fngaha]
 - Adapted the way to "Colorize project lines" PRJ-484
