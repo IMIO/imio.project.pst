@@ -453,10 +453,13 @@ class DocumentGenerationPSTActionsHelper(DocumentGenerationBaseHelper, DXDocumen
         """
             get a list of the parent strategic objective of the current operationalobjective
         """
-        if self.is_dashboard() and self.sel_type in ('task', 'pstsubaction'):
+        if self.is_dashboard():
             ret = []
             for obj in self.objs:
-                os = obj.__parent__.__parent__.__parent__
+                if obj.portal_type == 'pstsubaction':
+                    os = obj.__parent__.__parent__.__parent__
+                elif obj.portal_type == 'pstaction':
+                    os = obj.__parent__.__parent__
                 if os not in ret:
                     ret.append(os)
             return ret
