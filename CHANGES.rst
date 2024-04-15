@@ -3,6 +3,8 @@ Changelog
 
 1.3.3 (unreleased)
 ----------------
+- Fix styles of all services cells from "Titre Sous-Tache" to "Tableau libellé"
+  [fngaha]
 - Fix the strategic objective list
   [fngaha]
 - Fix AttributeError aq_inner due to lack of acquisition on SymlinkSubItem objects
