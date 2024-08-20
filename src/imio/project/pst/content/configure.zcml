@@ -1,99 +1,104 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
     xmlns:browser="http://namespaces.zope.org/browser"
-    i18n_domain="imio.project.pst">
+    i18n_domain="imio.project.pst"
+    >
 
-    <utility
-      provides="zope.schema.interfaces.IVocabularyFactory"
+  <adapter factory=".serializers.SymlinkToJson" />
+  <adapter factory=".serializers.SymlinkToJsonSummary" />
+  <!-- <adapter factory=".serializers.SymlinkMarkerToJson" /> -->
+
+  <utility
       factory=".action.HealthIndicatorVocabulary"
-      name="imio.project.pst.content.action.health_indicator_vocabulary"
-    />
-
-    <utility
       provides="zope.schema.interfaces.IVocabularyFactory"
+      name="imio.project.pst.content.action.health_indicator_vocabulary"
+      />
+
+  <utility
       factory=".operational.RepresentativeResponsibleVocabulary"
+      provides="zope.schema.interfaces.IVocabularyFactory"
       name="imio.project.pst.content.operational.representative_responsible_vocabulary"
-    />
+      />
 
-    <adapter
-        for="Products.CMFCore.interfaces.IFolderish
-             zope.publisher.interfaces.browser.IDefaultBrowserLayer
-             plone.dexterity.interfaces.IDexterityFTI"
-        provides="zope.publisher.interfaces.browser.IBrowserPage"
-        factory="imio.project.pst.content.strategic.SOAdd"
-        name="strategicobjective"
+  <adapter
+      factory="imio.project.pst.content.strategic.SOAdd"
+      provides="zope.publisher.interfaces.browser.IBrowserPage"
+      for="Products.CMFCore.interfaces.IFolderish
+           zope.publisher.interfaces.browser.IDefaultBrowserLayer
+           plone.dexterity.interfaces.IDexterityFTI"
+      name="strategicobjective"
+      />
+  <class class="imio.project.pst.content.strategic.SOAdd">
+    <require
+        permission="cmf.AddPortalContent"
+        interface="zope.publisher.interfaces.browser.IBrowserPage"
         />
-    <class class="imio.project.pst.content.strategic.SOAdd">
-        <require
-            permission="cmf.AddPortalContent"
-            interface="zope.publisher.interfaces.browser.IBrowserPage"
-            />
-    </class>
+  </class>
 
-    <adapter
-        for="Products.CMFCore.interfaces.IFolderish
-             zope.publisher.interfaces.browser.IDefaultBrowserLayer
-             plone.dexterity.interfaces.IDexterityFTI"
-        provides="zope.publisher.interfaces.browser.IBrowserPage"
-        factory="imio.project.pst.content.operational.OOAdd"
-        name="operationalobjective"
+  <adapter
+      factory="imio.project.pst.content.operational.OOAdd"
+      provides="zope.publisher.interfaces.browser.IBrowserPage"
+      for="Products.CMFCore.interfaces.IFolderish
+           zope.publisher.interfaces.browser.IDefaultBrowserLayer
+           plone.dexterity.interfaces.IDexterityFTI"
+      name="operationalobjective"
+      />
+  <class class="imio.project.pst.content.operational.OOAdd">
+    <require
+        permission="cmf.AddPortalContent"
+        interface="zope.publisher.interfaces.browser.IBrowserPage"
         />
-    <class class="imio.project.pst.content.operational.OOAdd">
-        <require
-            permission="cmf.AddPortalContent"
-            interface="zope.publisher.interfaces.browser.IBrowserPage"
-            />
-    </class>
+  </class>
 
-    <adapter
-        for="Products.CMFCore.interfaces.IFolderish
-             zope.publisher.interfaces.browser.IDefaultBrowserLayer
-             plone.dexterity.interfaces.IDexterityFTI"
-        provides="zope.publisher.interfaces.browser.IBrowserPage"
-        factory="imio.project.pst.content.action.ActionAdd"
-        name="pstaction"
+  <adapter
+      factory="imio.project.pst.content.action.ActionAdd"
+      provides="zope.publisher.interfaces.browser.IBrowserPage"
+      for="Products.CMFCore.interfaces.IFolderish
+           zope.publisher.interfaces.browser.IDefaultBrowserLayer
+           plone.dexterity.interfaces.IDexterityFTI"
+      name="pstaction"
+      />
+  <class class="imio.project.pst.content.action.ActionAdd">
+    <require
+        permission="cmf.AddPortalContent"
+        interface="zope.publisher.interfaces.browser.IBrowserPage"
         />
-    <class class="imio.project.pst.content.action.ActionAdd">
-        <require
-            permission="cmf.AddPortalContent"
-            interface="zope.publisher.interfaces.browser.IBrowserPage"
-            />
-    </class>
+  </class>
 
-    <adapter
-        for="Products.CMFCore.interfaces.IFolderish
-             zope.publisher.interfaces.browser.IDefaultBrowserLayer
-             plone.dexterity.interfaces.IDexterityFTI"
-        provides="zope.publisher.interfaces.browser.IBrowserPage"
-        factory="imio.project.pst.content.action.SubActionAdd"
-        name="pstsubaction"
+  <adapter
+      factory="imio.project.pst.content.action.SubActionAdd"
+      provides="zope.publisher.interfaces.browser.IBrowserPage"
+      for="Products.CMFCore.interfaces.IFolderish
+           zope.publisher.interfaces.browser.IDefaultBrowserLayer
+           plone.dexterity.interfaces.IDexterityFTI"
+      name="pstsubaction"
+      />
+  <class class="imio.project.pst.content.action.SubActionAdd">
+    <require
+        permission="cmf.AddPortalContent"
+        interface="zope.publisher.interfaces.browser.IBrowserPage"
         />
-    <class class="imio.project.pst.content.action.SubActionAdd">
-        <require
-            permission="cmf.AddPortalContent"
-            interface="zope.publisher.interfaces.browser.IBrowserPage"
-            />
-    </class>
+  </class>
 
-    <adapter
+  <adapter
+      factory=".operational.OperationalObjectiveDataManager"
+      provides="z3c.form.interfaces.IDataManager"
       for="imio.project.pst.content.operational.IOperationalObjective
            zope.schema.interfaces.IField"
-      provides="z3c.form.interfaces.IDataManager"
-      factory=".operational.OperationalObjectiveDataManager"
       />
 
-    <adapter
+  <adapter
+      factory=".action.PSTActionDataManager"
+      provides="z3c.form.interfaces.IDataManager"
       for="imio.project.pst.content.action.IPSTAction
            zope.schema.interfaces.IField"
-      provides="z3c.form.interfaces.IDataManager"
-      factory=".action.PSTActionDataManager"
       />
 
-    <adapter
+  <adapter
+      factory=".action.PSTSubActionDataManager"
+      provides="z3c.form.interfaces.IDataManager"
       for="imio.project.pst.content.action.IPSTSubAction
            zope.schema.interfaces.IField"
-      provides="z3c.form.interfaces.IDataManager"
-      factory=".action.PSTSubActionDataManager"
       />
 
 
