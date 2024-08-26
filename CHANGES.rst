@@ -3,6 +3,8 @@ Changelog
 
 1.3.3 (unreleased)
 ----------------
+- Add ISerializeToJson and ISerializeToJsonSummary for ISymlink
+  [sgeulette]
 - Fix styles of all services cells from "Titre Sous-Tache" to "Tableau libellé"
   [fngaha]
 - Fix the strategic objective list
