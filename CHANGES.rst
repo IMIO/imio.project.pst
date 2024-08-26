@@ -6,6 +6,8 @@ Changelog
 
 1.3.2 (2021-10-05)
 ----------------
+- Add ISerializeToJson and ISerializeToJsonSummary for ISymlink
+  [sverbois]
 - Added plan to os, oo, act dashbords config and updated migration
   [fngaha]
 - Added plan index, metadata and custom method
