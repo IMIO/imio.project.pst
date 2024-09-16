@@ -2,553 +2,579 @@
     xmlns="http://namespaces.zope.org/zope"
     xmlns:browser="http://namespaces.zope.org/browser"
     xmlns:plone="http://namespaces.plone.org/plone"
-    i18n_domain="imio.project.pst">
+    i18n_domain="imio.project.pst"
+    >
 
-    <include package="plone.app.portlets"/>
-    <include file="facetediframe.zcml" />
-    <include file="portletdashboard.zcml" />
-    <include file="permissions.zcml" />
+  <include package="plone.app.portlets" />
+  <include file="facetediframe.zcml" />
+  <include file="portletdashboard.zcml" />
+  <include file="permissions.zcml" />
 
-    <!-- Publish static files -->
-    <browser:resourceDirectory
-        name="imio.project.pst"
-        directory="static"
-        />
+  <!-- Publish static files -->
+  <browser:resourceDirectory
+      name="imio.project.pst"
+      directory="static"
+      />
 
-    <!-- Custom views -->
-    <!-- Customize the folder_listing for IProjectSpace -->
-    <browser:page
-        for="imio.project.core.content.projectspace.IProjectSpace"
-        name="imio-folder-listing"
-        class=".facetediframe.FacetedContainerFolderListingView"
-        template="templates/projectspace_folder_listing.pt"
-        permission="zope2.View"
-        />
-    <!-- Customize the folder_listing for IStrategicObjective -->
-    <browser:page
-        for="imio.project.pst.content.strategic.IStrategicObjective"
-        name="imio-folder-listing"
-        class=".facetediframe.FacetedContainerFolderListingView"
-        template="templates/strategicobjective_folder_listing.pt"
-        permission="zope2.View"
-        />
+  <browser:page
+      name="export-delib-points"
+      for="*"
+      class=".exportdelibpoints.ExportDelibPointsView"
+      permission="cmf.ModifyPortalContent"
+      />
 
-    <!-- Customize the folder_listing for IOperationalObjective -->
-    <browser:page
-        for="imio.project.pst.content.operational.IOperationalObjective"
-        name="imio-folder-listing"
-        class=".facetediframe.FacetedContainerFolderListingView"
-        template="templates/operationalobjective_folder_listing.pt"
-        permission="zope2.View"
-        />
-
-    <!-- Customize the folder_listing for IPSTAction -->
-    <browser:page
-        for="imio.project.pst.content.action.IPSTAction"
-        name="imio-folder-listing"
-        class=".facetediframe.FacetedContainerFolderListingView"
-        template="templates/pstaction_folder_listing.pt"
-        permission="zope2.View"
-        />
-
-    <!-- Customize the folder_listing for IActionLink -->
-    <browser:page
-        for="imio.project.pst.content.action_link.IActionLink"
-        name="imio-folder-listing"
-        class=".facetediframe.FacetedContainerFolderListingView"
-        template="templates/pstaction_folder_listing.pt"
-        permission="zope2.View"
-        />
-
-    <!-- Customize the folder_listing for ISubActionLink -->
-    <browser:page
-        for="imio.project.pst.content.subaction_link.ISubActionLink"
-        name="imio-folder-listing"
-        class=".facetediframe.FacetedContainerFolderListingView"
-        template="templates/pstaction_folder_listing.pt"
-        permission="zope2.View"
-        />
-
-    <!-- Customize the faceted table view -->
-    <browser:view
+  <!-- Custom views -->
+  <!-- Customize the folder_listing for IProjectSpace -->
+  <browser:page
+      name="imio-folder-listing"
+      for="imio.project.core.content.projectspace.IProjectSpace"
+      class=".facetediframe.FacetedContainerFolderListingView"
+      template="templates/projectspace_folder_listing.pt"
+      permission="zope2.View"
+      />
+  <!-- Customize the folder_listing for IStrategicObjective -->
+  <browser:page
+      name="imio-folder-listing"
       for="imio.project.pst.content.strategic.IStrategicObjective"
-      name="faceted-table-view"
-      class=".views.OSOOFacetedTableView"
+      class=".facetediframe.FacetedContainerFolderListingView"
+      template="templates/strategicobjective_folder_listing.pt"
       permission="zope2.View"
       />
 
-    <browser:page
-        for="imio.project.core.content.projectspace.IProjectSpace"
-        name="sitemap"
-        class=".sitemap.SitemapView"
-        template="templates/projectspace_sitemap.pt"
-        permission="zope2.View"
-        />
-
-    <browser:view
+  <!-- Customize the folder_listing for IOperationalObjective -->
+  <browser:page
+      name="imio-folder-listing"
       for="imio.project.pst.content.operational.IOperationalObjective"
+      class=".facetediframe.FacetedContainerFolderListingView"
+      template="templates/operationalobjective_folder_listing.pt"
+      permission="zope2.View"
+      />
+
+  <!-- Customize the folder_listing for IPSTAction -->
+  <browser:page
+      name="imio-folder-listing"
+      for="imio.project.pst.content.action.IPSTAction"
+      class=".facetediframe.FacetedContainerFolderListingView"
+      template="templates/pstaction_folder_listing.pt"
+      permission="zope2.View"
+      />
+
+  <!-- Customize the folder_listing for IActionLink -->
+  <browser:page
+      name="imio-folder-listing"
+      for="imio.project.pst.content.action_link.IActionLink"
+      class=".facetediframe.FacetedContainerFolderListingView"
+      template="templates/pstaction_folder_listing.pt"
+      permission="zope2.View"
+      />
+
+  <!-- Customize the folder_listing for ISubActionLink -->
+  <browser:page
+      name="imio-folder-listing"
+      for="imio.project.pst.content.subaction_link.ISubActionLink"
+      class=".facetediframe.FacetedContainerFolderListingView"
+      template="templates/pstaction_folder_listing.pt"
+      permission="zope2.View"
+      />
+
+  <!-- Customize the faceted table view -->
+  <browser:view
       name="faceted-table-view"
+      for="imio.project.pst.content.strategic.IStrategicObjective"
       class=".views.OSOOFacetedTableView"
       permission="zope2.View"
       />
 
-    <browser:view
-      for="imio.project.pst.content.action.IPSTAction"
+  <browser:page
+      name="sitemap"
+      for="imio.project.core.content.projectspace.IProjectSpace"
+      class=".sitemap.SitemapView"
+      template="templates/projectspace_sitemap.pt"
+      permission="zope2.View"
+      />
+
+  <browser:view
       name="faceted-table-view"
+      for="imio.project.pst.content.operational.IOperationalObjective"
+      class=".views.OSOOFacetedTableView"
+      permission="zope2.View"
+      />
+
+  <browser:view
+      name="faceted-table-view"
+      for="imio.project.pst.content.action.IPSTAction"
       class=".views.ActionFacetedTableView"
       permission="zope2.View"
       />
 
-    <browser:view
-      for="imio.project.pst.content.action.IPSTAction"
+  <browser:view
       name="budget_split"
+      for="imio.project.pst.content.action.IPSTAction"
       class=".views.BudgetSplitForm"
       permission="cmf.ModifyPortalContent"
       />
 
-    <!-- document_generation_helper_view views for different types -->
-    <browser:page
+  <!-- document_generation_helper_view views for different types -->
+  <browser:page
+      name="document_generation_helper_view"
+      for="imio.project.core.content.projectspace.IProjectSpace"
+      class="imio.project.pst.browser.documentgenerator.DocumentGenerationPSTHelper"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="document_generation_helper_view"
+      for="imio.project.pst.content.strategic.IStrategicObjective"
+      class="imio.project.pst.browser.documentgenerator.DocumentGenerationSOHelper"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="document_generation_helper_view"
+      for="imio.project.pst.content.operational.IOperationalObjective"
+      class="imio.project.pst.browser.documentgenerator.DocumentGenerationOOHelper"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="document_generation_helper_view"
+      for="imio.project.pst.content.action.IPSTAction"
+      class="imio.project.pst.browser.documentgenerator.DocumentGenerationPSTActionsHelper"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="document_generation_helper_view"
+      for="imio.project.pst.content.action.IPSTSubAction"
+      class="imio.project.pst.browser.documentgenerator.DocumentGenerationPSTSubActionsHelper"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="document_generation_helper_view"
+      for="collective.task.behaviors.ITask"
+      class="imio.project.pst.browser.documentgenerator.DocumentGenerationTasksHelper"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="document_generation_helper_view"
+      for="imio.project.pst.content.action_link.IActionLink"
+      class="imio.project.pst.browser.documentgenerator.DocumentGenerationPSTActionsHelper"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="document_generation_helper_view"
+      for="imio.project.pst.content.subaction_link.ISubActionLink"
+      class="imio.project.pst.browser.documentgenerator.DocumentGenerationPSTActionsHelper"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="document_generation_helper_view"
+      for="collective.eeafaceted.collectionwidget.interfaces.ICollectionCategories"
+      class="imio.project.pst.browser.documentgenerator.DocumentGenerationPSTCategoriesHelper"
+      permission="zope2.View"
+      />
+
+  <!-- document-generation views for different types -->
+  <browser:page
+      name="document-generation"
+      for="collective.eeafaceted.collectionwidget.interfaces.ICollectionCategories"
+      class="imio.project.pst.browser.documentgenerator.CategoriesDocumentGenerationView"
+      permission="zope2.View"
+      />
+
+  <!-- configure actionspanel -->
+  <configure package="imio.actionspanel">
+
+    <browser:viewlet
+        name="imio.actionspanel"
         for="imio.project.core.content.projectspace.IProjectSpace"
-        name="document_generation_helper_view"
-        class="imio.project.pst.browser.documentgenerator.DocumentGenerationPSTHelper"
+        manager="plone.app.layout.viewlets.interfaces.IAboveContentTitle"
+        class="imio.project.pst.browser.actionspanel.PstActionsPanelViewlet"
+        template="browser/actions_panel_viewlet.pt"
         permission="zope2.View"
+        layer="imio.actionspanel.interfaces.IActionsPanelLayer"
         />
 
-    <browser:page
-        for="imio.project.pst.content.strategic.IStrategicObjective"
-        name="document_generation_helper_view"
-        class="imio.project.pst.browser.documentgenerator.DocumentGenerationSOHelper"
-        permission="zope2.View"
-        />
-
-    <browser:page
-        for="imio.project.pst.content.operational.IOperationalObjective"
-        name="document_generation_helper_view"
-        class="imio.project.pst.browser.documentgenerator.DocumentGenerationOOHelper"
-        permission="zope2.View"
-        />
-
-    <browser:page
-        for="imio.project.pst.content.action.IPSTAction"
-        name="document_generation_helper_view"
-        class="imio.project.pst.browser.documentgenerator.DocumentGenerationPSTActionsHelper"
-        permission="zope2.View"
-        />
-
-    <browser:page
-        for="imio.project.pst.content.action.IPSTSubAction"
-        name="document_generation_helper_view"
-        class="imio.project.pst.browser.documentgenerator.DocumentGenerationPSTSubActionsHelper"
-        permission="zope2.View"
-        />
-
-    <browser:page
-        for="collective.task.behaviors.ITask"
-        name="document_generation_helper_view"
-        class="imio.project.pst.browser.documentgenerator.DocumentGenerationTasksHelper"
-        permission="zope2.View"
-        />
-
-    <browser:page
-        for="imio.project.pst.content.action_link.IActionLink"
-        name="document_generation_helper_view"
-        class="imio.project.pst.browser.documentgenerator.DocumentGenerationPSTActionsHelper"
-        permission="zope2.View"
-        />
-
-    <browser:page
-        for="imio.project.pst.content.subaction_link.ISubActionLink"
-        name="document_generation_helper_view"
-        class="imio.project.pst.browser.documentgenerator.DocumentGenerationPSTActionsHelper"
-        permission="zope2.View"
-        />
-
-    <browser:page
-        for="collective.eeafaceted.collectionwidget.interfaces.ICollectionCategories"
-        name="document_generation_helper_view"
-        class="imio.project.pst.browser.documentgenerator.DocumentGenerationPSTCategoriesHelper"
-        permission="zope2.View"
-        />
-
-    <!-- document-generation views for different types -->
-    <browser:page
-        for="collective.eeafaceted.collectionwidget.interfaces.ICollectionCategories"
-        name="document-generation"
-        class="imio.project.pst.browser.documentgenerator.CategoriesDocumentGenerationView"
-        permission="zope2.View"
-        />
-
-    <!-- configure actionspanel -->
-    <configure package="imio.actionspanel">
-
-        <browser:viewlet
-            name="imio.actionspanel"
-            for="imio.project.core.content.projectspace.IProjectSpace"
-            manager="plone.app.layout.viewlets.interfaces.IAboveContentTitle"
-            layer="imio.actionspanel.interfaces.IActionsPanelLayer"
-            class="imio.project.pst.browser.actionspanel.PstActionsPanelViewlet"
-            template="browser/actions_panel_viewlet.pt"
-            permission="zope2.View" />
-
-        <browser:viewlet
-            name="imio.actionspanel"
-            for="imio.project.core.content.project.IProject"
-            manager="plone.app.layout.viewlets.interfaces.IAboveContentTitle"
-            layer="imio.actionspanel.interfaces.IActionsPanelLayer"
-            class="imio.project.pst.browser.actionspanel.PstActionsPanelViewlet"
-            template="browser/actions_panel_viewlet.pt"
-            permission="zope2.View" />
-
-        <browser:viewlet
-            name="imio.actionspanel"
-            for="collective.task.interfaces.ITaskContent"
-            manager="plone.app.layout.viewlets.interfaces.IAboveContentTitle"
-            layer="imio.actionspanel.interfaces.IActionsPanelLayer"
-            class="imio.project.pst.browser.actionspanel.PstActionsPanelViewlet"
-            template="browser/actions_panel_viewlet.pt"
-            permission="zope2.View" />
-
-        <browser:viewlet
-            name="imio.actionspanel"
-            for="collective.contact.widget.interfaces.IContactContent"
-            manager="plone.app.layout.viewlets.interfaces.IAboveContentTitle"
-            layer="imio.actionspanel.interfaces.IActionsPanelLayer"
-            class="imio.project.pst.browser.actionspanel.PstActionsPanelViewlet"
-            template="browser/actions_panel_viewlet.pt"
-            permission="zope2.View" />
-
-        <browser:viewlet
-            name="imio.actionspanel"
-            for="collective.contact.core.content.organization.IOrganization"
-            manager="plone.app.layout.viewlets.interfaces.IAboveContentTitle"
-            layer="imio.actionspanel.interfaces.IActionsPanelLayer"
-            class="imio.project.pst.browser.actionspanel.PstFolderishActionsPanelViewlet"
-            template="browser/actions_panel_viewlet.pt"
-            permission="zope2.View" />
-
-        <browser:viewlet
-            name="imio.actionspanel"
-            for="plone.app.contenttypes.interfaces.IFile"
-            manager="plone.app.layout.viewlets.interfaces.IAboveContentTitle"
-            layer="imio.actionspanel.interfaces.IActionsPanelLayer"
-            class="imio.project.pst.browser.actionspanel.PstActionsPanelViewlet"
-            template="browser/actions_panel_viewlet.pt"
-            permission="zope2.View" />
-
-        <browser:viewlet
-            name="imio.actionspanel"
-            for="plone.app.contenttypes.interfaces.IFolder"
-            manager="plone.app.layout.viewlets.interfaces.IAboveContentTitle"
-            layer="imio.actionspanel.interfaces.IActionsPanelLayer"
-            class="imio.project.pst.browser.actionspanel.PstFolderishActionsPanelViewlet"
-            template="browser/actions_panel_viewlet.pt"
-            permission="zope2.View" />
-
-        <browser:page
-            for="imio.project.core.content.projectspace.IProjectSpace"
-            name="actions_panel"
-            class="imio.project.pst.browser.actionspanel.ProjectSpaceActionsPanelView"
-            layer="imio.actionspanel.interfaces.IActionsPanelLayer"
-            template="browser/actions_panel.pt"
-            permission="zope2.View" />
-
-        <!-- use IProject for strategic and operational objectives -->
-        <browser:page
-            for="imio.project.core.content.project.IProject"
-            name="actions_panel"
-            class="imio.project.pst.browser.actionspanel.ObjectivesActionsPanelView"
-            layer="imio.actionspanel.interfaces.IActionsPanelLayer"
-            template="browser/actions_panel.pt"
-            permission="zope2.View" />
-
-        <browser:page
-            for="imio.project.pst.content.action.IPSTAction"
-            name="actions_panel"
-            class="imio.project.pst.browser.actionspanel.PSTActionsPanelView"
-            layer="imio.actionspanel.interfaces.IActionsPanelLayer"
-            template="browser/actions_panel.pt"
-            permission="zope2.View" />
-
-        <browser:page
-            for="collective.task.interfaces.ITaskContent"
-            name="actions_panel"
-            class="imio.project.pst.browser.actionspanel.TaskActionsPanelView"
-            layer="imio.actionspanel.interfaces.IActionsPanelLayer"
-            template="browser/actions_panel.pt"
-            permission="zope2.View" />
-
-        <browser:page
-            for="collective.contact.widget.interfaces.IContactContent"
-            name="actions_panel"
-            class="imio.project.pst.browser.actionspanel.ContactActionsPanelView"
-            layer="imio.actionspanel.interfaces.IActionsPanelLayer"
-            template="browser/actions_panel.pt"
-            permission="zope2.View" />
-
-        <browser:page
-            for="plone.app.contenttypes.interfaces.IFile"
-            name="actions_panel"
-            class="imio.project.pst.browser.actionspanel.ContactActionsPanelView"
-            layer="imio.actionspanel.interfaces.IActionsPanelLayer"
-            template="browser/actions_panel.pt"
-            permission="zope2.View" />
-
-        <browser:page
-            for="plone.app.contenttypes.interfaces.IFolder"
-            name="actions_panel"
-            class="imio.project.pst.browser.actionspanel.FolderActionsPanelView"
-            layer="imio.actionspanel.interfaces.IActionsPanelLayer"
-            template="browser/actions_panel.pt"
-            permission="zope2.View" />
-
-    </configure>
-
-
-    <!-- Batch Actions -->
-    <browser:page
-        for="imio.project.pst.interfaces.ITaskDashboardBatchActions"
-        name="assignedgroup-batch-action"
-        class=".batchactions.AssignedGroupBatchActionForm"
-        permission="zope2.View"
-        />
-
-    <browser:page
-        for="imio.project.pst.interfaces.ITaskDashboardBatchActions"
-        name="assigneduser-batch-action"
-        class=".batchactions.AssignedUserBatchActionForm"
-        permission="zope2.View"
-        />
-
-    <!-- ADD / EDIT FORMS -->
-    <browser:page
-        for="collective.task.interfaces.ITaskContent"
-        name="edit"
-        class=".task.TaskEdit"
-        permission="cmf.ModifyPortalContent"
-        />
-
-    <adapter
-        for="Products.CMFCore.interfaces.IFolderish
-             zope.publisher.interfaces.browser.IDefaultBrowserLayer
-             plone.dexterity.interfaces.IDexterityFTI"
-        provides="zope.publisher.interfaces.browser.IBrowserPage"
-        factory=".task.Add"
-        name="task"
-        />
-
-    <class class=".task.Add">
-        <require
-            permission="cmf.AddPortalContent"
-            interface="zope.publisher.interfaces.browser.IBrowserPage"
-            />
-    </class>
-
-    <!-- Products views -->
-    <browser:page
-        for="imio.project.pst.content.pstprojectspace.IPSTProjectSpace"
-        name="archive"
-        class="imio.project.pst.browser.views.ArchiveView"
-        permission="cmf.ManagePortal"
-        allowed_attributes='archive'
-        />
-
-    <browser:page
-        for="imio.project.pst.content.pstprojectspace.IPSTProjectSpace"
-        name="clean_budget"
-        class="imio.project.pst.browser.corrections.CleanBudget"
-        permission="cmf.ManagePortal"
-        allowed_attributes="
-            delete
-            clean
-            display
-        "
-        />
-
-    <browser:page
-        name="export_as_xml"
-        for="imio.project.core.content.projectspace.IProjectSpace"
-        class="imio.project.pst.browser.views.PSTExportAsXML"
-        template="export_as_xml.pt"
-        permission="imio.project.pst.ecomptes_export"
-    />
-
-    <browser:page
-        name="import_from_ecomptes"
-        for="imio.project.core.content.projectspace.IProjectSpace"
-        class="imio.project.pst.browser.views.PSTImportFromEcomptes"
-        permission="imio.project.pst.ecomptes_import"
-    />
-
-    <!-- breadcrumb override -->
-    <browser:page
+    <browser:viewlet
+        name="imio.actionspanel"
         for="imio.project.core.content.project.IProject"
-        name="breadcrumbs_view"
-        class="imio.project.pst.browser.overrides.PhysicalNavigationBreadcrumbs"
-        permission="zope.Public"
-        allowed_attributes="breadcrumbs"
+        manager="plone.app.layout.viewlets.interfaces.IAboveContentTitle"
+        class="imio.project.pst.browser.actionspanel.PstActionsPanelViewlet"
+        template="browser/actions_panel_viewlet.pt"
+        permission="zope2.View"
+        layer="imio.actionspanel.interfaces.IActionsPanelLayer"
+        />
+
+    <browser:viewlet
+        name="imio.actionspanel"
+        for="collective.task.interfaces.ITaskContent"
+        manager="plone.app.layout.viewlets.interfaces.IAboveContentTitle"
+        class="imio.project.pst.browser.actionspanel.PstActionsPanelViewlet"
+        template="browser/actions_panel_viewlet.pt"
+        permission="zope2.View"
+        layer="imio.actionspanel.interfaces.IActionsPanelLayer"
+        />
+
+    <browser:viewlet
+        name="imio.actionspanel"
+        for="collective.contact.widget.interfaces.IContactContent"
+        manager="plone.app.layout.viewlets.interfaces.IAboveContentTitle"
+        class="imio.project.pst.browser.actionspanel.PstActionsPanelViewlet"
+        template="browser/actions_panel_viewlet.pt"
+        permission="zope2.View"
+        layer="imio.actionspanel.interfaces.IActionsPanelLayer"
+        />
+
+    <browser:viewlet
+        name="imio.actionspanel"
+        for="collective.contact.core.content.organization.IOrganization"
+        manager="plone.app.layout.viewlets.interfaces.IAboveContentTitle"
+        class="imio.project.pst.browser.actionspanel.PstFolderishActionsPanelViewlet"
+        template="browser/actions_panel_viewlet.pt"
+        permission="zope2.View"
+        layer="imio.actionspanel.interfaces.IActionsPanelLayer"
+        />
+
+    <browser:viewlet
+        name="imio.actionspanel"
+        for="plone.app.contenttypes.interfaces.IFile"
+        manager="plone.app.layout.viewlets.interfaces.IAboveContentTitle"
+        class="imio.project.pst.browser.actionspanel.PstActionsPanelViewlet"
+        template="browser/actions_panel_viewlet.pt"
+        permission="zope2.View"
+        layer="imio.actionspanel.interfaces.IActionsPanelLayer"
+        />
+
+    <browser:viewlet
+        name="imio.actionspanel"
+        for="plone.app.contenttypes.interfaces.IFolder"
+        manager="plone.app.layout.viewlets.interfaces.IAboveContentTitle"
+        class="imio.project.pst.browser.actionspanel.PstFolderishActionsPanelViewlet"
+        template="browser/actions_panel_viewlet.pt"
+        permission="zope2.View"
+        layer="imio.actionspanel.interfaces.IActionsPanelLayer"
         />
 
     <browser:page
-        for="collective.task.interfaces.ITaskContent"
-        name="breadcrumbs_view"
-        class="imio.project.pst.browser.overrides.PhysicalNavigationBreadcrumbs"
-        permission="zope.Public"
-        allowed_attributes="breadcrumbs"
+        name="actions_panel"
+        for="imio.project.core.content.projectspace.IProjectSpace"
+        class="imio.project.pst.browser.actionspanel.ProjectSpaceActionsPanelView"
+        template="browser/actions_panel.pt"
+        permission="zope2.View"
+        layer="imio.actionspanel.interfaces.IActionsPanelLayer"
         />
 
-    <!-- Override @@usergroup-userprefs -->
-    <configure package="plone.app.controlpanel">
-        <browser:page
-            name="usergroup-userprefs"
-            for="Products.CMFPlone.interfaces.IPloneSiteRoot"
-            class="imio.project.pst.browser.overrides.PSTUsersOverviewControlPanel"
-            permission="plone.app.controlpanel.UsersAndGroups"
-            template="usergroups_usersoverview.pt"
-            layer="imio.project.pst.interfaces.IImioProjectPSTLayer" />
-    </configure>
-
-    <!-- Override @@usergroup-groupprefs -->
-    <configure package="plone.app.controlpanel">
-        <browser:page
-            name="usergroup-groupprefs"
-            for="Products.CMFPlone.interfaces.IPloneSiteRoot"
-            class="imio.project.pst.browser.overrides.PSTGroupsOverviewControlPanel"
-            permission="plone.app.controlpanel.UsersAndGroups"
-            template="usergroups_groupsoverview.pt"
-            layer="imio.project.pst.interfaces.IImioProjectPSTLayer" />
-    </configure>
-
-    <!-- Specific view for versioning -->
-    <configure package="plone.dexterity">
-        <browser:page
-            for="plone.dexterity.interfaces.IDexterityContent"
-            name="content-core-version"
-            class="plone.dexterity.browser.view.DefaultView"
-            template="browser/itemcontentcore.pt"
-            permission="zope2.View"
-            />
-    </configure>
-
-    <!-- Various viewlets -->
-    <browser:viewlet
+    <!-- use IProject for strategic and operational objectives -->
+    <browser:page
+        name="actions_panel"
         for="imio.project.core.content.project.IProject"
-        name="pretty-link-title"
-        manager="plone.app.layout.viewlets.interfaces.IBelowContentTitle"
-        class="imio.project.pst.browser.viewlets.PrettyLinkTitleViewlet"
-        template="templates/title_viewlet.pt"
+        class="imio.project.pst.browser.actionspanel.ObjectivesActionsPanelView"
+        template="browser/actions_panel.pt"
         permission="zope2.View"
+        layer="imio.actionspanel.interfaces.IActionsPanelLayer"
         />
 
-    <browser:viewlet
+    <browser:page
+        name="actions_panel"
         for="imio.project.pst.content.action.IPSTAction"
-        name="pretty-link-title"
-        manager="plone.app.layout.viewlets.interfaces.IBelowContentTitle"
-        class="imio.project.pst.browser.viewlets.ActionPrettyLinkTitleViewlet"
-        template="templates/title_viewlet.pt"
+        class="imio.project.pst.browser.actionspanel.PSTActionsPanelView"
+        template="browser/actions_panel.pt"
         permission="zope2.View"
+        layer="imio.actionspanel.interfaces.IActionsPanelLayer"
         />
 
-    <browser:viewlet
+    <browser:page
+        name="actions_panel"
         for="collective.task.interfaces.ITaskContent"
-        name="pretty-link-title"
-        manager="plone.app.layout.viewlets.interfaces.IBelowContentTitle"
-        class="imio.project.pst.browser.viewlets.PrettyLinkTitleViewlet"
-        template="templates/title_viewlet.pt"
+        class="imio.project.pst.browser.actionspanel.TaskActionsPanelView"
+        template="browser/actions_panel.pt"
         permission="zope2.View"
+        layer="imio.actionspanel.interfaces.IActionsPanelLayer"
         />
 
-    <browser:viewlet
-      for=".interfaces.IMyFacetedNavigable"
+    <browser:page
+        name="actions_panel"
+        for="collective.contact.widget.interfaces.IContactContent"
+        class="imio.project.pst.browser.actionspanel.ContactActionsPanelView"
+        template="browser/actions_panel.pt"
+        permission="zope2.View"
+        layer="imio.actionspanel.interfaces.IActionsPanelLayer"
+        />
+
+    <browser:page
+        name="actions_panel"
+        for="plone.app.contenttypes.interfaces.IFile"
+        class="imio.project.pst.browser.actionspanel.ContactActionsPanelView"
+        template="browser/actions_panel.pt"
+        permission="zope2.View"
+        layer="imio.actionspanel.interfaces.IActionsPanelLayer"
+        />
+
+    <browser:page
+        name="actions_panel"
+        for="plone.app.contenttypes.interfaces.IFolder"
+        class="imio.project.pst.browser.actionspanel.FolderActionsPanelView"
+        template="browser/actions_panel.pt"
+        permission="zope2.View"
+        layer="imio.actionspanel.interfaces.IActionsPanelLayer"
+        />
+
+  </configure>
+
+
+  <!-- Batch Actions -->
+  <browser:page
+      name="assignedgroup-batch-action"
+      for="imio.project.pst.interfaces.ITaskDashboardBatchActions"
+      class=".batchactions.AssignedGroupBatchActionForm"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="assigneduser-batch-action"
+      for="imio.project.pst.interfaces.ITaskDashboardBatchActions"
+      class=".batchactions.AssignedUserBatchActionForm"
+      permission="zope2.View"
+      />
+
+  <!-- ADD / EDIT FORMS -->
+  <browser:page
+      name="edit"
+      for="collective.task.interfaces.ITaskContent"
+      class=".task.TaskEdit"
+      permission="cmf.ModifyPortalContent"
+      />
+
+  <adapter
+      factory=".task.Add"
+      provides="zope.publisher.interfaces.browser.IBrowserPage"
+      for="Products.CMFCore.interfaces.IFolderish
+           zope.publisher.interfaces.browser.IDefaultBrowserLayer
+           plone.dexterity.interfaces.IDexterityFTI"
+      name="task"
+      />
+
+  <class class=".task.Add">
+    <require
+        permission="cmf.AddPortalContent"
+        interface="zope.publisher.interfaces.browser.IBrowserPage"
+        />
+  </class>
+
+  <!-- Products views -->
+  <browser:page
+      name="archive"
+      for="imio.project.pst.content.pstprojectspace.IPSTProjectSpace"
+      class="imio.project.pst.browser.views.ArchiveView"
+      allowed_attributes="archive"
+      permission="cmf.ManagePortal"
+      />
+
+  <browser:page
+      name="clean_budget"
+      for="imio.project.pst.content.pstprojectspace.IPSTProjectSpace"
+      class="imio.project.pst.browser.corrections.CleanBudget"
+      allowed_attributes="             delete             clean             display         "
+      permission="cmf.ManagePortal"
+      />
+
+  <browser:page
+      name="export_as_xml"
+      for="imio.project.core.content.projectspace.IProjectSpace"
+      class="imio.project.pst.browser.views.PSTExportAsXML"
+      template="export_as_xml.pt"
+      permission="imio.project.pst.ecomptes_export"
+      />
+
+  <browser:page
+      name="import_from_ecomptes"
+      for="imio.project.core.content.projectspace.IProjectSpace"
+      class="imio.project.pst.browser.views.PSTImportFromEcomptes"
+      permission="imio.project.pst.ecomptes_import"
+      />
+
+  <!-- breadcrumb override -->
+  <browser:page
+      name="breadcrumbs_view"
+      for="imio.project.core.content.project.IProject"
+      class="imio.project.pst.browser.overrides.PhysicalNavigationBreadcrumbs"
+      allowed_attributes="breadcrumbs"
+      permission="zope.Public"
+      />
+
+  <browser:page
+      name="breadcrumbs_view"
+      for="collective.task.interfaces.ITaskContent"
+      class="imio.project.pst.browser.overrides.PhysicalNavigationBreadcrumbs"
+      allowed_attributes="breadcrumbs"
+      permission="zope.Public"
+      />
+
+  <!-- Override @@usergroup-userprefs -->
+  <configure package="plone.app.controlpanel">
+    <browser:page
+        name="usergroup-userprefs"
+        for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+        class="imio.project.pst.browser.overrides.PSTUsersOverviewControlPanel"
+        template="usergroups_usersoverview.pt"
+        permission="plone.app.controlpanel.UsersAndGroups"
+        layer="imio.project.pst.interfaces.IImioProjectPSTLayer"
+        />
+  </configure>
+
+  <!-- Override @@usergroup-groupprefs -->
+  <configure package="plone.app.controlpanel">
+    <browser:page
+        name="usergroup-groupprefs"
+        for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+        class="imio.project.pst.browser.overrides.PSTGroupsOverviewControlPanel"
+        template="usergroups_groupsoverview.pt"
+        permission="plone.app.controlpanel.UsersAndGroups"
+        layer="imio.project.pst.interfaces.IImioProjectPSTLayer"
+        />
+  </configure>
+
+  <!-- Specific view for versioning -->
+  <configure package="plone.dexterity">
+    <browser:page
+        name="content-core-version"
+        for="plone.dexterity.interfaces.IDexterityContent"
+        class="plone.dexterity.browser.view.DefaultView"
+        template="browser/itemcontentcore.pt"
+        permission="zope2.View"
+        />
+  </configure>
+
+  <!-- Various viewlets -->
+  <browser:viewlet
+      name="pretty-link-title"
+      for="imio.project.core.content.project.IProject"
+      manager="plone.app.layout.viewlets.interfaces.IBelowContentTitle"
+      class="imio.project.pst.browser.viewlets.PrettyLinkTitleViewlet"
+      template="templates/title_viewlet.pt"
+      permission="zope2.View"
+      />
+
+  <browser:viewlet
+      name="pretty-link-title"
+      for="imio.project.pst.content.action.IPSTAction"
+      manager="plone.app.layout.viewlets.interfaces.IBelowContentTitle"
+      class="imio.project.pst.browser.viewlets.ActionPrettyLinkTitleViewlet"
+      template="templates/title_viewlet.pt"
+      permission="zope2.View"
+      />
+
+  <browser:viewlet
+      name="pretty-link-title"
+      for="collective.task.interfaces.ITaskContent"
+      manager="plone.app.layout.viewlets.interfaces.IBelowContentTitle"
+      class="imio.project.pst.browser.viewlets.PrettyLinkTitleViewlet"
+      template="templates/title_viewlet.pt"
+      permission="zope2.View"
+      />
+
+  <browser:viewlet
       name="viewlet.SitemapLink"
+      for=".interfaces.IMyFacetedNavigable"
       manager="plone.app.layout.viewlets.interfaces.IAboveContentTitle"
       class=".viewlets.SitemapLinkViewlet"
       permission="zope.Public"
       layer="..interfaces.IImioProjectPSTLayer"
       />
 
-    <browser:viewlet
-        for="*"
-        layer="collective.messagesviewlet.interfaces.ICollectiveMessagesviewletLayer"
-        name="information-message-viewlet"
-        manager="plone.app.layout.viewlets.interfaces.IAboveContentTitle"
-        class="imio.project.pst.browser.viewlets.ContextInformationViewlet"
-        permission="zope2.View"
-        />
+  <browser:viewlet
+      name="information-message-viewlet"
+      for="*"
+      manager="plone.app.layout.viewlets.interfaces.IAboveContentTitle"
+      class="imio.project.pst.browser.viewlets.ContextInformationViewlet"
+      permission="zope2.View"
+      layer="collective.messagesviewlet.interfaces.ICollectiveMessagesviewletLayer"
+      />
 
-    <!-- workflowstate viewlet -->
-    <browser:viewlet
-        name="plone.belowcontenttitle.workflowstate"
-        for="imio.project.core.content.projectspace.IProjectSpace"
-        manager="plone.app.layout.viewlets.interfaces.IBelowContentTitle"
-        class="plonetheme.imioapps.browser.viewlets.WorkflowState"
-        permission="zope2.View" />
+  <!-- workflowstate viewlet -->
+  <browser:viewlet
+      name="plone.belowcontenttitle.workflowstate"
+      for="imio.project.core.content.projectspace.IProjectSpace"
+      manager="plone.app.layout.viewlets.interfaces.IBelowContentTitle"
+      class="plonetheme.imioapps.browser.viewlets.WorkflowState"
+      permission="zope2.View"
+      />
 
-    <browser:viewlet
-        name="plone.belowcontenttitle.workflowstate"
-        for="imio.project.core.content.project.IProject"
-        manager="plone.app.layout.viewlets.interfaces.IBelowContentTitle"
-        class="plonetheme.imioapps.browser.viewlets.WorkflowState"
-        permission="zope2.View" />
+  <browser:viewlet
+      name="plone.belowcontenttitle.workflowstate"
+      for="imio.project.core.content.project.IProject"
+      manager="plone.app.layout.viewlets.interfaces.IBelowContentTitle"
+      class="plonetheme.imioapps.browser.viewlets.WorkflowState"
+      permission="zope2.View"
+      />
 
-    <browser:viewlet
-        name="plone.belowcontenttitle.workflowstate"
-        for="plone.app.contenttypes.interfaces.IFolder"
-        manager="plone.app.layout.viewlets.interfaces.IBelowContentTitle"
-        class="plonetheme.imioapps.browser.viewlets.WorkflowState"
-        permission="zope2.View" />
+  <browser:viewlet
+      name="plone.belowcontenttitle.workflowstate"
+      for="plone.app.contenttypes.interfaces.IFolder"
+      manager="plone.app.layout.viewlets.interfaces.IBelowContentTitle"
+      class="plonetheme.imioapps.browser.viewlets.WorkflowState"
+      permission="zope2.View"
+      />
 
-    <browser:viewlet
-        name="plone.belowcontenttitle.workflowstate"
-        for="plone.app.contenttypes.interfaces.IDocument"
-        manager="plone.app.layout.viewlets.interfaces.IBelowContentTitle"
-        class="plonetheme.imioapps.browser.viewlets.WorkflowState"
-        permission="zope2.View" />
+  <browser:viewlet
+      name="plone.belowcontenttitle.workflowstate"
+      for="plone.app.contenttypes.interfaces.IDocument"
+      manager="plone.app.layout.viewlets.interfaces.IBelowContentTitle"
+      class="plonetheme.imioapps.browser.viewlets.WorkflowState"
+      permission="zope2.View"
+      />
 
-    <browser:viewlet
-        name="plone.belowcontenttitle.workflowstate"
-        for="collective.task.behaviors.ITask"
-        manager="plone.app.layout.viewlets.interfaces.IBelowContentTitle"
-        class="plonetheme.imioapps.browser.viewlets.WorkflowState"
-        permission="zope2.View" />
+  <browser:viewlet
+      name="plone.belowcontenttitle.workflowstate"
+      for="collective.task.behaviors.ITask"
+      manager="plone.app.layout.viewlets.interfaces.IBelowContentTitle"
+      class="plonetheme.imioapps.browser.viewlets.WorkflowState"
+      permission="zope2.View"
+      />
 
-    <browser:viewlet
-        name="plone.belowcontenttitle.workflowstate"
-        for="collective.contact.widget.interfaces.IContactContent"
-        manager="plone.app.layout.viewlets.interfaces.IBelowContentTitle"
-        class="plonetheme.imioapps.browser.viewlets.WorkflowState"
-        permission="zope2.View" />
+  <browser:viewlet
+      name="plone.belowcontenttitle.workflowstate"
+      for="collective.contact.widget.interfaces.IContactContent"
+      manager="plone.app.layout.viewlets.interfaces.IBelowContentTitle"
+      class="plonetheme.imioapps.browser.viewlets.WorkflowState"
+      permission="zope2.View"
+      />
 
-    <!-- Content link viewlet -->
-    <browser:viewlet
+  <!-- Content link viewlet -->
+  <browser:viewlet
+      name="viewlet.ContentLink"
       for="imio.project.pst.content.action.IPSTAction"
-      name="viewlet.ContentLink"
       manager="plone.app.layout.viewlets.interfaces.IAboveContentTitle"
       class=".viewlets.ContentLinkViewlet"
       permission="zope.Public"
       layer="..interfaces.IImioProjectPSTLayer"
       />
 
-    <browser:viewlet
+  <browser:viewlet
+      name="viewlet.ContentLink"
       for="imio.project.pst.content.action_link.IActionLink"
-      name="viewlet.ContentLink"
       manager="plone.app.layout.viewlets.interfaces.IAboveContentTitle"
       class=".viewlets.ContentLinkViewlet"
       permission="zope.Public"
       layer="..interfaces.IImioProjectPSTLayer"
       />
 
-    <browser:viewlet
+  <browser:viewlet
+      name="viewlet.ContentLink"
       for="imio.project.pst.content.subaction_link.ISubActionLink"
-      name="viewlet.ContentLink"
       manager="plone.app.layout.viewlets.interfaces.IAboveContentTitle"
       class=".viewlets.ContentLinkViewlet"
       permission="zope.Public"
       layer="..interfaces.IImioProjectPSTLayer"
       />
 
-    <browser:viewlet
-      for="collective.task.interfaces.ITaskContent"
+  <browser:viewlet
       name="viewlet.ContentLink"
+      for="collective.task.interfaces.ITaskContent"
       manager="plone.app.layout.viewlets.interfaces.IAboveContentTitle"
       class=".viewlets.ContentLinkViewlet"
       permission="zope.Public"
